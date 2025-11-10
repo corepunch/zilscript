@@ -3,59 +3,42 @@
 #include <ctype.h>
 #include <string.h>
 
-typedef enum {
-  N_EXPR,      // <...>
-  N_LIST,      // (...)
-  N_STRING,    // "..."
-  N_IDENT,     // identifier
-  N_NUMBER,    // 123
-  N_SYMBOL,     // ,FOO or other symbols
-  N_COMMENT,
-} NodeType;
+#include "zil.h"
 
-typedef struct Node {
-  NodeType type;
-  char *val;
-  struct Node **kids;
-  int n;
-} Node;
-
-Node *mk(NodeType t, char *v) {
-  Node *n = malloc(sizeof(Node));
+zil_Node *zil_mk(zil_Type t, char *v) {
+  zil_Node *n = malloc(sizeof(zil_Node));
+  memset(n, 0, sizeof(zil_Node));
   n->type = t;
   n->val = v ? strdup(v) : NULL;
-  n->kids = NULL;
-  n->n = 0;
+  n->tail = &n->children;
   return n;
 }
 
-void del(Node *p) {
-  for (int i = 0; i < p->n; i++) {
-    del(p->kids[i]);
-  }
-  if(p->val)free(p->val);
-  if(p->kids)free(p->kids);
+void zil_del(zil_Node *p) {
+  if (p->children) zil_del(p->children);
+  if (p->next) zil_del(p->next);
+  if (p->val) free(p->val);
   free(p);
 }
 
-void add(Node *p, Node *c) {
+void zil_add(zil_Node *p, zil_Node *c) {
   if (c->type == N_COMMENT) {
-    del(c);
+    zil_del(c);
   } else {
-    p->kids = realloc(p->kids, (p->n + 1) * sizeof(Node*));
-    p->kids[p->n++] = c;
+    *p->tail = c;
+    p->tail = &c->next;
   }
 }
 
 int ws(int c) { return isspace(c); }
 
-Node *parse(FILE *f) {
+zil_Node *parse(FILE *f) {
   int c;
   while ((c = fgetc(f)) != EOF && ws(c));
   if (c == EOF) return NULL;
 
   if (c == ';') {
-    Node *n = parse(f);
+    zil_Node *n = parse(f);
     n->type = N_COMMENT;
     return n;
   }
@@ -78,32 +61,32 @@ Node *parse(FILE *f) {
   }
   
   if (c == '<') {
-    Node *n = NULL; //mk(N_EXPR, NULL);
+    zil_Node *n = NULL; //zil_mk(N_EXPR, NULL);
     while (1) {
       while ((c = fgetc(f)) != EOF && ws(c));
       if (c == EOF || c == '>') break;
       ungetc(c, f);
-      Node *ch = parse(f);
+      zil_Node *ch = parse(f);
       if (ch) {
         if (n) {
-          add(n, ch);
+          zil_add(n, ch);
         } else {
           n = ch;
           n->type = N_EXPR;
         }
       }
     }
-    return n?n:mk(N_EXPR, NULL);
+    return n?n:zil_mk(N_EXPR, NULL);
   }
   
   if (c == '(') {
-    Node *n = mk(N_LIST, NULL);
+    zil_Node *n = zil_mk(N_LIST, NULL);
     while (1) {
       while ((c = fgetc(f)) != EOF && ws(c));
       if (c == EOF || c == ')' || c == '>') break;
       ungetc(c, f);
-      Node *ch = parse(f);
-      if (ch) add(n, ch);
+      zil_Node *ch = parse(f);
+      if (ch) zil_add(n, ch);
     }
     if (c != ')') ungetc(c, f);
     return n;
@@ -118,7 +101,7 @@ Node *parse(FILE *f) {
       if (c == '\\') { c = fgetc(f); if (c != EOF) *p++ = c; }
     }
     *p = 0;
-    return mk(N_STRING, buf);
+    return zil_mk(N_STRING, buf);
   }
   
   char buf[256], *p = buf;
@@ -129,16 +112,16 @@ Node *parse(FILE *f) {
   if (c != EOF) ungetc(c, f);
   
   // Determine type
-  NodeType t = N_IDENT;
+  zil_Type t = N_IDENT;
   if (buf[0] == ',' || buf[0] == '?' || buf[0] == '.')
     t = N_SYMBOL;
   else if (isdigit(buf[0]) || (buf[0] == '-' && isdigit(buf[1])))
     t = N_NUMBER;
   
-  return mk(t, buf);
+  return zil_mk(t, buf);
 }
 
-const char *type_str(NodeType t) {
+const char *type_str(zil_Type t) {
   switch(t) {
     case N_EXPR: return "EXPR";
     case N_LIST: return "LIST";
@@ -150,18 +133,18 @@ const char *type_str(NodeType t) {
   }
 }
 
-void print(Node *n, int d) {
+void print(zil_Node *n, int d) {
   if (!n) return;
   for (int i = 0; i < d; i++) printf("  ");
   
   if (n->type == N_EXPR) {
     printf("<%s\n", n->val);
-    for (int i = 0; i < n->n; i++) print(n->kids[i], d + 1);
+    for (zil_Node *p = n->children; p; p = p->next) print(p, d + 1);
     for (int i = 0; i < d; i++) printf("  ");
     printf(">\n");
   } else if (n->type == N_LIST) {
     printf("(\n");
-    for (int i = 0; i < n->n; i++) print(n->kids[i], d + 1);
+    for (zil_Node *p = n->children; p; p = p->next) print(p, d + 1);
     for (int i = 0; i < d; i++) printf("  ");
     printf(")\n");
   } else {
@@ -173,12 +156,18 @@ int main(void) {
   FILE *fp = fopen("/Users/igor/Developer/zork1-main/actions.zil", "r");
   if (!fp) return 1;
   
-  Node *root = mk(N_LIST, NULL);  // Changed to LIST to avoid wrapper <
-  Node *n;
-  while ((n = parse(fp))) add(root, n);
+  zil_Node *root = zil_mk(N_LIST, NULL);  // Changed to LIST to avoid wrapper <
+  zil_Node *n;
+  while ((n = parse(fp))) zil_add(root, n);
   
-  for (int i = 0; i < root->n; i++) print(root->kids[i], 0);  // Print children directly
+//  for (int i = 0; i < root->n; i++) print(root->kids[i], 0);  // Print children directly
   
+  printf("Running...\n");
+  
+  zil_run(root);
+
+  printf("Success!\n");
+
   fclose(fp);
   return 0;
 }

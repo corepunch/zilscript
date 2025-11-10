@@ -248,7 +248,11 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BM2R8F5YHC;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				HEADER_SEARCH_PATHS = /opt/homebrew/include;
+				LIBRARY_SEARCH_PATHS = /opt/homebrew/lib;
+				OTHER_LDFLAGS = "-llua";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = corepunch.adventure1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -258,7 +262,11 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BM2R8F5YHC;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				HEADER_SEARCH_PATHS = /opt/homebrew/include;
+				LIBRARY_SEARCH_PATHS = /opt/homebrew/lib;
+				OTHER_LDFLAGS = "-llua";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = corepunch.adventure1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
