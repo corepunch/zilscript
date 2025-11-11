@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <assert.h>
 
 #include "zil.h"
 
@@ -104,15 +105,26 @@ struct zil_Func {
 const char* value(zil_Node *node) {
   static char m[1024];
   memset(m, 0, sizeof(m));
-  if (!node->val) return "";
+  if (!node->val) return "nil";
   if (node->type == N_STRING) {
     snprintf(m, sizeof(m), "[[%s]]", node->val);
     for (char *a = m; *a; a++) if (*a == '\\') *a = '/';
     return m;
   }
+  if (node->type == N_EXPR) {
+    if (!strcmp(node->val, "+")) return "ADD";
+    if (!strcmp(node->val, "-")) return "SUB";
+    if (!strcmp(node->val, "/")) return "DIV";
+    if (!strcmp(node->val, "*")) return "MULL";
+    if (!strcmp(node->val, "==?")) return "EQUALQ";
+    if (!strcmp(node->val, "0?")) return "ZEROQ";
+    if (!strcmp(node->val, "1?")) return "ONEQ";
+  }
+  int isstr = 0;
   for (char*p = m, *n = node->val; *n; p++, n++) {
+    if (isalpha(*n)) isstr=1;
     *p = *n;
-    if (*p == '-') *p = '_';
+    if (*p == '-' && (!isdigit(*(n+1))||isstr)) *p = '_';
     if (*p == '?') *p = 'Q';
 //    if (*p == '.') *p = '_';
   }
@@ -191,12 +203,14 @@ static void write_field(FILE *body, zil_Node *it, int type) {
   }
 }
 
-
+void print_node(FILE *body, zil_Node *n, int r, int loop);
 
 #define max_locals 64
 static void Write_Function_Header(FILE *body, zil_Node *node) {
   zil_Node* locals[max_locals]={0};
+  zil_Node* opts[max_locals]={0};
   int nlocals = 0;
+  int nopts = 0;
   int mode = 0;
   if (node->children->next->type != N_LIST) {
     fprintf(stderr, "Expected arguments in ROUTINE\n");
@@ -207,59 +221,145 @@ static void Write_Function_Header(FILE *body, zil_Node *node) {
   ZIL_FOR(it, node->children->next) {
     switch (it->type) {
       case N_LIST:
-        if (mode) locals[nlocals++] = it->children;
-        else fprintf(body, comma?", %s":"%s", value(it->children));
+        assert(mode);
+        if (mode==1) locals[nlocals++] = it;
+        else {
+          fprintf(body, comma?", %s":"%s", value(it->children));
+          comma = 1;
+          opts[nopts++] = it;
+        }
         break;
       case N_IDENT:
-        if (mode) locals[nlocals++] = it;
-        else fprintf(body, comma?", %s":"%s", value(it));
+        assert(mode!=2);
+        if (mode==1) locals[nlocals++] = it;
+        else {
+          fprintf(body, comma?", %s":"%s", value(it));
+          comma = 1;
+        }
         break;
       case N_STRING:
-        mode = !strcmp("AUX", it->val);
+        if (!strcmp("AUX", it->val)) mode = 1;
+        else if (!strcmp("OPTIONAL", it->val)) mode = 2;
+        else assert(0);
         break;
       default:
         continue;
     }
-    comma = 1;
   }
   fprintf(body, ")\n");
   for (int i = 0; i < nlocals; i++) {
-    fprintf(body, "\tlocal %s\n", value(locals[i]));
+    if (locals[i]->type == N_LIST) {
+      fprintf(body, "\t%s = %s or ", value(locals[i]->children), value(locals[i]->children));
+      print_node(body, locals[i]->children->next, 2, 0);
+      fprintf(body, "\n");
+    } else {
+      fprintf(body, "\tlocal %s\n", value(locals[i]));
+    }
+  }
+  for (int i = 0; i < nopts; i++) {
+    fprintf(body, "\t%s = %s or ", value(opts[i]->children), value(opts[i]->children));
+    print_node(body, opts[i]->children->next, 2, 0);
+    fprintf(body, "\n");
   }
 }
 
-static void print_node(FILE *body, zil_Node *n, int r) {
+#define INDENT(body, r) { \
+fprintf(body, "\n"); \
+for (int i = 0; i < r; i++) fprintf(body, "\t"); \
+}
+
+int is_cond(zil_Node *n) {
+  return n->type == N_EXPR && n->val && !strcmp(n->val, "COND");
+}
+
+int is_loop(zil_Node *n) {
+  return n->type == N_EXPR && n->val && !strcmp(n->val, "REPEAT");
+}
+
+int is_return(zil_Node *n) {
+  return n->type == N_EXPR && n->val && !strcmp(n->val, "RETURN");
+}
+
+void print_node(FILE *body, zil_Node *n, int r, int loop) {
   switch (n->type) {
     case N_EXPR:
       if (!n->val) {
-        printf("ERROR: Hey!!\n");
+        fprintf(body, "nil");
         return;
       }
-//      fprintf(body, "\n");
-//      for (int i = 0; i < r; i++) fprintf(body, "\t");
       if (!strcmp(n->val, "COND")) {
         ZIL_FOR(it, n) {
-          fprintf(body, it == n->children ? "\tif " : "\n\telseif ");
-          print_node(body, it->children, 1);
-          fprintf(body, " then ");
-          if (it->children->next) {
-            ZIL_FOR_AFTER(then_clause, it) {
-              print_node(body, then_clause, 1);
-              if (then_clause->next) fprintf(body, "; ");
-            }
+          INDENT(body, r);
+          if (it->children->val&&!strcmp(it->children->val,"ELSE")) {
+            fprintf(body, "else ");
+          } else {
+            fprintf(body, it == n->children ? "if " : "elseif ");
+            print_node(body, it->children, r+1, loop);
+            fprintf(body, " then ");
+          }
+          ZIL_FOR_AFTER(then_clause, it) {
+            INDENT(body, r+1);
+            if (!then_clause->next && !is_cond(then_clause) && !is_loop(then_clause) && !is_return(then_clause)/* && !loop*/)
+              fprintf(body, "return ");
+            print_node(body, then_clause, r+1, loop);
           }
         }
-        fprintf(body, "\n\tend\n");
-      } else if (!strcmp(n->val, "REPEAT")) {
-        fprintf(body, "\twhile true do\n");
+        INDENT(body, r);
+        fprintf(body, "end\n");
+      } else if (!strcmp(n->val, "SET")) {
+        fprintf(body, "(function() %s = ", value(n->children));
         ZIL_FOR_AFTER(it, n) {
-          print_node(body, it, 1);
+//          print_node(body, it, r+1, loop);
+          if (is_cond(it)) {
+            fprintf(body, "(function()");
+            print_node(body, it, r+1, loop);
+            fprintf(body, " end)()");
+          } else {
+            print_node(body, it, r+1, loop);
+          }
         }
-        fprintf(body, "\n\tend\n");
+        fprintf(body, " return %s end)()", value(n->children));
+      } else if (!strcmp(n->val, "RETURN")) {
+        if (loop && !n->children) fprintf(body, "break ");
+        else {
+          fprintf(body, "return ");
+          print_node(body, n->children, r+1, 0);
+        }
+      } else if (!strcmp(n->val, "RTRUE")) {
+        if (r == 1) fprintf(body, "\treturn ");
+        fprintf(body, "true");
+      } else if (!strcmp(n->val, "RFALSE")) {
+        if (r == 1) fprintf(body, "\treturn ");
+        fprintf(body, "false ");
+      } else if (!strcmp(n->val, "PROG")) {
+        INDENT(body, r);
+        fprintf(body, "do\n");
+        ZIL_FOR_AFTER(it, n) {
+          INDENT(body, r+1);
+          print_node(body, it, r+1, 1);
+        }
+        INDENT(body, r);
+        fprintf(body, "end\n");
+      } else if (!strcmp(n->val, "REPEAT")) {
+        INDENT(body, r);
+        fprintf(body, "while true do\n");
+        ZIL_FOR_AFTER(it, n) {
+          INDENT(body, r+1);
+          print_node(body, it, r+1, 1);
+        }
+        INDENT(body, r);
+        fprintf(body, "end\n");
       } else {
+        if (r==1) for (int i = 0; i < r; i++) fprintf(body, "\t");
         fprintf(body, "%s(", value(n));
         ZIL_FOR(it, n) {
-          print_node(body, it, r+1);
+          if (is_cond(it)) {
+            fprintf(body, "(function()");
+            print_node(body, it, r+1, loop);
+            fprintf(body, " end)()");
+          } else {
+            print_node(body, it, r+1, loop);
+          }
           if (it->next) fprintf(body, ", ");
         }
         fprintf(body, ")");
@@ -269,6 +369,10 @@ static void print_node(FILE *body, zil_Node *n, int r) {
     case N_STRING:
     case N_NUMBER:
     case N_SYMBOL:
+      if (!strcmp(n->val, "#DECL")) {
+        return;
+      }
+      if (r == 1) fprintf(body, "\treturn ");
       fprintf(body, "%s", value(n));
       break;
     default:
@@ -283,7 +387,7 @@ static void ROUTINE(FILE *decl, FILE *body, zil_Node *node) {
   Write_Function_Header(body, node);
   for (zil_Node *n = node->children->next->next; n; n = n->next) {
     if (!n->val) continue;
-    print_node(body, n, 1);
+    print_node(body, n, 1, 0);
     fprintf(body, "\n");
   }
   fprintf(body, "end\n");
@@ -319,43 +423,38 @@ static void CONSTANT(FILE *decl, FILE *body, zil_Node *node) {
 }
 
 const char *ZIL_ObjectFlags[] = {
-  "MAZEBIT", // Room is part of the maze.
-  "HOUSEBIT", // Room is part of the house.
-  "RLANDBIT", // Room is on dry land.
-  "ONBIT", // For objects, it gives light. For locations, it is lit. All outdoor rooms should have ONBIT set.
-  "FLAMEBIT", // Object can be a source of re. LIGHTBIT should also be set.
-  "VEHBIT", // Object can be entered or boarded by the player.
-  "LIGHTBIT", // Object can be turned on or o.
-  "KNIFEBIT", // Object can cut other objects.
-  "BURNBIT", // Object can be burned.
-  "READBIT", // Object can be read.
-  "SURFACEBIT", // Object is a container and hold objects which are alwaysvisible. CONTBIT and OPENBIT should be set as well.
-  "SWITCHBIT", // Object can be turned on or o.
-  "TRYTAKEBIT", // object could be picked up but other values or routines need to be checked.
-  "OPENBIT", // Object is can be opened or closed, refers to doors and containers.
-  "CONTBIT", // Object is a container and can contain other objects or be open/closed/transparent.
-  "TRANSBIT", // Object is transparent so objects inside it can be found even if OPENBIT is clear.
-  "FOODBIT", // Object can be eaten.
-  "TAKEBIT", // Object can be picked up or carried
-  "ACCEPTBIT", //? (can accept objects)
-  "SACREDBIT", //
-  "PERSONBIT", // Object is a character in the game.
-  "DOORBIT", // Object is a door.
-  "DRINKBIT", // Object can be drunk.
-  "TOOLBIT", // Object can be used as a tool to open other things.
-  "CLIMBBIT", // Object can be climbed
-  "INTEGRALBIT", // Object cannot be taken separately from other objects, is part of another object.
-  "INJUREDBIT", // Object is injured but not dead.
-  "ALIVEBIT", // Object is alive.
-  "TOUCHBIT", // For object, it has been taken or used. For rooms, it has been visited.
-  "INVISIBLE", // Object is not detected by the game.
-  "CANTENTERBIT", // (or full of water bit)
-  "NONLANDBIT", // Room is in or near the water.
-  "NDESCBIT", // Not included in room description
-  "ACTORBIT", // ?
-  "WEAPONBIT", // ?
-  "TURNBIT", // ?
-  "SEARCHBIT", // ?
+  "SACREDBIT", // 0
+  "FIGHTBIT", // 1
+  "TOUCHBIT", // 2
+  "WEARBIT", // 3
+  "SEARCHBIT", // 4
+  "NWALLBIT", // 5
+  "NONLANDBIT", // 6
+  "TRANSBIT", // 7
+  "SURFACEBIT", // 8
+  "INVISIBLE", // 9
+  "STAGGERED", // 10
+  "OPENBIT", // 11
+  "RLANDBIT", // 12
+  "TRYTAKEBIT", // 13
+  "NDESCBIT", // 14
+  "TURNBIT", // 15
+  "READBIT", // 16
+  "TAKEBIT", // 17
+  "CONTBIT", // 18
+  "ONBIT", // 19
+  "FOODBIT", // 20
+  "DRINKBIT", // 21
+  "DOORBIT", // 22
+  "CLIMBBIT", // 23
+  "RMUNGBIT", // 24
+  "FLAMEBIT", // 25
+  "BURNBIT", // 26
+  "VEHBIT", // 27
+  "TOOLBIT", // 28
+  "WEAPONBIT", // 29
+  "ACTORBIT", // 30
+  "LIGHTBIT", // 31
   NULL
 };
 
@@ -422,29 +521,25 @@ void zil_run(zil_Node *node) {
   lua_setglobal(L, "CR");
   
   luaL_dostring(L, "function VERBQ(...) for _, v in ipairs {...} do if VERB == v then return true end end return false end");
-  luaL_dostring(L, "function TELL(...) print(table.concat({ ... }, "")) end");
+  luaL_dostring(L, "function TELL(...) io.write(table.concat({ ... }, "")) end");
   luaL_dostring(L, "function AND(...) for _, v in ipairs{...} do if not v then return false end end local args = {...} return args[#args] end");
   luaL_dostring(L, "function OR(...) for _, v in ipairs{...} do if v then return v end end return false end");
   luaL_dostring(L, "function NOT(a) return not a end");
   
   // Basic arithmetic and comparison
-  luaL_dostring(L, "function EQUAL(a, b) return a == b end");
-  luaL_dostring(L, "function GRTR(a, b) return a > b end");
-  luaL_dostring(L, "function LESS(a, b) return a < b end");
-  luaL_dostring(L, "function GREQ(a, b) return a >= b end");
-  luaL_dostring(L, "function LESEQ(a, b) return a <= b end");
+  luaL_dostring(L, "function EQUALQ(a, b) return a == b end");
+  luaL_dostring(L, "function GQ(a, b) return a > b end");
+  luaL_dostring(L, "function LQ(a, b) return a < b end");
+  luaL_dostring(L, "function GEQ(a, b) return a >= b end");
+  luaL_dostring(L, "function LEQ(a, b) return a <= b end");
   
   // Set operations
-  luaL_dostring(L, "function SET(var, val) return val end");
   luaL_dostring(L, "function SETG(var, val) _G[var] = val; return val end");
-  luaL_dostring(L, "function INC(var, amt) return var + (amt or 1) end");
-  luaL_dostring(L, "function DEC(var, amt) return var - (amt or 1) end");
-  
-  // Control flow
-  luaL_dostring(L, "function RETURN(val) return val end");
-  luaL_dostring(L, "function RTRUE() return true end");
-  luaL_dostring(L, "function RFALSE() return false end");
-  
+  luaL_dostring(L, "function ADD(var, amt) return var + amt) end");
+  luaL_dostring(L, "function SUB(var, amt) return var - amt end");
+  luaL_dostring(L, "function DIV(var, amt) return var / amt end");
+  luaL_dostring(L, "function MUL(var, amt) return var * amt end");
+
   // Object/room operations
   luaL_dostring(L, "function LOC(obj) return obj and obj.IN or nil end");
   luaL_dostring(L, "function MOVE(obj, dest) if obj then obj.IN = dest end return true end");
@@ -464,11 +559,24 @@ void zil_run(zil_Node *node) {
   lua_pushnil(L); lua_setglobal(L, "PRSO");
   lua_pushnil(L); lua_setglobal(L, "PRSI");
   
+  lua_pushinteger(L, 2); lua_setglobal(L, "M_FATAL");
+  lua_pushinteger(L, 1); lua_setglobal(L, "M_HANDLED");
+  lua_pushnil(L); lua_setglobal(L, "M_NOT_HANDLED");
+  lua_pushnil(L); lua_setglobal(L, "M_OBJECT");
+  lua_pushinteger(L, 1); lua_setglobal(L, "M_BEG");
+  lua_pushinteger(L, 6); lua_setglobal(L, "M_END");
+  lua_pushinteger(L, 2); lua_setglobal(L, "M_ENTER");
+  lua_pushinteger(L, 3); lua_setglobal(L, "M_LOOK");
+  lua_pushinteger(L, 4); lua_setglobal(L, "M_FLASH");
+  lua_pushinteger(L, 5); lua_setglobal(L, "M_OBJDESC");
+
   if (luaL_dostring(L, decl) || luaL_dostring(L, body)) {
     fprintf(stderr, "%s", lua_tostring(L, -1));
     lua_pop(L, 1);
   }
-//  
+  
+  luaL_dostring(L, "WEST_HOUSE(M_LOOK)");
+
 //  luaL_dostring(L, "print(SLIDE_ROOM.LDESC)");
   
   lua_close(L);
