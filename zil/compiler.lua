@@ -1,5 +1,9 @@
 -- ZIL to Lua Compiler
-local Compiler = {}
+local Compiler = {
+  flags = {},
+  current_flag = 1,
+  current_decl = nil
+}
 
 -- Output buffers using tables for efficient concatenation
 local function Buffer()
@@ -83,7 +87,7 @@ local function write_flags(buf, node)
   for child in Compiler.iter_children(node, 1) do
     if not first then buf.write("|") end
     
-    buf.write("%s", value(child))
+    buf.write("(1<<%s)", value(child))
     first = false
   end
 end
@@ -152,7 +156,7 @@ local function write_nav(buf, node)
     
     -- Check for IS flag test
     if safeget(parts[5], 'value') == "IS" and parts[6] then
-      cond = string.format("%s.FLAGS&%sBIT", cond, value(parts[6]))
+      cond = string.format("%s.FLAGS&(1<<%sBIT)", cond, value(parts[6]))
     end
     
     local room = value(parts[2])
@@ -266,7 +270,7 @@ local function write_function_header(buf, node)
     if local_node.type == "list" then
       buf.indent(1)
       buf.write("local %s = ", value(local_node[1]))
-      print_node(buf, local_node[2], 2, false, false)
+      print_node(buf, local_node[2], 2, false)
       buf.writeln()
     else
       buf.writeln("\tlocal %s", value(local_node))
@@ -277,8 +281,16 @@ local function write_function_header(buf, node)
   for _, opt in ipairs(optionals) do
     buf.indent(1)
     buf.write("%s = %s or ", value(opt[1]), value(opt[1]))
-    print_node(buf, opt[2], 2, false, false)
+    print_node(buf, opt[2], 2, false)
     buf.writeln()
+  end
+end
+
+local function add_flag(flag)
+  if not Compiler.flags[flag] then
+    Compiler.current_decl.writeln("%s = %d", flag, Compiler.current_flag)
+    Compiler.flags[flag] = Compiler.current_flag
+    Compiler.current_flag = Compiler.current_flag << 1
   end
 end
 
@@ -292,11 +304,13 @@ local function print_syntax_object(buf, nodes, start_idx, field_name)
     if safeget(clause[1], 'value') == "FIND" then
       buf.writeln("\t\tFIND = %s,", value(clause[2]))
     else
-      buf.write("\t\tWHERE = {")
+      buf.write("\t\tWHERE = ")
       for j = 1, #clause do
-        buf.write('"%s",', value(clause[j]))
+        local flag = 'S_'..value(clause[j])
+        add_flag(flag)
+        buf.write(j == 1 and '%s' or '|%s', flag)
       end
-      buf.writeln("},")
+      buf.writeln(",")
     end
     i = i + 1
   end
@@ -355,6 +369,16 @@ end
 form.SET = compile_set
 form.SETG = compile_set
 
+form["IGRTR?"] = function(buf, node, indent, add_return)
+  buf.write("APPLY(function() %s = %s + 1", value(node[1]), value(node[1]))
+  buf.write(" return %s > %s end)", value(node[1]), value(node[2]))
+end
+
+form["DLESS?"] = function(buf, node, indent, add_return)
+  buf.write("APPLY(function() %s = %s - 1", value(node[1]), value(node[1]))
+  buf.write(" return %s > %s end)", value(node[1]), value(node[2]))
+end
+
 -- RETURN
 form.RETURN = function(buf, node, indent, add_return)
   buf.write("return ")
@@ -371,6 +395,15 @@ end
 -- RFALSE
 form.RFALSE = function(buf, node, indent, add_return)
   buf.write("\terror(false)")
+end
+
+-- READ
+form.READ = function(buf, node, indent, add_return)
+  for i, n in ipairs(node) do
+    if i == 1 then buf.write(value(n))
+    else buf.write(', %s', value(n)) end
+  end
+  buf.write(" = READ()")
 end
 
 -- PROG (do block)
@@ -395,14 +428,15 @@ form.REPEAT = function(buf, node, indent, add_return)
   for i = 2, #node do
     buf.indent(indent + 1)
     print_node(buf, node[i], indent + 1, add_return and i == #node)
+    buf.writeln()
   end
   buf.writeln()
   buf.indent(indent)
   buf.writeln("end end)")
 end
 
--- BUZZ/SYNONYM
-local function compile_buzz(buf, node, indent, add_return)
+-- BUZZ
+form.BUZZ = function(buf, node, indent, add_return)
   buf.write("BUZZ(")
   for i = 1, #node do
     if i > 1 then buf.write(", ") end
@@ -411,8 +445,15 @@ local function compile_buzz(buf, node, indent, add_return)
   buf.writeln(")")
 end
 
-form.BUZZ = compile_buzz
-form.SYNONYM = compile_buzz
+-- SYNONYM
+form.SYNONYM = function(buf, node, indent, add_return)
+  buf.write("SYNONYM(")
+  for i = 1, #node do
+    if i > 1 then buf.write(", ") end
+    buf.write('"%s"', node[i].value)
+  end
+  buf.writeln(")")
+end
 
 -- GLOBAL
 form.GLOBAL = function(buf, node, indent, add_return)
@@ -428,14 +469,13 @@ form.CONSTANT = form.GLOBAL
 -- SYNTAX
 form.SYNTAX = function(buf, node, indent, add_return)
   buf.writeln("SYNTAX {")
-  buf.write('\tVERB = "%s', node[1].value)
+  buf.writeln('\tVERB = "%s\",', node[1].value)
   
   local i = 2
   while safeget(node[i], 'value') ~= "OBJECT" and node[i].value ~= "=" do
-    buf.write(" %s", node[i].value)
+    buf.writeln("\tPREFIX = \"%s\",", node[i].value)
     i = i + 1
   end
-  buf.writeln('",')
   
   if safeget(node[i], 'value') == "OBJECT" then
     i = print_syntax_object(buf, node, i, "OBJECT")
@@ -567,31 +607,31 @@ local function compile_routine(decl, body, node)
     body.writeln()
   end
   body.writeln("\tend)")
-  body.writeln("\treturn __res")
+  body.writeln("\tif __ok or type(__res) == 'boolean' then return __res")
+  body.writeln(string.format("\telse error('%s\\n'..__res) end", name))
   body.writeln("end")
 end
 
 local function compile_object(decl, body, node)
   local name = value(node[1])
   decl.writeln('%s = setmetatable({}, { __tostring = function(self) return self.DESC or "%s" end })', name, name)
-  decl.writeln('OBJECTS["%s"] = %s', name, name)
-  
+  body.writeln("%s {", node.name)
+  body.writeln("\tNAME = \"%s\",", name)
   for i = 2, #node do
     local field = node[i]
     if field.type == "list" and safeget(field[1], 'type') == "ident" and field[2] then
-      body.write("%s.", name)
-      
       if value(field[2]) == "TO" then
-        body.write("NAV_%s = ", value(field[1]))
+        body.write("\tNAV_%s = ", value(field[1]))
         write_nav(body, field)
+        body.writeln(",")
       else
-        body.write("%s = ", value(field[1]))
+        body.write("\t%s = ", value(field[1]))
         write_field(body, field, field[1].value)
+        body.writeln(",")
       end
-      
-      body.writeln()
     end
   end
+  body.writeln("}", name)
 end
 
 -- Top-level compiler registry
@@ -600,7 +640,13 @@ local TOP_LEVEL_COMPILERS = {
   OBJECT = compile_object,
   ROUTINE = compile_routine,
   GDECL = function() end,
-  DIRECTIONS = function() end,
+  DIRECTIONS = function(_, buf, node)
+    buf.write("%s(", node.name)
+    for _, dir in ipairs(node) do
+      buf.write("\"%s\", ", dir.value)
+    end
+    buf.writeln("nil)")
+  end,
 }
 
 -- Top-level statements that should be printed directly
@@ -619,6 +665,8 @@ local DIRECT_STATEMENTS = {
 function Compiler.compile(ast)
   local decl = Buffer()
   local body = Buffer()
+
+  Compiler.current_decl = decl
   
   for i = 1, #ast do
     local node = ast[i]

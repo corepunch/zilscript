@@ -1,77 +1,80 @@
 GLOBAL_OBJECTS = setmetatable({}, { __tostring = function(self) return self.DESC or "GLOBAL_OBJECTS" end })
-OBJECTS["GLOBAL_OBJECTS"] = GLOBAL_OBJECTS
 LOCAL_GLOBALS = setmetatable({}, { __tostring = function(self) return self.DESC or "LOCAL_GLOBALS" end })
-OBJECTS["LOCAL_GLOBALS"] = LOCAL_GLOBALS
 ROOMS = setmetatable({}, { __tostring = function(self) return self.DESC or "ROOMS" end })
-OBJECTS["ROOMS"] = ROOMS
 INTNUM = setmetatable({}, { __tostring = function(self) return self.DESC or "INTNUM" end })
-OBJECTS["INTNUM"] = INTNUM
 PSEUDO_OBJECT = setmetatable({}, { __tostring = function(self) return self.DESC or "PSEUDO_OBJECT" end })
-OBJECTS["PSEUDO_OBJECT"] = PSEUDO_OBJECT
 IT = setmetatable({}, { __tostring = function(self) return self.DESC or "IT" end })
-OBJECTS["IT"] = IT
 NOT_HERE_OBJECT = setmetatable({}, { __tostring = function(self) return self.DESC or "NOT_HERE_OBJECT" end })
-OBJECTS["NOT_HERE_OBJECT"] = NOT_HERE_OBJECT
 NOT_HERE_OBJECT_F = nil
 NOT_HERE_PRINT = nil
 NULL_F = nil
 BLESSINGS = setmetatable({}, { __tostring = function(self) return self.DESC or "BLESSINGS" end })
-OBJECTS["BLESSINGS"] = BLESSINGS
 STAIRS = setmetatable({}, { __tostring = function(self) return self.DESC or "STAIRS" end })
-OBJECTS["STAIRS"] = STAIRS
 STAIRS_F = nil
 SAILOR = setmetatable({}, { __tostring = function(self) return self.DESC or "SAILOR" end })
-OBJECTS["SAILOR"] = SAILOR
 SAILOR_FCN = nil
 GROUND = setmetatable({}, { __tostring = function(self) return self.DESC or "GROUND" end })
-OBJECTS["GROUND"] = GROUND
 GROUND_FUNCTION = nil
 GRUE = setmetatable({}, { __tostring = function(self) return self.DESC or "GRUE" end })
-OBJECTS["GRUE"] = GRUE
 GRUE_FUNCTION = nil
 LUNGS = setmetatable({}, { __tostring = function(self) return self.DESC or "LUNGS" end })
-OBJECTS["LUNGS"] = LUNGS
 ME = setmetatable({}, { __tostring = function(self) return self.DESC or "ME" end })
-OBJECTS["ME"] = ME
 CRETIN_FCN = nil
 ADVENTURER = setmetatable({}, { __tostring = function(self) return self.DESC or "ADVENTURER" end })
-OBJECTS["ADVENTURER"] = ADVENTURER
 PATHOBJ = setmetatable({}, { __tostring = function(self) return self.DESC or "PATHOBJ" end })
-OBJECTS["PATHOBJ"] = PATHOBJ
 PATH_OBJECT = nil
 ZORKMID = setmetatable({}, { __tostring = function(self) return self.DESC or "ZORKMID" end })
-OBJECTS["ZORKMID"] = ZORKMID
 ZORKMID_FUNCTION = nil
 HANDS = setmetatable({}, { __tostring = function(self) return self.DESC or "HANDS" end })
-OBJECTS["HANDS"] = HANDS
 
-GLOBAL_OBJECTS.FLAGS = RMUNGBIT|INVISIBLE|TOUCHBIT|SURFACEBIT|TRYTAKEBIT|OPENBIT|SEARCHBIT|TRANSBIT|ONBIT|RLANDBIT|FIGHTBIT|STAGGERED|WEARBIT
-LOCAL_GLOBALS.IN = GLOBAL_OBJECTS
-LOCAL_GLOBALS.SYNONYM = {"ZZMGCK"}
-LOCAL_GLOBALS.DESCFCN = PATH_OBJECT
-LOCAL_GLOBALS.GLOBAL = GLOBAL_OBJECTS
-LOCAL_GLOBALS.ADVFCN = 0
-LOCAL_GLOBALS.FDESC = "F"
-LOCAL_GLOBALS.LDESC = "F"
-LOCAL_GLOBALS.PSEUDO = "FOOBAR"
-LOCAL_GLOBALS.CONTFCN = 0
-LOCAL_GLOBALS.VTYPE = 1
-LOCAL_GLOBALS.SIZE = 0
-LOCAL_GLOBALS.CAPACITY = 0
-ROOMS.NAV_IN = function() return ROOMS end
-INTNUM.IN = GLOBAL_OBJECTS
-INTNUM.SYNONYM = {"INTNUM"}
-INTNUM.FLAGS = TOOLBIT
-INTNUM.DESC = "number"
-PSEUDO_OBJECT.IN = LOCAL_GLOBALS
-PSEUDO_OBJECT.DESC = "pseudo"
-PSEUDO_OBJECT.ACTION = CRETIN_FCN
-IT.IN = GLOBAL_OBJECTS
-IT.SYNONYM = {"IT","THEM","HER","HIM"}
-IT.DESC = "random object"
-IT.FLAGS = NDESCBIT|TOUCHBIT
-NOT_HERE_OBJECT.DESC = "such thing"
-NOT_HERE_OBJECT.ACTION = NOT_HERE_OBJECT_F
+OBJECT {
+	NAME = "GLOBAL_OBJECTS",
+	FLAGS = (1<<RMUNGBIT)|(1<<INVISIBLE)|(1<<TOUCHBIT)|(1<<SURFACEBIT)|(1<<TRYTAKEBIT)|(1<<OPENBIT)|(1<<SEARCHBIT)|(1<<TRANSBIT)|(1<<ONBIT)|(1<<RLANDBIT)|(1<<FIGHTBIT)|(1<<STAGGERED)|(1<<WEARBIT),
+}
+OBJECT {
+	NAME = "LOCAL_GLOBALS",
+	IN = GLOBAL_OBJECTS,
+	SYNONYM = {"ZZMGCK"},
+	DESCFCN = PATH_OBJECT,
+	GLOBAL = GLOBAL_OBJECTS,
+	ADVFCN = 0,
+	FDESC = "F",
+	LDESC = "F",
+	PSEUDO = "FOOBAR",
+	CONTFCN = 0,
+	VTYPE = 1,
+	SIZE = 0,
+	CAPACITY = 0,
+}
+OBJECT {
+	NAME = "ROOMS",
+	NAV_IN = function() return ROOMS end,
+}
+OBJECT {
+	NAME = "INTNUM",
+	IN = GLOBAL_OBJECTS,
+	SYNONYM = {"INTNUM"},
+	FLAGS = (1<<TOOLBIT),
+	DESC = "number",
+}
+OBJECT {
+	NAME = "PSEUDO_OBJECT",
+	IN = LOCAL_GLOBALS,
+	DESC = "pseudo",
+	ACTION = CRETIN_FCN,
+}
+OBJECT {
+	NAME = "IT",
+	IN = GLOBAL_OBJECTS,
+	SYNONYM = {"IT","THEM","HER","HIM"},
+	DESC = "random object",
+	FLAGS = (1<<NDESCBIT)|(1<<TOUCHBIT),
+}
+OBJECT {
+	NAME = "NOT_HERE_OBJECT",
+	DESC = "such thing",
+	ACTION = NOT_HERE_OBJECT_F,
+}
 NOT_HERE_OBJECT_F = function()
 	local TBL
   local PRSOQ = T
@@ -103,7 +106,8 @@ APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
 
 	error(true)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('NOT_HERE_OBJECT_F\n'..__res) end
 end
 NOT_HERE_PRINT = function(PRSOQ)
 	local __ok, __res = pcall(function()
@@ -126,26 +130,34 @@ NOT_HERE_PRINT = function(PRSOQ)
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('NOT_HERE_PRINT\n'..__res) end
 end
 NULL_F = function(A1, A2)
 	local __ok, __res = pcall(function()
 	error(false)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('NULL_F\n'..__res) end
 end
 LOAD_MAX = 100
 LOAD_ALLOWED = 100
-BLESSINGS.IN = GLOBAL_OBJECTS
-BLESSINGS.SYNONYM = {"BLESSINGS","GRACES"}
-BLESSINGS.DESC = "blessings"
-BLESSINGS.FLAGS = NDESCBIT
-STAIRS.IN = LOCAL_GLOBALS
-STAIRS.SYNONYM = {"STAIRS","STEPS","STAIRCASE","STAIRWAY"}
-STAIRS.ADJECTIVE = {"STONE","DARK","MARBLE","FORBIDDING","STEEP"}
-STAIRS.DESC = "stairs"
-STAIRS.FLAGS = NDESCBIT|CLIMBBIT
-STAIRS.ACTION = STAIRS_F
+OBJECT {
+	NAME = "BLESSINGS",
+	IN = GLOBAL_OBJECTS,
+	SYNONYM = {"BLESSINGS","GRACES"},
+	DESC = "blessings",
+	FLAGS = (1<<NDESCBIT),
+}
+OBJECT {
+	NAME = "STAIRS",
+	IN = LOCAL_GLOBALS,
+	SYNONYM = {"STAIRS","STEPS","STAIRCASE","STAIRWAY"},
+	ADJECTIVE = {"STONE","DARK","MARBLE","FORBIDDING","STEEP"},
+	DESC = "stairs",
+	FLAGS = (1<<NDESCBIT)|(1<<CLIMBBIT),
+	ACTION = STAIRS_F,
+}
 STAIRS_F = function()
 	local __ok, __res = pcall(function()
 
@@ -154,13 +166,17 @@ STAIRS_F = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('STAIRS_F\n'..__res) end
 end
-SAILOR.IN = GLOBAL_OBJECTS
-SAILOR.SYNONYM = {"SAILOR","FOOTPAD","AVIATOR"}
-SAILOR.DESC = "sailor"
-SAILOR.FLAGS = NDESCBIT
-SAILOR.ACTION = SAILOR_FCN
+OBJECT {
+	NAME = "SAILOR",
+	IN = GLOBAL_OBJECTS,
+	SYNONYM = {"SAILOR","FOOTPAD","AVIATOR"},
+	DESC = "sailor",
+	FLAGS = (1<<NDESCBIT),
+	ACTION = SAILOR_FCN,
+}
 SAILOR_FCN = function()
 	local __ok, __res = pcall(function()
 
@@ -185,12 +201,16 @@ SAILOR_FCN = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('SAILOR_FCN\n'..__res) end
 end
-GROUND.IN = GLOBAL_OBJECTS
-GROUND.SYNONYM = {"GROUND","SAND","DIRT","FLOOR"}
-GROUND.DESC = "ground"
-GROUND.ACTION = GROUND_FUNCTION
+OBJECT {
+	NAME = "GROUND",
+	IN = GLOBAL_OBJECTS,
+	SYNONYM = {"GROUND","SAND","DIRT","FLOOR"},
+	DESC = "ground",
+	ACTION = GROUND_FUNCTION,
+}
 GROUND_FUNCTION = function()
 	local __ok, __res = pcall(function()
 
@@ -204,13 +224,17 @@ GROUND_FUNCTION = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('GROUND_FUNCTION\n'..__res) end
 end
-GRUE.IN = GLOBAL_OBJECTS
-GRUE.SYNONYM = {"GRUE"}
-GRUE.ADJECTIVE = {"LURKING","SINISTER","HUNGRY","SILENT"}
-GRUE.DESC = "lurking grue"
-GRUE.ACTION = GRUE_FUNCTION
+OBJECT {
+	NAME = "GRUE",
+	IN = GLOBAL_OBJECTS,
+	SYNONYM = {"GRUE"},
+	ADJECTIVE = {"LURKING","SINISTER","HUNGRY","SILENT"},
+	DESC = "lurking grue",
+	ACTION = GRUE_FUNCTION,
+}
 GRUE_FUNCTION = function()
 	local __ok, __res = pcall(function()
 
@@ -223,17 +247,24 @@ GRUE_FUNCTION = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('GRUE_FUNCTION\n'..__res) end
 end
-LUNGS.IN = GLOBAL_OBJECTS
-LUNGS.SYNONYM = {"LUNGS","AIR","MOUTH","BREATH"}
-LUNGS.DESC = "blast of air"
-LUNGS.FLAGS = NDESCBIT
-ME.IN = GLOBAL_OBJECTS
-ME.SYNONYM = {"ME","MYSELF","SELF","CRETIN"}
-ME.DESC = "cretin"
-ME.FLAGS = ACTORBIT
-ME.ACTION = CRETIN_FCN
+OBJECT {
+	NAME = "LUNGS",
+	IN = GLOBAL_OBJECTS,
+	SYNONYM = {"LUNGS","AIR","MOUTH","BREATH"},
+	DESC = "blast of air",
+	FLAGS = (1<<NDESCBIT),
+}
+OBJECT {
+	NAME = "ME",
+	IN = GLOBAL_OBJECTS,
+	SYNONYM = {"ME","MYSELF","SELF","CRETIN"},
+	DESC = "cretin",
+	FLAGS = (1<<ACTORBIT),
+	ACTION = CRETIN_FCN,
+}
 CRETIN_FCN = function()
 	local __ok, __res = pcall(function()
 
@@ -277,19 +308,26 @@ CRETIN_FCN = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('CRETIN_FCN\n'..__res) end
 end
-ADVENTURER.SYNONYM = {"ADVENTURER"}
-ADVENTURER.DESC = "cretin"
-ADVENTURER.FLAGS = NDESCBIT|INVISIBLE|SACREDBIT|ACTORBIT
-ADVENTURER.STRENGTH = 0
-ADVENTURER.ACTION = 0
-PATHOBJ.IN = GLOBAL_OBJECTS
-PATHOBJ.SYNONYM = {"TRAIL","PATH"}
-PATHOBJ.ADJECTIVE = {"FOREST","NARROW","LONG","WINDING"}
-PATHOBJ.DESC = "passage"
-PATHOBJ.FLAGS = NDESCBIT
-PATHOBJ.ACTION = PATH_OBJECT
+OBJECT {
+	NAME = "ADVENTURER",
+	SYNONYM = {"ADVENTURER"},
+	DESC = "cretin",
+	FLAGS = (1<<NDESCBIT)|(1<<INVISIBLE)|(1<<SACREDBIT)|(1<<ACTORBIT),
+	STRENGTH = 0,
+	ACTION = 0,
+}
+OBJECT {
+	NAME = "PATHOBJ",
+	IN = GLOBAL_OBJECTS,
+	SYNONYM = {"TRAIL","PATH"},
+	ADJECTIVE = {"FOREST","NARROW","LONG","WINDING"},
+	DESC = "passage",
+	FLAGS = (1<<NDESCBIT),
+	ACTION = PATH_OBJECT,
+}
 PATH_OBJECT = function()
 	local __ok, __res = pcall(function()
 
@@ -302,12 +340,16 @@ PATH_OBJECT = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('PATH_OBJECT\n'..__res) end
 end
-ZORKMID.IN = GLOBAL_OBJECTS
-ZORKMID.SYNONYM = {"ZORKMID"}
-ZORKMID.DESC = "zorkmid"
-ZORKMID.ACTION = ZORKMID_FUNCTION
+OBJECT {
+	NAME = "ZORKMID",
+	IN = GLOBAL_OBJECTS,
+	SYNONYM = {"ZORKMID"},
+	DESC = "zorkmid",
+	ACTION = ZORKMID_FUNCTION,
+}
 ZORKMID_FUNCTION = function()
 	local __ok, __res = pcall(function()
 
@@ -318,10 +360,14 @@ ZORKMID_FUNCTION = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('ZORKMID_FUNCTION\n'..__res) end
 end
-HANDS.IN = GLOBAL_OBJECTS
-HANDS.SYNONYM = {"PAIR","HANDS","HAND"}
-HANDS.ADJECTIVE = {"BARE"}
-HANDS.DESC = "pair of hands"
-HANDS.FLAGS = NDESCBIT|TOOLBIT
+OBJECT {
+	NAME = "HANDS",
+	IN = GLOBAL_OBJECTS,
+	SYNONYM = {"PAIR","HANDS","HAND"},
+	ADJECTIVE = {"BARE"},
+	DESC = "pair of hands",
+	FLAGS = (1<<NDESCBIT)|(1<<TOOLBIT),
+}

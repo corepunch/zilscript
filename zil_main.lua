@@ -20,10 +20,12 @@ MAIN_LOOP = function()
 
   APPLY(function() while true do
     	return APPLY(function() TRASH = MAIN_LOOP_1() return TRASH end)
+
   end end)
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('MAIN_LOOP\n'..__res) end
 end
 MAIN_LOOP_1 = function()
 	local ICNT
@@ -64,6 +66,7 @@ APPLY(function() PTBL = T return PTBL end)
 
         end
 
+
       end end)
 
       
@@ -82,6 +85,7 @@ APPLY(function() PTBL = T return PTBL end)
             end
 
           end
+
 
         end end)
 
@@ -230,6 +234,7 @@ APPLY(function() PTBL = T return PTBL end)
 
         end
 
+
       end end)
 
     end
@@ -261,7 +266,8 @@ APPLY(function() PTBL = T return PTBL end)
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('MAIN_LOOP_1\n'..__res) end
 end
 P_MULT = nil
 P_NOT_HERE = 0

@@ -196,7 +196,8 @@ APPLY(function() VERBOSE = T return VERBOSE end)
 APPLY(function() SUPER_BRIEF = nil return SUPER_BRIEF end)
 	return   TELL("Maximum verbosity.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_VERBOSE\n'..__res) end
 end
 V_BRIEF = function()
 	local __ok, __res = pcall(function()
@@ -204,14 +205,16 @@ APPLY(function() VERBOSE = nil return VERBOSE end)
 APPLY(function() SUPER_BRIEF = nil return SUPER_BRIEF end)
 	return   TELL("Brief descriptions.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_BRIEF\n'..__res) end
 end
 V_SUPER_BRIEF = function()
 	local __ok, __res = pcall(function()
 APPLY(function() SUPER_BRIEF = T return SUPER_BRIEF end)
 	return   TELL("Superbrief descriptions.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_SUPER_BRIEF\n'..__res) end
 end
 V_INVENTORY = function()
 	local __ok, __res = pcall(function()
@@ -223,7 +226,8 @@ V_INVENTORY = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_INVENTORY\n'..__res) end
 end
 FINISH = function()
 	local WRD
@@ -231,7 +235,11 @@ FINISH = function()
   V_SCORE()
 
   APPLY(function() while true do
-    CRLF()    TELL("Would you like to restart the game from the beginning, restore a saved\ngame position, or end this session of the game?|\n(Type RESTART, RESTORE, or QUIT):|\n>")    READ(P_INBUF, P_LEXV)    APPLY(function() WRD = GET(P_LEXV, 1) return WRD end)    
+    CRLF()
+    TELL("Would you like to restart the game from the beginning, restore a saved\ngame position, or end this session of the game?|\n(Type RESTART, RESTORE, or QUIT):|\n>")
+    P_INBUF, P_LEXV = READ()
+    APPLY(function() WRD = GET(P_LEXV, 1) return WRD end)
+    
     if EQUALQ(WRD, WQRESTART) then 
       RESTART()
       	return TELL("Failed.", CR)
@@ -247,10 +255,12 @@ FINISH = function()
       	return QUIT()
     end
 
+
   end end)
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('FINISH\n'..__res) end
 end
 V_QUIT = function()
 	local SCOR
@@ -265,7 +275,8 @@ V_QUIT = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_QUIT\n'..__res) end
 end
 V_RESTART = function()
 	local __ok, __res = pcall(function()
@@ -279,7 +290,8 @@ V_RESTART = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_RESTART\n'..__res) end
 end
 V_RESTORE = function()
 	local __ok, __res = pcall(function()
@@ -292,7 +304,8 @@ V_RESTORE = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_RESTORE\n'..__res) end
 end
 V_SAVE = function()
 	local __ok, __res = pcall(function()
@@ -304,7 +317,8 @@ V_SAVE = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_SAVE\n'..__res) end
 end
 V_SCRIPT = function()
 	local __ok, __res = pcall(function()
@@ -313,7 +327,8 @@ V_SCRIPT = function()
   V_VERSION()
 	error(true)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_SCRIPT\n'..__res) end
 end
 V_UNSCRIPT = function()
 	local __ok, __res = pcall(function()
@@ -322,7 +337,8 @@ V_UNSCRIPT = function()
   PUT(0, 8, BAND(GET(0, 8), -2))
 	error(true)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_UNSCRIPT\n'..__res) end
 end
 V_VERSION = function()
   local CNT = 17
@@ -341,11 +357,13 @@ V_VERSION = function()
       PRINTC(GETB(0, CNT))
     end
 
+
   end end)
 
 	return   CRLF()
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_VERSION\n'..__res) end
 end
 V_VERIFY = function()
 	local __ok, __res = pcall(function()
@@ -358,14 +376,16 @@ V_VERIFY = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_VERIFY\n'..__res) end
 end
 V_COMMAND_FILE = function()
 	local __ok, __res = pcall(function()
   DIRIN(1)
 	error(true)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_COMMAND_FILE\n'..__res) end
 end
 V_RANDOM = function()
 	local __ok, __res = pcall(function()
@@ -378,27 +398,31 @@ V_RANDOM = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_RANDOM\n'..__res) end
 end
 V_RECORD = function()
 	local __ok, __res = pcall(function()
   DIROUT(4)
 	error(true)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_RECORD\n'..__res) end
 end
 V_UNRECORD = function()
 	local __ok, __res = pcall(function()
   DIROUT(-4)
 	error(true)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_UNRECORD\n'..__res) end
 end
 V_ADVENT = function()
 	local __ok, __res = pcall(function()
 	return   TELL("A hollow voice says \"Fool.\"", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_ADVENT\n'..__res) end
 end
 V_ALARM = function()
 	local __ok, __res = pcall(function()
@@ -417,7 +441,8 @@ V_ALARM = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_ALARM\n'..__res) end
 end
 V_ANSWER = function()
 	local __ok, __res = pcall(function()
@@ -426,7 +451,8 @@ APPLY(function() P_CONT = nil return P_CONT end)
 APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
 	error(true)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_ANSWER\n'..__res) end
 end
 V_ATTACK = function()
 	local __ok, __res = pcall(function()
@@ -444,19 +470,22 @@ V_ATTACK = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_ATTACK\n'..__res) end
 end
 V_BACK = function()
 	local __ok, __res = pcall(function()
 	return   TELL("Sorry, my memory is poor. Please give a direction.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_BACK\n'..__res) end
 end
 V_BLAST = function()
 	local __ok, __res = pcall(function()
 	return   TELL("You can't blast anything by using words.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_BLAST\n'..__res) end
 end
 PRE_BOARD = function()
 	local AV
@@ -484,7 +513,8 @@ APPLY(function() AV = LOC(WINNER) return AV end)
 
 	return   RFATAL()
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('PRE_BOARD\n'..__res) end
 end
 V_BOARD = function()
 	local AV
@@ -494,31 +524,36 @@ V_BOARD = function()
   APPLY(GETP(PRSO, "ACTION"), M_ENTER)
 	error(true)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_BOARD\n'..__res) end
 end
 V_BREATHE = function()
 	local __ok, __res = pcall(function()
 	return   PERFORM(VQINFLATE, PRSO, LUNGS)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_BREATHE\n'..__res) end
 end
 V_BRUSH = function()
 	local __ok, __res = pcall(function()
 	return   TELL("If you wish, but heaven only knows why.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_BRUSH\n'..__res) end
 end
 V_BUG = function()
 	local __ok, __res = pcall(function()
 	return   TELL("Bug? Not in a flawless program like this! (Cough, cough).", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_BUG\n'..__res) end
 end
 TELL_NO_PRSI = function()
 	local __ok, __res = pcall(function()
 	return   TELL("You didn't say with what!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('TELL_NO_PRSI\n'..__res) end
 end
 PRE_BURN = function()
 	local __ok, __res = pcall(function()
@@ -532,7 +567,8 @@ PRE_BURN = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('PRE_BURN\n'..__res) end
 end
 V_BURN = function()
 	local __ok, __res = pcall(function()
@@ -563,25 +599,29 @@ V_BURN = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_BURN\n'..__res) end
 end
 V_CHOMP = function()
 	local __ok, __res = pcall(function()
 	return   TELL("Preposterous!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_CHOMP\n'..__res) end
 end
 V_CLIMB_DOWN = function()
 	local __ok, __res = pcall(function()
 	return   V_CLIMB_UP("DOWN", PRSO)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_CLIMB_DOWN\n'..__res) end
 end
 V_CLIMB_FOO = function()
 	local __ok, __res = pcall(function()
 	return   V_CLIMB_UP("UP", PRSO)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_CLIMB_FOO\n'..__res) end
 end
 V_CLIMB_ON = function()
 	local __ok, __res = pcall(function()
@@ -594,7 +634,8 @@ V_CLIMB_ON = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_CLIMB_ON\n'..__res) end
 end
 V_CLIMB_UP = function(DIR, OBJ)
 	local X
@@ -648,7 +689,8 @@ V_CLIMB_UP = function(DIR, OBJ)
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_CLIMB_UP\n'..__res) end
 end
 V_CLOSE = function()
 	local __ok, __res = pcall(function()
@@ -684,7 +726,8 @@ V_CLOSE = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_CLOSE\n'..__res) end
 end
 V_COMMAND = function()
 	local __ok, __res = pcall(function()
@@ -696,7 +739,8 @@ V_COMMAND = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_COMMAND\n'..__res) end
 end
 V_COUNT = function()
 	local __ok, __res = pcall(function()
@@ -708,13 +752,15 @@ V_COUNT = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_COUNT\n'..__res) end
 end
 V_CROSS = function()
 	local __ok, __res = pcall(function()
 	return   TELL("You can't cross that!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_CROSS\n'..__res) end
 end
 V_CURSES = function()
 	local __ok, __res = pcall(function()
@@ -732,7 +778,8 @@ V_CURSES = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_CURSES\n'..__res) end
 end
 V_CUT = function()
 	local __ok, __res = pcall(function()
@@ -755,13 +802,15 @@ V_CUT = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_CUT\n'..__res) end
 end
 V_DEFLATE = function()
 	local __ok, __res = pcall(function()
 	return   TELL("Come on, now!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_DEFLATE\n'..__res) end
 end
 V_DIG = function()
 	local __ok, __res = pcall(function()
@@ -784,7 +833,8 @@ V_DIG = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_DIG\n'..__res) end
 end
 V_DISEMBARK = function()
 	local __ok, __res = pcall(function()
@@ -804,25 +854,29 @@ V_DISEMBARK = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_DISEMBARK\n'..__res) end
 end
 V_DISENCHANT = function()
 	local __ok, __res = pcall(function()
 	return   TELL("Nothing happens.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_DISENCHANT\n'..__res) end
 end
 V_DRINK = function()
 	local __ok, __res = pcall(function()
 	return   V_EAT()
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_DRINK\n'..__res) end
 end
 V_DRINK_FROM = function()
 	local __ok, __res = pcall(function()
 	return   TELL("How peculiar!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_DRINK_FROM\n'..__res) end
 end
 PRE_DROP = function()
 	local __ok, __res = pcall(function()
@@ -833,7 +887,8 @@ PRE_DROP = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('PRE_DROP\n'..__res) end
 end
 V_DROP = function()
 	local __ok, __res = pcall(function()
@@ -843,7 +898,8 @@ V_DROP = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_DROP\n'..__res) end
 end
 V_EAT = function()
   local EATQ = nil
@@ -884,7 +940,8 @@ V_EAT = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_EAT\n'..__res) end
 end
 HIT_SPOT = function()
 	local __ok, __res = pcall(function()
@@ -895,7 +952,8 @@ HIT_SPOT = function()
 
 	return   TELL("Thank you very much. I was rather thirsty (from all this talking,\nprobably).", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('HIT_SPOT\n'..__res) end
 end
 V_ECHO = function()
 	local LST
@@ -924,10 +982,12 @@ V_ECHO = function()
             PRINTC(GETB(P_INBUF, CNT))
           end
 
+
         end end)
 
         	return TELL(" ")
       end
+
 
     end end)
 
@@ -936,14 +996,16 @@ V_ECHO = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_ECHO\n'..__res) end
 end
 V_ENCHANT = function()
 	local __ok, __res = pcall(function()
   NULL_F()
 	return   V_DISENCHANT()
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_ENCHANT\n'..__res) end
 end
 REMOVE_CAREFULLY = function(OBJ)
 	local OLIT
@@ -963,13 +1025,15 @@ APPLY(function() LIT = LITQ(HERE) return LIT end)
 
 	return T
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('REMOVE_CAREFULLY\n'..__res) end
 end
 V_ENTER = function()
 	local __ok, __res = pcall(function()
 	return   DO_WALK("IN")
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_ENTER\n'..__res) end
 end
 V_EXAMINE = function()
 	local __ok, __res = pcall(function()
@@ -983,7 +1047,8 @@ V_EXAMINE = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_EXAMINE\n'..__res) end
 end
 V_EXIT = function()
 	local __ok, __res = pcall(function()
@@ -999,13 +1064,15 @@ V_EXIT = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_EXIT\n'..__res) end
 end
 V_EXORCISE = function()
 	local __ok, __res = pcall(function()
 	return   TELL("What a bizarre concept!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_EXORCISE\n'..__res) end
 end
 PRE_FILL = function()
 	local TX
@@ -1036,7 +1103,8 @@ PRE_FILL = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('PRE_FILL\n'..__res) end
 end
 V_FILL = function()
 	local __ok, __res = pcall(function()
@@ -1058,7 +1126,8 @@ V_FILL = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_FILL\n'..__res) end
 end
 V_FIND = function()
   local L = LOC(PRSO)
@@ -1085,19 +1154,22 @@ V_FIND = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_FIND\n'..__res) end
 end
 V_FOLLOW = function()
 	local __ok, __res = pcall(function()
 	return   TELL("You're nuts!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_FOLLOW\n'..__res) end
 end
 V_FROBOZZ = function()
 	local __ok, __res = pcall(function()
 	return   TELL("The FROBOZZ Corporation created, owns, and operates this dungeon.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_FROBOZZ\n'..__res) end
 end
 PRE_GIVE = function()
 	local __ok, __res = pcall(function()
@@ -1107,7 +1179,8 @@ PRE_GIVE = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('PRE_GIVE\n'..__res) end
 end
 V_GIVE = function()
 	local __ok, __res = pcall(function()
@@ -1119,13 +1192,15 @@ V_GIVE = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_GIVE\n'..__res) end
 end
 V_HATCH = function()
 	local __ok, __res = pcall(function()
 	return   TELL("Bizarre!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_HATCH\n'..__res) end
 end
 HS = 0
 V_HELLO = function()
@@ -1144,7 +1219,8 @@ V_HELLO = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_HELLO\n'..__res) end
 end
 V_INCANT = function()
 	local __ok, __res = pcall(function()
@@ -1153,25 +1229,29 @@ APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
 APPLY(function() P_CONT = nil return P_CONT end)
 	error(true)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_INCANT\n'..__res) end
 end
 V_INFLATE = function()
 	local __ok, __res = pcall(function()
 	return   TELL("How can you inflate that?", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_INFLATE\n'..__res) end
 end
 V_KICK = function()
 	local __ok, __res = pcall(function()
 	return   HACK_HACK("Kicking the ")
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_KICK\n'..__res) end
 end
 V_KISS = function()
 	local __ok, __res = pcall(function()
 	return   TELL("I'd sooner kiss a pig.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_KISS\n'..__res) end
 end
 V_KNOCK = function()
 	local __ok, __res = pcall(function()
@@ -1183,7 +1263,8 @@ V_KNOCK = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_KNOCK\n'..__res) end
 end
 V_LAMP_OFF = function()
 	local __ok, __res = pcall(function()
@@ -1213,7 +1294,8 @@ V_LAMP_OFF = function()
 
 	error(true)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_LAMP_OFF\n'..__res) end
 end
 V_LAMP_ON = function()
 	local __ok, __res = pcall(function()
@@ -1242,7 +1324,8 @@ V_LAMP_ON = function()
 
 	error(true)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_LAMP_ON\n'..__res) end
 end
 V_LAUNCH = function()
 	local __ok, __res = pcall(function()
@@ -1254,13 +1337,15 @@ V_LAUNCH = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_LAUNCH\n'..__res) end
 end
 V_LEAN_ON = function()
 	local __ok, __res = pcall(function()
 	return   TELL("Getting tired?", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_LEAN_ON\n'..__res) end
 end
 V_LEAP = function()
 	local TX
@@ -1300,7 +1385,8 @@ V_LEAP = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_LEAP\n'..__res) end
 end
 JUMPLOSS = {0,"You should have looked before you leaped.","In the movies, your life would be passing before your eyes.","Geronimo..."}
 
@@ -1308,19 +1394,22 @@ V_LEAVE = function()
 	local __ok, __res = pcall(function()
 	return   DO_WALK("OUT")
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_LEAVE\n'..__res) end
 end
 V_LISTEN = function()
 	local __ok, __res = pcall(function()
 	return   TELL("The ", PRSO, " makes no sound.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_LISTEN\n'..__res) end
 end
 V_LOCK = function()
 	local __ok, __res = pcall(function()
 	return   TELL("It doesn't seem to work.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_LOCK\n'..__res) end
 end
 V_LOOK = function()
 	local __ok, __res = pcall(function()
@@ -1330,13 +1419,15 @@ V_LOOK = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_LOOK\n'..__res) end
 end
 V_LOOK_BEHIND = function()
 	local __ok, __res = pcall(function()
 	return   TELL("There is nothing behind the ", PRSO, ".", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_LOOK_BEHIND\n'..__res) end
 end
 V_LOOK_INSIDE = function()
 	local __ok, __res = pcall(function()
@@ -1373,7 +1464,8 @@ V_LOOK_INSIDE = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_LOOK_INSIDE\n'..__res) end
 end
 V_LOOK_ON = function()
 	local __ok, __res = pcall(function()
@@ -1386,31 +1478,36 @@ V_LOOK_ON = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_LOOK_ON\n'..__res) end
 end
 V_LOOK_UNDER = function()
 	local __ok, __res = pcall(function()
 	return   TELL("There is nothing but dust there.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_LOOK_UNDER\n'..__res) end
 end
 V_LOWER = function()
 	local __ok, __res = pcall(function()
 	return   HACK_HACK("Playing in this way with the ")
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_LOWER\n'..__res) end
 end
 V_MAKE = function()
 	local __ok, __res = pcall(function()
 	return   TELL("You can't do that.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_MAKE\n'..__res) end
 end
 V_MELT = function()
 	local __ok, __res = pcall(function()
 	return   TELL("It's not clear that a ", PRSO, " can be melted.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_MELT\n'..__res) end
 end
 PRE_MOVE = function()
 	local __ok, __res = pcall(function()
@@ -1420,7 +1517,8 @@ PRE_MOVE = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('PRE_MOVE\n'..__res) end
 end
 V_MOVE = function()
 	local __ok, __res = pcall(function()
@@ -1432,13 +1530,15 @@ V_MOVE = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_MOVE\n'..__res) end
 end
 V_MUMBLE = function()
 	local __ok, __res = pcall(function()
 	return   TELL("You'll have to speak up if you expect me to hear you!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_MUMBLE\n'..__res) end
 end
 PRE_MUNG = function()
 	local __ok, __res = pcall(function()
@@ -1458,7 +1558,8 @@ PRE_MUNG = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('PRE_MUNG\n'..__res) end
 end
 V_MUNG = function()
 	local __ok, __res = pcall(function()
@@ -1471,7 +1572,8 @@ V_MUNG = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_MUNG\n'..__res) end
 end
 V_ODYSSEUS = function()
 	local __ok, __res = pcall(function()
@@ -1488,13 +1590,15 @@ V_ODYSSEUS = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_ODYSSEUS\n'..__res) end
 end
 V_OIL = function()
 	local __ok, __res = pcall(function()
 	return   TELL("You probably put spinach in your gas tank, too.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_OIL\n'..__res) end
 end
 V_OPEN = function()
 	local F
@@ -1536,7 +1640,8 @@ V_OPEN = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_OPEN\n'..__res) end
 end
 V_OVERBOARD = function()
 	local LOCN
@@ -1559,13 +1664,15 @@ V_OVERBOARD = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_OVERBOARD\n'..__res) end
 end
 V_PICK = function()
 	local __ok, __res = pcall(function()
 	return   TELL("You can't pick that.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_PICK\n'..__res) end
 end
 V_PLAY = function()
 	local __ok, __res = pcall(function()
@@ -1578,13 +1685,15 @@ V_PLAY = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_PLAY\n'..__res) end
 end
 V_PLUG = function()
 	local __ok, __res = pcall(function()
 	return   TELL("This has no effect.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_PLUG\n'..__res) end
 end
 V_POUR_ON = function()
 	local __ok, __res = pcall(function()
@@ -1608,7 +1717,8 @@ V_POUR_ON = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_POUR_ON\n'..__res) end
 end
 V_PRAY = function()
 	local __ok, __res = pcall(function()
@@ -1620,7 +1730,8 @@ V_PRAY = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_PRAY\n'..__res) end
 end
 V_PUMP = function()
 	local __ok, __res = pcall(function()
@@ -1634,19 +1745,22 @@ V_PUMP = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_PUMP\n'..__res) end
 end
 V_PUSH = function()
 	local __ok, __res = pcall(function()
 	return   HACK_HACK("Pushing the ")
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_PUSH\n'..__res) end
 end
 V_PUSH_TO = function()
 	local __ok, __res = pcall(function()
 	return   TELL("You can't push things to that.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_PUSH_TO\n'..__res) end
 end
 PRE_PUT = function()
 	local __ok, __res = pcall(function()
@@ -1658,7 +1772,8 @@ PRE_PUT = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('PRE_PUT\n'..__res) end
 end
 V_PUT = function()
 	local __ok, __res = pcall(function()
@@ -1692,13 +1807,15 @@ V_PUT = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_PUT\n'..__res) end
 end
 V_PUT_BEHIND = function()
 	local __ok, __res = pcall(function()
 	return   TELL("That hiding place is too obvious.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_PUT_BEHIND\n'..__res) end
 end
 V_PUT_ON = function()
 	local __ok, __res = pcall(function()
@@ -1713,25 +1830,29 @@ V_PUT_ON = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_PUT_ON\n'..__res) end
 end
 V_PUT_UNDER = function()
 	local __ok, __res = pcall(function()
 	return   TELL("You can't do that.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_PUT_UNDER\n'..__res) end
 end
 V_RAISE = function()
 	local __ok, __res = pcall(function()
 	return   V_LOWER()
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_RAISE\n'..__res) end
 end
 V_RAPE = function()
 	local __ok, __res = pcall(function()
 	return   TELL("What a (ahem!) strange idea.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_RAPE\n'..__res) end
 end
 PRE_READ = function()
 	local __ok, __res = pcall(function()
@@ -1743,7 +1864,8 @@ PRE_READ = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('PRE_READ\n'..__res) end
 end
 V_READ = function()
 	local __ok, __res = pcall(function()
@@ -1755,20 +1877,23 @@ V_READ = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_READ\n'..__res) end
 end
 V_READ_PAGE = function()
 	local __ok, __res = pcall(function()
   PERFORM(VQREAD, PRSO)
 	error(true)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_READ_PAGE\n'..__res) end
 end
 V_REPENT = function()
 	local __ok, __res = pcall(function()
 	return   TELL("It could very well be too late!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_REPENT\n'..__res) end
 end
 V_REPLY = function()
 	local __ok, __res = pcall(function()
@@ -1777,19 +1902,22 @@ APPLY(function() P_CONT = nil return P_CONT end)
 APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
 	error(true)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_REPLY\n'..__res) end
 end
 V_RING = function()
 	local __ok, __res = pcall(function()
 	return   TELL("How, exactly, can you ring that?", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_RING\n'..__res) end
 end
 V_RUB = function()
 	local __ok, __res = pcall(function()
 	return   HACK_HACK("Fiddling with the ")
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_RUB\n'..__res) end
 end
 V_SAY = function()
 	local V
@@ -1812,13 +1940,15 @@ APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
 
 	error(true)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_SAY\n'..__res) end
 end
 V_SEARCH = function()
 	local __ok, __res = pcall(function()
 	return   TELL("You find nothing unusual.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_SEARCH\n'..__res) end
 end
 V_SEND = function()
 	local __ok, __res = pcall(function()
@@ -1830,20 +1960,23 @@ V_SEND = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_SEND\n'..__res) end
 end
 PRE_SGIVE = function()
 	local __ok, __res = pcall(function()
   PERFORM(VQGIVE, PRSI, PRSO)
 	error(true)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('PRE_SGIVE\n'..__res) end
 end
 V_SGIVE = function()
 	local __ok, __res = pcall(function()
 	return   TELL("Foo!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_SGIVE\n'..__res) end
 end
 V_SHAKE = function()
 	local __ok, __res = pcall(function()
@@ -1886,7 +2019,8 @@ V_SHAKE = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_SHAKE\n'..__res) end
 end
 SHAKE_LOOP = function()
 	local X
@@ -1909,16 +2043,19 @@ SHAKE_LOOP = function()
       return 
     end
 
+
   end end)
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('SHAKE_LOOP\n'..__res) end
 end
 V_SKIP = function()
 	local __ok, __res = pcall(function()
 	return   TELL(PICK_ONE(WHEEEEE), CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_SKIP\n'..__res) end
 end
 WHEEEEE = {0,"Very good. Now you can go to the second grade.","Are you enjoying yourself?","Wheeeeeeeeee!!!!!","Do you expect me to applaud?"}
 
@@ -1926,19 +2063,22 @@ V_SMELL = function()
 	local __ok, __res = pcall(function()
 	return   TELL("It smells like a ", PRSO, ".", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_SMELL\n'..__res) end
 end
 V_SPIN = function()
 	local __ok, __res = pcall(function()
 	return   TELL("You can't spin that!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_SPIN\n'..__res) end
 end
 V_SPRAY = function()
 	local __ok, __res = pcall(function()
 	return   V_SQUEEZE()
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_SPRAY\n'..__res) end
 end
 V_SQUEEZE = function()
 	local __ok, __res = pcall(function()
@@ -1951,13 +2091,15 @@ V_SQUEEZE = function()
 
 	return   CRLF()
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_SQUEEZE\n'..__res) end
 end
 V_SSPRAY = function()
 	local __ok, __res = pcall(function()
 	return   PERFORM(VQSPRAY, PRSI, PRSO)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_SSPRAY\n'..__res) end
 end
 V_STAB = function()
 	local W
@@ -1971,7 +2113,8 @@ V_STAB = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_STAB\n'..__res) end
 end
 V_STAND = function()
 	local __ok, __res = pcall(function()
@@ -1984,13 +2127,15 @@ V_STAND = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_STAND\n'..__res) end
 end
 V_STAY = function()
 	local __ok, __res = pcall(function()
 	return   TELL("You will be lost without me!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_STAY\n'..__res) end
 end
 V_STRIKE = function()
 	local __ok, __res = pcall(function()
@@ -2003,7 +2148,8 @@ V_STRIKE = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_STRIKE\n'..__res) end
 end
 V_SWIM = function()
 	local __ok, __res = pcall(function()
@@ -2017,7 +2163,8 @@ V_SWIM = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_SWIM\n'..__res) end
 end
 V_SWING = function()
 	local __ok, __res = pcall(function()
@@ -2029,7 +2176,8 @@ V_SWING = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_SWING\n'..__res) end
 end
 PRE_TAKE = function()
 	local __ok, __res = pcall(function()
@@ -2066,7 +2214,8 @@ PRE_TAKE = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('PRE_TAKE\n'..__res) end
 end
 V_TAKE = function()
 	local __ok, __res = pcall(function()
@@ -2082,7 +2231,8 @@ V_TAKE = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_TAKE\n'..__res) end
 end
 V_TELL = function()
 	local __ok, __res = pcall(function()
@@ -2104,7 +2254,8 @@ V_TELL = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_TELL\n'..__res) end
 end
 V_THROUGH = function(OBJ)
 	local M
@@ -2127,7 +2278,8 @@ V_THROUGH = function(OBJ)
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_THROUGH\n'..__res) end
 end
 V_THROW = function()
 	local __ok, __res = pcall(function()
@@ -2149,13 +2301,15 @@ V_THROW = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_THROW\n'..__res) end
 end
 V_THROW_OFF = function()
 	local __ok, __res = pcall(function()
 	return   TELL("You can't throw anything off of that!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_THROW_OFF\n'..__res) end
 end
 V_TIE = function()
 	local __ok, __res = pcall(function()
@@ -2167,13 +2321,15 @@ V_TIE = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_TIE\n'..__res) end
 end
 V_TIE_UP = function()
 	local __ok, __res = pcall(function()
 	return   TELL("You could certainly never tie it with that!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_TIE_UP\n'..__res) end
 end
 V_TREASURE = function()
 	local __ok, __res = pcall(function()
@@ -2187,7 +2343,8 @@ V_TREASURE = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_TREASURE\n'..__res) end
 end
 PRE_TURN = function()
 	local __ok, __res = pcall(function()
@@ -2200,25 +2357,29 @@ PRE_TURN = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('PRE_TURN\n'..__res) end
 end
 V_TURN = function()
 	local __ok, __res = pcall(function()
 	return   TELL("This has no effect.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_TURN\n'..__res) end
 end
 V_UNLOCK = function()
 	local __ok, __res = pcall(function()
 	return   V_LOCK()
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_UNLOCK\n'..__res) end
 end
 V_UNTIE = function()
 	local __ok, __res = pcall(function()
 	return   TELL("This cannot be tied, so it cannot be untied!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_UNTIE\n'..__res) end
 end
 V_WAIT = function(NUM)
   NUM = NUM or 3
@@ -2233,11 +2394,13 @@ V_WAIT = function(NUM)
       return 
     end
 
+
   end end)
 
 	return APPLY(function() CLOCK_WAIT = T return CLOCK_WAIT end)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_WAIT\n'..__res) end
 end
 V_WALK = function()
 	local PT
@@ -2311,13 +2474,15 @@ V_WALK = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_WALK\n'..__res) end
 end
 V_WALK_AROUND = function()
 	local __ok, __res = pcall(function()
 	return   TELL("Use compass directions for movement.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_WALK_AROUND\n'..__res) end
 end
 V_WALK_TO = function()
 	local __ok, __res = pcall(function()
@@ -2329,13 +2494,15 @@ V_WALK_TO = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_WALK_TO\n'..__res) end
 end
 V_WAVE = function()
 	local __ok, __res = pcall(function()
 	return   HACK_HACK("Waving the ")
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_WAVE\n'..__res) end
 end
 V_WEAR = function()
 	local __ok, __res = pcall(function()
@@ -2348,37 +2515,43 @@ V_WEAR = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_WEAR\n'..__res) end
 end
 V_WIN = function()
 	local __ok, __res = pcall(function()
 	return   TELL("Naturally!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_WIN\n'..__res) end
 end
 V_WIND = function()
 	local __ok, __res = pcall(function()
 	return   TELL("You cannot wind up a ", PRSO, ".", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_WIND\n'..__res) end
 end
 V_WISH = function()
 	local __ok, __res = pcall(function()
 	return   TELL("With luck, your wish will come true.", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_WISH\n'..__res) end
 end
 V_YELL = function()
 	local __ok, __res = pcall(function()
 	return   TELL("Aaaarrrrgggghhhh!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_YELL\n'..__res) end
 end
 V_ZORK = function()
 	local __ok, __res = pcall(function()
 	return   TELL("At your service!", CR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_ZORK\n'..__res) end
 end
 LIT = nil
 SPRAYEDQ = nil
@@ -2394,7 +2567,8 @@ V_FIRST_LOOK = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('V_FIRST_LOOK\n'..__res) end
 end
 DESCRIBE_ROOM = function(LOOKQ)
 	local VQ
@@ -2459,7 +2633,8 @@ APPLY(function() VQ = PASS(LOOKQ or VERBOSE) return VQ end)
 
 	return T
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('DESCRIBE_ROOM\n'..__res) end
 end
 DESCRIBE_OBJECTS = function(VQ)
   VQ = VQ or nil
@@ -2476,7 +2651,8 @@ DESCRIBE_OBJECTS = function(VQ)
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('DESCRIBE_OBJECTS\n'..__res) end
 end
 DESC_OBJECT = nil
 DESCRIBE_OBJECT = function(OBJ, VQ, LEVEL)
@@ -2522,7 +2698,8 @@ APPLY(function() DESC_OBJECT = OBJ return DESC_OBJECT end)
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('DESCRIBE_OBJECT\n'..__res) end
 end
 PRINT_CONTENTS = function(OBJ)
 	local F
@@ -2535,7 +2712,8 @@ PRINT_CONTENTS = function(OBJ)
   if APPLY(function() F = FIRSTQ(OBJ) return F end) then 
     
     APPLY(function() while true do
-      APPLY(function() N = NEXTQ(F) return N end)      
+      APPLY(function() N = NEXTQ(F) return N end)
+      
       if bSTQ then 
         APPLY(function() bSTQ = nil return bSTQ end)
       else 
@@ -2546,14 +2724,18 @@ PRINT_CONTENTS = function(OBJ)
         end
 
       end
-      TELL("a ", F)      
+
+      TELL("a ", F)
+      
       if PASS(NOT(ITQ) and NOT(TWOQ)) then 
         APPLY(function() ITQ = F return ITQ end)
       else 
         APPLY(function() TWOQ = T return TWOQ end)
         APPLY(function() ITQ = nil return ITQ end)
       end
-      APPLY(function() F = N return F end)      
+
+      APPLY(function() F = N return F end)
+      
       if NOT(F) then 
         
         if PASS(ITQ and NOT(TWOQ)) then 
@@ -2563,12 +2745,14 @@ PRINT_CONTENTS = function(OBJ)
         	error(true)
       end
 
+
     end end)
 
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('PRINT_CONTENTS\n'..__res) end
 end
 PRINT_CONT = function(OBJ, VQ, LEVEL)
 	local Y
@@ -2624,7 +2808,9 @@ APPLY(function() SHIT = T return SHIT end)
         end
 
       end
+
       APPLY(function() Y = NEXTQ(Y) return Y end)
+
     end end)
 
   end
@@ -2673,7 +2859,9 @@ APPLY(function() Y = FIRSTQ(OBJ) return Y end)
       end
 
     end
+
     APPLY(function() Y = NEXTQ(Y) return Y end)
+
   end end)
 
 
@@ -2684,7 +2872,8 @@ APPLY(function() Y = FIRSTQ(OBJ) return Y end)
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('PRINT_CONT\n'..__res) end
 end
 FIRSTER = function(OBJ, LEVEL)
 	local __ok, __res = pcall(function()
@@ -2711,13 +2900,15 @@ FIRSTER = function(OBJ, LEVEL)
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('FIRSTER\n'..__res) end
 end
 SEE_INSIDEQ = function(OBJ)
 	local __ok, __res = pcall(function()
 	return   PASS(NOT(FSETQ(OBJ, INVISIBLE)) and PASS(FSETQ(OBJ, TRANSBIT) or FSETQ(OBJ, OPENBIT)))
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('SEE_INSIDEQ\n'..__res) end
 end
 MOVES = 0
 SCORE = 0
@@ -2737,7 +2928,8 @@ APPLY(function() SCORE = ADD(SCORE, NUM) return SCORE end)
 
 	return T
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('SCORE_UPD\n'..__res) end
 end
 SCORE_OBJ = function(OBJ)
 	local TEMP
@@ -2749,12 +2941,13 @@ SCORE_OBJ = function(OBJ)
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('SCORE_OBJ\n'..__res) end
 end
 YESQ = function()
 	local __ok, __res = pcall(function()
   PRINTI(">")
-  READ(P_INBUF, P_LEXV)
+P_INBUF, P_LEXV = READ()
 
   if EQUALQ(GET(P_LEXV, 1), WQYES, WQY) then 
     	error(true)
@@ -2763,7 +2956,8 @@ YESQ = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('YESQ\n'..__res) end
 end
 DEAD = nil
 DEATHS = 0
@@ -2822,7 +3016,8 @@ ITAKE = function(VB)
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('ITAKE\n'..__res) end
 end
 IDROP = function()
 	local __ok, __res = pcall(function()
@@ -2839,7 +3034,8 @@ IDROP = function()
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('IDROP\n'..__res) end
 end
 CCOUNT = function(OBJ)
   local CNT = 0
@@ -2853,10 +3049,12 @@ CCOUNT = function(OBJ)
       if NOT(FSETQ(X, WEARBIT)) then 
         APPLY(function() CNT = ADD(CNT, 1) return CNT end)
       end
+
       
       if NOT(APPLY(function() X = NEXTQ(X) return X end)) then 
         return 
       end
+
 
     end end)
 
@@ -2864,7 +3062,8 @@ CCOUNT = function(OBJ)
 
 	return CNT
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('CCOUNT\n'..__res) end
 end
 WEIGHT = function(OBJ)
 	local CONT
@@ -2880,10 +3079,12 @@ WEIGHT = function(OBJ)
       elseif T then 
         APPLY(function() WT = ADD(WT, WEIGHT(CONT)) return WT end)
       end
+
       
       if NOT(APPLY(function() CONT = NEXTQ(CONT) return CONT end)) then 
         return 
       end
+
 
     end end)
 
@@ -2891,7 +3092,8 @@ WEIGHT = function(OBJ)
 
 	return   ADD(WT, GETP(OBJ, "SIZE"))
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('WEIGHT\n'..__res) end
 end
 REXIT = 0
 UEXIT = 1
@@ -2917,7 +3119,8 @@ HACK_HACK = function(STR)
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('HACK_HACK\n'..__res) end
 end
 HO_HUM = {0," doesn't seem to work."," isn't notably helpful."," has no effect."}
 
@@ -2932,7 +3135,8 @@ NO_GO_TELL = function(AV, WLOC)
 
 	return   CRLF()
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('NO_GO_TELL\n'..__res) end
 end
 GOTO = function(RM, VQ)
   local LB = FSETQ(RM, RLANDBIT)
@@ -3022,7 +3226,8 @@ APPLY(function() OHERE = HERE return OHERE end)
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('GOTO\n'..__res) end
 end
 LKP = function(ITM, TBL)
   local CNT = 0
@@ -3043,17 +3248,20 @@ LKP = function(ITM, TBL)
 
     end
 
+
   end end)
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('LKP\n'..__res) end
 end
 DO_WALK = function(DIR)
 	local __ok, __res = pcall(function()
 APPLY(function() P_WALK_DIR = DIR return P_WALK_DIR end)
 	return   PERFORM(VQWALK, DIR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('DO_WALK\n'..__res) end
 end
 GLOBAL_INQ = function(OBJ1, OBJ2)
 	local TX
@@ -3064,7 +3272,8 @@ GLOBAL_INQ = function(OBJ1, OBJ2)
   end
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('GLOBAL_INQ\n'..__res) end
 end
 FIND_IN = function(WHERE, WHAT)
 	local W
@@ -3084,26 +3293,31 @@ APPLY(function() W = FIRSTQ(WHERE) return W end)
       return nil
     end
 
+
   end end)
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('FIND_IN\n'..__res) end
 end
 HELDQ = function(CAN)
 	local __ok, __res = pcall(function()
 
   APPLY(function() while true do
-    APPLY(function() CAN = LOC(CAN) return CAN end)    
+    APPLY(function() CAN = LOC(CAN) return CAN end)
+    
     if NOT(CAN) then 
       	error(false)
     elseif EQUALQ(CAN, WINNER) then 
       	error(true)
     end
 
+
   end end)
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('HELDQ\n'..__res) end
 end
 OTHER_SIDE = function(DOBJ)
   local P = 0
@@ -3123,10 +3337,12 @@ OTHER_SIDE = function(DOBJ)
 
     end
 
+
   end end)
 
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('OTHER_SIDE\n'..__res) end
 end
 MUNG_ROOM = function(RM, STR)
 	local __ok, __res = pcall(function()
@@ -3134,13 +3350,15 @@ MUNG_ROOM = function(RM, STR)
   FSET(RM, RMUNGBIT)
 	return   PUTP(RM, "LDESC", STR)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('MUNG_ROOM\n'..__res) end
 end
 THIS_IS_IT = function(OBJ)
 	local __ok, __res = pcall(function()
 	return APPLY(function() P_IT_OBJECT = OBJ return P_IT_OBJECT end)
 	end)
-	return __res
+	if __ok or type(__res) == 'boolean' then return __res
+	else error('THIS_IS_IT\n'..__res) end
 end
 
 if   NEQUALQ(ZORK_NUMBER, 3) then 

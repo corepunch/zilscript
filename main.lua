@@ -22,6 +22,9 @@ local game = {
 	type = type,
 	string = string,
 	pcall = pcall,
+	error = error,
+	assert = assert,
+	debug = debug,
 }
 
 local function execute(string, name)
@@ -30,7 +33,7 @@ local function execute(string, name)
 	if not chunk then
 		print(err)
 	else
-		local ok, run_err = xpcall(chunk, function(e)
+		local ok, run_err = pcall(chunk, function(e)
         return debug.traceback(tostring(e), 2)
     end)
 		if not ok then
@@ -58,9 +61,6 @@ for _, f in ipairs(files) do
 	end
 	execute(result.combined, basename)
 end
-
--- for k, v in pairs(game) do print(k) end
-
 
 execute("GO()", 'main')
 
