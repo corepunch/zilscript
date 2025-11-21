@@ -13,7 +13,7 @@ WEST_HOUSE = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('WEST_HOUSE\n'..__res) end
 end
 EAST_HOUSE = function(RARG)
@@ -32,7 +32,7 @@ EAST_HOUSE = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('EAST_HOUSE\n'..__res) end
 end
 OPEN_CLOSE = function(OBJ, STROPN, STRCLS)
@@ -62,7 +62,7 @@ OPEN_CLOSE = function(OBJ, STROPN, STRCLS)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('OPEN_CLOSE\n'..__res) end
 end
 BOARD_F = function()
@@ -73,7 +73,7 @@ BOARD_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BOARD_F\n'..__res) end
 end
 TEETH_F = function()
@@ -92,7 +92,7 @@ TEETH_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('TEETH_F\n'..__res) end
 end
 GRANITE_WALL_F = function()
@@ -127,7 +127,7 @@ GRANITE_WALL_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('GRANITE_WALL_F\n'..__res) end
 end
 SONGBIRD_F = function()
@@ -144,7 +144,7 @@ SONGBIRD_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('SONGBIRD_F\n'..__res) end
 end
 WHITE_HOUSE_F = function()
@@ -156,7 +156,7 @@ WHITE_HOUSE_F = function()
       	return TELL("Why not find your brains?", CR)
     elseif VERBQ(WALK_AROUND) then 
       GO_NEXT(IN_HOUSE_AROUND)
-      -- 	return T
+      	return T
     end
 
   elseif NOT(PASS(EQUALQ(HERE, EAST_OF_HOUSE, WEST_OF_HOUSE) or EQUALQ(HERE, NORTH_OF_HOUSE, SOUTH_OF_HOUSE))) then 
@@ -177,7 +177,7 @@ WHITE_HOUSE_F = function()
     	return TELL("It's right here! Are you blind or something?", CR)
   elseif VERBQ(WALK_AROUND) then 
     GO_NEXT(HOUSE_AROUND)
-    -- 	return T
+    	return T
   elseif VERBQ(EXAMINE) then 
     	return TELL("The house is a beautiful colonial house which is painted white.\nIt is clear that the owners must have been extremely wealthy.", CR)
   elseif VERBQ(THROUGH, OPEN) then 
@@ -200,7 +200,7 @@ WHITE_HOUSE_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('WHITE_HOUSE_F\n'..__res) end
 end
 GO_NEXT = function(TBL)
@@ -210,15 +210,15 @@ GO_NEXT = function(TBL)
   if APPLY(function() VAL = LKP(HERE, TBL) return VAL end) then 
     
     if NOT(GOTO(VAL)) then 
-      -- 	return 2
+      	return 2
     elseif T then 
-      -- 	return 1
+      	return 1
     end
 
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('GO_NEXT\n'..__res) end
 end
 FOREST_F = function()
@@ -240,7 +240,7 @@ FOREST_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('FOREST_F\n'..__res) end
 end
 MOUNTAIN_RANGE_F = function()
@@ -251,7 +251,7 @@ MOUNTAIN_RANGE_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('MOUNTAIN_RANGE_F\n'..__res) end
 end
 WATER_F = function()
@@ -367,7 +367,7 @@ APPLY(function() AV = LOC(WINNER) return AV end)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('WATER_F\n'..__res) end
 end
 KITCHEN_WINDOW_FLAG = nil
@@ -400,7 +400,7 @@ KITCHEN_WINDOW_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('KITCHEN_WINDOW_F\n'..__res) end
 end
 GHOSTS_F = function()
@@ -418,7 +418,7 @@ GHOSTS_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('GHOSTS_F\n'..__res) end
 end
 CAGE_TOP = T
@@ -452,7 +452,7 @@ BASKET_F = function()
         TELL("It is now pitch black.", CR)
       end
 
-      -- 	return T
+      	return T
     end
 
   elseif PASS(EQUALQ(PRSO, LOWERED_BASKET) or EQUALQ(PRSI, LOWERED_BASKET)) then 
@@ -462,7 +462,7 @@ BASKET_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BASKET_F\n'..__res) end
 end
 BAT_F = function()
@@ -482,7 +482,7 @@ BAT_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BAT_F\n'..__res) end
 end
 FLY_ME = function()
@@ -497,13 +497,13 @@ FLY_ME = function()
 
 	return T
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('FLY_ME\n'..__res) end
 end
 FWEEP = function(N)
 	local __ok, __res = pcall(function()
 
-  local __prog16 = function()
+  local __prog43 = function()
     
     if LQ(APPLY(function() N = SUB(N, 1) return N end), 1) then 
       return 
@@ -513,14 +513,14 @@ FWEEP = function(N)
 
 
 error(123) end
-local __ok16, __res16
-repeat __ok16, __res16 = pcall(__prog16)
-until __ok16 or __res16 ~= 123
-if not __ok16 then error(__res16) end
+local __ok43, __res43
+repeat __ok43, __res43 = pcall(__prog43)
+until __ok43 or __res43 ~= 123
+if not __ok43 then error(__res43) end
 
 	return   CRLF()
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('FWEEP\n'..__res) end
 end
 BAT_DROPS = LTABLE(0,MINE_1,MINE_2,MINE_3,MINE_4,LADDER_TOP,LADDER_BOTTOM,SQUEEKY_ROOM,MINE_ENTRANCE)
@@ -538,7 +538,7 @@ BELL_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BELL_F\n'..__res) end
 end
 HOT_BELL_F = function()
@@ -567,7 +567,7 @@ HOT_BELL_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('HOT_BELL_F\n'..__res) end
 end
 BOARDED_WINDOW_FCN = function()
@@ -580,7 +580,7 @@ BOARDED_WINDOW_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BOARDED_WINDOW_FCN\n'..__res) end
 end
 NAILS_PSEUDO = function()
@@ -591,7 +591,7 @@ NAILS_PSEUDO = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('NAILS_PSEUDO\n'..__res) end
 end
 CRACK_FCN = function()
@@ -602,7 +602,7 @@ CRACK_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('CRACK_FCN\n'..__res) end
 end
 KITCHEN_FCN = function(RARG)
@@ -628,7 +628,7 @@ KITCHEN_FCN = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('KITCHEN_FCN\n'..__res) end
 end
 STONE_BARROW_FCN = function(RARG)
@@ -647,7 +647,7 @@ STONE_BARROW_FCN = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('STONE_BARROW_FCN\n'..__res) end
 end
 BARROW_DOOR_FCN = function()
@@ -658,7 +658,7 @@ BARROW_DOOR_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BARROW_DOOR_FCN\n'..__res) end
 end
 BARROW_FCN = function()
@@ -669,7 +669,7 @@ BARROW_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BARROW_FCN\n'..__res) end
 end
 TROPHY_CASE_FCN = function()
@@ -680,7 +680,7 @@ TROPHY_CASE_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('TROPHY_CASE_FCN\n'..__res) end
 end
 RUG_MOVED = nil
@@ -711,7 +711,7 @@ LIVING_ROOM_FCN = function(RARG)
     end
 
     CRLF()
-    -- 	return T
+    	return T
   elseif EQUALQ(RARG, M_END) then 
     
     if PASS(VERBQ(TAKE) or PASS(VERBQ(PUT) and EQUALQ(PRSI, TROPHY_CASE))) then 
@@ -728,7 +728,7 @@ LIVING_ROOM_FCN = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('LIVING_ROOM_FCN\n'..__res) end
 end
 TOUCH_ALL = function(OBJ)
@@ -736,7 +736,7 @@ TOUCH_ALL = function(OBJ)
 	local __ok, __res = pcall(function()
 APPLY(function() F = FIRSTQ(OBJ) return F end)
 
-  local __prog17 = function()
+  local __prog44 = function()
     
     if NOT(F) then 
       return 
@@ -752,13 +752,13 @@ APPLY(function() F = FIRSTQ(OBJ) return F end)
     APPLY(function() F = NEXTQ(F) return F end)
 
 error(123) end
-local __ok17, __res17
-repeat __ok17, __res17 = pcall(__prog17)
-until __ok17 or __res17 ~= 123
-if not __ok17 then error(__res17) end
+local __ok44, __res44
+repeat __ok44, __res44 = pcall(__prog44)
+until __ok44 or __res44 ~= 123
+if not __ok44 then error(__res44) end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('TOUCH_ALL\n'..__res) end
 end
 OTVAL_FROB = function(O)
@@ -768,10 +768,10 @@ OTVAL_FROB = function(O)
 	local __ok, __res = pcall(function()
 APPLY(function() F = FIRSTQ(O) return F end)
 
-  local __prog18 = function()
+  local __prog45 = function()
     
     if NOT(F) then 
-      return SCORE
+      error(SCORE)
     end
 
     APPLY(function() SCORE = ADD(SCORE, GETP(F, PQTVALUE)) return SCORE end)
@@ -783,13 +783,13 @@ APPLY(function() F = FIRSTQ(O) return F end)
     APPLY(function() F = NEXTQ(F) return F end)
 
 error(123) end
-local __ok18, __res18
-repeat __ok18, __res18 = pcall(__prog18)
-until __ok18 or __res18 ~= 123
-if not __ok18 then error(__res18) end
+local __ok45, __res45
+repeat __ok45, __res45 = pcall(__prog45)
+until __ok45 or __res45 ~= 123
+if not __ok45 then error(__res45) end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('OTVAL_FROB\n'..__res) end
 end
 TRAP_DOOR_FCN = function()
@@ -823,7 +823,7 @@ TRAP_DOOR_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('TRAP_DOOR_FCN\n'..__res) end
 end
 CELLAR_FCN = function(RARG)
@@ -842,7 +842,7 @@ CELLAR_FCN = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('CELLAR_FCN\n'..__res) end
 end
 CHIMNEY_F = function()
@@ -861,7 +861,7 @@ CHIMNEY_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('CHIMNEY_F\n'..__res) end
 end
 UP_CHIMNEY_FUNCTION = function()
@@ -884,7 +884,7 @@ UP_CHIMNEY_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('UP_CHIMNEY_FUNCTION\n'..__res) end
 end
 TRAP_DOOR_EXIT = function()
@@ -906,7 +906,7 @@ TRAP_DOOR_EXIT = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('TRAP_DOOR_EXIT\n'..__res) end
 end
 RUG_FCN = function()
@@ -947,7 +947,7 @@ RUG_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('RUG_FCN\n'..__res) end
 end
 AXE_F = function()
@@ -960,14 +960,14 @@ AXE_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('AXE_F\n'..__res) end
 end
 STILETTO_FUNCTION = function()
 	local __ok, __res = pcall(function()
 	return   WEAPON_FUNCTION(STILETTO, THIEF)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('STILETTO_FUNCTION\n'..__res) end
 end
 WEAPON_FUNCTION = function(W, V)
@@ -983,11 +983,11 @@ WEAPON_FUNCTION = function(W, V)
       TELL("The ", D, W, " seems white-hot. You can't hold on to it.", CR)
     end
 
-    -- 	return T
+    	return T
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('WEAPON_FUNCTION\n'..__res) end
 end
 TROLL_FCN = function(MODE)
@@ -1007,11 +1007,11 @@ TROLL_FCN = function(MODE)
       MOVE(AXE, TROLL)
       PUTP(TROLL, PQLDESC, "A nasty-looking troll, brandishing a bloody axe, blocks all passages out\nof the room.")
       PASS(INQ(TROLL, HERE) and TELL("The troll, angered and humiliated, recovers his weapon. He appears to have\nan axe to grind with you.", CR))
-      -- 	return T
+      	return T
     elseif INQ(TROLL, HERE) then 
       PUTP(TROLL, PQLDESC, "A pathetically babbling troll is here.")
       TELL("The troll, disarmed, cowers in terror, pleading for his life in\nthe guttural tongue of the trolls.", CR)
-      -- 	return T
+      	return T
     end
 
   elseif EQUALQ(MODE, F_DEAD) then 
@@ -1059,7 +1059,7 @@ TROLL_FCN = function(MODE)
     if PROB(33) then 
       FSET(TROLL, FIGHTBIT)
       APPLY(function() P_CONT = nil return P_CONT end)
-      -- 	return T
+      	return T
     end
 
   elseif NOT(MODE) then 
@@ -1119,7 +1119,7 @@ TROLL_FCN = function(MODE)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('TROLL_FCN\n'..__res) end
 end
 GRATE_REVEALED = nil
@@ -1141,7 +1141,7 @@ LEAVES_APPEAR = function()
 
 	return nil
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('LEAVES_APPEAR\n'..__res) end
 end
 LEAF_PILE = function()
@@ -1187,7 +1187,7 @@ LEAF_PILE = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('LEAF_PILE\n'..__res) end
 end
 CLEARING_FCN = function(RARG)
@@ -1214,7 +1214,7 @@ CLEARING_FCN = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('CLEARING_FCN\n'..__res) end
 end
 MAZE_11_FCN = function(RARG)
@@ -1237,7 +1237,7 @@ MAZE_11_FCN = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('MAZE_11_FCN\n'..__res) end
 end
 GRATE_FUNCTION = function()
@@ -1273,9 +1273,9 @@ GRATE_FUNCTION = function()
     if GRUNLOCK then 
       OPEN_CLOSE(GRATE, APPLY(function()
         if EQUALQ(HERE, CLEARING) then 
-          -- 	return "The grating opens."
+          	return "The grating opens."
         elseif T then 
-          -- 	return "The grating opens to reveal trees above you."
+          	return "The grating opens to reveal trees above you."
         end
  end), "The grating is closed.")
       
@@ -1308,7 +1308,7 @@ GRATE_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('GRATE_FUNCTION\n'..__res) end
 end
 MAZE_DIODES = function()
@@ -1316,17 +1316,17 @@ MAZE_DIODES = function()
   TELL("You won't be able to get back up to the tunnel you are going through\nwhen it gets to the next room.", CR, CR)
 
   if EQUALQ(HERE, MAZE_2) then 
-    -- 	return MAZE_4
+    	return MAZE_4
   elseif EQUALQ(HERE, MAZE_7) then 
-    -- 	return DEAD_END_1
+    	return DEAD_END_1
   elseif EQUALQ(HERE, MAZE_9) then 
-    -- 	return MAZE_11
+    	return MAZE_11
   elseif EQUALQ(HERE, MAZE_12) then 
-    -- 	return MAZE_5
+    	return MAZE_5
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('MAZE_DIODES\n'..__res) end
 end
 RUSTY_KNIFE_FCN = function()
@@ -1341,7 +1341,7 @@ RUSTY_KNIFE_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('RUSTY_KNIFE_FCN\n'..__res) end
 end
 KNIFE_F = function()
@@ -1353,7 +1353,7 @@ KNIFE_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('KNIFE_F\n'..__res) end
 end
 SKELETON = function()
@@ -1363,11 +1363,11 @@ SKELETON = function()
     TELL("A ghost appears in the room and is appalled at your desecration of\nthe remains of a fellow adventurer. He casts a curse on your valuables\nand banishes them to the Land of the Living Dead. The ghost leaves,\nmuttering obscenities.", CR)
     ROB(HERE, LAND_OF_LIVING_DEAD, 100)
     ROB(ADVENTURER, LAND_OF_LIVING_DEAD)
-    -- 	return T
+    	return T
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('SKELETON\n'..__res) end
 end
 TORCH_OBJECT = function()
@@ -1382,7 +1382,7 @@ TORCH_OBJECT = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('TORCH_OBJECT\n'..__res) end
 end
 MIRROR_ROOM = function(RARG)
@@ -1398,7 +1398,7 @@ MIRROR_ROOM = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('MIRROR_ROOM\n'..__res) end
 end
 MIRROR_MUNG = nil
@@ -1424,7 +1424,7 @@ MIRROR_MIRROR = function()
     APPLY(function() L1 = FIRSTQ(HERE) return L1 end)
     APPLY(function() L2 = FIRSTQ(RM2) return L2 end)
     
-    local __prog19 = function()
+    local __prog46 = function()
       
       if NOT(L1) then 
         return 
@@ -1435,13 +1435,13 @@ MIRROR_MIRROR = function()
       APPLY(function() L1 = N return L1 end)
 
 error(123) end
-local __ok19, __res19
-repeat __ok19, __res19 = pcall(__prog19)
-until __ok19 or __res19 ~= 123
-if not __ok19 then error(__res19) end
+local __ok46, __res46
+repeat __ok46, __res46 = pcall(__prog46)
+until __ok46 or __res46 ~= 123
+if not __ok46 then error(__res46) end
 
     
-    local __prog20 = function()
+    local __prog47 = function()
       
       if NOT(L2) then 
         return 
@@ -1452,10 +1452,10 @@ if not __ok19 then error(__res19) end
       APPLY(function() L2 = N return L2 end)
 
 error(123) end
-local __ok20, __res20
-repeat __ok20, __res20 = pcall(__prog20)
-until __ok20 or __res20 ~= 123
-if not __ok20 then error(__res20) end
+local __ok47, __res47
+repeat __ok47, __res47 = pcall(__prog47)
+until __ok47 or __res47 ~= 123
+if not __ok47 then error(__res47) end
 
     GOTO(RM2, nil)
     	return TELL("There is a rumble from deep within the earth and the room shakes.", CR)
@@ -1483,7 +1483,7 @@ if not __ok20 then error(__res20) end
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('MIRROR_MIRROR\n'..__res) end
 end
 TORCH_ROOM_FCN = function(RARG)
@@ -1499,7 +1499,7 @@ TORCH_ROOM_FCN = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('TORCH_ROOM_FCN\n'..__res) end
 end
 DOME_ROOM_FCN = function(RARG)
@@ -1526,7 +1526,7 @@ DOME_ROOM_FCN = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('DOME_ROOM_FCN\n'..__res) end
 end
 LLD_ROOM = function(RARG)
@@ -1588,7 +1588,7 @@ LLD_ROOM = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('LLD_ROOM\n'..__res) end
 end
 XB = nil
@@ -1598,7 +1598,7 @@ I_XB = function()
   PASS(XC or PASS(EQUALQ(HERE, ENTRANCE_TO_HADES) and TELL("The tension of this ceremony is broken, and the wraiths, amused but\nshaken at your clumsy attempt, resume their hideous jeering.", CR)))
 	return APPLY(function() XB = nil return XB end)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('I_XB\n'..__res) end
 end
 I_XC = function()
@@ -1606,7 +1606,7 @@ I_XC = function()
 APPLY(function() XC = nil return XC end)
 	return   I_XB()
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('I_XC\n'..__res) end
 end
 I_XBH = function()
@@ -1619,7 +1619,7 @@ I_XBH = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('I_XBH\n'..__res) end
 end
 GATE_FLAG = nil
@@ -1650,7 +1650,7 @@ DAM_ROOM_FCN = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('DAM_ROOM_FCN\n'..__res) end
 end
 BOLT_F = function()
@@ -1669,13 +1669,13 @@ BOLT_F = function()
           TELL("The sluice gates close and water starts to collect behind the dam.", CR)
           ENABLE(QUEUE(I_RFILL, 8))
           QUEUE(I_REMPTY, 0)
-          -- 	return T
+          	return T
         elseif T then 
           APPLY(function() GATES_OPEN = T return GATES_OPEN end)
           TELL("The sluice gates open and water pours through the dam.", CR)
           ENABLE(QUEUE(I_REMPTY, 8))
           QUEUE(I_RFILL, 0)
-          -- 	return T
+          	return T
         end
 
       elseif T then 
@@ -1693,7 +1693,7 @@ BOLT_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BOLT_F\n'..__res) end
 end
 BUBBLE_F = function()
@@ -1704,14 +1704,14 @@ BUBBLE_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BUBBLE_F\n'..__res) end
 end
 INTEGRAL_PART = function()
 	local __ok, __res = pcall(function()
 	return   TELL("It is an integral part of the control panel.", CR)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('INTEGRAL_PART\n'..__res) end
 end
 I_RFILL = function()
@@ -1742,7 +1742,7 @@ APPLY(function() LOW_TIDE = nil return LOW_TIDE end)
 
 	return T
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('I_RFILL\n'..__res) end
 end
 LOUD_RUNS = LTABLE(0,DAMP_CAVE,ROUND_ROOM,DEEP_CANYON)
@@ -1765,10 +1765,10 @@ APPLY(function() LOW_TIDE = T return LOW_TIDE end)
 
 	return T
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('I_REMPTY\n'..__res) end
 end
-DROWNINGS = LTABLE("up to your ankles.","up to your shin.","up to your knees.","up to your hips.","up to your waist.","up to your chest.","up to your neck.","over your head.","high in your lungs.")
+DROWNINGS = TABLE("up to your ankles.","up to your shin.","up to your knees.","up to your hips.","up to your waist.","up to your chest.","up to your neck.","over your head.","high in your lungs.")
 WATER_LEVEL = 0
 BUTTON_F = function()
 	local __ok, __res = pcall(function()
@@ -1784,7 +1784,7 @@ BUTTON_F = function()
         TELL("There is a rumbling sound and a stream of water appears to burst\nfrom the east wall of the room (apparently, a leak has occurred in a\npipe).", CR)
         APPLY(function() WATER_LEVEL = 1 return WATER_LEVEL end)
         ENABLE(QUEUE(I_MAINT_ROOM, -1))
-        -- 	return T
+        	return T
       elseif T then 
         	return TELL("The blue button appears to be jammed.", CR)
       end
@@ -1813,7 +1813,7 @@ BUTTON_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BUTTON_F\n'..__res) end
 end
 TOOL_CHEST_FCN = function()
@@ -1829,7 +1829,7 @@ TOOL_CHEST_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('TOOL_CHEST_FCN\n'..__res) end
 end
 I_MAINT_ROOM = function()
@@ -1859,7 +1859,7 @@ APPLY(function() WATER_LEVEL = ADD(1, WATER_LEVEL) return WATER_LEVEL end)
 
 	error(true)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('I_MAINT_ROOM\n'..__res) end
 end
 LEAK_FUNCTION = function()
@@ -1882,7 +1882,7 @@ LEAK_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('LEAK_FUNCTION\n'..__res) end
 end
 FIX_MAINT_LEAK = function()
@@ -1891,7 +1891,7 @@ APPLY(function() WATER_LEVEL = -1 return WATER_LEVEL end)
   QUEUE(I_MAINT_ROOM, 0)
 	return   TELL("By some miracle of Zorkian technology, you have managed to stop the\nleak in the dam.", CR)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('FIX_MAINT_LEAK\n'..__res) end
 end
 PUTTY_FCN = function()
@@ -1902,7 +1902,7 @@ PUTTY_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('PUTTY_FCN\n'..__res) end
 end
 TUBE_FUNCTION = function()
@@ -1924,7 +1924,7 @@ TUBE_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('TUBE_FUNCTION\n'..__res) end
 end
 DAM_FUNCTION = function()
@@ -1943,14 +1943,14 @@ DAM_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('DAM_FUNCTION\n'..__res) end
 end
 WITH_TELL = function(OBJ)
 	local __ok, __res = pcall(function()
 	return   TELL("With a ", D, OBJ, "?", CR)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('WITH_TELL\n'..__res) end
 end
 RESERVOIR_SOUTH_FCN = function(RARG)
@@ -1973,7 +1973,7 @@ RESERVOIR_SOUTH_FCN = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('RESERVOIR_SOUTH_FCN\n'..__res) end
 end
 RESERVOIR_FCN = function(RARG)
@@ -1993,7 +1993,7 @@ RESERVOIR_FCN = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('RESERVOIR_FCN\n'..__res) end
 end
 RESERVOIR_NORTH_FCN = function(RARG)
@@ -2016,7 +2016,7 @@ RESERVOIR_NORTH_FCN = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('RESERVOIR_NORTH_FCN\n'..__res) end
 end
 BOTTLE_FUNCTION = function()
@@ -2043,13 +2043,13 @@ BOTTLE_FUNCTION = function()
   if PASS(EQ and INQ(WATER, PRSO)) then 
     TELL("The water spills to the floor and evaporates.", CR)
     REMOVE_CAREFULLY(WATER)
-    -- 	return T
+    	return T
   elseif EQ then 
     	error(true)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BOTTLE_FUNCTION\n'..__res) end
 end
 CYCLOWRATH = 0
@@ -2143,7 +2143,7 @@ APPLY(function() COUNT = CYCLOWRATH return COUNT end)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('CYCLOPS_FCN\n'..__res) end
 end
 I_CYCLOPS = function()
@@ -2176,7 +2176,7 @@ I_CYCLOPS = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('I_CYCLOPS\n'..__res) end
 end
 CYCLOPS_ROOM_FCN = function(RARG)
@@ -2202,10 +2202,10 @@ CYCLOPS_ROOM_FCN = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('CYCLOPS_ROOM_FCN\n'..__res) end
 end
-CYCLOMAD = LTABLE("The cyclops seems somewhat agitated.","The cyclops appears to be getting more agitated.","The cyclops is moving about the room, looking for something.","The cyclops was looking for salt and pepper. No doubt they are\ncondiments for his upcoming snack.","The cyclops is moving toward you in an unfriendly manner.","You have two choices: 1. Leave  2. Become dinner.")
+CYCLOMAD = TABLE("The cyclops seems somewhat agitated.","The cyclops appears to be getting more agitated.","The cyclops is moving about the room, looking for something.","The cyclops was looking for salt and pepper. No doubt they are\ncondiments for his upcoming snack.","The cyclops is moving toward you in an unfriendly manner.","You have two choices: 1. Leave  2. Become dinner.")
 LOUD_FLAG = nil
 LOUD_ROOM_FCN = function(RARG)
 	local WRD
@@ -2240,7 +2240,7 @@ LOUD_ROOM_FCN = function(RARG)
       end
 
       
-      local __prog21 = function()
+      local __prog48 = function()
         
         if NOT(SUPER_BRIEF) then 
           CRLF()
@@ -2270,11 +2270,11 @@ LOUD_ROOM_FCN = function(RARG)
         elseif EQUALQ(WRD, WQQ, WQQUIT) then 
           V_QUIT()
         elseif EQUALQ(WRD, WQW, WQWEST) then 
-          return GOTO(ROUND_ROOM)
+          error(GOTO(ROUND_ROOM))
         elseif EQUALQ(WRD, WQE, WQEAST) then 
-          return GOTO(DAMP_CAVE)
+          error(GOTO(DAMP_CAVE))
         elseif EQUALQ(WRD, WQU, WQUP) then 
-          return GOTO(DEEP_CANYON)
+          error(GOTO(DEEP_CANYON))
         elseif EQUALQ(WRD, WQBUG) then 
           TELL("That's only your opinion.", CR)
         elseif EQUALQ(WRD, WQECHO) then 
@@ -2293,17 +2293,17 @@ LOUD_ROOM_FCN = function(RARG)
 
 
 error(123) end
-local __ok21, __res21
-repeat __ok21, __res21 = pcall(__prog21)
-until __ok21 or __res21 ~= 123
-if not __ok21 then error(__res21) end
+local __ok48, __res48
+repeat __ok48, __res48 = pcall(__prog48)
+until __ok48 or __res48 ~= 123
+if not __ok48 then error(__res48) end
 
     end
 
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('LOUD_ROOM_FCN\n'..__res) end
 end
 DEEP_CANYON_F = function(RARG)
@@ -2325,7 +2325,7 @@ DEEP_CANYON_F = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('DEEP_CANYON_F\n'..__res) end
 end
 EGG_SOLVE = nil
@@ -2336,6 +2336,7 @@ THIEF_VS_ADVENTURER = function(HEREQ)
 	local __ok, __res = pcall(function()
 
   if PASS(NOT(DEAD) and EQUALQ(HERE, TREASURE_ROOM)) then 
+    PASS(NOT(DEAD) and EQUALQ(HERE, TREASURE_ROOM))
   elseif NOT(THIEF_HERE) then 
     
     if PASS(NOT(DEAD) and NOT(HEREQ) and PROB(30)) then 
@@ -2450,7 +2451,7 @@ THIEF_VS_ADVENTURER = function(HEREQ)
 
 	error(false)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('THIEF_VS_ADVENTURER\n'..__res) end
 end
 STOLE_LIGHTQ = function()
@@ -2465,7 +2466,7 @@ APPLY(function() LIT = LITQ(HERE) return LIT end)
 
 	error(true)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('STOLE_LIGHTQ\n'..__res) end
 end
 HACK_TREASURES = function()
@@ -2475,7 +2476,7 @@ HACK_TREASURES = function()
   FSET(THIEF, INVISIBLE)
 APPLY(function() X = FIRSTQ(TREASURE_ROOM) return X end)
 
-  local __prog22 = function()
+  local __prog49 = function()
     
     if NOT(X) then 
       return 
@@ -2486,13 +2487,13 @@ APPLY(function() X = FIRSTQ(TREASURE_ROOM) return X end)
     APPLY(function() X = NEXTQ(X) return X end)
 
 error(123) end
-local __ok22, __res22
-repeat __ok22, __res22 = pcall(__prog22)
-until __ok22 or __res22 ~= 123
-if not __ok22 then error(__res22) end
+local __ok49, __res49
+repeat __ok49, __res49 = pcall(__prog49)
+until __ok49 or __res49 ~= 123
+if not __ok49 then error(__res49) end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('HACK_TREASURES\n'..__res) end
 end
 DEPOSIT_BOOTY = function(RM)
@@ -2502,15 +2503,16 @@ DEPOSIT_BOOTY = function(RM)
 	local __ok, __res = pcall(function()
 APPLY(function() X = FIRSTQ(THIEF) return X end)
 
-  local __prog23 = function()
+  local __prog50 = function()
     
     if NOT(X) then 
-      return FLG
+      error(FLG)
     end
 
     APPLY(function() N = NEXTQ(X) return N end)
     
     if EQUALQ(X, STILETTO, LARGE_BAG) then 
+      EQUALQ(X, STILETTO, LARGE_BAG)
     elseif GQ(GETP(X, PQTVALUE), 0) then 
       MOVE(X, RM)
       APPLY(function() FLG = T return FLG end)
@@ -2525,13 +2527,13 @@ APPLY(function() X = FIRSTQ(THIEF) return X end)
     APPLY(function() X = N return X end)
 
 error(123) end
-local __ok23, __res23
-repeat __ok23, __res23 = pcall(__prog23)
-until __ok23 or __res23 ~= 123
-if not __ok23 then error(__res23) end
+local __ok50, __res50
+repeat __ok50, __res50 = pcall(__prog50)
+until __ok50 or __res50 ~= 123
+if not __ok50 then error(__res50) end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('DEPOSIT_BOOTY\n'..__res) end
 end
 ROB_MAZE = function(RM)
@@ -2540,7 +2542,7 @@ ROB_MAZE = function(RM)
 	local __ok, __res = pcall(function()
 APPLY(function() X = FIRSTQ(RM) return X end)
 
-  local __prog24 = function()
+  local __prog51 = function()
     
     if NOT(X) then 
       	error(false)
@@ -2563,13 +2565,13 @@ APPLY(function() X = FIRSTQ(RM) return X end)
     APPLY(function() X = N return X end)
 
 error(123) end
-local __ok24, __res24
-repeat __ok24, __res24 = pcall(__prog24)
-until __ok24 or __res24 ~= 123
-if not __ok24 then error(__res24) end
+local __ok51, __res51
+repeat __ok51, __res51 = pcall(__prog51)
+until __ok51 or __res51 ~= 123
+if not __ok51 then error(__res51) end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('ROB_MAZE\n'..__res) end
 end
 THIEF_ENGROSSED = nil
@@ -2659,7 +2661,7 @@ ROBBER_FUNCTION = function(MODE)
         TELL("The robber, somewhat surprised at this turn of events, nimbly\nretrieves his stiletto.", CR)
       end
 
-      -- 	return T
+      	return T
     end
 
   elseif EQUALQ(MODE, F_DEAD) then 
@@ -2670,7 +2672,7 @@ ROBBER_FUNCTION = function(MODE)
     if EQUALQ(HERE, TREASURE_ROOM) then 
       APPLY(function() X = FIRSTQ(HERE) return X end)
       
-      local __prog25 = function()
+      local __prog52 = function()
         
         if NOT(X) then 
           TELL("The chalice is now safe to take.", CR)
@@ -2696,10 +2698,10 @@ ROBBER_FUNCTION = function(MODE)
         APPLY(function() X = NEXTQ(X) return X end)
 
 error(123) end
-local __ok25, __res25
-repeat __ok25, __res25 = pcall(__prog25)
-until __ok25 or __res25 ~= 123
-if not __ok25 then error(__res25) end
+local __ok52, __res52
+repeat __ok52, __res52 = pcall(__prog52)
+until __ok52 or __res52 ~= 123
+if not __ok52 then error(__res52) end
 
     elseif X then 
       TELL("His booty remains.", CR)
@@ -2711,7 +2713,7 @@ if not __ok25 then error(__res25) end
     if PASS(THIEF_HERE and NOT(FSETQ(THIEF, INVISIBLE)) and PROB(20)) then 
       FSET(THIEF, FIGHTBIT)
       APPLY(function() P_CONT = nil return P_CONT end)
-      -- 	return T
+      	return T
     end
 
   elseif EQUALQ(MODE, F_UNCONSCIOUS) then 
@@ -2733,7 +2735,7 @@ if not __ok25 then error(__res25) end
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('ROBBER_FUNCTION\n'..__res) end
 end
 ROBBER_C_DESC = "There is a suspicious-looking individual, holding a bag, leaning\nagainst one wall. He is armed with a vicious-looking stiletto."
@@ -2758,7 +2760,7 @@ LARGE_BAG_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('LARGE_BAG_F\n'..__res) end
 end
 MOVE_ALL = function(FROM, TO)
@@ -2768,7 +2770,7 @@ MOVE_ALL = function(FROM, TO)
 
   if APPLY(function() X = FIRSTQ(FROM) return X end) then 
     
-    local __prog26 = function()
+    local __prog53 = function()
       
       if NOT(X) then 
         return 
@@ -2780,15 +2782,15 @@ MOVE_ALL = function(FROM, TO)
       APPLY(function() X = N return X end)
 
 error(123) end
-local __ok26, __res26
-repeat __ok26, __res26 = pcall(__prog26)
-until __ok26 or __res26 ~= 123
-if not __ok26 then error(__res26) end
+local __ok53, __res53
+repeat __ok53, __res53 = pcall(__prog53)
+until __ok53 or __res53 ~= 123
+if not __ok53 then error(__res53) end
 
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('MOVE_ALL\n'..__res) end
 end
 CHALICE_FCN = function()
@@ -2807,7 +2809,7 @@ CHALICE_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('CHALICE_FCN\n'..__res) end
 end
 TREASURE_ROOM_FCN = function(RARG)
@@ -2826,7 +2828,7 @@ TREASURE_ROOM_FCN = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('TREASURE_ROOM_FCN\n'..__res) end
 end
 THIEF_IN_TREASURE = function()
@@ -2839,7 +2841,7 @@ APPLY(function() F = FIRSTQ(HERE) return F end)
   end
 
 
-  local __prog27 = function()
+  local __prog54 = function()
     
     if NOT(F) then 
       return 
@@ -2850,13 +2852,13 @@ APPLY(function() F = FIRSTQ(HERE) return F end)
     APPLY(function() F = NEXTQ(F) return F end)
 
 error(123) end
-local __ok27, __res27
-repeat __ok27, __res27 = pcall(__prog27)
-until __ok27 or __res27 ~= 123
-if not __ok27 then error(__res27) end
+local __ok54, __res54
+repeat __ok54, __res54 = pcall(__prog54)
+until __ok54 or __res54 ~= 123
+if not __ok54 then error(__res54) end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('THIEF_IN_TREASURE\n'..__res) end
 end
 FRONT_DOOR_FCN = function()
@@ -2875,13 +2877,14 @@ FRONT_DOOR_FCN = function()
     if EQUALQ(HERE, LIVING_ROOM) then 
       TELL("The engravings translate to \"This space intentionally left blank.\"")
     elseif TELL("There is no writing on this side.") then 
+      TELL("There is no writing on this side.")
     end
 
     	return CRLF()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('FRONT_DOOR_FCN\n'..__res) end
 end
 BODY_FUNCTION = function()
@@ -2894,7 +2897,7 @@ BODY_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BODY_FUNCTION\n'..__res) end
 end
 BLACK_BOOK = function()
@@ -2912,7 +2915,7 @@ BLACK_BOOK = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BLACK_BOOK\n'..__res) end
 end
 PAINTING_FCN = function()
@@ -2925,10 +2928,10 @@ PAINTING_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('PAINTING_FCN\n'..__res) end
 end
-LAMP_TABLE = LTABLE(100,"The lamp appears a bit dimmer.",70,"The lamp is definitely dimmer now.",15,"The lamp is nearly out.",0)
+LAMP_TABLE = TABLE(100,"The lamp appears a bit dimmer.",70,"The lamp is definitely dimmer now.",15,"The lamp is nearly out.",0)
 LANTERN = function()
 	local __ok, __res = pcall(function()
 
@@ -2970,7 +2973,7 @@ LANTERN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('LANTERN\n'..__res) end
 end
 MAILBOX_F = function()
@@ -2981,7 +2984,7 @@ MAILBOX_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('MAILBOX_F\n'..__res) end
 end
 MATCH_COUNT = 6
@@ -3057,7 +3060,7 @@ MATCH_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('MATCH_FUNCTION\n'..__res) end
 end
 I_MATCH = function()
@@ -3068,7 +3071,7 @@ I_MATCH = function()
 APPLY(function() LIT = LITQ(HERE) return LIT end)
 	error(true)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('I_MATCH\n'..__res) end
 end
 I_LANTERN = function()
@@ -3083,7 +3086,7 @@ I_LANTERN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('I_LANTERN\n'..__res) end
 end
 I_CANDLES = function()
@@ -3099,7 +3102,7 @@ I_CANDLES = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('I_CANDLES\n'..__res) end
 end
 LIGHT_INT = function(OBJ, TBL, TICK)
@@ -3122,20 +3125,20 @@ LIGHT_INT = function(OBJ, TBL, TICK)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('LIGHT_INT\n'..__res) end
 end
 MIN = function(N1, N2)
 	local __ok, __res = pcall(function()
 
   if LQ(N1, N2) then 
-    -- 	return N1
+    	return N1
   elseif T then 
-    -- 	return N2
+    	return N2
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('MIN\n'..__res) end
 end
 CANDLES_FCN = function()
@@ -3227,10 +3230,10 @@ CANDLES_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('CANDLES_FCN\n'..__res) end
 end
-CANDLE_TABLE = LTABLE(20,"The candles grow shorter.",10,"The candles are becoming quite short.",5,"The candles won't last long now.",0)
+CANDLE_TABLE = TABLE(20,"The candles grow shorter.",10,"The candles are becoming quite short.",5,"The candles won't last long now.",0)
 CAVE2_ROOM = function(RARG)
 	local __ok, __res = pcall(function()
 
@@ -3250,7 +3253,7 @@ CAVE2_ROOM = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('CAVE2_ROOM\n'..__res) end
 end
 SWORD_FCN = function()
@@ -3271,7 +3274,7 @@ SWORD_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('SWORD_FCN\n'..__res) end
 end
 BOOM_ROOM = function(RARG)
@@ -3299,7 +3302,7 @@ BOOM_ROOM = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BOOM_ROOM\n'..__res) end
 end
 BAT_D = function()
@@ -3312,7 +3315,7 @@ BAT_D = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BAT_D\n'..__res) end
 end
 BATS_ROOM = function(RARG)
@@ -3331,7 +3334,7 @@ BATS_ROOM = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BATS_ROOM\n'..__res) end
 end
 MACHINE_ROOM_FCN = function(RARG)
@@ -3350,7 +3353,7 @@ MACHINE_ROOM_FCN = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('MACHINE_ROOM_FCN\n'..__res) end
 end
 MACHINE_F = function()
@@ -3377,7 +3380,7 @@ MACHINE_F = function()
     if FSETQ(MACHINE, OPENBIT) then 
       TELL("The lid closes.", CR)
       FCLEAR(MACHINE, OPENBIT)
-      -- 	return T
+      	return T
     elseif T then 
       	return TELL(PICK_ONE(DUMMY), CR)
     end
@@ -3394,7 +3397,7 @@ MACHINE_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('MACHINE_F\n'..__res) end
 end
 MSWITCH_FUNCTION = function()
@@ -3415,7 +3418,7 @@ MSWITCH_FUNCTION = function()
           	return MOVE(DIAMOND, MACHINE)
         elseif T then 
           
-          local __prog28 = function()
+          local __prog55 = function()
             
             if APPLY(function() O = FIRSTQ(MACHINE) return O end) then 
               REMOVE_CAREFULLY(O)
@@ -3425,10 +3428,10 @@ MSWITCH_FUNCTION = function()
 
 
 error(123) end
-local __ok28, __res28
-repeat __ok28, __res28 = pcall(__prog28)
-until __ok28 or __res28 ~= 123
-if not __ok28 then error(__res28) end
+local __ok55, __res55
+repeat __ok55, __res55 = pcall(__prog55)
+until __ok55 or __res55 ~= 123
+if not __ok55 then error(__res55) end
 
           	return MOVE(GUNK, MACHINE)
         end
@@ -3442,7 +3445,7 @@ if not __ok28 then error(__res28) end
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('MSWITCH_FUNCTION\n'..__res) end
 end
 GUNK_FUNCTION = function()
@@ -3450,7 +3453,7 @@ GUNK_FUNCTION = function()
   REMOVE_CAREFULLY(GUNK)
 	return   TELL("The slag was rather insubstantial, and crumbles into dust at your touch.", CR)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('GUNK_FUNCTION\n'..__res) end
 end
 NO_OBJS = function(RARG)
@@ -3461,7 +3464,7 @@ NO_OBJS = function(RARG)
     APPLY(function() F = FIRSTQ(WINNER) return F end)
     APPLY(function() EMPTY_HANDED = T return EMPTY_HANDED end)
     
-    local __prog29 = function()
+    local __prog56 = function()
       
       if NOT(F) then 
         return 
@@ -3473,10 +3476,10 @@ NO_OBJS = function(RARG)
       APPLY(function() F = NEXTQ(F) return F end)
 
 error(123) end
-local __ok29, __res29
-repeat __ok29, __res29 = pcall(__prog29)
-until __ok29 or __res29 ~= 123
-if not __ok29 then error(__res29) end
+local __ok56, __res56
+repeat __ok56, __res56 = pcall(__prog56)
+until __ok56 or __res56 ~= 123
+if not __ok56 then error(__res56) end
 
     
     if PASS(EQUALQ(HERE, LOWER_SHAFT) and LIT) then 
@@ -3488,7 +3491,7 @@ if not __ok29 then error(__res29) end
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('NO_OBJS\n'..__res) end
 end
 SOUTH_TEMPLE_FCN = function(RARG)
@@ -3500,7 +3503,7 @@ SOUTH_TEMPLE_FCN = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('SOUTH_TEMPLE_FCN\n'..__res) end
 end
 LIGHT_SHAFT = 13
@@ -3518,7 +3521,7 @@ WHITE_CLIFFS_FUNCTION = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('WHITE_CLIFFS_FUNCTION\n'..__res) end
 end
 SCEPTRE_FUNCTION = function()
@@ -3554,7 +3557,7 @@ SCEPTRE_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('SCEPTRE_FUNCTION\n'..__res) end
 end
 FALLS_ROOM = function(RARG)
@@ -3573,7 +3576,7 @@ FALLS_ROOM = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('FALLS_ROOM\n'..__res) end
 end
 RAINBOW_FCN = function()
@@ -3606,7 +3609,7 @@ RAINBOW_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('RAINBOW_FCN\n'..__res) end
 end
 DBOAT_FUNCTION = function()
@@ -3627,7 +3630,7 @@ DBOAT_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('DBOAT_FUNCTION\n'..__res) end
 end
 FIX_BOAT = function()
@@ -3636,7 +3639,7 @@ FIX_BOAT = function()
   MOVE(INFLATABLE_BOAT, LOC(PUNCTURED_BOAT))
 	return   REMOVE_CAREFULLY(PUNCTURED_BOAT)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('FIX_BOAT\n'..__res) end
 end
 RIVER_FUNCTION = function()
@@ -3665,7 +3668,7 @@ RIVER_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('RIVER_FUNCTION\n'..__res) end
 end
 RIVER_SPEEDS = LTABLE(RIVER_1,4,RIVER_2,4,RIVER_3,3,RIVER_4,2,RIVER_5,1)
@@ -3686,7 +3689,7 @@ I_RIVER = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('I_RIVER\n'..__res) end
 end
 RBOAT_FUNCTION = function(RARG)
@@ -3773,7 +3776,7 @@ RBOAT_FUNCTION = function(RARG)
       REMOVE_CAREFULLY(INFLATED_BOAT)
       MOVE(PUNCTURED_BOAT, HERE)
       THIS_IS_IT(PUNCTURED_BOAT)
-      -- 	return T
+      	return T
     end
 
   elseif VERBQ(INFLATE, FILL) then 
@@ -3795,14 +3798,14 @@ RBOAT_FUNCTION = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('RBOAT_FUNCTION\n'..__res) end
 end
 BREATHE = function()
 	local __ok, __res = pcall(function()
 	return   PERFORM(VQINFLATE, PRSO, LUNGS)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BREATHE\n'..__res) end
 end
 IBOAT_FUNCTION = function()
@@ -3832,7 +3835,7 @@ IBOAT_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('IBOAT_FUNCTION\n'..__res) end
 end
 BUOY_FLAG = T
@@ -3849,7 +3852,7 @@ RIVR4_ROOM = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('RIVR4_ROOM\n'..__res) end
 end
 BEACH_DIG = -1
@@ -3878,10 +3881,10 @@ SAND_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('SAND_FUNCTION\n'..__res) end
 end
-BDIGS = LTABLE("You seem to be digging a hole here.","The hole is getting deeper, but that's about it.","You are surrounded by a wall of sand on all sides.")
+BDIGS = TABLE("You seem to be digging a hole here.","The hole is getting deeper, but that's about it.","You are surrounded by a wall of sand on all sides.")
 TREE_ROOM = function(RARG)
 	local F
 	local __ok, __res = pcall(function()
@@ -3928,7 +3931,7 @@ TREE_ROOM = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('TREE_ROOM\n'..__res) end
 end
 EGG_OBJECT = function()
@@ -3969,7 +3972,7 @@ EGG_OBJECT = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('EGG_OBJECT\n'..__res) end
 end
 BAD_EGG = function()
@@ -3985,7 +3988,7 @@ BAD_EGG = function()
   REMOVE_CAREFULLY(EGG)
 	error(true)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BAD_EGG\n'..__res) end
 end
 SING_SONG = nil
@@ -4001,9 +4004,9 @@ CANARY_OBJECT = function()
         APPLY(function() SING_SONG = T return SING_SONG end)
         	return MOVE(BAUBLE, APPLY(function()
           if EQUALQ(HERE, UP_A_TREE) then 
-            -- 	return PATH
+            	return PATH
           elseif T then 
-            -- 	return HERE
+            	return HERE
           end
  end))
       elseif T then 
@@ -4017,14 +4020,14 @@ CANARY_OBJECT = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('CANARY_OBJECT\n'..__res) end
 end
 FOREST_ROOMQ = function()
 	local __ok, __res = pcall(function()
 	return   PASS(EQUALQ(HERE, FOREST_1, FOREST_2, FOREST_3) or EQUALQ(HERE, PATH, UP_A_TREE))
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('FOREST_ROOMQ\n'..__res) end
 end
 I_FOREST_ROOM = function()
@@ -4038,7 +4041,7 @@ I_FOREST_ROOM = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('I_FOREST_ROOM\n'..__res) end
 end
 FOREST_ROOM = function(RARG)
@@ -4055,7 +4058,7 @@ FOREST_ROOM = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('FOREST_ROOM\n'..__res) end
 end
 WCLIF_OBJECT = function()
@@ -4066,7 +4069,7 @@ WCLIF_OBJECT = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('WCLIF_OBJECT\n'..__res) end
 end
 CLIFF_OBJECT = function()
@@ -4084,7 +4087,7 @@ CLIFF_OBJECT = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('CLIFF_OBJECT\n'..__res) end
 end
 ROPE_FUNCTION = function()
@@ -4114,7 +4117,7 @@ ROPE_FUNCTION = function()
           MOVE(ROPE, HERE)
         end
 
-        -- 	return T
+        	return T
       end
 
     end
@@ -4158,7 +4161,7 @@ ROPE_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('ROPE_FUNCTION\n'..__res) end
 end
 UNTIE_FROM = function()
@@ -4171,7 +4174,7 @@ UNTIE_FROM = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('UNTIE_FROM\n'..__res) end
 end
 SLIDE_FUNCTION = function()
@@ -4192,7 +4195,7 @@ SLIDE_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('SLIDE_FUNCTION\n'..__res) end
 end
 SLIDER = function(OBJ)
@@ -4212,7 +4215,7 @@ SLIDER = function(OBJ)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('SLIDER\n'..__res) end
 end
 SANDWICH_BAG_FCN = function()
@@ -4223,7 +4226,7 @@ SANDWICH_BAG_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('SANDWICH_BAG_FCN\n'..__res) end
 end
 DEAD_FUNCTION = function(FOO)
@@ -4296,7 +4299,7 @@ DEAD_FUNCTION = function(FOO)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('DEAD_FUNCTION\n'..__res) end
 end
 LAKE_PSEUDO = function()
@@ -4311,7 +4314,7 @@ LAKE_PSEUDO = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('LAKE_PSEUDO\n'..__res) end
 end
 STREAM_PSEUDO = function()
@@ -4324,7 +4327,7 @@ STREAM_PSEUDO = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('STREAM_PSEUDO\n'..__res) end
 end
 CHASM_PSEUDO = function()
@@ -4340,7 +4343,7 @@ CHASM_PSEUDO = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('CHASM_PSEUDO\n'..__res) end
 end
 DOME_PSEUDO = function()
@@ -4351,7 +4354,7 @@ DOME_PSEUDO = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('DOME_PSEUDO\n'..__res) end
 end
 GATE_PSEUDO = function()
@@ -4365,7 +4368,7 @@ GATE_PSEUDO = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('GATE_PSEUDO\n'..__res) end
 end
 DOOR_PSEUDO = function()
@@ -4378,7 +4381,7 @@ DOOR_PSEUDO = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('DOOR_PSEUDO\n'..__res) end
 end
 PAINT_PSEUDO = function()
@@ -4389,7 +4392,7 @@ PAINT_PSEUDO = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('PAINT_PSEUDO\n'..__res) end
 end
 GAS_PSEUDO = function()
@@ -4402,7 +4405,7 @@ GAS_PSEUDO = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('GAS_PSEUDO\n'..__res) end
 end
 F_BUSYQ = 1
@@ -4419,15 +4422,15 @@ STAGGER = 6
 LOSE_WEAPON = 7
 HESITATE = 8
 SITTING_DUCK = 9
-DEF1 = LTABLE(MISSED,MISSED,MISSED,MISSED,STAGGER,STAGGER,UNCONSCIOUS,UNCONSCIOUS,KILLED,KILLED,KILLED,KILLED,KILLED)
-DEF2A = LTABLE(MISSED,MISSED,MISSED,MISSED,MISSED,STAGGER,STAGGER,LIGHT_WOUND,LIGHT_WOUND,UNCONSCIOUS)
-DEF2B = LTABLE(MISSED,MISSED,MISSED,STAGGER,STAGGER,LIGHT_WOUND,LIGHT_WOUND,LIGHT_WOUND,UNCONSCIOUS,KILLED,KILLED,KILLED)
-DEF3A = LTABLE(MISSED,MISSED,MISSED,MISSED,MISSED,STAGGER,STAGGER,LIGHT_WOUND,LIGHT_WOUND,SERIOUS_WOUND,SERIOUS_WOUND)
-DEF3B = LTABLE(MISSED,MISSED,MISSED,STAGGER,STAGGER,LIGHT_WOUND,LIGHT_WOUND,LIGHT_WOUND,SERIOUS_WOUND,SERIOUS_WOUND,SERIOUS_WOUND)
-DEF3C = LTABLE(MISSED,STAGGER,STAGGER,LIGHT_WOUND,LIGHT_WOUND,LIGHT_WOUND,LIGHT_WOUND,SERIOUS_WOUND,SERIOUS_WOUND,SERIOUS_WOUND)
-DEF1_RES = LTABLE(DEF1,0,0)
-DEF2_RES = LTABLE(DEF2A,DEF2B,0,0)
-DEF3_RES = LTABLE(DEF3A,0,DEF3B,0,DEF3C)
+DEF1 = TABLE(MISSED,MISSED,MISSED,MISSED,STAGGER,STAGGER,UNCONSCIOUS,UNCONSCIOUS,KILLED,KILLED,KILLED,KILLED,KILLED)
+DEF2A = TABLE(MISSED,MISSED,MISSED,MISSED,MISSED,STAGGER,STAGGER,LIGHT_WOUND,LIGHT_WOUND,UNCONSCIOUS)
+DEF2B = TABLE(MISSED,MISSED,MISSED,STAGGER,STAGGER,LIGHT_WOUND,LIGHT_WOUND,LIGHT_WOUND,UNCONSCIOUS,KILLED,KILLED,KILLED)
+DEF3A = TABLE(MISSED,MISSED,MISSED,MISSED,MISSED,STAGGER,STAGGER,LIGHT_WOUND,LIGHT_WOUND,SERIOUS_WOUND,SERIOUS_WOUND)
+DEF3B = TABLE(MISSED,MISSED,MISSED,STAGGER,STAGGER,LIGHT_WOUND,LIGHT_WOUND,LIGHT_WOUND,SERIOUS_WOUND,SERIOUS_WOUND,SERIOUS_WOUND)
+DEF3C = TABLE(MISSED,STAGGER,STAGGER,LIGHT_WOUND,LIGHT_WOUND,LIGHT_WOUND,LIGHT_WOUND,SERIOUS_WOUND,SERIOUS_WOUND,SERIOUS_WOUND)
+DEF1_RES = TABLE(DEF1,0,0)
+DEF2_RES = TABLE(DEF2A,DEF2B,0,0)
+DEF3_RES = TABLE(DEF3A,0,DEF3B,0,DEF3C)
 STRENGTH_MAX = 7
 STRENGTH_MIN = 2
 CURE_WAIT = 30
@@ -4439,22 +4442,24 @@ DO_FIGHT = function(LEN)
   local OUT = nil
 	local __ok, __res = pcall(function()
 
-  local __prog30 = function()
+  local __prog57 = function()
     APPLY(function() CNT = 0 return CNT end)
     
-    local __prog31 = function()
+    local __prog58 = function()
       APPLY(function() CNT = ADD(CNT, 1) return CNT end)
       
       if EQUALQ(CNT, LEN) then 
         APPLY(function() RES = T return RES end)
-        return T
+        error(T)
       end
 
       APPLY(function() OO = GET(VILLAINS, CNT) return OO end)
       APPLY(function() O = GET(OO, V_VILLAIN) return O end)
       
       if NOT(FSETQ(O, FIGHTBIT)) then 
+        NOT(FSETQ(O, FIGHTBIT))
       elseif APPLY(GETP(O, PQACTION), F_BUSYQ) then 
+        APPLY(GETP(O, PQACTION), F_BUSYQ)
       elseif NOT(APPLY(function() RES = VILLAIN_BLOW(OO, OUT) return RES end)) then 
         APPLY(function() RES = nil return RES end)
         return 
@@ -4464,10 +4469,10 @@ DO_FIGHT = function(LEN)
 
 
 error(123) end
-local __ok31, __res31
-repeat __ok31, __res31 = pcall(__prog31)
-until __ok31 or __res31 ~= 123
-if not __ok31 then error(__res31) end
+local __ok58, __res58
+repeat __ok58, __res58 = pcall(__prog58)
+until __ok58 or __res58 ~= 123
+if not __ok58 then error(__res58) end
 
     
     if RES then 
@@ -4489,13 +4494,13 @@ if not __ok31 then error(__res31) end
 
 
 error(123) end
-local __ok30, __res30
-repeat __ok30, __res30 = pcall(__prog30)
-until __ok30 or __res30 ~= 123
-if not __ok30 then error(__res30) end
+local __ok57, __res57
+repeat __ok57, __res57 = pcall(__prog57)
+until __ok57 or __res57 ~= 123
+if not __ok57 then error(__res57) end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('DO_FIGHT\n'..__res) end
 end
 REMARK = function(REMARK, D, W)
@@ -4504,7 +4509,7 @@ REMARK = function(REMARK, D, W)
 	local STR
 	local __ok, __res = pcall(function()
 
-  local __prog32 = function()
+  local __prog59 = function()
     
     if GQ(APPLY(function() CNT = ADD(CNT, 1) return CNT end), LEN) then 
       return 
@@ -4522,14 +4527,14 @@ REMARK = function(REMARK, D, W)
 
 
 error(123) end
-local __ok32, __res32
-repeat __ok32, __res32 = pcall(__prog32)
-until __ok32 or __res32 ~= 123
-if not __ok32 then error(__res32) end
+local __ok59, __res59
+repeat __ok59, __res59 = pcall(__prog59)
+until __ok59 or __res59 ~= 123
+if not __ok59 then error(__res59) end
 
 	return   CRLF()
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('REMARK\n'..__res) end
 end
 FIGHT_STRENGTH = function(ADJUSTQ)
@@ -4541,11 +4546,11 @@ APPLY(function() S = ADD(STRENGTH_MIN, DIV(SCORE, DIV(SCORE_MAX, SUB(STRENGTH_MA
   if ADJUSTQ then 
     	return ADD(S, GETP(WINNER, PQSTRENGTH))
   elseif T then 
-    -- 	return S
+    	return S
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('FIGHT_STRENGTH\n'..__res) end
 end
 VILLAIN_STRENGTH = function(OO)
@@ -4581,7 +4586,7 @@ APPLY(function() OD = GETP(VILLAIN, PQSTRENGTH) return OD end)
 
 	return OD
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('VILLAIN_STRENGTH\n'..__res) end
 end
 FIND_WEAPON = function(O)
@@ -4594,23 +4599,23 @@ APPLY(function() W = FIRSTQ(O) return W end)
   end
 
 
-  local __prog33 = function()
+  local __prog60 = function()
     
     if PASS(EQUALQ(W, STILETTO, AXE, SWORD) or EQUALQ(W, KNIFE, RUSTY_KNIFE)) then 
-      return W
+      error(W)
     elseif NOT(APPLY(function() W = NEXTQ(W) return W end)) then 
       	error(false)
     end
 
 
 error(123) end
-local __ok33, __res33
-repeat __ok33, __res33 = pcall(__prog33)
-until __ok33 or __res33 ~= 123
-if not __ok33 then error(__res33) end
+local __ok60, __res60
+repeat __ok60, __res60 = pcall(__prog60)
+until __ok60 or __res60 ~= 123
+if not __ok60 then error(__res60) end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('FIND_WEAPON\n'..__res) end
 end
 VILLAIN_BLOW = function(OO, OUTQ)
@@ -4687,9 +4692,9 @@ APPLY(function() DWEAPON = FIND_WEAPON(WINNER) return DWEAPON end)
     
     if PASS(EQUALQ(RES, STAGGER) and DWEAPON and PROB(25, APPLY(function()
           if HEROQ then 
-            -- 	return 10
+            	return 10
           elseif T then 
-            -- 	return 50
+            	return 50
           end
  end))) then 
       APPLY(function() RES = LOSE_WEAPON return RES end)
@@ -4700,7 +4705,9 @@ APPLY(function() DWEAPON = FIND_WEAPON(WINNER) return DWEAPON end)
 
 
   if PASS(EQUALQ(RES, MISSED) or EQUALQ(RES, HESITATE)) then 
+    PASS(EQUALQ(RES, MISSED) or EQUALQ(RES, HESITATE))
   elseif EQUALQ(RES, UNCONSCIOUS) then 
+    EQUALQ(RES, UNCONSCIOUS)
   elseif PASS(EQUALQ(RES, KILLED) or EQUALQ(RES, SITTING_DUCK)) then 
     APPLY(function() DEF = 0 return DEF end)
   elseif EQUALQ(RES, LIGHT_WOUND) then 
@@ -4740,7 +4747,7 @@ APPLY(function() DWEAPON = FIND_WEAPON(WINNER) return DWEAPON end)
 
 	return   WINNER_RESULT(DEF, RES, OD)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('VILLAIN_BLOW\n'..__res) end
 end
 HERO_BLOW = function()
@@ -4758,7 +4765,7 @@ HERO_BLOW = function()
   local LEN = GET(VILLAINS, 0)
 	local __ok, __res = pcall(function()
 
-  local __prog34 = function()
+  local __prog61 = function()
     APPLY(function() CNT = ADD(CNT, 1) return CNT end)
     
     if EQUALQ(CNT, LEN) then 
@@ -4773,10 +4780,10 @@ HERO_BLOW = function()
 
 
 error(123) end
-local __ok34, __res34
-repeat __ok34, __res34 = pcall(__prog34)
-until __ok34 or __res34 ~= 123
-if not __ok34 then error(__res34) end
+local __ok61, __res61
+repeat __ok61, __res61 = pcall(__prog61)
+until __ok61 or __res61 ~= 123
+if not __ok61 then error(__res61) end
 
   FSET(PRSO, FIGHTBIT)
 
@@ -4798,7 +4805,7 @@ APPLY(function() VILLAIN = GET(OO, V_VILLAIN) return VILLAIN end)
   if ZEROQ(APPLY(function() OD = APPLY(function() DEF = VILLAIN_STRENGTH(OO) return DEF end) return OD end)) then 
     
     if EQUALQ(PRSO, WINNER) then 
-      return JIGS_UP("Well, you really did it that time. Is suicide painless?")
+      error(JIGS_UP("Well, you really did it that time. Is suicide painless?"))
     end
 
     TELL("Attacking the ", D, VILLAIN, " is pointless.", CR)
@@ -4868,6 +4875,7 @@ APPLY(function() DWEAPON = FIND_WEAPON(VILLAIN) return DWEAPON end)
 
 
   if PASS(EQUALQ(RES, MISSED) or EQUALQ(RES, HESITATE)) then 
+    PASS(EQUALQ(RES, MISSED) or EQUALQ(RES, HESITATE))
   elseif EQUALQ(RES, UNCONSCIOUS) then 
     APPLY(function() DEF = SUB(DEF) return DEF end)
   elseif PASS(EQUALQ(RES, KILLED) or EQUALQ(RES, SITTING_DUCK)) then 
@@ -4897,14 +4905,14 @@ APPLY(function() DWEAPON = FIND_WEAPON(VILLAIN) return DWEAPON end)
 
 	return   VILLAIN_RESULT(PRSO, DEF, RES)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('HERO_BLOW\n'..__res) end
 end
 WINNER_RESULT = function(DEF, RES, OD)
 	local __ok, __res = pcall(function()
   PUTP(WINNER, PQSTRENGTH, APPLY(function()
     if ZEROQ(DEF) then 
-      -- 	return -10000
+      	return -10000
     elseif T then 
       	return SUB(DEF, OD)
     end
@@ -4920,11 +4928,11 @@ WINNER_RESULT = function(DEF, RES, OD)
     JIGS_UP("It appears that that last blow was too much for you. I'm afraid you\nare dead.")
     	return nil
   elseif T then 
-    -- 	return RES
+    	return RES
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('WINNER_RESULT\n'..__res) end
 end
 VILLAIN_RESULT = function(VILLAIN, DEF, RES)
@@ -4936,16 +4944,16 @@ VILLAIN_RESULT = function(VILLAIN, DEF, RES)
     TELL("Almost as soon as the ", D, VILLAIN, " breathes his last breath, a cloud\nof sinister black fog envelops him, and when the fog lifts, the\ncarcass has disappeared.", CR)
     REMOVE_CAREFULLY(VILLAIN)
     APPLY(GETP(VILLAIN, PQACTION), F_DEAD)
-    -- 	return RES
+    	return RES
   elseif EQUALQ(RES, UNCONSCIOUS) then 
     APPLY(GETP(VILLAIN, PQACTION), F_UNCONSCIOUS)
-    -- 	return RES
+    	return RES
   elseif T then 
-    -- 	return RES
+    	return RES
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('VILLAIN_RESULT\n'..__res) end
 end
 WINNINGQ = function(V)
@@ -4968,7 +4976,7 @@ APPLY(function() PS = SUB(VS, FIGHT_STRENGTH()) return PS end)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('WINNINGQ\n'..__res) end
 end
 I_CURE = function()
@@ -4997,21 +5005,21 @@ I_CURE = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('I_CURE\n'..__res) end
 end
 F_WEP = 0
 F_DEF = 1
-HERO_MELEE = LTABLE(LTABLE(LTABLE("Your ",F_WEP," misses the ",F_DEF," by an inch."),LTABLE("A good slash, but it misses the ",F_DEF," by a mile."),LTABLE("You charge, but the ",F_DEF," jumps nimbly aside."),LTABLE("Clang! Crash! The ",F_DEF," parries."),LTABLE("A quick stroke, but the ",F_DEF," is on guard."),LTABLE("A good stroke, but it's too slow; the ",F_DEF," dodges.")),LTABLE(LTABLE("Your ",F_WEP," crashes down, knocking the ",F_DEF," into dreamland."),LTABLE("The ",F_DEF," is battered into unconsciousness."),LTABLE("A furious exchange, and the ",F_DEF," is knocked out!"),LTABLE("The haft of your ",F_WEP," knocks out the ",F_DEF,"."),LTABLE("The ",F_DEF," is knocked out!")),LTABLE(LTABLE("It's curtains for the ",F_DEF," as your ",F_WEP," removes his head."),LTABLE("The fatal blow strikes the ",F_DEF," square in the heart: He dies."),LTABLE("The ",F_DEF," takes a fatal blow and slumps to the floor dead.")),LTABLE(LTABLE("The ",F_DEF," is struck on the arm; blood begins to trickle down."),LTABLE("Your ",F_WEP," pinks the ",F_DEF," on the wrist, but it's not serious."),LTABLE("Your stroke lands, but it was only the flat of the blade."),LTABLE("The blow lands, making a shallow gash in the ",F_DEF,"'s arm!")),LTABLE(LTABLE("The ",F_DEF," receives a deep gash in his side."),LTABLE("A savage blow on the thigh! The ",F_DEF," is stunned but can still fight!"),LTABLE("Slash! Your blow lands! That one hit an artery, it could be serious!"),LTABLE("Slash! Your stroke connects! This could be serious!")),LTABLE(LTABLE("The ",F_DEF," is staggered, and drops to his knees."),LTABLE("The ",F_DEF," is momentarily disoriented and can't fight back."),LTABLE("The force of your blow knocks the ",F_DEF," back, stunned."),LTABLE("The ",F_DEF," is confused and can't fight back."),LTABLE("The quickness of your thrust knocks the ",F_DEF," back, stunned.")),LTABLE(LTABLE("The ",F_DEF,"'s weapon is knocked to the floor, leaving him unarmed."),LTABLE("The ",F_DEF," is disarmed by a subtle feint past his guard.")))
-CYCLOPS_MELEE = LTABLE(LTABLE(LTABLE("The Cyclops misses, but the backwash almost knocks you over."),LTABLE("The Cyclops rushes you, but runs into the wall.")),LTABLE(LTABLE("The Cyclops sends you crashing to the floor, unconscious.")),LTABLE(LTABLE("The Cyclops breaks your neck with a massive smash.")),LTABLE(LTABLE("A quick punch, but it was only a glancing blow."),LTABLE("A glancing blow from the Cyclops' fist.")),LTABLE(LTABLE("The monster smashes his huge fist into your chest, breaking several\nribs."),LTABLE("The Cyclops almost knocks the wind out of you with a quick punch.")),LTABLE(LTABLE("The Cyclops lands a punch that knocks the wind out of you."),LTABLE("Heedless of your weapons, the Cyclops tosses you against the rock\nwall of the room.")),LTABLE(LTABLE("The Cyclops grabs your ",F_WEP,", tastes it, and throws it to the\nground in disgust."),LTABLE("The monster grabs you on the wrist, squeezes, and you drop your\n",F_WEP," in pain.")),LTABLE(LTABLE("The Cyclops seems unable to decide whether to broil or stew his\ndinner.")),LTABLE(LTABLE("The Cyclops, no sportsman, dispatches his unconscious victim.")))
-TROLL_MELEE = LTABLE(LTABLE(LTABLE("The troll swings his axe, but it misses."),LTABLE("The troll's axe barely misses your ear."),LTABLE("The axe sweeps past as you jump aside."),LTABLE("The axe crashes against the rock, throwing sparks!")),LTABLE(LTABLE("The flat of the troll's axe hits you delicately on the head, knocking\nyou out.")),LTABLE(LTABLE("The troll neatly removes your head."),LTABLE("The troll's axe stroke cleaves you from the nave to the chops."),LTABLE("The troll's axe removes your head.")),LTABLE(LTABLE("The axe gets you right in the side. Ouch!"),LTABLE("The flat of the troll's axe skins across your forearm."),LTABLE("The troll's swing almost knocks you over as you barely parry\nin time."),LTABLE("The troll swings his axe, and it nicks your arm as you dodge.")),LTABLE(LTABLE("The troll charges, and his axe slashes you on your ",F_WEP," arm."),LTABLE("An axe stroke makes a deep wound in your leg."),LTABLE("The troll's axe swings down, gashing your shoulder.")),LTABLE(LTABLE("The troll hits you with a glancing blow, and you are momentarily\nstunned."),LTABLE("The troll swings; the blade turns on your armor but crashes\nbroadside into your head."),LTABLE("You stagger back under a hail of axe strokes."),LTABLE("The troll's mighty blow drops you to your knees.")),LTABLE(LTABLE("The axe hits your ",F_WEP," and knocks it spinning."),LTABLE("The troll swings, you parry, but the force of his blow knocks your ",F_WEP," away."),LTABLE("The axe knocks your ",F_WEP," out of your hand. It falls to the floor.")),LTABLE(LTABLE("The troll hesitates, fingering his axe."),LTABLE("The troll scratches his head ruminatively:  Might you be magically\nprotected, he wonders?")),LTABLE(LTABLE("Conquering his fears, the troll puts you to death.")))
-THIEF_MELEE = LTABLE(LTABLE(LTABLE("The thief stabs nonchalantly with his stiletto and misses."),LTABLE("You dodge as the thief comes in low."),LTABLE("You parry a lightning thrust, and the thief salutes you with\na grim nod."),LTABLE("The thief tries to sneak past your guard, but you twist away.")),LTABLE(LTABLE("Shifting in the midst of a thrust, the thief knocks you unconscious\nwith the haft of his stiletto."),LTABLE("The thief knocks you out.")),LTABLE(LTABLE("Finishing you off, the thief inserts his blade into your heart."),LTABLE("The thief comes in from the side, feints, and inserts the blade\ninto your ribs."),LTABLE("The thief bows formally, raises his stiletto, and with a wry grin,\nends the battle and your life.")),LTABLE(LTABLE("A quick thrust pinks your left arm, and blood starts to\ntrickle down."),LTABLE("The thief draws blood, raking his stiletto across your arm."),LTABLE("The stiletto flashes faster than you can follow, and blood wells\nfrom your leg."),LTABLE("The thief slowly approaches, strikes like a snake, and leaves\nyou wounded.")),LTABLE(LTABLE("The thief strikes like a snake! The resulting wound is serious."),LTABLE("The thief stabs a deep cut in your upper arm."),LTABLE("The stiletto touches your forehead, and the blood obscures your\nvision."),LTABLE("The thief strikes at your wrist, and suddenly your grip is slippery\nwith blood.")),LTABLE(LTABLE("The butt of his stiletto cracks you on the skull, and you stagger\nback."),LTABLE("The thief rams the haft of his blade into your stomach, leaving\nyou out of breath."),LTABLE("The thief attacks, and you fall back desperately.")),LTABLE(LTABLE("A long, theatrical slash. You catch it on your ",F_WEP,", but the\nthief twists his knife, and the ",F_WEP," goes flying."),LTABLE("The thief neatly flips your ",F_WEP," out of your hands, and it drops\nto the floor."),LTABLE("You parry a low thrust, and your ",F_WEP," slips out of your hand.")),LTABLE(LTABLE("The thief, a man of superior breeding, pauses for a moment to consider the propriety of finishing you off."),LTABLE("The thief amuses himself by searching your pockets."),LTABLE("The thief entertains himself by rifling your pack.")),LTABLE(LTABLE("The thief, forgetting his essentially genteel upbringing, cuts your\nthroat."),LTABLE("The thief, a pragmatist, dispatches you as a threat to his\nlivelihood.")))
+HERO_MELEE = TABLE(LTABLE(LTABLE("Your ",F_WEP," misses the ",F_DEF," by an inch."),LTABLE("A good slash, but it misses the ",F_DEF," by a mile."),LTABLE("You charge, but the ",F_DEF," jumps nimbly aside."),LTABLE("Clang! Crash! The ",F_DEF," parries."),LTABLE("A quick stroke, but the ",F_DEF," is on guard."),LTABLE("A good stroke, but it's too slow; the ",F_DEF," dodges.")),LTABLE(LTABLE("Your ",F_WEP," crashes down, knocking the ",F_DEF," into dreamland."),LTABLE("The ",F_DEF," is battered into unconsciousness."),LTABLE("A furious exchange, and the ",F_DEF," is knocked out!"),LTABLE("The haft of your ",F_WEP," knocks out the ",F_DEF,"."),LTABLE("The ",F_DEF," is knocked out!")),LTABLE(LTABLE("It's curtains for the ",F_DEF," as your ",F_WEP," removes his head."),LTABLE("The fatal blow strikes the ",F_DEF," square in the heart: He dies."),LTABLE("The ",F_DEF," takes a fatal blow and slumps to the floor dead.")),LTABLE(LTABLE("The ",F_DEF," is struck on the arm; blood begins to trickle down."),LTABLE("Your ",F_WEP," pinks the ",F_DEF," on the wrist, but it's not serious."),LTABLE("Your stroke lands, but it was only the flat of the blade."),LTABLE("The blow lands, making a shallow gash in the ",F_DEF,"'s arm!")),LTABLE(LTABLE("The ",F_DEF," receives a deep gash in his side."),LTABLE("A savage blow on the thigh! The ",F_DEF," is stunned but can still fight!"),LTABLE("Slash! Your blow lands! That one hit an artery, it could be serious!"),LTABLE("Slash! Your stroke connects! This could be serious!")),LTABLE(LTABLE("The ",F_DEF," is staggered, and drops to his knees."),LTABLE("The ",F_DEF," is momentarily disoriented and can't fight back."),LTABLE("The force of your blow knocks the ",F_DEF," back, stunned."),LTABLE("The ",F_DEF," is confused and can't fight back."),LTABLE("The quickness of your thrust knocks the ",F_DEF," back, stunned.")),LTABLE(LTABLE("The ",F_DEF,"'s weapon is knocked to the floor, leaving him unarmed."),LTABLE("The ",F_DEF," is disarmed by a subtle feint past his guard.")))
+CYCLOPS_MELEE = TABLE(LTABLE(LTABLE("The Cyclops misses, but the backwash almost knocks you over."),LTABLE("The Cyclops rushes you, but runs into the wall.")),LTABLE(LTABLE("The Cyclops sends you crashing to the floor, unconscious.")),LTABLE(LTABLE("The Cyclops breaks your neck with a massive smash.")),LTABLE(LTABLE("A quick punch, but it was only a glancing blow."),LTABLE("A glancing blow from the Cyclops' fist.")),LTABLE(LTABLE("The monster smashes his huge fist into your chest, breaking several\nribs."),LTABLE("The Cyclops almost knocks the wind out of you with a quick punch.")),LTABLE(LTABLE("The Cyclops lands a punch that knocks the wind out of you."),LTABLE("Heedless of your weapons, the Cyclops tosses you against the rock\nwall of the room.")),LTABLE(LTABLE("The Cyclops grabs your ",F_WEP,", tastes it, and throws it to the\nground in disgust."),LTABLE("The monster grabs you on the wrist, squeezes, and you drop your\n",F_WEP," in pain.")),LTABLE(LTABLE("The Cyclops seems unable to decide whether to broil or stew his\ndinner.")),LTABLE(LTABLE("The Cyclops, no sportsman, dispatches his unconscious victim.")))
+TROLL_MELEE = TABLE(LTABLE(LTABLE("The troll swings his axe, but it misses."),LTABLE("The troll's axe barely misses your ear."),LTABLE("The axe sweeps past as you jump aside."),LTABLE("The axe crashes against the rock, throwing sparks!")),LTABLE(LTABLE("The flat of the troll's axe hits you delicately on the head, knocking\nyou out.")),LTABLE(LTABLE("The troll neatly removes your head."),LTABLE("The troll's axe stroke cleaves you from the nave to the chops."),LTABLE("The troll's axe removes your head.")),LTABLE(LTABLE("The axe gets you right in the side. Ouch!"),LTABLE("The flat of the troll's axe skins across your forearm."),LTABLE("The troll's swing almost knocks you over as you barely parry\nin time."),LTABLE("The troll swings his axe, and it nicks your arm as you dodge.")),LTABLE(LTABLE("The troll charges, and his axe slashes you on your ",F_WEP," arm."),LTABLE("An axe stroke makes a deep wound in your leg."),LTABLE("The troll's axe swings down, gashing your shoulder.")),LTABLE(LTABLE("The troll hits you with a glancing blow, and you are momentarily\nstunned."),LTABLE("The troll swings; the blade turns on your armor but crashes\nbroadside into your head."),LTABLE("You stagger back under a hail of axe strokes."),LTABLE("The troll's mighty blow drops you to your knees.")),LTABLE(LTABLE("The axe hits your ",F_WEP," and knocks it spinning."),LTABLE("The troll swings, you parry, but the force of his blow knocks your ",F_WEP," away."),LTABLE("The axe knocks your ",F_WEP," out of your hand. It falls to the floor.")),LTABLE(LTABLE("The troll hesitates, fingering his axe."),LTABLE("The troll scratches his head ruminatively:  Might you be magically\nprotected, he wonders?")),LTABLE(LTABLE("Conquering his fears, the troll puts you to death.")))
+THIEF_MELEE = TABLE(LTABLE(LTABLE("The thief stabs nonchalantly with his stiletto and misses."),LTABLE("You dodge as the thief comes in low."),LTABLE("You parry a lightning thrust, and the thief salutes you with\na grim nod."),LTABLE("The thief tries to sneak past your guard, but you twist away.")),LTABLE(LTABLE("Shifting in the midst of a thrust, the thief knocks you unconscious\nwith the haft of his stiletto."),LTABLE("The thief knocks you out.")),LTABLE(LTABLE("Finishing you off, the thief inserts his blade into your heart."),LTABLE("The thief comes in from the side, feints, and inserts the blade\ninto your ribs."),LTABLE("The thief bows formally, raises his stiletto, and with a wry grin,\nends the battle and your life.")),LTABLE(LTABLE("A quick thrust pinks your left arm, and blood starts to\ntrickle down."),LTABLE("The thief draws blood, raking his stiletto across your arm."),LTABLE("The stiletto flashes faster than you can follow, and blood wells\nfrom your leg."),LTABLE("The thief slowly approaches, strikes like a snake, and leaves\nyou wounded.")),LTABLE(LTABLE("The thief strikes like a snake! The resulting wound is serious."),LTABLE("The thief stabs a deep cut in your upper arm."),LTABLE("The stiletto touches your forehead, and the blood obscures your\nvision."),LTABLE("The thief strikes at your wrist, and suddenly your grip is slippery\nwith blood.")),LTABLE(LTABLE("The butt of his stiletto cracks you on the skull, and you stagger\nback."),LTABLE("The thief rams the haft of his blade into your stomach, leaving\nyou out of breath."),LTABLE("The thief attacks, and you fall back desperately.")),LTABLE(LTABLE("A long, theatrical slash. You catch it on your ",F_WEP,", but the\nthief twists his knife, and the ",F_WEP," goes flying."),LTABLE("The thief neatly flips your ",F_WEP," out of your hands, and it drops\nto the floor."),LTABLE("You parry a low thrust, and your ",F_WEP," slips out of your hand.")),LTABLE(LTABLE("The thief, a man of superior breeding, pauses for a moment to consider the propriety of finishing you off."),LTABLE("The thief amuses himself by searching your pockets."),LTABLE("The thief entertains himself by rifling your pack.")),LTABLE(LTABLE("The thief, forgetting his essentially genteel upbringing, cuts your\nthroat."),LTABLE("The thief, a pragmatist, dispatches you as a threat to his\nlivelihood.")))
 V_VILLAIN = 0
 V_BEST = 1
 V_BEST_ADV = 2
 V_PROB = 3
 V_MSGS = 4
-VILLAINS = LTABLE(LTABLE(TROLL,SWORD,1,0,TROLL_MELEE),LTABLE(THIEF,KNIFE,1,0,THIEF_MELEE),LTABLE(CYCLOPS,nil,0,0,CYCLOPS_MELEE))
+VILLAINS = LTABLE(TABLE(TROLL,SWORD,1,0,TROLL_MELEE),TABLE(THIEF,KNIFE,1,0,THIEF_MELEE),TABLE(CYCLOPS,nil,0,0,CYCLOPS_MELEE))
 I_FIGHT = function()
   local FIGHTQ = nil
   local LEN = GET(VILLAINS, 0)
@@ -5027,7 +5035,7 @@ I_FIGHT = function()
 
 APPLY(function() CNT = 0 return CNT end)
 
-  local __prog35 = function()
+  local __prog62 = function()
     APPLY(function() CNT = ADD(CNT, 1) return CNT end)
     
     if EQUALQ(CNT, LEN) then 
@@ -5073,10 +5081,10 @@ APPLY(function() CNT = 0 return CNT end)
 
 
 error(123) end
-local __ok35, __res35
-repeat __ok35, __res35 = pcall(__prog35)
-until __ok35 or __res35 ~= 123
-if not __ok35 then error(__res35) end
+local __ok62, __res62
+repeat __ok62, __res62 = pcall(__prog62)
+until __ok62 or __res62 ~= 123
+if not __ok62 then error(__res62) end
 
 
   if NOT(FIGHTQ) then 
@@ -5085,7 +5093,7 @@ if not __ok35 then error(__res35) end
 
 	return   DO_FIGHT(LEN)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('I_FIGHT\n'..__res) end
 end
 AWAKEN = function(O)
@@ -5099,7 +5107,7 @@ AWAKEN = function(O)
 
 	return T
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('AWAKEN\n'..__res) end
 end
 I_SWORD = function()
@@ -5118,7 +5126,7 @@ I_SWORD = function()
     elseif T then 
       APPLY(function() P = 0 return P end)
       
-      local __prog36 = function()
+      local __prog63 = function()
         
         if ZEROQ(APPLY(function() P = NEXTP(HERE, P) return P end)) then 
           return 
@@ -5139,10 +5147,10 @@ I_SWORD = function()
 
 
 error(123) end
-local __ok36, __res36
-repeat __ok36, __res36 = pcall(__prog36)
-until __ok36 or __res36 ~= 123
-if not __ok36 then error(__res36) end
+local __ok63, __res63
+repeat __ok63, __res63 = pcall(__prog63)
+until __ok63 or __res63 ~= 123
+if not __ok63 then error(__res63) end
 
     end
 
@@ -5165,14 +5173,14 @@ if not __ok36 then error(__res36) end
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('I_SWORD\n'..__res) end
 end
 INFESTEDQ = function(R)
   local F = FIRSTQ(R)
 	local __ok, __res = pcall(function()
 
-  local __prog37 = function()
+  local __prog64 = function()
     
     if NOT(F) then 
       	error(false)
@@ -5184,13 +5192,13 @@ INFESTEDQ = function(R)
 
 
 error(123) end
-local __ok37, __res37
-repeat __ok37, __res37 = pcall(__prog37)
-until __ok37 or __res37 ~= 123
-if not __ok37 then error(__res37) end
+local __ok64, __res64
+repeat __ok64, __res64 = pcall(__prog64)
+until __ok64 or __res64 ~= 123
+if not __ok64 then error(__res64) end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('INFESTEDQ\n'..__res) end
 end
 I_THIEF = function()
@@ -5200,7 +5208,7 @@ I_THIEF = function()
   local FLG = nil
 	local __ok, __res = pcall(function()
 
-  local __prog38 = function()
+  local __prog65 = function()
     
     if APPLY(function() HEREQ = NOT(FSETQ(THIEF, INVISIBLE)) return HEREQ end) then 
       APPLY(function() RM = LOC(THIEF) return RM end)
@@ -5249,9 +5257,10 @@ I_THIEF = function()
     if PASS(APPLY(function() ONCE = NOT(ONCE) return ONCE end) and NOT(HEREQ)) then 
       RECOVER_STILETTO()
       
-      local __prog39 = function()
+      local __prog66 = function()
         
         if PASS(RM and APPLY(function() RM = NEXTQ(RM) return RM end)) then 
+          PASS(RM and APPLY(function() RM = NEXTQ(RM) return RM end))
         elseif T then 
           APPLY(function() RM = FIRSTQ(ROOMS) return RM end)
         end
@@ -5267,18 +5276,18 @@ I_THIEF = function()
 
 
 error(123) end
-local __ok39, __res39
-repeat __ok39, __res39 = pcall(__prog39)
-until __ok39 or __res39 ~= 123
-if not __ok39 then error(__res39) end
+local __ok66, __res66
+repeat __ok66, __res66 = pcall(__prog66)
+until __ok66 or __res66 ~= 123
+if not __ok66 then error(__res66) end
 
       	error(123)
     end
 end
-local __ok38, __res38
-repeat __ok38, __res38 = pcall(__prog38)
-until __ok38 or __res38 ~= 123
-if not __ok38 then error(__res38) end
+local __ok65, __res65
+repeat __ok65, __res65 = pcall(__prog65)
+until __ok65 or __res65 ~= 123
+if not __ok65 then error(__res65) end
 
 
   if NOT(EQUALQ(RM, TREASURE_ROOM)) then 
@@ -5287,7 +5296,7 @@ if not __ok38 then error(__res38) end
 
 	return FLG
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('I_THIEF\n'..__res) end
 end
 DROP_JUNK = function(RM)
@@ -5297,15 +5306,16 @@ DROP_JUNK = function(RM)
 	local __ok, __res = pcall(function()
 APPLY(function() X = FIRSTQ(THIEF) return X end)
 
-  local __prog40 = function()
+  local __prog67 = function()
     
     if NOT(X) then 
-      return FLG
+      error(FLG)
     end
 
     APPLY(function() N = NEXTQ(X) return N end)
     
     if EQUALQ(X, STILETTO, LARGE_BAG) then 
+      EQUALQ(X, STILETTO, LARGE_BAG)
     elseif PASS(ZEROQ(GETP(X, PQTVALUE)) and PROB(30, T)) then 
       FCLEAR(X, INVISIBLE)
       MOVE(X, RM)
@@ -5320,13 +5330,13 @@ APPLY(function() X = FIRSTQ(THIEF) return X end)
     APPLY(function() X = N return X end)
 
 error(123) end
-local __ok40, __res40
-repeat __ok40, __res40 = pcall(__prog40)
-until __ok40 or __res40 ~= 123
-if not __ok40 then error(__res40) end
+local __ok67, __res67
+repeat __ok67, __res67 = pcall(__prog67)
+until __ok67 or __res67 ~= 123
+if not __ok67 then error(__res67) end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('DROP_JUNK\n'..__res) end
 end
 RECOVER_STILETTO = function()
@@ -5338,7 +5348,7 @@ RECOVER_STILETTO = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('RECOVER_STILETTO\n'..__res) end
 end
 STEAL_JUNK = function(RM)
@@ -5347,7 +5357,7 @@ STEAL_JUNK = function(RM)
 	local __ok, __res = pcall(function()
 APPLY(function() X = FIRSTQ(RM) return X end)
 
-  local __prog41 = function()
+  local __prog68 = function()
     
     if NOT(X) then 
       	error(false)
@@ -5377,13 +5387,13 @@ APPLY(function() X = FIRSTQ(RM) return X end)
     APPLY(function() X = N return X end)
 
 error(123) end
-local __ok41, __res41
-repeat __ok41, __res41 = pcall(__prog41)
-until __ok41 or __res41 ~= 123
-if not __ok41 then error(__res41) end
+local __ok68, __res68
+repeat __ok68, __res68 = pcall(__prog68)
+until __ok68 or __res68 ~= 123
+if not __ok68 then error(__res68) end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('STEAL_JUNK\n'..__res) end
 end
 ROB = function(WHAT, WHERE, PROB)
@@ -5394,10 +5404,10 @@ ROB = function(WHAT, WHERE, PROB)
 	local __ok, __res = pcall(function()
 APPLY(function() X = FIRSTQ(WHAT) return X end)
 
-  local __prog42 = function()
+  local __prog69 = function()
     
     if NOT(X) then 
-      return ROBBEDQ
+      error(ROBBEDQ)
     end
 
     APPLY(function() N = NEXTQ(X) return N end)
@@ -5416,13 +5426,13 @@ APPLY(function() X = FIRSTQ(WHAT) return X end)
     APPLY(function() X = N return X end)
 
 error(123) end
-local __ok42, __res42
-repeat __ok42, __res42 = pcall(__prog42)
-until __ok42 or __res42 ~= 123
-if not __ok42 then error(__res42) end
+local __ok69, __res69
+repeat __ok69, __res69 = pcall(__prog69)
+until __ok69 or __res69 ~= 123
+if not __ok69 then error(__res69) end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('ROB\n'..__res) end
 end
 V_DIAGNOSE = function()
@@ -5492,7 +5502,7 @@ V_DIAGNOSE = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('V_DIAGNOSE\n'..__res) end
 end
 V_SCORE = function(ASKQ)
@@ -5533,7 +5543,7 @@ V_SCORE = function(ASKQ)
   TELL(".", CR)
 	return SCORE
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('V_SCORE\n'..__res) end
 end
 JIGS_UP = function(DESC, PLAYERQ)
@@ -5553,7 +5563,7 @@ APPLY(function() WINNER = ADVENTURER return WINNER end)
   end
 
 
-  local __prog43 = function()
+  local __prog70 = function()
     SCORE_UPD(-10)    TELL("\n|    ****  You have died  ****\n|\n|")    
     if FSETQ(LOC(WINNER), VEHBIT) then 
       MOVE(WINNER, HERE)
@@ -5561,7 +5571,7 @@ APPLY(function() WINNER = ADVENTURER return WINNER end)
     
     if NOT(LQ(DEATHS, 2)) then 
       TELL("You clearly are a suicidal maniac.  We don't allow psychotics in the\ncave, since they may harm other adventurers.  Your remains will be\ninstalled in the Land of the Living Dead, where your fellow\nadventurers may gloat over them.", CR)
-      	return FINISH()
+      FINISH()
     elseif T then 
       APPLY(function() DEATHS = ADD(DEATHS, 1) return DEATHS end)
       MOVE(WINNER, HERE)
@@ -5582,16 +5592,16 @@ APPLY(function() WINNER = ADVENTURER return WINNER end)
       APPLY(function() P_CONT = nil return P_CONT end)
       RANDOMIZE_OBJECTS()
       KILL_INTERRUPTS()
-      	return RFATAL()
+      RFATAL()
     end
 end
-local __ok43, __res43
-repeat __ok43, __res43 = pcall(__prog43)
-until __ok43 or __res43 ~= 123
-if not __ok43 then error(__res43) end
+local __ok70, __res70
+repeat __ok70, __res70 = pcall(__prog70)
+until __ok70 or __res70 ~= 123
+if not __ok70 then error(__res70) end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('JIGS_UP\n'..__res) end
 end
 RANDOMIZE_OBJECTS = function()
@@ -5614,7 +5624,7 @@ RANDOMIZE_OBJECTS = function()
 APPLY(function() N = FIRSTQ(WINNER) return N end)
 APPLY(function() L = GET(ABOVE_GROUND, 0) return L end)
 
-  local __prog44 = function()
+  local __prog71 = function()
     APPLY(function() F = N return F end)
     
     if NOT(F) then 
@@ -5625,7 +5635,7 @@ APPLY(function() L = GET(ABOVE_GROUND, 0) return L end)
     
     if GQ(GETP(F, PQTVALUE), 0) then 
       
-      local __prog45 = function()
+      local __prog72 = function()
         
         if NOT(R) then 
           APPLY(function() R = FIRSTQ(ROOMS) return R end)
@@ -5641,10 +5651,10 @@ APPLY(function() L = GET(ABOVE_GROUND, 0) return L end)
 
 
 error(123) end
-local __ok45, __res45
-repeat __ok45, __res45 = pcall(__prog45)
-until __ok45 or __res45 ~= 123
-if not __ok45 then error(__res45) end
+local __ok72, __res72
+repeat __ok72, __res72 = pcall(__prog72)
+until __ok72 or __res72 ~= 123
+if not __ok72 then error(__res72) end
 
     else 
       MOVE(F, GET(ABOVE_GROUND, RANDOM(L)))
@@ -5652,13 +5662,13 @@ if not __ok45 then error(__res45) end
 
 
 error(123) end
-local __ok44, __res44
-repeat __ok44, __res44 = pcall(__prog44)
-until __ok44 or __res44 ~= 123
-if not __ok44 then error(__res44) end
+local __ok71, __res71
+repeat __ok71, __res71 = pcall(__prog71)
+until __ok71 or __res71 ~= 123
+if not __ok71 then error(__res71) end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('RANDOMIZE_OBJECTS\n'..__res) end
 end
 KILL_INTERRUPTS = function()
@@ -5674,21 +5684,21 @@ KILL_INTERRUPTS = function()
   FCLEAR(MATCH, ONBIT)
 	error(true)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('KILL_INTERRUPTS\n'..__res) end
 end
 BAG_OF_COINS_F = function()
 	local __ok, __res = pcall(function()
 	return   STUPID_CONTAINER(BAG_OF_COINS, "coins")
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('BAG_OF_COINS_F\n'..__res) end
 end
 TRUNK_F = function()
 	local __ok, __res = pcall(function()
 	return   STUPID_CONTAINER(TRUNK, "jewels")
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('TRUNK_F\n'..__res) end
 end
 STUPID_CONTAINER = function(OBJ, STR)
@@ -5703,7 +5713,7 @@ STUPID_CONTAINER = function(OBJ, STR)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('STUPID_CONTAINER\n'..__res) end
 end
 DUMB_CONTAINER = function()
@@ -5716,7 +5726,7 @@ DUMB_CONTAINER = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('DUMB_CONTAINER\n'..__res) end
 end
 GARLIC_F = function()
@@ -5728,7 +5738,7 @@ GARLIC_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('GARLIC_F\n'..__res) end
 end
 CHAIN_PSEUDO = function()
@@ -5743,7 +5753,7 @@ CHAIN_PSEUDO = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('CHAIN_PSEUDO\n'..__res) end
 end
 TROLL_ROOM_F = function(RARG)
@@ -5754,6 +5764,6 @@ TROLL_ROOM_F = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('TROLL_ROOM_F\n'..__res) end
 end

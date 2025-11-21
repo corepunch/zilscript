@@ -3,11 +3,11 @@ local compiler = require 'zil.compiler'
 
 local files = {
   "/Users/igor/Developer/zork1-main/globals.zil",
+  "/Users/igor/Developer/zork1-main/parser.zil",
   "/Users/igor/Developer/zork1-main/verbs.zil",
   "/Users/igor/Developer/zork1-main/actions.zil",
   "/Users/igor/Developer/zork1-main/syntax.zil",
   "/Users/igor/Developer/zork1-main/dungeon.zil",
-  "/Users/igor/Developer/zork1-main/parser.zil",
   "/Users/igor/Developer/zork1-main/main.zil",
 }
 

@@ -26,7 +26,7 @@ until __ok73 or __res73 ~= 123
 if not __ok73 then error(__res73) end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('MAIN_LOOP\n'..__res) end
 end
 MAIN_LOOP_1 = function()
@@ -106,7 +106,7 @@ if not __ok75 then error(__res75) end
 
     APPLY(function() NUM = APPLY(function()
       if ZEROQ(OCNT) then 
-        -- 	return OCNT
+        	return OCNT
       elseif GQ(OCNT, 1) then 
         APPLY(function() TBL = P_PRSO return TBL end)
         
@@ -116,14 +116,14 @@ if not __ok75 then error(__res75) end
           APPLY(function() OBJ = GET(P_PRSI, 1) return OBJ end)
         end
 
-        -- 	return OCNT
+        	return OCNT
       elseif GQ(ICNT, 1) then 
         APPLY(function() PTBL = nil return PTBL end)
         APPLY(function() TBL = P_PRSI return TBL end)
         APPLY(function() OBJ = GET(P_PRSO, 1) return OBJ end)
-        -- 	return ICNT
+        	return ICNT
       elseif T then 
-        -- 	return 1
+        	return 1
       end
  end) return NUM end)
     
@@ -197,16 +197,16 @@ if not __ok75 then error(__res75) end
 
           APPLY(function() O = APPLY(function()
             if PTBL then 
-              -- 	return OBJ1
+              	return OBJ1
             elseif T then 
-              -- 	return OBJ
+              	return OBJ
             end
  end) return O end)
           APPLY(function() I = APPLY(function()
             if PTBL then 
-              -- 	return OBJ
+              	return OBJ
             elseif T then 
-              -- 	return OBJ1
+              	return OBJ1
             end
  end) return I end)
           
@@ -272,7 +272,7 @@ if not __ok76 then error(__res76) end
   if P_WON then 
     
     if VERBQ(TELL, BRIEF, SUPER_BRIEF, VERBOSE, SAVE, VERSION, QUIT, RESTART, SCORE, SCRIPT, UNSCRIPT, RESTORE) then 
-      -- 	return T
+      	return T
     elseif T then 
       	return APPLY(function() V = CLOCKER() return V end)
     end
@@ -280,7 +280,7 @@ if not __ok76 then error(__res76) end
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('MAIN_LOOP_1\n'..__res) end
 end
 P_MULT = nil
@@ -350,6 +350,6 @@ APPLY(function() PRSO = OO return PRSO end)
 APPLY(function() PRSI = OI return PRSI end)
 	return V
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('PERFORM\n'..__res) end
 end

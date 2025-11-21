@@ -1061,7 +1061,7 @@ TREASURE_INSIDE = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('TREASURE_INSIDE\n'..__res) end
 end
 OBJECT {
@@ -1615,7 +1615,7 @@ GRATING_EXIT = function()
   if GRATE_REVEALED then 
     
     if FSETQ(GRATE, OPENBIT) then 
-      -- 	return GRATING_ROOM
+      	return GRATING_ROOM
     elseif T then 
       TELL("The grating is closed!", CR)
       THIS_IS_IT(GRATE)
@@ -1628,7 +1628,7 @@ GRATING_EXIT = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('GRATING_EXIT\n'..__res) end
 end
 ROOM {
@@ -2527,7 +2527,7 @@ CANYON_VIEW_F = function(RARG)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('CANYON_VIEW_F\n'..__res) end
 end
 ROOM {
@@ -2736,6 +2736,6 @@ APPLY(function() PLAYER = WINNER return PLAYER end)
   MAIN_LOOP()
 	error(123)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('GO\n'..__res) end
 end

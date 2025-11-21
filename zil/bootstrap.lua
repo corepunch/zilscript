@@ -68,7 +68,58 @@ M_LOOK = 3
 M_FLASH = 4
 M_OBJDESC = 5
 
-local mem = ""
+local function encode_fptr(n)
+  return string.format("<@F:%X>", n)
+end
+
+local function decode_fptr(s)
+    local hex = s:match("<@F:([A-Fa-f0-9]+)>")
+    return hex and tonumber(hex, 16)
+end
+
+local function makeword(val)
+	return string.char(val&0xff, (val>>8)&0xff)
+end
+
+local mem = setmetatable({size=0},{__index={
+	write = function(self, buffer, pos)
+		if not pos then pos = self.size + 1 end  -- Append if no pos
+		local buf_len = #buffer
+		for i = 1, buf_len do
+			local byte = buffer:byte(i)
+			if pos + i - 1 > self.size then self.size = pos + i - 1 end
+			self[pos + i] = byte
+		end
+		return pos
+	end,
+
+	writestring_alt = function (self, s)
+		if type(s) == 'number' then s = encode_fptr(s) end
+		return makeword(self:write(makeword(#s)..s))
+	end,
+
+	write_word = function(mem, k) return mem:write(makeword(k)) end,
+	writestring2 = function(mem, s) return mem:write(makeword(#s)..s) end,
+
+	table_to_str = function(self, start, end_pos)
+		local bytes = {}
+		local len = end_pos - start + 1
+		for i = 1, len do bytes[i] = self:byte(start + i - 1) or 0 end
+		return string.char(table.unpack(bytes))
+	end,
+
+	byte = function(self, idx) return self[idx+1] end,
+	word = function(self, ptr) return self:byte(ptr)|(self:byte(ptr+1)<<8) end,
+	string = function(self, ptr)
+		local str = self:table_to_str(ptr + 2, ptr + self:word(ptr) + 1)
+		return decode_fptr(str) or str
+	end,
+
+	read = function(self, size, pos)
+		if size <= 0 then return "" end
+		return self:table_to_str(pos, pos + size - 1)
+	end
+}})
 
 local cache = {
 	verbs = {},
@@ -97,43 +148,6 @@ local function tohex(s)
     return table.concat(t, " ")
 end
 
-local function writemem(buffer, pos)
-	if pos then
-		mem = mem:sub(1,pos-1)..buffer..mem:sub(pos+#buffer)
-		return pos
-	else
-		local idx = #mem
-		mem = mem..buffer
-		return idx+1
-	end
-end
-
-local function encode_fptr(n)
-  return string.format("<@F:%X>", n)
-end
-
-local function decode_fptr(s)
-    local hex = s:match("<@F:([A-Fa-f0-9]+)>")
-    return hex and tonumber(hex, 16)
-end
-
-local function writestring(str)
-	if type(str) == 'number' then str = encode_fptr(str) end
-	local len = #str
-	local ptr = writemem(string.char(len&0xff)..string.char((len>>8)&0xff)..str)
-	return string.char(ptr&0xff, (ptr>>8)&0xff)
-end
-
-local function readstring(ptr)
-	local len = mem:byte(ptr)|(mem:byte(ptr+1)<<8)
-	local str = mem:sub(ptr+2, ptr+len+1)
-	return decode_fptr(str) or str
-end
-
-local function readmem(size, pos)
-	return mem:sub(pos,pos+size-1)
-end
-
 -- === Utility functions ===
 
 function VERBQ(...)
@@ -144,18 +158,21 @@ function TELL(...)
 	local object = false
 	for i = 1, select("#", ...) do
     local v = select(i, ...)
-		if v == "You can't go there without a vehicle." then print(debug.traceback()) end
 		if v == D then object = true
-		elseif object then
-			object = false
-			io.write(GETP(v, _G["PQDESC"]))
-    else io.write(tostring(v)) end
+		elseif object then object = false io.write(GETP(v, _G["PQDESC"]))
+		elseif type(v) == "number" then io.write(mem:string(v))
+    else io.write(v) end
   end
 end
 
 function PRINT(str) print(str) end
-PRINTI = PRINT
-PRINTB = PRINT
+function PRINTI(str) print(str) end
+function PRINTD(ptr) io.write('==='..GETP(ptr, _G["PQDESC"])) end
+function PRINTB(ptr) 
+	for word, index in pairs(cache.words) do
+		if index == ptr then io.write(word) end
+	end
+end
 PRINTN = PRINT
 function PRINTC(ch) io.write(string.char(ch)) end
 function CRLF() print() end
@@ -170,7 +187,7 @@ function BTST(a, b) return (a & b) == b end
 -- Arithmetic / comparison
 function EQUALQ(a, ...) 
 	for i = 1, select("#", ...) do
-    if a == select(i, ...) then return true end
+    if (a or 0) == (select(i, ...) or 0) then return true end
   end
   return false
 end
@@ -219,6 +236,14 @@ function NEXTQ(obj)
 end
 
 local function learn(word, atom, value)
+	local function upper2(word)
+		local specials = {
+			["."] = "PERIOD",
+			[","] = "COMMA",
+			["\""] = "QUOTE",
+		}
+		return specials[word] or word:upper()
+	end
 	local prim = {
 		[PSQOBJECT]=P1QOBJECT,
 		[PSQVERB]=P1QVERB,
@@ -230,16 +255,17 @@ local function learn(word, atom, value)
 	if not word then return 0 end
 	word = word:lower()
 	if type(value) == 'table' then value = register(value, word) end
+	if word == 'open' then print(word) end
 	if cache.words[word] then
 		local index = cache.words[word]
-		local ent = readmem(7, cache.words[word])
+		local ent = mem:read(7, cache.words[word])
 		local new = string.char(0,0,0,0,ent:byte(5)|atom,ent:byte(6),value or OQANY)
-		writemem(new, index)
+		mem:write(new, index)
 	else
 		local enc = string.char(0,0,0,0,atom|prim[atom],value or OQANY,0)
-		local pos = writemem(enc)
+		local pos = mem:write(enc)
 		cache.words[word] = pos
-		_G['WQ'..string.upper(word)] = enc
+		_G['WQ'..upper2(word)] = enc
 	end
 	return value or cache.words[word]
 end
@@ -264,14 +290,14 @@ function PUTP(obj, prop, val)
 	local ptr = GETPT(obj, prop)
 	assert(type(val) == 'number', "Only numbers are supported in PUTP")
 	assert(PTSIZE(ptr) == 1, "Number size must be 1")
-	writemem(string.char(val), ptr)
+	mem:write(string.char(val), ptr)
 end
 function GETP(obj, prop)
 	if not GETPT(obj, prop) then return nil end
 	local ptr = GETPT(obj, prop)
 	local ptsize = PTSIZE(ptr)
 	if ptsize == 1 then return mem:byte(ptr) end
-	if ptsize == 2 then return readstring(mem:byte(ptr)|(mem:byte(ptr+1)<<8)) end
+	if ptsize == 2 then return mem:string(mem:word(ptr)) end
 	assert(false, "Unsupported property to get")
 end
 
@@ -284,10 +310,6 @@ end
 function DECL_OBJECT(name)
 	table.insert(OBJECTS, {NAME=name,FLAGS=0})
 	return #OBJECTS
-end
-
-local function makeword(val)
-	return string.char(val&0xff, (val>>8)&0xff)
 end
 
 function OBJECT(object)
@@ -321,12 +343,12 @@ function OBJECT(object)
 				o.FLAGS = o.FLAGS | (1 << _G[f])
 			end
 		elseif k == "LOC" then o.LOC = v
-		elseif type(v) == 'string' then table.insert(t, makeprop(writestring(v), k))
+		elseif type(v) == 'string' then table.insert(t, makeprop(mem:writestring_alt(v), k))
 		elseif type(v) == 'number' then table.insert(t, makeprop(string.char(v&0xff), k))
-		elseif type(v) == 'function' then table.insert(t, makeprop(writestring(fn(v)), k))
+		elseif type(v) == 'function' then table.insert(t, makeprop(mem:writestring_alt(fn(v)), k))
 		elseif _DIRECTIONS[k] then
 			local str = string.char(v[1])
-			local say = v.say and writemem(v.say.."\0") or makeword(0)
+			local say = v.say and mem:write(v.say.."\0") or makeword(0)
 			if v.door then
 				str = str..string.char(v.door)..say..string.char(0)
 			elseif v.flag then
@@ -338,7 +360,7 @@ function OBJECT(object)
 		end
 	end
 	table.insert(t, string.char(0))
-	o.tbl = writemem(table.concat(t))
+	o.tbl = mem:write(table.concat(t))
 end
 
 function REST(s, i)
@@ -359,9 +381,8 @@ function APPLY(func, ...)
 end
 
 function PUT(obj, i, val)
-	i = i * 2
 	if type(obj) == 'number' then
-		writemem(makeword(i), i)
+		mem:write(makeword(val or 0), obj+i*2)
 	elseif type(obj) == 'table' then
 		obj[i] = val
 	else 
@@ -370,7 +391,7 @@ function PUT(obj, i, val)
 end
 function PUTB(obj, i, val) 
 	if type(obj) == 'number' then
-		writemem(string.char(i&0xff), i)
+		mem:write(string.char(i&0xff), i)
 	-- elseif type(obj) == 'table' then
 	-- 	obj[i] = val
 	else 
@@ -412,20 +433,20 @@ function GET(s, i)
 	-- return GETB(s, i * 2) | (GETB(s, i * 2 + 1) << 8)
 end
 
-local buf = true
+-- local buf = true
 
 function READ(inbuf, parse)
-	if not buf then os.exit(0) end
-	local s = "open mailbox"
-	-- local s = io.read()
+	-- if not buf then os.exit(0) end
+	-- local s = "open mailbox"
+	local s = io.read()
 	local p = {}
 	for pos, word in s:gmatch("()(%S+)") do
 		local index = cache.words[word:lower()] or 0
-		table.insert(p, string.char(index&0xff, index>>8, #word, pos))
+		table.insert(p, makeword(index)..string.char(#word, pos&0xff))
 	end
-	writemem(s:lower()..'\0', inbuf+1)
-	writemem(string.char(#p)..table.concat(p), parse+1)
-	buf = false
+	mem:write(s:lower()..'\0', inbuf+1)
+	mem:write(string.char(#p)..table.concat(p), parse+1)
+	-- buf = false
 end
 
 function DIRECTIONS(...)
@@ -440,8 +461,18 @@ local function action_id(ACTIONS, action)
 	return #ACTIONS
 end
 
+function TRACEBACK()
+	print(debug.traceback())
+end
+
+function PTABLE(tbl, size)
+	local out = {}
+	for i = 0, size do table.insert(out, GET(tbl, i)) end
+	print(table.concat(out, " "))
+end
+
 function SYNTAX(syn)
-	VERBS = VERBS or writemem(string.rep('\0\0', 256))
+	VERBS = VERBS or mem:write(string.rep('\0\0', 256))
 	local name = syn.VERB:lower()
 	local action = action_id(ACTIONS, fn(_G[syn.ACTION]))
 	local function encode(s)
@@ -458,12 +489,11 @@ function SYNTAX(syn)
 	end
 	if cache.verbs[name] then
 		local ptr = GET(VERBS, cache.verbs[name])
-		PUTB(ptr, GETB(ptr) + 1)
-		writemem(encode(syn))
+		PUTB(ptr, GETB(ptr, 0) + 1)
+		mem:write(encode(syn))
 	else
 		local num = register(cache.verbs, name)
-		PUT(VERBS, num, writemem(string.byte(1)))
-		writemem(encode(syn))
+		PUT(VERBS, num, mem:write(string.char(1)..encode(syn)))
 		_G['ACTQ'..syn.VERB] = learn(name, PSQVERB, 255-num)
 	end
 	_G[syn.ACTION:gsub("_", "Q", 1)] = action
@@ -495,37 +525,34 @@ end
 function ENABLE(i) i.ENABLED = true end
 function DISABLE(i) i.ENABLED = false end
 
-local function write_word(k)
-	return writemem(string.char(k&0xff,(k>>8)&0xff))
-end
-
-local function write_string(k)
-	local address = write_word(#mem)
-	mem = mem..k
-	return address
-end
-
 function ITABLE(size)
-	local address = write_word(size)
-	writemem(string.rep("\0", size))
+	local address = mem:write_word(size)
+	mem:write(string.rep("\0", size))
 	return address
+end
+
+function TABLE(...)
+	local tbl = {}
+	for i = 1, select("#", ...) do
+    local v = select(i, ...)
+		if type(v) == 'string' then table.insert(tbl, makeword(mem:writestring2(v)))
+		elseif type(v) == 'number' then table.insert(tbl, makeword(v))
+		elseif type(v) == 'nil' then table.insert(tbl, makeword(0))
+		else error("LTABLE: Unsupported type "..type(v))
+		end
+	end
+	return mem:write(table.concat(tbl))
 end
 
 function LTABLE(...)
-	local tbl = {}
-	for _, v in ipairs {...} do
-		if type(v) == 'string' then table.insert(tbl, makeword(write_string(v)))
-		elseif type(v) == 'number' then table.insert(tbl, makeword(v))
-		else error("LTABLE: Unsupported type")
-		end
-	end
-	local address = write_word((#{...})*2)
-	writemem(table.concat(tbl))
+	local address = mem:write_word((#{...})*2)
+	TABLE(...)
 	return address
 end
 
-function CLOCKER()
+BUZZ(".", ",", "\"")
 
+function CLOCKER()
 end
 -- function TABLE(...)
 -- 	local contents = {}

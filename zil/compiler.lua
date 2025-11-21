@@ -240,7 +240,7 @@ local function write_function_header(buf, node)
     buf.writeln(")")
     return
   end
-  
+
   -- Parse argument list
   for arg in Compiler.iter_children(args_node) do
     if arg.type == "string" then
@@ -289,13 +289,15 @@ local function write_function_header(buf, node)
   end
 end
 
-local function add_flag(flag)
-  if not Compiler.flags[flag] then
-    Compiler.current_decl.writeln("%s = %d", flag, Compiler.current_flag)
-    Compiler.flags[flag] = Compiler.current_flag
-    Compiler.current_flag = Compiler.current_flag << 1
-  end
-end
+local loc_flags = {
+  ["ON-GROUND"] = "SOG",
+  ["IN-ROOM"] = "SIR",
+  ["CARRIED"] = "SC",
+  ["MANY"] = "SMANY",
+  ["HAVE"] = "SHAVE",
+  ["TAKE"] = "STAKE",
+  ["HELD"] = "SH",
+}
 
 -- Syntax object helper
 local function print_syntax_object(buf, nodes, start_idx, field_name)
@@ -309,9 +311,7 @@ local function print_syntax_object(buf, nodes, start_idx, field_name)
     else
       buf.write("\t\tWHERE = ")
       for j = 1, #clause do
-        local flag = 'S_'..value(clause[j])
-        add_flag(flag)
-        buf.write(j == 1 and '%s' or '|%s', flag)
+        buf.write(j == 1 and '%s' or '+%s', loc_flags[clause[j].value])
       end
       buf.writeln(",")
     end
@@ -340,10 +340,10 @@ form.COND = function(buf, node, indent, add_return)
     end
     
     -- Then clauses
-    for j = 2, #clause do
+    for j = math.min(#clause, 2), #clause do
       buf.writeln()
       buf.indent(indent + 1)
-      if clause[j].type ~= "expr" then
+      if clause[j].type ~= "expr" and not (add_return and j == #clause) then
         buf.write("-- ")
       end
       print_node(buf, clause[j], indent + 1, add_return and j == #clause)
@@ -366,6 +366,8 @@ local function compile_set(buf, node, indent, add_return)
       print_node(buf, node[i], indent + 1, false)
     end
   end
+  -- buf.write(" print('\t"..value(node[1]).."', "..value(node[1])..")")
+  -- buf.write(" if '"..value(node[1]).."' == 'P_NAM' then print(debug.traceback()) end")
   buf.write(" return %s end)", value(node[1]))
 end
 
@@ -384,9 +386,13 @@ end
 
 -- RETURN
 form.RETURN = function(buf, node, indent, add_return)
-  buf.write("return ")
-  if node[1] then
+  if not add_return and node[1] then
+    buf.write("error(")
     print_node(buf, node[1], indent + 1, false)
+    buf.write(")")
+  else
+    buf.write("return ")
+    if node[1] then print_node(buf, node[1], indent + 1, false) end
   end
 end
 
@@ -415,7 +421,7 @@ form.PROG = function(buf, node, indent, add_return)
   buf.writeln("local __prog%d = function()", p)
   for i = 2, #node do
     buf.indent(indent + 1)
-    print_node(buf, node[i], indent + 1, add_return and i == #node)
+    print_node(buf, node[i], indent + 1, false)--add_return and i == #node)
   end
   buf.writeln("end")
   buf.writeln("local __ok%d, __res%d", p, p)
@@ -546,7 +552,15 @@ form.ITABLE = function(buf, node)
   local num = node[1].value == "NONE" and node[2].value or node[1].value
   buf.write("ITABLE(%s)", num)
 end
-form.TABLE = form.LTABLE
+form.TABLE = function(buf, node)
+  local start = safeget(node[1], 'type') == "list" and 2 or 1
+  buf.write("TABLE(")
+  for i = start, #node do
+    print_node(buf, node[i], 0)
+    if i < #node then buf.write(",") end
+  end
+  buf.write(")")
+end
 
 -- AND/OR
 local function compile_logical(buf, node, indent, add_return, op)
@@ -639,7 +653,7 @@ local function compile_routine(decl, body, node)
     body.writeln()
   end
   body.writeln("\tend)")
-  body.writeln("\tif __ok or type(__res) == 'boolean' then return __res")
+  body.writeln("\tif __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res")
   body.writeln(string.format("\telse error('%s\\n'..__res) end", name))
   body.writeln("end")
 end

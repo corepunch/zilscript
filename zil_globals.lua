@@ -96,7 +96,7 @@ APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
 
 	error(true)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('NOT_HERE_OBJECT_F\n'..__res) end
 end
 NOT_HERE_PRINT = function(PRSOQ)
@@ -120,14 +120,14 @@ NOT_HERE_PRINT = function(PRSOQ)
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('NOT_HERE_PRINT\n'..__res) end
 end
 NULL_F = function(A1, A2)
 	local __ok, __res = pcall(function()
 	error(false)
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('NULL_F\n'..__res) end
 end
 LOAD_MAX = 100
@@ -156,7 +156,7 @@ STAIRS_F = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('STAIRS_F\n'..__res) end
 end
 OBJECT {
@@ -191,7 +191,7 @@ SAILOR_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('SAILOR_FCN\n'..__res) end
 end
 OBJECT {
@@ -214,7 +214,7 @@ GROUND_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('GROUND_FUNCTION\n'..__res) end
 end
 OBJECT {
@@ -237,7 +237,7 @@ GRUE_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('GRUE_FUNCTION\n'..__res) end
 end
 OBJECT {
@@ -298,7 +298,7 @@ CRETIN_FCN = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('CRETIN_FCN\n'..__res) end
 end
 OBJECT {
@@ -330,7 +330,7 @@ PATH_OBJECT = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('PATH_OBJECT\n'..__res) end
 end
 OBJECT {
@@ -350,7 +350,7 @@ ZORKMID_FUNCTION = function()
   end
 
 	end)
-	if __ok or type(__res) == 'boolean' then return __res
+	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
 	else error('ZORKMID_FUNCTION\n'..__res) end
 end
 OBJECT {
