@@ -160,19 +160,20 @@ function TELL(...)
     local v = select(i, ...)
 		if v == D then object = true
 		elseif object then object = false io.write(GETP(v, _G["PQDESC"]))
-		elseif type(v) == "number" then io.write(mem:string(v))
-    else io.write(v) end
+		-- elseif type(v) == "number" then io.write(mem:string(v))
+    else io.write(tostring(v)) end
   end
 end
 
 function PRINT(str) print(str) end
-function PRINTI(str) print(str) end
-function PRINTD(ptr) io.write('==='..GETP(ptr, _G["PQDESC"])) end
+function PRINTD(ptr) io.write(GETP(ptr, _G["PQDESC"])) end
+function PRINTR(ptr) io.write(GETP(ptr, _G["PQLDESC"])) end
 function PRINTB(ptr) 
 	for word, index in pairs(cache.words) do
 		if index == ptr then io.write(word) end
 	end
 end
+PRINTI = PRINT
 PRINTN = PRINT
 function PRINTC(ch) io.write(string.char(ch)) end
 function CRLF() print() end
@@ -198,12 +199,10 @@ function GEQ(a, b) return (a or 0) >= (b or 0) end
 function LEQ(a, b) return (a or 0) <= (b or 0) end
 function ZEROQ(a) return (a or 0) == 0 end
 function ONEQ(a) return a == 1 end
-
-function SETG(var, val) _G[var] = val return val end
-function ADD(a, b) return a + b end
-function SUB(a, b) return a - b end
-function DIV(a, b) return a / b end
-function MUL(a, b) return a * b end
+function ADD(a, b) return (a or 0) + (b or 0) end
+function SUB(a, b) return (a or 0) - (b or 0) end
+function DIV(a, b) return (a or 0) / (b or 0) end
+function MUL(a, b) return (a or 0) * (b or 0) end
 
 -- function GQ(a, b) return a > b end
 -- IGRTRQ = GQ
@@ -433,12 +432,17 @@ function GET(s, i)
 	-- return GETB(s, i * 2) | (GETB(s, i * 2 + 1) << 8)
 end
 
--- local buf = true
+local test = {
+	"open mailbox",
+	"take leaflet",
+	"read"
+}
 
 function READ(inbuf, parse)
-	-- if not buf then os.exit(0) end
-	-- local s = "open mailbox"
-	local s = io.read()
+	local s = table.remove(test, 1) 
+	if not s then os.exit(0) end
+	print(s)
+	-- local s = io.read()
 	local p = {}
 	for pos, word in s:gmatch("()(%S+)") do
 		local index = cache.words[word:lower()] or 0
@@ -446,7 +450,6 @@ function READ(inbuf, parse)
 	end
 	mem:write(s:lower()..'\0', inbuf+1)
 	mem:write(string.char(#p)..table.concat(p), parse+1)
-	-- buf = false
 end
 
 function DIRECTIONS(...)

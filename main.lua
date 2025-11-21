@@ -48,6 +48,10 @@ local function execute(string, name)
 	end
 end
 
+-- local file = assert(io.open("zil/translator.lua", "r"))
+-- execute(file:read("*a"), 'translator')
+-- file:close()
+
 local file = assert(io.open("zil/bootstrap.lua", "r"))
 execute(file:read("*a"), 'bootstrap')
 file:close()

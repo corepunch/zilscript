@@ -71,6 +71,7 @@ PARSER = function()
   local LW = 0
   local CNT = -1
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   local __prog1 = function()
     
@@ -367,7 +368,7 @@ if not __ok2 then error(__res2) end
         elseif WTQ(WRD, PSQBUZZ_WORD) then 
           WTQ(WRD, PSQBUZZ_WORD)
         elseif PASS(EQUALQ(VERB, ACTQTELL) and WTQ(WRD, PSQVERB, P1QVERB) and EQUALQ(WINNER, PLAYER)) then 
-          TELL("Please consult your manual for the correct way to talk to other people\nor creatures.", CR)
+          TELL("Please consult your manual for the correct way to talk to other people or creatures.", CR)
           	error(false)
         elseif T then 
           CANT_USE(PTR)
@@ -397,7 +398,7 @@ if not __ok3 then error(__res3) end
     APPLY(function() PRSO = DIR return PRSO end)
     APPLY(function() P_OFLAG = nil return P_OFLAG end)
     APPLY(function() P_WALK_DIR = DIR return P_WALK_DIR end)
-    	return APPLY(function() AGAIN_DIR = DIR return AGAIN_DIR end)
+    	__tmp = APPLY(function() AGAIN_DIR = DIR return AGAIN_DIR end)
   else 
     
     if P_OFLAG then 
@@ -408,13 +409,14 @@ if not __ok3 then error(__res3) end
     APPLY(function() AGAIN_DIR = nil return AGAIN_DIR end)
     
     if PASS(SYNTAX_CHECK() and SNARF_OBJECTS() and MANY_CHECK() and TAKE_CHECK()) then 
-      	return T
+      	__tmp = T
     end
 
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PARSER\n'..__res) end
 end
 P_ACT = nil
@@ -426,6 +428,7 @@ STUFF = function(SRC, DEST, MAX)
 	local BPTR
   MAX = MAX or 29
 	local __ok, __res = pcall(function()
+	local __tmp = false
   PUTB(DEST, 0, GETB(SRC, 0))
   PUTB(DEST, 1, GETB(SRC, 1))
 
@@ -448,13 +451,15 @@ repeat __ok4, __res4 = pcall(__prog4)
 until __ok4 or __res4 ~= 123
 if not __ok4 then error(__res4) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('STUFF\n'..__res) end
 end
 INBUF_STUFF = function(SRC, DEST)
 	local CNT
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() CNT = SUB(GETB(SRC, 0), 1) return CNT end)
 
   local __prog5 = function()
@@ -471,8 +476,9 @@ repeat __ok5, __res5 = pcall(__prog5)
 until __ok5 or __res5 ~= 123
 if not __ok5 then error(__res5) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('INBUF_STUFF\n'..__res) end
 end
 INBUF_ADD = function(LEN, BEG, SLOT)
@@ -480,6 +486,7 @@ INBUF_ADD = function(LEN, BEG, SLOT)
   local CTR = 0
 	local TMP
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if APPLY(function() TMP = GET(OOPS_TABLE, O_END) return TMP end) then 
     APPLY(function() DBEG = TMP return DBEG end)
@@ -505,9 +512,10 @@ until __ok6 or __res6 ~= 123
 if not __ok6 then error(__res6) end
 
   PUTB(AGAIN_LEXV, SLOT, DBEG)
-	return   PUTB(AGAIN_LEXV, SUB(SLOT, 1), LEN)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp =   PUTB(AGAIN_LEXV, SUB(SLOT, 1), LEN)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('INBUF_ADD\n'..__res) end
 end
 WTQ = function(PTR, BIT, B1)
@@ -515,6 +523,7 @@ WTQ = function(PTR, BIT, B1)
 	local TYP
   B1 = B1 or 5
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if BTST(APPLY(function() TYP = GETB(PTR, P_PSOFF) return TYP end), BIT) then 
     
@@ -527,13 +536,14 @@ WTQ = function(PTR, BIT, B1)
         APPLY(function() OFFS = ADD(OFFS, 1) return OFFS end)
       end
 
-      	return GETB(PTR, OFFS)
+      	__tmp = GETB(PTR, OFFS)
     end
 
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('WTQ\n'..__res) end
 end
 CLAUSE = function(PTR, VAL, WRD)
@@ -544,6 +554,7 @@ CLAUSE = function(PTR, VAL, WRD)
 	local NW
   local LW = 0
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() OFF = MULL(SUB(P_NCN, 1), 2) return OFF end)
 
   if NOT(EQUALQ(VAL, 0)) then 
@@ -638,8 +649,9 @@ repeat __ok7, __res7 = pcall(__prog7)
 until __ok7 or __res7 ~= 123
 if not __ok7 then error(__res7) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('CLAUSE\n'..__res) end
 end
 NUMBERQ = function(PTR)
@@ -649,6 +661,7 @@ NUMBERQ = function(PTR)
   local SUM = 0
   local TIM = nil
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() CNT = GETB(REST(P_LEXV, MULL(PTR, 2)), 2) return CNT end)
 APPLY(function() BPTR = GETB(REST(P_LEXV, MULL(PTR, 2)), 3) return BPTR end)
 
@@ -696,9 +709,10 @@ if not __ok8 then error(__res8) end
   end
 
 APPLY(function() P_NUMBER = SUM return P_NUMBER end)
-	return WQINTNUM
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp = WQINTNUM
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('NUMBERQ\n'..__res) end
 end
 P_NUMBER = 0
@@ -712,6 +726,7 @@ ORPHAN_MERGE = function()
   local ADJ = nil
 	local WRD
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() P_OFLAG = nil return P_OFLAG end)
 
   if PASS(EQUALQ(WTQ(APPLY(function() WRD = GET(GET(P_ITBL, P_VERBN), 0) return WRD end), PSQVERB, P1QVERB), GET(P_OTBL, P_VERB)) or NOT(ZEROQ(WTQ(WRD, PSQADJECTIVE)))) then 
@@ -860,13 +875,15 @@ repeat __ok10, __res10 = pcall(__prog10)
 until __ok10 or __res10 ~= 123
 if not __ok10 then error(__res10) end
 
-	return T
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp = T
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('ORPHAN_MERGE\n'..__res) end
 end
 ACLAUSE_WIN = function(ADJ)
 	local __ok, __res = pcall(function()
+	local __tmp = false
   PUT(P_ITBL, P_VERB, GET(P_OTBL, P_VERB))
   PUT(P_CCTBL, CC_SBPTR, P_ACLAUSE)
   PUT(P_CCTBL, CC_SEPTR, ADD(P_ACLAUSE, 1))
@@ -876,12 +893,14 @@ ACLAUSE_WIN = function(ADJ)
   PASS(NOT(EQUALQ(GET(P_OTBL, P_NC2), 0)) and APPLY(function() P_NCN = 2 return P_NCN end))
 APPLY(function() P_ACLAUSE = nil return P_ACLAUSE end)
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('ACLAUSE_WIN\n'..__res) end
 end
 NCLAUSE_WIN = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   PUT(P_CCTBL, CC_SBPTR, P_NC1)
   PUT(P_CCTBL, CC_SEPTR, P_NC1L)
   PUT(P_CCTBL, CC_DBPTR, P_ACLAUSE)
@@ -890,12 +909,14 @@ NCLAUSE_WIN = function()
   PASS(NOT(EQUALQ(GET(P_OTBL, P_NC2), 0)) and APPLY(function() P_NCN = 2 return P_NCN end))
 APPLY(function() P_ACLAUSE = nil return P_ACLAUSE end)
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('NCLAUSE_WIN\n'..__res) end
 end
 WORD_PRINT = function(CNT, BUF)
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   local __prog11 = function()
     
@@ -913,13 +934,15 @@ repeat __ok11, __res11 = pcall(__prog11)
 until __ok11 or __res11 ~= 123
 if not __ok11 then error(__res11) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('WORD_PRINT\n'..__res) end
 end
 UNKNOWN_WORD = function(PTR)
 	local BUF
 	local __ok, __res = pcall(function()
+	local __tmp = false
   PUT(OOPS_TABLE, O_PTR, PTR)
 
   if VERBQ(SAY) then 
@@ -931,14 +954,16 @@ UNKNOWN_WORD = function(PTR)
   WORD_PRINT(GETB(REST(P_LEXV, APPLY(function() BUF = MULL(PTR, 2) return BUF end)), 2), GETB(REST(P_LEXV, BUF), 3))
   TELL("\".", CR)
 APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
-	return APPLY(function() P_OFLAG = nil return P_OFLAG end)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp = APPLY(function() P_OFLAG = nil return P_OFLAG end)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('UNKNOWN_WORD\n'..__res) end
 end
 CANT_USE = function(PTR)
 	local BUF
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if VERBQ(SAY) then 
     TELL("Nothing happens.", CR)
@@ -949,9 +974,10 @@ CANT_USE = function(PTR)
   WORD_PRINT(GETB(REST(P_LEXV, APPLY(function() BUF = MULL(PTR, 2) return BUF end)), 2), GETB(REST(P_LEXV, BUF), 3))
   TELL("\" in a way that I don't understand.", CR)
 APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
-	return APPLY(function() P_OFLAG = nil return P_OFLAG end)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp = APPLY(function() P_OFLAG = nil return P_OFLAG end)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('CANT_USE\n'..__res) end
 end
 P_SLOCBITS = 0
@@ -976,6 +1002,7 @@ SYNTAX_CHECK = function()
 	local VERB
 	local TMP
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if ZEROQ(APPLY(function() VERB = GET(P_ITBL, P_VERB) return VERB end)) then 
     TELL("There was no verb in that sentence!", CR)
@@ -1029,16 +1056,16 @@ if not __ok12 then error(__res12) end
   if PASS(DRIVE1 and APPLY(function() OBJ = GWIM(GETB(DRIVE1, P_SFWIM1), GETB(DRIVE1, P_SLOC1), GETB(DRIVE1, P_SPREP1)) return OBJ end)) then 
     PUT(P_PRSO, P_MATCHLEN, 1)
     PUT(P_PRSO, 1, OBJ)
-    	return SYNTAX_FOUND(DRIVE1)
+    	__tmp = SYNTAX_FOUND(DRIVE1)
   elseif PASS(DRIVE2 and APPLY(function() OBJ = GWIM(GETB(DRIVE2, P_SFWIM2), GETB(DRIVE2, P_SLOC2), GETB(DRIVE2, P_SPREP2)) return OBJ end)) then 
     PUT(P_PRSI, P_MATCHLEN, 1)
     PUT(P_PRSI, 1, OBJ)
-    	return SYNTAX_FOUND(DRIVE2)
+    	__tmp = SYNTAX_FOUND(DRIVE2)
   elseif EQUALQ(VERB, ACTQFIND) then 
     TELL("That question can't be answered.", CR)
     	error(false)
   elseif NOT(EQUALQ(WINNER, PLAYER)) then 
-    	return CANT_ORPHAN()
+    	__tmp = CANT_ORPHAN()
   elseif T then 
     ORPHAN(DRIVE1, DRIVE2)
     TELL("What do you want to ")
@@ -1062,30 +1089,34 @@ if not __ok12 then error(__res12) end
     APPLY(function() P_OFLAG = T return P_OFLAG end)
     PREP_PRINT(APPLY(function()
       if DRIVE1 then 
-        	return GETB(DRIVE1, P_SPREP1)
+        	__tmp = GETB(DRIVE1, P_SPREP1)
       elseif T then 
-        	return GETB(DRIVE2, P_SPREP2)
+        	__tmp = GETB(DRIVE2, P_SPREP2)
       end
  end))
     TELL("?", CR)
     	error(false)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('SYNTAX_CHECK\n'..__res) end
 end
 CANT_ORPHAN = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   TELL("\"I don't understand! What are you referring to?\"", CR)
 	error(false)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('CANT_ORPHAN\n'..__res) end
 end
 ORPHAN = function(D1, D2)
   local CNT = -1
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(P_MERGED) then 
     PUT(P_OCLAUSE, P_MATCHLEN, 0)
@@ -1131,14 +1162,15 @@ if not __ok13 then error(__res13) end
 
   if D1 then 
     PUT(P_OTBL, P_PREP1, GETB(D1, P_SPREP1))
-    	return PUT(P_OTBL, P_NC1, 1)
+    	__tmp = PUT(P_OTBL, P_NC1, 1)
   elseif D2 then 
     PUT(P_OTBL, P_PREP2, GETB(D2, P_SPREP2))
-    	return PUT(P_OTBL, P_NC2, 1)
+    	__tmp = PUT(P_OTBL, P_NC2, 1)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('ORPHAN\n'..__res) end
 end
 THING_PRINT = function(PRSOQ, THEQ)
@@ -1146,6 +1178,7 @@ THING_PRINT = function(PRSOQ, THEQ)
 	local END
   THEQ = THEQ or nil
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PRSOQ then 
     APPLY(function() BEG = GET(P_ITBL, P_NC1) return BEG end)
@@ -1155,9 +1188,10 @@ THING_PRINT = function(PRSOQ, THEQ)
     APPLY(function() END = GET(P_ITBL, P_NC2L) return END end)
   end
 
-	return   BUFFER_PRINT(BEG, END, THEQ)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp =   BUFFER_PRINT(BEG, END, THEQ)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('THING_PRINT\n'..__res) end
 end
 BUFFER_PRINT = function(BEG, END, CP)
@@ -1167,6 +1201,7 @@ BUFFER_PRINT = function(BEG, END, CP)
   local PN = nil
   local QQ = nil
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   local __prog14 = function()
     
@@ -1220,26 +1255,29 @@ repeat __ok14, __res14 = pcall(__prog14)
 until __ok14 or __res14 ~= 123
 if not __ok14 then error(__res14) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('BUFFER_PRINT\n'..__res) end
 end
 PREP_PRINT = function(PREP)
 	local WRD
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(ZEROQ(PREP)) then 
     TELL(" ")
     
     if T then 
       APPLY(function() WRD = PREP_FIND(PREP) return WRD end)
-      	return PRINTB(WRD)
+      	__tmp = PRINTB(WRD)
     end
 
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PREP_PRINT\n'..__res) end
 end
 CLAUSE_COPY = function(SRC, DEST, INSRT)
@@ -1247,6 +1285,7 @@ CLAUSE_COPY = function(SRC, DEST, INSRT)
 	local END
   INSRT = INSRT or nil
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() BEG = GET(SRC, GET(P_CCTBL, CC_SBPTR)) return BEG end)
 APPLY(function() END = GET(SRC, GET(P_CCTBL, CC_SEPTR)) return END end)
   PUT(DEST, GET(P_CCTBL, CC_DBPTR), REST(P_OCLAUSE, ADD(MULL(GET(P_OCLAUSE, P_MATCHLEN), P_LEXELEN), 2)))
@@ -1273,25 +1312,29 @@ repeat __ok15, __res15 = pcall(__prog15)
 until __ok15 or __res15 ~= 123
 if not __ok15 then error(__res15) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('CLAUSE_COPY\n'..__res) end
 end
 CLAUSE_ADD = function(WRD)
 	local PTR
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() PTR = ADD(GET(P_OCLAUSE, P_MATCHLEN), 2) return PTR end)
   PUT(P_OCLAUSE, SUB(PTR, 1), WRD)
   PUT(P_OCLAUSE, PTR, 0)
-	return   PUT(P_OCLAUSE, P_MATCHLEN, PTR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp =   PUT(P_OCLAUSE, P_MATCHLEN, PTR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('CLAUSE_ADD\n'..__res) end
 end
 PREP_FIND = function(PREP)
   local CNT = 0
 	local SIZE
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() SIZE = MULL(GET(PREPOSITIONS, 0), 2) return SIZE end)
 
   local __prog16 = function()
@@ -1309,22 +1352,26 @@ repeat __ok16, __res16 = pcall(__prog16)
 until __ok16 or __res16 ~= 123
 if not __ok16 then error(__res16) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PREP_FIND\n'..__res) end
 end
 SYNTAX_FOUND = function(SYN)
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() P_SYNTAX = SYN return P_SYNTAX end)
-	return APPLY(function() PRSA = GETB(SYN, P_SACTION) return PRSA end)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp = APPLY(function() PRSA = GETB(SYN, P_SACTION) return PRSA end)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('SYNTAX_FOUND\n'..__res) end
 end
 P_GWIMBIT = 0
 GWIM = function(GBIT, LBIT, PREP)
 	local OBJ
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if EQUALQ(GBIT, RMUNGBIT) then 
     error(ROOMS)
@@ -1361,7 +1408,7 @@ APPLY(function() P_SLOCBITS = LBIT return P_SLOCBITS end)
         TELL(D, OBJ, ")", CR)
       end
 
-      	return OBJ
+      	__tmp = OBJ
     end
 
   elseif T then 
@@ -1369,8 +1416,9 @@ APPLY(function() P_SLOCBITS = LBIT return P_SLOCBITS end)
     	error(false)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('GWIM\n'..__res) end
 end
 SNARF_OBJECTS = function()
@@ -1378,6 +1426,7 @@ SNARF_OBJECTS = function()
 	local IPTR
 	local L
 	local __ok, __res = pcall(function()
+	local __tmp = false
   PUT(P_BUTS, P_MATCHLEN, 0)
 
   if NOT(EQUALQ(APPLY(function() IPTR = GET(P_ITBL, P_NC2) return IPTR end), 0)) then 
@@ -1407,8 +1456,9 @@ SNARF_OBJECTS = function()
   end
 
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('SNARF_OBJECTS\n'..__res) end
 end
 BUT_MERGE = function(TBL)
@@ -1419,6 +1469,7 @@ BUT_MERGE = function(TBL)
 	local OBJ
 	local NTBL
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() LEN = GET(TBL, P_MATCHLEN) return LEN end)
   PUT(P_MERGE, P_MATCHLEN, 0)
 
@@ -1444,9 +1495,10 @@ if not __ok17 then error(__res17) end
   PUT(P_MERGE, P_MATCHLEN, MATCHES)
 APPLY(function() NTBL = P_MERGE return NTBL end)
 APPLY(function() P_MERGE = TBL return P_MERGE end)
-	return NTBL
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp = NTBL
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('BUT_MERGE\n'..__res) end
 end
 P_NAM = nil
@@ -1472,6 +1524,7 @@ SNARFEM = function(PTR, EPTR, TBL)
 	local NW
   local WAS_ALL = nil
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() P_AND = nil return P_AND end)
 
   if EQUALQ(P_GETFLAGS, P_ALL) then 
@@ -1564,8 +1617,9 @@ repeat __ok18, __res18 = pcall(__prog18)
 until __ok18 or __res18 ~= 123
 if not __ok18 then error(__res18) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('SNARFEM\n'..__res) end
 end
 SH = 128
@@ -1585,6 +1639,7 @@ GET_OBJECT = function(TBL, VRB)
 	local OBJ
   VRB = VRB or T
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() XBITS = P_SLOCBITS return XBITS end)
 APPLY(function() TLEN = GET(TBL, P_MATCHLEN) return TLEN end)
 
@@ -1669,9 +1724,9 @@ APPLY(function() P_TABLE = TBL return P_TABLE end)
           WHICH_PRINT(TLEN, LEN, TBL)
           APPLY(function() P_ACLAUSE = APPLY(function()
             if EQUALQ(TBL, P_PRSO) then 
-              	return P_NC1
+              	__tmp = P_NC1
             elseif T then 
-              	return P_NC2
+              	__tmp = P_NC2
             end
  end) return P_ACLAUSE end)
           APPLY(function() P_AADJ = P_ADJ return P_AADJ end)
@@ -1722,8 +1777,9 @@ repeat __ok19, __res19 = pcall(__prog19)
 until __ok19 or __res19 ~= 123
 if not __ok19 then error(__res19) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('GET_OBJECT\n'..__res) end
 end
 P_XNAM = nil
@@ -1733,17 +1789,18 @@ WHICH_PRINT = function(TLEN, LEN, TBL)
 	local OBJ
 	local RLEN
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() RLEN = LEN return RLEN end)
   TELL("Which ")
 
   if PASS(P_OFLAG or P_MERGED or P_AND) then 
     PRINTB(APPLY(function()
       if P_NAM then 
-        	return P_NAM
+        	__tmp = P_NAM
       elseif P_ADJ then 
-        	return P_ADJN
+        	__tmp = P_ADJN
       else 
-        	return WQONE
+        	__tmp = WQONE
       end
  end))
   else 
@@ -1781,8 +1838,9 @@ repeat __ok20, __res20 = pcall(__prog20)
 until __ok20 or __res20 ~= 123
 if not __ok20 then error(__res20) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('WHICH_PRINT\n'..__res) end
 end
 GLOBAL_CHECK = function(TBL)
@@ -1794,6 +1852,7 @@ GLOBAL_CHECK = function(TBL)
 	local OBITS
 	local FOO
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() LEN = GET(TBL, P_MATCHLEN) return LEN end)
 APPLY(function() OBITS = P_SLOCBITS return OBITS end)
 
@@ -1855,35 +1914,38 @@ if not __ok22 then error(__res22) end
     APPLY(function() P_SLOCBITS = OBITS return P_SLOCBITS end)
     
     if PASS(ZEROQ(GET(TBL, P_MATCHLEN)) and EQUALQ(PRSA, VQLOOK_INSIDE, VQSEARCH, VQEXAMINE)) then 
-      	return DO_SL(ROOMS, 1, 1)
+      	__tmp = DO_SL(ROOMS, 1, 1)
     end
 
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('GLOBAL_CHECK\n'..__res) end
 end
 DO_SL = function(OBJ, BIT1, BIT2)
 	local BTS
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if BTST(P_SLOCBITS, ADD(BIT1, BIT2)) then 
-    	return SEARCH_LIST(OBJ, P_TABLE, P_SRCALL)
+    	__tmp = SEARCH_LIST(OBJ, P_TABLE, P_SRCALL)
   elseif T then 
     
     if BTST(P_SLOCBITS, BIT1) then 
-      	return SEARCH_LIST(OBJ, P_TABLE, P_SRCTOP)
+      	__tmp = SEARCH_LIST(OBJ, P_TABLE, P_SRCTOP)
     elseif BTST(P_SLOCBITS, BIT2) then 
-      	return SEARCH_LIST(OBJ, P_TABLE, P_SRCBOT)
+      	__tmp = SEARCH_LIST(OBJ, P_TABLE, P_SRCBOT)
     elseif T then 
       	error(true)
     end
 
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('DO_SL\n'..__res) end
 end
 P_SRCBOT = 2
@@ -1893,6 +1955,7 @@ SEARCH_LIST = function(OBJ, TBL, LVL)
 	local FLS
 	local NOBJ
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if APPLY(function() OBJ = FIRSTQ(OBJ) return OBJ end) then 
     
@@ -1906,11 +1969,11 @@ SEARCH_LIST = function(OBJ, TBL, LVL)
       if PASS(PASS(NOT(EQUALQ(LVL, P_SRCTOP)) or FSETQ(OBJ, SEARCHBIT) or FSETQ(OBJ, SURFACEBIT)) and APPLY(function() NOBJ = FIRSTQ(OBJ) return NOBJ end) and PASS(FSETQ(OBJ, OPENBIT) or FSETQ(OBJ, TRANSBIT))) then 
         APPLY(function() FLS = SEARCH_LIST(OBJ, TBL, APPLY(function()
             if FSETQ(OBJ, SURFACEBIT) then 
-              	return P_SRCALL
+              	__tmp = P_SRCALL
             elseif FSETQ(OBJ, SEARCHBIT) then 
-              	return P_SRCALL
+              	__tmp = P_SRCALL
             elseif T then 
-              	return P_SRCTOP
+              	__tmp = P_SRCTOP
             end
  end)) return FLS end)
       end
@@ -1931,25 +1994,30 @@ if not __ok23 then error(__res23) end
 
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('SEARCH_LIST\n'..__res) end
 end
 OBJ_FOUND = function(OBJ, TBL)
 	local PTR
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() PTR = GET(TBL, P_MATCHLEN) return PTR end)
   PUT(TBL, ADD(PTR, 1), OBJ)
-	return   PUT(TBL, P_MATCHLEN, ADD(PTR, 1))
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp =   PUT(TBL, P_MATCHLEN, ADD(PTR, 1))
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('OBJ_FOUND\n'..__res) end
 end
 TAKE_CHECK = function()
 	local __ok, __res = pcall(function()
-	return   PASS(ITAKE_CHECK(P_PRSO, GETB(P_SYNTAX, P_SLOC1)) and ITAKE_CHECK(P_PRSI, GETB(P_SYNTAX, P_SLOC2)))
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   PASS(ITAKE_CHECK(P_PRSO, GETB(P_SYNTAX, P_SLOC1)) and ITAKE_CHECK(P_PRSI, GETB(P_SYNTAX, P_SLOC2)))
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('TAKE_CHECK\n'..__res) end
 end
 ITAKE_CHECK = function(TBL, IBITS)
@@ -1957,6 +2025,7 @@ ITAKE_CHECK = function(TBL, IBITS)
 	local OBJ
 	local TAKEN
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(APPLY(function() PTR = GET(TBL, P_MATCHLEN) return PTR end) and PASS(BTST(IBITS, SHAVE) or BTST(IBITS, STAKE))) then 
     
@@ -2021,17 +2090,19 @@ until __ok24 or __res24 ~= 123
 if not __ok24 then error(__res24) end
 
   elseif T then 
-    	return T
+    	__tmp = T
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('ITAKE_CHECK\n'..__res) end
 end
 MANY_CHECK = function()
   local LOSS = nil
 	local TMP
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(GQ(GET(P_PRSO, P_MATCHLEN), 1) and NOT(BTST(GETB(P_SYNTAX, P_SLOC1), SMANY))) then 
     APPLY(function() LOSS = 1 return LOSS end)
@@ -2061,17 +2132,19 @@ MANY_CHECK = function()
     TELL("\".", CR)
     	error(false)
   elseif T then 
-    	return T
+    	__tmp = T
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('MANY_CHECK\n'..__res) end
 end
 ZMEMQ = function(ITM, TBL, SIZE)
   local CNT = 1
   SIZE = SIZE or -1
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(TBL) then 
     	error(false)
@@ -2100,13 +2173,15 @@ repeat __ok25, __res25 = pcall(__prog25)
 until __ok25 or __res25 ~= 123
 if not __ok25 then error(__res25) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('ZMEMQ\n'..__res) end
 end
 ZMEMQB = function(ITM, TBL, SIZE)
   local CNT = 0
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   local __prog26 = function()
     
@@ -2123,8 +2198,9 @@ repeat __ok26, __res26 = pcall(__prog26)
 until __ok26 or __res26 ~= 123
 if not __ok26 then error(__res26) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('ZMEMQB\n'..__res) end
 end
 ALWAYS_LIT = nil
@@ -2133,6 +2209,7 @@ LITQ = function(RM, RMBIT)
   local LIT = nil
   RMBIT = RMBIT or T
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(ALWAYS_LIT and EQUALQ(WINNER, PLAYER)) then 
     	error(true)
@@ -2168,14 +2245,16 @@ APPLY(function() HERE = RM return HERE end)
 
 APPLY(function() HERE = OHERE return HERE end)
 APPLY(function() P_GWIMBIT = 0 return P_GWIMBIT end)
-	return LIT
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp = LIT
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('LITQ\n'..__res) end
 end
 THIS_ITQ = function(OBJ, TBL)
 	local SYNS
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(OBJ, INVISIBLE) then 
     	error(false)
@@ -2188,13 +2267,15 @@ THIS_ITQ = function(OBJ, TBL)
   end
 
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('THIS_ITQ\n'..__res) end
 end
 ACCESSIBLEQ = function(OBJ)
   local L = LOC(OBJ)
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(OBJ, INVISIBLE) then 
     	error(false)
@@ -2214,12 +2295,14 @@ ACCESSIBLEQ = function(OBJ)
     	error(false)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('ACCESSIBLEQ\n'..__res) end
 end
 META_LOC = function(OBJ)
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   local __prog27 = function()
     
@@ -2243,7 +2326,8 @@ repeat __ok27, __res27 = pcall(__prog27)
 until __ok27 or __res27 ~= 123
 if not __ok27 then error(__res27) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('META_LOC\n'..__res) end
 end

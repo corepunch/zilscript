@@ -358,7 +358,7 @@ OBJECT {
 	SYNONYM = {"SKULL","HEAD","TREASURE"},
 	ADJECTIVE = {"CRYSTAL"},
 	DESC = "crystal skull",
-	FDESC = "Lying in one corner of the room is a beautifully carved crystal skull.\nIt appears to be grinning at you rather nastily.",
+	FDESC = "Lying in one corner of the room is a beautifully carved crystal skull. It appears to be grinning at you rather nastily.",
 	FLAGS = {"TAKEBIT"},
 	VALUE = 10,
 	TVALUE = 10,
@@ -466,7 +466,7 @@ OBJECT {
 	ACTION = BLACK_BOOK,
 	FDESC = "On the altar is a large black book, open to page 569.",
 	SIZE = 10,
-	TEXT = "Commandment #12592|\n|\nOh ye who go about saying unto each:  \"Hello sailor\":|\nDost thou know the magnitude of thy sin before the gods?|\nYea, verily, thou shalt be ground between two stones.|\nShall the angry gods cast thy body into the whirlpool?|\nSurely, thy eye shall be put out with a sharp stick!|\nEven unto the ends of the earth shalt thou wander and|\nUnto the land of the dead shalt thou be sent at last.|\nSurely thou shalt repent of thy cunning.",
+	TEXT = "Commandment #12592| | Oh ye who go about saying unto each:  \"Hello sailor\":| Dost thou know the magnitude of thy sin before the gods?| Yea, verily, thou shalt be ground between two stones.| Shall the angry gods cast thy body into the whirlpool?| Surely, thy eye shall be put out with a sharp stick!| Even unto the ends of the earth shalt thou wander and| Unto the land of the dead shalt thou be sent at last.| Surely thou shalt repent of thy cunning.",
 }
 OBJECT {
 	NAME = "BROKEN_LAMP",
@@ -484,7 +484,7 @@ OBJECT {
 	FLAGS = {"TAKEBIT","WEAPONBIT"},
 	ACTION = SCEPTRE_FUNCTION,
 	LDESC = "An ornamented sceptre, tapering to a sharp point, is here.",
-	FDESC = "A sceptre, possibly that of ancient Egypt itself, is in the coffin. The\nsceptre is ornamented with colored enamel, and tapers to a sharp point.",
+	FDESC = "A sceptre, possibly that of ancient Egypt itself, is in the coffin. The sceptre is ornamented with colored enamel, and tapers to a sharp point.",
 	SIZE = 3,
 	VALUE = 4,
 	TVALUE = 6,
@@ -840,7 +840,7 @@ OBJECT {
 	DESC = "leaflet",
 	FLAGS = {"READBIT","TAKEBIT","BURNBIT"},
 	LDESC = "A small leaflet is on the ground.",
-	TEXT = "\"WELCOME TO ZORK!|\n|\nZORK is a game of adventure, danger, and low cunning. In it you\nwill explore some of the most amazing territory ever seen by mortals.\nNo computer should be without one!\"",
+	TEXT = "\"WELCOME TO ZORK!| | ZORK is a game of adventure, danger, and low cunning. In it you will explore some of the most amazing territory ever seen by mortals. No computer should be without one!\"",
 	SIZE = 2,
 }
 OBJECT {
@@ -891,7 +891,7 @@ OBJECT {
 	ACTION = MATCH_FUNCTION,
 	LDESC = "There is a matchbook whose cover says \"Visit Beautiful FCD#3\" here.",
 	SIZE = 2,
-	TEXT = "|\n(Close cover before striking)|\n|\nYOU too can make BIG MONEY in the exciting field of PAPER SHUFFLING!|\n|\nMr. Anderson of Muddle, Mass. says: \"Before I took this course I\nwas a lowly bit twiddler. Now with what I learned at GUE Tech\nI feel really important and can obfuscate and confuse with the best.\"|\n|\nDr. Blank had this to say: \"Ten short days ago all I could look\nforward to was a dead-end job as a doctor. Now I have a promising\nfuture and make really big Zorkmids.\"|\n|\nGUE Tech can't promise these fantastic results to everyone. But when\nyou earn your degree from GUE Tech, your future will be brighter.",
+	TEXT = "| (Close cover before striking)| | YOU too can make BIG MONEY in the exciting field of PAPER SHUFFLING!| | Mr. Anderson of Muddle, Mass. says: \"Before I took this course I was a lowly bit twiddler. Now with what I learned at GUE Tech I feel really important and can obfuscate and confuse with the best.\"| | Dr. Blank had this to say: \"Ten short days ago all I could look forward to was a dead-end job as a doctor. Now I have a promising future and make really big Zorkmids.\"| | GUE Tech can't promise these fantastic results to everyone. But when you earn your degree from GUE Tech, your future will be brighter.",
 }
 OBJECT {
 	NAME = "MIRROR_2",
@@ -917,7 +917,7 @@ OBJECT {
 	DESC = "painting",
 	FLAGS = {"TAKEBIT","BURNBIT"},
 	ACTION = PAINTING_FCN,
-	FDESC = "Fortunately, there is still one chance for you to be a vandal, for on\nthe far wall is a painting of unparalleled beauty.",
+	FDESC = "Fortunately, there is still one chance for you to be a vandal, for on the far wall is a painting of unparalleled beauty.",
 	LDESC = "A painting by a neglected genius is here.",
 	SIZE = 15,
 	VALUE = 4,
@@ -979,7 +979,7 @@ OBJECT {
 	DESC = "pile of plastic",
 	FLAGS = {"TAKEBIT","BURNBIT"},
 	ACTION = IBOAT_FUNCTION,
-	LDESC = "There is a folded pile of plastic here which has a small valve\nattached.",
+	LDESC = "There is a folded pile of plastic here which has a small valve attached.",
 	SIZE = 20,
 }
 OBJECT {
@@ -1013,7 +1013,7 @@ OBJECT {
 	ADJECTIVE = {"ANCIENT","OLD"},
 	DESC = "prayer",
 	FLAGS = {"READBIT","SACREDBIT","NDESCBIT"},
-	TEXT = "The prayer is inscribed in an ancient script, rarely used today. It seems\nto be a philippic against small insects, absent-mindedness, and the picking\nup and dropping of small objects. The final verse consigns trespassers to\nthe land of the dead. All evidence indicates that the beliefs of the ancient\nZorkers were obscure.",
+	TEXT = "The prayer is inscribed in an ancient script, rarely used today. It seems to be a philippic against small insects, absent-mindedness, and the picking up and dropping of small objects. The final verse consigns trespassers to the land of the dead. All evidence indicates that the beliefs of the ancient Zorkers were obscure.",
 }
 OBJECT {
 	NAME = "RAILING",
@@ -1054,14 +1054,16 @@ OBJECT {
 }
 TREASURE_INSIDE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if VERBQ(OPEN) then 
     SCORE_OBJ(EMERALD)
     	error(false)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('TREASURE_INSIDE\n'..__res) end
 end
 OBJECT {
@@ -1216,7 +1218,7 @@ OBJECT {
 	FLAGS = {"INVISIBLE","READBIT","TAKEBIT"},
 	FDESC = "In the trophy case is an ancient parchment which appears to be a map.",
 	SIZE = 2,
-	TEXT = "The map shows a forest with three clearings. The largest clearing contains\na house. Three paths leave the large clearing. One of these paths, leading\nsouthwest, is marked \"To Stone Barrow\".",
+	TEXT = "The map shows a forest with three clearings. The largest clearing contains a house. Three paths leave the large clearing. One of these paths, leading southwest, is marked \"To Stone Barrow\".",
 }
 OBJECT {
 	NAME = "BOAT_LABEL",
@@ -1226,7 +1228,7 @@ OBJECT {
 	DESC = "tan label",
 	FLAGS = {"READBIT","TAKEBIT","BURNBIT"},
 	SIZE = 2,
-	TEXT = "  !!!!FROBOZZ MAGIC BOAT COMPANY!!!!|\n|\nHello, Sailor!|\n|\nInstructions for use:|\n|\n   To get into a body of water, say \"Launch\".|\n   To get to shore, say \"Land\" or the direction in which you want\nto maneuver the boat.|\n|\nWarranty:|\n|\n  This boat is guaranteed against all defects for a period of 76\nmilliseconds from date of purchase or until first used, whichever comes first.|\n|\nWarning:|\n   This boat is made of thin plastic.|\n   Good Luck!",
+	TEXT = "  !!!!FROBOZZ MAGIC BOAT COMPANY!!!!| | Hello, Sailor!| | Instructions for use:| |    To get into a body of water, say \"Launch\".|    To get to shore, say \"Land\" or the direction in which you want to maneuver the boat.| | Warranty:| |   This boat is guaranteed against all defects for a period of 76 milliseconds from date of purchase or until first used, whichever comes first.| | Warning:|    This boat is made of thin plastic.|    Good Luck!",
 }
 OBJECT {
 	NAME = "THIEF",
@@ -1236,7 +1238,7 @@ OBJECT {
 	DESC = "thief",
 	FLAGS = {"ACTORBIT","INVISIBLE","CONTBIT","OPENBIT","TRYTAKEBIT"},
 	ACTION = ROBBER_FUNCTION,
-	LDESC = "There is a suspicious-looking individual, holding a large bag, leaning\nagainst one wall. He is armed with a deadly stiletto.",
+	LDESC = "There is a suspicious-looking individual, holding a large bag, leaning against one wall. He is armed with a deadly stiletto.",
 	STRENGTH = 5,
 }
 OBJECT {
@@ -1269,8 +1271,8 @@ OBJECT {
 	ADJECTIVE = {"TOUR","GUIDE"},
 	DESC = "tour guidebook",
 	FLAGS = {"READBIT","TAKEBIT","BURNBIT"},
-	FDESC = "Some guidebooks entitled \"Flood Control Dam #3\" are on the reception\ndesk.",
-	TEXT = "\"	Flood Control Dam #3|\n|\nFCD#3 was constructed in year 783 of the Great Underground Empire to\nharness the mighty Frigid River. This work was supported by a grant of\n37 million zorkmids from your omnipotent local tyrant Lord Dimwit\nFlathead the Excessive. This impressive structure is composed of\n370,000 cubic feet of concrete, is 256 feet tall at the center, and 193\nfeet wide at the top. The lake created behind the dam has a volume\nof 1.7 billion cubic feet, an area of 12 million square feet, and a\nshore line of 36 thousand feet.|\n|\nThe construction of FCD#3 took 112 days from ground breaking to\nthe dedication. It required a work force of 384 slaves, 34 slave\ndrivers, 12 engineers, 2 turtle doves, and a partridge in a pear\ntree. The work was managed by a command team composed of 2345\nbureaucrats, 2347 secretaries (at least two of whom could type),\n12,256 paper shufflers, 52,469 rubber stampers, 245,193 red tape\nprocessors, and nearly one million dead trees.|\n|\nWe will now point out some of the more interesting features\nof FCD#3 as we conduct you on a guided tour of the facilities:|\n|\n        1) You start your tour here in the Dam Lobby. You will notice\non your right that....",
+	FDESC = "Some guidebooks entitled \"Flood Control Dam #3\" are on the reception desk.",
+	TEXT = "\"	Flood Control Dam #3| | FCD#3 was constructed in year 783 of the Great Underground Empire to harness the mighty Frigid River. This work was supported by a grant of 37 million zorkmids from your omnipotent local tyrant Lord Dimwit Flathead the Excessive. This impressive structure is composed of 370,000 cubic feet of concrete, is 256 feet tall at the center, and 193 feet wide at the top. The lake created behind the dam has a volume of 1.7 billion cubic feet, an area of 12 million square feet, and a shore line of 36 thousand feet.| | The construction of FCD#3 took 112 days from ground breaking to the dedication. It required a work force of 384 slaves, 34 slave drivers, 12 engineers, 2 turtle doves, and a partridge in a pear tree. The work was managed by a command team composed of 2345 bureaucrats, 2347 secretaries (at least two of whom could type), 12,256 paper shufflers, 52,469 rubber stampers, 245,193 red tape processors, and nearly one million dead trees.| | We will now point out some of the more interesting features of FCD#3 as we conduct you on a guided tour of the facilities:| |         1) You start your tour here in the Dam Lobby. You will notice on your right that....",
 }
 OBJECT {
 	NAME = "TROLL",
@@ -1280,7 +1282,7 @@ OBJECT {
 	DESC = "troll",
 	FLAGS = {"ACTORBIT","OPENBIT","TRYTAKEBIT"},
 	ACTION = TROLL_FCN,
-	LDESC = "A nasty-looking troll, brandishing a bloody axe, blocks all passages\nout of the room.",
+	LDESC = "A nasty-looking troll, brandishing a bloody axe, blocks all passages out of the room.",
 	STRENGTH = 2,
 }
 OBJECT {
@@ -1307,7 +1309,7 @@ OBJECT {
 	LDESC = "There is an object which looks like a tube of toothpaste here.",
 	CAPACITY = 7,
 	SIZE = 5,
-	TEXT = "---> Frobozz Magic Gunk Company <---|\n          All-Purpose Gunk",
+	TEXT = "---> Frobozz Magic Gunk Company <---|           All-Purpose Gunk",
 }
 OBJECT {
 	NAME = "PUTTY",
@@ -1327,7 +1329,7 @@ OBJECT {
 	DESC = "wall with engravings",
 	FLAGS = {"READBIT","SACREDBIT"},
 	LDESC = "There are old engravings on the walls here.",
-	TEXT = "The engravings were incised in the living rock of the cave wall by\nan unknown hand. They depict, in symbolic form, the beliefs of the\nancient Zorkers. Skillfully interwoven with the bas reliefs are excerpts\nillustrating the major religious tenets of that time. Unfortunately, a\nlater age seems to have considered them blasphemous and just as skillfully\nexcised them.",
+	TEXT = "The engravings were incised in the living rock of the cave wall by an unknown hand. They depict, in symbolic form, the beliefs of the ancient Zorkers. Skillfully interwoven with the bas reliefs are excerpts illustrating the major religious tenets of that time. Unfortunately, a later age seems to have considered them blasphemous and just as skillfully excised them.",
 }
 OBJECT {
 	NAME = "OWNERS_MANUAL",
@@ -1337,7 +1339,7 @@ OBJECT {
 	DESC = "ZORK owner's manual",
 	FLAGS = {"READBIT","TAKEBIT"},
 	FDESC = "Loosely attached to a wall is a small piece of paper.",
-	TEXT = "Congratulations!|\n|\nYou are the privileged owner of ZORK I: The Great Underground Empire,\na self-contained and self-maintaining universe. If used and maintained\nin accordance with normal operating practices for small universes, ZORK\nwill provide many months of trouble-free operation.",
+	TEXT = "Congratulations!| | You are the privileged owner of ZORK I: The Great Underground Empire, a self-contained and self-maintaining universe. If used and maintained in accordance with normal operating practices for small universes, ZORK will provide many months of trouble-free operation.",
 }
 OBJECT {
 	NAME = "CLIMBABLE_CLIFF",
@@ -1394,7 +1396,7 @@ OBJECT {
 	VALUE = 5,
 	TVALUE = 5,
 	CAPACITY = 6,
-	FDESC = "In the bird's nest is a large egg encrusted with precious jewels,\napparently scavenged by a childless songbird. The egg is covered with\nfine gold inlay, and ornamented in lapis lazuli and mother-of-pearl.\nUnlike most eggs, this one is hinged and closed with a delicate looking\nclasp. The egg appears extremely fragile.",
+	FDESC = "In the bird's nest is a large egg encrusted with precious jewels, apparently scavenged by a childless songbird. The egg is covered with fine gold inlay, and ornamented in lapis lazuli and mother-of-pearl. Unlike most eggs, this one is hinged and closed with a delicate looking clasp. The egg appears extremely fragile.",
 }
 OBJECT {
 	NAME = "BROKEN_EGG",
@@ -1425,7 +1427,7 @@ OBJECT {
 	ACTION = CANARY_OBJECT,
 	VALUE = 6,
 	TVALUE = 4,
-	FDESC = "There is a golden clockwork canary nestled in the egg. It has ruby\neyes and a silver beak. Through a crystal window below its left\nwing you can see intricate machinery inside. It appears to have\nwound down.",
+	FDESC = "There is a golden clockwork canary nestled in the egg. It has ruby eyes and a silver beak. Through a crystal window below its left wing you can see intricate machinery inside. It appears to have wound down.",
 }
 OBJECT {
 	NAME = "BROKEN_CANARY",
@@ -1436,7 +1438,7 @@ OBJECT {
 	FLAGS = {"TAKEBIT"},
 	ACTION = CANARY_OBJECT,
 	TVALUE = 1,
-	FDESC = "There is a golden clockwork canary nestled in the egg. It seems to\nhave recently had a bad experience. The mountings for its jewel-like\neyes are empty, and its silver beak is crumpled. Through a cracked\ncrystal window below its left wing you can see the remains of\nintricate machinery. It is not clear what result winding it would\nhave, as the mainspring seems sprung.",
+	FDESC = "There is a golden clockwork canary nestled in the egg. It seems to have recently had a bad experience. The mountings for its jewel-like eyes are empty, and its silver beak is crumpled. Through a cracked crystal window below its left wing you can see the remains of intricate machinery. It is not clear what result winding it would have, as the mainspring seems sprung.",
 }
 CYCLOPS_FLAG = nil
 DEFLATE = nil
@@ -1467,7 +1469,7 @@ ROOM {
 ROOM {
 	NAME = "STONE_BARROW",
 	LOC = ROOMS,
-	LDESC = "You are standing in front of a massive barrow of stone. In the east face\nis a huge stone door which is open. You cannot see into the dark of the tomb.",
+	LDESC = "You are standing in front of a massive barrow of stone. In the east face is a huge stone door which is open. You cannot see into the dark of the tomb.",
 	DESC = "Stone Barrow",
 	NE = WEST_OF_HOUSE,
 	ACTION = STONE_BARROW_FCN,
@@ -1476,7 +1478,7 @@ ROOM {
 ROOM {
 	NAME = "NORTH_OF_HOUSE",
 	LOC = ROOMS,
-	LDESC = "You are facing the north side of a white house. There is no door here,\nand all the windows are boarded up. To the north a narrow path winds through\nthe trees.",
+	LDESC = "You are facing the north side of a white house. There is no door here, and all the windows are boarded up. To the north a narrow path winds through the trees.",
 	DESC = "North of House",
 	SW = WEST_OF_HOUSE,
 	SE = EAST_OF_HOUSE,
@@ -1490,7 +1492,7 @@ ROOM {
 ROOM {
 	NAME = "SOUTH_OF_HOUSE",
 	LOC = ROOMS,
-	LDESC = "You are facing the south side of a white house. There is no door here,\nand all the windows are boarded.",
+	LDESC = "You are facing the south side of a white house. There is no door here, and all the windows are boarded.",
 	DESC = "South of House",
 	WEST = WEST_OF_HOUSE,
 	EAST = EAST_OF_HOUSE,
@@ -1519,7 +1521,7 @@ ROOM {
 ROOM {
 	NAME = "FOREST_1",
 	LOC = ROOMS,
-	LDESC = "This is a forest, with trees in all directions. To the east,\nthere appears to be sunlight.",
+	LDESC = "This is a forest, with trees in all directions. To the east, there appears to be sunlight.",
 	DESC = "Forest",
 	UP = "There is no tree here suitable for climbing.",
 	NORTH = GRATING_CLEARING,
@@ -1575,7 +1577,7 @@ ROOM {
 ROOM {
 	NAME = "PATH",
 	LOC = ROOMS,
-	LDESC = "This is a path winding through a dimly lit forest. The path heads\nnorth-south here. One particularly large tree with some low branches\nstands at the edge of the path.",
+	LDESC = "This is a path winding through a dimly lit forest. The path heads north-south here. One particularly large tree with some low branches stands at the edge of the path.",
 	DESC = "Forest Path",
 	UP = UP_A_TREE,
 	NORTH = GRATING_CLEARING,
@@ -1611,11 +1613,12 @@ ROOM {
 }
 GRATING_EXIT = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if GRATE_REVEALED then 
     
     if FSETQ(GRATE, OPENBIT) then 
-      	return GRATING_ROOM
+      	__tmp = GRATING_ROOM
     elseif T then 
       TELL("The grating is closed!", CR)
       THIS_IS_IT(GRATE)
@@ -1627,14 +1630,15 @@ GRATING_EXIT = function()
     	error(false)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('GRATING_EXIT\n'..__res) end
 end
 ROOM {
 	NAME = "CLEARING",
 	LOC = ROOMS,
-	LDESC = "You are in a small clearing in a well marked forest path that\nextends to the east and west.",
+	LDESC = "You are in a small clearing in a well marked forest path that extends to the east and west.",
 	DESC = "Clearing",
 	UP = "There is no tree here suitable for climbing.",
 	EAST = CANYON_VIEW,
@@ -1696,7 +1700,7 @@ ROOM {
 ROOM {
 	NAME = "TROLL_ROOM",
 	LOC = ROOMS,
-	LDESC = "This is a small room with passages to the east and south and a\nforbidding hole leading west. Bloodstains and deep scratches\n(perhaps made by an axe) mar the walls.",
+	LDESC = "This is a small room with passages to the east and south and a forbidding hole leading west. Bloodstains and deep scratches (perhaps made by an axe) mar the walls.",
 	DESC = "The Troll Room",
 	SOUTH = CELLAR,
 	EAST = {EW_PASSAGE, flag = TROLL_FLAG, say = "The troll fends you off with a menacing gesture."},
@@ -1707,7 +1711,7 @@ ROOM {
 ROOM {
 	NAME = "EAST_OF_CHASM",
 	LOC = ROOMS,
-	LDESC = "You are on the east edge of a chasm, the bottom of which cannot be\nseen. A narrow passage goes north, and the path you are on continues\nto the east.",
+	LDESC = "You are on the east edge of a chasm, the bottom of which cannot be seen. A narrow passage goes north, and the path you are on continues to the east.",
 	DESC = "East of Chasm",
 	NORTH = CELLAR,
 	EAST = GALLERY,
@@ -1718,7 +1722,7 @@ ROOM {
 ROOM {
 	NAME = "GALLERY",
 	LOC = ROOMS,
-	LDESC = "This is an art gallery. Most of the paintings have been stolen by\nvandals with exceptional taste. The vandals left through either the\nnorth or west exits.",
+	LDESC = "This is an art gallery. Most of the paintings have been stolen by vandals with exceptional taste. The vandals left through either the north or west exits.",
 	DESC = "Gallery",
 	WEST = EAST_OF_CHASM,
 	NORTH = STUDIO,
@@ -1727,7 +1731,7 @@ ROOM {
 ROOM {
 	NAME = "STUDIO",
 	LOC = ROOMS,
-	LDESC = "This appears to have been an artist's studio. The walls and floors are\nsplattered with paints of 69 different colors. Strangely enough, nothing\nof value is hanging here. At the south end of the room is an open door\n(also covered with paint). A dark and narrow chimney leads up from a\nfireplace; although you might be able to get up it, it seems unlikely\nyou could get back down.",
+	LDESC = "This appears to have been an artist's studio. The walls and floors are splattered with paints of 69 different colors. Strangely enough, nothing of value is hanging here. At the south end of the room is an open door (also covered with paint). A dark and narrow chimney leads up from a fireplace; although you might be able to get up it, it seems unlikely you could get back down.",
 	DESC = "Studio",
 	SOUTH = GALLERY,
 	UP = PER,
@@ -1787,7 +1791,7 @@ ROOM {
 ROOM {
 	NAME = "MAZE_5",
 	LOC = ROOMS,
-	LDESC = "This is part of a maze of twisty little passages, all alike.\nA skeleton, probably the remains of a luckless adventurer, lies here.",
+	LDESC = "This is part of a maze of twisty little passages, all alike. A skeleton, probably the remains of a luckless adventurer, lies here.",
 	DESC = "Maze",
 	EAST = DEAD_END_2,
 	NORTH = MAZE_3,
@@ -1953,7 +1957,7 @@ ROOM {
 ROOM {
 	NAME = "STRANGE_PASSAGE",
 	LOC = ROOMS,
-	LDESC = "This is a long passage. To the west is one entrance. On the\neast there is an old wooden door, with a large opening in it (about\ncyclops sized).",
+	LDESC = "This is a long passage. To the west is one entrance. On the east there is an old wooden door, with a large opening in it (about cyclops sized).",
 	DESC = "Strange Passage",
 	WEST = CYCLOPS_ROOM,
 	IN = CYCLOPS_ROOM,
@@ -1964,7 +1968,7 @@ ROOM {
 ROOM {
 	NAME = "TREASURE_ROOM",
 	LOC = ROOMS,
-	LDESC = "This is a large room, whose east wall is solid granite. A number\nof discarded bags, which crumble at your touch, are scattered about\non the floor. There is an exit down a staircase.",
+	LDESC = "This is a large room, whose east wall is solid granite. A number of discarded bags, which crumble at your touch, are scattered about on the floor. There is an exit down a staircase.",
 	DESC = "Treasure Room",
 	DOWN = CYCLOPS_ROOM,
 	ACTION = TREASURE_ROOM_FCN,
@@ -2014,7 +2018,7 @@ ROOM {
 ROOM {
 	NAME = "STREAM_VIEW",
 	LOC = ROOMS,
-	LDESC = "You are standing on a path beside a gently flowing stream. The path\nfollows the stream, which flows from west to east.",
+	LDESC = "You are standing on a path beside a gently flowing stream. The path follows the stream, which flows from west to east.",
 	DESC = "Stream View",
 	EAST = RESERVOIR_SOUTH,
 	WEST = "The stream emerges from a spot too small for you to enter.",
@@ -2025,7 +2029,7 @@ ROOM {
 ROOM {
 	NAME = "IN_STREAM",
 	LOC = ROOMS,
-	LDESC = "You are on the gently flowing stream. The upstream route is too narrow\nto navigate, and the downstream route is invisible due to twisting\nwalls. There is a narrow beach to land on.",
+	LDESC = "You are on the gently flowing stream. The upstream route is too narrow to navigate, and the downstream route is invisible due to twisting walls. There is a narrow beach to land on.",
 	DESC = "Stream",
 	UP = "The channel is too narrow.",
 	WEST = "The channel is too narrow.",
@@ -2059,7 +2063,7 @@ ROOM {
 ROOM {
 	NAME = "SMALL_CAVE",
 	LOC = ROOMS,
-	LDESC = "This is a tiny cave with entrances west and north, and a staircase\nleading down.",
+	LDESC = "This is a tiny cave with entrances west and north, and a staircase leading down.",
 	DESC = "Cave",
 	NORTH = MIRROR_ROOM_1,
 	DOWN = ATLANTIS_ROOM,
@@ -2071,7 +2075,7 @@ ROOM {
 ROOM {
 	NAME = "TINY_CAVE",
 	LOC = ROOMS,
-	LDESC = "This is a tiny cave with entrances west and north, and a dark,\nforbidding staircase leading down.",
+	LDESC = "This is a tiny cave with entrances west and north, and a dark, forbidding staircase leading down.",
 	DESC = "Cave",
 	NORTH = MIRROR_ROOM_2,
 	WEST = WINDING_PASSAGE,
@@ -2083,7 +2087,7 @@ ROOM {
 ROOM {
 	NAME = "COLD_PASSAGE",
 	LOC = ROOMS,
-	LDESC = "This is a cold and damp corridor where a long east-west passageway\nturns into a southward path.",
+	LDESC = "This is a cold and damp corridor where a long east-west passageway turns into a southward path.",
 	DESC = "Cold Passage",
 	SOUTH = MIRROR_ROOM_1,
 	WEST = SLIDE_ROOM,
@@ -2092,7 +2096,7 @@ ROOM {
 ROOM {
 	NAME = "NARROW_PASSAGE",
 	LOC = ROOMS,
-	LDESC = "This is a long and narrow corridor where a long north-south passageway\nbriefly narrows even further.",
+	LDESC = "This is a long and narrow corridor where a long north-south passageway briefly narrows even further.",
 	DESC = "Narrow Passage",
 	NORTH = ROUND_ROOM,
 	SOUTH = MIRROR_ROOM_2,
@@ -2101,7 +2105,7 @@ ROOM {
 ROOM {
 	NAME = "WINDING_PASSAGE",
 	LOC = ROOMS,
-	LDESC = "This is a winding passage. It seems that there are only exits\non the east and north.",
+	LDESC = "This is a winding passage. It seems that there are only exits on the east and north.",
 	DESC = "Winding Passage",
 	NORTH = MIRROR_ROOM_2,
 	EAST = TINY_CAVE,
@@ -2110,7 +2114,7 @@ ROOM {
 ROOM {
 	NAME = "TWISTING_PASSAGE",
 	LOC = ROOMS,
-	LDESC = "This is a winding passage. It seems that there are only exits\non the east and north.",
+	LDESC = "This is a winding passage. It seems that there are only exits on the east and north.",
 	DESC = "Twisting Passage",
 	NORTH = MIRROR_ROOM_1,
 	EAST = SMALL_CAVE,
@@ -2119,7 +2123,7 @@ ROOM {
 ROOM {
 	NAME = "ATLANTIS_ROOM",
 	LOC = ROOMS,
-	LDESC = "This is an ancient room, long under water. There is an exit to\nthe south and a staircase leading up.",
+	LDESC = "This is an ancient room, long under water. There is an exit to the south and a staircase leading up.",
 	DESC = "Atlantis Room",
 	UP = SMALL_CAVE,
 	SOUTH = RESERVOIR_NORTH,
@@ -2129,7 +2133,7 @@ ROOM {
 ROOM {
 	NAME = "EW_PASSAGE",
 	LOC = ROOMS,
-	LDESC = "This is a narrow east-west passageway. There is a narrow stairway\nleading down at the north end of the room.",
+	LDESC = "This is a narrow east-west passageway. There is a narrow stairway leading down at the north end of the room.",
 	DESC = "East-West Passage",
 	EAST = ROUND_ROOM,
 	WEST = TROLL_ROOM,
@@ -2142,7 +2146,7 @@ ROOM {
 ROOM {
 	NAME = "ROUND_ROOM",
 	LOC = ROOMS,
-	LDESC = "This is a circular stone room with passages in all directions. Several\nof them have unfortunately been blocked by cave-ins.",
+	LDESC = "This is a circular stone room with passages in all directions. Several of them have unfortunately been blocked by cave-ins.",
 	DESC = "Round Room",
 	EAST = LOUD_ROOM,
 	WEST = EW_PASSAGE,
@@ -2166,7 +2170,7 @@ ROOM {
 ROOM {
 	NAME = "DAMP_CAVE",
 	LOC = ROOMS,
-	LDESC = "This cave has exits to the west and east, and narrows to a crack toward\nthe south. The earth is particularly damp here.",
+	LDESC = "This cave has exits to the west and east, and narrows to a crack toward the south. The earth is particularly damp here.",
 	DESC = "Damp Cave",
 	WEST = LOUD_ROOM,
 	EAST = WHITE_CLIFFS_NORTH,
@@ -2198,7 +2202,7 @@ ROOM {
 ROOM {
 	NAME = "CHASM_ROOM",
 	LOC = ROOMS,
-	LDESC = "A chasm runs southwest to northeast and the path follows it. You are\non the south side of the chasm, where a crack opens into a passage.",
+	LDESC = "A chasm runs southwest to northeast and the path follows it. You are on the south side of the chasm, where a crack opens into a passage.",
 	DESC = "Chasm",
 	NE = RESERVOIR_SOUTH,
 	SW = EW_PASSAGE,
@@ -2224,7 +2228,7 @@ ROOM {
 ROOM {
 	NAME = "LAND_OF_LIVING_DEAD",
 	LOC = ROOMS,
-	LDESC = "You have entered the Land of the Living Dead. Thousands of lost souls\ncan be heard weeping and moaning. In the corner are stacked the remains\nof dozens of previous adventurers less fortunate than yourself.\nA passage exits to the north.",
+	LDESC = "You have entered the Land of the Living Dead. Thousands of lost souls can be heard weeping and moaning. In the corner are stacked the remains of dozens of previous adventurers less fortunate than yourself. A passage exits to the north.",
 	DESC = "Land of the Dead",
 	OUT = ENTRANCE_TO_HADES,
 	NORTH = ENTRANCE_TO_HADES,
@@ -2243,7 +2247,7 @@ ROOM {
 ROOM {
 	NAME = "EGYPT_ROOM",
 	LOC = ROOMS,
-	LDESC = "This is a room which looks like an Egyptian tomb. There is an\nascending staircase to the west.",
+	LDESC = "This is a room which looks like an Egyptian tomb. There is an ascending staircase to the west.",
 	DESC = "Egyptian Room",
 	WEST = NORTH_TEMPLE,
 	UP = NORTH_TEMPLE,
@@ -2275,7 +2279,7 @@ ROOM {
 ROOM {
 	NAME = "NORTH_TEMPLE",
 	LOC = ROOMS,
-	LDESC = "This is the north end of a large temple. On the east wall is an\nancient inscription, probably a prayer in a long-forgotten language.\nBelow the prayer is a staircase leading down. The west wall is solid\ngranite. The exit to the north end of the room is through huge\nmarble pillars.",
+	LDESC = "This is the north end of a large temple. On the east wall is an ancient inscription, probably a prayer in a long-forgotten language. Below the prayer is a staircase leading down. The west wall is solid granite. The exit to the north end of the room is through huge marble pillars.",
 	DESC = "Temple",
 	DOWN = EGYPT_ROOM,
 	EAST = EGYPT_ROOM,
@@ -2289,7 +2293,7 @@ ROOM {
 ROOM {
 	NAME = "SOUTH_TEMPLE",
 	LOC = ROOMS,
-	LDESC = "This is the south end of a large temple. In front of you is what\nappears to be an altar. In one corner is a small hole in the floor\nwhich leads into darkness. You probably could not get back up it.",
+	LDESC = "This is the south end of a large temple. In front of you is what appears to be an altar. In one corner is a small hole in the floor which leads into darkness. You probably could not get back up it.",
 	DESC = "Altar",
 	NORTH = NORTH_TEMPLE,
 	DOWN = {TINY_CAVE, flag = COFFIN_CURE, say = "You haven't a prayer of getting the coffin down there."},
@@ -2312,7 +2316,7 @@ ROOM {
 ROOM {
 	NAME = "DAM_LOBBY",
 	LOC = ROOMS,
-	LDESC = "This room appears to have been the waiting room for groups touring\nthe dam. There are open doorways here to the north and east marked\n\"Private\", and there is a path leading south over the top of the dam.",
+	LDESC = "This room appears to have been the waiting room for groups touring the dam. There are open doorways here to the north and east marked \"Private\", and there is a path leading south over the top of the dam.",
 	DESC = "Dam Lobby",
 	SOUTH = DAM_ROOM,
 	NORTH = MAINTENANCE_ROOM,
@@ -2322,7 +2326,7 @@ ROOM {
 ROOM {
 	NAME = "MAINTENANCE_ROOM",
 	LOC = ROOMS,
-	LDESC = "This is what appears to have been the maintenance room for Flood\nControl Dam #3. Apparently, this room has been ransacked recently, for\nmost of the valuable equipment is gone. On the wall in front of you is a\ngroup of buttons colored blue, yellow, brown, and red. There are doorways to\nthe west and south.",
+	LDESC = "This is what appears to have been the maintenance room for Flood Control Dam #3. Apparently, this room has been ransacked recently, for most of the valuable equipment is gone. On the wall in front of you is a group of buttons colored blue, yellow, brown, and red. There are doorways to the west and south.",
 	DESC = "Maintenance Room",
 	SOUTH = DAM_LOBBY,
 	WEST = DAM_LOBBY,
@@ -2331,7 +2335,7 @@ ROOM {
 ROOM {
 	NAME = "DAM_BASE",
 	LOC = ROOMS,
-	LDESC = "You are at the base of Flood Control Dam #3, which looms above you\nand to the north. The river Frigid is flowing by here. Along the\nriver are the White Cliffs which seem to form giant walls stretching\nfrom north to south along the shores of the river as it winds its\nway downstream.",
+	LDESC = "You are at the base of Flood Control Dam #3, which looms above you and to the north. The river Frigid is flowing by here. Along the river are the White Cliffs which seem to form giant walls stretching from north to south along the shores of the river as it winds its way downstream.",
 	DESC = "Dam Base",
 	NORTH = DAM_ROOM,
 	UP = DAM_ROOM,
@@ -2341,7 +2345,7 @@ ROOM {
 ROOM {
 	NAME = "RIVER_1",
 	LOC = ROOMS,
-	LDESC = "You are on the Frigid River in the vicinity of the Dam. The river\nflows quietly here. There is a landing on the west shore.",
+	LDESC = "You are on the Frigid River in the vicinity of the Dam. The river flows quietly here. There is a landing on the west shore.",
 	DESC = "Frigid River",
 	UP = "You cannot go upstream due to strong currents.",
 	WEST = DAM_BASE,
@@ -2354,7 +2358,7 @@ ROOM {
 ROOM {
 	NAME = "RIVER_2",
 	LOC = ROOMS,
-	LDESC = "The river turns a corner here making it impossible to see the\nDam. The White Cliffs loom on the east bank and large rocks prevent\nlanding on the west.",
+	LDESC = "The river turns a corner here making it impossible to see the Dam. The White Cliffs loom on the east bank and large rocks prevent landing on the west.",
 	DESC = "Frigid River",
 	UP = "You cannot go upstream due to strong currents.",
 	DOWN = RIVER_3,
@@ -2367,7 +2371,7 @@ ROOM {
 ROOM {
 	NAME = "RIVER_3",
 	LOC = ROOMS,
-	LDESC = "The river descends here into a valley. There is a narrow beach on the\nwest shore below the cliffs. In the distance a faint rumbling can be\nheard.",
+	LDESC = "The river descends here into a valley. There is a narrow beach on the west shore below the cliffs. In the distance a faint rumbling can be heard.",
 	DESC = "Frigid River",
 	UP = "You cannot go upstream due to strong currents.",
 	DOWN = RIVER_4,
@@ -2379,7 +2383,7 @@ ROOM {
 ROOM {
 	NAME = "WHITE_CLIFFS_NORTH",
 	LOC = ROOMS,
-	LDESC = "You are on a narrow strip of beach which runs along the base of the\nWhite Cliffs. There is a narrow path heading south along the Cliffs\nand a tight passage leading west into the cliffs themselves.",
+	LDESC = "You are on a narrow strip of beach which runs along the base of the White Cliffs. There is a narrow path heading south along the Cliffs and a tight passage leading west into the cliffs themselves.",
 	DESC = "White Cliffs Beach",
 	SOUTH = {WHITE_CLIFFS_SOUTH, flag = DEFLATE, say = "The path is too narrow."},
 	WEST = {DAMP_CAVE, flag = DEFLATE, say = "The path is too narrow."},
@@ -2390,7 +2394,7 @@ ROOM {
 ROOM {
 	NAME = "WHITE_CLIFFS_SOUTH",
 	LOC = ROOMS,
-	LDESC = "You are on a rocky, narrow strip of beach beside the Cliffs. A\nnarrow path leads north along the shore.",
+	LDESC = "You are on a rocky, narrow strip of beach beside the Cliffs. A narrow path leads north along the shore.",
 	DESC = "White Cliffs Beach",
 	NORTH = {WHITE_CLIFFS_NORTH, flag = DEFLATE, say = "The path is too narrow."},
 	ACTION = WHITE_CLIFFS_FUNCTION,
@@ -2400,7 +2404,7 @@ ROOM {
 ROOM {
 	NAME = "RIVER_4",
 	LOC = ROOMS,
-	LDESC = "The river is running faster here and the sound ahead appears to be\nthat of rushing water. On the east shore is a sandy beach. A small\narea of beach can also be seen below the cliffs on the west shore.",
+	LDESC = "The river is running faster here and the sound ahead appears to be that of rushing water. On the east shore is a sandy beach. A small area of beach can also be seen below the cliffs on the west shore.",
 	DESC = "Frigid River",
 	UP = "You cannot go upstream due to strong currents.",
 	DOWN = RIVER_5,
@@ -2414,7 +2418,7 @@ ROOM {
 ROOM {
 	NAME = "RIVER_5",
 	LOC = ROOMS,
-	LDESC = "The sound of rushing water is nearly unbearable here. On the east\nshore is a large landing area.",
+	LDESC = "The sound of rushing water is nearly unbearable here. On the east shore is a large landing area.",
 	DESC = "Frigid River",
 	UP = "You cannot go upstream due to strong currents.",
 	EAST = SHORE,
@@ -2425,7 +2429,7 @@ ROOM {
 ROOM {
 	NAME = "SHORE",
 	LOC = ROOMS,
-	LDESC = "You are on the east shore of the river. The water here seems somewhat\ntreacherous. A path travels from north to south here, the south end\nquickly turning around a sharp corner.",
+	LDESC = "You are on the east shore of the river. The water here seems somewhat treacherous. A path travels from north to south here, the south end quickly turning around a sharp corner.",
 	DESC = "Shore",
 	NORTH = SANDY_BEACH,
 	SOUTH = ARAGAIN_FALLS,
@@ -2435,7 +2439,7 @@ ROOM {
 ROOM {
 	NAME = "SANDY_BEACH",
 	LOC = ROOMS,
-	LDESC = "You are on a large sandy beach on the east shore of the river, which is\nflowing quickly by. A path runs beside the river to the south here, and\na passage is partially buried in sand to the northeast.",
+	LDESC = "You are on a large sandy beach on the east shore of the river, which is flowing quickly by. A path runs beside the river to the south here, and a passage is partially buried in sand to the northeast.",
 	DESC = "Sandy Beach",
 	NE = SANDY_CAVE,
 	SOUTH = SHORE,
@@ -2465,7 +2469,7 @@ ROOM {
 ROOM {
 	NAME = "ON_RAINBOW",
 	LOC = ROOMS,
-	LDESC = "You are on top of a rainbow (I bet you never thought you would walk\non a rainbow), with a magnificent view of the Falls. The rainbow\ntravels east-west here.",
+	LDESC = "You are on top of a rainbow (I bet you never thought you would walk on a rainbow), with a magnificent view of the Falls. The rainbow travels east-west here.",
 	DESC = "On the Rainbow",
 	WEST = END_OF_RAINBOW,
 	EAST = ARAGAIN_FALLS,
@@ -2475,7 +2479,7 @@ ROOM {
 ROOM {
 	NAME = "END_OF_RAINBOW",
 	LOC = ROOMS,
-	LDESC = "You are on a small, rocky beach on the continuation of the Frigid\nRiver past the Falls. The beach is narrow due to the presence of the\nWhite Cliffs. The river canyon opens here and sunlight shines in\nfrom above. A rainbow crosses over the falls to the east and a narrow\npath continues to the southwest.",
+	LDESC = "You are on a small, rocky beach on the continuation of the Frigid River past the Falls. The beach is narrow due to the presence of the White Cliffs. The river canyon opens here and sunlight shines in from above. A rainbow crosses over the falls to the east and a narrow path continues to the southwest.",
 	DESC = "End of Rainbow",
 	UP = {ON_RAINBOW, flag = RAINBOW_FLAG},
 	NE = {ON_RAINBOW, flag = RAINBOW_FLAG},
@@ -2487,7 +2491,7 @@ ROOM {
 ROOM {
 	NAME = "CANYON_BOTTOM",
 	LOC = ROOMS,
-	LDESC = "You are beneath the walls of the river canyon which may be climbable\nhere. The lesser part of the runoff of Aragain Falls flows by below.\nTo the north is a narrow path.",
+	LDESC = "You are beneath the walls of the river canyon which may be climbable here. The lesser part of the runoff of Aragain Falls flows by below. To the north is a narrow path.",
 	DESC = "Canyon Bottom",
 	UP = CLIFF_MIDDLE,
 	NORTH = END_OF_RAINBOW,
@@ -2497,7 +2501,7 @@ ROOM {
 ROOM {
 	NAME = "CLIFF_MIDDLE",
 	LOC = ROOMS,
-	LDESC = "You are on a ledge about halfway up the wall of the river canyon.\nYou can see from here that the main flow from Aragain Falls twists\nalong a passage which it is impossible for you to enter. Below you is the\ncanyon bottom. Above you is more cliff, which appears\nclimbable.",
+	LDESC = "You are on a ledge about halfway up the wall of the river canyon. You can see from here that the main flow from Aragain Falls twists along a passage which it is impossible for you to enter. Below you is the canyon bottom. Above you is more cliff, which appears climbable.",
 	DESC = "Rocky Ledge",
 	UP = CANYON_VIEW,
 	DOWN = CANYON_BOTTOM,
@@ -2507,7 +2511,7 @@ ROOM {
 ROOM {
 	NAME = "CANYON_VIEW",
 	LOC = ROOMS,
-	LDESC = "You are at the top of the Great Canyon on its west wall. From here\nthere is a marvelous view of the canyon and parts of the Frigid River\nupstream. Across the canyon, the walls of the White Cliffs join the\nmighty ramparts of the Flathead Mountains to the east. Following the\nCanyon upstream to the north, Aragain Falls may be seen, complete with\nrainbow. The mighty Frigid River flows out from a great dark cavern. To\nthe west and south can be seen an immense forest, stretching for miles\naround. A path leads northwest. It is possible to climb down into\nthe canyon from here.",
+	LDESC = "You are at the top of the Great Canyon on its west wall. From here there is a marvelous view of the canyon and parts of the Frigid River upstream. Across the canyon, the walls of the White Cliffs join the mighty ramparts of the Flathead Mountains to the east. Following the Canyon upstream to the north, Aragain Falls may be seen, complete with rainbow. The mighty Frigid River flows out from a great dark cavern. To the west and south can be seen an immense forest, stretching for miles around. A path leads northwest. It is possible to climb down into the canyon from here.",
 	DESC = "Canyon View",
 	EAST = CLIFF_MIDDLE,
 	DOWN = CLIFF_MIDDLE,
@@ -2520,20 +2524,22 @@ ROOM {
 }
 CANYON_VIEW_F = function(RARG)
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(EQUALQ(RARG, M_BEG) and VERBQ(LEAP) and NOT(PRSO)) then 
     JIGS_UP("Nice view, lousy place to jump.")
     	error(true)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('CANYON_VIEW_F\n'..__res) end
 end
 ROOM {
 	NAME = "MINE_ENTRANCE",
 	LOC = ROOMS,
-	LDESC = "You are standing at the entrance of what might have been a coal mine.\nThe shaft enters the west wall, and there is another exit on the south\nend of the room.",
+	LDESC = "You are standing at the entrance of what might have been a coal mine. The shaft enters the west wall, and there is another exit on the south end of the room.",
 	DESC = "Mine Entrance",
 	SOUTH = SLIDE_ROOM,
 	IN = SQUEEKY_ROOM,
@@ -2543,7 +2549,7 @@ ROOM {
 ROOM {
 	NAME = "SQUEEKY_ROOM",
 	LOC = ROOMS,
-	LDESC = "You are in a small room. Strange squeaky sounds may be heard coming\nfrom the passage at the north end. You may also escape to the east.",
+	LDESC = "You are in a small room. Strange squeaky sounds may be heard coming from the passage at the north end. You may also escape to the east.",
 	DESC = "Squeaky Room",
 	NORTH = BAT_ROOM,
 	EAST = MINE_ENTRANCE,
@@ -2561,7 +2567,7 @@ ROOM {
 ROOM {
 	NAME = "SHAFT_ROOM",
 	LOC = ROOMS,
-	LDESC = "This is a large room, in the middle of which is a small shaft\ndescending through the floor into darkness below. To the west and\nthe north are exits from this room. Constructed over the top of the\nshaft is a metal framework to which a heavy iron chain is attached.",
+	LDESC = "This is a large room, in the middle of which is a small shaft descending through the floor into darkness below. To the west and the north are exits from this room. Constructed over the top of the shaft is a metal framework to which a heavy iron chain is attached.",
 	DESC = "Shaft Room",
 	DOWN = "You wouldn't fit and would die if you could.",
 	WEST = BAT_ROOM,
@@ -2572,7 +2578,7 @@ ROOM {
 ROOM {
 	NAME = "SMELLY_ROOM",
 	LOC = ROOMS,
-	LDESC = "This is a small nondescript room. However, from the direction\nof a small descending staircase a foul odor can be detected. To the\nsouth is a narrow tunnel.",
+	LDESC = "This is a small nondescript room. However, from the direction of a small descending staircase a foul odor can be detected. To the south is a narrow tunnel.",
 	DESC = "Smelly Room",
 	DOWN = GAS_ROOM,
 	SOUTH = SHAFT_ROOM,
@@ -2583,7 +2589,7 @@ ROOM {
 ROOM {
 	NAME = "GAS_ROOM",
 	LOC = ROOMS,
-	LDESC = "This is a small room which smells strongly of coal gas. There is a\nshort climb up some stairs and a narrow tunnel leading east.",
+	LDESC = "This is a small room which smells strongly of coal gas. There is a short climb up some stairs and a narrow tunnel leading east.",
 	DESC = "Gas Room",
 	UP = SMELLY_ROOM,
 	EAST = MINE_1,
@@ -2595,7 +2601,7 @@ ROOM {
 ROOM {
 	NAME = "LADDER_TOP",
 	LOC = ROOMS,
-	LDESC = "This is a very small room. In the corner is a rickety wooden\nladder, leading downward. It might be safe to descend. There is\nalso a staircase leading upward.",
+	LDESC = "This is a very small room. In the corner is a rickety wooden ladder, leading downward. It might be safe to descend. There is also a staircase leading upward.",
 	DESC = "Ladder Top",
 	DOWN = LADDER_BOTTOM,
 	UP = MINE_4,
@@ -2605,7 +2611,7 @@ ROOM {
 ROOM {
 	NAME = "LADDER_BOTTOM",
 	LOC = ROOMS,
-	LDESC = "This is a rather wide room. On one side is the bottom of a\nnarrow wooden ladder. To the west and the south are passages\nleaving the room.",
+	LDESC = "This is a rather wide room. On one side is the bottom of a narrow wooden ladder. To the west and the south are passages leaving the room.",
 	DESC = "Ladder Bottom",
 	SOUTH = DEAD_END_5,
 	WEST = TIMBER_ROOM,
@@ -2624,7 +2630,7 @@ ROOM {
 ROOM {
 	NAME = "TIMBER_ROOM",
 	LOC = ROOMS,
-	LDESC = "This is a long and narrow passage, which is cluttered with broken\ntimbers. A wide passage comes from the east and turns at the\nwest end of the room into a very narrow passageway. From the west\ncomes a strong draft.",
+	LDESC = "This is a long and narrow passage, which is cluttered with broken timbers. A wide passage comes from the east and turns at the west end of the room into a very narrow passageway. From the west comes a strong draft.",
 	DESC = "Timber Room",
 	EAST = LADDER_BOTTOM,
 	WEST = {LOWER_SHAFT, flag = EMPTY_HANDED, say = "You cannot fit through this passage with that load."},
@@ -2634,7 +2640,7 @@ ROOM {
 ROOM {
 	NAME = "LOWER_SHAFT",
 	LOC = ROOMS,
-	LDESC = "This is a small drafty room in which is the bottom of a long\nshaft. To the south is a passageway and to the east a very narrow\npassage. In the shaft can be seen a heavy iron chain.",
+	LDESC = "This is a small drafty room in which is the bottom of a long shaft. To the south is a passageway and to the east a very narrow passage. In the shaft can be seen a heavy iron chain.",
 	DESC = "Drafty Room",
 	SOUTH = MACHINE_ROOM,
 	OUT = {TIMBER_ROOM, flag = EMPTY_HANDED, say = "You cannot fit through this passage with that load."},
@@ -2694,7 +2700,7 @@ ROOM {
 ROOM {
 	NAME = "SLIDE_ROOM",
 	LOC = ROOMS,
-	LDESC = "This is a small chamber, which appears to have been part of a\ncoal mine. On the south wall of the chamber the letters \"Granite\nWall\" are etched in the rock. To the east is a long passage, and\nthere is a steep metal slide twisting downward. To the north is\na small opening.",
+	LDESC = "This is a small chamber, which appears to have been part of a coal mine. On the south wall of the chamber the letters \"Granite Wall\" are etched in the rock. To the east is a long passage, and there is a steep metal slide twisting downward. To the north is a small opening.",
 	DESC = "Slide Room",
 	EAST = COLD_PASSAGE,
 	NORTH = MINE_ENTRANCE,
@@ -2708,6 +2714,7 @@ IN_HOUSE_AROUND = LTABLE(LIVING_ROOM,KITCHEN,ATTIC,KITCHEN)
 ABOVE_GROUND = LTABLE(WEST_OF_HOUSE,NORTH_OF_HOUSE,EAST_OF_HOUSE,SOUTH_OF_HOUSE,FOREST_1,FOREST_2,FOREST_3,PATH,CLEARING,GRATING_CLEARING,CANYON_VIEW)
 GO = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   ENABLE(QUEUE(I_FIGHT, -1))
   QUEUE(I_SWORD, -1)
   ENABLE(QUEUE(I_THIEF, -1))
@@ -2735,7 +2742,8 @@ APPLY(function() PLAYER = WINNER return PLAYER end)
   V_LOOK()
   MAIN_LOOP()
 	error(123)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('GO\n'..__res) end
 end

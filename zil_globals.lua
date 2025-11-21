@@ -70,6 +70,7 @@ NOT_HERE_OBJECT_F = function()
   local PRSOQ = T
 	local OBJ
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(EQUALQ(PRSO, NOT_HERE_OBJECT) and EQUALQ(PRSI, NOT_HERE_OBJECT)) then 
     TELL("Those things aren't here!", CR)
@@ -95,12 +96,14 @@ APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
   end
 
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('NOT_HERE_OBJECT_F\n'..__res) end
 end
 NOT_HERE_PRINT = function(PRSOQ)
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if P_OFLAG then 
     
@@ -110,24 +113,27 @@ NOT_HERE_PRINT = function(PRSOQ)
 
     
     if P_XNAM then 
-      	return PRINTB(P_XNAM)
+      	__tmp = PRINTB(P_XNAM)
     end
 
   elseif PRSOQ then 
-    	return BUFFER_PRINT(GET(P_ITBL, P_NC1), GET(P_ITBL, P_NC1L), nil)
+    	__tmp = BUFFER_PRINT(GET(P_ITBL, P_NC1), GET(P_ITBL, P_NC1L), nil)
   elseif T then 
-    	return BUFFER_PRINT(GET(P_ITBL, P_NC2), GET(P_ITBL, P_NC2L), nil)
+    	__tmp = BUFFER_PRINT(GET(P_ITBL, P_NC2), GET(P_ITBL, P_NC2L), nil)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('NOT_HERE_PRINT\n'..__res) end
 end
 NULL_F = function(A1, A2)
 	local __ok, __res = pcall(function()
+	local __tmp = false
 	error(false)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('NULL_F\n'..__res) end
 end
 LOAD_MAX = 100
@@ -150,13 +156,15 @@ OBJECT {
 }
 STAIRS_F = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if VERBQ(THROUGH) then 
-    	return TELL("You should say whether you want to go up or down.", CR)
+    	__tmp = TELL("You should say whether you want to go up or down.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('STAIRS_F\n'..__res) end
 end
 OBJECT {
@@ -169,29 +177,31 @@ OBJECT {
 }
 SAILOR_FCN = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if VERBQ(TELL) then 
     APPLY(function() P_CONT = nil return P_CONT end)
     APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
-    	return TELL("You can't talk to the sailor that way.", CR)
+    	__tmp = TELL("You can't talk to the sailor that way.", CR)
   elseif VERBQ(EXAMINE) then 
     -- 
-    	return TELL("There is no sailor to be seen.", CR)
+    	__tmp = TELL("There is no sailor to be seen.", CR)
   elseif VERBQ(HELLO) then 
     APPLY(function() HS = ADD(HS, 1) return HS end)
     
     if ZEROQ(MOD(HS, 20)) then 
-      	return TELL("You seem to be repeating yourself.", CR)
+      	__tmp = TELL("You seem to be repeating yourself.", CR)
     elseif ZEROQ(MOD(HS, 10)) then 
-      	return TELL("I think that phrase is getting a bit worn out.", CR)
+      	__tmp = TELL("I think that phrase is getting a bit worn out.", CR)
     elseif T then 
-      	return TELL("Nothing happens here.", CR)
+      	__tmp = TELL("Nothing happens here.", CR)
     end
 
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('SAILOR_FCN\n'..__res) end
 end
 OBJECT {
@@ -203,18 +213,20 @@ OBJECT {
 }
 GROUND_FUNCTION = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(VERBQ(PUT, PUT_ON) and EQUALQ(PRSI, GROUND)) then 
     PERFORM(VQDROP, PRSO)
     	error(true)
   elseif EQUALQ(HERE, SANDY_CAVE) then 
-    	return SAND_FUNCTION()
+    	__tmp = SAND_FUNCTION()
   elseif VERBQ(DIG) then 
-    	return TELL("The ground is too hard for digging here.", CR)
+    	__tmp = TELL("The ground is too hard for digging here.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('GROUND_FUNCTION\n'..__res) end
 end
 OBJECT {
@@ -227,17 +239,19 @@ OBJECT {
 }
 GRUE_FUNCTION = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if VERBQ(EXAMINE) then 
-    	return TELL("The grue is a sinister, lurking presence in the dark places of the\nearth. Its favorite diet is adventurers, but its insatiable\nappetite is tempered by its fear of light. No grue has ever been\nseen by the light of day, and few have survived its fearsome jaws\nto tell the tale.", CR)
+    	__tmp = TELL("The grue is a sinister, lurking presence in the dark places of the earth. Its favorite diet is adventurers, but its insatiable appetite is tempered by its fear of light. No grue has ever been seen by the light of day, and few have survived its fearsome jaws to tell the tale.", CR)
   elseif VERBQ(FIND) then 
-    	return TELL("There is no grue here, but I'm sure there is at least one lurking\nin the darkness nearby. I wouldn't let my light go out if I were\nyou!", CR)
+    	__tmp = TELL("There is no grue here, but I'm sure there is at least one lurking in the darkness nearby. I wouldn't let my light go out if I were you!", CR)
   elseif VERBQ(LISTEN) then 
-    	return TELL("It makes no sound but is always lurking in the darkness nearby.", CR)
+    	__tmp = TELL("It makes no sound but is always lurking in the darkness nearby.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('GRUE_FUNCTION\n'..__res) end
 end
 OBJECT {
@@ -257,48 +271,50 @@ OBJECT {
 }
 CRETIN_FCN = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if VERBQ(TELL) then 
     APPLY(function() P_CONT = nil return P_CONT end)
     APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
-    	return TELL("Talking to yourself is said to be a sign of impending mental collapse.", CR)
+    	__tmp = TELL("Talking to yourself is said to be a sign of impending mental collapse.", CR)
   elseif PASS(VERBQ(GIVE) and EQUALQ(PRSI, ME)) then 
     PERFORM(VQTAKE, PRSO)
     	error(true)
   elseif VERBQ(MAKE) then 
-    	return TELL("Only you can do that.", CR)
+    	__tmp = TELL("Only you can do that.", CR)
   elseif VERBQ(DISEMBARK) then 
-    	return TELL("You'll have to do that on your own.", CR)
+    	__tmp = TELL("You'll have to do that on your own.", CR)
   elseif VERBQ(EAT) then 
-    	return TELL("Auto-cannibalism is not the answer.", CR)
+    	__tmp = TELL("Auto-cannibalism is not the answer.", CR)
   elseif VERBQ(ATTACK, MUNG) then 
     
     if PASS(PRSI and FSETQ(PRSI, WEAPONBIT)) then 
-      	return JIGS_UP("If you insist.... Poof, you're dead!")
+      	__tmp = JIGS_UP("If you insist.... Poof, you're dead!")
     elseif T then 
-      	return TELL("Suicide is not the answer.", CR)
+      	__tmp = TELL("Suicide is not the answer.", CR)
     end
 
   elseif VERBQ(THROW) then 
     
     if EQUALQ(PRSO, ME) then 
-      	return TELL("Why don't you just walk like normal people?", CR)
+      	__tmp = TELL("Why don't you just walk like normal people?", CR)
     end
 
   elseif VERBQ(TAKE) then 
-    	return TELL("How romantic!", CR)
+    	__tmp = TELL("How romantic!", CR)
   elseif VERBQ(EXAMINE) then 
     
     if EQUALQ(HERE, LOC(MIRROR_1), LOC(MIRROR_2)) then 
-      	return TELL("Your image in the mirror looks tired.", CR)
+      	__tmp = TELL("Your image in the mirror looks tired.", CR)
     elseif T then 
-      	return TELL("That's difficult unless your eyes are prehensile.", CR)
+      	__tmp = TELL("That's difficult unless your eyes are prehensile.", CR)
     end
 
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('CRETIN_FCN\n'..__res) end
 end
 OBJECT {
@@ -320,17 +336,19 @@ OBJECT {
 }
 PATH_OBJECT = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if VERBQ(TAKE, FOLLOW) then 
-    	return TELL("You must specify a direction to go.", CR)
+    	__tmp = TELL("You must specify a direction to go.", CR)
   elseif VERBQ(FIND) then 
-    	return TELL("I can't help you there....", CR)
+    	__tmp = TELL("I can't help you there....", CR)
   elseif VERBQ(DIG) then 
-    	return TELL("Not a chance.", CR)
+    	__tmp = TELL("Not a chance.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PATH_OBJECT\n'..__res) end
 end
 OBJECT {
@@ -342,15 +360,17 @@ OBJECT {
 }
 ZORKMID_FUNCTION = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if VERBQ(EXAMINE) then 
-    	return TELL("The zorkmid is the unit of currency of the Great Underground Empire.", CR)
+    	__tmp = TELL("The zorkmid is the unit of currency of the Great Underground Empire.", CR)
   elseif VERBQ(FIND) then 
-    	return TELL("The best way to find zorkmids is to go out and look for them.", CR)
+    	__tmp = TELL("The best way to find zorkmids is to go out and look for them.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('ZORKMID_FUNCTION\n'..__res) end
 end
 OBJECT {

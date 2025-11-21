@@ -3,51 +3,60 @@ VERBOSE = nil
 SUPER_BRIEF = nil
 V_VERBOSE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() VERBOSE = T return VERBOSE end)
 APPLY(function() SUPER_BRIEF = nil return SUPER_BRIEF end)
-	return   TELL("Maximum verbosity.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp =   TELL("Maximum verbosity.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_VERBOSE\n'..__res) end
 end
 V_BRIEF = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() VERBOSE = nil return VERBOSE end)
 APPLY(function() SUPER_BRIEF = nil return SUPER_BRIEF end)
-	return   TELL("Brief descriptions.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp =   TELL("Brief descriptions.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_BRIEF\n'..__res) end
 end
 V_SUPER_BRIEF = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() SUPER_BRIEF = T return SUPER_BRIEF end)
-	return   TELL("Superbrief descriptions.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp =   TELL("Superbrief descriptions.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_SUPER_BRIEF\n'..__res) end
 end
 V_INVENTORY = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FIRSTQ(WINNER) then 
-    	return PRINT_CONT(WINNER)
+    	__tmp = PRINT_CONT(WINNER)
   elseif T then 
-    	return TELL("You are empty-handed.", CR)
+    	__tmp = TELL("You are empty-handed.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_INVENTORY\n'..__res) end
 end
 FINISH = function()
 	local WRD
 	local __ok, __res = pcall(function()
+	local __tmp = false
   V_SCORE()
 
   local __prog28 = function()
     CRLF()
-    TELL("Would you like to restart the game from the beginning, restore a saved\ngame position, or end this session of the game?|\n(Type RESTART, RESTORE, or QUIT):|\n>")
+    TELL("Would you like to restart the game from the beginning, restore a saved game position, or end this session of the game?| (Type RESTART, RESTORE, or QUIT):| >")
     READ(P_INBUF, P_LEXV)
     APPLY(function() WRD = GET(P_LEXV, 1) return WRD end)
     
@@ -73,94 +82,108 @@ repeat __ok28, __res28 = pcall(__prog28)
 until __ok28 or __res28 ~= 123
 if not __ok28 then error(__res28) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('FINISH\n'..__res) end
 end
 V_QUIT = function()
 	local SCOR
 	local __ok, __res = pcall(function()
+	local __tmp = false
   V_SCORE()
   TELL("Do you wish to leave the game? (Y is affirmative): ")
 
   if YESQ() then 
-    	return QUIT()
+    	__tmp = QUIT()
   else 
-    	return TELL("Ok.", CR)
+    	__tmp = TELL("Ok.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_QUIT\n'..__res) end
 end
 V_RESTART = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   V_SCORE(T)
   TELL("Do you wish to restart? (Y is affirmative): ")
 
   if YESQ() then 
     TELL("Restarting.", CR)
     RESTART()
-    	return TELL("Failed.", CR)
+    	__tmp = TELL("Failed.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_RESTART\n'..__res) end
 end
 V_RESTORE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if RESTORE() then 
     TELL("Ok.", CR)
-    	return V_FIRST_LOOK()
+    	__tmp = V_FIRST_LOOK()
   elseif T then 
-    	return TELL("Failed.", CR)
+    	__tmp = TELL("Failed.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_RESTORE\n'..__res) end
 end
 V_SAVE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if SAVE() then 
-    	return TELL("Ok.", CR)
+    	__tmp = TELL("Ok.", CR)
   elseif T then 
-    	return TELL("Failed.", CR)
+    	__tmp = TELL("Failed.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_SAVE\n'..__res) end
 end
 V_SCRIPT = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   PUT(0, 8, BOR(GET(0, 8), 1))
   TELL("Here begins a transcript of interaction with", CR)
   V_VERSION()
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_SCRIPT\n'..__res) end
 end
 V_UNSCRIPT = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   TELL("Here ends a transcript of interaction with", CR)
   V_VERSION()
   PUT(0, 8, BAND(GET(0, 8), -2))
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_UNSCRIPT\n'..__res) end
 end
 V_VERSION = function()
   local CNT = 17
 	local __ok, __res = pcall(function()
-  TELL("ZORK I: The Great Underground Empire|\nInfocom interactive fiction - a fantasy story|\nCopyright (c) 1981, 1982, 1983, 1984, 1985, 1986")
+	local __tmp = false
+  TELL("ZORK I: The Great Underground Empire| Infocom interactive fiction - a fantasy story| Copyright (c) 1981, 1982, 1983, 1984, 1985, 1986")
   TELL(" Infocom, Inc. All rights reserved.", CR)
-  TELL("ZORK is a registered trademark of Infocom, Inc.|\nRelease ")
+  TELL("ZORK is a registered trademark of Infocom, Inc.| Release ")
   PRINTN(BAND(GET(0, 1), 2047))
   TELL(" / Serial number ")
 
@@ -179,136 +202,160 @@ repeat __ok29, __res29 = pcall(__prog29)
 until __ok29 or __res29 ~= 123
 if not __ok29 then error(__res29) end
 
-	return   CRLF()
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp =   CRLF()
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_VERSION\n'..__res) end
 end
 V_VERIFY = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   TELL("Verifying disk...", CR)
 
   if VERIFY() then 
-    	return TELL("The disk is correct.", CR)
+    	__tmp = TELL("The disk is correct.", CR)
   elseif T then 
-    	return TELL(CR, "** Disk Failure **", CR)
+    	__tmp = TELL(CR, "** Disk Failure **", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_VERIFY\n'..__res) end
 end
 V_COMMAND_FILE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   DIRIN(1)
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_COMMAND_FILE\n'..__res) end
 end
 V_RANDOM = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(EQUALQ(PRSO, INTNUM)) then 
-    	return TELL("Illegal call to #RND.", CR)
+    	__tmp = TELL("Illegal call to #RND.", CR)
   elseif T then 
     RANDOM(SUB(0, P_NUMBER))
     	error(true)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_RANDOM\n'..__res) end
 end
 V_RECORD = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   DIROUT(4)
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_RECORD\n'..__res) end
 end
 V_UNRECORD = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   DIROUT(-4)
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_UNRECORD\n'..__res) end
 end
 V_ADVENT = function()
 	local __ok, __res = pcall(function()
-	return   TELL("A hollow voice says \"Fool.\"", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("A hollow voice says \"Fool.\"", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_ADVENT\n'..__res) end
 end
 V_ALARM = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, ACTORBIT) then 
     
     if LQ(GETP(PRSO, PQSTRENGTH), 0) then 
       TELL("The ", D, PRSO, " is rudely awakened.", CR)
-      	return AWAKEN(PRSO)
+      	__tmp = AWAKEN(PRSO)
     elseif T then 
-      	return TELL("He's wide awake, or haven't you noticed...", CR)
+      	__tmp = TELL("He's wide awake, or haven't you noticed...", CR)
     end
 
   elseif T then 
-    	return TELL("The ", D, PRSO, " isn't sleeping.", CR)
+    	__tmp = TELL("The ", D, PRSO, " isn't sleeping.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_ALARM\n'..__res) end
 end
 V_ANSWER = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   TELL("Nobody seems to be awaiting your answer.", CR)
 APPLY(function() P_CONT = nil return P_CONT end)
 APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_ANSWER\n'..__res) end
 end
 V_ATTACK = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(FSETQ(PRSO, ACTORBIT)) then 
-    	return TELL("I've known strange people, but fighting a ", D, PRSO, "?", CR)
+    	__tmp = TELL("I've known strange people, but fighting a ", D, PRSO, "?", CR)
   elseif PASS(NOT(PRSI) or EQUALQ(PRSI, HANDS)) then 
-    	return TELL("Trying to attack a ", D, PRSO, " with your bare hands is suicidal.", CR)
+    	__tmp = TELL("Trying to attack a ", D, PRSO, " with your bare hands is suicidal.", CR)
   elseif NOT(INQ(PRSI, WINNER)) then 
-    	return TELL("You aren't even holding the ", D, PRSI, ".", CR)
+    	__tmp = TELL("You aren't even holding the ", D, PRSI, ".", CR)
   elseif NOT(FSETQ(PRSI, WEAPONBIT)) then 
-    	return TELL("Trying to attack the ", D, PRSO, " with a ", D, PRSI, " is suicidal.", CR)
+    	__tmp = TELL("Trying to attack the ", D, PRSO, " with a ", D, PRSI, " is suicidal.", CR)
   elseif T then 
-    	return HERO_BLOW()
+    	__tmp = HERO_BLOW()
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_ATTACK\n'..__res) end
 end
 V_BACK = function()
 	local __ok, __res = pcall(function()
-	return   TELL("Sorry, my memory is poor. Please give a direction.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("Sorry, my memory is poor. Please give a direction.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_BACK\n'..__res) end
 end
 V_BLAST = function()
 	local __ok, __res = pcall(function()
-	return   TELL("You can't blast anything by using words.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("You can't blast anything by using words.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_BLAST\n'..__res) end
 end
 PRE_BOARD = function()
 	local AV
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() AV = LOC(WINNER) return AV end)
 
   if NULL_F() then 
@@ -330,67 +377,81 @@ APPLY(function() AV = LOC(WINNER) return AV end)
     TELL("You have a theory on how to board a ", D, PRSO, ", perhaps?", CR)
   end
 
-	return   RFATAL()
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp =   RFATAL()
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PRE_BOARD\n'..__res) end
 end
 V_BOARD = function()
 	local AV
 	local __ok, __res = pcall(function()
+	local __tmp = false
   TELL("You are now in the ", D, PRSO, ".", CR)
   MOVE(WINNER, PRSO)
   APPLY(GETP(PRSO, PQACTION), M_ENTER)
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_BOARD\n'..__res) end
 end
 V_BREATHE = function()
 	local __ok, __res = pcall(function()
-	return   PERFORM(VQINFLATE, PRSO, LUNGS)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   PERFORM(VQINFLATE, PRSO, LUNGS)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_BREATHE\n'..__res) end
 end
 V_BRUSH = function()
 	local __ok, __res = pcall(function()
-	return   TELL("If you wish, but heaven only knows why.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("If you wish, but heaven only knows why.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_BRUSH\n'..__res) end
 end
 V_BUG = function()
 	local __ok, __res = pcall(function()
-	return   TELL("Bug? Not in a flawless program like this! (Cough, cough).", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("Bug? Not in a flawless program like this! (Cough, cough).", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_BUG\n'..__res) end
 end
 TELL_NO_PRSI = function()
 	local __ok, __res = pcall(function()
-	return   TELL("You didn't say with what!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("You didn't say with what!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('TELL_NO_PRSI\n'..__res) end
 end
 PRE_BURN = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(PRSI) then 
-    	return TELL_NO_PRSI()
+    	__tmp = TELL_NO_PRSI()
   elseif FLAMINGQ(PRSI) then 
     	error(false)
   elseif T then 
-    	return TELL("With a ", D, PRSI, "??!?", CR)
+    	__tmp = TELL("With a ", D, PRSI, "??!?", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PRE_BURN\n'..__res) end
 end
 V_BURN = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NULL_F() then 
     	error(false)
@@ -407,53 +468,62 @@ V_BURN = function()
         TELL("holding")
       end
 
-      	return JIGS_UP(" it at the time.")
+      	__tmp = JIGS_UP(" it at the time.")
     elseif T then 
       REMOVE_CAREFULLY(PRSO)
-      	return TELL("The ", D, PRSO, " catches fire and is consumed.", CR)
+      	__tmp = TELL("The ", D, PRSO, " catches fire and is consumed.", CR)
     end
 
   elseif T then 
-    	return TELL("You can't burn a ", D, PRSO, ".", CR)
+    	__tmp = TELL("You can't burn a ", D, PRSO, ".", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_BURN\n'..__res) end
 end
 V_CHOMP = function()
 	local __ok, __res = pcall(function()
-	return   TELL("Preposterous!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("Preposterous!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_CHOMP\n'..__res) end
 end
 V_CLIMB_DOWN = function()
 	local __ok, __res = pcall(function()
-	return   V_CLIMB_UP(PQDOWN, PRSO)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   V_CLIMB_UP(PQDOWN, PRSO)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_CLIMB_DOWN\n'..__res) end
 end
 V_CLIMB_FOO = function()
 	local __ok, __res = pcall(function()
-	return   V_CLIMB_UP(PQUP, PRSO)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   V_CLIMB_UP(PQUP, PRSO)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_CLIMB_FOO\n'..__res) end
 end
 V_CLIMB_ON = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, VEHBIT) then 
     PERFORM(VQBOARD, PRSO)
     	error(true)
   elseif T then 
-    	return TELL("You can't climb onto the ", D, PRSO, ".", CR)
+    	__tmp = TELL("You can't climb onto the ", D, PRSO, ".", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_CLIMB_ON\n'..__res) end
 end
 V_CLIMB_UP = function(DIR, OBJ)
@@ -462,6 +532,7 @@ V_CLIMB_UP = function(DIR, OBJ)
   DIR = DIR or PQUP
   OBJ = OBJ or nil
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(OBJ and NOT(EQUALQ(PRSO, ROOMS))) then 
     APPLY(function() OBJ = PRSO return OBJ end)
@@ -497,25 +568,27 @@ V_CLIMB_UP = function(DIR, OBJ)
     DO_WALK(DIR)
     	error(true)
   elseif PASS(OBJ and ZMEMQ(WQWALL, APPLY(function() X = GETPT(PRSO, PQSYNONYM) return X end), PTSIZE(X))) then 
-    	return TELL("Climbing the walls is to no avail.", CR)
+    	__tmp = TELL("Climbing the walls is to no avail.", CR)
   elseif PASS(NOT(EQUALQ(HERE, PATH)) and EQUALQ(OBJ, nil, TREE) and GLOBAL_INQ(TREE, HERE)) then 
     TELL("There are no climbable trees here.", CR)
     	error(true)
   elseif EQUALQ(OBJ, nil, ROOMS) then 
-    	return TELL("You can't go that way.", CR)
+    	__tmp = TELL("You can't go that way.", CR)
   elseif T then 
-    	return TELL("You can't do that!", CR)
+    	__tmp = TELL("You can't do that!", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_CLIMB_UP\n'..__res) end
 end
 V_CLOSE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(NOT(FSETQ(PRSO, CONTBIT)) and NOT(FSETQ(PRSO, DOORBIT))) then 
-    	return TELL("You must tell me how to do that to a ", D, PRSO, ".", CR)
+    	__tmp = TELL("You must tell me how to do that to a ", D, PRSO, ".", CR)
   elseif PASS(NOT(FSETQ(PRSO, SURFACEBIT)) and NOT(EQUALQ(GETP(PRSO, PQCAPACITY), 0))) then 
     
     if FSETQ(PRSO, OPENBIT) then 
@@ -528,83 +601,93 @@ V_CLOSE = function()
 
       	error(true)
     elseif T then 
-      	return TELL("It is already closed.", CR)
+      	__tmp = TELL("It is already closed.", CR)
     end
 
   elseif FSETQ(PRSO, DOORBIT) then 
     
     if FSETQ(PRSO, OPENBIT) then 
       FCLEAR(PRSO, OPENBIT)
-      	return TELL("The ", D, PRSO, " is now closed.", CR)
+      	__tmp = TELL("The ", D, PRSO, " is now closed.", CR)
     elseif T then 
-      	return TELL("It is already closed.", CR)
+      	__tmp = TELL("It is already closed.", CR)
     end
 
   elseif T then 
-    	return TELL("You cannot close that.", CR)
+    	__tmp = TELL("You cannot close that.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_CLOSE\n'..__res) end
 end
 V_COMMAND = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, ACTORBIT) then 
-    	return TELL("The ", D, PRSO, " pays no attention.", CR)
+    	__tmp = TELL("The ", D, PRSO, " pays no attention.", CR)
   elseif T then 
-    	return TELL("You cannot talk to that!", CR)
+    	__tmp = TELL("You cannot talk to that!", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_COMMAND\n'..__res) end
 end
 V_COUNT = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if EQUALQ(PRSO, BLESSINGS) then 
-    	return TELL("Well, for one, you are playing Zork...", CR)
+    	__tmp = TELL("Well, for one, you are playing Zork...", CR)
   elseif T then 
-    	return TELL("You have lost your mind.", CR)
+    	__tmp = TELL("You have lost your mind.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_COUNT\n'..__res) end
 end
 V_CROSS = function()
 	local __ok, __res = pcall(function()
-	return   TELL("You can't cross that!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("You can't cross that!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_CROSS\n'..__res) end
 end
 V_CURSES = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PRSO then 
     
     if FSETQ(PRSO, ACTORBIT) then 
-      	return TELL("Insults of this nature won't help you.", CR)
+      	__tmp = TELL("Insults of this nature won't help you.", CR)
     elseif T then 
-      	return TELL("What a loony!", CR)
+      	__tmp = TELL("What a loony!", CR)
     end
 
   elseif T then 
-    	return TELL("Such language in a high-class establishment like this!", CR)
+    	__tmp = TELL("Such language in a high-class establishment like this!", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_CURSES\n'..__res) end
 end
 V_CUT = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, ACTORBIT) then 
-    	return PERFORM(VQATTACK, PRSO, PRSI)
+    	__tmp = PERFORM(VQATTACK, PRSO, PRSI)
   elseif PASS(FSETQ(PRSO, BURNBIT) and FSETQ(PRSI, WEAPONBIT)) then 
     
     if INQ(WINNER, PRSO) then 
@@ -613,26 +696,30 @@ V_CUT = function()
     end
 
     REMOVE_CAREFULLY(PRSO)
-    	return TELL("Your skillful ", D, PRSI, "smanship slices the ", D, PRSO, " into innumerable slivers which blow away.", CR)
+    	__tmp = TELL("Your skillful ", D, PRSI, "smanship slices the ", D, PRSO, " into innumerable slivers which blow away.", CR)
   elseif NOT(FSETQ(PRSI, WEAPONBIT)) then 
-    	return TELL("The \"cutting edge\" of a ", D, PRSI, " is hardly adequate.", CR)
+    	__tmp = TELL("The \"cutting edge\" of a ", D, PRSI, " is hardly adequate.", CR)
   elseif T then 
-    	return TELL("Strange concept, cutting the ", D, PRSO, "....", CR)
+    	__tmp = TELL("Strange concept, cutting the ", D, PRSO, "....", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_CUT\n'..__res) end
 end
 V_DEFLATE = function()
 	local __ok, __res = pcall(function()
-	return   TELL("Come on, now!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("Come on, now!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_DEFLATE\n'..__res) end
 end
 V_DIG = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(PRSI) then 
     APPLY(function() PRSI = HANDS return PRSI end)
@@ -646,78 +733,91 @@ V_DIG = function()
 
 
   if FSETQ(PRSI, TOOLBIT) then 
-    	return TELL("Digging with the ", D, PRSI, " is slow and tedious.", CR)
+    	__tmp = TELL("Digging with the ", D, PRSI, " is slow and tedious.", CR)
   elseif T then 
-    	return TELL("Digging with a ", D, PRSI, " is silly.", CR)
+    	__tmp = TELL("Digging with a ", D, PRSI, " is silly.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_DIG\n'..__res) end
 end
 V_DISEMBARK = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(EQUALQ(PRSO, ROOMS) and FSETQ(LOC(WINNER), VEHBIT)) then 
     PERFORM(VQDISEMBARK, LOC(WINNER))
     	error(true)
   elseif NOT(EQUALQ(LOC(WINNER), PRSO)) then 
     TELL("You're not in that!", CR)
-    	return RFATAL()
+    	__tmp = RFATAL()
   elseif FSETQ(HERE, RLANDBIT) then 
     TELL("You are on your own feet again.", CR)
-    	return MOVE(WINNER, HERE)
+    	__tmp = MOVE(WINNER, HERE)
   elseif T then 
     TELL("You realize that getting out here would be fatal.", CR)
-    	return RFATAL()
+    	__tmp = RFATAL()
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_DISEMBARK\n'..__res) end
 end
 V_DISENCHANT = function()
 	local __ok, __res = pcall(function()
-	return   TELL("Nothing happens.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("Nothing happens.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_DISENCHANT\n'..__res) end
 end
 V_DRINK = function()
 	local __ok, __res = pcall(function()
-	return   V_EAT()
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   V_EAT()
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_DRINK\n'..__res) end
 end
 V_DRINK_FROM = function()
 	local __ok, __res = pcall(function()
-	return   TELL("How peculiar!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("How peculiar!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_DRINK_FROM\n'..__res) end
 end
 PRE_DROP = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if EQUALQ(PRSO, LOC(WINNER)) then 
     PERFORM(VQDISEMBARK, PRSO)
     	error(true)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PRE_DROP\n'..__res) end
 end
 V_DROP = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if IDROP() then 
-    	return TELL("Dropped.", CR)
+    	__tmp = TELL("Dropped.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_DROP\n'..__res) end
 end
 V_EAT = function()
@@ -725,6 +825,7 @@ V_EAT = function()
   local DRINKQ = nil
   local NOBJ = nil
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if APPLY(function() EATQ = FSETQ(PRSO, FOODBIT) return EATQ end) then 
     
@@ -737,41 +838,44 @@ V_EAT = function()
       REMOVE_CAREFULLY(PRSO)
     end
 
-    	return CRLF()
+    	__tmp = CRLF()
   elseif FSETQ(PRSO, DRINKBIT) then 
     APPLY(function() DRINKQ = T return DRINKQ end)
     APPLY(function() NOBJ = LOC(PRSO) return NOBJ end)
     
     if PASS(INQ(PRSO, GLOBAL_OBJECTS) or GLOBAL_INQ(GLOBAL_WATER, HERE) or EQUALQ(PRSO, PSEUDO_OBJECT)) then 
-      	return HIT_SPOT()
+      	__tmp = HIT_SPOT()
     elseif PASS(NOT(NOBJ) or NOT(ACCESSIBLEQ(NOBJ))) then 
-      	return TELL("There isn't any water here.", CR)
+      	__tmp = TELL("There isn't any water here.", CR)
     elseif PASS(ACCESSIBLEQ(NOBJ) and NOT(INQ(NOBJ, WINNER))) then 
-      	return TELL("You have to be holding the ", D, NOBJ, " first.", CR)
+      	__tmp = TELL("You have to be holding the ", D, NOBJ, " first.", CR)
     elseif NOT(FSETQ(NOBJ, OPENBIT)) then 
-      	return TELL("You'll have to open the ", D, NOBJ, " first.", CR)
+      	__tmp = TELL("You'll have to open the ", D, NOBJ, " first.", CR)
     elseif T then 
-      	return HIT_SPOT()
+      	__tmp = HIT_SPOT()
     end
 
   elseif NOT(PASS(EATQ or DRINKQ)) then 
-    	return TELL("I don't think that the ", D, PRSO, " would agree with you.", CR)
+    	__tmp = TELL("I don't think that the ", D, PRSO, " would agree with you.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_EAT\n'..__res) end
 end
 HIT_SPOT = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(EQUALQ(PRSO, WATER) and NOT(GLOBAL_INQ(GLOBAL_WATER, HERE))) then 
     REMOVE_CAREFULLY(PRSO)
   end
 
-	return   TELL("Thank you very much. I was rather thirsty (from all this talking,\nprobably).", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp =   TELL("Thank you very much. I was rather thirsty (from all this talking, probably).", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('HIT_SPOT\n'..__res) end
 end
 V_ECHO = function()
@@ -780,6 +884,7 @@ V_ECHO = function()
   local ECH = 0
 	local CNT
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if GQ(GETB(P_LEXV, P_LEXWORDS), 0) then 
     APPLY(function() LST = REST(P_LEXV, MULL(GETB(P_LEXV, P_LEXWORDS), P_WORDLEN)) return LST end)
@@ -819,24 +924,28 @@ until __ok30 or __res30 ~= 123
 if not __ok30 then error(__res30) end
 
   elseif T then 
-    	return TELL("echo echo ...", CR)
+    	__tmp = TELL("echo echo ...", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_ECHO\n'..__res) end
 end
 V_ENCHANT = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   NULL_F()
-	return   V_DISENCHANT()
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp =   V_DISENCHANT()
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_ENCHANT\n'..__res) end
 end
 REMOVE_CAREFULLY = function(OBJ)
 	local OLIT
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if EQUALQ(OBJ, P_IT_OBJECT) then 
     APPLY(function() P_IT_OBJECT = nil return P_IT_OBJECT end)
@@ -850,35 +959,41 @@ APPLY(function() LIT = LITQ(HERE) return LIT end)
     TELL("You are left in the dark...", CR)
   end
 
-	return T
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp = T
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('REMOVE_CAREFULLY\n'..__res) end
 end
 V_ENTER = function()
 	local __ok, __res = pcall(function()
-	return   DO_WALK(PQIN)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   DO_WALK(PQIN)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_ENTER\n'..__res) end
 end
 V_EXAMINE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if GETP(PRSO, PQTEXT) then 
-    	return TELL(GETP(PRSO, PQTEXT), CR)
+    	__tmp = TELL(GETP(PRSO, PQTEXT), CR)
   elseif PASS(FSETQ(PRSO, CONTBIT) or FSETQ(PRSO, DOORBIT)) then 
-    	return V_LOOK_INSIDE()
+    	__tmp = V_LOOK_INSIDE()
   elseif T then 
-    	return TELL("There's nothing special about the ", D, PRSO, ".", CR)
+    	__tmp = TELL("There's nothing special about the ", D, PRSO, ".", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_EXAMINE\n'..__res) end
 end
 V_EXIT = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(EQUALQ(PRSO, nil, ROOMS) and FSETQ(LOC(WINNER), VEHBIT)) then 
     PERFORM(VQDISEMBARK, LOC(WINNER))
@@ -887,23 +1002,27 @@ V_EXIT = function()
     PERFORM(VQDISEMBARK, PRSO)
     	error(true)
   else 
-    	return DO_WALK(PQOUT)
+    	__tmp = DO_WALK(PQOUT)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_EXIT\n'..__res) end
 end
 V_EXORCISE = function()
 	local __ok, __res = pcall(function()
-	return   TELL("What a bizarre concept!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("What a bizarre concept!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_EXORCISE\n'..__res) end
 end
 PRE_FILL = function()
 	local TX
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(PRSI) then 
     APPLY(function() TX = GETPT(HERE, PQGLOBAL) return TX end)
@@ -929,12 +1048,14 @@ PRE_FILL = function()
     	error(true)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PRE_FILL\n'..__res) end
 end
 V_FILL = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(PRSI) then 
     
@@ -945,156 +1066,182 @@ V_FILL = function()
       PERFORM(VQFILL, PRSO, WATER)
       	error(true)
     elseif T then 
-      	return TELL("There's nothing to fill it with.", CR)
+      	__tmp = TELL("There's nothing to fill it with.", CR)
     end
 
   elseif T then 
-    	return TELL("You may know how to do that, but I don't.", CR)
+    	__tmp = TELL("You may know how to do that, but I don't.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_FILL\n'..__res) end
 end
 V_FIND = function()
   local L = LOC(PRSO)
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if EQUALQ(PRSO, HANDS, LUNGS) then 
-    	return TELL("Within six feet of your head, assuming you haven't left that\nsomewhere.", CR)
+    	__tmp = TELL("Within six feet of your head, assuming you haven't left that somewhere.", CR)
   elseif EQUALQ(PRSO, ME) then 
-    	return TELL("You're around here somewhere...", CR)
+    	__tmp = TELL("You're around here somewhere...", CR)
   elseif EQUALQ(L, GLOBAL_OBJECTS) then 
-    	return TELL("You find it.", CR)
+    	__tmp = TELL("You find it.", CR)
   elseif INQ(PRSO, WINNER) then 
-    	return TELL("You have it.", CR)
+    	__tmp = TELL("You have it.", CR)
   elseif PASS(INQ(PRSO, HERE) or GLOBAL_INQ(PRSO, HERE) or EQUALQ(PRSO, PSEUDO_OBJECT)) then 
-    	return TELL("It's right here.", CR)
+    	__tmp = TELL("It's right here.", CR)
   elseif FSETQ(L, ACTORBIT) then 
-    	return TELL("The ", D, L, " has it.", CR)
+    	__tmp = TELL("The ", D, L, " has it.", CR)
   elseif FSETQ(L, SURFACEBIT) then 
-    	return TELL("It's on the ", D, L, ".", CR)
+    	__tmp = TELL("It's on the ", D, L, ".", CR)
   elseif FSETQ(L, CONTBIT) then 
-    	return TELL("It's in the ", D, L, ".", CR)
+    	__tmp = TELL("It's in the ", D, L, ".", CR)
   elseif T then 
-    	return TELL("Beats me.", CR)
+    	__tmp = TELL("Beats me.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_FIND\n'..__res) end
 end
 V_FOLLOW = function()
 	local __ok, __res = pcall(function()
-	return   TELL("You're nuts!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("You're nuts!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_FOLLOW\n'..__res) end
 end
 V_FROBOZZ = function()
 	local __ok, __res = pcall(function()
-	return   TELL("The FROBOZZ Corporation created, owns, and operates this dungeon.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("The FROBOZZ Corporation created, owns, and operates this dungeon.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_FROBOZZ\n'..__res) end
 end
 PRE_GIVE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(HELDQ(PRSO)) then 
-    	return TELL("That's easy for you to say since you don't even have the ", D, PRSO, ".", CR)
+    	__tmp = TELL("That's easy for you to say since you don't even have the ", D, PRSO, ".", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PRE_GIVE\n'..__res) end
 end
 V_GIVE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(FSETQ(PRSI, ACTORBIT)) then 
-    	return TELL("You can't give a ", D, PRSO, " to a ", D, PRSI, "!", CR)
+    	__tmp = TELL("You can't give a ", D, PRSO, " to a ", D, PRSI, "!", CR)
   elseif T then 
-    	return TELL("The ", D, PRSI, " refuses it politely.", CR)
+    	__tmp = TELL("The ", D, PRSI, " refuses it politely.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_GIVE\n'..__res) end
 end
 V_HATCH = function()
 	local __ok, __res = pcall(function()
-	return   TELL("Bizarre!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("Bizarre!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_HATCH\n'..__res) end
 end
 HS = 0
 V_HELLO = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PRSO then 
     
     if FSETQ(PRSO, ACTORBIT) then 
-      	return TELL("The ", D, PRSO, " bows his head to you in greeting.", CR)
+      	__tmp = TELL("The ", D, PRSO, " bows his head to you in greeting.", CR)
     elseif T then 
-      	return TELL("It's a well known fact that only schizophrenics say \"Hello\" to a ", D, PRSO, ".", CR)
+      	__tmp = TELL("It's a well known fact that only schizophrenics say \"Hello\" to a ", D, PRSO, ".", CR)
     end
 
   elseif T then 
-    	return TELL(PICK_ONE(HELLOS), CR)
+    	__tmp = TELL(PICK_ONE(HELLOS), CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_HELLO\n'..__res) end
 end
 V_INCANT = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   TELL("The incantation echoes back faintly, but nothing else happens.", CR)
 APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
 APPLY(function() P_CONT = nil return P_CONT end)
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_INCANT\n'..__res) end
 end
 V_INFLATE = function()
 	local __ok, __res = pcall(function()
-	return   TELL("How can you inflate that?", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("How can you inflate that?", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_INFLATE\n'..__res) end
 end
 V_KICK = function()
 	local __ok, __res = pcall(function()
-	return   HACK_HACK("Kicking the ")
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   HACK_HACK("Kicking the ")
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_KICK\n'..__res) end
 end
 V_KISS = function()
 	local __ok, __res = pcall(function()
-	return   TELL("I'd sooner kiss a pig.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("I'd sooner kiss a pig.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_KISS\n'..__res) end
 end
 V_KNOCK = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, DOORBIT) then 
-    	return TELL("Nobody's home.", CR)
+    	__tmp = TELL("Nobody's home.", CR)
   elseif T then 
-    	return TELL("Why knock on a ", D, PRSO, "?", CR)
+    	__tmp = TELL("Why knock on a ", D, PRSO, "?", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_KNOCK\n'..__res) end
 end
 V_LAMP_OFF = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, LIGHTBIT) then 
     
@@ -1120,12 +1267,14 @@ V_LAMP_OFF = function()
   end
 
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_LAMP_OFF\n'..__res) end
 end
 V_LAMP_ON = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, LIGHTBIT) then 
     
@@ -1150,47 +1299,53 @@ V_LAMP_ON = function()
   end
 
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_LAMP_ON\n'..__res) end
 end
 V_LAUNCH = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, VEHBIT) then 
-    	return TELL("You can't launch that by saying \"launch\"!", CR)
+    	__tmp = TELL("You can't launch that by saying \"launch\"!", CR)
   elseif T then 
-    	return TELL("That's pretty weird.", CR)
+    	__tmp = TELL("That's pretty weird.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_LAUNCH\n'..__res) end
 end
 V_LEAN_ON = function()
 	local __ok, __res = pcall(function()
-	return   TELL("Getting tired?", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("Getting tired?", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_LEAN_ON\n'..__res) end
 end
 V_LEAP = function()
 	local TX
 	local S
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PRSO then 
     
     if INQ(PRSO, HERE) then 
       
       if FSETQ(PRSO, ACTORBIT) then 
-        	return TELL("The ", D, PRSO, " is too big to jump over.", CR)
+        	__tmp = TELL("The ", D, PRSO, " is too big to jump over.", CR)
       elseif T then 
-        	return V_SKIP()
+        	__tmp = V_SKIP()
       end
 
     elseif T then 
-      	return TELL("That would be a good trick.", CR)
+      	__tmp = TELL("That would be a good trick.", CR)
     end
 
   elseif APPLY(function() TX = GETPT(HERE, PQDOWN) return TX end) then 
@@ -1198,65 +1353,77 @@ V_LEAP = function()
     
     if PASS(EQUALQ(S, 2) or PASS(EQUALQ(S, 4) and NOT(VALUE(GETB(TX, 1))))) then 
       TELL("This was not a very safe place to try jumping.", CR)
-      	return JIGS_UP(PICK_ONE(JUMPLOSS))
+      	__tmp = JIGS_UP(PICK_ONE(JUMPLOSS))
     elseif EQUALQ(HERE, UP_A_TREE) then 
-      TELL("In a feat of unaccustomed daring, you manage to land on your feet without\nkilling yourself.", CR, CR)
+      TELL("In a feat of unaccustomed daring, you manage to land on your feet without killing yourself.", CR, CR)
       DO_WALK(PQDOWN)
       	error(true)
     elseif T then 
-      	return V_SKIP()
+      	__tmp = V_SKIP()
     end
 
   elseif T then 
-    	return V_SKIP()
+    	__tmp = V_SKIP()
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_LEAP\n'..__res) end
 end
 JUMPLOSS = LTABLE(0,"You should have looked before you leaped.","In the movies, your life would be passing before your eyes.","Geronimo...")
 V_LEAVE = function()
 	local __ok, __res = pcall(function()
-	return   DO_WALK(PQOUT)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   DO_WALK(PQOUT)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_LEAVE\n'..__res) end
 end
 V_LISTEN = function()
 	local __ok, __res = pcall(function()
-	return   TELL("The ", D, PRSO, " makes no sound.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("The ", D, PRSO, " makes no sound.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_LISTEN\n'..__res) end
 end
 V_LOCK = function()
 	local __ok, __res = pcall(function()
-	return   TELL("It doesn't seem to work.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("It doesn't seem to work.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_LOCK\n'..__res) end
 end
 V_LOOK = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if DESCRIBE_ROOM(T) then 
-    	return DESCRIBE_OBJECTS(T)
+    	__tmp = DESCRIBE_OBJECTS(T)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_LOOK\n'..__res) end
 end
 V_LOOK_BEHIND = function()
 	local __ok, __res = pcall(function()
-	return   TELL("There is nothing behind the ", D, PRSO, ".", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("There is nothing behind the ", D, PRSO, ".", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_LOOK_BEHIND\n'..__res) end
 end
 V_LOOK_INSIDE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, DOORBIT) then 
     
@@ -1266,11 +1433,11 @@ V_LOOK_INSIDE = function()
       TELL("The ", D, PRSO, " is closed.")
     end
 
-    	return CRLF()
+    	__tmp = CRLF()
   elseif FSETQ(PRSO, CONTBIT) then 
     
     if FSETQ(PRSO, ACTORBIT) then 
-      	return TELL("There is nothing special to be seen.", CR)
+      	__tmp = TELL("There is nothing special to be seen.", CR)
     elseif SEE_INSIDEQ(PRSO) then 
       
       if PASS(FIRSTQ(PRSO) and PRINT_CONT(PRSO)) then 
@@ -1278,96 +1445,114 @@ V_LOOK_INSIDE = function()
       elseif NULL_F() then 
         	error(true)
       elseif T then 
-        	return TELL("The ", D, PRSO, " is empty.", CR)
+        	__tmp = TELL("The ", D, PRSO, " is empty.", CR)
       end
 
     elseif T then 
-      	return TELL("The ", D, PRSO, " is closed.", CR)
+      	__tmp = TELL("The ", D, PRSO, " is closed.", CR)
     end
 
   elseif T then 
-    	return TELL("You can't look inside a ", D, PRSO, ".", CR)
+    	__tmp = TELL("You can't look inside a ", D, PRSO, ".", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_LOOK_INSIDE\n'..__res) end
 end
 V_LOOK_ON = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, SURFACEBIT) then 
     PERFORM(VQLOOK_INSIDE, PRSO)
     	error(true)
   elseif T then 
-    	return TELL("Look on a ", D, PRSO, "???", CR)
+    	__tmp = TELL("Look on a ", D, PRSO, "???", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_LOOK_ON\n'..__res) end
 end
 V_LOOK_UNDER = function()
 	local __ok, __res = pcall(function()
-	return   TELL("There is nothing but dust there.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("There is nothing but dust there.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_LOOK_UNDER\n'..__res) end
 end
 V_LOWER = function()
 	local __ok, __res = pcall(function()
-	return   HACK_HACK("Playing in this way with the ")
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   HACK_HACK("Playing in this way with the ")
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_LOWER\n'..__res) end
 end
 V_MAKE = function()
 	local __ok, __res = pcall(function()
-	return   TELL("You can't do that.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("You can't do that.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_MAKE\n'..__res) end
 end
 V_MELT = function()
 	local __ok, __res = pcall(function()
-	return   TELL("It's not clear that a ", D, PRSO, " can be melted.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("It's not clear that a ", D, PRSO, " can be melted.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_MELT\n'..__res) end
 end
 PRE_MOVE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if HELDQ(PRSO) then 
-    	return TELL("You aren't an accomplished enough juggler.", CR)
+    	__tmp = TELL("You aren't an accomplished enough juggler.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PRE_MOVE\n'..__res) end
 end
 V_MOVE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, TAKEBIT) then 
-    	return TELL("Moving the ", D, PRSO, " reveals nothing.", CR)
+    	__tmp = TELL("Moving the ", D, PRSO, " reveals nothing.", CR)
   elseif T then 
-    	return TELL("You can't move the ", D, PRSO, ".", CR)
+    	__tmp = TELL("You can't move the ", D, PRSO, ".", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_MOVE\n'..__res) end
 end
 V_MUMBLE = function()
 	local __ok, __res = pcall(function()
-	return   TELL("You'll have to speak up if you expect me to hear you!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("You'll have to speak up if you expect me to hear you!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_MUMBLE\n'..__res) end
 end
 PRE_MUNG = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NULL_F() then 
     	error(true)
@@ -1380,74 +1565,82 @@ PRE_MUNG = function()
       TELL("a ", D, PRSI)
     end
 
-    	return TELL(" is futile.", CR)
+    	__tmp = TELL(" is futile.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PRE_MUNG\n'..__res) end
 end
 V_MUNG = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, ACTORBIT) then 
     PERFORM(VQATTACK, PRSO, PRSI)
     	error(true)
   elseif T then 
-    	return TELL("Nice try.", CR)
+    	__tmp = TELL("Nice try.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_MUNG\n'..__res) end
 end
 V_ODYSSEUS = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(EQUALQ(HERE, CYCLOPS_ROOM) and INQ(CYCLOPS, HERE) and NOT(CYCLOPS_FLAG)) then 
     DISABLE(INT(I_CYCLOPS))
     APPLY(function() CYCLOPS_FLAG = T return CYCLOPS_FLAG end)
-    TELL("The cyclops, hearing the name of his father's deadly nemesis, flees the room\nby knocking down the wall on the east of the room.", CR)
+    TELL("The cyclops, hearing the name of his father's deadly nemesis, flees the room by knocking down the wall on the east of the room.", CR)
     APPLY(function() MAGIC_FLAG = T return MAGIC_FLAG end)
     FCLEAR(CYCLOPS, FIGHTBIT)
-    	return REMOVE_CAREFULLY(CYCLOPS)
+    	__tmp = REMOVE_CAREFULLY(CYCLOPS)
   elseif T then 
-    	return TELL("Wasn't he a sailor?", CR)
+    	__tmp = TELL("Wasn't he a sailor?", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_ODYSSEUS\n'..__res) end
 end
 V_OIL = function()
 	local __ok, __res = pcall(function()
-	return   TELL("You probably put spinach in your gas tank, too.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("You probably put spinach in your gas tank, too.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_OIL\n'..__res) end
 end
 V_OPEN = function()
 	local F
 	local STR
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(FSETQ(PRSO, CONTBIT) and NOT(EQUALQ(GETP(PRSO, PQCAPACITY), 0))) then 
     
     if FSETQ(PRSO, OPENBIT) then 
-      	return TELL("It is already open.", CR)
+      	__tmp = TELL("It is already open.", CR)
     elseif T then 
       FSET(PRSO, OPENBIT)
       FSET(PRSO, TOUCHBIT)
       
       if PASS(NOT(FIRSTQ(PRSO)) or FSETQ(PRSO, TRANSBIT)) then 
-        	return TELL("Opened.", CR)
+        	__tmp = TELL("Opened.", CR)
       elseif PASS(APPLY(function() F = FIRSTQ(PRSO) return F end) and NOT(NEXTQ(F)) and NOT(FSETQ(F, TOUCHBIT)) and APPLY(function() STR = GETP(F, PQFDESC) return STR end)) then 
         TELL("The ", D, PRSO, " opens.", CR)
-        	return TELL(STR, CR)
+        	__tmp = TELL(STR, CR)
       elseif T then 
         TELL("Opening the ", D, PRSO, " reveals ")
         PRINT_CONTENTS(PRSO)
-        	return TELL(".", CR)
+        	__tmp = TELL(".", CR)
       end
 
     end
@@ -1455,74 +1648,84 @@ V_OPEN = function()
   elseif FSETQ(PRSO, DOORBIT) then 
     
     if FSETQ(PRSO, OPENBIT) then 
-      	return TELL("It is already open.", CR)
+      	__tmp = TELL("It is already open.", CR)
     elseif T then 
       TELL("The ", D, PRSO, " opens.", CR)
-      	return FSET(PRSO, OPENBIT)
+      	__tmp = FSET(PRSO, OPENBIT)
     end
 
   elseif T then 
-    	return TELL("You must tell me how to do that to a ", D, PRSO, ".", CR)
+    	__tmp = TELL("You must tell me how to do that to a ", D, PRSO, ".", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_OPEN\n'..__res) end
 end
 V_OVERBOARD = function()
 	local LOCN
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if EQUALQ(PRSI, TEETH) then 
     
     if FSETQ(APPLY(function() LOCN = LOC(WINNER) return LOCN end), VEHBIT) then 
       MOVE(PRSO, LOC(LOCN))
-      	return TELL("Ahoy -- ", D, PRSO, " overboard!", CR)
+      	__tmp = TELL("Ahoy -- ", D, PRSO, " overboard!", CR)
     elseif T then 
-      	return TELL("You're not in anything!", CR)
+      	__tmp = TELL("You're not in anything!", CR)
     end
 
   elseif FSETQ(LOC(WINNER), VEHBIT) then 
     PERFORM(VQTHROW, PRSO)
     	error(true)
   elseif T then 
-    	return TELL("Huh?", CR)
+    	__tmp = TELL("Huh?", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_OVERBOARD\n'..__res) end
 end
 V_PICK = function()
 	local __ok, __res = pcall(function()
-	return   TELL("You can't pick that.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("You can't pick that.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_PICK\n'..__res) end
 end
 V_PLAY = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, ACTORBIT) then 
-    TELL("You become so engrossed in the role of the ", D, PRSO, " that\nyou kill yourself, just as he might have done!", CR)
-    	return JIGS_UP("")
+    TELL("You become so engrossed in the role of the ", D, PRSO, " that you kill yourself, just as he might have done!", CR)
+    	__tmp = JIGS_UP("")
   else 
-    	return TELL("That's silly!", CR)
+    	__tmp = TELL("That's silly!", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_PLAY\n'..__res) end
 end
 V_PLUG = function()
 	local __ok, __res = pcall(function()
-	return   TELL("This has no effect.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("This has no effect.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_PLUG\n'..__res) end
 end
 V_POUR_ON = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if EQUALQ(PRSO, WATER) then 
     REMOVE_CAREFULLY(PRSO)
@@ -1531,78 +1734,90 @@ V_POUR_ON = function()
       TELL("The ", D, PRSI, " is extinguished.", CR)
       NULL_F()
       FCLEAR(PRSI, ONBIT)
-      	return FCLEAR(PRSI, FLAMEBIT)
+      	__tmp = FCLEAR(PRSI, FLAMEBIT)
     elseif T then 
-      	return TELL("The water spills over the ", D, PRSI, ", to the floor, and evaporates.", CR)
+      	__tmp = TELL("The water spills over the ", D, PRSI, ", to the floor, and evaporates.", CR)
     end
 
   elseif EQUALQ(PRSO, PUTTY) then 
-    	return PERFORM(VQPUT, PUTTY, PRSI)
+    	__tmp = PERFORM(VQPUT, PUTTY, PRSI)
   elseif T then 
-    	return TELL("You can't pour that.", CR)
+    	__tmp = TELL("You can't pour that.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_POUR_ON\n'..__res) end
 end
 V_PRAY = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if EQUALQ(HERE, SOUTH_TEMPLE) then 
-    	return GOTO(FOREST_1)
+    	__tmp = GOTO(FOREST_1)
   elseif T then 
-    	return TELL("If you pray enough, your prayers may be answered.", CR)
+    	__tmp = TELL("If you pray enough, your prayers may be answered.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_PRAY\n'..__res) end
 end
 V_PUMP = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(PRSI and NOT(EQUALQ(PRSI, PUMP))) then 
-    	return TELL("Pump it up with a ", D, PRSI, "?", CR)
+    	__tmp = TELL("Pump it up with a ", D, PRSI, "?", CR)
   elseif INQ(PUMP, WINNER) then 
-    	return PERFORM(VQINFLATE, PRSO, PUMP)
+    	__tmp = PERFORM(VQINFLATE, PRSO, PUMP)
   elseif T then 
-    	return TELL("It's really not clear how.", CR)
+    	__tmp = TELL("It's really not clear how.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_PUMP\n'..__res) end
 end
 V_PUSH = function()
 	local __ok, __res = pcall(function()
-	return   HACK_HACK("Pushing the ")
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   HACK_HACK("Pushing the ")
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_PUSH\n'..__res) end
 end
 V_PUSH_TO = function()
 	local __ok, __res = pcall(function()
-	return   TELL("You can't push things to that.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("You can't push things to that.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_PUSH_TO\n'..__res) end
 end
 PRE_PUT = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NULL_F() then 
     	error(false)
   elseif T then 
-    	return PRE_GIVE()
+    	__tmp = PRE_GIVE()
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PRE_PUT\n'..__res) end
 end
 V_PUT = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(FSETQ(PRSI, OPENBIT) or OPENABLEQ(PRSI) or FSETQ(PRSI, VEHBIT)) then 
     PASS(FSETQ(PRSI, OPENBIT) or OPENABLEQ(PRSI) or FSETQ(PRSI, VEHBIT))
@@ -1614,13 +1829,13 @@ V_PUT = function()
 
   if NOT(FSETQ(PRSI, OPENBIT)) then 
     TELL("The ", D, PRSI, " isn't open.", CR)
-    	return THIS_IS_IT(PRSI)
+    	__tmp = THIS_IS_IT(PRSI)
   elseif EQUALQ(PRSI, PRSO) then 
-    	return TELL("How can you do that?", CR)
+    	__tmp = TELL("How can you do that?", CR)
   elseif INQ(PRSO, PRSI) then 
-    	return TELL("The ", D, PRSO, " is already in the ", D, PRSI, ".", CR)
+    	__tmp = TELL("The ", D, PRSO, " is already in the ", D, PRSI, ".", CR)
   elseif GQ(SUB(ADD(WEIGHT(PRSI), WEIGHT(PRSO)), GETP(PRSI, PQSIZE)), GETP(PRSI, PQCAPACITY)) then 
-    	return TELL("There's no room.", CR)
+    	__tmp = TELL("There's no room.", CR)
   elseif PASS(NOT(HELDQ(PRSO)) and FSETQ(PRSO, TRYTAKEBIT)) then 
     TELL("You don't have the ", D, PRSO, ".", CR)
     	error(true)
@@ -1630,125 +1845,151 @@ V_PUT = function()
     MOVE(PRSO, PRSI)
     FSET(PRSO, TOUCHBIT)
     SCORE_OBJ(PRSO)
-    	return TELL("Done.", CR)
+    	__tmp = TELL("Done.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_PUT\n'..__res) end
 end
 V_PUT_BEHIND = function()
 	local __ok, __res = pcall(function()
-	return   TELL("That hiding place is too obvious.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("That hiding place is too obvious.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_PUT_BEHIND\n'..__res) end
 end
 V_PUT_ON = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if EQUALQ(PRSI, GROUND) then 
     PERFORM(VQDROP, PRSO)
     	error(true)
   elseif FSETQ(PRSI, SURFACEBIT) then 
-    	return V_PUT()
+    	__tmp = V_PUT()
   elseif T then 
-    	return TELL("There's no good surface on the ", D, PRSI, ".", CR)
+    	__tmp = TELL("There's no good surface on the ", D, PRSI, ".", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_PUT_ON\n'..__res) end
 end
 V_PUT_UNDER = function()
 	local __ok, __res = pcall(function()
-	return   TELL("You can't do that.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("You can't do that.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_PUT_UNDER\n'..__res) end
 end
 V_RAISE = function()
 	local __ok, __res = pcall(function()
-	return   V_LOWER()
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   V_LOWER()
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_RAISE\n'..__res) end
 end
 V_RAPE = function()
 	local __ok, __res = pcall(function()
-	return   TELL("What a (ahem!) strange idea.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("What a (ahem!) strange idea.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_RAPE\n'..__res) end
 end
 PRE_READ = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(LIT) then 
-    	return TELL("It is impossible to read in the dark.", CR)
+    	__tmp = TELL("It is impossible to read in the dark.", CR)
   elseif PASS(PRSI and NOT(FSETQ(PRSI, TRANSBIT))) then 
-    	return TELL("How does one look through a ", D, PRSI, "?", CR)
+    	__tmp = TELL("How does one look through a ", D, PRSI, "?", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PRE_READ\n'..__res) end
 end
 V_READ = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(FSETQ(PRSO, READBIT)) then 
-    	return TELL("How does one read a ", D, PRSO, "?", CR)
+    	__tmp = TELL("How does one read a ", D, PRSO, "?", CR)
   elseif T then 
-    	return TELL(GETP(PRSO, PQTEXT), CR)
+    	__tmp = TELL(GETP(PRSO, PQTEXT), CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_READ\n'..__res) end
 end
 V_READ_PAGE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   PERFORM(VQREAD, PRSO)
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_READ_PAGE\n'..__res) end
 end
 V_REPENT = function()
 	local __ok, __res = pcall(function()
-	return   TELL("It could very well be too late!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("It could very well be too late!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_REPENT\n'..__res) end
 end
 V_REPLY = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   TELL("It is hardly likely that the ", D, PRSO, " is interested.", CR)
 APPLY(function() P_CONT = nil return P_CONT end)
 APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_REPLY\n'..__res) end
 end
 V_RING = function()
 	local __ok, __res = pcall(function()
-	return   TELL("How, exactly, can you ring that?", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("How, exactly, can you ring that?", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_RING\n'..__res) end
 end
 V_RUB = function()
 	local __ok, __res = pcall(function()
-	return   HACK_HACK("Fiddling with the ")
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   HACK_HACK("Fiddling with the ")
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_RUB\n'..__res) end
 end
 V_SAY = function()
 	local V
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(P_CONT) then 
     TELL("Say what?", CR)
@@ -1766,52 +2007,62 @@ APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
   end
 
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_SAY\n'..__res) end
 end
 V_SEARCH = function()
 	local __ok, __res = pcall(function()
-	return   TELL("You find nothing unusual.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("You find nothing unusual.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_SEARCH\n'..__res) end
 end
 V_SEND = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, ACTORBIT) then 
-    	return TELL("Why would you send for the ", D, PRSO, "?", CR)
+    	__tmp = TELL("Why would you send for the ", D, PRSO, "?", CR)
   elseif T then 
-    	return TELL("That doesn't make sends.", CR)
+    	__tmp = TELL("That doesn't make sends.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_SEND\n'..__res) end
 end
 PRE_SGIVE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   PERFORM(VQGIVE, PRSI, PRSO)
 	error(true)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PRE_SGIVE\n'..__res) end
 end
 V_SGIVE = function()
 	local __ok, __res = pcall(function()
-	return   TELL("Foo!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("Foo!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_SGIVE\n'..__res) end
 end
 V_SHAKE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, ACTORBIT) then 
-    	return TELL("This seems to have no effect.", CR)
+    	__tmp = TELL("This seems to have no effect.", CR)
   elseif NOT(FSETQ(PRSO, TAKEBIT)) then 
-    	return TELL("You can't take it; thus, you can't shake it!", CR)
+    	__tmp = TELL("You can't take it; thus, you can't shake it!", CR)
   elseif FSETQ(PRSO, CONTBIT) then 
     
     if FSETQ(PRSO, OPENBIT) then 
@@ -1826,32 +2077,34 @@ V_SHAKE = function()
           TELL("to the ground")
         end
 
-        	return TELL(".", CR)
+        	__tmp = TELL(".", CR)
       elseif T then 
-        	return TELL("Shaken.", CR)
+        	__tmp = TELL("Shaken.", CR)
       end
 
     elseif T then 
       
       if FIRSTQ(PRSO) then 
-        	return TELL("It sounds like there is something inside the ", D, PRSO, ".", CR)
+        	__tmp = TELL("It sounds like there is something inside the ", D, PRSO, ".", CR)
       elseif T then 
-        	return TELL("The ", D, PRSO, " sounds empty.", CR)
+        	__tmp = TELL("The ", D, PRSO, " sounds empty.", CR)
       end
 
     end
 
   elseif T then 
-    	return TELL("Shaken.", CR)
+    	__tmp = TELL("Shaken.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_SHAKE\n'..__res) end
 end
 SHAKE_LOOP = function()
 	local X
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   local __prog32 = function()
     
@@ -1859,11 +2112,11 @@ SHAKE_LOOP = function()
       FSET(X, TOUCHBIT)
       MOVE(X, APPLY(function()
         if EQUALQ(HERE, UP_A_TREE) then 
-          	return PATH
+          	__tmp = PATH
         elseif NOT(FSETQ(HERE, RLANDBIT)) then 
-          	return PSEUDO_OBJECT
+          	__tmp = PSEUDO_OBJECT
         elseif T then 
-          	return HERE
+          	__tmp = HERE
         end
  end))
     elseif T then 
@@ -1877,41 +2130,51 @@ repeat __ok32, __res32 = pcall(__prog32)
 until __ok32 or __res32 ~= 123
 if not __ok32 then error(__res32) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('SHAKE_LOOP\n'..__res) end
 end
 V_SKIP = function()
 	local __ok, __res = pcall(function()
-	return   TELL(PICK_ONE(WHEEEEE), CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL(PICK_ONE(WHEEEEE), CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_SKIP\n'..__res) end
 end
 WHEEEEE = LTABLE(0,"Very good. Now you can go to the second grade.","Are you enjoying yourself?","Wheeeeeeeeee!!!!!","Do you expect me to applaud?")
 V_SMELL = function()
 	local __ok, __res = pcall(function()
-	return   TELL("It smells like a ", D, PRSO, ".", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("It smells like a ", D, PRSO, ".", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_SMELL\n'..__res) end
 end
 V_SPIN = function()
 	local __ok, __res = pcall(function()
-	return   TELL("You can't spin that!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("You can't spin that!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_SPIN\n'..__res) end
 end
 V_SPRAY = function()
 	local __ok, __res = pcall(function()
-	return   V_SQUEEZE()
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   V_SQUEEZE()
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_SPRAY\n'..__res) end
 end
 V_SQUEEZE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, ACTORBIT) then 
     TELL("The ", D, PRSO, " does not understand this.")
@@ -1919,105 +2182,121 @@ V_SQUEEZE = function()
     TELL("How singularly useless.")
   end
 
-	return   CRLF()
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp =   CRLF()
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_SQUEEZE\n'..__res) end
 end
 V_SSPRAY = function()
 	local __ok, __res = pcall(function()
-	return   PERFORM(VQSPRAY, PRSI, PRSO)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   PERFORM(VQSPRAY, PRSI, PRSO)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_SSPRAY\n'..__res) end
 end
 V_STAB = function()
 	local W
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if APPLY(function() W = FIND_WEAPON(WINNER) return W end) then 
     PERFORM(VQATTACK, PRSO, W)
     	error(true)
   elseif T then 
-    	return TELL("No doubt you propose to stab the ", D, PRSO, " with your pinky?", CR)
+    	__tmp = TELL("No doubt you propose to stab the ", D, PRSO, " with your pinky?", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_STAB\n'..__res) end
 end
 V_STAND = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(LOC(WINNER), VEHBIT) then 
     PERFORM(VQDISEMBARK, LOC(WINNER))
     	error(true)
   elseif T then 
-    	return TELL("You are already standing, I think.", CR)
+    	__tmp = TELL("You are already standing, I think.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_STAND\n'..__res) end
 end
 V_STAY = function()
 	local __ok, __res = pcall(function()
-	return   TELL("You will be lost without me!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("You will be lost without me!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_STAY\n'..__res) end
 end
 V_STRIKE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, ACTORBIT) then 
-    	return TELL("Since you aren't versed in hand-to-hand combat, you'd better attack the ", D, PRSO, " with a weapon.", CR)
+    	__tmp = TELL("Since you aren't versed in hand-to-hand combat, you'd better attack the ", D, PRSO, " with a weapon.", CR)
   elseif T then 
     PERFORM(VQLAMP_ON, PRSO)
     	error(true)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_STRIKE\n'..__res) end
 end
 V_SWIM = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if EQUALQ(HERE, ON_LAKE, IN_LAKE) then 
-    	return TELL("What do you think you're doing?", CR)
+    	__tmp = TELL("What do you think you're doing?", CR)
   elseif NULL_F() then 
     	error(false)
   elseif T then 
-    	return TELL("Go jump in a lake!", CR)
+    	__tmp = TELL("Go jump in a lake!", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_SWIM\n'..__res) end
 end
 V_SWING = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(PRSI) then 
-    	return TELL("Whoosh!", CR)
+    	__tmp = TELL("Whoosh!", CR)
   elseif T then 
-    	return PERFORM(VQATTACK, PRSI, PRSO)
+    	__tmp = PERFORM(VQATTACK, PRSI, PRSO)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_SWING\n'..__res) end
 end
 PRE_TAKE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if INQ(PRSO, WINNER) then 
     
     if FSETQ(PRSO, WEARBIT) then 
-      	return TELL("You are already wearing it.", CR)
+      	__tmp = TELL("You are already wearing it.", CR)
     elseif T then 
-      	return TELL("You already have that!", CR)
+      	__tmp = TELL("You already have that!", CR)
     end
 
   elseif PASS(FSETQ(LOC(PRSO), CONTBIT) and NOT(FSETQ(LOC(PRSO), OPENBIT))) then 
@@ -2033,64 +2312,70 @@ PRE_TAKE = function()
     NULL_F()
     
     if NOT(EQUALQ(PRSI, LOC(PRSO))) then 
-      	return TELL("The ", D, PRSO, " isn't in the ", D, PRSI, ".", CR)
+      	__tmp = TELL("The ", D, PRSO, " isn't in the ", D, PRSI, ".", CR)
     elseif T then 
       APPLY(function() PRSI = nil return PRSI end)
       	error(false)
     end
 
   elseif EQUALQ(PRSO, LOC(WINNER)) then 
-    	return TELL("You're inside of it!", CR)
+    	__tmp = TELL("You're inside of it!", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PRE_TAKE\n'..__res) end
 end
 V_TAKE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if EQUALQ(ITAKE(), T) then 
     
     if FSETQ(PRSO, WEARBIT) then 
-      	return TELL("You are now wearing the ", D, PRSO, ".", CR)
+      	__tmp = TELL("You are now wearing the ", D, PRSO, ".", CR)
     elseif T then 
-      	return TELL("Taken.", CR)
+      	__tmp = TELL("Taken.", CR)
     end
 
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_TAKE\n'..__res) end
 end
 V_TELL = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if FSETQ(PRSO, ACTORBIT) then 
     
     if P_CONT then 
       APPLY(function() WINNER = PRSO return WINNER end)
-      	return APPLY(function() HERE = LOC(WINNER) return HERE end)
+      	__tmp = APPLY(function() HERE = LOC(WINNER) return HERE end)
     elseif T then 
-      	return TELL("The ", D, PRSO, " pauses for a moment, perhaps thinking that you should reread\nthe manual.", CR)
+      	__tmp = TELL("The ", D, PRSO, " pauses for a moment, perhaps thinking that you should reread the manual.", CR)
     end
 
   elseif T then 
     TELL("You can't talk to the ", D, PRSO, "!", CR)
     APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
     APPLY(function() P_CONT = nil return P_CONT end)
-    	return RFATAL()
+    	__tmp = RFATAL()
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_TELL\n'..__res) end
 end
 V_THROUGH = function(OBJ)
 	local M
   OBJ = OBJ or nil
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(FSETQ(PRSO, DOORBIT) and APPLY(function() M = OTHER_SIDE(PRSO) return M end)) then 
     DO_WALK(M)
@@ -2100,120 +2385,140 @@ V_THROUGH = function(OBJ)
     	error(true)
   elseif PASS(OBJ or NOT(FSETQ(PRSO, TAKEBIT))) then 
     NULL_F()
-    	return TELL("You hit your head against the ", D, PRSO, " as you attempt this feat.", CR)
+    	__tmp = TELL("You hit your head against the ", D, PRSO, " as you attempt this feat.", CR)
   elseif INQ(PRSO, WINNER) then 
-    	return TELL("That would involve quite a contortion!", CR)
+    	__tmp = TELL("That would involve quite a contortion!", CR)
   elseif T then 
-    	return TELL(PICK_ONE(YUKS), CR)
+    	__tmp = TELL(PICK_ONE(YUKS), CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_THROUGH\n'..__res) end
 end
 V_THROW = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if IDROP() then 
     
     if EQUALQ(PRSI, ME) then 
       TELL("A terrific throw! The ", D, PRSO)
       APPLY(function() WINNER = PLAYER return WINNER end)
-      	return JIGS_UP(" hits you squarely in the head. Normally,\nthis wouldn't do much damage, but by incredible mischance, you fall over\nbackwards trying to duck, and break your neck, justice being swift and\nmerciful in the Great Underground Empire.")
+      	__tmp = JIGS_UP(" hits you squarely in the head. Normally, this wouldn't do much damage, but by incredible mischance, you fall over backwards trying to duck, and break your neck, justice being swift and merciful in the Great Underground Empire.")
     elseif PASS(PRSI and FSETQ(PRSI, ACTORBIT)) then 
-      	return TELL("The ", D, PRSI, " ducks as the ", D, PRSO, " flies by and crashes to the ground.", CR)
+      	__tmp = TELL("The ", D, PRSI, " ducks as the ", D, PRSO, " flies by and crashes to the ground.", CR)
     elseif T then 
-      	return TELL("Thrown.", CR)
+      	__tmp = TELL("Thrown.", CR)
     end
 
   else 
-    	return TELL("Huh?", CR)
+    	__tmp = TELL("Huh?", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_THROW\n'..__res) end
 end
 V_THROW_OFF = function()
 	local __ok, __res = pcall(function()
-	return   TELL("You can't throw anything off of that!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("You can't throw anything off of that!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_THROW_OFF\n'..__res) end
 end
 V_TIE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if EQUALQ(PRSI, WINNER) then 
-    	return TELL("You can't tie anything to yourself.", CR)
+    	__tmp = TELL("You can't tie anything to yourself.", CR)
   elseif T then 
-    	return TELL("You can't tie the ", D, PRSO, " to that.", CR)
+    	__tmp = TELL("You can't tie the ", D, PRSO, " to that.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_TIE\n'..__res) end
 end
 V_TIE_UP = function()
 	local __ok, __res = pcall(function()
-	return   TELL("You could certainly never tie it with that!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("You could certainly never tie it with that!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_TIE_UP\n'..__res) end
 end
 V_TREASURE = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if EQUALQ(HERE, NORTH_TEMPLE) then 
-    	return GOTO(TREASURE_ROOM)
+    	__tmp = GOTO(TREASURE_ROOM)
   elseif EQUALQ(HERE, TREASURE_ROOM) then 
-    	return GOTO(NORTH_TEMPLE)
+    	__tmp = GOTO(NORTH_TEMPLE)
   elseif T then 
-    	return TELL("Nothing happens.", CR)
+    	__tmp = TELL("Nothing happens.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_TREASURE\n'..__res) end
 end
 PRE_TURN = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
 
   if PASS(EQUALQ(PRSI, nil, ROOMS) and NOT(EQUALQ(PRSO, BOOK))) then 
-    	return TELL("Your bare hands don't appear to be enough.", CR)
+    	__tmp = TELL("Your bare hands don't appear to be enough.", CR)
   elseif NOT(FSETQ(PRSO, TURNBIT)) then 
-    	return TELL("You can't turn that!", CR)
+    	__tmp = TELL("You can't turn that!", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PRE_TURN\n'..__res) end
 end
 V_TURN = function()
 	local __ok, __res = pcall(function()
-	return   TELL("This has no effect.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("This has no effect.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_TURN\n'..__res) end
 end
 V_UNLOCK = function()
 	local __ok, __res = pcall(function()
-	return   V_LOCK()
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   V_LOCK()
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_UNLOCK\n'..__res) end
 end
 V_UNTIE = function()
 	local __ok, __res = pcall(function()
-	return   TELL("This cannot be tied, so it cannot be untied!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("This cannot be tied, so it cannot be untied!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_UNTIE\n'..__res) end
 end
 V_WAIT = function(NUM)
   NUM = NUM or 3
 	local __ok, __res = pcall(function()
+	local __tmp = false
   TELL("Time passes...", CR)
 
   local __prog33 = function()
@@ -2231,9 +2536,10 @@ repeat __ok33, __res33 = pcall(__prog33)
 until __ok33 or __res33 ~= 123
 if not __ok33 then error(__res33) end
 
-	return APPLY(function() CLOCK_WAIT = T return CLOCK_WAIT end)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp = APPLY(function() CLOCK_WAIT = T return CLOCK_WAIT end)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_WAIT\n'..__res) end
 end
 V_WALK = function()
@@ -2243,6 +2549,7 @@ V_WALK = function()
 	local OBJ
 	local RM
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(P_WALK_DIR) then 
     PERFORM(VQWALK_TO, PRSO)
@@ -2250,43 +2557,43 @@ V_WALK = function()
   elseif APPLY(function() PT = GETPT(HERE, PRSO) return PT end) then 
     
     if EQUALQ(APPLY(function() PTS = PTSIZE(PT) return PTS end), UEXIT) then 
-      	return GOTO(GETB(PT, REXIT))
+      	__tmp = GOTO(GETB(PT, REXIT))
     elseif EQUALQ(PTS, NEXIT) then 
       TELL(GET(PT, NEXITSTR), CR)
-      	return RFATAL()
+      	__tmp = RFATAL()
     elseif EQUALQ(PTS, FEXIT) then 
       
       if APPLY(function() RM = APPLY(GET(PT, FEXITFCN)) return RM end) then 
-        	return GOTO(RM)
+        	__tmp = GOTO(RM)
       elseif NULL_F() then 
         	error(false)
       elseif T then 
-        	return RFATAL()
+        	__tmp = RFATAL()
       end
 
     elseif EQUALQ(PTS, CEXIT) then 
       
       if VALUE(GETB(PT, CEXITFLAG)) then 
-        	return GOTO(GETB(PT, REXIT))
+        	__tmp = GOTO(GETB(PT, REXIT))
       elseif APPLY(function() STR = GET(PT, CEXITSTR) return STR end) then 
         TELL(STR, CR)
-        	return RFATAL()
+        	__tmp = RFATAL()
       elseif T then 
         TELL("You can't go that way.", CR)
-        	return RFATAL()
+        	__tmp = RFATAL()
       end
 
     elseif EQUALQ(PTS, DEXIT) then 
       
       if FSETQ(APPLY(function() OBJ = GETB(PT, DEXITOBJ) return OBJ end), OPENBIT) then 
-        	return GOTO(GETB(PT, REXIT))
+        	__tmp = GOTO(GETB(PT, REXIT))
       elseif APPLY(function() STR = GET(PT, DEXITSTR) return STR end) then 
         TELL(STR, CR)
-        	return RFATAL()
+        	__tmp = RFATAL()
       elseif T then 
         TELL("The ", D, OBJ, " is closed.", CR)
         THIS_IS_IT(OBJ)
-        	return RFATAL()
+        	__tmp = RFATAL()
       end
 
     end
@@ -2294,114 +2601,135 @@ V_WALK = function()
   elseif PASS(NOT(LIT) and PROB(80) and EQUALQ(WINNER, ADVENTURER) and NOT(FSETQ(HERE, NONLANDBIT))) then 
     
     if SPRAYEDQ then 
-      TELL("There are odd noises in the darkness, and there is no exit in that\ndirection.", CR)
-      	return RFATAL()
+      TELL("There are odd noises in the darkness, and there is no exit in that direction.", CR)
+      	__tmp = RFATAL()
     elseif NULL_F() then 
       	error(false)
     elseif T then 
-      	return JIGS_UP("Oh, no! You have walked into the slavering fangs of a lurking grue!")
+      	__tmp = JIGS_UP("Oh, no! You have walked into the slavering fangs of a lurking grue!")
     end
 
   elseif T then 
     TELL("You can't go that way.", CR)
-    	return RFATAL()
+    	__tmp = RFATAL()
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_WALK\n'..__res) end
 end
 V_WALK_AROUND = function()
 	local __ok, __res = pcall(function()
-	return   TELL("Use compass directions for movement.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("Use compass directions for movement.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_WALK_AROUND\n'..__res) end
 end
 V_WALK_TO = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(PRSO and PASS(INQ(PRSO, HERE) or GLOBAL_INQ(PRSO, HERE))) then 
-    	return TELL("It's here!", CR)
+    	__tmp = TELL("It's here!", CR)
   elseif T then 
-    	return TELL("You should supply a direction!", CR)
+    	__tmp = TELL("You should supply a direction!", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_WALK_TO\n'..__res) end
 end
 V_WAVE = function()
 	local __ok, __res = pcall(function()
-	return   HACK_HACK("Waving the ")
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   HACK_HACK("Waving the ")
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_WAVE\n'..__res) end
 end
 V_WEAR = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(FSETQ(PRSO, WEARBIT)) then 
-    	return TELL("You can't wear the ", D, PRSO, ".", CR)
+    	__tmp = TELL("You can't wear the ", D, PRSO, ".", CR)
   elseif T then 
     PERFORM(VQTAKE, PRSO)
     	error(true)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_WEAR\n'..__res) end
 end
 V_WIN = function()
 	local __ok, __res = pcall(function()
-	return   TELL("Naturally!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("Naturally!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_WIN\n'..__res) end
 end
 V_WIND = function()
 	local __ok, __res = pcall(function()
-	return   TELL("You cannot wind up a ", D, PRSO, ".", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("You cannot wind up a ", D, PRSO, ".", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_WIND\n'..__res) end
 end
 V_WISH = function()
 	local __ok, __res = pcall(function()
-	return   TELL("With luck, your wish will come true.", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("With luck, your wish will come true.", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_WISH\n'..__res) end
 end
 V_YELL = function()
 	local __ok, __res = pcall(function()
-	return   TELL("Aaaarrrrgggghhhh!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("Aaaarrrrgggghhhh!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_YELL\n'..__res) end
 end
 V_ZORK = function()
 	local __ok, __res = pcall(function()
-	return   TELL("At your service!", CR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   TELL("At your service!", CR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_ZORK\n'..__res) end
 end
 LIT = nil
 SPRAYEDQ = nil
 V_FIRST_LOOK = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if DESCRIBE_ROOM() then 
     
     if NOT(SUPER_BRIEF) then 
-      	return DESCRIBE_OBJECTS()
+      	__tmp = DESCRIBE_OBJECTS()
     end
 
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('V_FIRST_LOOK\n'..__res) end
 end
 DESCRIBE_ROOM = function(LOOKQ)
@@ -2410,6 +2738,7 @@ DESCRIBE_ROOM = function(LOOKQ)
 	local AV
   LOOKQ = LOOKQ or nil
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() VQ = PASS(LOOKQ or VERBOSE) return VQ end)
 
   if NOT(LIT) then 
@@ -2465,27 +2794,30 @@ APPLY(function() VQ = PASS(LOOKQ or VERBOSE) return VQ end)
 
   end
 
-	return T
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp = T
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('DESCRIBE_ROOM\n'..__res) end
 end
 DESCRIBE_OBJECTS = function(VQ)
   VQ = VQ or nil
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if LIT then 
     
     if FIRSTQ(HERE) then 
-      	return PRINT_CONT(HERE, APPLY(function() VQ = PASS(VQ or VERBOSE) return VQ end), -1)
+      	__tmp = PRINT_CONT(HERE, APPLY(function() VQ = PASS(VQ or VERBOSE) return VQ end), -1)
     end
 
   elseif T then 
-    	return TELL("Only bats can see in the dark. And you're not one.", CR)
+    	__tmp = TELL("Only bats can see in the dark. And you're not one.", CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('DESCRIBE_OBJECTS\n'..__res) end
 end
 DESC_OBJECT = nil
@@ -2493,6 +2825,7 @@ DESCRIBE_OBJECT = function(OBJ, VQ, LEVEL)
   local STR = nil
 	local AV
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() DESC_OBJECT = OBJ return DESC_OBJECT end)
 
   if PASS(ZEROQ(LEVEL) and APPLY(GETP(OBJ, PQDESCFCN), M_OBJDESC)) then 
@@ -2528,11 +2861,12 @@ APPLY(function() DESC_OBJECT = OBJ return DESC_OBJECT end)
   CRLF()
 
   if PASS(SEE_INSIDEQ(OBJ) and FIRSTQ(OBJ)) then 
-    	return PRINT_CONT(OBJ, VQ, LEVEL)
+    	__tmp = PRINT_CONT(OBJ, VQ, LEVEL)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('DESCRIBE_OBJECT\n'..__res) end
 end
 PRINT_CONTENTS = function(OBJ)
@@ -2542,6 +2876,7 @@ PRINT_CONTENTS = function(OBJ)
   local ITQ = nil
   local TWOQ = nil
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if APPLY(function() F = FIRSTQ(OBJ) return F end) then 
     
@@ -2588,8 +2923,9 @@ if not __ok34 then error(__res34) end
 
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PRINT_CONTENTS\n'..__res) end
 end
 PRINT_CONT = function(OBJ, VQ, LEVEL)
@@ -2603,6 +2939,7 @@ PRINT_CONT = function(OBJ, VQ, LEVEL)
   VQ = VQ or nil
   LEVEL = LEVEL or 0
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if NOT(APPLY(function() Y = FIRSTQ(OBJ) return Y end)) then 
     	error(true)
@@ -2719,17 +3056,19 @@ if not __ok36 then error(__res36) end
     	error(true)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PRINT_CONT\n'..__res) end
 end
 FIRSTER = function(OBJ, LEVEL)
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if EQUALQ(OBJ, TROPHY_CASE) then 
-    	return TELL("Your collection of treasures consists of:", CR)
+    	__tmp = TELL("Your collection of treasures consists of:", CR)
   elseif EQUALQ(OBJ, WINNER) then 
-    	return TELL("You are carrying:", CR)
+    	__tmp = TELL("You are carrying:", CR)
   elseif NOT(INQ(OBJ, ROOMS)) then 
     
     if GQ(LEVEL, 0) then 
@@ -2738,24 +3077,27 @@ FIRSTER = function(OBJ, LEVEL)
 
     
     if FSETQ(OBJ, SURFACEBIT) then 
-      	return TELL("Sitting on the ", D, OBJ, " is: ", CR)
+      	__tmp = TELL("Sitting on the ", D, OBJ, " is: ", CR)
     elseif FSETQ(OBJ, ACTORBIT) then 
-      	return TELL("The ", D, OBJ, " is holding: ", CR)
+      	__tmp = TELL("The ", D, OBJ, " is holding: ", CR)
     elseif T then 
-      	return TELL("The ", D, OBJ, " contains:", CR)
+      	__tmp = TELL("The ", D, OBJ, " contains:", CR)
     end
 
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('FIRSTER\n'..__res) end
 end
 SEE_INSIDEQ = function(OBJ)
 	local __ok, __res = pcall(function()
-	return   PASS(NOT(FSETQ(OBJ, INVISIBLE)) and PASS(FSETQ(OBJ, TRANSBIT) or FSETQ(OBJ, OPENBIT)))
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp =   PASS(NOT(FSETQ(OBJ, INVISIBLE)) and PASS(FSETQ(OBJ, TRANSBIT) or FSETQ(OBJ, OPENBIT)))
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('SEE_INSIDEQ\n'..__res) end
 end
 MOVES = 0
@@ -2764,6 +3106,7 @@ BASE_SCORE = 0
 WON_FLAG = nil
 SCORE_UPD = function(NUM)
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() BASE_SCORE = ADD(BASE_SCORE, NUM) return BASE_SCORE end)
 APPLY(function() SCORE = ADD(SCORE, NUM) return SCORE end)
 
@@ -2771,29 +3114,33 @@ APPLY(function() SCORE = ADD(SCORE, NUM) return SCORE end)
     APPLY(function() WON_FLAG = T return WON_FLAG end)
     FCLEAR(MAP, INVISIBLE)
     FCLEAR(WEST_OF_HOUSE, TOUCHBIT)
-    TELL("An almost inaudible voice whispers in your ear, \"Look to your treasures\nfor the final secret.\"", CR)
+    TELL("An almost inaudible voice whispers in your ear, \"Look to your treasures for the final secret.\"", CR)
   end
 
-	return T
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp = T
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('SCORE_UPD\n'..__res) end
 end
 SCORE_OBJ = function(OBJ)
 	local TEMP
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if GQ(APPLY(function() TEMP = GETP(OBJ, PQVALUE) return TEMP end), 0) then 
     SCORE_UPD(TEMP)
-    	return PUTP(OBJ, PQVALUE, 0)
+    	__tmp = PUTP(OBJ, PQVALUE, 0)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('SCORE_OBJ\n'..__res) end
 end
 YESQ = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
   PRINTI(">")
   READ(P_INBUF, P_LEXV)
 
@@ -2803,8 +3150,9 @@ YESQ = function()
     	error(false)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('YESQ\n'..__res) end
 end
 DEAD = nil
@@ -2817,6 +3165,7 @@ ITAKE = function(VB)
 	local OBJ
   VB = VB or T
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if DEAD then 
     
@@ -2850,7 +3199,7 @@ ITAKE = function(VB)
       CRLF()
     end
 
-    	return RFATAL()
+    	__tmp = RFATAL()
   elseif PASS(VERBQ(TAKE) and GQ(APPLY(function() CNT = CCOUNT(WINNER) return CNT end), FUMBLE_NUMBER) and PROB(MULL(CNT, FUMBLE_PROB))) then 
     TELL("You're holding too many things already!", CR)
     	error(false)
@@ -2863,12 +3212,14 @@ ITAKE = function(VB)
     	error(true)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('ITAKE\n'..__res) end
 end
 IDROP = function()
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(NOT(INQ(PRSO, WINNER)) and NOT(INQ(LOC(PRSO), WINNER))) then 
     TELL("You're not carrying the ", D, PRSO, ".", CR)
@@ -2881,14 +3232,16 @@ IDROP = function()
     	error(true)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('IDROP\n'..__res) end
 end
 CCOUNT = function(OBJ)
   local CNT = 0
 	local X
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if APPLY(function() X = FIRSTQ(OBJ) return X end) then 
     
@@ -2912,15 +3265,17 @@ if not __ok37 then error(__res37) end
 
   end
 
-	return CNT
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp = CNT
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('CCOUNT\n'..__res) end
 end
 WEIGHT = function(OBJ)
 	local CONT
   local WT = 0
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if APPLY(function() CONT = FIRSTQ(OBJ) return CONT end) then 
     
@@ -2946,9 +3301,10 @@ if not __ok38 then error(__res38) end
 
   end
 
-	return   ADD(WT, GETP(OBJ, PQSIZE))
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp =   ADD(WT, GETP(OBJ, PQSIZE))
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('WEIGHT\n'..__res) end
 end
 REXIT = 0
@@ -2966,20 +3322,23 @@ DEXITSTR = 1
 INDENTS = TABLE("","  ","    ","      ","        ","          ")
 HACK_HACK = function(STR)
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if PASS(INQ(PRSO, GLOBAL_OBJECTS) and VERBQ(WAVE, RAISE, LOWER)) then 
-    	return TELL("The ", D, PRSO, " isn't here!", CR)
+    	__tmp = TELL("The ", D, PRSO, " isn't here!", CR)
   elseif T then 
-    	return TELL(STR, D, PRSO, PICK_ONE(HO_HUM), CR)
+    	__tmp = TELL(STR, D, PRSO, PICK_ONE(HO_HUM), CR)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('HACK_HACK\n'..__res) end
 end
 HO_HUM = LTABLE(0," doesn't seem to work."," isn't notably helpful."," has no effect.")
 NO_GO_TELL = function(AV, WLOC)
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if AV then 
     TELL("You can't go there in a ", D, WLOC, ".")
@@ -2987,9 +3346,10 @@ NO_GO_TELL = function(AV, WLOC)
     TELL("You can't go there without a vehicle.")
   end
 
-	return   CRLF()
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp =   CRLF()
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('NO_GO_TELL\n'..__res) end
 end
 GOTO = function(RM, VQ)
@@ -3000,6 +3360,7 @@ GOTO = function(RM, VQ)
 	local OHERE
   VQ = VQ or T
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() OLIT = LIT return OLIT end)
 APPLY(function() OHERE = HERE return OHERE end)
 
@@ -3079,14 +3440,16 @@ APPLY(function() OHERE = HERE return OHERE end)
     	error(true)
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('GOTO\n'..__res) end
 end
 LKP = function(ITM, TBL)
   local CNT = 0
   local LEN = GET(TBL, 0)
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   local __prog39 = function()
     
@@ -3109,33 +3472,39 @@ repeat __ok39, __res39 = pcall(__prog39)
 until __ok39 or __res39 ~= 123
 if not __ok39 then error(__res39) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('LKP\n'..__res) end
 end
 DO_WALK = function(DIR)
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() P_WALK_DIR = DIR return P_WALK_DIR end)
-	return   PERFORM(VQWALK, DIR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp =   PERFORM(VQWALK, DIR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('DO_WALK\n'..__res) end
 end
 GLOBAL_INQ = function(OBJ1, OBJ2)
 	local TX
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   if APPLY(function() TX = GETPT(OBJ2, PQGLOBAL) return TX end) then 
-    	return ZMEMQB(OBJ1, TX, SUB(PTSIZE(TX), 1))
+    	__tmp = ZMEMQB(OBJ1, TX, SUB(PTSIZE(TX), 1))
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('GLOBAL_INQ\n'..__res) end
 end
 FIND_IN = function(WHERE, WHAT)
 	local W
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() W = FIRSTQ(WHERE) return W end)
 
   if NOT(W) then 
@@ -3158,12 +3527,14 @@ repeat __ok40, __res40 = pcall(__prog40)
 until __ok40 or __res40 ~= 123
 if not __ok40 then error(__res40) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('FIND_IN\n'..__res) end
 end
 HELDQ = function(CAN)
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   local __prog41 = function()
     APPLY(function() CAN = LOC(CAN) return CAN end)
@@ -3181,14 +3552,16 @@ repeat __ok41, __res41 = pcall(__prog41)
 until __ok41 or __res41 ~= 123
 if not __ok41 then error(__res41) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('HELDQ\n'..__res) end
 end
 OTHER_SIDE = function(DOBJ)
   local P = 0
 	local TX
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   local __prog42 = function()
     
@@ -3210,24 +3583,29 @@ repeat __ok42, __res42 = pcall(__prog42)
 until __ok42 or __res42 ~= 123
 if not __ok42 then error(__res42) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('OTHER_SIDE\n'..__res) end
 end
 MUNG_ROOM = function(RM, STR)
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   FSET(RM, RMUNGBIT)
-	return   PUTP(RM, PQLDESC, STR)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp =   PUTP(RM, PQLDESC, STR)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('MUNG_ROOM\n'..__res) end
 end
 THIS_IS_IT = function(OBJ)
 	local __ok, __res = pcall(function()
-	return APPLY(function() P_IT_OBJECT = OBJ return P_IT_OBJECT end)
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	local __tmp = false
+	__tmp = APPLY(function() P_IT_OBJECT = OBJ return P_IT_OBJECT end)
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('THIS_IS_IT\n'..__res) end
 end
 

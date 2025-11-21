@@ -48,7 +48,7 @@ local function value(node)
   
   -- Strings
   if node.type == "string" then
-    val = val:gsub("\\", "/"):gsub("\n", "\\n"):gsub("\"", "\\\"")
+    val = val:gsub("\\", "/"):gsub("\n", " "):gsub("\"", "\\\"")
     return string.format("\"%s\"", val)
   end
     
@@ -387,6 +387,7 @@ end
 -- RETURN
 form.RETURN = function(buf, node, indent, add_return)
   if not add_return and node[1] then
+  -- if node[1] then
     buf.write("error(")
     print_node(buf, node[1], indent + 1, false)
     buf.write(")")
@@ -591,15 +592,20 @@ end
 function print_node(buf, node, indent, add_return)
   indent = indent or 0
   add_return = add_return or false
+  local close_bracket = false
 
   -- Add return if needed
   if indent ~= 0 and need_return(node, add_return) then
     buf.write("\treturn ")
     add_return = false
+    -- close_bracket = true
   end
   
   if node.type == "expr" then
-    if #node.name == 0 then buf.write("nil") return true end
+    if #node.name == 0 then buf.write("nil") 
+      if close_bracket then buf.write(")") end
+      return true 
+    end
     local handler = form[node.name]
     if handler then
       -- Use specialized handler
@@ -638,6 +644,8 @@ function print_node(buf, node, indent, add_return)
     buf.write("%s", value(node))
   end
 
+  if close_bracket then buf.write(")") end
+
   return true
 end
 
@@ -647,13 +655,17 @@ local function compile_routine(decl, body, node)
   -- decl.writeln("%s = nil", name)
   body.write("%s = function(", name)
   write_function_header(body, node)
+  -- body.writeln("\tprint('\t%s')", name)
   body.writeln("\tlocal __ok, __res = pcall(function()")
+  body.writeln("\tlocal __tmp = false")
   for i = 3, #node do
     print_node(body, node[i], 1, i == #node)
     body.writeln()
   end
-  body.writeln("\tend)")
-  body.writeln("\tif __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res")
+  body.writeln("\t end)")
+  body.writeln("\tif __ok or type(__res) ~= 'string' then")
+  -- body.writeln("print('\t\t(%s) '..tostring(__res))", name)
+  body.writeln("return __res")
   body.writeln(string.format("\telse error('%s\\n'..__res) end", name))
   body.writeln("end")
 end

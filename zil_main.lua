@@ -15,6 +15,7 @@ M_OBJDESC = 5
 MAIN_LOOP = function()
 	local TRASH
 	local __ok, __res = pcall(function()
+	local __tmp = false
 
   local __prog73 = function()
     APPLY(function() TRASH = MAIN_LOOP_1() return TRASH end)
@@ -25,8 +26,9 @@ repeat __ok73, __res73 = pcall(__prog73)
 until __ok73 or __res73 ~= 123
 if not __ok73 then error(__res73) end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('MAIN_LOOP\n'..__res) end
 end
 MAIN_LOOP_1 = function()
@@ -43,6 +45,7 @@ MAIN_LOOP_1 = function()
 	local O
 	local I
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() CNT = 0 return CNT end)
 APPLY(function() OBJ = nil return OBJ end)
 APPLY(function() PTBL = T return PTBL end)
@@ -106,7 +109,7 @@ if not __ok75 then error(__res75) end
 
     APPLY(function() NUM = APPLY(function()
       if ZEROQ(OCNT) then 
-        	return OCNT
+        	__tmp = OCNT
       elseif GQ(OCNT, 1) then 
         APPLY(function() TBL = P_PRSO return TBL end)
         
@@ -116,14 +119,14 @@ if not __ok75 then error(__res75) end
           APPLY(function() OBJ = GET(P_PRSI, 1) return OBJ end)
         end
 
-        	return OCNT
+        	__tmp = OCNT
       elseif GQ(ICNT, 1) then 
         APPLY(function() PTBL = nil return PTBL end)
         APPLY(function() TBL = P_PRSI return TBL end)
         APPLY(function() OBJ = GET(P_PRSO, 1) return OBJ end)
-        	return ICNT
+        	__tmp = ICNT
       elseif T then 
-        	return 1
+        	__tmp = 1
       end
  end) return NUM end)
     
@@ -197,16 +200,16 @@ if not __ok75 then error(__res75) end
 
           APPLY(function() O = APPLY(function()
             if PTBL then 
-              	return OBJ1
+              	__tmp = OBJ1
             elseif T then 
-              	return OBJ
+              	__tmp = OBJ
             end
  end) return O end)
           APPLY(function() I = APPLY(function()
             if PTBL then 
-              	return OBJ
+              	__tmp = OBJ
             elseif T then 
-              	return OBJ1
+              	__tmp = OBJ1
             end
  end) return I end)
           
@@ -272,15 +275,16 @@ if not __ok76 then error(__res76) end
   if P_WON then 
     
     if VERBQ(TELL, BRIEF, SUPER_BRIEF, VERBOSE, SAVE, VERSION, QUIT, RESTART, SCORE, SCRIPT, UNSCRIPT, RESTORE) then 
-      	return T
+      	__tmp = T
     elseif T then 
-      	return APPLY(function() V = CLOCKER() return V end)
+      	__tmp = APPLY(function() V = CLOCKER() return V end)
     end
 
   end
 
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('MAIN_LOOP_1\n'..__res) end
 end
 P_MULT = nil
@@ -293,6 +297,7 @@ PERFORM = function(A, O, I)
   O = O or nil
   I = I or nil
 	local __ok, __res = pcall(function()
+	local __tmp = false
 APPLY(function() OA = PRSA return OA end)
 APPLY(function() OO = PRSO return OO end)
 APPLY(function() OI = PRSI return OI end)
@@ -348,8 +353,9 @@ APPLY(function() PRSI = I return PRSI end)
 APPLY(function() PRSA = OA return PRSA end)
 APPLY(function() PRSO = OO return PRSO end)
 APPLY(function() PRSI = OI return PRSI end)
-	return V
-	end)
-	if __ok or type(__res) == 'boolean' or type(__res) == 'number' then return __res
+	__tmp = V
+	 return __tmp end)
+	if __ok or type(__res) ~= 'string' then
+return __res
 	else error('PERFORM\n'..__res) end
 end
