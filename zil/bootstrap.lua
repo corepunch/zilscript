@@ -166,7 +166,7 @@ function TELL(...)
     local v = select(i, ...)
 		if v == D then object = true
 		elseif object then object = false io.write(GETP(v, _G["PQDESC"]))
-		-- elseif type(v) == "number" then io.write(mem:string(v))
+		elseif type(v) == "number" then io.write(mem:string(v))
     else io.write(tostring(v)) end
   end
 end
