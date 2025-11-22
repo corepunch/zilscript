@@ -3,10 +3,10 @@ BUZZ("AGAIN", "G", "OOPS")
 BUZZ("A", "AN", "THE", "IS", "AND", "OF", "THEN", "ALL", "ONE", "BUT", "EXCEPT", "YES", "NO", "Y", "HERE")
 
 if   EQUALQ(ZORK_NUMBER, 2) then 
-  BUZZ("FEEBLE", "FUMBLE", "FEAR", "FILCH", "FREEZE", "FALL", "FRY", "FLUORESCE", "FERMENT", "FIERCE", "FLOAT", "FIREPROOF", "FENCE", "FUDGE", "FANTASIZE", "FROTZ", "OZMOO")
+  	__tmp = BUZZ("FEEBLE", "FUMBLE", "FEAR", "FILCH", "FREEZE", "FALL", "FRY", "FLUORESCE", "FERMENT", "FIERCE", "FLOAT", "FIREPROOF", "FENCE", "FUDGE", "FANTASIZE", "FROTZ", "OZMOO")
 
 elseif   EQUALQ(ZORK_NUMBER, 3) then 
-  BUZZ("FROTZ", "OZMOO")
+  	__tmp = BUZZ("FROTZ", "OZMOO")
 
 end
 SYNONYM("WITH", "USING", "THROUGH", "THRU")
@@ -131,7 +131,7 @@ SYNTAX {
 }
 
 if   EQUALQ(ZORK_NUMBER, 2) then 
-  SYNTAX {
+  	__tmp = SYNTAX {
 	VERB = "ATTACK",
 	OBJECT = {
 		FIND = ACTORBIT,
@@ -695,7 +695,7 @@ SYNTAX {
 SYNONYM("GIVE", "DONATE", "OFFER", "FEED")
 
 if   NEQUALQ(ZORK_NUMBER, 3) then 
-  SYNONYM("GIVE", "HAND")
+  	__tmp = SYNONYM("GIVE", "HAND")
 
 end
 SYNTAX {
@@ -780,7 +780,7 @@ SYNTAX {
 SYNONYM("KICK", "TAUNT")
 
 if   EQUALQ(ZORK_NUMBER, 2) then 
-  SYNTAX {
+  	__tmp = SYNTAX {
 	VERB = "KILL",
 	OBJECT = {
 		FIND = ACTORBIT,

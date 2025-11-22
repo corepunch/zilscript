@@ -1054,15 +1054,15 @@ OBJECT {
 }
 TREASURE_INSIDE = function()
 	local __ok, __res = pcall(function()
-	local __tmp = false
+	local __tmp = nil
 
   if VERBQ(OPEN) then 
-    SCORE_OBJ(EMERALD)
+    	__tmp = SCORE_OBJ(EMERALD)
     	error(false)
   end
 
 	 return __tmp end)
-	if __ok or type(__res) ~= 'string' then
+	if __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then
 return __res
 	else error('TREASURE_INSIDE\n'..__res) end
 end
@@ -1613,25 +1613,25 @@ ROOM {
 }
 GRATING_EXIT = function()
 	local __ok, __res = pcall(function()
-	local __tmp = false
+	local __tmp = nil
 
   if GRATE_REVEALED then 
     
     if FSETQ(GRATE, OPENBIT) then 
       	__tmp = GRATING_ROOM
     elseif T then 
-      TELL("The grating is closed!", CR)
-      THIS_IS_IT(GRATE)
+      	__tmp = TELL("The grating is closed!", CR)
+      	__tmp = THIS_IS_IT(GRATE)
       	error(false)
     end
 
   elseif T then 
-    TELL("You can't go that way.", CR)
+    	__tmp = TELL("You can't go that way.", CR)
     	error(false)
   end
 
 	 return __tmp end)
-	if __ok or type(__res) ~= 'string' then
+	if __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then
 return __res
 	else error('GRATING_EXIT\n'..__res) end
 end
@@ -2524,15 +2524,15 @@ ROOM {
 }
 CANYON_VIEW_F = function(RARG)
 	local __ok, __res = pcall(function()
-	local __tmp = false
+	local __tmp = nil
 
   if PASS(EQUALQ(RARG, M_BEG) and VERBQ(LEAP) and NOT(PRSO)) then 
-    JIGS_UP("Nice view, lousy place to jump.")
+    	__tmp = JIGS_UP("Nice view, lousy place to jump.")
     	error(true)
   end
 
 	 return __tmp end)
-	if __ok or type(__res) ~= 'string' then
+	if __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then
 return __res
 	else error('CANYON_VIEW_F\n'..__res) end
 end
@@ -2714,36 +2714,36 @@ IN_HOUSE_AROUND = LTABLE(LIVING_ROOM,KITCHEN,ATTIC,KITCHEN)
 ABOVE_GROUND = LTABLE(WEST_OF_HOUSE,NORTH_OF_HOUSE,EAST_OF_HOUSE,SOUTH_OF_HOUSE,FOREST_1,FOREST_2,FOREST_3,PATH,CLEARING,GRATING_CLEARING,CANYON_VIEW)
 GO = function()
 	local __ok, __res = pcall(function()
-	local __tmp = false
-  ENABLE(QUEUE(I_FIGHT, -1))
-  QUEUE(I_SWORD, -1)
-  ENABLE(QUEUE(I_THIEF, -1))
-  QUEUE(I_CANDLES, 40)
-  QUEUE(I_LANTERN, 200)
-  PUTP(INFLATED_BOAT, PQVTYPE, NONLANDBIT)
-  PUT(DEF1_RES, 1, REST(DEF1, 2))
-  PUT(DEF1_RES, 2, REST(DEF1, 4))
-  PUT(DEF2_RES, 2, REST(DEF2B, 2))
-  PUT(DEF2_RES, 3, REST(DEF2B, 4))
-  PUT(DEF3_RES, 1, REST(DEF3A, 2))
-  PUT(DEF3_RES, 3, REST(DEF3B, 2))
-APPLY(function() HERE = WEST_OF_HOUSE return HERE end)
-  THIS_IS_IT(MAILBOX)
+	local __tmp = nil
+	__tmp =   ENABLE(QUEUE(I_FIGHT, -1))
+	__tmp =   QUEUE(I_SWORD, -1)
+	__tmp =   ENABLE(QUEUE(I_THIEF, -1))
+	__tmp =   QUEUE(I_CANDLES, 40)
+	__tmp =   QUEUE(I_LANTERN, 200)
+	__tmp =   PUTP(INFLATED_BOAT, PQVTYPE, NONLANDBIT)
+	__tmp =   PUT(DEF1_RES, 1, REST(DEF1, 2))
+	__tmp =   PUT(DEF1_RES, 2, REST(DEF1, 4))
+	__tmp =   PUT(DEF2_RES, 2, REST(DEF2B, 2))
+	__tmp =   PUT(DEF2_RES, 3, REST(DEF2B, 4))
+	__tmp =   PUT(DEF3_RES, 1, REST(DEF3A, 2))
+	__tmp =   PUT(DEF3_RES, 3, REST(DEF3B, 2))
+	__tmp = APPLY(function() HERE = WEST_OF_HOUSE return HERE end)
+	__tmp =   THIS_IS_IT(MAILBOX)
 
   if NOT(FSETQ(HERE, TOUCHBIT)) then 
-    V_VERSION()
-    CRLF()
+    	__tmp = V_VERSION()
+    	__tmp = CRLF()
   end
 
-APPLY(function() LIT = T return LIT end)
-APPLY(function() WINNER = ADVENTURER return WINNER end)
-APPLY(function() PLAYER = WINNER return PLAYER end)
-  MOVE(WINNER, HERE)
-  V_LOOK()
-  MAIN_LOOP()
+	__tmp = APPLY(function() LIT = T return LIT end)
+	__tmp = APPLY(function() WINNER = ADVENTURER return WINNER end)
+	__tmp = APPLY(function() PLAYER = WINNER return PLAYER end)
+	__tmp =   MOVE(WINNER, HERE)
+	__tmp =   V_LOOK()
+	__tmp =   MAIN_LOOP()
 	error(123)
 	 return __tmp end)
-	if __ok or type(__res) ~= 'string' then
+	if __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then
 return __res
 	else error('GO\n'..__res) end
 end

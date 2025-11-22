@@ -199,30 +199,10 @@ local function is_cond(n)
   return n.type == "expr" and n.name == "COND"
 end
 
-local function is_prog(n)
-  return n.type == "expr" and n.name == "PROG"
-end
+local nodes = {COND=true,PROG=true,REPEAT=true,AGAIN=true,RETURN=true,RTRUE=true,RFALSE=true,GLOBAL=true}
 
-local function is_loop(n)
-  return n.type == "expr" and n.name == "REPEAT"
-end
-
-local function is_again(n)
-  return n.type == "expr" and n.name == "AGAIN"
-end
-
-local function is_return(n)
-  return n.type == "expr" and 
-    (n.name == "RETURN" or n.name == "RTRUE" or n.name == "RFALSE")
-end
-
-local function need_return(node, add_return)
-  return add_return and
-    not is_cond(node) and
-    not is_loop(node) and
-    not is_prog(node) and
-    not is_again(node) and
-    not is_return(node)
+local function need_return(node)
+  return node.value ~= "" and (node.type ~= "expr" or not nodes[node.name])
 end
 
 -- Forward declaration
@@ -273,7 +253,7 @@ local function write_function_header(buf, node)
     if local_node.type == "list" then
       buf.indent(1)
       buf.write("local %s = ", value(local_node[1]))
-      print_node(buf, local_node[2], 2, false)
+      print_node(buf, local_node[2], 2)
       buf.writeln()
     else
       buf.writeln("\tlocal %s", value(local_node))
@@ -284,7 +264,7 @@ local function write_function_header(buf, node)
   for _, opt in ipairs(optionals) do
     buf.indent(1)
     buf.write("%s = %s or ", value(opt[1]), value(opt[1]))
-    print_node(buf, opt[2], 2, false)
+    print_node(buf, opt[2], 2)
     buf.writeln()
   end
 end
@@ -326,7 +306,7 @@ end
 local form = {}
 
 -- COND (if-elseif-else)
-form.COND = function(buf, node, indent, add_return)
+form.COND = function(buf, node, indent)
   for i, clause in ipairs(node) do
     buf.writeln()
     buf.indent(indent)
@@ -335,7 +315,7 @@ form.COND = function(buf, node, indent, add_return)
       buf.write("else ")
     else
       buf.write(i == 1 and "if " or "elseif ")
-      print_node(buf, clause[1], indent + 1, false)
+      print_node(buf, clause[1], indent + 1)
       buf.write(" then ")
     end
     
@@ -343,10 +323,8 @@ form.COND = function(buf, node, indent, add_return)
     for j = math.min(#clause, 2), #clause do
       buf.writeln()
       buf.indent(indent + 1)
-      if clause[j].type ~= "expr" and not (add_return and j == #clause) then
-        buf.write("-- ")
-      end
-      print_node(buf, clause[j], indent + 1, add_return and j == #clause)
+      if need_return(clause[j]) then buf.write("\t__tmp = ") end
+      print_node(buf, clause[j], indent + 1)
     end
   end
   buf.writeln()
@@ -355,15 +333,15 @@ form.COND = function(buf, node, indent, add_return)
 end
 
 -- SET/SETG
-local function compile_set(buf, node, indent, add_return)
+local function compile_set(buf, node, indent)
   buf.write("APPLY(function() %s = ", value(node[1]))
   for i = 2, #node do
     if is_cond(node[i]) then
       buf.write("APPLY(function()")
-      print_node(buf, node[i], indent + 1, true)
-      buf.write(" end)")
+      print_node(buf, node[i], indent + 1)
+      buf.write(" return __tmp end)")
     else
-      print_node(buf, node[i], indent + 1, false)
+      print_node(buf, node[i], indent + 1)
     end
   end
   -- buf.write(" print('\t"..value(node[1]).."', "..value(node[1])..")")
@@ -374,47 +352,45 @@ end
 form.SET = compile_set
 form.SETG = compile_set
 
-form["IGRTR?"] = function(buf, node, indent, add_return)
+form["IGRTR?"] = function(buf, node, indent)
   buf.write("APPLY(function() %s = %s + 1", value(node[1]), value(node[1]))
   buf.write(" return %s > %s end)", value(node[1]), value(node[2]))
 end
 
-form["DLESS?"] = function(buf, node, indent, add_return)
+form["DLESS?"] = function(buf, node, indent)
   buf.write("APPLY(function() %s = %s - 1", value(node[1]), value(node[1]))
   buf.write(" return %s < %s end)", value(node[1]), value(node[2]))
 end
 
 -- RETURN
-form.RETURN = function(buf, node, indent, add_return)
-  if not add_return and node[1] then
-  -- if node[1] then
+form.RETURN = function(buf, node, indent)
+  if node[1] then
     buf.write("error(")
-    print_node(buf, node[1], indent + 1, false)
+    print_node(buf, node[1], indent + 1)
     buf.write(")")
   else
-    buf.write("return ")
-    if node[1] then print_node(buf, node[1], indent + 1, false) end
+    buf.write("return true")
   end
 end
 
 -- RTRUE
-form.RTRUE = function(buf, node, indent, add_return)
+form.RTRUE = function(buf, node, indent)
   buf.write("\terror(true)")
 end
 
 -- RFALSE
-form.RFALSE = function(buf, node, indent, add_return)
+form.RFALSE = function(buf, node, indent)
   buf.write("\terror(false)")
 end
 
 local __again = 123
 
-form.AGAIN = function(buf, node, indent, add_return)
+form.AGAIN = function(buf, node, indent)
   buf.write("\terror(%d)", __again)
 end
 
 -- PROG (do block)
-form.PROG = function(buf, node, indent, add_return)
+form.PROG = function(buf, node, indent)
   local p = Compiler.prog
   Compiler.prog = Compiler.prog + 1
   buf.writeln()
@@ -422,17 +398,18 @@ form.PROG = function(buf, node, indent, add_return)
   buf.writeln("local __prog%d = function()", p)
   for i = 2, #node do
     buf.indent(indent + 1)
-    print_node(buf, node[i], indent + 1, false)--add_return and i == #node)
+    print_node(buf, node[i], indent + 1)--add_return and i == #node)
   end
   buf.writeln("end")
   buf.writeln("local __ok%d, __res%d", p, p)
   buf.writeln("repeat __ok%d, __res%d = pcall(__prog%d)", p, p, p)
   buf.writeln("until __ok%d or __res%d ~= %d", p, p, __again)
-  buf.writeln("if not __ok%d then error(__res%d) end", p, p)
+  buf.writeln("if not __ok%d then error(__res%d)", p, p)
+  buf.writeln("else __tmp = __res%d or true end", p, p)
 end
 
 -- REPEAT (while true loop)
-form.REPEAT = function(buf, node, indent, add_return)
+form.REPEAT = function(buf, node, indent)
   local p = Compiler.prog
   Compiler.prog = Compiler.prog + 1
   buf.writeln()
@@ -440,7 +417,7 @@ form.REPEAT = function(buf, node, indent, add_return)
   buf.writeln("local __prog%d = function()", p)
   for i = 2, #node do
     buf.indent(indent + 1)
-    print_node(buf, node[i], indent + 1, false)
+    print_node(buf, node[i], indent + 1)
     buf.writeln()
   end
   buf.writeln()
@@ -448,11 +425,12 @@ form.REPEAT = function(buf, node, indent, add_return)
   buf.writeln("local __ok%d, __res%d", p, p)
   buf.writeln("repeat __ok%d, __res%d = pcall(__prog%d)", p, p, p)
   buf.writeln("until __ok%d or __res%d ~= %d", p, p, __again)
-  buf.writeln("if not __ok%d then error(__res%d) end", p, p)
+  buf.writeln("if not __ok%d then error(__res%d)", p, p)
+  buf.writeln("else __tmp = __res%d or true end", p, p)
 end
 
 -- BUZZ
-form.BUZZ = function(buf, node, indent, add_return)
+form.BUZZ = function(buf, node, indent)
   buf.write("BUZZ(")
   for i = 1, #node do
     if i > 1 then buf.write(", ") end
@@ -462,7 +440,7 @@ form.BUZZ = function(buf, node, indent, add_return)
 end
 
 -- SYNONYM
-form.SYNONYM = function(buf, node, indent, add_return)
+form.SYNONYM = function(buf, node, indent)
   buf.write("SYNONYM(")
   for i = 1, #node do
     if i > 1 then buf.write(", ") end
@@ -472,10 +450,10 @@ form.SYNONYM = function(buf, node, indent, add_return)
 end
 
 -- GLOBAL
-form.GLOBAL = function(buf, node, indent, add_return)
+form.GLOBAL = function(buf, node, indent)
   buf.write("%s = ", value(node[1]))
   for i = 2, #node do
-    print_node(buf, node[i], 0, add_return and i == #node)
+    print_node(buf, node[i], 0 and i == #node)
     buf.writeln()
   end
 end
@@ -483,7 +461,7 @@ end
 form.CONSTANT = form.GLOBAL
 
 -- SYNTAX
-form.SYNTAX = function(buf, node, indent, add_return)
+form.SYNTAX = function(buf, node, indent)
   buf.writeln("SYNTAX {")
   buf.writeln('\tVERB = "%s\",', node[1].value)
   
@@ -519,11 +497,11 @@ form.SYNTAX = function(buf, node, indent, add_return)
 end
 
 -- TABLE/LTABLE
--- local function compile_table(buf, node, indent, add_return)
+-- local function compile_table(buf, node, indent)
 --   local start = safeget(node[1], 'type') == "list" and 2 or 1
 --   buf.write("{")
 --   for i = start, #node do
---     print_node(buf, node[i], 0, add_return and i == #node)
+--     print_node(buf, node[i], 0 and i == #node)
 --     if i < #node then buf.write(",") end
 --   end
 --   buf.writeln("}")
@@ -564,52 +542,40 @@ form.TABLE = function(buf, node)
 end
 
 -- AND/OR
-local function compile_logical(buf, node, indent, add_return, op)
+local function compile_logical(buf, node, indent, op)
   if indent == 1 then buf.indent(indent) end
   buf.write("PASS(")
   for i = 1, #node do
     if is_cond(node[i]) then
-      buf.write("APPLY(function()")
-      print_node(buf, node[i], indent + 1, true)
+      buf.write("APPLY(function() ")
+      print_node(buf, node[i], indent + 1)
       buf.write(" end)")
     else
-      print_node(buf, node[i], indent + 1, false)
+      print_node(buf, node[i], indent + 1)
     end
     if i < #node then buf.write(string.format(" %s ", string.lower(op))) end
   end
   buf.write(")")
 end
 
-form.AND = function(buf, node, indent, add_return)
-  compile_logical(buf, node, indent, add_return, "AND")
+form.AND = function(buf, node, indent)
+  compile_logical(buf, node, indent, "AND")
 end
 
-form.OR = function(buf, node, indent, add_return)
-  compile_logical(buf, node, indent, add_return, "OR")
+form.OR = function(buf, node, indent)
+  compile_logical(buf, node, indent, "OR")
 end
 
 -- Main code generation
-function print_node(buf, node, indent, add_return)
+function print_node(buf, node, indent)
   indent = indent or 0
-  add_return = add_return or false
-  local close_bracket = false
 
-  -- Add return if needed
-  if indent ~= 0 and need_return(node, add_return) then
-    buf.write("\treturn ")
-    add_return = false
-    -- close_bracket = true
-  end
-  
   if node.type == "expr" then
-    if #node.name == 0 then buf.write("nil") 
-      if close_bracket then buf.write(")") end
-      return true 
-    end
+    if #node.name == 0 then buf.write("nil")  return true  end
     local handler = form[node.name]
     if handler then
       -- Use specialized handler
-      handler(buf, node, indent, add_return)
+      handler(buf, node, indent)
     else
       -- Generic function call
       if indent == 1 then buf.indent(indent) end
@@ -644,8 +610,6 @@ function print_node(buf, node, indent, add_return)
     buf.write("%s", value(node))
   end
 
-  if close_bracket then buf.write(")") end
-
   return true
 end
 
@@ -657,13 +621,14 @@ local function compile_routine(decl, body, node)
   write_function_header(body, node)
   -- body.writeln("\tprint('\t%s')", name)
   body.writeln("\tlocal __ok, __res = pcall(function()")
-  body.writeln("\tlocal __tmp = false")
+  body.writeln("\tlocal __tmp = nil")
   for i = 3, #node do
-    print_node(body, node[i], 1, i == #node)
+    if need_return(node[i]) then body.write("\t__tmp = ") end
+    print_node(body, node[i], 1)
     body.writeln()
   end
-  body.writeln("\t end)")
-  body.writeln("\tif __ok or type(__res) ~= 'string' then")
+  body.writeln("\t return __tmp end)")
+  body.writeln("\tif __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then")
   -- body.writeln("print('\t\t(%s) '..tostring(__res))", name)
   body.writeln("return __res")
   body.writeln(string.format("\telse error('%s\\n'..__res) end", name))

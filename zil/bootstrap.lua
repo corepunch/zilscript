@@ -68,6 +68,8 @@ M_LOOK = 3
 M_FLASH = 4
 M_OBJDESC = 5
 
+local strings = {}
+
 local function encode_fptr(n)
   return string.format("<@F:%X>", n)
 end
@@ -275,15 +277,16 @@ function FSETQ(obj, flag) return getobj(obj).FLAGS and (getobj(obj).FLAGS & (1<<
 function GETPT(obj, prop)
 	local tbl = getobj(obj).tbl
 	local l = mem:byte(tbl)+tbl+1
-	local p = mem:byte(l)
-	while p > 0 do
-		if (p&31)==prop then return l+1 end
-		l = l+(p>>5)+2
-		p = mem:byte(l)
+	local pname, psize = mem:byte(l), mem:byte(l+1)
+	local header = 2
+	while psize > 0 do
+		if pname==prop then return l+header end
+		l = l+psize+header
+		pname, psize = mem:byte(l), mem:byte(l+1)
 	end
 end
 function PTSIZE(ptr)
-	return (mem:byte(ptr-1)>>5)+1
+	return mem:byte(ptr-1)
 end
 function PUTP(obj, prop, val)
 	local ptr = GETPT(obj, prop)
@@ -320,13 +323,14 @@ function OBJECT(object)
 	local function makeprop(body, name)
 		local num = register(PROPERTIES, name)
 		if not _G["PQ"..name] then _G["PQ"..name] = num end
-		return string.char(num|((#body-1)<<5))..body
+		return string.char(num,#body)..body
 	end
 	local o = findobj(object.NAME)
 	local t = {string.char(#object.NAME), object.NAME}
 	assert(o, "Can't find object "..object.NAME)
 	for k, v in pairs(object) do
-		if k == "SYNONYM" then
+		if k == "NAME" then 
+		elseif k == "SYNONYM" then
 			local body = table.concat2(v, function(syn)
 				return makeword(learn(syn, PSQOBJECT, nil))
 			end)

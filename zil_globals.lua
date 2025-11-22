@@ -70,45 +70,45 @@ NOT_HERE_OBJECT_F = function()
   local PRSOQ = T
 	local OBJ
 	local __ok, __res = pcall(function()
-	local __tmp = false
+	local __tmp = nil
 
   if PASS(EQUALQ(PRSO, NOT_HERE_OBJECT) and EQUALQ(PRSI, NOT_HERE_OBJECT)) then 
-    TELL("Those things aren't here!", CR)
+    	__tmp = TELL("Those things aren't here!", CR)
     	error(true)
   elseif EQUALQ(PRSO, NOT_HERE_OBJECT) then 
-    APPLY(function() TBL = P_PRSO return TBL end)
+    	__tmp = APPLY(function() TBL = P_PRSO return TBL end)
   elseif T then 
-    APPLY(function() TBL = P_PRSI return TBL end)
-    APPLY(function() PRSOQ = nil return PRSOQ end)
+    	__tmp = APPLY(function() TBL = P_PRSI return TBL end)
+    	__tmp = APPLY(function() PRSOQ = nil return PRSOQ end)
   end
 
-APPLY(function() P_CONT = nil return P_CONT end)
-APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
+	__tmp = APPLY(function() P_CONT = nil return P_CONT end)
+	__tmp = APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
 
   if EQUALQ(WINNER, PLAYER) then 
-    TELL("You can't see any ")
-    NOT_HERE_PRINT(PRSOQ)
-    TELL(" here!", CR)
+    	__tmp = TELL("You can't see any ")
+    	__tmp = NOT_HERE_PRINT(PRSOQ)
+    	__tmp = TELL(" here!", CR)
   elseif T then 
-    TELL("The ", D, WINNER, " seems confused. \"I don't see any ")
-    NOT_HERE_PRINT(PRSOQ)
-    TELL(" here!\"", CR)
+    	__tmp = TELL("The ", D, WINNER, " seems confused. \"I don't see any ")
+    	__tmp = NOT_HERE_PRINT(PRSOQ)
+    	__tmp = TELL(" here!\"", CR)
   end
 
 	error(true)
 	 return __tmp end)
-	if __ok or type(__res) ~= 'string' then
+	if __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then
 return __res
 	else error('NOT_HERE_OBJECT_F\n'..__res) end
 end
 NOT_HERE_PRINT = function(PRSOQ)
 	local __ok, __res = pcall(function()
-	local __tmp = false
+	local __tmp = nil
 
   if P_OFLAG then 
     
     if P_XADJ then 
-      PRINTB(P_XADJN)
+      	__tmp = PRINTB(P_XADJN)
     end
 
     
@@ -123,16 +123,16 @@ NOT_HERE_PRINT = function(PRSOQ)
   end
 
 	 return __tmp end)
-	if __ok or type(__res) ~= 'string' then
+	if __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then
 return __res
 	else error('NOT_HERE_PRINT\n'..__res) end
 end
 NULL_F = function(A1, A2)
 	local __ok, __res = pcall(function()
-	local __tmp = false
+	local __tmp = nil
 	error(false)
 	 return __tmp end)
-	if __ok or type(__res) ~= 'string' then
+	if __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then
 return __res
 	else error('NULL_F\n'..__res) end
 end
@@ -156,14 +156,14 @@ OBJECT {
 }
 STAIRS_F = function()
 	local __ok, __res = pcall(function()
-	local __tmp = false
+	local __tmp = nil
 
   if VERBQ(THROUGH) then 
     	__tmp = TELL("You should say whether you want to go up or down.", CR)
   end
 
 	 return __tmp end)
-	if __ok or type(__res) ~= 'string' then
+	if __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then
 return __res
 	else error('STAIRS_F\n'..__res) end
 end
@@ -177,17 +177,17 @@ OBJECT {
 }
 SAILOR_FCN = function()
 	local __ok, __res = pcall(function()
-	local __tmp = false
+	local __tmp = nil
 
   if VERBQ(TELL) then 
-    APPLY(function() P_CONT = nil return P_CONT end)
-    APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
+    	__tmp = APPLY(function() P_CONT = nil return P_CONT end)
+    	__tmp = APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
     	__tmp = TELL("You can't talk to the sailor that way.", CR)
   elseif VERBQ(EXAMINE) then 
-    -- 
+    
     	__tmp = TELL("There is no sailor to be seen.", CR)
   elseif VERBQ(HELLO) then 
-    APPLY(function() HS = ADD(HS, 1) return HS end)
+    	__tmp = APPLY(function() HS = ADD(HS, 1) return HS end)
     
     if ZEROQ(MOD(HS, 20)) then 
       	__tmp = TELL("You seem to be repeating yourself.", CR)
@@ -200,7 +200,7 @@ SAILOR_FCN = function()
   end
 
 	 return __tmp end)
-	if __ok or type(__res) ~= 'string' then
+	if __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then
 return __res
 	else error('SAILOR_FCN\n'..__res) end
 end
@@ -213,10 +213,10 @@ OBJECT {
 }
 GROUND_FUNCTION = function()
 	local __ok, __res = pcall(function()
-	local __tmp = false
+	local __tmp = nil
 
   if PASS(VERBQ(PUT, PUT_ON) and EQUALQ(PRSI, GROUND)) then 
-    PERFORM(VQDROP, PRSO)
+    	__tmp = PERFORM(VQDROP, PRSO)
     	error(true)
   elseif EQUALQ(HERE, SANDY_CAVE) then 
     	__tmp = SAND_FUNCTION()
@@ -225,7 +225,7 @@ GROUND_FUNCTION = function()
   end
 
 	 return __tmp end)
-	if __ok or type(__res) ~= 'string' then
+	if __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then
 return __res
 	else error('GROUND_FUNCTION\n'..__res) end
 end
@@ -239,7 +239,7 @@ OBJECT {
 }
 GRUE_FUNCTION = function()
 	local __ok, __res = pcall(function()
-	local __tmp = false
+	local __tmp = nil
 
   if VERBQ(EXAMINE) then 
     	__tmp = TELL("The grue is a sinister, lurking presence in the dark places of the earth. Its favorite diet is adventurers, but its insatiable appetite is tempered by its fear of light. No grue has ever been seen by the light of day, and few have survived its fearsome jaws to tell the tale.", CR)
@@ -250,7 +250,7 @@ GRUE_FUNCTION = function()
   end
 
 	 return __tmp end)
-	if __ok or type(__res) ~= 'string' then
+	if __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then
 return __res
 	else error('GRUE_FUNCTION\n'..__res) end
 end
@@ -271,14 +271,14 @@ OBJECT {
 }
 CRETIN_FCN = function()
 	local __ok, __res = pcall(function()
-	local __tmp = false
+	local __tmp = nil
 
   if VERBQ(TELL) then 
-    APPLY(function() P_CONT = nil return P_CONT end)
-    APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
+    	__tmp = APPLY(function() P_CONT = nil return P_CONT end)
+    	__tmp = APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
     	__tmp = TELL("Talking to yourself is said to be a sign of impending mental collapse.", CR)
   elseif PASS(VERBQ(GIVE) and EQUALQ(PRSI, ME)) then 
-    PERFORM(VQTAKE, PRSO)
+    	__tmp = PERFORM(VQTAKE, PRSO)
     	error(true)
   elseif VERBQ(MAKE) then 
     	__tmp = TELL("Only you can do that.", CR)
@@ -313,7 +313,7 @@ CRETIN_FCN = function()
   end
 
 	 return __tmp end)
-	if __ok or type(__res) ~= 'string' then
+	if __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then
 return __res
 	else error('CRETIN_FCN\n'..__res) end
 end
@@ -336,7 +336,7 @@ OBJECT {
 }
 PATH_OBJECT = function()
 	local __ok, __res = pcall(function()
-	local __tmp = false
+	local __tmp = nil
 
   if VERBQ(TAKE, FOLLOW) then 
     	__tmp = TELL("You must specify a direction to go.", CR)
@@ -347,7 +347,7 @@ PATH_OBJECT = function()
   end
 
 	 return __tmp end)
-	if __ok or type(__res) ~= 'string' then
+	if __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then
 return __res
 	else error('PATH_OBJECT\n'..__res) end
 end
@@ -360,7 +360,7 @@ OBJECT {
 }
 ZORKMID_FUNCTION = function()
 	local __ok, __res = pcall(function()
-	local __tmp = false
+	local __tmp = nil
 
   if VERBQ(EXAMINE) then 
     	__tmp = TELL("The zorkmid is the unit of currency of the Great Underground Empire.", CR)
@@ -369,7 +369,7 @@ ZORKMID_FUNCTION = function()
   end
 
 	 return __tmp end)
-	if __ok or type(__res) ~= 'string' then
+	if __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then
 return __res
 	else error('ZORKMID_FUNCTION\n'..__res) end
 end
