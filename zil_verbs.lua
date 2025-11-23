@@ -56,7 +56,7 @@ FINISH = function(...)
 
   local __prog28 = function()
     CRLF()
-    TELL("Would you like to restart the game from the beginning, restore a saved game position, or end this session of the game?| (Type RESTART, RESTORE, or QUIT):| >")
+    TELL("Would you like to restart the game from the beginning, restore a saved game position, or end this session of the game?\n (Type RESTART, RESTORE, or QUIT):\n >")
     READ(P_INBUF, P_LEXV)
     APPLY(function() WRD = GET(P_LEXV, 1) return WRD end)
     
@@ -182,9 +182,9 @@ V_VERSION = function(...)
   local CNT = 17
 	local __ok, __res = pcall(function()
 	local __tmp = nil
-	__tmp =   TELL("ZORK I: The Great Underground Empire| Infocom interactive fiction - a fantasy story| Copyright (c) 1981, 1982, 1983, 1984, 1985, 1986")
+	__tmp =   TELL("ZORK I: The Great Underground Empire\n Infocom interactive fiction - a fantasy story\n Copyright (c) 1981, 1982, 1983, 1984, 1985, 1986")
 	__tmp =   TELL(" Infocom, Inc. All rights reserved.", CR)
-	__tmp =   TELL("ZORK is a registered trademark of Infocom, Inc.| Release ")
+	__tmp =   TELL("ZORK is a registered trademark of Infocom, Inc.\n Release ")
 	__tmp =   PRINTN(BAND(GET(0, 1), 2047))
 	__tmp =   TELL(" / Serial number ")
 
@@ -2828,6 +2828,7 @@ DESCRIBE_OBJECTS = function(...)
   end
 
 	 return __tmp end)
+	GM_NOTES(HERE)
 	if __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then
 return __res
 	else error('DESCRIBE_OBJECTS\n'..__res) end

@@ -48,7 +48,7 @@ local function value(node)
   
   -- Strings
   if node.type == "string" then
-    val = val:gsub("\\", "/"):gsub("\n", " "):gsub("\"", "\\\"")
+    val = val:gsub("\\", "/"):gsub("\n", " "):gsub("|", "\\n"):gsub("\"", "\\\"")
     return string.format("\"%s\"", val)
   end
     
@@ -614,6 +614,9 @@ local function compile_routine(decl, body, node)
     body.writeln()
   end
   body.writeln("\t return __tmp end)")
+  if name == "DESCRIBE_OBJECTS" then
+    body.writeln("\tGM_NOTES(HERE)")
+  end
   body.writeln("\tif __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then")
   -- body.writeln("print('\t\t(%s) '..tostring(__res))", name:gsub("_", "-"))
   body.writeln("return __res")

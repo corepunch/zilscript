@@ -692,12 +692,12 @@ STONE_BARROW_FCN = function(...)
 	local __tmp = nil
 
   if PASS(EQUALQ(RARG, M_BEG) and PASS(VERBQ(ENTER) or PASS(VERBQ(WALK) and EQUALQ(PRSO, PQWEST, PQIN)) or PASS(VERBQ(THROUGH) and EQUALQ(PRSO, BARROW)))) then 
-    	__tmp = TELL("Inside the Barrow| As you enter the barrow, the door closes inexorably behind you. Around you it is dark, but ahead is an enormous cavern, brightly lit. Through its center runs a wide stream. Spanning the stream is a small wooden footbridge, and beyond a path leads into a dark tunnel. Above the bridge, floating in the air, is a large sign. It reads:  All ye who stand before this bridge have completed a great and perilous adventure which has tested your wit and courage. You have mastered")
+    	__tmp = TELL("Inside the Barrow\n As you enter the barrow, the door closes inexorably behind you. Around you it is dark, but ahead is an enormous cavern, brightly lit. Through its center runs a wide stream. Spanning the stream is a small wooden footbridge, and beyond a path leads into a dark tunnel. Above the bridge, floating in the air, is a large sign. It reads:  All ye who stand before this bridge have completed a great and perilous adventure which has tested your wit and courage. You have mastered")
     
     if EQUALQ(BAND(GETB(0, 1), 8), 0) then 
-      	__tmp = TELL(" the first part of the ZORK trilogy. Those who pass over this bridge must be prepared to undertake an even greater adventure that will severely test your skill and bravery!| | The ZORK trilogy continues with \"ZORK II: The Wizard of Frobozz\" and is completed in \"ZORK III: The Dungeon Master.\"", CR)
+      	__tmp = TELL(" the first part of the ZORK trilogy. Those who pass over this bridge must be prepared to undertake an even greater adventure that will severely test your skill and bravery!\n \n The ZORK trilogy continues with \"ZORK II: The Wizard of Frobozz\" and is completed in \"ZORK III: The Dungeon Master.\"", CR)
     elseif T then 
-      	__tmp = TELL(" ZORK: The Great Underground Empire.|", CR)
+      	__tmp = TELL(" ZORK: The Great Underground Empire.\n", CR)
     end
 
     	__tmp = FINISH()
@@ -1668,7 +1668,7 @@ LLD_ROOM = function(...)
 	local __tmp = nil
 
   if EQUALQ(RARG, M_LOOK) then 
-    	__tmp = TELL("You are outside a large gateway, on which is inscribed||   Abandon every hope all ye who enter here!|| The gate is open; through it you can see a desolation, with a pile of mangled bodies in one corner. Thousands of voices, lamenting some hideous fate, can be heard.", CR)
+    	__tmp = TELL("You are outside a large gateway, on which is inscribed\n\n   Abandon every hope all ye who enter here!\n\n The gate is open; through it you can see a desolation, with a pile of mangled bodies in one corner. Thousands of voices, lamenting some hideous fate, can be heard.", CR)
     
     if PASS(NOT(LLD_FLAG) and NOT(DEAD)) then 
       	__tmp = TELL("The way through the gate is barred by evil spirits, who jeer at your attempts to pass.", CR)
@@ -3564,7 +3564,7 @@ BOOM_ROOM = function(...)
         	__tmp = TELL("Oh dear. It appears that the smell coming from this room was coal gas. I would have thought twice about carrying flaming objects in here.", CR)
       end
 
-      	__tmp = JIGS_UP("|       ** BOOOOOOOOOOOM **")
+      	__tmp = JIGS_UP("\n       ** BOOOOOOOOOOOM **")
     end
 
   end
@@ -5997,7 +5997,7 @@ JIGS_UP = function(...)
 	__tmp = APPLY(function() WINNER = ADVENTURER return WINNER end)
 
   if DEAD then 
-    	__tmp = TELL("| It takes a talented person to be killed while already dead. YOU are such a talent. Unfortunately, it takes a talented person to deal with it. I am not such a talent. Sorry.", CR)
+    	__tmp = TELL("\n It takes a talented person to be killed while already dead. YOU are such a talent. Unfortunately, it takes a talented person to deal with it. I am not such a talent. Sorry.", CR)
     	__tmp = FINISH()
   end
 
@@ -6009,7 +6009,7 @@ JIGS_UP = function(...)
 
 
   local __prog70 = function()
-    SCORE_UPD(-10)    TELL(" |    ****  You have died  **** | |")    
+    SCORE_UPD(-10)    TELL(" \n    ****  You have died  **** \n \n")    
     if FSETQ(LOC(WINNER), VEHBIT) then 
       	__tmp = MOVE(WINNER, HERE)
     end

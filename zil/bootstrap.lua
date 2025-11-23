@@ -441,8 +441,8 @@ function GET(s, i)
 end
 
 local test = {
-	"walk north",
-	"walk south",
+	-- "walk north",
+	-- "walk south",
 	"open mailbox",
 	"take leaflet",
 	"read"
@@ -596,6 +596,28 @@ end
 -- end
 
 -- LTABLE = TABLE
+
+function GM_NOTES(room)
+	local num = 1
+	print("\nItems:")
+	for i, o in ipairs(OBJECTS) do
+		if i ~= ADVENTURER and o.LOC == room then
+			print(string.format("  %d. %s", num, GETP(i, PQDESC):upper()))
+			PRINT_CONT(i, nil, 2)
+			num = num + 1
+		end
+	end
+	print("\nExits:")
+	for d, p in pairs(_DIRECTIONS) do
+		local pp = GETPT(room, p)
+		if not pp then
+		elseif PTSIZE(pp) == 1 then
+			print(string.format("  %s -> %s", d, GETP(GETB(pp, 0), PQDESC)))
+		elseif PTSIZE(pp) == 2 then
+			print(string.format("  %s -> \"%s\"", d, mem:string(GET(pp, 0))))
+		end
+	end
+end
 
 -- === Done ===
 print("ZIL runtime initialized.")

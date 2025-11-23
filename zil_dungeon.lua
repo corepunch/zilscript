@@ -466,7 +466,7 @@ OBJECT {
 	ACTION = BLACK_BOOK,
 	FDESC = "On the altar is a large black book, open to page 569.",
 	SIZE = 10,
-	TEXT = "Commandment #12592| | Oh ye who go about saying unto each:  \"Hello sailor\":| Dost thou know the magnitude of thy sin before the gods?| Yea, verily, thou shalt be ground between two stones.| Shall the angry gods cast thy body into the whirlpool?| Surely, thy eye shall be put out with a sharp stick!| Even unto the ends of the earth shalt thou wander and| Unto the land of the dead shalt thou be sent at last.| Surely thou shalt repent of thy cunning.",
+	TEXT = "Commandment #12592\n \n Oh ye who go about saying unto each:  \"Hello sailor\":\n Dost thou know the magnitude of thy sin before the gods?\n Yea, verily, thou shalt be ground between two stones.\n Shall the angry gods cast thy body into the whirlpool?\n Surely, thy eye shall be put out with a sharp stick!\n Even unto the ends of the earth shalt thou wander and\n Unto the land of the dead shalt thou be sent at last.\n Surely thou shalt repent of thy cunning.",
 }
 OBJECT {
 	NAME = "BROKEN_LAMP",
@@ -840,7 +840,7 @@ OBJECT {
 	DESC = "leaflet",
 	FLAGS = {"READBIT","TAKEBIT","BURNBIT"},
 	LDESC = "A small leaflet is on the ground.",
-	TEXT = "\"WELCOME TO ZORK!| | ZORK is a game of adventure, danger, and low cunning. In it you will explore some of the most amazing territory ever seen by mortals. No computer should be without one!\"",
+	TEXT = "\"WELCOME TO ZORK!\n \n ZORK is a game of adventure, danger, and low cunning. In it you will explore some of the most amazing territory ever seen by mortals. No computer should be without one!\"",
 	SIZE = 2,
 }
 OBJECT {
@@ -891,7 +891,7 @@ OBJECT {
 	ACTION = MATCH_FUNCTION,
 	LDESC = "There is a matchbook whose cover says \"Visit Beautiful FCD#3\" here.",
 	SIZE = 2,
-	TEXT = "| (Close cover before striking)| | YOU too can make BIG MONEY in the exciting field of PAPER SHUFFLING!| | Mr. Anderson of Muddle, Mass. says: \"Before I took this course I was a lowly bit twiddler. Now with what I learned at GUE Tech I feel really important and can obfuscate and confuse with the best.\"| | Dr. Blank had this to say: \"Ten short days ago all I could look forward to was a dead-end job as a doctor. Now I have a promising future and make really big Zorkmids.\"| | GUE Tech can't promise these fantastic results to everyone. But when you earn your degree from GUE Tech, your future will be brighter.",
+	TEXT = "\n (Close cover before striking)\n \n YOU too can make BIG MONEY in the exciting field of PAPER SHUFFLING!\n \n Mr. Anderson of Muddle, Mass. says: \"Before I took this course I was a lowly bit twiddler. Now with what I learned at GUE Tech I feel really important and can obfuscate and confuse with the best.\"\n \n Dr. Blank had this to say: \"Ten short days ago all I could look forward to was a dead-end job as a doctor. Now I have a promising future and make really big Zorkmids.\"\n \n GUE Tech can't promise these fantastic results to everyone. But when you earn your degree from GUE Tech, your future will be brighter.",
 }
 OBJECT {
 	NAME = "MIRROR_2",
@@ -1228,7 +1228,7 @@ OBJECT {
 	DESC = "tan label",
 	FLAGS = {"READBIT","TAKEBIT","BURNBIT"},
 	SIZE = 2,
-	TEXT = "  !!!!FROBOZZ MAGIC BOAT COMPANY!!!!| | Hello, Sailor!| | Instructions for use:| |    To get into a body of water, say \"Launch\".|    To get to shore, say \"Land\" or the direction in which you want to maneuver the boat.| | Warranty:| |   This boat is guaranteed against all defects for a period of 76 milliseconds from date of purchase or until first used, whichever comes first.| | Warning:|    This boat is made of thin plastic.|    Good Luck!",
+	TEXT = "  !!!!FROBOZZ MAGIC BOAT COMPANY!!!!\n \n Hello, Sailor!\n \n Instructions for use:\n \n    To get into a body of water, say \"Launch\".\n    To get to shore, say \"Land\" or the direction in which you want to maneuver the boat.\n \n Warranty:\n \n   This boat is guaranteed against all defects for a period of 76 milliseconds from date of purchase or until first used, whichever comes first.\n \n Warning:\n    This boat is made of thin plastic.\n    Good Luck!",
 }
 OBJECT {
 	NAME = "THIEF",
@@ -1272,7 +1272,7 @@ OBJECT {
 	DESC = "tour guidebook",
 	FLAGS = {"READBIT","TAKEBIT","BURNBIT"},
 	FDESC = "Some guidebooks entitled \"Flood Control Dam #3\" are on the reception desk.",
-	TEXT = "\"	Flood Control Dam #3| | FCD#3 was constructed in year 783 of the Great Underground Empire to harness the mighty Frigid River. This work was supported by a grant of 37 million zorkmids from your omnipotent local tyrant Lord Dimwit Flathead the Excessive. This impressive structure is composed of 370,000 cubic feet of concrete, is 256 feet tall at the center, and 193 feet wide at the top. The lake created behind the dam has a volume of 1.7 billion cubic feet, an area of 12 million square feet, and a shore line of 36 thousand feet.| | The construction of FCD#3 took 112 days from ground breaking to the dedication. It required a work force of 384 slaves, 34 slave drivers, 12 engineers, 2 turtle doves, and a partridge in a pear tree. The work was managed by a command team composed of 2345 bureaucrats, 2347 secretaries (at least two of whom could type), 12,256 paper shufflers, 52,469 rubber stampers, 245,193 red tape processors, and nearly one million dead trees.| | We will now point out some of the more interesting features of FCD#3 as we conduct you on a guided tour of the facilities:| |         1) You start your tour here in the Dam Lobby. You will notice on your right that....",
+	TEXT = "\"	Flood Control Dam #3\n \n FCD#3 was constructed in year 783 of the Great Underground Empire to harness the mighty Frigid River. This work was supported by a grant of 37 million zorkmids from your omnipotent local tyrant Lord Dimwit Flathead the Excessive. This impressive structure is composed of 370,000 cubic feet of concrete, is 256 feet tall at the center, and 193 feet wide at the top. The lake created behind the dam has a volume of 1.7 billion cubic feet, an area of 12 million square feet, and a shore line of 36 thousand feet.\n \n The construction of FCD#3 took 112 days from ground breaking to the dedication. It required a work force of 384 slaves, 34 slave drivers, 12 engineers, 2 turtle doves, and a partridge in a pear tree. The work was managed by a command team composed of 2345 bureaucrats, 2347 secretaries (at least two of whom could type), 12,256 paper shufflers, 52,469 rubber stampers, 245,193 red tape processors, and nearly one million dead trees.\n \n We will now point out some of the more interesting features of FCD#3 as we conduct you on a guided tour of the facilities:\n \n         1) You start your tour here in the Dam Lobby. You will notice on your right that....",
 }
 OBJECT {
 	NAME = "TROLL",
@@ -1309,7 +1309,7 @@ OBJECT {
 	LDESC = "There is an object which looks like a tube of toothpaste here.",
 	CAPACITY = 7,
 	SIZE = 5,
-	TEXT = "---> Frobozz Magic Gunk Company <---|           All-Purpose Gunk",
+	TEXT = "---> Frobozz Magic Gunk Company <---\n           All-Purpose Gunk",
 }
 OBJECT {
 	NAME = "PUTTY",
@@ -1339,7 +1339,7 @@ OBJECT {
 	DESC = "ZORK owner's manual",
 	FLAGS = {"READBIT","TAKEBIT"},
 	FDESC = "Loosely attached to a wall is a small piece of paper.",
-	TEXT = "Congratulations!| | You are the privileged owner of ZORK I: The Great Underground Empire, a self-contained and self-maintaining universe. If used and maintained in accordance with normal operating practices for small universes, ZORK will provide many months of trouble-free operation.",
+	TEXT = "Congratulations!\n \n You are the privileged owner of ZORK I: The Great Underground Empire, a self-contained and self-maintaining universe. If used and maintained in accordance with normal operating practices for small universes, ZORK will provide many months of trouble-free operation.",
 }
 OBJECT {
 	NAME = "CLIMBABLE_CLIFF",
