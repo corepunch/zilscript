@@ -14,7 +14,7 @@ local function extract_phrase(input)
 end
 
 local function extract_pronoun(input)
-  local result = { pronoun = true }
+  local result = {}
   for word in input:gmatch("([%a][0-9]*[\127-\255]+)") do
     table.insert(result, word)
   end
