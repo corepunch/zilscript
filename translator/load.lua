@@ -46,9 +46,10 @@ function load.lingua(entries, line)
       tbl[key] = tbl[key] or {}
       if value:sub(1,1) == 'W' then
         tbl[key].__lex = extract_phrase(value)
-      elseif value:sub(1,1) == 'R' or value:sub(1,1) == 'Z' then
+      elseif value:sub(1,1) == 'R' or value:sub(1,1) == 'Z' or value:sub(1,1) == 'P' then
         tbl[key].__lex = extract_pronoun(value)
       elseif value:sub(1,3) == 'ZV.' then
+      -- else
         tbl[key].__lex = extract_variants(value)
       else
         tbl[key].__lex = {value}

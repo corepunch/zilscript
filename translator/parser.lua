@@ -1,4 +1,4 @@
--- local utils = require "translator.utils"
+local utils = require "translator.utils"
 local parser = {}
 
 local function is(word, class) if not word then return false end
@@ -15,9 +15,14 @@ end
 
 local choose
 
+-- предлог
+local function prep(t, p, i)
+  return find(t[i], "P") or t[i][1]
+end
+
 -- существительное
 local function noun(t, p, i)
-  return find(t[i], "N") or t[i][1]
+  return find(t[i], "N") or prep(t, p, i)
 end
 
 -- прилагательное перед существительным
@@ -27,7 +32,7 @@ end
 
 -- глагол после местоимения
 local function verb(t, p, i)
-	return is(p, "RN") and find(t[i], "VZ") or adj(t, p, i)
+	return is(p, "RN") and find(t[i], "VZG") or adj(t, p, i)
 end
 
 -- местоимение

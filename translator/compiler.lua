@@ -2,13 +2,17 @@ local utils = require "translator.utils"
 local paradigms = require "translator.paradigms"
 local compiler = {}
 
-local adj_index = {
-  nom_sg   = 1,   -- именительный ед.
-  gen_sg   = 2,   -- родительный ед.
-  dat_sg   = 3,   -- дательный ед.
-  acc_sg   = 4,   -- винительный ед.
-  ins_sg   = 5,   -- творительный ед.
-  pre_sg   = 6,   -- предложный ед.
+local uniques = {
+  ["должен"] = {"но","ен","на","ны"},
+}
+
+local case = {
+  ["И"]   = 1,   -- именительный ед.
+  ["Р"]   = 2,   -- родительный ед.
+  ["Д"]   = 3,   -- дательный ед.
+  ["В"]   = 4,   -- винительный ед.
+  ["Т"]   = 5,   -- творительный ед.
+  ["П"]   = 6,   -- предложный ед.
 }
 
 -- local u_endings = {
@@ -50,29 +54,56 @@ local printers = {
   end,
   N = function(t, e) 
     local d = utils.decode(t, true)
+    print(utils.decode(t))
     local b = compiler.base[d]
     e.gender = get_gender(t)
     e.plural = e.plural and (b:byte(3)&0x4) == 0
     return paradigms.noun(t, b:byte(4)&~0x80, e)
   end,
+  P = function(t, e) 
+    if case[utils.decode(t:sub(3,3), true)] then
+      e.form = case[utils.decode(t:sub(3,3), true)]
+      return utils.decode(t:sub(4))
+    else
+      e.form = case[utils.decode(t:sub(2,2), true)]
+      return utils.decode(t:sub(3))
+    end
+  end,
   Z = function(t, e)
     local d = utils.decode(t, true)
-    local index = compiler.base[d]:byte(4)&~0x80
-    e.form = adj_index.acc_sg
-    return paradigms.verb(t, index, e)
+    if e.imperative and (compiler.base[d]:byte(2)&2)~=2 then
+      t = compiler.base[d]:sub(6)
+      d = utils.decode(t)
+    end
+    e.form, e.imperative = case["В"], false
+    if e.infinitive then e.infinitive = false return d end
+    return paradigms.verb(t, compiler.base[d]:byte(4)&~0x80, e)
   end,
+  U = function(t, e)
+    local _u = utils.extract(t)
+    local d = utils.decode(t, true)
+    local u = uniques[d]
+    e.infinitive, e.imperative = true, true
+    return utils.decode(_u:sub(1,#_u-2))..u[e.plural and 4 or (e.gender+1)]
+  end,
+  T = function() return "" end,
+  X = function() return "" end,
+  [" "] = function (t, _) return utils.decode(t, true) end
 }
 
 printers.V = printers.Z
+printers.G = printers.Z
 
 function compiler.compile(s)
-  local e = { plural = false, gender = 1, person = 3, form = adj_index.nom_sg }
+  local e = { plural = false, gender = 1, person = 3, form = 1, imperative = false }
   local c = {}
   for i, w in ipairs(s) do
     local func = printers[w:sub(1,1)]
     local ok, res = pcall(func, w, e, s, i)
-    table.insert(c, ok and res or utils.decode(w, true)..'*')
+    local s = ok and res or utils.decode(w, true)..'*'
+    if #s > 0 then table.insert(c, s) end
     if not ok then print(res) end
+    -- print(res)
   end
   print("")
   print(table.concat(c, " "))

@@ -33,8 +33,9 @@ end
 
 for line in file:lines() do 
   local word, code = line:match("^(.-)\x2a(.*)$")
-  -- if code and code:find('Z', 1, true) and code:find('N', 1, true) then
-  --   print(word.." "..utils.decode(code, false))
+  -- if code and code:find(';',1,true) then
+  -- if word=='with' then
+    -- print(utils.decode(line, false))
   -- end
   load.lingua(en_ru, line)
 end
@@ -63,13 +64,16 @@ file2:close()
 --   return nil
 -- end
 
--- print(utils.debug(en_ru.transfer.speed))
+-- print(tohex(base["есть"]))
+-- print(tohex(base["выключить"]))
+-- print(utils.debug(en_ru.with.__lex))
 -- print(utils.debug(en_ru.restore))
 
-print("Input: You turn off bright light")
 local s, e = parser.collect(--"{subject} {verb} {object}", 
 -- utils.tokenize("You restore my bright light", en_ru))
-  utils.tokenize("You turn off bright light", en_ru))
+-- utils.tokenize("You need to turn off bright light with the aid of a switch", en_ru))
+  -- utils.tokenize("You are standing in an open field west of a white house, with a boarded front door.", en_ru))
+  utils.tokenize("with a boarded front door", en_ru))
 
 if e then print(e) end
 

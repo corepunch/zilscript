@@ -45,12 +45,13 @@ function utils.debug(w, t, i)
 end
 
 function utils.tokenize(s, en_ru)
+  print("Input: "..s)
   local prev, tbl, words, last, i = nil, {}, {}, 0, 1
-  for w in s:gmatch("%S+") do table.insert(words, w) end
+  for w in s:gmatch("%w+") do table.insert(words, w) end
   while i <= #words do
     local word = words[i]:lower()
     if not prev then
-      table.insert(tbl, en_ru[word] and en_ru[word].__lex or words[i])
+      table.insert(tbl, en_ru[word] and en_ru[word].__lex or {word})
       prev, last = en_ru[word], i
     elseif not prev[word] then
       i, prev = last, nil
