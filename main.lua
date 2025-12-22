@@ -50,7 +50,7 @@ local function execute(string, name)
 	end
 end
 
-require "translator"
+-- require "translator"
 
 local file = assert(io.open("zil/bootstrap.lua", "r"))
 execute(file:read("*a"), 'bootstrap')

@@ -1056,7 +1056,7 @@ TREASURE_INSIDE = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if VERBQ(OPEN) then 
+  if APPLY(function() __tmp = VERBQ(OPEN) return __tmp end) then 
     	__tmp = SCORE_OBJ(EMERALD)
     	error(false)
   end
@@ -1615,17 +1615,17 @@ GRATING_EXIT = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if GRATE_REVEALED then 
+  if APPLY(function() __tmp = GRATE_REVEALED return __tmp end) then 
     
-    if FSETQ(GRATE, OPENBIT) then 
+    if APPLY(function() __tmp = FSETQ(GRATE, OPENBIT) return __tmp end) then 
       	__tmp = GRATING_ROOM
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = TELL("The grating is closed!", CR)
       	__tmp = THIS_IS_IT(GRATE)
       	error(false)
     end
 
-  elseif T then 
+  elseif APPLY(function() __tmp = T return __tmp end) then 
     	__tmp = TELL("You can't go that way.", CR)
     	error(false)
   end
@@ -2527,7 +2527,7 @@ CANYON_VIEW_F = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if PASS(EQUALQ(RARG, M_BEG) and VERBQ(LEAP) and NOT(PRSO)) then 
+  if APPLY(function() __tmp = PASS(EQUALQ(RARG, M_BEG) and VERBQ(LEAP) and NOT(PRSO)) return __tmp end) then 
     	__tmp = JIGS_UP("Nice view, lousy place to jump.")
     	error(true)
   end
@@ -2731,7 +2731,7 @@ GO = function(...)
 	__tmp = APPLY(function() HERE = WEST_OF_HOUSE return HERE end)
 	__tmp =   THIS_IS_IT(MAILBOX)
 
-  if NOT(FSETQ(HERE, TOUCHBIT)) then 
+  if APPLY(function() __tmp = NOT(FSETQ(HERE, TOUCHBIT)) return __tmp end) then 
     	__tmp = V_VERSION()
     	__tmp = CRLF()
   end

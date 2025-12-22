@@ -313,17 +313,19 @@ form.COND = function(buf, node, indent)
   for i, clause in ipairs(node) do
     buf.writeln()
     buf.indent(indent)
-    
     if safeget(clause[1], 'value') == "ELSE" then
       buf.write("else ")
     else
       buf.write(i == 1 and "if " or "elseif ")
+      buf.write("APPLY(function() __tmp = ")
       print_node(buf, clause[1], indent + 1)
+      buf.write(" return __tmp end)")
       buf.write(" then ")
     end
     
     -- Then clauses
-    for j = math.min(#clause, 2), #clause do
+    for j = 2, #clause do
+    -- for j = math.min(#clause, 2), #clause do
       buf.writeln()
       buf.indent(indent + 1)
       if need_return(clause[j]) then buf.write("\t__tmp = ") end

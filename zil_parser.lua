@@ -75,11 +75,11 @@ PARSER = function(...)
 
   local __prog1 = function()
     
-    if GQ(APPLY(function() CNT = ADD(CNT, 1) return CNT end), P_ITBLLEN) then 
+    if APPLY(function() __tmp = GQ(APPLY(function() CNT = ADD(CNT, 1) return CNT end), P_ITBLLEN) return __tmp end) then 
       return true
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       
-      if NOT(P_OFLAG) then 
+      if APPLY(function() __tmp = NOT(P_OFLAG) return __tmp end) then 
         	__tmp = PUT(P_OTBL, CNT, GET(P_ITBL, CNT))
       end
 
@@ -103,42 +103,42 @@ else __tmp = __res1 or true end
 	__tmp =   PUT(P_PRSI, P_MATCHLEN, 0)
 	__tmp =   PUT(P_BUTS, P_MATCHLEN, 0)
 
-  if PASS(NOT(QUOTE_FLAG) and NEQUALQ(WINNER, PLAYER)) then 
+  if APPLY(function() __tmp = PASS(NOT(QUOTE_FLAG) and NEQUALQ(WINNER, PLAYER)) return __tmp end) then 
     	__tmp = APPLY(function() WINNER = PLAYER return WINNER end)
     	__tmp = APPLY(function() HERE = META_LOC(PLAYER) return HERE end)
     	__tmp = APPLY(function() LIT = LITQ(HERE) return LIT end)
   end
 
 
-  if RESERVE_PTR then 
+  if APPLY(function() __tmp = RESERVE_PTR return __tmp end) then 
     	__tmp = APPLY(function() PTR = RESERVE_PTR return PTR end)
     	__tmp = STUFF(RESERVE_LEXV, P_LEXV)
     
-    if PASS(NOT(SUPER_BRIEF) and EQUALQ(PLAYER, WINNER)) then 
+    if APPLY(function() __tmp = PASS(NOT(SUPER_BRIEF) and EQUALQ(PLAYER, WINNER)) return __tmp end) then 
       	__tmp = CRLF()
     end
 
     	__tmp = APPLY(function() RESERVE_PTR = nil return RESERVE_PTR end)
     	__tmp = APPLY(function() P_CONT = nil return P_CONT end)
-  elseif P_CONT then 
+  elseif APPLY(function() __tmp = P_CONT return __tmp end) then 
     	__tmp = APPLY(function() PTR = P_CONT return PTR end)
     
-    if PASS(NOT(SUPER_BRIEF) and EQUALQ(PLAYER, WINNER) and NOT(VERBQ(SAY))) then 
+    if APPLY(function() __tmp = PASS(NOT(SUPER_BRIEF) and EQUALQ(PLAYER, WINNER) and NOT(VERBQ(SAY))) return __tmp end) then 
       	__tmp = CRLF()
     end
 
     	__tmp = APPLY(function() P_CONT = nil return P_CONT end)
-  elseif T then 
+  elseif APPLY(function() __tmp = T return __tmp end) then 
     	__tmp = APPLY(function() WINNER = PLAYER return WINNER end)
     	__tmp = APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
     
-    if NOT(FSETQ(LOC(WINNER), VEHBIT)) then 
+    if APPLY(function() __tmp = NOT(FSETQ(LOC(WINNER), VEHBIT)) return __tmp end) then 
       	__tmp = APPLY(function() HERE = LOC(WINNER) return HERE end)
     end
 
     	__tmp = APPLY(function() LIT = LITQ(HERE) return LIT end)
     
-    if NOT(SUPER_BRIEF) then 
+    if APPLY(function() __tmp = NOT(SUPER_BRIEF) return __tmp end) then 
       	__tmp = CRLF()
     end
 
@@ -148,29 +148,29 @@ else __tmp = __res1 or true end
 
 	__tmp = APPLY(function() P_LEN = GETB(P_LEXV, P_LEXWORDS) return P_LEN end)
 
-  if ZEROQ(P_LEN) then 
+  if APPLY(function() __tmp = ZEROQ(P_LEN) return __tmp end) then 
     	__tmp = TELL("I beg your pardon?", CR)
     	error(false)
   end
 
 
-  if EQUALQ(APPLY(function() WRD = GET(P_LEXV, PTR) return WRD end), WQOOPS) then 
+  if APPLY(function() __tmp = EQUALQ(APPLY(function() WRD = GET(P_LEXV, PTR) return WRD end), WQOOPS) return __tmp end) then 
     
-    if EQUALQ(GET(P_LEXV, ADD(PTR, P_LEXELEN)), WQPERIOD, WQCOMMA) then 
+    if APPLY(function() __tmp = EQUALQ(GET(P_LEXV, ADD(PTR, P_LEXELEN)), WQPERIOD, WQCOMMA) return __tmp end) then 
       	__tmp = APPLY(function() PTR = ADD(PTR, P_LEXELEN) return PTR end)
       	__tmp = APPLY(function() P_LEN = SUB(P_LEN, 1) return P_LEN end)
     end
 
     
-    if NOT(GQ(P_LEN, 1)) then 
+    if APPLY(function() __tmp = NOT(GQ(P_LEN, 1)) return __tmp end) then 
       	__tmp = TELL("I can't help your clumsiness.", CR)
       	error(false)
-    elseif GET(OOPS_TABLE, O_PTR) then 
+    elseif APPLY(function() __tmp = GET(OOPS_TABLE, O_PTR) return __tmp end) then 
       
-      if PASS(GQ(P_LEN, 2) and EQUALQ(GET(P_LEXV, ADD(PTR, P_LEXELEN)), WQQUOTE)) then 
+      if APPLY(function() __tmp = PASS(GQ(P_LEN, 2) and EQUALQ(GET(P_LEXV, ADD(PTR, P_LEXELEN)), WQQUOTE)) return __tmp end) then 
         	__tmp = TELL("Sorry, you can't correct mistakes in quoted text.", CR)
         	error(false)
-      elseif GQ(P_LEN, 2) then 
+      elseif APPLY(function() __tmp = GQ(P_LEN, 2) return __tmp end) then 
         	__tmp = TELL("Warning: only the first word after OOPS is used.", CR)
       end
 
@@ -181,15 +181,15 @@ else __tmp = __res1 or true end
       	__tmp = APPLY(function() P_LEN = GETB(P_LEXV, P_LEXWORDS) return P_LEN end)
       	__tmp = APPLY(function() PTR = GET(OOPS_TABLE, O_START) return PTR end)
       	__tmp = INBUF_STUFF(OOPS_INBUF, P_INBUF)
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = PUT(OOPS_TABLE, O_END, nil)
       	__tmp = TELL("There was no word to replace!", CR)
       	error(false)
     end
 
-  elseif T then 
+  elseif APPLY(function() __tmp = T return __tmp end) then 
     
-    if NOT(EQUALQ(WRD, WQAGAIN, WQG)) then 
+    if APPLY(function() __tmp = NOT(EQUALQ(WRD, WQAGAIN, WQG)) return __tmp end) then 
       	__tmp = APPLY(function() P_NUMBER = 0 return P_NUMBER end)
     end
 
@@ -197,37 +197,37 @@ else __tmp = __res1 or true end
   end
 
 
-  if EQUALQ(GET(P_LEXV, PTR), WQAGAIN, WQG) then 
+  if APPLY(function() __tmp = EQUALQ(GET(P_LEXV, PTR), WQAGAIN, WQG) return __tmp end) then 
     
-    if ZEROQ(GETB(OOPS_INBUF, 1)) then 
+    if APPLY(function() __tmp = ZEROQ(GETB(OOPS_INBUF, 1)) return __tmp end) then 
       	__tmp = TELL("Beg pardon?", CR)
       	error(false)
-    elseif P_OFLAG then 
+    elseif APPLY(function() __tmp = P_OFLAG return __tmp end) then 
       	__tmp = TELL("It's difficult to repeat fragments.", CR)
       	error(false)
-    elseif NOT(P_WON) then 
+    elseif APPLY(function() __tmp = NOT(P_WON) return __tmp end) then 
       	__tmp = TELL("That would just repeat a mistake.", CR)
       	error(false)
-    elseif GQ(P_LEN, 1) then 
+    elseif APPLY(function() __tmp = GQ(P_LEN, 1) return __tmp end) then 
       
-      if PASS(EQUALQ(GET(P_LEXV, ADD(PTR, P_LEXELEN)), WQPERIOD, WQCOMMA, WQTHEN) or EQUALQ(GET(P_LEXV, ADD(PTR, P_LEXELEN)), WQAND)) then 
+      if APPLY(function() __tmp = PASS(EQUALQ(GET(P_LEXV, ADD(PTR, P_LEXELEN)), WQPERIOD, WQCOMMA, WQTHEN) or EQUALQ(GET(P_LEXV, ADD(PTR, P_LEXELEN)), WQAND)) return __tmp end) then 
         	__tmp = APPLY(function() PTR = ADD(PTR, MULL(2, P_LEXELEN)) return PTR end)
         	__tmp = PUTB(P_LEXV, P_LEXWORDS, SUB(GETB(P_LEXV, P_LEXWORDS), 2))
-      elseif T then 
+      elseif APPLY(function() __tmp = T return __tmp end) then 
         	__tmp = TELL("I couldn't understand that sentence.", CR)
         	error(false)
       end
 
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = APPLY(function() PTR = ADD(PTR, P_LEXELEN) return PTR end)
       	__tmp = PUTB(P_LEXV, P_LEXWORDS, SUB(GETB(P_LEXV, P_LEXWORDS), 1))
     end
 
     
-    if GQ(GETB(P_LEXV, P_LEXWORDS), 0) then 
+    if APPLY(function() __tmp = GQ(GETB(P_LEXV, P_LEXWORDS), 0) return __tmp end) then 
       	__tmp = STUFF(P_LEXV, RESERVE_LEXV)
       	__tmp = APPLY(function() RESERVE_PTR = PTR return RESERVE_PTR end)
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = APPLY(function() RESERVE_PTR = nil return RESERVE_PTR end)
     end
 
@@ -240,9 +240,9 @@ else __tmp = __res1 or true end
     
     local __prog2 = function()
       
-      if APPLY(function() CNT = CNT + 1 return CNT > P_ITBLLEN end) then 
+      if APPLY(function() __tmp = APPLY(function() CNT = CNT + 1 return CNT > P_ITBLLEN end) return __tmp end) then 
         return true
-      elseif T then 
+      elseif APPLY(function() __tmp = T return __tmp end) then 
         	__tmp = PUT(P_ITBL, CNT, GET(P_OTBL, CNT))
       end
 
@@ -254,7 +254,7 @@ until __ok2 or __res2 ~= 123
 if not __ok2 then error(__res2)
 else __tmp = __res2 or true end
 
-  elseif T then 
+  elseif APPLY(function() __tmp = T return __tmp end) then 
     	__tmp = STUFF(P_LEXV, AGAIN_LEXV)
     	__tmp = INBUF_STUFF(P_INBUF, OOPS_INBUF)
     	__tmp = PUT(OOPS_TABLE, O_START, PTR)
@@ -269,23 +269,23 @@ else __tmp = __res2 or true end
     
     local __prog3 = function()
       
-      if LQ(APPLY(function() P_LEN = SUB(P_LEN, 1) return P_LEN end), 0) then 
+      if APPLY(function() __tmp = LQ(APPLY(function() P_LEN = SUB(P_LEN, 1) return P_LEN end), 0) return __tmp end) then 
         	__tmp = APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
         return true
-      elseif PASS(APPLY(function() WRD = GET(P_LEXV, PTR) return WRD end) or APPLY(function() WRD = NUMBERQ(PTR) return WRD end)) then 
+      elseif APPLY(function() __tmp = PASS(APPLY(function() WRD = GET(P_LEXV, PTR) return WRD end) or APPLY(function() WRD = NUMBERQ(PTR) return WRD end)) return __tmp end) then 
         
-        if ZEROQ(P_LEN) then 
+        if APPLY(function() __tmp = ZEROQ(P_LEN) return __tmp end) then 
           	__tmp = APPLY(function() NW = 0 return NW end)
-        elseif T then 
+        elseif APPLY(function() __tmp = T return __tmp end) then 
           	__tmp = APPLY(function() NW = GET(P_LEXV, ADD(PTR, P_LEXELEN)) return NW end)
         end
 
         
-        if PASS(EQUALQ(WRD, WQTO) and EQUALQ(VERB, ACTQTELL)) then 
+        if APPLY(function() __tmp = PASS(EQUALQ(WRD, WQTO) and EQUALQ(VERB, ACTQTELL)) return __tmp end) then 
           	__tmp = APPLY(function() WRD = WQQUOTE return WRD end)
-        elseif PASS(EQUALQ(WRD, WQTHEN) and GQ(P_LEN, 0) and NOT(VERB) and NOT(QUOTE_FLAG)) then 
+        elseif APPLY(function() __tmp = PASS(EQUALQ(WRD, WQTHEN) and GQ(P_LEN, 0) and NOT(VERB) and NOT(QUOTE_FLAG)) return __tmp end) then 
           
-          if EQUALQ(LW, 0, WQPERIOD) then 
+          if APPLY(function() __tmp = EQUALQ(LW, 0, WQPERIOD) return __tmp end) then 
             	__tmp = APPLY(function() WRD = WQTHE return WRD end)
           else 
             	__tmp = PUT(P_ITBL, P_VERB, ACTQTELL)
@@ -296,13 +296,13 @@ else __tmp = __res2 or true end
         end
 
         
-        if EQUALQ(WRD, WQTHEN, WQPERIOD, WQQUOTE) then 
+        if APPLY(function() __tmp = EQUALQ(WRD, WQTHEN, WQPERIOD, WQQUOTE) return __tmp end) then 
           
-          if EQUALQ(WRD, WQQUOTE) then 
+          if APPLY(function() __tmp = EQUALQ(WRD, WQQUOTE) return __tmp end) then 
             
-            if QUOTE_FLAG then 
+            if APPLY(function() __tmp = QUOTE_FLAG return __tmp end) then 
               	__tmp = APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
-            elseif T then 
+            elseif APPLY(function() __tmp = T return __tmp end) then 
               	__tmp = APPLY(function() QUOTE_FLAG = T return QUOTE_FLAG end)
             end
 
@@ -311,73 +311,72 @@ else __tmp = __res2 or true end
           	__tmp = PASS(ZEROQ(P_LEN) or APPLY(function() P_CONT = ADD(PTR, P_LEXELEN) return P_CONT end))
           	__tmp = PUTB(P_LEXV, P_LEXWORDS, P_LEN)
           return true
-        elseif PASS(APPLY(function() VAL = WTQ(WRD, PSQDIRECTION, P1QDIRECTION) return VAL end) and EQUALQ(VERB, nil, ACTQWALK) and PASS(EQUALQ(LEN, 1) or PASS(EQUALQ(LEN, 2) and EQUALQ(VERB, ACTQWALK)) or PASS(EQUALQ(NW, WQTHEN, WQPERIOD, WQQUOTE) and NOT(LQ(LEN, 2))) or PASS(QUOTE_FLAG and EQUALQ(LEN, 2) and EQUALQ(NW, WQQUOTE)) or PASS(GQ(LEN, 2) and EQUALQ(NW, WQCOMMA, WQAND)))) then 
+        elseif APPLY(function() __tmp = PASS(APPLY(function() VAL = WTQ(WRD, PSQDIRECTION, P1QDIRECTION) return VAL end) and EQUALQ(VERB, nil, ACTQWALK) and PASS(EQUALQ(LEN, 1) or PASS(EQUALQ(LEN, 2) and EQUALQ(VERB, ACTQWALK)) or PASS(EQUALQ(NW, WQTHEN, WQPERIOD, WQQUOTE) and NOT(LQ(LEN, 2))) or PASS(QUOTE_FLAG and EQUALQ(LEN, 2) and EQUALQ(NW, WQQUOTE)) or PASS(GQ(LEN, 2) and EQUALQ(NW, WQCOMMA, WQAND)))) return __tmp end) then 
           	__tmp = APPLY(function() DIR = VAL return DIR end)
           
-          if EQUALQ(NW, WQCOMMA, WQAND) then 
+          if APPLY(function() __tmp = EQUALQ(NW, WQCOMMA, WQAND) return __tmp end) then 
             	__tmp = PUT(P_LEXV, ADD(PTR, P_LEXELEN), WQTHEN)
           end
 
           
-          if NOT(GQ(LEN, 2)) then 
+          if APPLY(function() __tmp = NOT(GQ(LEN, 2)) return __tmp end) then 
             	__tmp = APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
             return true
           end
 
-        elseif PASS(APPLY(function() VAL = WTQ(WRD, PSQVERB, P1QVERB) return VAL end) and NOT(VERB)) then 
+        elseif APPLY(function() __tmp = PASS(APPLY(function() VAL = WTQ(WRD, PSQVERB, P1QVERB) return VAL end) and NOT(VERB)) return __tmp end) then 
           	__tmp = APPLY(function() VERB = VAL return VERB end)
           	__tmp = PUT(P_ITBL, P_VERB, VAL)
           	__tmp = PUT(P_ITBL, P_VERBN, P_VTBL)
           	__tmp = PUT(P_VTBL, 0, WRD)
           	__tmp = PUTB(P_VTBL, 2, GETB(P_LEXV, APPLY(function() CNT = ADD(MULL(PTR, 2), 2) return CNT end)))
           	__tmp = PUTB(P_VTBL, 3, GETB(P_LEXV, ADD(CNT, 1)))
-        elseif PASS(APPLY(function() VAL = WTQ(WRD, PSQPREPOSITION, 0) return VAL end) or EQUALQ(WRD, WQALL, WQONE) or WTQ(WRD, PSQADJECTIVE) or WTQ(WRD, PSQOBJECT)) then 
+        elseif APPLY(function() __tmp = PASS(APPLY(function() VAL = WTQ(WRD, PSQPREPOSITION, 0) return VAL end) or EQUALQ(WRD, WQALL, WQONE) or WTQ(WRD, PSQADJECTIVE) or WTQ(WRD, PSQOBJECT)) return __tmp end) then 
           
-          if PASS(GQ(P_LEN, 1) and EQUALQ(NW, WQOF) and ZEROQ(VAL) and NOT(EQUALQ(WRD, WQALL, WQONE, WQA))) then 
+          if APPLY(function() __tmp = PASS(GQ(P_LEN, 1) and EQUALQ(NW, WQOF) and ZEROQ(VAL) and NOT(EQUALQ(WRD, WQALL, WQONE, WQA))) return __tmp end) then 
             	__tmp = APPLY(function() OF_FLAG = T return OF_FLAG end)
-          elseif PASS(NOT(ZEROQ(VAL)) and PASS(ZEROQ(P_LEN) or EQUALQ(NW, WQTHEN, WQPERIOD))) then 
+          elseif APPLY(function() __tmp = PASS(NOT(ZEROQ(VAL)) and PASS(ZEROQ(P_LEN) or EQUALQ(NW, WQTHEN, WQPERIOD))) return __tmp end) then 
             	__tmp = APPLY(function() P_END_ON_PREP = T return P_END_ON_PREP end)
             
-            if LQ(P_NCN, 2) then 
+            if APPLY(function() __tmp = LQ(P_NCN, 2) return __tmp end) then 
               	__tmp = PUT(P_ITBL, P_PREP1, VAL)
               	__tmp = PUT(P_ITBL, P_PREP1N, WRD)
             end
 
-          elseif EQUALQ(P_NCN, 2) then 
+          elseif APPLY(function() __tmp = EQUALQ(P_NCN, 2) return __tmp end) then 
             	__tmp = TELL("There were too many nouns in that sentence.", CR)
             	error(false)
-          elseif T then 
+          elseif APPLY(function() __tmp = T return __tmp end) then 
             	__tmp = APPLY(function() P_NCN = ADD(P_NCN, 1) return P_NCN end)
             	__tmp = APPLY(function() P_ACT = VERB return P_ACT end)
             	__tmp = PASS(APPLY(function() PTR = CLAUSE(PTR, VAL, WRD) return PTR end) or 	error(false))
             
-            if LQ(PTR, 0) then 
+            if APPLY(function() __tmp = LQ(PTR, 0) return __tmp end) then 
               	__tmp = APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
               return true
             end
 
           end
 
-        elseif EQUALQ(WRD, WQOF) then 
+        elseif APPLY(function() __tmp = EQUALQ(WRD, WQOF) return __tmp end) then 
           
-          if PASS(NOT(OF_FLAG) or EQUALQ(NW, WQPERIOD, WQTHEN)) then 
+          if APPLY(function() __tmp = PASS(NOT(OF_FLAG) or EQUALQ(NW, WQPERIOD, WQTHEN)) return __tmp end) then 
             	__tmp = CANT_USE(PTR)
             	error(false)
-          elseif T then 
+          elseif APPLY(function() __tmp = T return __tmp end) then 
             	__tmp = APPLY(function() OF_FLAG = nil return OF_FLAG end)
           end
 
-        elseif WTQ(WRD, PSQBUZZ_WORD) then 
-          	__tmp = WTQ(WRD, PSQBUZZ_WORD)
-        elseif PASS(EQUALQ(VERB, ACTQTELL) and WTQ(WRD, PSQVERB, P1QVERB) and EQUALQ(WINNER, PLAYER)) then 
+        elseif APPLY(function() __tmp = WTQ(WRD, PSQBUZZ_WORD) return __tmp end) then 
+        elseif APPLY(function() __tmp = PASS(EQUALQ(VERB, ACTQTELL) and WTQ(WRD, PSQVERB, P1QVERB) and EQUALQ(WINNER, PLAYER)) return __tmp end) then 
           	__tmp = TELL("Please consult your manual for the correct way to talk to other people or creatures.", CR)
           	error(false)
-        elseif T then 
+        elseif APPLY(function() __tmp = T return __tmp end) then 
           	__tmp = CANT_USE(PTR)
           	error(false)
         end
 
-      elseif T then 
+      elseif APPLY(function() __tmp = T return __tmp end) then 
         	__tmp = UNKNOWN_WORD(PTR)
         	error(false)
       end
@@ -396,7 +395,7 @@ else __tmp = __res3 or true end
 
 	__tmp =   PUT(OOPS_TABLE, O_PTR, nil)
 
-  if DIR then 
+  if APPLY(function() __tmp = DIR return __tmp end) then 
     	__tmp = APPLY(function() PRSA = VQWALK return PRSA end)
     	__tmp = APPLY(function() PRSO = DIR return PRSO end)
     	__tmp = APPLY(function() P_OFLAG = nil return P_OFLAG end)
@@ -404,14 +403,14 @@ else __tmp = __res3 or true end
     	__tmp = APPLY(function() AGAIN_DIR = DIR return AGAIN_DIR end)
   else 
     
-    if P_OFLAG then 
+    if APPLY(function() __tmp = P_OFLAG return __tmp end) then 
       	__tmp = ORPHAN_MERGE()
     end
 
     	__tmp = APPLY(function() P_WALK_DIR = nil return P_WALK_DIR end)
     	__tmp = APPLY(function() AGAIN_DIR = nil return AGAIN_DIR end)
     
-    if PASS(SYNTAX_CHECK() and SNARF_OBJECTS() and MANY_CHECK() and TAKE_CHECK()) then 
+    if APPLY(function() __tmp = PASS(SYNTAX_CHECK() and SNARF_OBJECTS() and MANY_CHECK() and TAKE_CHECK()) return __tmp end) then 
       	__tmp = T
     end
 
@@ -444,7 +443,7 @@ STUFF = function(...)
     PUTB(DEST, BPTR, GETB(SRC, BPTR))
     APPLY(function() PTR = ADD(PTR, P_LEXELEN) return PTR end)
     
-    if APPLY(function() CTR = CTR + 1 return CTR > MAX end) then 
+    if APPLY(function() __tmp = APPLY(function() CTR = CTR + 1 return CTR > MAX end) return __tmp end) then 
       return true
     end
 
@@ -471,7 +470,7 @@ INBUF_STUFF = function(...)
   local __prog5 = function()
     PUTB(DEST, CNT, GETB(SRC, CNT))
     
-    if APPLY(function() CNT = CNT - 1 return CNT < 0 end) then 
+    if APPLY(function() __tmp = APPLY(function() CNT = CNT - 1 return CNT < 0 end) return __tmp end) then 
       return true
     end
 
@@ -496,9 +495,9 @@ INBUF_ADD = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if APPLY(function() TMP = GET(OOPS_TABLE, O_END) return TMP end) then 
+  if APPLY(function() __tmp = APPLY(function() TMP = GET(OOPS_TABLE, O_END) return TMP end) return __tmp end) then 
     	__tmp = APPLY(function() DBEG = TMP return DBEG end)
-  elseif T then 
+  elseif APPLY(function() __tmp = T return __tmp end) then 
     	__tmp = APPLY(function() DBEG = ADD(GETB(AGAIN_LEXV, APPLY(function() TMP = GET(OOPS_TABLE, O_LENGTH) return TMP end)), GETB(AGAIN_LEXV, ADD(TMP, 1))) return DBEG end)
   end
 
@@ -508,7 +507,7 @@ INBUF_ADD = function(...)
     PUTB(OOPS_INBUF, ADD(DBEG, CTR), GETB(P_INBUF, ADD(BEG, CTR)))
     APPLY(function() CTR = ADD(CTR, 1) return CTR end)
     
-    if EQUALQ(CTR, LEN) then 
+    if APPLY(function() __tmp = EQUALQ(CTR, LEN) return __tmp end) then 
       return true
     end
 
@@ -535,14 +534,14 @@ WTQ = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if BTST(APPLY(function() TYP = GETB(PTR, P_PSOFF) return TYP end), BIT) then 
+  if APPLY(function() __tmp = BTST(APPLY(function() TYP = GETB(PTR, P_PSOFF) return TYP end), BIT) return __tmp end) then 
     
-    if GQ(B1, 4) then 
+    if APPLY(function() __tmp = GQ(B1, 4) return __tmp end) then 
       	error(true)
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = APPLY(function() TYP = BAND(TYP, P_P1BITS) return TYP end)
       
-      if NOT(EQUALQ(TYP, B1)) then 
+      if APPLY(function() __tmp = NOT(EQUALQ(TYP, B1)) return __tmp end) then 
         	__tmp = APPLY(function() OFFS = ADD(OFFS, 1) return OFFS end)
       end
 
@@ -568,84 +567,82 @@ CLAUSE = function(...)
 	local __tmp = nil
 	__tmp = APPLY(function() OFF = MULL(SUB(P_NCN, 1), 2) return OFF end)
 
-  if NOT(EQUALQ(VAL, 0)) then 
+  if APPLY(function() __tmp = NOT(EQUALQ(VAL, 0)) return __tmp end) then 
     	__tmp = PUT(P_ITBL, APPLY(function() NUM = ADD(P_PREP1, OFF) return NUM end), VAL)
     	__tmp = PUT(P_ITBL, ADD(NUM, 1), WRD)
     	__tmp = APPLY(function() PTR = ADD(PTR, P_LEXELEN) return PTR end)
-  elseif T then 
+  elseif APPLY(function() __tmp = T return __tmp end) then 
     	__tmp = APPLY(function() P_LEN = ADD(P_LEN, 1) return P_LEN end)
   end
 
 
-  if ZEROQ(P_LEN) then 
+  if APPLY(function() __tmp = ZEROQ(P_LEN) return __tmp end) then 
     	__tmp = APPLY(function() P_NCN = SUB(P_NCN, 1) return P_NCN end)
     error(-1)
   end
 
 	__tmp =   PUT(P_ITBL, APPLY(function() NUM = ADD(P_NC1, OFF) return NUM end), REST(P_LEXV, MULL(PTR, 2)))
 
-  if EQUALQ(GET(P_LEXV, PTR), WQTHE, WQA, WQAN) then 
+  if APPLY(function() __tmp = EQUALQ(GET(P_LEXV, PTR), WQTHE, WQA, WQAN) return __tmp end) then 
     	__tmp = PUT(P_ITBL, NUM, REST(GET(P_ITBL, NUM), 4))
   end
 
 
   local __prog7 = function()
     
-    if LQ(APPLY(function() P_LEN = SUB(P_LEN, 1) return P_LEN end), 0) then 
+    if APPLY(function() __tmp = LQ(APPLY(function() P_LEN = SUB(P_LEN, 1) return P_LEN end), 0) return __tmp end) then 
       	__tmp = PUT(P_ITBL, ADD(NUM, 1), REST(P_LEXV, MULL(PTR, 2)))
       error(-1)
     end
 
     
-    if PASS(APPLY(function() WRD = GET(P_LEXV, PTR) return WRD end) or APPLY(function() WRD = NUMBERQ(PTR) return WRD end)) then 
+    if APPLY(function() __tmp = PASS(APPLY(function() WRD = GET(P_LEXV, PTR) return WRD end) or APPLY(function() WRD = NUMBERQ(PTR) return WRD end)) return __tmp end) then 
       
-      if ZEROQ(P_LEN) then 
+      if APPLY(function() __tmp = ZEROQ(P_LEN) return __tmp end) then 
         	__tmp = APPLY(function() NW = 0 return NW end)
-      elseif T then 
+      elseif APPLY(function() __tmp = T return __tmp end) then 
         	__tmp = APPLY(function() NW = GET(P_LEXV, ADD(PTR, P_LEXELEN)) return NW end)
       end
 
       
-      if EQUALQ(WRD, WQAND, WQCOMMA) then 
+      if APPLY(function() __tmp = EQUALQ(WRD, WQAND, WQCOMMA) return __tmp end) then 
         	__tmp = APPLY(function() ANDFLG = T return ANDFLG end)
-      elseif EQUALQ(WRD, WQALL, WQONE) then 
+      elseif APPLY(function() __tmp = EQUALQ(WRD, WQALL, WQONE) return __tmp end) then 
         
-        if EQUALQ(NW, WQOF) then 
+        if APPLY(function() __tmp = EQUALQ(NW, WQOF) return __tmp end) then 
           	__tmp = APPLY(function() P_LEN = SUB(P_LEN, 1) return P_LEN end)
           	__tmp = APPLY(function() PTR = ADD(PTR, P_LEXELEN) return PTR end)
         end
 
-      elseif PASS(EQUALQ(WRD, WQTHEN, WQPERIOD) or PASS(WTQ(WRD, PSQPREPOSITION) and GET(P_ITBL, P_VERB) and NOT(FIRSTQQ))) then 
+      elseif APPLY(function() __tmp = PASS(EQUALQ(WRD, WQTHEN, WQPERIOD) or PASS(WTQ(WRD, PSQPREPOSITION) and GET(P_ITBL, P_VERB) and NOT(FIRSTQQ))) return __tmp end) then 
         	__tmp = APPLY(function() P_LEN = ADD(P_LEN, 1) return P_LEN end)
         	__tmp = PUT(P_ITBL, ADD(NUM, 1), REST(P_LEXV, MULL(PTR, 2)))
         error(SUB(PTR, P_LEXELEN))
-      elseif WTQ(WRD, PSQOBJECT) then 
+      elseif APPLY(function() __tmp = WTQ(WRD, PSQOBJECT) return __tmp end) then 
         
-        if PASS(GQ(P_LEN, 0) and EQUALQ(NW, WQOF) and NOT(EQUALQ(WRD, WQALL, WQONE))) then 
+        if APPLY(function() __tmp = PASS(GQ(P_LEN, 0) and EQUALQ(NW, WQOF) and NOT(EQUALQ(WRD, WQALL, WQONE))) return __tmp end) then 
           	__tmp = T
-        elseif PASS(WTQ(WRD, PSQADJECTIVE, P1QADJECTIVE) and NOT(EQUALQ(NW, 0)) and WTQ(NW, PSQOBJECT)) then 
-          	__tmp = PASS(WTQ(WRD, PSQADJECTIVE, P1QADJECTIVE) and NOT(EQUALQ(NW, 0)) and WTQ(NW, PSQOBJECT))
-        elseif PASS(NOT(ANDFLG) and NOT(EQUALQ(NW, WQBUT, WQEXCEPT)) and NOT(EQUALQ(NW, WQAND, WQCOMMA))) then 
+        elseif APPLY(function() __tmp = PASS(WTQ(WRD, PSQADJECTIVE, P1QADJECTIVE) and NOT(EQUALQ(NW, 0)) and WTQ(NW, PSQOBJECT)) return __tmp end) then 
+        elseif APPLY(function() __tmp = PASS(NOT(ANDFLG) and NOT(EQUALQ(NW, WQBUT, WQEXCEPT)) and NOT(EQUALQ(NW, WQAND, WQCOMMA))) return __tmp end) then 
           	__tmp = PUT(P_ITBL, ADD(NUM, 1), REST(P_LEXV, MULL(ADD(PTR, 2), 2)))
           error(PTR)
-        elseif T then 
+        elseif APPLY(function() __tmp = T return __tmp end) then 
           	__tmp = APPLY(function() ANDFLG = nil return ANDFLG end)
         end
 
-      elseif PASS(PASS(P_MERGED or P_OFLAG or NOT(EQUALQ(GET(P_ITBL, P_VERB), 0))) and PASS(WTQ(WRD, PSQADJECTIVE) or WTQ(WRD, PSQBUZZ_WORD))) then 
-        	__tmp = PASS(PASS(P_MERGED or P_OFLAG or NOT(EQUALQ(GET(P_ITBL, P_VERB), 0))) and PASS(WTQ(WRD, PSQADJECTIVE) or WTQ(WRD, PSQBUZZ_WORD)))
-      elseif PASS(ANDFLG and PASS(WTQ(WRD, PSQDIRECTION) or WTQ(WRD, PSQVERB))) then 
+      elseif APPLY(function() __tmp = PASS(PASS(P_MERGED or P_OFLAG or NOT(EQUALQ(GET(P_ITBL, P_VERB), 0))) and PASS(WTQ(WRD, PSQADJECTIVE) or WTQ(WRD, PSQBUZZ_WORD))) return __tmp end) then 
+      elseif APPLY(function() __tmp = PASS(ANDFLG and PASS(WTQ(WRD, PSQDIRECTION) or WTQ(WRD, PSQVERB))) return __tmp end) then 
         	__tmp = APPLY(function() PTR = SUB(PTR, 4) return PTR end)
         	__tmp = PUT(P_LEXV, ADD(PTR, 2), WQTHEN)
         	__tmp = APPLY(function() P_LEN = ADD(P_LEN, 2) return P_LEN end)
-      elseif WTQ(WRD, PSQPREPOSITION) then 
+      elseif APPLY(function() __tmp = WTQ(WRD, PSQPREPOSITION) return __tmp end) then 
         	__tmp = T
-      elseif T then 
+      elseif APPLY(function() __tmp = T return __tmp end) then 
         	__tmp = CANT_USE(PTR)
         	error(false)
       end
 
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = UNKNOWN_WORD(PTR)
       	error(false)
     end
@@ -680,19 +677,19 @@ NUMBERQ = function(...)
 
   local __prog8 = function()
     
-    if LQ(APPLY(function() CNT = SUB(CNT, 1) return CNT end), 0) then 
+    if APPLY(function() __tmp = LQ(APPLY(function() CNT = SUB(CNT, 1) return CNT end), 0) return __tmp end) then 
       return true
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = APPLY(function() CHR = GETB(P_INBUF, BPTR) return CHR end)
       
-      if EQUALQ(CHR, 58) then 
+      if APPLY(function() __tmp = EQUALQ(CHR, 58) return __tmp end) then 
         	__tmp = APPLY(function() TIM = SUM return TIM end)
         	__tmp = APPLY(function() SUM = 0 return SUM end)
-      elseif GQ(SUM, 10000) then 
+      elseif APPLY(function() __tmp = GQ(SUM, 10000) return __tmp end) then 
         	error(false)
-      elseif PASS(LQ(CHR, 58) and GQ(CHR, 47)) then 
+      elseif APPLY(function() __tmp = PASS(LQ(CHR, 58) and GQ(CHR, 47)) return __tmp end) then 
         	__tmp = APPLY(function() SUM = ADD(MULL(SUM, 10), SUB(CHR, 48)) return SUM end)
-      elseif T then 
+      elseif APPLY(function() __tmp = T return __tmp end) then 
         	error(false)
       end
 
@@ -709,13 +706,13 @@ else __tmp = __res8 or true end
 
 	__tmp =   PUT(P_LEXV, PTR, WQINTNUM)
 
-  if GQ(SUM, 1000) then 
+  if APPLY(function() __tmp = GQ(SUM, 1000) return __tmp end) then 
     	error(false)
-  elseif TIM then 
+  elseif APPLY(function() __tmp = TIM return __tmp end) then 
     
-    if LQ(TIM, 8) then 
+    if APPLY(function() __tmp = LQ(TIM, 8) return __tmp end) then 
       	__tmp = APPLY(function() TIM = ADD(TIM, 12) return TIM end)
-    elseif GQ(TIM, 23) then 
+    elseif APPLY(function() __tmp = GQ(TIM, 23) return __tmp end) then 
       	error(false)
     end
 
@@ -743,9 +740,9 @@ ORPHAN_MERGE = function(...)
 	local __tmp = nil
 	__tmp = APPLY(function() P_OFLAG = nil return P_OFLAG end)
 
-  if PASS(EQUALQ(WTQ(APPLY(function() WRD = GET(GET(P_ITBL, P_VERBN), 0) return WRD end), PSQVERB, P1QVERB), GET(P_OTBL, P_VERB)) or NOT(ZEROQ(WTQ(WRD, PSQADJECTIVE)))) then 
+  if APPLY(function() __tmp = PASS(EQUALQ(WTQ(APPLY(function() WRD = GET(GET(P_ITBL, P_VERBN), 0) return WRD end), PSQVERB, P1QVERB), GET(P_OTBL, P_VERB)) or NOT(ZEROQ(WTQ(WRD, PSQADJECTIVE)))) return __tmp end) then 
     	__tmp = APPLY(function() ADJ = T return ADJ end)
-  elseif PASS(NOT(ZEROQ(WTQ(WRD, PSQOBJECT, P1QOBJECT))) and EQUALQ(P_NCN, 0)) then 
+  elseif APPLY(function() __tmp = PASS(NOT(ZEROQ(WTQ(WRD, PSQOBJECT, P1QOBJECT))) and EQUALQ(P_NCN, 0)) return __tmp end) then 
     	__tmp = PUT(P_ITBL, P_VERB, 0)
     	__tmp = PUT(P_ITBL, P_VERBN, 0)
     	__tmp = PUT(P_ITBL, P_NC1, REST(P_LEXV, 2))
@@ -754,43 +751,43 @@ ORPHAN_MERGE = function(...)
   end
 
 
-  if PASS(NOT(ZEROQ(APPLY(function() VERB = GET(P_ITBL, P_VERB) return VERB end))) and NOT(ADJ) and NOT(EQUALQ(VERB, GET(P_OTBL, P_VERB)))) then 
+  if APPLY(function() __tmp = PASS(NOT(ZEROQ(APPLY(function() VERB = GET(P_ITBL, P_VERB) return VERB end))) and NOT(ADJ) and NOT(EQUALQ(VERB, GET(P_OTBL, P_VERB)))) return __tmp end) then 
     	error(false)
-  elseif EQUALQ(P_NCN, 2) then 
+  elseif APPLY(function() __tmp = EQUALQ(P_NCN, 2) return __tmp end) then 
     	error(false)
-  elseif EQUALQ(GET(P_OTBL, P_NC1), 1) then 
+  elseif APPLY(function() __tmp = EQUALQ(GET(P_OTBL, P_NC1), 1) return __tmp end) then 
     
-    if PASS(EQUALQ(APPLY(function() TEMP = GET(P_ITBL, P_PREP1) return TEMP end), GET(P_OTBL, P_PREP1)) or ZEROQ(TEMP)) then 
+    if APPLY(function() __tmp = PASS(EQUALQ(APPLY(function() TEMP = GET(P_ITBL, P_PREP1) return TEMP end), GET(P_OTBL, P_PREP1)) or ZEROQ(TEMP)) return __tmp end) then 
       
-      if ADJ then 
+      if APPLY(function() __tmp = ADJ return __tmp end) then 
         	__tmp = PUT(P_OTBL, P_NC1, REST(P_LEXV, 2))
         
-        if ZEROQ(GET(P_ITBL, P_NC1L)) then 
+        if APPLY(function() __tmp = ZEROQ(GET(P_ITBL, P_NC1L)) return __tmp end) then 
           	__tmp = PUT(P_ITBL, P_NC1L, REST(P_LEXV, 6))
         end
 
         
-        if ZEROQ(P_NCN) then 
+        if APPLY(function() __tmp = ZEROQ(P_NCN) return __tmp end) then 
           	__tmp = APPLY(function() P_NCN = 1 return P_NCN end)
         end
 
-      elseif T then 
+      elseif APPLY(function() __tmp = T return __tmp end) then 
         	__tmp = PUT(P_OTBL, P_NC1, GET(P_ITBL, P_NC1))
       end
 
       	__tmp = PUT(P_OTBL, P_NC1L, GET(P_ITBL, P_NC1L))
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	error(false)
     end
 
-  elseif EQUALQ(GET(P_OTBL, P_NC2), 1) then 
+  elseif APPLY(function() __tmp = EQUALQ(GET(P_OTBL, P_NC2), 1) return __tmp end) then 
     
-    if PASS(EQUALQ(APPLY(function() TEMP = GET(P_ITBL, P_PREP1) return TEMP end), GET(P_OTBL, P_PREP2)) or ZEROQ(TEMP)) then 
+    if APPLY(function() __tmp = PASS(EQUALQ(APPLY(function() TEMP = GET(P_ITBL, P_PREP1) return TEMP end), GET(P_OTBL, P_PREP2)) or ZEROQ(TEMP)) return __tmp end) then 
       
-      if ADJ then 
+      if APPLY(function() __tmp = ADJ return __tmp end) then 
         	__tmp = PUT(P_ITBL, P_NC1, REST(P_LEXV, 2))
         
-        if ZEROQ(GET(P_ITBL, P_NC1L)) then 
+        if APPLY(function() __tmp = ZEROQ(GET(P_ITBL, P_NC1L)) return __tmp end) then 
           	__tmp = PUT(P_ITBL, P_NC1L, REST(P_LEXV, 6))
         end
 
@@ -799,19 +796,19 @@ ORPHAN_MERGE = function(...)
       	__tmp = PUT(P_OTBL, P_NC2, GET(P_ITBL, P_NC1))
       	__tmp = PUT(P_OTBL, P_NC2L, GET(P_ITBL, P_NC1L))
       	__tmp = APPLY(function() P_NCN = 2 return P_NCN end)
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	error(false)
     end
 
-  elseif NOT(ZEROQ(P_ACLAUSE)) then 
+  elseif APPLY(function() __tmp = NOT(ZEROQ(P_ACLAUSE)) return __tmp end) then 
     
-    if PASS(NOT(EQUALQ(P_NCN, 1)) and NOT(ADJ)) then 
+    if APPLY(function() __tmp = PASS(NOT(EQUALQ(P_NCN, 1)) and NOT(ADJ)) return __tmp end) then 
       	__tmp = APPLY(function() P_ACLAUSE = nil return P_ACLAUSE end)
       	error(false)
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = APPLY(function() BEG = GET(P_ITBL, P_NC1) return BEG end)
       
-      if ADJ then 
+      if APPLY(function() __tmp = ADJ return __tmp end) then 
         	__tmp = APPLY(function() BEG = REST(P_LEXV, 2) return BEG end)
         	__tmp = APPLY(function() ADJ = nil return ADJ end)
       end
@@ -821,26 +818,26 @@ ORPHAN_MERGE = function(...)
       local __prog9 = function()
         APPLY(function() WRD = GET(BEG, 0) return WRD end)
         
-        if EQUALQ(BEG, END) then 
+        if APPLY(function() __tmp = EQUALQ(BEG, END) return __tmp end) then 
           
-          if ADJ then 
+          if APPLY(function() __tmp = ADJ return __tmp end) then 
             	__tmp = ACLAUSE_WIN(ADJ)
             return true
-          elseif T then 
+          elseif APPLY(function() __tmp = T return __tmp end) then 
             	__tmp = APPLY(function() P_ACLAUSE = nil return P_ACLAUSE end)
             	error(false)
           end
 
-        elseif PASS(NOT(ADJ) and PASS(BTST(GETB(WRD, P_PSOFF), PSQADJECTIVE) or EQUALQ(WRD, WQALL, WQONE))) then 
+        elseif APPLY(function() __tmp = PASS(NOT(ADJ) and PASS(BTST(GETB(WRD, P_PSOFF), PSQADJECTIVE) or EQUALQ(WRD, WQALL, WQONE))) return __tmp end) then 
           	__tmp = APPLY(function() ADJ = WRD return ADJ end)
-        elseif EQUALQ(WRD, WQONE) then 
+        elseif APPLY(function() __tmp = EQUALQ(WRD, WQONE) return __tmp end) then 
           	__tmp = ACLAUSE_WIN(ADJ)
           return true
-        elseif BTST(GETB(WRD, P_PSOFF), PSQOBJECT) then 
+        elseif APPLY(function() __tmp = BTST(GETB(WRD, P_PSOFF), PSQOBJECT) return __tmp end) then 
           
-          if EQUALQ(WRD, P_ANAM) then 
+          if APPLY(function() __tmp = EQUALQ(WRD, P_ANAM) return __tmp end) then 
             	__tmp = ACLAUSE_WIN(ADJ)
-          elseif T then 
+          elseif APPLY(function() __tmp = T return __tmp end) then 
             	__tmp = NCLAUSE_WIN()
           end
 
@@ -849,7 +846,7 @@ ORPHAN_MERGE = function(...)
 
         APPLY(function() BEG = REST(BEG, P_WORDLEN) return BEG end)
         
-        if EQUALQ(END, 0) then 
+        if APPLY(function() __tmp = EQUALQ(END, 0) return __tmp end) then 
           	__tmp = APPLY(function() END = BEG return END end)
           	__tmp = APPLY(function() P_NCN = 1 return P_NCN end)
           	__tmp = PUT(P_ITBL, P_NC1, BACK(BEG, 4))
@@ -876,10 +873,10 @@ else __tmp = __res9 or true end
 
   local __prog10 = function()
     
-    if GQ(APPLY(function() CNT = ADD(CNT, 1) return CNT end), P_ITBLLEN) then 
+    if APPLY(function() __tmp = GQ(APPLY(function() CNT = ADD(CNT, 1) return CNT end), P_ITBLLEN) return __tmp end) then 
       	__tmp = APPLY(function() P_MERGED = T return P_MERGED end)
       	error(true)
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = PUT(P_ITBL, CNT, GET(P_OTBL, CNT))
     end
 
@@ -938,7 +935,7 @@ WORD_PRINT = function(...)
 
   local __prog11 = function()
     
-    if APPLY(function() CNT = CNT - 1 return CNT < 0 end) then 
+    if APPLY(function() __tmp = APPLY(function() CNT = CNT - 1 return CNT < 0 end) return __tmp end) then 
       return true
     else 
       	__tmp = PRINTC(GETB(P_INBUF, BUF))
@@ -965,7 +962,7 @@ UNKNOWN_WORD = function(...)
 	local __tmp = nil
 	__tmp =   PUT(OOPS_TABLE, O_PTR, PTR)
 
-  if VERBQ(SAY) then 
+  if APPLY(function() __tmp = VERBQ(SAY) return __tmp end) then 
     	__tmp = TELL("Nothing happens.", CR)
     	error(false)
   end
@@ -986,7 +983,7 @@ CANT_USE = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if VERBQ(SAY) then 
+  if APPLY(function() __tmp = VERBQ(SAY) return __tmp end) then 
     	__tmp = TELL("Nothing happens.", CR)
     	error(false)
   end
@@ -1025,7 +1022,7 @@ SYNTAX_CHECK = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if ZEROQ(APPLY(function() VERB = GET(P_ITBL, P_VERB) return VERB end)) then 
+  if APPLY(function() __tmp = ZEROQ(APPLY(function() VERB = GET(P_ITBL, P_VERB) return VERB end)) return __tmp end) then 
     	__tmp = TELL("There was no verb in that sentence!", CR)
     	error(false)
   end
@@ -1037,15 +1034,15 @@ SYNTAX_CHECK = function(...)
   local __prog12 = function()
     APPLY(function() NUM = BAND(GETB(SYN, P_SBITS), P_SONUMS) return NUM end)
     
-    if GQ(P_NCN, NUM) then 
+    if APPLY(function() __tmp = GQ(P_NCN, NUM) return __tmp end) then 
       	__tmp = T
-    elseif PASS(NOT(LQ(NUM, 1)) and ZEROQ(P_NCN) and PASS(ZEROQ(APPLY(function() PREP = GET(P_ITBL, P_PREP1) return PREP end)) or EQUALQ(PREP, GETB(SYN, P_SPREP1)))) then 
+    elseif APPLY(function() __tmp = PASS(NOT(LQ(NUM, 1)) and ZEROQ(P_NCN) and PASS(ZEROQ(APPLY(function() PREP = GET(P_ITBL, P_PREP1) return PREP end)) or EQUALQ(PREP, GETB(SYN, P_SPREP1)))) return __tmp end) then 
       	__tmp = APPLY(function() DRIVE1 = SYN return DRIVE1 end)
-    elseif EQUALQ(GETB(SYN, P_SPREP1), GET(P_ITBL, P_PREP1)) then 
+    elseif APPLY(function() __tmp = EQUALQ(GETB(SYN, P_SPREP1), GET(P_ITBL, P_PREP1)) return __tmp end) then 
       
-      if PASS(EQUALQ(NUM, 2) and EQUALQ(P_NCN, 1)) then 
+      if APPLY(function() __tmp = PASS(EQUALQ(NUM, 2) and EQUALQ(P_NCN, 1)) return __tmp end) then 
         	__tmp = APPLY(function() DRIVE2 = SYN return DRIVE2 end)
-      elseif EQUALQ(GETB(SYN, P_SPREP2), GET(P_ITBL, P_PREP2)) then 
+      elseif APPLY(function() __tmp = EQUALQ(GETB(SYN, P_SPREP2), GET(P_ITBL, P_PREP2)) return __tmp end) then 
         	__tmp = SYNTAX_FOUND(SYN)
         	error(true)
       end
@@ -1053,16 +1050,16 @@ SYNTAX_CHECK = function(...)
     end
 
     
-    if APPLY(function() LEN = LEN - 1 return LEN < 1 end) then 
+    if APPLY(function() __tmp = APPLY(function() LEN = LEN - 1 return LEN < 1 end) return __tmp end) then 
       
-      if PASS(DRIVE1 or DRIVE2) then 
+      if APPLY(function() __tmp = PASS(DRIVE1 or DRIVE2) return __tmp end) then 
         return true
-      elseif T then 
+      elseif APPLY(function() __tmp = T return __tmp end) then 
         	__tmp = TELL("That sentence isn't one I recognize.", CR)
         	error(false)
       end
 
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = APPLY(function() SYN = REST(SYN, P_SYNLEN) return SYN end)
     end
 
@@ -1075,44 +1072,44 @@ if not __ok12 then error(__res12)
 else __tmp = __res12 or true end
 
 
-  if PASS(DRIVE1 and APPLY(function() OBJ = GWIM(GETB(DRIVE1, P_SFWIM1), GETB(DRIVE1, P_SLOC1), GETB(DRIVE1, P_SPREP1)) return OBJ end)) then 
+  if APPLY(function() __tmp = PASS(DRIVE1 and APPLY(function() OBJ = GWIM(GETB(DRIVE1, P_SFWIM1), GETB(DRIVE1, P_SLOC1), GETB(DRIVE1, P_SPREP1)) return OBJ end)) return __tmp end) then 
     	__tmp = PUT(P_PRSO, P_MATCHLEN, 1)
     	__tmp = PUT(P_PRSO, 1, OBJ)
     	__tmp = SYNTAX_FOUND(DRIVE1)
-  elseif PASS(DRIVE2 and APPLY(function() OBJ = GWIM(GETB(DRIVE2, P_SFWIM2), GETB(DRIVE2, P_SLOC2), GETB(DRIVE2, P_SPREP2)) return OBJ end)) then 
+  elseif APPLY(function() __tmp = PASS(DRIVE2 and APPLY(function() OBJ = GWIM(GETB(DRIVE2, P_SFWIM2), GETB(DRIVE2, P_SLOC2), GETB(DRIVE2, P_SPREP2)) return OBJ end)) return __tmp end) then 
     	__tmp = PUT(P_PRSI, P_MATCHLEN, 1)
     	__tmp = PUT(P_PRSI, 1, OBJ)
     	__tmp = SYNTAX_FOUND(DRIVE2)
-  elseif EQUALQ(VERB, ACTQFIND) then 
+  elseif APPLY(function() __tmp = EQUALQ(VERB, ACTQFIND) return __tmp end) then 
     	__tmp = TELL("That question can't be answered.", CR)
     	error(false)
-  elseif NOT(EQUALQ(WINNER, PLAYER)) then 
+  elseif APPLY(function() __tmp = NOT(EQUALQ(WINNER, PLAYER)) return __tmp end) then 
     	__tmp = CANT_ORPHAN()
-  elseif T then 
+  elseif APPLY(function() __tmp = T return __tmp end) then 
     	__tmp = ORPHAN(DRIVE1, DRIVE2)
     	__tmp = TELL("What do you want to ")
     	__tmp = APPLY(function() TMP = GET(P_OTBL, P_VERBN) return TMP end)
     
-    if EQUALQ(TMP, 0) then 
+    if APPLY(function() __tmp = EQUALQ(TMP, 0) return __tmp end) then 
       	__tmp = TELL("tell")
-    elseif ZEROQ(GETB(P_VTBL, 2)) then 
+    elseif APPLY(function() __tmp = ZEROQ(GETB(P_VTBL, 2)) return __tmp end) then 
       	__tmp = PRINTB(GET(TMP, 0))
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = WORD_PRINT(GETB(TMP, 2), GETB(TMP, 3))
       	__tmp = PUTB(P_VTBL, 2, 0)
     end
 
     
-    if DRIVE2 then 
+    if APPLY(function() __tmp = DRIVE2 return __tmp end) then 
       	__tmp = TELL(" ")
       	__tmp = THING_PRINT(T, T)
     end
 
     	__tmp = APPLY(function() P_OFLAG = T return P_OFLAG end)
     	__tmp = PREP_PRINT(APPLY(function()
-      if DRIVE1 then 
+      if APPLY(function() __tmp = DRIVE1 return __tmp end) then 
         	__tmp = GETB(DRIVE1, P_SPREP1)
-      elseif T then 
+      elseif APPLY(function() __tmp = T return __tmp end) then 
         	__tmp = GETB(DRIVE2, P_SPREP2)
       end
  end))
@@ -1141,7 +1138,7 @@ ORPHAN = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if NOT(P_MERGED) then 
+  if APPLY(function() __tmp = NOT(P_MERGED) return __tmp end) then 
     	__tmp = PUT(P_OCLAUSE, P_MATCHLEN, 0)
   end
 
@@ -1151,9 +1148,9 @@ ORPHAN = function(...)
 
   local __prog13 = function()
     
-    if APPLY(function() CNT = CNT + 1 return CNT > P_ITBLLEN end) then 
+    if APPLY(function() __tmp = APPLY(function() CNT = CNT + 1 return CNT > P_ITBLLEN end) return __tmp end) then 
       return true
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = PUT(P_OTBL, CNT, GET(P_ITBL, CNT))
     end
 
@@ -1166,7 +1163,7 @@ if not __ok13 then error(__res13)
 else __tmp = __res13 or true end
 
 
-  if EQUALQ(P_NCN, 2) then 
+  if APPLY(function() __tmp = EQUALQ(P_NCN, 2) return __tmp end) then 
     	__tmp = PUT(P_CCTBL, CC_SBPTR, P_NC2)
     	__tmp = PUT(P_CCTBL, CC_SEPTR, P_NC2L)
     	__tmp = PUT(P_CCTBL, CC_DBPTR, P_NC2)
@@ -1175,7 +1172,7 @@ else __tmp = __res13 or true end
   end
 
 
-  if NOT(LQ(P_NCN, 1)) then 
+  if APPLY(function() __tmp = NOT(LQ(P_NCN, 1)) return __tmp end) then 
     	__tmp = PUT(P_CCTBL, CC_SBPTR, P_NC1)
     	__tmp = PUT(P_CCTBL, CC_SEPTR, P_NC1L)
     	__tmp = PUT(P_CCTBL, CC_DBPTR, P_NC1)
@@ -1184,10 +1181,10 @@ else __tmp = __res13 or true end
   end
 
 
-  if D1 then 
+  if APPLY(function() __tmp = D1 return __tmp end) then 
     	__tmp = PUT(P_OTBL, P_PREP1, GETB(D1, P_SPREP1))
     	__tmp = PUT(P_OTBL, P_NC1, 1)
-  elseif D2 then 
+  elseif APPLY(function() __tmp = D2 return __tmp end) then 
     	__tmp = PUT(P_OTBL, P_PREP2, GETB(D2, P_SPREP2))
     	__tmp = PUT(P_OTBL, P_NC2, 1)
   end
@@ -1205,7 +1202,7 @@ THING_PRINT = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if PRSOQ then 
+  if APPLY(function() __tmp = PRSOQ return __tmp end) then 
     	__tmp = APPLY(function() BEG = GET(P_ITBL, P_NC1) return BEG end)
     	__tmp = APPLY(function() END = GET(P_ITBL, P_NC1L) return END end)
   else 
@@ -1231,40 +1228,40 @@ BUFFER_PRINT = function(...)
 
   local __prog14 = function()
     
-    if EQUALQ(BEG, END) then 
+    if APPLY(function() __tmp = EQUALQ(BEG, END) return __tmp end) then 
       return true
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = APPLY(function() WRD = GET(BEG, 0) return WRD end)
       
-      if EQUALQ(WRD, WQCOMMA) then 
+      if APPLY(function() __tmp = EQUALQ(WRD, WQCOMMA) return __tmp end) then 
         	__tmp = TELL(", ")
-      elseif NOSP then 
+      elseif APPLY(function() __tmp = NOSP return __tmp end) then 
         	__tmp = APPLY(function() NOSP = nil return NOSP end)
       else 
         	__tmp = TELL(" ")
       end
 
       
-      if EQUALQ(WRD, WQPERIOD, WQCOMMA) then 
+      if APPLY(function() __tmp = EQUALQ(WRD, WQPERIOD, WQCOMMA) return __tmp end) then 
         	__tmp = APPLY(function() NOSP = T return NOSP end)
-      elseif EQUALQ(WRD, WQME) then 
+      elseif APPLY(function() __tmp = EQUALQ(WRD, WQME) return __tmp end) then 
         	__tmp = PRINTD(ME)
         	__tmp = APPLY(function() PN = T return PN end)
-      elseif EQUALQ(WRD, WQINTNUM) then 
+      elseif APPLY(function() __tmp = EQUALQ(WRD, WQINTNUM) return __tmp end) then 
         	__tmp = PRINTN(P_NUMBER)
         	__tmp = APPLY(function() PN = T return PN end)
-      elseif T then 
+      elseif APPLY(function() __tmp = T return __tmp end) then 
         
-        if PASS(FIRSTQQ and NOT(PN) and CP) then 
+        if APPLY(function() __tmp = PASS(FIRSTQQ and NOT(PN) and CP) return __tmp end) then 
           	__tmp = TELL("the ")
         end
 
         
-        if PASS(P_OFLAG or P_MERGED) then 
+        if APPLY(function() __tmp = PASS(P_OFLAG or P_MERGED) return __tmp end) then 
           	__tmp = PRINTB(WRD)
-        elseif PASS(EQUALQ(WRD, WQIT) and ACCESSIBLEQ(P_IT_OBJECT)) then 
+        elseif APPLY(function() __tmp = PASS(EQUALQ(WRD, WQIT) and ACCESSIBLEQ(P_IT_OBJECT)) return __tmp end) then 
           	__tmp = PRINTD(P_IT_OBJECT)
-        elseif T then 
+        elseif APPLY(function() __tmp = T return __tmp end) then 
           	__tmp = WORD_PRINT(GETB(BEG, 2), GETB(BEG, 3))
         end
 
@@ -1293,10 +1290,10 @@ PREP_PRINT = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if NOT(ZEROQ(PREP)) then 
+  if APPLY(function() __tmp = NOT(ZEROQ(PREP)) return __tmp end) then 
     	__tmp = TELL(" ")
     
-    if T then 
+    if APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = APPLY(function() WRD = PREP_FIND(PREP) return WRD end)
       	__tmp = PRINTB(WRD)
     end
@@ -1321,12 +1318,12 @@ CLAUSE_COPY = function(...)
 
   local __prog15 = function()
     
-    if EQUALQ(BEG, END) then 
+    if APPLY(function() __tmp = EQUALQ(BEG, END) return __tmp end) then 
       	__tmp = PUT(DEST, GET(P_CCTBL, CC_DEPTR), REST(P_OCLAUSE, ADD(MULL(GET(P_OCLAUSE, P_MATCHLEN), P_LEXELEN), 2)))
       return true
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       
-      if PASS(INSRT and EQUALQ(P_ANAM, GET(BEG, 0))) then 
+      if APPLY(function() __tmp = PASS(INSRT and EQUALQ(P_ANAM, GET(BEG, 0))) return __tmp end) then 
         	__tmp = CLAUSE_ADD(INSRT)
       end
 
@@ -1371,9 +1368,9 @@ PREP_FIND = function(...)
 
   local __prog16 = function()
     
-    if APPLY(function() CNT = CNT + 1 return CNT > SIZE end) then 
+    if APPLY(function() __tmp = APPLY(function() CNT = CNT + 1 return CNT > SIZE end) return __tmp end) then 
       	error(false)
-    elseif EQUALQ(GET(PREPOSITIONS, CNT), PREP) then 
+    elseif APPLY(function() __tmp = EQUALQ(GET(PREPOSITIONS, CNT), PREP) return __tmp end) then 
       error(GET(PREPOSITIONS, SUB(CNT, 1)))
     end
 
@@ -1408,7 +1405,7 @@ GWIM = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if EQUALQ(GBIT, RMUNGBIT) then 
+  if APPLY(function() __tmp = EQUALQ(GBIT, RMUNGBIT) return __tmp end) then 
     error(ROOMS)
   end
 
@@ -1416,25 +1413,25 @@ GWIM = function(...)
 	__tmp = APPLY(function() P_SLOCBITS = LBIT return P_SLOCBITS end)
 	__tmp =   PUT(P_MERGE, P_MATCHLEN, 0)
 
-  if GET_OBJECT(P_MERGE, nil) then 
+  if APPLY(function() __tmp = GET_OBJECT(P_MERGE, nil) return __tmp end) then 
     	__tmp = APPLY(function() P_GWIMBIT = 0 return P_GWIMBIT end)
     
-    if EQUALQ(GET(P_MERGE, P_MATCHLEN), 1) then 
+    if APPLY(function() __tmp = EQUALQ(GET(P_MERGE, P_MATCHLEN), 1) return __tmp end) then 
       	__tmp = APPLY(function() OBJ = GET(P_MERGE, 1) return OBJ end)
       	__tmp = TELL("(")
       
-      if PASS(NOT(ZEROQ(PREP)) and NOT(P_END_ON_PREP)) then 
+      if APPLY(function() __tmp = PASS(NOT(ZEROQ(PREP)) and NOT(P_END_ON_PREP)) return __tmp end) then 
         	__tmp = PRINTB(APPLY(function() PREP = PREP_FIND(PREP) return PREP end))
         
-        if EQUALQ(PREP, WQOUT) then 
+        if APPLY(function() __tmp = EQUALQ(PREP, WQOUT) return __tmp end) then 
           	__tmp = TELL(" of")
         end
 
         	__tmp = TELL(" ")
         
-        if EQUALQ(OBJ, HANDS) then 
+        if APPLY(function() __tmp = EQUALQ(OBJ, HANDS) return __tmp end) then 
           	__tmp = TELL("your hands")
-        elseif T then 
+        elseif APPLY(function() __tmp = T return __tmp end) then 
           	__tmp = TELL("the ", D, OBJ)
         end
 
@@ -1446,7 +1443,7 @@ GWIM = function(...)
       	__tmp = OBJ
     end
 
-  elseif T then 
+  elseif APPLY(function() __tmp = T return __tmp end) then 
     	__tmp = APPLY(function() P_GWIMBIT = 0 return P_GWIMBIT end)
     	error(false)
   end
@@ -1464,27 +1461,27 @@ SNARF_OBJECTS = function(...)
 	local __tmp = nil
 	__tmp =   PUT(P_BUTS, P_MATCHLEN, 0)
 
-  if NOT(EQUALQ(APPLY(function() IPTR = GET(P_ITBL, P_NC2) return IPTR end), 0)) then 
+  if APPLY(function() __tmp = NOT(EQUALQ(APPLY(function() IPTR = GET(P_ITBL, P_NC2) return IPTR end), 0)) return __tmp end) then 
     	__tmp = APPLY(function() P_SLOCBITS = GETB(P_SYNTAX, P_SLOC2) return P_SLOCBITS end)
     	__tmp = PASS(SNARFEM(IPTR, GET(P_ITBL, P_NC2L), P_PRSI) or 	error(false))
   end
 
 
-  if NOT(EQUALQ(APPLY(function() OPTR = GET(P_ITBL, P_NC1) return OPTR end), 0)) then 
+  if APPLY(function() __tmp = NOT(EQUALQ(APPLY(function() OPTR = GET(P_ITBL, P_NC1) return OPTR end), 0)) return __tmp end) then 
     	__tmp = APPLY(function() P_SLOCBITS = GETB(P_SYNTAX, P_SLOC1) return P_SLOCBITS end)
     	__tmp = PASS(SNARFEM(OPTR, GET(P_ITBL, P_NC1L), P_PRSO) or 	error(false))
   end
 
 
-  if NOT(ZEROQ(GET(P_BUTS, P_MATCHLEN))) then 
+  if APPLY(function() __tmp = NOT(ZEROQ(GET(P_BUTS, P_MATCHLEN))) return __tmp end) then 
     	__tmp = APPLY(function() L = GET(P_PRSO, P_MATCHLEN) return L end)
     
-    if OPTR then 
+    if APPLY(function() __tmp = OPTR return __tmp end) then 
       	__tmp = APPLY(function() P_PRSO = BUT_MERGE(P_PRSO) return P_PRSO end)
     end
 
     
-    if PASS(IPTR and PASS(NOT(OPTR) or EQUALQ(L, GET(P_PRSO, P_MATCHLEN)))) then 
+    if APPLY(function() __tmp = PASS(IPTR and PASS(NOT(OPTR) or EQUALQ(L, GET(P_PRSO, P_MATCHLEN)))) return __tmp end) then 
       	__tmp = APPLY(function() P_PRSI = BUT_MERGE(P_PRSI) return P_PRSI end)
     end
 
@@ -1511,11 +1508,10 @@ BUT_MERGE = function(...)
 
   local __prog17 = function()
     
-    if APPLY(function() LEN = LEN - 1 return LEN < 0 end) then 
+    if APPLY(function() __tmp = APPLY(function() LEN = LEN - 1 return LEN < 0 end) return __tmp end) then 
       return true
-    elseif ZMEMQ(APPLY(function() OBJ = GET(TBL, CNT) return OBJ end), P_BUTS) then 
-      	__tmp = ZMEMQ(APPLY(function() OBJ = GET(TBL, CNT) return OBJ end), P_BUTS)
-    elseif T then 
+    elseif APPLY(function() __tmp = ZMEMQ(APPLY(function() OBJ = GET(TBL, CNT) return OBJ end), P_BUTS) return __tmp end) then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = PUT(P_MERGE, ADD(MATCHES, 1), OBJ)
       	__tmp = APPLY(function() MATCHES = ADD(MATCHES, 1) return MATCHES end)
     end
@@ -1565,7 +1561,7 @@ SNARFEM = function(...)
 	local __tmp = nil
 	__tmp = APPLY(function() P_AND = nil return P_AND end)
 
-  if EQUALQ(P_GETFLAGS, P_ALL) then 
+  if APPLY(function() __tmp = EQUALQ(P_GETFLAGS, P_ALL) return __tmp end) then 
     	__tmp = APPLY(function() WAS_ALL = T return WAS_ALL end)
   end
 
@@ -1575,67 +1571,65 @@ SNARFEM = function(...)
 
   local __prog18 = function()
     
-    if EQUALQ(PTR, EPTR) then 
+    if APPLY(function() __tmp = EQUALQ(PTR, EPTR) return __tmp end) then 
       	__tmp = APPLY(function() WV = GET_OBJECT(PASS(BUT or TBL)) return WV end)
       
-      if WAS_ALL then 
+      if APPLY(function() __tmp = WAS_ALL return __tmp end) then 
         	__tmp = APPLY(function() P_GETFLAGS = P_ALL return P_GETFLAGS end)
       end
 
       error(WV)
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       
-      if EQUALQ(EPTR, REST(PTR, P_WORDLEN)) then 
+      if APPLY(function() __tmp = EQUALQ(EPTR, REST(PTR, P_WORDLEN)) return __tmp end) then 
         	__tmp = APPLY(function() NW = 0 return NW end)
-      elseif T then 
+      elseif APPLY(function() __tmp = T return __tmp end) then 
         	__tmp = APPLY(function() NW = GET(PTR, P_LEXELEN) return NW end)
       end
 
       
-      if EQUALQ(WRD, WQALL) then 
+      if APPLY(function() __tmp = EQUALQ(WRD, WQALL) return __tmp end) then 
         	__tmp = APPLY(function() P_GETFLAGS = P_ALL return P_GETFLAGS end)
         
-        if EQUALQ(NW, WQOF) then 
+        if APPLY(function() __tmp = EQUALQ(NW, WQOF) return __tmp end) then 
           	__tmp = APPLY(function() PTR = REST(PTR, P_WORDLEN) return PTR end)
         end
 
-      elseif EQUALQ(WRD, WQBUT, WQEXCEPT) then 
+      elseif APPLY(function() __tmp = EQUALQ(WRD, WQBUT, WQEXCEPT) return __tmp end) then 
         	__tmp = PASS(GET_OBJECT(PASS(BUT or TBL)) or 	error(false))
         	__tmp = APPLY(function() BUT = P_BUTS return BUT end)
         	__tmp = PUT(BUT, P_MATCHLEN, 0)
-      elseif EQUALQ(WRD, WQA, WQONE) then 
+      elseif APPLY(function() __tmp = EQUALQ(WRD, WQA, WQONE) return __tmp end) then 
         
-        if NOT(P_ADJ) then 
+        if APPLY(function() __tmp = NOT(P_ADJ) return __tmp end) then 
           	__tmp = APPLY(function() P_GETFLAGS = P_ONE return P_GETFLAGS end)
           
-          if EQUALQ(NW, WQOF) then 
+          if APPLY(function() __tmp = EQUALQ(NW, WQOF) return __tmp end) then 
             	__tmp = APPLY(function() PTR = REST(PTR, P_WORDLEN) return PTR end)
           end
 
-        elseif T then 
+        elseif APPLY(function() __tmp = T return __tmp end) then 
           	__tmp = APPLY(function() P_NAM = P_ONEOBJ return P_NAM end)
           	__tmp = PASS(GET_OBJECT(PASS(BUT or TBL)) or 	error(false))
           	__tmp = PASS(ZEROQ(NW) and 	error(true))
         end
 
-      elseif PASS(EQUALQ(WRD, WQAND, WQCOMMA) and NOT(EQUALQ(NW, WQAND, WQCOMMA))) then 
+      elseif APPLY(function() __tmp = PASS(EQUALQ(WRD, WQAND, WQCOMMA) and NOT(EQUALQ(NW, WQAND, WQCOMMA))) return __tmp end) then 
         	__tmp = APPLY(function() P_AND = T return P_AND end)
         	__tmp = PASS(GET_OBJECT(PASS(BUT or TBL)) or 	error(false))
         	__tmp = T
-      elseif WTQ(WRD, PSQBUZZ_WORD) then 
-        	__tmp = WTQ(WRD, PSQBUZZ_WORD)
-      elseif EQUALQ(WRD, WQAND, WQCOMMA) then 
-        	__tmp = EQUALQ(WRD, WQAND, WQCOMMA)
-      elseif EQUALQ(WRD, WQOF) then 
+      elseif APPLY(function() __tmp = WTQ(WRD, PSQBUZZ_WORD) return __tmp end) then 
+      elseif APPLY(function() __tmp = EQUALQ(WRD, WQAND, WQCOMMA) return __tmp end) then 
+      elseif APPLY(function() __tmp = EQUALQ(WRD, WQOF) return __tmp end) then 
         
-        if ZEROQ(P_GETFLAGS) then 
+        if APPLY(function() __tmp = ZEROQ(P_GETFLAGS) return __tmp end) then 
           	__tmp = APPLY(function() P_GETFLAGS = P_INHIBIT return P_GETFLAGS end)
         end
 
-      elseif PASS(APPLY(function() WV = WTQ(WRD, PSQADJECTIVE, P1QADJECTIVE) return WV end) and NOT(P_ADJ)) then 
+      elseif APPLY(function() __tmp = PASS(APPLY(function() WV = WTQ(WRD, PSQADJECTIVE, P1QADJECTIVE) return WV end) and NOT(P_ADJ)) return __tmp end) then 
         	__tmp = APPLY(function() P_ADJ = WV return P_ADJ end)
         	__tmp = APPLY(function() P_ADJN = WRD return P_ADJN end)
-      elseif WTQ(WRD, PSQOBJECT, P1QOBJECT) then 
+      elseif APPLY(function() __tmp = WTQ(WRD, PSQOBJECT, P1QOBJECT) return __tmp end) then 
         	__tmp = APPLY(function() P_NAM = WRD return P_NAM end)
         	__tmp = APPLY(function() P_ONEOBJ = WRD return P_ONEOBJ end)
       end
@@ -1643,7 +1637,7 @@ SNARFEM = function(...)
     end
 
     
-    if NOT(EQUALQ(PTR, EPTR)) then 
+    if APPLY(function() __tmp = NOT(EQUALQ(PTR, EPTR)) return __tmp end) then 
       	__tmp = APPLY(function() PTR = REST(PTR, P_WORDLEN) return PTR end)
       	__tmp = APPLY(function() WRD = NW return WRD end)
     end
@@ -1683,26 +1677,26 @@ GET_OBJECT = function(...)
 	__tmp = APPLY(function() XBITS = P_SLOCBITS return XBITS end)
 	__tmp = APPLY(function() TLEN = GET(TBL, P_MATCHLEN) return TLEN end)
 
-  if BTST(P_GETFLAGS, P_INHIBIT) then 
+  if APPLY(function() __tmp = BTST(P_GETFLAGS, P_INHIBIT) return __tmp end) then 
     	error(true)
   end
 
 
-  if PASS(NOT(P_NAM) and P_ADJ) then 
+  if APPLY(function() __tmp = PASS(NOT(P_NAM) and P_ADJ) return __tmp end) then 
     
-    if WTQ(P_ADJN, PSQOBJECT, P1QOBJECT) then 
+    if APPLY(function() __tmp = WTQ(P_ADJN, PSQOBJECT, P1QOBJECT) return __tmp end) then 
       	__tmp = APPLY(function() P_NAM = P_ADJN return P_NAM end)
       	__tmp = APPLY(function() P_ADJ = nil return P_ADJ end)
-    elseif NULL_F() then 
+    elseif APPLY(function() __tmp = NULL_F() return __tmp end) then 
       	__tmp = T
     end
 
   end
 
 
-  if PASS(NOT(P_NAM) and NOT(P_ADJ) and NOT(EQUALQ(P_GETFLAGS, P_ALL)) and ZEROQ(P_GWIMBIT)) then 
+  if APPLY(function() __tmp = PASS(NOT(P_NAM) and NOT(P_ADJ) and NOT(EQUALQ(P_GETFLAGS, P_ALL)) and ZEROQ(P_GWIMBIT)) return __tmp end) then 
     
-    if VRB then 
+    if APPLY(function() __tmp = VRB return __tmp end) then 
       	__tmp = TELL("There seems to be a noun missing in that sentence!", CR)
     end
 
@@ -1710,7 +1704,7 @@ GET_OBJECT = function(...)
   end
 
 
-  if PASS(NOT(EQUALQ(P_GETFLAGS, P_ALL)) or ZEROQ(P_SLOCBITS)) then 
+  if APPLY(function() __tmp = PASS(NOT(EQUALQ(P_GETFLAGS, P_ALL)) or ZEROQ(P_SLOCBITS)) return __tmp end) then 
     	__tmp = APPLY(function() P_SLOCBITS = -1 return P_SLOCBITS end)
   end
 
@@ -1718,11 +1712,11 @@ GET_OBJECT = function(...)
 
   local __prog19 = function()
     
-    if GCHECK then 
+    if APPLY(function() __tmp = GCHECK return __tmp end) then 
       	__tmp = GLOBAL_CHECK(TBL)
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       
-      if LIT then 
+      if APPLY(function() __tmp = LIT return __tmp end) then 
         	__tmp = FCLEAR(PLAYER, TRANSBIT)
         	__tmp = DO_SL(HERE, SOG, SIR)
         	__tmp = FSET(PLAYER, TRANSBIT)
@@ -1731,11 +1725,10 @@ GET_OBJECT = function(...)
       	__tmp = DO_SL(PLAYER, SH, SC)
     end
     APPLY(function() LEN = SUB(GET(TBL, P_MATCHLEN), TLEN) return LEN end)    
-    if BTST(P_GETFLAGS, P_ALL) then 
-      	__tmp = BTST(P_GETFLAGS, P_ALL)
-    elseif PASS(BTST(P_GETFLAGS, P_ONE) and NOT(ZEROQ(LEN))) then 
+    if APPLY(function() __tmp = BTST(P_GETFLAGS, P_ALL) return __tmp end) then 
+    elseif APPLY(function() __tmp = PASS(BTST(P_GETFLAGS, P_ONE) and NOT(ZEROQ(LEN))) return __tmp end) then 
       
-      if NOT(EQUALQ(LEN, 1)) then 
+      if APPLY(function() __tmp = NOT(EQUALQ(LEN, 1)) return __tmp end) then 
         	__tmp = PUT(TBL, 1, GET(TBL, RANDOM(LEN)))
         	__tmp = TELL("(How about the ")
         	__tmp = PRINTD(GET(TBL, 1))
@@ -1743,29 +1736,29 @@ GET_OBJECT = function(...)
       end
 
       	__tmp = PUT(TBL, P_MATCHLEN, 1)
-    elseif PASS(GQ(LEN, 1) or PASS(ZEROQ(LEN) and NOT(EQUALQ(P_SLOCBITS, -1)))) then 
+    elseif APPLY(function() __tmp = PASS(GQ(LEN, 1) or PASS(ZEROQ(LEN) and NOT(EQUALQ(P_SLOCBITS, -1)))) return __tmp end) then 
       
-      if EQUALQ(P_SLOCBITS, -1) then 
+      if APPLY(function() __tmp = EQUALQ(P_SLOCBITS, -1) return __tmp end) then 
         	__tmp = APPLY(function() P_SLOCBITS = XBITS return P_SLOCBITS end)
         	__tmp = APPLY(function() OLEN = LEN return OLEN end)
         	__tmp = PUT(TBL, P_MATCHLEN, SUB(GET(TBL, P_MATCHLEN), LEN))
         	error(123)
-      elseif T then 
+      elseif APPLY(function() __tmp = T return __tmp end) then 
         
-        if ZEROQ(LEN) then 
+        if APPLY(function() __tmp = ZEROQ(LEN) return __tmp end) then 
           	__tmp = APPLY(function() LEN = OLEN return LEN end)
         end
 
         
-        if NOT(EQUALQ(WINNER, PLAYER)) then 
+        if APPLY(function() __tmp = NOT(EQUALQ(WINNER, PLAYER)) return __tmp end) then 
           	__tmp = CANT_ORPHAN()
           	error(false)
-        elseif PASS(VRB and P_NAM) then 
+        elseif APPLY(function() __tmp = PASS(VRB and P_NAM) return __tmp end) then 
           	__tmp = WHICH_PRINT(TLEN, LEN, TBL)
           	__tmp = APPLY(function() P_ACLAUSE = APPLY(function()
-            if EQUALQ(TBL, P_PRSO) then 
+            if APPLY(function() __tmp = EQUALQ(TBL, P_PRSO) return __tmp end) then 
               	__tmp = P_NC1
-            elseif T then 
+            elseif APPLY(function() __tmp = T return __tmp end) then 
               	__tmp = P_NC2
             end
  return __tmp end) return P_ACLAUSE end)
@@ -1773,7 +1766,7 @@ GET_OBJECT = function(...)
           	__tmp = APPLY(function() P_ANAM = P_NAM return P_ANAM end)
           	__tmp = ORPHAN(nil, nil)
           	__tmp = APPLY(function() P_OFLAG = T return P_OFLAG end)
-        elseif VRB then 
+        elseif APPLY(function() __tmp = VRB return __tmp end) then 
           	__tmp = TELL("There seems to be a noun missing in that sentence!", CR)
         end
 
@@ -1784,12 +1777,12 @@ GET_OBJECT = function(...)
 
     end
     
-    if PASS(ZEROQ(LEN) and GCHECK) then 
+    if APPLY(function() __tmp = PASS(ZEROQ(LEN) and GCHECK) return __tmp end) then 
       
-      if VRB then 
+      if APPLY(function() __tmp = VRB return __tmp end) then 
         	__tmp = APPLY(function() P_SLOCBITS = XBITS return P_SLOCBITS end)
         
-        if PASS(LIT or VERBQ(TELL)) then 
+        if APPLY(function() __tmp = PASS(LIT or VERBQ(TELL)) return __tmp end) then 
           	__tmp = OBJ_FOUND(NOT_HERE_OBJECT, TBL)
           	__tmp = APPLY(function() P_XNAM = P_NAM return P_XNAM end)
           	__tmp = APPLY(function() P_XADJ = P_ADJ return P_XADJ end)
@@ -1798,7 +1791,7 @@ GET_OBJECT = function(...)
           	__tmp = APPLY(function() P_ADJ = nil return P_ADJ end)
           	__tmp = APPLY(function() P_ADJN = nil return P_ADJN end)
           	error(true)
-        elseif T then 
+        elseif APPLY(function() __tmp = T return __tmp end) then 
           	__tmp = TELL("It's too dark to see!", CR)
         end
 
@@ -1807,7 +1800,7 @@ GET_OBJECT = function(...)
       	__tmp = APPLY(function() P_NAM = nil return P_NAM end)
       	__tmp = APPLY(function() P_ADJ = nil return P_ADJ end)
       	error(false)
-    elseif ZEROQ(LEN) then 
+    elseif APPLY(function() __tmp = ZEROQ(LEN) return __tmp end) then 
       	__tmp = APPLY(function() GCHECK = T return GCHECK end)
       	error(123)
     end
@@ -1835,11 +1828,11 @@ WHICH_PRINT = function(...)
 	__tmp = APPLY(function() RLEN = LEN return RLEN end)
 	__tmp =   TELL("Which ")
 
-  if PASS(P_OFLAG or P_MERGED or P_AND) then 
+  if APPLY(function() __tmp = PASS(P_OFLAG or P_MERGED or P_AND) return __tmp end) then 
     	__tmp = PRINTB(APPLY(function()
-      if P_NAM then 
+      if APPLY(function() __tmp = P_NAM return __tmp end) then 
         	__tmp = P_NAM
-      elseif P_ADJ then 
+      elseif APPLY(function() __tmp = P_ADJ return __tmp end) then 
         	__tmp = P_ADJN
       else 
         	__tmp = WQONE
@@ -1856,19 +1849,19 @@ WHICH_PRINT = function(...)
     APPLY(function() OBJ = GET(TBL, TLEN) return OBJ end)
     TELL("the ", D, OBJ)
     
-    if EQUALQ(LEN, 2) then 
+    if APPLY(function() __tmp = EQUALQ(LEN, 2) return __tmp end) then 
       
-      if NOT(EQUALQ(RLEN, 2)) then 
+      if APPLY(function() __tmp = NOT(EQUALQ(RLEN, 2)) return __tmp end) then 
         	__tmp = TELL(",")
       end
 
       	__tmp = TELL(" or ")
-    elseif GQ(LEN, 2) then 
+    elseif APPLY(function() __tmp = GQ(LEN, 2) return __tmp end) then 
       	__tmp = TELL(", ")
     end
 
     
-    if LQ(APPLY(function() LEN = SUB(LEN, 1) return LEN end), 1) then 
+    if APPLY(function() __tmp = LQ(APPLY(function() LEN = SUB(LEN, 1) return LEN end), 1) return __tmp end) then 
       	__tmp = TELL("?", CR)
       return true
     end
@@ -1900,17 +1893,17 @@ GLOBAL_CHECK = function(...)
 	__tmp = APPLY(function() LEN = GET(TBL, P_MATCHLEN) return LEN end)
 	__tmp = APPLY(function() OBITS = P_SLOCBITS return OBITS end)
 
-  if APPLY(function() RMG = GETPT(HERE, PQGLOBAL) return RMG end) then 
+  if APPLY(function() __tmp = APPLY(function() RMG = GETPT(HERE, PQGLOBAL) return RMG end) return __tmp end) then 
     	__tmp = APPLY(function() RMGL = SUB(PTSIZE(RMG), 1) return RMGL end)
     
     local __prog21 = function()
       
-      if THIS_ITQ(APPLY(function() OBJ = GETB(RMG, CNT) return OBJ end), TBL) then 
+      if APPLY(function() __tmp = THIS_ITQ(APPLY(function() OBJ = GETB(RMG, CNT) return OBJ end), TBL) return __tmp end) then 
         	__tmp = OBJ_FOUND(OBJ, TBL)
       end
 
       
-      if APPLY(function() CNT = CNT + 1 return CNT > RMGL end) then 
+      if APPLY(function() __tmp = APPLY(function() CNT = CNT + 1 return CNT > RMGL end) return __tmp end) then 
         return true
       end
 
@@ -1925,20 +1918,20 @@ else __tmp = __res21 or true end
   end
 
 
-  if APPLY(function() RMG = GETPT(HERE, PQPSEUDO) return RMG end) then 
+  if APPLY(function() __tmp = APPLY(function() RMG = GETPT(HERE, PQPSEUDO) return RMG end) return __tmp end) then 
     	__tmp = APPLY(function() RMGL = SUB(DIV(PTSIZE(RMG), 4), 1) return RMGL end)
     	__tmp = APPLY(function() CNT = 0 return CNT end)
     
     local __prog22 = function()
       
-      if EQUALQ(P_NAM, GET(RMG, MULL(CNT, 2))) then 
+      if APPLY(function() __tmp = EQUALQ(P_NAM, GET(RMG, MULL(CNT, 2))) return __tmp end) then 
         	__tmp = PUTP(PSEUDO_OBJECT, PQACTION, GET(RMG, ADD(MULL(CNT, 2), 1)))
         	__tmp = APPLY(function() FOO = BACK(GETPT(PSEUDO_OBJECT, PQACTION), 5) return FOO end)
         	__tmp = PUT(FOO, 0, GET(P_NAM, 0))
         	__tmp = PUT(FOO, 1, GET(P_NAM, 1))
         	__tmp = OBJ_FOUND(PSEUDO_OBJECT, TBL)
         return true
-      elseif APPLY(function() CNT = CNT + 1 return CNT > RMGL end) then 
+      elseif APPLY(function() __tmp = APPLY(function() CNT = CNT + 1 return CNT > RMGL end) return __tmp end) then 
         return true
       end
 
@@ -1953,13 +1946,13 @@ else __tmp = __res22 or true end
   end
 
 
-  if EQUALQ(GET(TBL, P_MATCHLEN), LEN) then 
+  if APPLY(function() __tmp = EQUALQ(GET(TBL, P_MATCHLEN), LEN) return __tmp end) then 
     	__tmp = APPLY(function() P_SLOCBITS = -1 return P_SLOCBITS end)
     	__tmp = APPLY(function() P_TABLE = TBL return P_TABLE end)
     	__tmp = DO_SL(GLOBAL_OBJECTS, 1, 1)
     	__tmp = APPLY(function() P_SLOCBITS = OBITS return P_SLOCBITS end)
     
-    if PASS(ZEROQ(GET(TBL, P_MATCHLEN)) and EQUALQ(PRSA, VQLOOK_INSIDE, VQSEARCH, VQEXAMINE)) then 
+    if APPLY(function() __tmp = PASS(ZEROQ(GET(TBL, P_MATCHLEN)) and EQUALQ(PRSA, VQLOOK_INSIDE, VQSEARCH, VQEXAMINE)) return __tmp end) then 
       	__tmp = DO_SL(ROOMS, 1, 1)
     end
 
@@ -1976,15 +1969,15 @@ DO_SL = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if BTST(P_SLOCBITS, ADD(BIT1, BIT2)) then 
+  if APPLY(function() __tmp = BTST(P_SLOCBITS, ADD(BIT1, BIT2)) return __tmp end) then 
     	__tmp = SEARCH_LIST(OBJ, P_TABLE, P_SRCALL)
-  elseif T then 
+  elseif APPLY(function() __tmp = T return __tmp end) then 
     
-    if BTST(P_SLOCBITS, BIT1) then 
+    if APPLY(function() __tmp = BTST(P_SLOCBITS, BIT1) return __tmp end) then 
       	__tmp = SEARCH_LIST(OBJ, P_TABLE, P_SRCTOP)
-    elseif BTST(P_SLOCBITS, BIT2) then 
+    elseif APPLY(function() __tmp = BTST(P_SLOCBITS, BIT2) return __tmp end) then 
       	__tmp = SEARCH_LIST(OBJ, P_TABLE, P_SRCBOT)
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	error(true)
     end
 
@@ -2005,31 +1998,30 @@ SEARCH_LIST = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if APPLY(function() OBJ = FIRSTQ(OBJ) return OBJ end) then 
+  if APPLY(function() __tmp = APPLY(function() OBJ = FIRSTQ(OBJ) return OBJ end) return __tmp end) then 
     
     local __prog23 = function()
       
-      if PASS(NOT(EQUALQ(LVL, P_SRCBOT)) and GETPT(OBJ, PQSYNONYM) and THIS_ITQ(OBJ, TBL)) then 
+      if APPLY(function() __tmp = PASS(NOT(EQUALQ(LVL, P_SRCBOT)) and GETPT(OBJ, PQSYNONYM) and THIS_ITQ(OBJ, TBL)) return __tmp end) then 
         	__tmp = OBJ_FOUND(OBJ, TBL)
       end
 
       
-      if PASS(PASS(NOT(EQUALQ(LVL, P_SRCTOP)) or FSETQ(OBJ, SEARCHBIT) or FSETQ(OBJ, SURFACEBIT)) and APPLY(function() NOBJ = FIRSTQ(OBJ) return NOBJ end) and PASS(FSETQ(OBJ, OPENBIT) or FSETQ(OBJ, TRANSBIT))) then 
+      if APPLY(function() __tmp = PASS(PASS(NOT(EQUALQ(LVL, P_SRCTOP)) or FSETQ(OBJ, SEARCHBIT) or FSETQ(OBJ, SURFACEBIT)) and APPLY(function() NOBJ = FIRSTQ(OBJ) return NOBJ end) and PASS(FSETQ(OBJ, OPENBIT) or FSETQ(OBJ, TRANSBIT))) return __tmp end) then 
         	__tmp = APPLY(function() FLS = SEARCH_LIST(OBJ, TBL, APPLY(function()
-            if FSETQ(OBJ, SURFACEBIT) then 
+            if APPLY(function() __tmp = FSETQ(OBJ, SURFACEBIT) return __tmp end) then 
               	__tmp = P_SRCALL
-            elseif FSETQ(OBJ, SEARCHBIT) then 
+            elseif APPLY(function() __tmp = FSETQ(OBJ, SEARCHBIT) return __tmp end) then 
               	__tmp = P_SRCALL
-            elseif T then 
+            elseif APPLY(function() __tmp = T return __tmp end) then 
               	__tmp = P_SRCTOP
             end
  end)) return FLS end)
       end
 
       
-      if APPLY(function() OBJ = NEXTQ(OBJ) return OBJ end) then 
-        	__tmp = APPLY(function() OBJ = NEXTQ(OBJ) return OBJ end)
-      elseif T then 
+      if APPLY(function() __tmp = APPLY(function() OBJ = NEXTQ(OBJ) return OBJ end) return __tmp end) then 
+      elseif APPLY(function() __tmp = T return __tmp end) then 
         return true
       end
 
@@ -2078,44 +2070,44 @@ ITAKE_CHECK = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if PASS(APPLY(function() PTR = GET(TBL, P_MATCHLEN) return PTR end) and PASS(BTST(IBITS, SHAVE) or BTST(IBITS, STAKE))) then 
+  if APPLY(function() __tmp = PASS(APPLY(function() PTR = GET(TBL, P_MATCHLEN) return PTR end) and PASS(BTST(IBITS, SHAVE) or BTST(IBITS, STAKE))) return __tmp end) then 
     
     local __prog24 = function()
       
-      if LQ(APPLY(function() PTR = SUB(PTR, 1) return PTR end), 0) then 
+      if APPLY(function() __tmp = LQ(APPLY(function() PTR = SUB(PTR, 1) return PTR end), 0) return __tmp end) then 
         return true
-      elseif T then 
+      elseif APPLY(function() __tmp = T return __tmp end) then 
         	__tmp = APPLY(function() OBJ = GET(TBL, ADD(PTR, 1)) return OBJ end)
         
-        if EQUALQ(OBJ, IT) then 
+        if APPLY(function() __tmp = EQUALQ(OBJ, IT) return __tmp end) then 
           
-          if NOT(ACCESSIBLEQ(P_IT_OBJECT)) then 
+          if APPLY(function() __tmp = NOT(ACCESSIBLEQ(P_IT_OBJECT)) return __tmp end) then 
             	__tmp = TELL("I don't see what you're referring to.", CR)
             	error(false)
-          elseif T then 
+          elseif APPLY(function() __tmp = T return __tmp end) then 
             	__tmp = APPLY(function() OBJ = P_IT_OBJECT return OBJ end)
           end
 
         end
 
         
-        if PASS(NOT(HELDQ(OBJ)) and NOT(EQUALQ(OBJ, HANDS, ME))) then 
+        if APPLY(function() __tmp = PASS(NOT(HELDQ(OBJ)) and NOT(EQUALQ(OBJ, HANDS, ME))) return __tmp end) then 
           	__tmp = APPLY(function() PRSO = OBJ return PRSO end)
           
-          if FSETQ(OBJ, TRYTAKEBIT) then 
+          if APPLY(function() __tmp = FSETQ(OBJ, TRYTAKEBIT) return __tmp end) then 
             	__tmp = APPLY(function() TAKEN = T return TAKEN end)
-          elseif NOT(EQUALQ(WINNER, ADVENTURER)) then 
+          elseif APPLY(function() __tmp = NOT(EQUALQ(WINNER, ADVENTURER)) return __tmp end) then 
             	__tmp = APPLY(function() TAKEN = nil return TAKEN end)
-          elseif PASS(BTST(IBITS, STAKE) and EQUALQ(ITAKE(nil), T)) then 
+          elseif APPLY(function() __tmp = PASS(BTST(IBITS, STAKE) and EQUALQ(ITAKE(nil), T)) return __tmp end) then 
             	__tmp = APPLY(function() TAKEN = nil return TAKEN end)
-          elseif T then 
+          elseif APPLY(function() __tmp = T return __tmp end) then 
             	__tmp = APPLY(function() TAKEN = T return TAKEN end)
           end
 
           
-          if PASS(TAKEN and BTST(IBITS, SHAVE) and EQUALQ(WINNER, ADVENTURER)) then 
+          if APPLY(function() __tmp = PASS(TAKEN and BTST(IBITS, SHAVE) and EQUALQ(WINNER, ADVENTURER)) return __tmp end) then 
             
-            if EQUALQ(OBJ, NOT_HERE_OBJECT) then 
+            if APPLY(function() __tmp = EQUALQ(OBJ, NOT_HERE_OBJECT) return __tmp end) then 
               	__tmp = TELL("You don't have that!", CR)
               	error(false)
             end
@@ -2125,7 +2117,7 @@ ITAKE_CHECK = function(...)
             	__tmp = PRINTD(OBJ)
             	__tmp = TELL(".", CR)
             	error(false)
-          elseif PASS(NOT(TAKEN) and EQUALQ(WINNER, ADVENTURER)) then 
+          elseif APPLY(function() __tmp = PASS(NOT(TAKEN) and EQUALQ(WINNER, ADVENTURER)) return __tmp end) then 
             	__tmp = TELL("(Taken)", CR)
           end
 
@@ -2141,8 +2133,7 @@ until __ok24 or __res24 ~= 123
 if not __ok24 then error(__res24)
 else __tmp = __res24 or true end
 
-  elseif T then 
-    	__tmp = T
+  elseif APPLY(function() __tmp = T return __tmp end) then 
   end
 
 	 return __tmp end)
@@ -2156,35 +2147,34 @@ MANY_CHECK = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if PASS(GQ(GET(P_PRSO, P_MATCHLEN), 1) and NOT(BTST(GETB(P_SYNTAX, P_SLOC1), SMANY))) then 
+  if APPLY(function() __tmp = PASS(GQ(GET(P_PRSO, P_MATCHLEN), 1) and NOT(BTST(GETB(P_SYNTAX, P_SLOC1), SMANY))) return __tmp end) then 
     	__tmp = APPLY(function() LOSS = 1 return LOSS end)
-  elseif PASS(GQ(GET(P_PRSI, P_MATCHLEN), 1) and NOT(BTST(GETB(P_SYNTAX, P_SLOC2), SMANY))) then 
+  elseif APPLY(function() __tmp = PASS(GQ(GET(P_PRSI, P_MATCHLEN), 1) and NOT(BTST(GETB(P_SYNTAX, P_SLOC2), SMANY))) return __tmp end) then 
     	__tmp = APPLY(function() LOSS = 2 return LOSS end)
   end
 
 
-  if LOSS then 
+  if APPLY(function() __tmp = LOSS return __tmp end) then 
     	__tmp = TELL("You can't use multiple ")
     
-    if EQUALQ(LOSS, 2) then 
+    if APPLY(function() __tmp = EQUALQ(LOSS, 2) return __tmp end) then 
       	__tmp = TELL("in")
     end
 
     	__tmp = TELL("direct objects with \"")
     	__tmp = APPLY(function() TMP = GET(P_ITBL, P_VERBN) return TMP end)
     
-    if ZEROQ(TMP) then 
+    if APPLY(function() __tmp = ZEROQ(TMP) return __tmp end) then 
       	__tmp = TELL("tell")
-    elseif PASS(P_OFLAG or P_MERGED) then 
+    elseif APPLY(function() __tmp = PASS(P_OFLAG or P_MERGED) return __tmp end) then 
       	__tmp = PRINTB(GET(TMP, 0))
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = WORD_PRINT(GETB(TMP, 2), GETB(TMP, 3))
     end
 
     	__tmp = TELL("\".", CR)
     	error(false)
-  elseif T then 
-    	__tmp = T
+  elseif APPLY(function() __tmp = T return __tmp end) then 
   end
 
 	 return __tmp end)
@@ -2199,12 +2189,12 @@ ZMEMQ = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if NOT(TBL) then 
+  if APPLY(function() __tmp = NOT(TBL) return __tmp end) then 
     	error(false)
   end
 
 
-  if NOT(LQ(SIZE, 0)) then 
+  if APPLY(function() __tmp = NOT(LQ(SIZE, 0)) return __tmp end) then 
     	__tmp = APPLY(function() CNT = 0 return CNT end)
   else 
     	__tmp = APPLY(function() SIZE = GET(TBL, 0) return SIZE end)
@@ -2213,9 +2203,9 @@ ZMEMQ = function(...)
 
   local __prog25 = function()
     
-    if EQUALQ(ITM, GET(TBL, CNT)) then 
+    if APPLY(function() __tmp = EQUALQ(ITM, GET(TBL, CNT)) return __tmp end) then 
       error(REST(TBL, MULL(CNT, 2)))
-    elseif APPLY(function() CNT = CNT + 1 return CNT > SIZE end) then 
+    elseif APPLY(function() __tmp = APPLY(function() CNT = CNT + 1 return CNT > SIZE end) return __tmp end) then 
       	error(false)
     end
 
@@ -2240,9 +2230,9 @@ ZMEMQB = function(...)
 
   local __prog26 = function()
     
-    if EQUALQ(ITM, GETB(TBL, CNT)) then 
+    if APPLY(function() __tmp = EQUALQ(ITM, GETB(TBL, CNT)) return __tmp end) then 
       	error(true)
-    elseif APPLY(function() CNT = CNT + 1 return CNT > SIZE end) then 
+    elseif APPLY(function() __tmp = APPLY(function() CNT = CNT + 1 return CNT > SIZE end) return __tmp end) then 
       	error(false)
     end
 
@@ -2268,7 +2258,7 @@ LITQ = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if PASS(ALWAYS_LIT and EQUALQ(WINNER, PLAYER)) then 
+  if APPLY(function() __tmp = PASS(ALWAYS_LIT and EQUALQ(WINNER, PLAYER)) return __tmp end) then 
     	error(true)
   end
 
@@ -2276,17 +2266,17 @@ LITQ = function(...)
 	__tmp = APPLY(function() OHERE = HERE return OHERE end)
 	__tmp = APPLY(function() HERE = RM return HERE end)
 
-  if PASS(RMBIT and FSETQ(RM, ONBIT)) then 
+  if APPLY(function() __tmp = PASS(RMBIT and FSETQ(RM, ONBIT)) return __tmp end) then 
     	__tmp = APPLY(function() LIT = T return LIT end)
-  elseif T then 
+  elseif APPLY(function() __tmp = T return __tmp end) then 
     	__tmp = PUT(P_MERGE, P_MATCHLEN, 0)
     	__tmp = APPLY(function() P_TABLE = P_MERGE return P_TABLE end)
     	__tmp = APPLY(function() P_SLOCBITS = -1 return P_SLOCBITS end)
     
-    if EQUALQ(OHERE, RM) then 
+    if APPLY(function() __tmp = EQUALQ(OHERE, RM) return __tmp end) then 
       	__tmp = DO_SL(WINNER, 1, 1)
       
-      if PASS(NOT(EQUALQ(WINNER, PLAYER)) and INQ(PLAYER, RM)) then 
+      if APPLY(function() __tmp = PASS(NOT(EQUALQ(WINNER, PLAYER)) and INQ(PLAYER, RM)) return __tmp end) then 
         	__tmp = DO_SL(PLAYER, 1, 1)
       end
 
@@ -2294,7 +2284,7 @@ LITQ = function(...)
 
     	__tmp = DO_SL(RM, 1, 1)
     
-    if GQ(GET(P_TABLE, P_MATCHLEN), 0) then 
+    if APPLY(function() __tmp = GQ(GET(P_TABLE, P_MATCHLEN), 0) return __tmp end) then 
       	__tmp = APPLY(function() LIT = T return LIT end)
     end
 
@@ -2314,13 +2304,13 @@ THIS_ITQ = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if FSETQ(OBJ, INVISIBLE) then 
+  if APPLY(function() __tmp = FSETQ(OBJ, INVISIBLE) return __tmp end) then 
     	error(false)
-  elseif PASS(P_NAM and NOT(ZMEMQ(P_NAM, APPLY(function() SYNS = GETPT(OBJ, PQSYNONYM) return SYNS end), SUB(DIV(PTSIZE(SYNS), 2), 1)))) then 
+  elseif APPLY(function() __tmp = PASS(P_NAM and NOT(ZMEMQ(P_NAM, APPLY(function() SYNS = GETPT(OBJ, PQSYNONYM) return SYNS end), SUB(DIV(PTSIZE(SYNS), 2), 1)))) return __tmp end) then 
     	error(false)
-  elseif PASS(P_ADJ and PASS(NOT(APPLY(function() SYNS = GETPT(OBJ, PQADJECTIVE) return SYNS end)) or NOT(ZMEMQB(P_ADJ, SYNS, SUB(PTSIZE(SYNS), 1))))) then 
+  elseif APPLY(function() __tmp = PASS(P_ADJ and PASS(NOT(APPLY(function() SYNS = GETPT(OBJ, PQADJECTIVE) return SYNS end)) or NOT(ZMEMQB(P_ADJ, SYNS, SUB(PTSIZE(SYNS), 1))))) return __tmp end) then 
     	error(false)
-  elseif PASS(NOT(ZEROQ(P_GWIMBIT)) and NOT(FSETQ(OBJ, P_GWIMBIT))) then 
+  elseif APPLY(function() __tmp = PASS(NOT(ZEROQ(P_GWIMBIT)) and NOT(FSETQ(OBJ, P_GWIMBIT))) return __tmp end) then 
     	error(false)
   end
 
@@ -2336,21 +2326,21 @@ ACCESSIBLEQ = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if FSETQ(OBJ, INVISIBLE) then 
+  if APPLY(function() __tmp = FSETQ(OBJ, INVISIBLE) return __tmp end) then 
     	error(false)
-  elseif NOT(L) then 
+  elseif APPLY(function() __tmp = NOT(L) return __tmp end) then 
     	error(false)
-  elseif EQUALQ(L, GLOBAL_OBJECTS) then 
+  elseif APPLY(function() __tmp = EQUALQ(L, GLOBAL_OBJECTS) return __tmp end) then 
     	error(true)
-  elseif PASS(EQUALQ(L, LOCAL_GLOBALS) and GLOBAL_INQ(OBJ, HERE)) then 
+  elseif APPLY(function() __tmp = PASS(EQUALQ(L, LOCAL_GLOBALS) and GLOBAL_INQ(OBJ, HERE)) return __tmp end) then 
     	error(true)
-  elseif NOT(EQUALQ(META_LOC(OBJ), HERE, LOC(WINNER))) then 
+  elseif APPLY(function() __tmp = NOT(EQUALQ(META_LOC(OBJ), HERE, LOC(WINNER))) return __tmp end) then 
     	error(false)
-  elseif EQUALQ(L, WINNER, HERE, LOC(WINNER)) then 
+  elseif APPLY(function() __tmp = EQUALQ(L, WINNER, HERE, LOC(WINNER)) return __tmp end) then 
     	error(true)
-  elseif PASS(FSETQ(L, OPENBIT) and ACCESSIBLEQ(L)) then 
+  elseif APPLY(function() __tmp = PASS(FSETQ(L, OPENBIT) and ACCESSIBLEQ(L)) return __tmp end) then 
     	error(true)
-  elseif T then 
+  elseif APPLY(function() __tmp = T return __tmp end) then 
     	error(false)
   end
 
@@ -2366,16 +2356,16 @@ META_LOC = function(...)
 
   local __prog27 = function()
     
-    if NOT(OBJ) then 
+    if APPLY(function() __tmp = NOT(OBJ) return __tmp end) then 
       	error(false)
-    elseif INQ(OBJ, GLOBAL_OBJECTS) then 
+    elseif APPLY(function() __tmp = INQ(OBJ, GLOBAL_OBJECTS) return __tmp end) then 
       error(GLOBAL_OBJECTS)
     end
 
     
-    if INQ(OBJ, ROOMS) then 
+    if APPLY(function() __tmp = INQ(OBJ, ROOMS) return __tmp end) then 
       error(OBJ)
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = APPLY(function() OBJ = LOC(OBJ) return OBJ end)
     end
 

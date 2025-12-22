@@ -72,12 +72,12 @@ NOT_HERE_OBJECT_F = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if PASS(EQUALQ(PRSO, NOT_HERE_OBJECT) and EQUALQ(PRSI, NOT_HERE_OBJECT)) then 
+  if APPLY(function() __tmp = PASS(EQUALQ(PRSO, NOT_HERE_OBJECT) and EQUALQ(PRSI, NOT_HERE_OBJECT)) return __tmp end) then 
     	__tmp = TELL("Those things aren't here!", CR)
     	error(true)
-  elseif EQUALQ(PRSO, NOT_HERE_OBJECT) then 
+  elseif APPLY(function() __tmp = EQUALQ(PRSO, NOT_HERE_OBJECT) return __tmp end) then 
     	__tmp = APPLY(function() TBL = P_PRSO return TBL end)
-  elseif T then 
+  elseif APPLY(function() __tmp = T return __tmp end) then 
     	__tmp = APPLY(function() TBL = P_PRSI return TBL end)
     	__tmp = APPLY(function() PRSOQ = nil return PRSOQ end)
   end
@@ -85,11 +85,11 @@ NOT_HERE_OBJECT_F = function(...)
 	__tmp = APPLY(function() P_CONT = nil return P_CONT end)
 	__tmp = APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
 
-  if EQUALQ(WINNER, PLAYER) then 
+  if APPLY(function() __tmp = EQUALQ(WINNER, PLAYER) return __tmp end) then 
     	__tmp = TELL("You can't see any ")
     	__tmp = NOT_HERE_PRINT(PRSOQ)
     	__tmp = TELL(" here!", CR)
-  elseif T then 
+  elseif APPLY(function() __tmp = T return __tmp end) then 
     	__tmp = TELL("The ", D, WINNER, " seems confused. \"I don't see any ")
     	__tmp = NOT_HERE_PRINT(PRSOQ)
     	__tmp = TELL(" here!\"", CR)
@@ -106,20 +106,20 @@ NOT_HERE_PRINT = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if P_OFLAG then 
+  if APPLY(function() __tmp = P_OFLAG return __tmp end) then 
     
-    if P_XADJ then 
+    if APPLY(function() __tmp = P_XADJ return __tmp end) then 
       	__tmp = PRINTB(P_XADJN)
     end
 
     
-    if P_XNAM then 
+    if APPLY(function() __tmp = P_XNAM return __tmp end) then 
       	__tmp = PRINTB(P_XNAM)
     end
 
-  elseif PRSOQ then 
+  elseif APPLY(function() __tmp = PRSOQ return __tmp end) then 
     	__tmp = BUFFER_PRINT(GET(P_ITBL, P_NC1), GET(P_ITBL, P_NC1L), nil)
-  elseif T then 
+  elseif APPLY(function() __tmp = T return __tmp end) then 
     	__tmp = BUFFER_PRINT(GET(P_ITBL, P_NC2), GET(P_ITBL, P_NC2L), nil)
   end
 
@@ -160,7 +160,7 @@ STAIRS_F = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if VERBQ(THROUGH) then 
+  if APPLY(function() __tmp = VERBQ(THROUGH) return __tmp end) then 
     	__tmp = TELL("You should say whether you want to go up or down.", CR)
   end
 
@@ -181,21 +181,21 @@ SAILOR_FCN = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if VERBQ(TELL) then 
+  if APPLY(function() __tmp = VERBQ(TELL) return __tmp end) then 
     	__tmp = APPLY(function() P_CONT = nil return P_CONT end)
     	__tmp = APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
     	__tmp = TELL("You can't talk to the sailor that way.", CR)
-  elseif VERBQ(EXAMINE) then 
+  elseif APPLY(function() __tmp = VERBQ(EXAMINE) return __tmp end) then 
     
     	__tmp = TELL("There is no sailor to be seen.", CR)
-  elseif VERBQ(HELLO) then 
+  elseif APPLY(function() __tmp = VERBQ(HELLO) return __tmp end) then 
     	__tmp = APPLY(function() HS = ADD(HS, 1) return HS end)
     
-    if ZEROQ(MOD(HS, 20)) then 
+    if APPLY(function() __tmp = ZEROQ(MOD(HS, 20)) return __tmp end) then 
       	__tmp = TELL("You seem to be repeating yourself.", CR)
-    elseif ZEROQ(MOD(HS, 10)) then 
+    elseif APPLY(function() __tmp = ZEROQ(MOD(HS, 10)) return __tmp end) then 
       	__tmp = TELL("I think that phrase is getting a bit worn out.", CR)
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = TELL("Nothing happens here.", CR)
     end
 
@@ -217,12 +217,12 @@ GROUND_FUNCTION = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if PASS(VERBQ(PUT, PUT_ON) and EQUALQ(PRSI, GROUND)) then 
+  if APPLY(function() __tmp = PASS(VERBQ(PUT, PUT_ON) and EQUALQ(PRSI, GROUND)) return __tmp end) then 
     	__tmp = PERFORM(VQDROP, PRSO)
     	error(true)
-  elseif EQUALQ(HERE, SANDY_CAVE) then 
+  elseif APPLY(function() __tmp = EQUALQ(HERE, SANDY_CAVE) return __tmp end) then 
     	__tmp = SAND_FUNCTION()
-  elseif VERBQ(DIG) then 
+  elseif APPLY(function() __tmp = VERBQ(DIG) return __tmp end) then 
     	__tmp = TELL("The ground is too hard for digging here.", CR)
   end
 
@@ -243,11 +243,11 @@ GRUE_FUNCTION = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if VERBQ(EXAMINE) then 
+  if APPLY(function() __tmp = VERBQ(EXAMINE) return __tmp end) then 
     	__tmp = TELL("The grue is a sinister, lurking presence in the dark places of the earth. Its favorite diet is adventurers, but its insatiable appetite is tempered by its fear of light. No grue has ever been seen by the light of day, and few have survived its fearsome jaws to tell the tale.", CR)
-  elseif VERBQ(FIND) then 
+  elseif APPLY(function() __tmp = VERBQ(FIND) return __tmp end) then 
     	__tmp = TELL("There is no grue here, but I'm sure there is at least one lurking in the darkness nearby. I wouldn't let my light go out if I were you!", CR)
-  elseif VERBQ(LISTEN) then 
+  elseif APPLY(function() __tmp = VERBQ(LISTEN) return __tmp end) then 
     	__tmp = TELL("It makes no sound but is always lurking in the darkness nearby.", CR)
   end
 
@@ -275,40 +275,40 @@ CRETIN_FCN = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if VERBQ(TELL) then 
+  if APPLY(function() __tmp = VERBQ(TELL) return __tmp end) then 
     	__tmp = APPLY(function() P_CONT = nil return P_CONT end)
     	__tmp = APPLY(function() QUOTE_FLAG = nil return QUOTE_FLAG end)
     	__tmp = TELL("Talking to yourself is said to be a sign of impending mental collapse.", CR)
-  elseif PASS(VERBQ(GIVE) and EQUALQ(PRSI, ME)) then 
+  elseif APPLY(function() __tmp = PASS(VERBQ(GIVE) and EQUALQ(PRSI, ME)) return __tmp end) then 
     	__tmp = PERFORM(VQTAKE, PRSO)
     	error(true)
-  elseif VERBQ(MAKE) then 
+  elseif APPLY(function() __tmp = VERBQ(MAKE) return __tmp end) then 
     	__tmp = TELL("Only you can do that.", CR)
-  elseif VERBQ(DISEMBARK) then 
+  elseif APPLY(function() __tmp = VERBQ(DISEMBARK) return __tmp end) then 
     	__tmp = TELL("You'll have to do that on your own.", CR)
-  elseif VERBQ(EAT) then 
+  elseif APPLY(function() __tmp = VERBQ(EAT) return __tmp end) then 
     	__tmp = TELL("Auto-cannibalism is not the answer.", CR)
-  elseif VERBQ(ATTACK, MUNG) then 
+  elseif APPLY(function() __tmp = VERBQ(ATTACK, MUNG) return __tmp end) then 
     
-    if PASS(PRSI and FSETQ(PRSI, WEAPONBIT)) then 
+    if APPLY(function() __tmp = PASS(PRSI and FSETQ(PRSI, WEAPONBIT)) return __tmp end) then 
       	__tmp = JIGS_UP("If you insist.... Poof, you're dead!")
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = TELL("Suicide is not the answer.", CR)
     end
 
-  elseif VERBQ(THROW) then 
+  elseif APPLY(function() __tmp = VERBQ(THROW) return __tmp end) then 
     
-    if EQUALQ(PRSO, ME) then 
+    if APPLY(function() __tmp = EQUALQ(PRSO, ME) return __tmp end) then 
       	__tmp = TELL("Why don't you just walk like normal people?", CR)
     end
 
-  elseif VERBQ(TAKE) then 
+  elseif APPLY(function() __tmp = VERBQ(TAKE) return __tmp end) then 
     	__tmp = TELL("How romantic!", CR)
-  elseif VERBQ(EXAMINE) then 
+  elseif APPLY(function() __tmp = VERBQ(EXAMINE) return __tmp end) then 
     
-    if EQUALQ(HERE, LOC(MIRROR_1), LOC(MIRROR_2)) then 
+    if APPLY(function() __tmp = EQUALQ(HERE, LOC(MIRROR_1), LOC(MIRROR_2)) return __tmp end) then 
       	__tmp = TELL("Your image in the mirror looks tired.", CR)
-    elseif T then 
+    elseif APPLY(function() __tmp = T return __tmp end) then 
       	__tmp = TELL("That's difficult unless your eyes are prehensile.", CR)
     end
 
@@ -340,11 +340,11 @@ PATH_OBJECT = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if VERBQ(TAKE, FOLLOW) then 
+  if APPLY(function() __tmp = VERBQ(TAKE, FOLLOW) return __tmp end) then 
     	__tmp = TELL("You must specify a direction to go.", CR)
-  elseif VERBQ(FIND) then 
+  elseif APPLY(function() __tmp = VERBQ(FIND) return __tmp end) then 
     	__tmp = TELL("I can't help you there....", CR)
-  elseif VERBQ(DIG) then 
+  elseif APPLY(function() __tmp = VERBQ(DIG) return __tmp end) then 
     	__tmp = TELL("Not a chance.", CR)
   end
 
@@ -364,9 +364,9 @@ ZORKMID_FUNCTION = function(...)
 	local __ok, __res = pcall(function()
 	local __tmp = nil
 
-  if VERBQ(EXAMINE) then 
+  if APPLY(function() __tmp = VERBQ(EXAMINE) return __tmp end) then 
     	__tmp = TELL("The zorkmid is the unit of currency of the Great Underground Empire.", CR)
-  elseif VERBQ(FIND) then 
+  elseif APPLY(function() __tmp = VERBQ(FIND) return __tmp end) then 
     	__tmp = TELL("The best way to find zorkmids is to go out and look for them.", CR)
   end
 

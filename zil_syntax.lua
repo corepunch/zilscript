@@ -2,10 +2,10 @@
 BUZZ("AGAIN", "G", "OOPS")
 BUZZ("A", "AN", "THE", "IS", "AND", "OF", "THEN", "ALL", "ONE", "BUT", "EXCEPT", "YES", "NO", "Y", "HERE")
 
-if   EQUALQ(ZORK_NUMBER, 2) then 
+if APPLY(function() __tmp =   EQUALQ(ZORK_NUMBER, 2) return __tmp end) then 
   	__tmp = BUZZ("FEEBLE", "FUMBLE", "FEAR", "FILCH", "FREEZE", "FALL", "FRY", "FLUORESCE", "FERMENT", "FIERCE", "FLOAT", "FIREPROOF", "FENCE", "FUDGE", "FANTASIZE", "FROTZ", "OZMOO")
 
-elseif   EQUALQ(ZORK_NUMBER, 3) then 
+elseif APPLY(function() __tmp =   EQUALQ(ZORK_NUMBER, 3) return __tmp end) then 
   	__tmp = BUZZ("FROTZ", "OZMOO")
 
 end
@@ -130,7 +130,7 @@ SYNTAX {
 	PREACTION = "PRE_PUT",
 }
 
-if   EQUALQ(ZORK_NUMBER, 2) then 
+if APPLY(function() __tmp =   EQUALQ(ZORK_NUMBER, 2) return __tmp end) then 
   	__tmp = SYNTAX {
 	VERB = "ATTACK",
 	OBJECT = {
@@ -694,7 +694,7 @@ SYNTAX {
 }
 SYNONYM("GIVE", "DONATE", "OFFER", "FEED")
 
-if   NEQUALQ(ZORK_NUMBER, 3) then 
+if APPLY(function() __tmp =   NEQUALQ(ZORK_NUMBER, 3) return __tmp end) then 
   	__tmp = SYNONYM("GIVE", "HAND")
 
 end
@@ -779,7 +779,7 @@ SYNTAX {
 }
 SYNONYM("KICK", "TAUNT")
 
-if   EQUALQ(ZORK_NUMBER, 2) then 
+if APPLY(function() __tmp =   EQUALQ(ZORK_NUMBER, 2) return __tmp end) then 
   	__tmp = SYNTAX {
 	VERB = "KILL",
 	OBJECT = {
