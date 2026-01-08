@@ -22,17 +22,33 @@ This will compile the ZIL files specified in `main.lua` and start the interactiv
 
 ## Testing
 
-The project includes a test framework for automated testing of ZIL programs.
+The project includes both unit tests for individual components and integration tests for the full game runtime.
 
-### Running Tests
+### Running Unit Tests
 
-To run the default test suite:
+To run all unit tests:
+
+```bash
+lua tests/unit/run_all.lua
+```
+
+To run tests for a specific component:
+
+```bash
+lua tests/unit/test_parser.lua    # Parser tests
+lua tests/unit/test_compiler.lua  # Compiler tests
+lua tests/unit/test_runtime.lua   # Runtime tests
+```
+
+### Running Integration Tests
+
+To run the default integration test suite:
 
 ```bash
 lua tests/run_tests.lua
 ```
 
-To run a specific test file:
+To run a specific integration test file:
 
 ```bash
 lua tests/run_tests.lua tests/zork1_extended.lua
@@ -40,8 +56,14 @@ lua tests/run_tests.lua tests/zork1_extended.lua
 
 ### Available Test Files
 
-- `tests/zork1_basic.lua` - Basic game interaction tests
-- `tests/zork1_extended.lua` - Extended command sequence tests
+**Unit Tests** (in `tests/unit/`):
+- `test_parser.lua` - Parser module tests
+- `test_compiler.lua` - Compiler module tests
+- `test_runtime.lua` - Runtime module tests
+
+**Integration Tests** (in `tests/`):
+- `zork1_basic.lua` - Basic game interaction tests
+- `zork1_extended.lua` - Extended command sequence tests
 
 See `tests/README.md` for detailed information on writing and running tests.
 
