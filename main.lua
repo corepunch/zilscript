@@ -15,6 +15,7 @@ local files = {
 local game = { 
 	print = print, 
 	io = io, 
+	os = os,
 	setmetatable = setmetatable,
 	ipairs = ipairs,
 	pairs = pairs,
