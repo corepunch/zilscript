@@ -443,6 +443,7 @@ end
 -- Test commands queue (populated externally for testing)
 TEST_COMMANDS = TEST_COMMANDS or {}
 local test_index = 1
+local test_completed = false
 
 function READ(inbuf, parse)
 	local s
@@ -453,9 +454,9 @@ function READ(inbuf, parse)
 		test_index = test_index + 1
 		print("> " .. s)  -- Echo command in test mode
 		
-		-- Exit when all test commands are done
-		if test_index > #TEST_COMMANDS then
-			-- Signal that we're done with tests
+		-- Signal completion only once after the last command
+		if test_index > #TEST_COMMANDS and not test_completed then
+			test_completed = true
 			if ON_TEST_COMPLETE then
 				ON_TEST_COMPLETE()
 			end

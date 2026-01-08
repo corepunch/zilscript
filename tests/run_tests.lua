@@ -11,17 +11,15 @@ local function execute(string, name, env)
 	if not chunk then
 		print("Error: " .. err)
 		return false
-	else
-		local ok, run_err = pcall(chunk, function(e)
-			return debug.traceback(tostring(e), 2)
-		end)
-		if not ok then
-			print("Runtime error: " .. run_err)
-			return false
-		else
-			return true
-		end
 	end
+	
+	local ok, run_err = pcall(chunk)
+	if not ok then
+		print("Runtime error: " .. run_err)
+		return false
+	end
+	
+	return true
 end
 
 local function run_test_file(test_file_path)
@@ -107,11 +105,14 @@ end
 -- Main
 local test_file = arg[1] or "tests/zork1_basic.lua"
 
-if not io.open(test_file, "r") then
+-- Check if test file exists
+local file_check = io.open(test_file, "r")
+if not file_check then
 	print("Error: Test file not found: " .. test_file)
 	print("Usage: lua tests/run_tests.lua [test_file]")
 	os.exit(1)
 end
+file_check:close()
 
 local success = run_test_file(test_file)
 os.exit(success and 0 or 1)
