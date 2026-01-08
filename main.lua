@@ -71,7 +71,7 @@ end
 
 execute("GO()", 'main')
 
--- local ast = parser.parse_file "zork1-main/actions.zil"
+-- local ast = parser.parse_file "zork1/actions.zil"
 -- local result = compiler.compile(ast)
 
 -- print(parser.view(ast, 0))
