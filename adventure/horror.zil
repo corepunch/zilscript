@@ -731,7 +731,7 @@
          <COND (<VERB? EXAMINE>
                 <TELL "The chair is bolted to the floor. Leather restraints hang from the arms and legs. Electrodes are positioned where they would contact a victim's temples. You feel sick looking at it." CR>
                 <RTRUE>)
-               (<VERB? SIT>
+               (<VERB? BOARD>
                 <TELL "You have no desire to sit in that terrible chair." CR>
                 <RTRUE>)>>
 
