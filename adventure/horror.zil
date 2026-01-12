@@ -94,7 +94,7 @@
                (<AND <VERB? OPEN UNLOCK>
                      <NOT <FSET? ,BOTTOM-DRAWER ,OPENBIT>>
                      <IN? ,BRASS-KEY ,WINNER>>
-                <TELL "You unlock the bottom drawer with the brass key. It slides open with a groan, revealing a leather-bound ledger inside." CR>
+                <TELL "You unlock the " D ,BOTTOM-DRAWER " with the " D ,BRASS-KEY ". It slides open with a groan, revealing a leather-bound ledger inside." CR>
                 <FCLEAR ,BOTTOM-DRAWER ,NDESCBIT>
                 <FSET ,BOTTOM-DRAWER ,OPENBIT>
                 <RTRUE>)>>
@@ -265,7 +265,7 @@
                (<AND <VERB? ATTACK>
                      <NOT ,CHAINS-CUT-FLAG>
                      <IN? ,SCALPEL ,WINNER>>
-                <TELL "You saw through the rusty chains with the scalpel. It takes several minutes of effort, but finally they fall away with a crash. The heavy door creaks open, revealing a passage north into darkness." CR>
+                <TELL "You saw through the rusty chains with the " D ,SCALPEL ". It takes several minutes of effort, but finally they fall away with a crash. The heavy door creaks open, revealing a passage north into darkness." CR>
                 <SETG CHAINS-CUT-FLAG T>
                 <REMOVE ,CHAINS>
                 <RTRUE>)>>
@@ -404,12 +404,12 @@
 <ROUTINE VALVE-F ()
          <COND (<AND <VERB? TURN>
                      <NOT ,VALVE-TURNED-FLAG>>
-                <TELL "You grip the valve and turn with all your strength. It resists, then suddenly gives way with a shriek of metal. Steam hisses from somewhere below." CR>
+                <TELL "You grip the " D ,VALVE " and turn with all your strength. It resists, then suddenly gives way with a shriek of metal. Steam hisses from somewhere below." CR>
                 <SETG VALVE-TURNED-FLAG T>
                 <RTRUE>)
                (<AND <VERB? TURN>
                      ,VALVE-TURNED-FLAG>
-                <TELL "The valve is already open. Steam continues to hiss somewhere in the basement." CR>
+                <TELL "The " D ,VALVE " is already open. Steam continues to hiss somewhere in the basement." CR>
                 <RTRUE>)
                (<VERB? EXAMINE>
                 <TELL "A large wheel valve covered in rust and grime." CR>
@@ -517,17 +517,17 @@
 <ROUTINE LANTERN-F ()
          <COND (<AND <VERB? LAMP-ON>
                      <NOT ,LANTERN-LIT-FLAG>>
-                <TELL "You light the lantern. A warm glow pushes back the darkness." CR>
+                <TELL "You light the " D ,OIL-LANTERN ". A warm glow pushes back the darkness." CR>
                 <SETG LANTERN-LIT-FLAG T>
                 <FSET ,OIL-LANTERN ,ONBIT>
                 <RTRUE>)
                (<AND <VERB? LAMP-ON>
                      ,LANTERN-LIT-FLAG>
-                <TELL "The lantern is already lit." CR>
+                <TELL "The " D ,OIL-LANTERN " is already lit." CR>
                 <RTRUE>)
                (<AND <VERB? LAMP-OFF>
                      ,LANTERN-LIT-FLAG>
-                <TELL "You extinguish the lantern." CR>
+                <TELL "You extinguish the " D ,OIL-LANTERN "." CR>
                 <SETG LANTERN-LIT-FLAG <>>
                 <FCLEAR ,OIL-LANTERN ,ONBIT>
                 <RTRUE>)
@@ -589,21 +589,21 @@
 <ROUTINE SEALED-DOOR-F ()
          <COND (<AND <VERB? EXAMINE>
                      <NOT ,STEAM-DOOR-OPEN>>
-                <TELL "The door is sealed shut, corroded in place. Steam might loosen it." CR>
+                <TELL "The " D ,SEALED-DOOR " is sealed shut, corroded in place. Steam might loosen it." CR>
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      ,STEAM-DOOR-OPEN>
-                <TELL "The door stands open, steam still wisping from its edges." CR>
+                <TELL "The " D ,SEALED-DOOR " stands open, steam still wisping from its edges." CR>
                 <RTRUE>)
                (<AND <VERB? OPEN>
                      <NOT ,STEAM-DOOR-OPEN>
                      <NOT ,VALVE-TURNED-FLAG>>
-                <TELL "The door won't budge. It's corroded shut." CR>
+                <TELL "The " D ,SEALED-DOOR " won't budge. It's corroded shut." CR>
                 <RTRUE>)
                (<AND <VERB? OPEN>
                      <NOT ,STEAM-DOOR-OPEN>
                      ,VALVE-TURNED-FLAG>
-                <TELL "The steam from the opened valve has loosened the corrosion. With effort, you wrench the door open. It leads to a hydrotherapy room." CR>
+                <TELL "The steam from the opened " D ,VALVE " has loosened the corrosion. With effort, you wrench the " D ,SEALED-DOOR " open. It leads to a hydrotherapy room." CR>
                 <SETG STEAM-DOOR-OPEN T>
                 <RTRUE>)>>
 
@@ -929,7 +929,7 @@
                (<AND <VERB? OPEN UNLOCK>
                      <NOT <FSET? ,WALL-SAFE ,OPENBIT>>
                      <IN? ,SAFE-KEY ,WINNER>>
-                <TELL "You unlock the safe with the key. Inside are Dr. Mordecai's private notes and a chapel key." CR>
+                <TELL "You unlock the " D ,WALL-SAFE " with the " D ,SAFE-KEY ". Inside are Dr. Mordecai's private notes and a " D ,CHAPEL-KEY "." CR>
                 <FSET ,WALL-SAFE ,OPENBIT>
                 <RTRUE>)>>
 
@@ -1084,12 +1084,12 @@
                (<AND <VERB? OPEN UNLOCK>
                      <NOT ,CHAPEL-UNLOCKED>
                      <NOT <IN? ,CHAPEL-KEY ,WINNER>>>
-                <TELL "The door is locked. You need the chapel key." CR>
+                <TELL "The door is locked. You need the " D ,CHAPEL-KEY "." CR>
                 <RTRUE>)
                (<AND <VERB? OPEN UNLOCK>
                      <NOT ,CHAPEL-UNLOCKED>
                      <IN? ,CHAPEL-KEY ,WINNER>>
-                <TELL "You insert the iron key into the lock. It turns with a heavy CLUNK. The door swings open slowly, revealing darkness beyond. A foul wind rushes out, carrying the scent of decay." CR>
+                <TELL "You insert the " D ,CHAPEL-KEY " into the lock. It turns with a heavy CLUNK. The door swings open slowly, revealing darkness beyond. A foul wind rushes out, carrying the scent of decay." CR>
                 <SETG CHAPEL-UNLOCKED T>
                 <RTRUE>)
                (<VERB? READ>
