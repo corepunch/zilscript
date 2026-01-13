@@ -7,7 +7,7 @@
       (LDESC "A test room for directions.")
       (NORTH TO HALLWAY)
       (IN TO HALLWAY)
-      (FLAGS LIGHTBIT)>
+      (FLAGS RLANDBIT ONBIT)>
 
 <ROOM HALLWAY
       (IN ROOMS)
@@ -17,7 +17,7 @@
       (SOUTH TO STARTROOM)
       (IN TO CLOSET)
       (OUT TO STARTROOM)
-      (FLAGS LIGHTBIT)>
+      (FLAGS RLANDBIT ONBIT)>
 
 <ROOM CLOSET
       (IN ROOMS)
@@ -25,7 +25,7 @@
       (LDESC "A small closet.")
       (SOUTH TO HALLWAY)
       (OUT TO HALLWAY)
-      (FLAGS LIGHTBIT)>
+      (FLAGS RLANDBIT ONBIT)>
 
 <OBJECT APPLE
         (IN STARTROOM)

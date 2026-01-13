@@ -7,21 +7,19 @@
       (LDESC "A dark test room.")>
 
 <OBJECT FLASHLIGHT
-        (IN PLAYER)
+        (IN ADVENTURER)
         (SYNONYM FLASHLIGHT LIGHT TORCH)
         (DESC "flashlight")
-        (FLAGS TAKEBIT)
+        (FLAGS TAKEBIT LIGHTBIT)
         (ACTION FLASHLIGHT-F)>
 
 <ROUTINE FLASHLIGHT-F ()
-    <COND (<VERB? TURN-ON LAMP-ON>
-           <FSET ,FLASHLIGHT ,LIGHTBIT>
+    <COND (<VERB? LAMP-ON>
            <FSET ,FLASHLIGHT ,ONBIT>
            <TELL "The flashlight is now on." CR>
            <NOW-LIT?>
            <RTRUE>)
-          (<VERB? TURN-OFF LAMP-OFF>
-           <FCLEAR ,FLASHLIGHT ,LIGHTBIT>
+          (<VERB? LAMP-OFF>
            <FCLEAR ,FLASHLIGHT ,ONBIT>
            <TELL "The flashlight is now off." CR>
            <NOW-DARK?>
@@ -31,18 +29,16 @@
         (IN STARTROOM)
         (SYNONYM LANTERN LAMP)
         (DESC "lantern")
-        (FLAGS TAKEBIT)
+        (FLAGS TAKEBIT LIGHTBIT)
         (ACTION LANTERN-F)>
 
 <ROUTINE LANTERN-F ()
-    <COND (<VERB? TURN-ON LAMP-ON>
-           <FSET ,LANTERN ,LIGHTBIT>
+    <COND (<VERB? LAMP-ON>
            <FSET ,LANTERN ,ONBIT>
            <TELL "The lantern is now lit." CR>
            <NOW-LIT?>
            <RTRUE>)
-          (<VERB? TURN-OFF LAMP-OFF>
-           <FCLEAR ,LANTERN ,LIGHTBIT>
+          (<VERB? LAMP-OFF>
            <FCLEAR ,LANTERN ,ONBIT>
            <TELL "The lantern is now dark." CR>
            <NOW-DARK?>
@@ -53,9 +49,7 @@
     <SETG WINNER ,ADVENTURER>
     <SETG PLAYER ,WINNER>
     <MOVE ,WINNER ,HERE>
-    <FCLEAR ,FLASHLIGHT ,LIGHTBIT>
     <FCLEAR ,FLASHLIGHT ,ONBIT>
-    <FCLEAR ,LANTERN ,LIGHTBIT>
     <FCLEAR ,LANTERN ,ONBIT>
     <V-LOOK>
     <MAIN-LOOP>

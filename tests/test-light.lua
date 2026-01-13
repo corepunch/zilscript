@@ -17,32 +17,28 @@ return {
 			description = "Look in the dark (should show darkness message)"
 		},
 		{
-			input = "turn on flashlight",
-			description = "Turn on flashlight"
+			input = "light flashlight",
+			description = "Light/turn on flashlight"
 		},
 		{
 			input = "look",
 			description = "Look with light (should see room description)"
 		},
 		{
-			input = "turn off flashlight",
-			description = "Turn off flashlight"
+			input = "extinguish flashlight",
+			description = "Extinguish flashlight"
 		},
 		{
 			input = "look",
 			description = "Look in darkness again"
 		},
 		{
+			input = "light flashlight",
+			description = "Light flashlight again"
+		},
+		{
 			input = "take lantern",
 			description = "Take the lantern"
-		},
-		{
-			input = "turn on lantern",
-			description = "Turn on lantern"
-		},
-		{
-			input = "look",
-			description = "Look with lantern light"
 		},
 		{
 			input = "inventory",

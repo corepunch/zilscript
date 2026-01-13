@@ -5,7 +5,7 @@
       (IN ROOMS)
       (DESC "Start Room")
       (LDESC "A test room for containers.")
-      (FLAGS LIGHTBIT)>
+      (FLAGS RLANDBIT ONBIT)>
 
 <OBJECT APPLE
         (IN STARTROOM)

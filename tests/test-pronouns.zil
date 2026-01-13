@@ -3,17 +3,17 @@
 
 <ROOM STARTROOM
       (IN ROOMS)
+      (WEST TO HALLWAY)
       (DESC "Start Room")
       (LDESC "A test room.")
-      (WEST TO HALLWAY)
-      (FLAGS LIGHTBIT)>
+      (FLAGS RLANDBIT ONBIT)>
 
 <ROOM HALLWAY
       (IN ROOMS)
       (DESC "Hallway")
       (LDESC "A hallway.")
       (EAST TO STARTROOM)
-      (FLAGS LIGHTBIT)>
+      (FLAGS RLANDBIT ONBIT)>
 
 <OBJECT APPLE
         (IN STARTROOM)
@@ -29,7 +29,7 @@
         (FLAGS TAKEBIT)>
 
 <OBJECT WALLET
-        (IN PLAYER)
+        (IN ADVENTURER)
         (SYNONYM WALLET BILLFOLD)
         (DESC "wallet")
         (FLAGS TAKEBIT)>
