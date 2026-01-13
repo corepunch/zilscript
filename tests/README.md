@@ -23,6 +23,27 @@ Each test consists of:
 - `zork1_basic.lua` - Basic Zork1 game interaction tests
 - `zork1_extended.lua` - Extended command sequence tests
 
+## Test Categories
+
+### Parser/Runtime Tests (Inspired by ZILF)
+
+The following tests focus on core ZIL parser and runtime functionality, inspired by the ZILF test suite:
+
+- `test-directions.lua` / `test-directions.zil` - Tests direction/movement parsing and execution
+- `test-take.lua` / `test-take.zil` - Tests the TAKE command with various objects
+- `test-containers.lua` / `test-containers.zil` - Tests container interactions (open/close, put/take)
+- `test-light.lua` / `test-light.zil` - Tests light source mechanics and darkness handling
+- `test-pronouns.lua` / `test-pronouns.zil` - Tests basic command execution and object interactions
+
+Each test consists of:
+- A `.zil` file defining a minimal test world with specific objects and rooms
+- A `.lua` file defining the test commands to execute
+
+### Game Integration Tests
+
+- `zork1_basic.lua` - Basic Zork1 game interaction tests
+- `zork1_extended.lua` - Extended command sequence tests
+
 ## Test Types
 
 ### Unit Tests
@@ -120,6 +141,14 @@ return {
 ```
 
 ## Writing Integration Tests
+
+### Creating Parser/Runtime Tests
+
+1. Create a ZIL file with a minimal test world:
+   - Define test rooms with appropriate FLAGS (RLANDBIT and ONBIT for lit, walkable rooms)
+   - Define test objects with relevant FLAGS (TAKEBIT, CONTBIT, etc.)
+   - Implement a GO() routine to initialize the game state
+   - Include necessary globals from zork1/globals.zil
 
 ### Creating Parser/Runtime Tests
 
