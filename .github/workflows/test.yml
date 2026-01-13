@@ -26,3 +26,18 @@ jobs:
     
     - name: Run extended tests
       run: lua tests/run_tests.lua tests/zork1_extended.lua
+    
+    - name: Run parser/runtime tests - directions
+      run: lua tests/run_tests.lua tests/test-directions.lua
+    
+    - name: Run parser/runtime tests - take
+      run: lua tests/run_tests.lua tests/test-take.lua
+    
+    - name: Run parser/runtime tests - containers
+      run: lua tests/run_tests.lua tests/test-containers.lua
+    
+    - name: Run parser/runtime tests - light
+      run: lua tests/run_tests.lua tests/test-light.lua
+    
+    - name: Run parser/runtime tests - pronouns
+      run: lua tests/run_tests.lua tests/test-pronouns.lua
