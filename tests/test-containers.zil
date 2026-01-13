@@ -1,0 +1,59 @@
+<DIRECTIONS NORTH SOUTH>
+<CONSTANT RELEASEID 1>
+
+<ROOM STARTROOM
+      (IN ROOMS)
+      (DESC "Start Room")
+      (LDESC "A test room for containers.")
+      (FLAGS LIGHTBIT)>
+
+<OBJECT APPLE
+        (IN STARTROOM)
+        (SYNONYM APPLE FRUIT)
+        (DESC "apple")
+        (FLAGS TAKEBIT EDIBLEBIT VOWELBIT)
+        (SIZE 5)>
+
+<OBJECT BANANA
+        (IN STARTROOM)
+        (SYNONYM BANANA FRUIT)
+        (DESC "banana")
+        (FLAGS TAKEBIT EDIBLEBIT)
+        (SIZE 5)>
+
+<OBJECT DESK
+        (IN STARTROOM)
+        (SYNONYM DESK TABLE)
+        (DESC "desk")
+        (FLAGS SURFACEBIT)>
+
+<OBJECT BUCKET
+        (IN STARTROOM)
+        (SYNONYM BUCKET PAIL)
+        (DESC "bucket")
+        (FLAGS CONTBIT OPENBIT TAKEBIT)
+        (CAPACITY 20)>
+
+<OBJECT CAGE
+        (IN STARTROOM)
+        (SYNONYM CAGE)
+        (DESC "cage")
+        (FLAGS CONTBIT TRANSBIT OPENABLEBIT TAKEBIT)
+        (CAPACITY 20)>
+
+<OBJECT BOX
+        (IN STARTROOM)
+        (SYNONYM BOX)
+        (DESC "box")
+        (FLAGS CONTBIT OPENABLEBIT TAKEBIT)
+        (CAPACITY 20)>
+
+<ROUTINE GO ()
+    <SETG HERE ,STARTROOM>
+    <SETG LIT T>
+    <SETG WINNER ,ADVENTURER>
+    <SETG PLAYER ,WINNER>
+    <MOVE ,WINNER ,HERE>
+    <V-LOOK>
+    <MAIN-LOOP>
+    <AGAIN>>

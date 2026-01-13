@@ -1,0 +1,45 @@
+<DIRECTIONS NORTH SOUTH EAST WEST>
+<CONSTANT RELEASEID 1>
+
+<ROOM STARTROOM
+      (IN ROOMS)
+      (DESC "Start Room")
+      (LDESC "A test room.")
+      (WEST TO HALLWAY)
+      (FLAGS LIGHTBIT)>
+
+<ROOM HALLWAY
+      (IN ROOMS)
+      (DESC "Hallway")
+      (LDESC "A hallway.")
+      (EAST TO STARTROOM)
+      (FLAGS LIGHTBIT)>
+
+<OBJECT APPLE
+        (IN STARTROOM)
+        (SYNONYM APPLE FRUIT)
+        (DESC "apple")
+        (FLAGS TAKEBIT EDIBLEBIT VOWELBIT)>
+
+<OBJECT NAIL
+        (IN STARTROOM)
+        (SYNONYM NAIL)
+        (ADJECTIVE RUSTY)
+        (DESC "rusty nail")
+        (FLAGS TAKEBIT)>
+
+<OBJECT WALLET
+        (IN PLAYER)
+        (SYNONYM WALLET BILLFOLD)
+        (DESC "wallet")
+        (FLAGS TAKEBIT)>
+
+<ROUTINE GO ()
+    <SETG HERE ,STARTROOM>
+    <SETG LIT T>
+    <SETG WINNER ,ADVENTURER>
+    <SETG PLAYER ,WINNER>
+    <MOVE ,WINNER ,HERE>
+    <V-LOOK>
+    <MAIN-LOOP>
+    <AGAIN>>
