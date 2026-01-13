@@ -17,12 +17,10 @@
     <COND (<VERB? LAMP-ON>
            <FSET ,FLASHLIGHT ,ONBIT>
            <TELL "The flashlight is now on." CR>
-           <NOW-LIT?>
            <RTRUE>)
           (<VERB? LAMP-OFF>
            <FCLEAR ,FLASHLIGHT ,ONBIT>
            <TELL "The flashlight is now off." CR>
-           <NOW-DARK?>
            <RTRUE>)>>
 
 <OBJECT LANTERN
@@ -36,12 +34,10 @@
     <COND (<VERB? LAMP-ON>
            <FSET ,LANTERN ,ONBIT>
            <TELL "The lantern is now lit." CR>
-           <NOW-LIT?>
            <RTRUE>)
           (<VERB? LAMP-OFF>
            <FCLEAR ,LANTERN ,ONBIT>
            <TELL "The lantern is now dark." CR>
-           <NOW-DARK?>
            <RTRUE>)>>
 
 <ROUTINE GO ()
