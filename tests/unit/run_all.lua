@@ -14,8 +14,19 @@ print(string.rep("=", 60))
 
 for _, test_file in ipairs(test_files) do
 	print("\n" .. test_file)
-	local exit_code = os.execute("lua " .. test_file)
-	if exit_code ~= 0 and exit_code ~= true then
+	local ok, why, code = os.execute("lua " .. test_file)
+	local exit_code
+	if type(ok) == "number" then
+		-- Lua 5.1: os.execute returns a numeric exit status
+		exit_code = ok
+	elseif ok == true then
+		-- Lua 5.2+: success indicated by true
+		exit_code = 0
+	else
+		-- Lua 5.2+: failure; use returned exit code or default to 1
+		exit_code = code or 1
+	end
+	if exit_code ~= 0 then
 		all_passed = false
 	end
 end

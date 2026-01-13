@@ -76,8 +76,16 @@ function M.load_zil_files(files, env, options)
 	options = options or {}
 	
 	for _, f in ipairs(files) do
-		local ast, err = parser.parse_file(f)
+		local ok, ast, err = pcall(parser.parse_file, f)
+		if not ok then
+			-- pcall returns false and error message
+			if not options.silent then
+				print("Failed to parse " .. f .. ": " .. tostring(ast))
+			end
+			return false
+		end
 		if not ast then
+			-- parse_file returned nil, err
 			if not options.silent then
 				print("Failed to parse " .. f .. ": " .. (err or "unknown error"))
 			end
