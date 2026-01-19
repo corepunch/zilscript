@@ -135,7 +135,7 @@
       (DESC "Operating Theater")
       (LDESC "The circular theater is dominated by a stained OPERATING TABLE in the center. Rusty surgical instruments lie scattered about. Rising tiers of benches circle the table, where students once observed procedures. A metal CABINET stands in the shadows, its door slightly ajar. The air here is thick with an oppressive dread.")
       (SOUTH TO SANITARIUM-ENTRANCE)
-      (FLAGS RLANDBIT ONBIT)>
+      (FLAGS RLANDBIT)>
 
 <OBJECT OPERATING-TABLE
         (IN OPERATING-THEATER)
@@ -204,7 +204,7 @@
       (LDESC "A long corridor lined with rusted BED FRAMES. Tattered curtains hang between them, offering the ghost of privacy. At the far end, a heavy DOOR sealed with CHAINS blocks further passage. Scratches cover the door's surface, as if made by desperate fingers. The floor is littered with patient records and broken glass.")
       (WEST TO SANITARIUM-ENTRANCE)
       (NORTH TO MORGUE IF CHAINS-CUT-FLAG)
-      (FLAGS RLANDBIT ONBIT)>
+      (FLAGS RLANDBIT)>
 
 <OBJECT BED-FRAMES
         (IN PATIENT-WARD)
