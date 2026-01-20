@@ -618,14 +618,14 @@ end
 
 -- LTABLE = TABLE
 
-local function objects_in_room(room, adventurer)
+local function objects_in_room(room)
 	local i = 0
 	return function()
 		while true do
 			i = i + 1
 			local o = OBJECTS[i]
 			if not o then return nil end
-			if i ~= adventurer and o.LOC == room then return i, o end
+			if i ~= ADVENTURER and o.LOC == room then return i, o end
 		end
 	end
 end
@@ -648,49 +648,52 @@ local suggestions = {
 	DOORBIT = "OPEN",
 }
 
+local function add_items(room, indent)
+	for obj in objects_in_room(room) do
+		local verbs = {}
+		local action = GETP(obj, PQACTION)
+		local text = GETP(obj, PQTEXT) and not FSETQ(obj, READBIT)
+		local item = GETP(obj, PQDESC) or ""
+		if action then
+			local func = FUNCTIONS[tonumber(action)]
+			for k, v in pairs(_G) do if v == func then verbs = _G['_'..k] break end end
+		end
+		if text then table.insert(verbs, "EXAMINE") end
+		local fnd = function(name, array) 
+			for _, n in ipairs(array) do if n == name then return true end end
+		end
+		for k, v in pairs(suggestions) do
+			if FSETQ(obj, _G[k]) and not fnd(v, verbs) then
+				table.insert(verbs, v)
+			end
+		end
+		local words = {}
+		for word in item:gmatch("%S+") do
+			table.insert(words, word:sub(1,1):upper() .. word:sub(2):lower())
+		end
+		table.insert(ROOM_ITEMS, {table.concat(words, " "), indent or 0, verbs})
+		add_items(obj, (indent or 0) + 1)
+	end
+end
+
+local function add_exits(room)
+	for d, pp in connected_exits(room) do
+		if PTSIZE(pp) == 1 then
+			local desc = GETP(GETB(pp, 0), PQDESC)
+			if not FSETQ(GETB(pp, 0), ONBIT) then
+				desc = desc .. " (pitch black)"
+			end
+			table.insert(ROOM_EXITS, {d, desc})
+		elseif PTSIZE(pp) == 2 then
+			table.insert(ROOM_EXITS, {d, string.format("\"%s\"", mem:string(GET(pp, 0)))})
+		end
+	end
+end
+
 function GM_NOTES(room)
 	ROOM_ITEMS, ROOM_EXITS = {}, {}
-
-	local num = 1
-	
-	if objects_in_room(room, ADVENTURER)() then
-		for obj in objects_in_room(room, ADVENTURER) do
-			local verbs = {}
-			local action = GETP(obj, PQACTION)
-			local text = GETP(obj, PQTEXT) and not FSETQ(obj, READBIT)
-			local item = GETP(obj, PQDESC) or ""
-			if action then
-				local func = FUNCTIONS[tonumber(action)]
-				for k, v in pairs(_G) do if v == func then verbs = _G['_'..k] break end end
-			end
-			if text then table.insert(verbs, "EXAMINE") end
-			local fnd = function(name, array) 
-				for _, n in ipairs(array) do if n == name then return true end end
-			end
-			for k, v in pairs(suggestions) do
-				if FSETQ(obj, _G[k]) and not fnd(v, verbs) then
-					table.insert(verbs, v)
-				end
-			end
-			local words = {}
-			for word in item:gmatch("%S+") do
-				table.insert(words, word:sub(1,1):upper() .. word:sub(2):lower())
-			end
-			ROOM_ITEMS[table.concat(words, " ")] = verbs
-			PRINT_CONT(obj, nil, 2)
-			num = num + 1
-		end
-	end
-	if connected_exits(room)() then
-		-- print("\nExits:")
-		for d, pp in connected_exits(room) do
-			if PTSIZE(pp) == 1 then
-				ROOM_EXITS[d] = GETP(GETB(pp, 0), PQDESC)
-			elseif PTSIZE(pp) == 2 then
-				ROOM_EXITS[d] = string.format("\"%s\"", mem:string(GET(pp, 0)))
-			end
-		end
-	end
+	add_items(room)
+	add_exits(room)
 end
 
 -- === Done ===

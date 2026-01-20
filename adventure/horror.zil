@@ -40,10 +40,6 @@
       (LDESC "This cramped room once served as the sanitarium's reception. Filing cabinets line the opposite wall, their drawers hanging open like gaping mouths. Something glints among the papers scattered on the floor.")
       (EAST TO SANITARIUM-ENTRANCE)
       (FLAGS RLANDBIT ONBIT)>
-<ROUTINE DESK-F ()
-         <COND (<VERB? EXAMINE LOOK-INSIDE>
-                <TELL "The desk has three drawers. The top two are broken and empty. The BOTTOM DRAWER appears intact but is locked tight." CR>
-                <RTRUE>)>>
 <OBJECT OAK-DESK
         (IN RECEPTION-ROOM)
         (SYNONYM DESK)
@@ -51,6 +47,7 @@
         (DESC "oak desk")
         (LDESC "A heavy oak desk sits against one wall, its surface thick with dust.")
         (FLAGS CONTBIT OPENBIT SURFACEBIT)
+        (TEXT "The desk has three drawers. The top two are broken and empty. The BOTTOM DRAWER appears intact but is locked tight.")
         (ACTION DESK-F)>
 <OBJECT BRASS-KEY
         (IN RECEPTION-ROOM)

@@ -84,12 +84,14 @@ class Adventure extends ui.Form
 			for line in res.scene\gmatch "[^\n]+" do
 				if line == '>' then continue
 				p class: 'm-2', line
-			for key, verbs in pairs res.items do
-				stack ->
+			for _, t in ipairs res.items do
+				key, indent, verbs = table.unpack t
+				stack MarginLeft: indent * 16, ->
 					p class: 'm-2 text-green-300', key
-					for _, verb in pairs verbs do
+					for _, verb in ipairs verbs do
 						button class: action, onClick: perform, verb: verb\lower!, object: key, verb\lower!
-			for dir, room in pairs res.exits do
+			for _, t in ipairs res.exits do
+				dir, room = table.unpack t
 				stack ->
 					button class: action, onClick: perform, verb: "walk", object: dir\lower!, dir\lower!
 					p class: 'm-2 text-green-300', room
