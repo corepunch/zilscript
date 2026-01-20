@@ -32,17 +32,13 @@
       (EAST TO PATIENT-WARD)
       (DOWN TO BASEMENT-STAIRS)
       (FLAGS RLANDBIT ONBIT)>
-<ROUTINE WALLPAPER-F ()
-         <COND (<VERB? EXAMINE LOOK-INSIDE>
-                <TELL "Victorian-era wallpaper depicting pastoral scenes, now grotesquely warped by moisture and black mold." CR>
-                <RTRUE>)>>
 <OBJECT WALLPAPER
         (IN SANITARIUM-ENTRANCE)
         (SYNONYM WALLPAPER PAPER PLASTER)
         (ADJECTIVE PEELING)
         (DESC "peeling wallpaper")
         (LDESC "Peeling wallpaper reveals water-stained plaster beneath.")
-        (ACTION WALLPAPER-F)>
+        (TEXT "Victorian-era wallpaper depicting pastoral scenes, now grotesquely warped by moisture and black mold.")>
 <ROOM RECEPTION-ROOM
       (IN ROOMS)
       (DESC "Reception Room")
