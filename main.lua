@@ -24,6 +24,26 @@ if not runtime.load_zil_files(files, game, {save_lua = true}) then
 	os.exit(1)
 end
 
+local function print_result(result)
+  io.write(result.text)
+  if result.items then
+    print("\nItems:")
+    for item, verbs in pairs(result.items) do
+      if #verbs > 0 then
+        print(string.format("  %s (%s)", item:upper(), table.concat(verbs, ', ')))
+      else
+        print(string.format("  %s", item:upper()))
+      end
+    end
+  end
+  if result.exits then
+    print("\nExits:")
+    for exit, desc in pairs(result.exits) do
+      print(string.format("  %s -> %s", exit, desc))
+    end
+  end
+end
+
 -- Create game as a coroutine
 local game_coro = runtime.create_game_coroutine(game)
 
@@ -32,6 +52,8 @@ local status, result = runtime.resume_game(game_coro)
 if not status then
 	print("Error starting game: " .. tostring(result))
 	os.exit(1)
+else
+  print_result(result)
 end
 
 -- Main game loop - resume with input from io.read()
@@ -46,6 +68,8 @@ while runtime.is_running(game_coro) do
 	if not status then
 		print("Error in game: " .. tostring(result))
 		os.exit(1)
+  else
+    print_result(result)
 	end
 end
 

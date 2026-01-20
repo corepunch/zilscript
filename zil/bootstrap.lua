@@ -68,6 +68,9 @@ M_LOOK = 3
 M_FLASH = 4
 M_OBJDESC = 5
 
+ROOM_ITEMS = {}
+ROOM_EXITS = {}
+
 local function encode_fptr(n)
   return string.format("<@F:%X>", n)
 end
@@ -166,29 +169,63 @@ end
 
 ZPROB = PROB
 
+-- At the top of bootstrap, add output buffer
+local output_buffer = {}
+
+local function io_write(...)
+	for i = 1, select("#", ...) do
+		table.insert(output_buffer, tostring(select(i, ...)))
+	end
+end
+
+local function io_flush()
+	local text = table.concat(output_buffer)
+	output_buffer = {}
+	return text
+end
+
 function TELL(...)
 	local object = false
 	for i = 1, select("#", ...) do
-    local v = select(i, ...)
+		local v = select(i, ...)
 		if v == D then object = true
-		elseif object then object = false io.write(GETP(v, _G["PQDESC"]))
-		elseif type(v) == "number" then io.write(mem:string(v))
-    else io.write(tostring(v)) end
-  end
+		elseif object then object = false io_write(GETP(v, _G["PQDESC"]))
+		elseif type(v) == "number" then io_write(mem: string(v))
+		else io_write(tostring(v)) end
+	end
 end
 
-function PRINT(str) print(str) end
-function PRINTD(ptr) io.write(GETP(ptr, _G["PQDESC"])) end
-function PRINTR(ptr) io.write(GETP(ptr, _G["PQLDESC"])) end
+function PRINT(str) io_write(str, "\n") end
+function PRINTD(ptr) io_write(GETP(ptr, _G["PQDESC"])) end
+function PRINTR(ptr) io_write(GETP(ptr, _G["PQLDESC"])) end
 function PRINTB(ptr) 
-	for word, index in pairs(cache.words) do
-		if index == ptr then io.write(word) end
+	for word, index in pairs(cache. words) do
+		if index == ptr then io_write(word) end
 	end
 end
 PRINTI = PRINT
 PRINTN = PRINT
-function PRINTC(ch) io.write(string.char(ch)) end
-function CRLF() print() end
+function PRINTC(ch) io_write(string.char(ch)) end
+function CRLF() io_write("\n") end
+
+-- Modified READ to yield with output
+function READ(inbuf, parse)
+	-- Yield with accumulated output, get input back
+	local s = coroutine.yield({text=io_flush(),items=ROOM_ITEMS,exits=ROOM_EXITS})
+	
+	-- Handle nil input (e.g., EOF)
+	if not s then
+		os.exit(0)
+	end
+	
+	local p = {}
+	for pos, word in s:gmatch("()(%S+)") do
+		local index = cache.words[word: lower()] or 0
+		table.insert(p, makeword(index).. string.char(#word, pos&0xff))
+	end
+	mem: write(s: lower()..'\0', inbuf+1)
+	mem:write(string.char(#p)..table.concat(p), parse+1)
+end
 
 -- Logic / bitwise
 function NOT(a) return not a or a == 0 end
@@ -446,24 +483,6 @@ function GET(s, i)
 	-- return GETB(s, i * 2) | (GETB(s, i * 2 + 1) << 8)
 end
 
-function READ(inbuf, parse)
-	-- Yield to get input from the caller (coroutine)
-	local s = coroutine.yield()
-	
-	-- Handle nil input (e.g., EOF)
-	if not s then
-		os.exit(0)
-	end
-	
-	local p = {}
-	for pos, word in s:gmatch("()(%S+)") do
-		local index = cache.words[word:lower()] or 0
-		table.insert(p, makeword(index)..string.char(#word, pos&0xff))
-	end
-	mem:write(s:lower()..'\0', inbuf+1)
-	mem:write(string.char(#p)..table.concat(p), parse+1)
-end
-
 function DIRECTIONS(...)
 	for _, dir in ipairs {...} do
 		_DIRECTIONS[dir] = learn(dir, PSQDIRECTION, PROPERTIES)
@@ -629,9 +648,12 @@ local suggestions = {
 }
 
 function GM_NOTES(room)
+	ROOM_ITEMS, ROOM_EXITS = {}, {}
+
 	local num = 1
+	
 	if objects_in_room(room, ADVENTURER)() then
-		print("\nItems:")
+		-- print("\nItems:")
 		for obj in objects_in_room(room, ADVENTURER) do
 			local verbs = {}
 			local action = GETP(obj, PQACTION)
@@ -647,23 +669,29 @@ function GM_NOTES(room)
 					table.insert(verbs, v)
 				end
 			end
-			if #verbs > 0 then
-				print(string.format("  %d. %s (%s)", num, GETP(obj, PQDESC):upper(), table.concat(verbs, ', ')))
-			else
-				print(string.format("  %d. %s", num, GETP(obj, PQDESC):upper()))
-			end
+			ROOM_ITEMS[GETP(obj, PQDESC)] = verbs
+			-- if #verbs > 0 then
+			-- 	print(string.format("  %d. %s (%s)", num, GETP(obj, PQDESC):upper(), table.concat(verbs, ', ')))
+			-- else
+			-- 	print(string.format("  %d. %s", num, GETP(obj, PQDESC):upper()))
+			-- end
 			PRINT_CONT(obj, nil, 2)
 			num = num + 1
 		end
 	end
 	if connected_exits(room)() then
-		print("\nExits:")
+		-- print("\nExits:")
 		for d, pp in connected_exits(room) do
 			if PTSIZE(pp) == 1 then
-				print(string.format("  %s -> %s", d, GETP(GETB(pp, 0), PQDESC)))
+				ROOM_EXITS[d] = GETP(GETB(pp, 0), PQDESC)
 			elseif PTSIZE(pp) == 2 then
-				print(string.format("  %s -> \"%s\"", d, mem:string(GET(pp, 0))))
+				ROOM_EXITS[d] = string.format("\"%s\"", mem:string(GET(pp, 0)))				
 			end
+			-- if PTSIZE(pp) == 1 then
+			-- 	print(string.format("  %s -> %s", d, GETP(GETB(pp, 0), PQDESC)))
+			-- elseif PTSIZE(pp) == 2 then
+			-- 	print(string.format("  %s -> \"%s\"", d, mem:string(GET(pp, 0))))
+			-- end
 		end
 	end
 end

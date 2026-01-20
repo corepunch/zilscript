@@ -10,7 +10,6 @@ local M = {}
 function M.create_game_env()
 	return { 
 		print = print, 
-		io = io, 
 		os = os,
 		coroutine = coroutine,
 		setmetatable = setmetatable,
