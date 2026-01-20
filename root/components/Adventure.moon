@@ -77,7 +77,8 @@ class Adventure extends ui.Form
 		action = 'm-1 py-1 px-2 text-blue-300 bg-muted hover:bg-primary hover:text-blue-100'
 		ok, res = runtime.resume_game game, @input
 		perform = (button) ->
-			@input = "#{button.verb} #{button.object}"
+			@input = "#{button.verb} #{button.object or ''}"
+			print @input
 			@rebuild!
 		if ok
 			for line in res.scene\gmatch "[^\n]+" do
@@ -88,13 +89,12 @@ class Adventure extends ui.Form
 					p class: 'm-2 text-green-300', key
 					for _, verb in pairs verbs do
 						button class: action, onClick: perform, verb: verb\lower!, object: key, verb\lower!
-			grid columns: '64px auto', ->
-				for dir, room in pairs res.exits do
-				-- stack ->
+			for dir, room in pairs res.exits do
+				stack ->
 					button class: action, onClick: perform, verb: "walk", object: dir\lower!, dir\lower!
 					p class: 'm-2 text-green-300', room
 			stack ->
-				button class: action, onClick: perform, verb: "inventory", object: '', "Inventory"
-				button class: action, onClick: perform, verb: "look", object: 'around', "Look Around"
+				button class: action, onClick: perform, verb: "inventory", "Inventory"
+				button class: action, onClick: perform, verb: "look", "Look Around"
 		else
 			p class: 'm-2', res
