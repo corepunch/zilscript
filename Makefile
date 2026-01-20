@@ -1,15 +1,17 @@
 APP_NAME = orca
 BUILD_DIR = /Users/igor/Developer/ui-framework/build/bin
-DATA_DIR = /Users/igor/Developer/adventr
+DATA_DIR = /Users/igor/Developer/zil-engine
 LIB_PATH = $(BUILD_DIR)
 
 # Targets
 .PHONY: run clean
 
 run:
-
 	@echo "Setting DYLD_LIBRARY_PATH to $(LIB_PATH) and running $(APP_NAME)..."
 	DYLD_LIBRARY_PATH=$(LIB_PATH) $(BUILD_DIR)/$(APP_NAME) $(DATA_DIR)
+
+run_text:
+	lua main.lua
 
 cluster:
 	@echo "Setting DYLD_LIBRARY_PATH to $(LIB_PATH) and running $(APP_NAME)..."

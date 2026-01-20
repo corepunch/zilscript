@@ -4,23 +4,10 @@
     {
       "label": "run lua",
       "type": "shell",
+      // "command": "make",
+      // "args": [ "run" ],
       "command": "lua",
-      "args": [
-        "main.lua"
-      ],
-
-      // "label": "build and run tinylisp",
-      // "type": "shell",
-      // "command": "gcc",
-      // "args": [
-      //   "tinylisp.c",
-      //   "-o",
-      //   "tinylisp",
-      //   "-lm",
-      //   "&&",
-      //   "./tinylisp",
-      //   "tmp.zil"
-      // ],
+      "args": [ "main.lua" ],
       "group": {
         "kind": "build",
         "isDefault": true

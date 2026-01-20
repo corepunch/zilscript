@@ -3,10 +3,21 @@ package.path = package.path..";"..PROJECTDIR.."/zil/?.lua"
 ui = require "orca.ui"
 appwrite = require "appwrite.functions"
 json = require "orca.parsers.json"
-zil = require "zil.main"
+-- zil = require "main"
 
 system = "You are the Dungeon Master in a text-based Dungeons & Dragons adventure. Describe scenes vividly, present choices naturally, and react dynamically to player actions. Keep descriptions immersive but concise."
 user = "Let's begin a new D&D adventure. Describe what my character sees as I awaken in a mysterious forest clearing, and ask me what I want to do next."
+
+files = {
+  "zork1/globals.zil",
+  "zork1/parser.zil",
+  "zork1/verbs.zil",
+  -- "zork1/actions.zil",
+  "zork1/syntax.zil",
+  -- "zork1/dungeon.zil",
+  "adventure/horror.zil",
+  "zork1/main.zil",
+}
 
 class Adventure extends ui.Form
 	title: "Adventure"
