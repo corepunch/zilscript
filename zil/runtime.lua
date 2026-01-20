@@ -53,10 +53,12 @@ function M.execute(code, name, env, silent)
 	return true
 end
 
+local dir = PROJECTDIR or "."
+
 -- Load and execute the bootstrap file
 -- Returns true on success, false on failure
 function M.load_bootstrap(env, silent)
-	local file = assert(io.open("zil/bootstrap.lua", "r"))
+	local file = assert(io.open(dir.."/zil/bootstrap.lua", "r"))
 	local bootstrap_code = file:read("*a")
 	file:close()
 	
@@ -76,7 +78,7 @@ function M.load_zil_files(files, env, options)
 	options = options or {}
 	
 	for _, f in ipairs(files) do
-		local ok, ast, err = pcall(parser.parse_file, f)
+		local ok, ast, err = pcall(parser.parse_file, dir.."/"..f)
 		if not ok then
 			-- pcall caught an exception thrown during parsing (e.g., syntax error)
 			if not options.silent then
@@ -97,7 +99,7 @@ function M.load_zil_files(files, env, options)
 		
 		-- Optionally save the compiled Lua file
 		if options.save_lua then
-			local file = io.open(basename, "w")
+			local file = io.open(dir.."/"..basename, "w")
 			if file then
 				file:write(result.combined)
 				file:close()

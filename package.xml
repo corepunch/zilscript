@@ -6,6 +6,9 @@
     <ProjectReferenceItem Name="appwrite">lib/appwrite</ProjectReferenceItem>
     <ProjectReferenceItem Name="html">lib/html</ProjectReferenceItem>
     <ProjectReferenceItem Name="routing">lib/routing</ProjectReferenceItem>
+    <ProjectReferenceItem Name="openai">lib/openai</ProjectReferenceItem>
+    <ProjectReferenceItem Name="tailwind">lib/tailwind</ProjectReferenceItem>
+    <ProjectReferenceItem Name="zil">zil</ProjectReferenceItem>
     <ProjectReferenceItem Name="model">model</ProjectReferenceItem>
     <ProjectReferenceItem Name="root">root</ProjectReferenceItem>
     <ProjectReferenceItem Name="config">config</ProjectReferenceItem>

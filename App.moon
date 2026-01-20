@@ -1,4 +1,4 @@
--- package.path = ''
+package.path = ''
 package.moonpath = '' -- force loading from Orca filesystem
 
 html = require "html"
