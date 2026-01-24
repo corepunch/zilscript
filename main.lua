@@ -25,32 +25,28 @@ if not runtime.load_zil_files(files, env, {save_lua = true}) then
 end
 
 -- Create env as a coroutine
-local game, input = runtime.create_game_coroutine(env), nil
+local game, input = runtime.create_game(env), nil
 repeat
-	local ok, res = runtime.resume_game(game, input)
-	if not ok then
-		error("Error: " .. tostring(res))
-  else
-    io.write(res.scene)
-    if res.items then
-      print("\nItems:")
-      for item, verbs in pairs(res.items) do
-        if #verbs > 0 then
-          print(string.format("  %s (%s)", item:upper(), table.concat(verbs, ', ')))
-        else
-          print(string.format("  %s", item:upper()))
-        end
-      end
-    end
-    if res.exits then
-      print("\nExits:")
-      for exit, desc in pairs(res.exits) do
-        print(string.format("  %s -> %s", exit, desc))
-      end
-    end
-    input = io.read()
-	end
-until not input or not runtime.is_running(game)
+	local res = game:resume(input)
+  io.write(res)
+  -- if res.items then
+  --   print("\nItems:")
+  --   for item, verbs in pairs(res.items) do
+  --     if #verbs > 0 then
+  --       print(string.format("  %s (%s)", item:upper(), table.concat(verbs, ', ')))
+  --     else
+  --       print(string.format("  %s", item:upper()))
+  --     end
+  --   end
+  -- end
+  -- if res.exits then
+  --   print("\nExits:")
+  --   for exit, desc in pairs(res.exits) do
+  --     print(string.format("  %s -> %s", exit, desc))
+  --   end
+  -- end
+  input = io.read()
+until not input or not game:is_running()
 
 -- local ast = parser.parse_file "zork1/actions.zil"
 -- local res = compiler.compile(ast)

@@ -3,7 +3,7 @@ package.path = package.path..";"..PROJECTDIR.."/zil/?.lua"
 ui = require "orca.ui"
 appwrite = require "appwrite.functions"
 json = require "orca.parsers.json"
-runtime = require 'zil.runtime'
+server = require 'zil.runtime'
 
 system = "You are the Dungeon Master in a text-based Dungeons & Dragons adventure. Describe scenes vividly, present choices naturally, and react dynamically to player actions. Keep descriptions immersive but concise."
 user = "Let's begin a new D&D adventure. Describe what my character sees as I awaken in a mysterious forest clearing, and ask me what I want to do next."
@@ -19,14 +19,14 @@ files = {
   "zork1/main.zil",
 }
 
-env = runtime.create_game_env()
+env = server.create_game_env()
 
-assert(runtime.load_bootstrap(env))
-assert(runtime.load_zil_files(files, env, {save_lua: true}))
+assert(server.load_bootstrap(env))
+assert(server.load_zil_files(files, env, {save_lua: true}))
 
-game = runtime.create_game_coroutine(env)
+game = server.create_game(env)
 
-class Adventure extends ui.Form
+class Adventure extends ui.Node2D
 	title: "Adventure"
 	-- apply: => "flex-col w-full gap-2"
 	body: =>
@@ -74,29 +74,44 @@ class Adventure extends ui.Form
 		-- for choice in *desc.choices
 		-- 	select = -> @addChild p class: 'm-1', choice
 		-- 	ui.Button class: 'm-1 py-1 px-2 text-blue-300 bg-muted hover:bg-primary hover:text-blue-100', onClick: select, choice
-		action = 'm-1 py-1 px-2 text-blue-300 bg-muted hover:bg-primary hover:text-blue-100'
-		ok, res = runtime.resume_game game, @input
 		perform = (button) ->
 			@input = "#{button.verb} #{button.object or ''}"
 			print @input
 			@rebuild!
-		if ok
-			for line in res.scene\gmatch "[^\n]+" do
-				if line == '>' then continue
-				p class: 'm-2', line
-			for _, t in ipairs res.items do
-				key, indent, verbs = table.unpack t
-				stack MarginLeft: indent * 16, ->
+		action = 'm-1 py-1 px-2 text-blue-300 bg-muted hover:bg-primary hover:text-blue-100'
+		scene = game\resume @input
+		-- if not ok
+		-- 	p class: 'm-2', res
+		-- 	return
+		img class: "w-full h-full", image: "adventure/assets/images/room-1.jpg", stretch: "UniformToFill", opacity: 0.33
+		grid rows: 'auto auto', ->
+			stack class: 'flex-col', ->
+				size = 'xl'
+				for line in scene\gmatch "[^\n]+" do
+					if line == '>' then continue
+					p class: "m-2 text-#{size}", fontFamily: "adventure/fonts/Junicode-Ansund", line
+					size = 'lg'
+
+			print_item = (indent, key, verbs, children) ->
+				stack class: "ml-#{indent}", ->
 					p class: 'm-2 text-green-300', key
 					for _, verb in ipairs verbs do
 						button class: action, onClick: perform, verb: verb\lower!, object: key, verb\lower!
-			for _, t in ipairs res.exits do
-				dir, room = table.unpack t
+				for _, t in ipairs children do
+					print_item indent + 4, table.unpack t
+						
+			stack class: 'flex-col w-full h-full', ->
+				for _, t in ipairs game\resume 'room-items' do
+					print_item 0, table.unpack t
+
+				for _, t in ipairs game\resume 'room-exits' do
+					dir, room = table.unpack t
+					stack ->
+						button class: action, onClick: perform, verb: "walk", object: dir\lower!, dir\lower!
+						p class: 'm-2 text-green-300', room
+
 				stack ->
-					button class: action, onClick: perform, verb: "walk", object: dir\lower!, dir\lower!
-					p class: 'm-2 text-green-300', room
-			stack ->
-				button class: action, onClick: perform, verb: "inventory", "Inventory"
-				button class: action, onClick: perform, verb: "look", "Look Around"
-		else
-			p class: 'm-2', res
+					button class: action, onClick: perform, verb: "inventory", "Inventory"
+					button class: action, onClick: perform, verb: "look", "Look Around"
+
+				p class: 'm-2', game\resume "inventory"

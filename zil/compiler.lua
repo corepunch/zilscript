@@ -619,9 +619,6 @@ local function compile_routine(decl, body, node)
     body.writeln()
   end
   body.writeln("\t return __tmp end)")
-  if name == "DESCRIBE_OBJECTS" then
-    body.writeln("\tGM_NOTES(HERE)")
-  end
   body.writeln("\tif __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then")
   -- body.writeln("print('\t\t(%s) '..tostring(__res))", name:gsub("_", "-"))
   body.writeln("return __res")

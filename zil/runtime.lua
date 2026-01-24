@@ -130,21 +130,20 @@ end
 
 -- Create a coroutine for the game that yields on input
 -- Returns a coroutine object
-function M.create_game_coroutine(env, silent)
-	return coroutine.create(function()
-		M.execute("GO()", 'main', env, silent)
-	end)
+function M.create_game(env, silent)
+	return {
+		coroutine = coroutine.create(function() M.execute("GO()", 'main', env, silent) end),
+		-- Resume the game coroutine with input
+		-- Returns: status (boolean), result (any value or error message)
+		-- resume = function (self, input) return coroutine.resume(self.coroutine, input) end,
+		resume = function (self, input) 
+			local ok, response = coroutine.resume(self.coroutine, input)
+			return ok and response or error(response)
+		end,
+		-- Check if the coroutine is still running
+		is_running = function(self) return coroutine.status(self.coroutine) ~= "dead" end,
+	}
 end
 
--- Resume the game coroutine with input
--- Returns: status (boolean), result (any value or error message)
-function M.resume_game(coro, input)
-	return coroutine.resume(coro, input)
-end
-
--- Check if the coroutine is still running
-function M.is_running(coro)
-	return coroutine.status(coro) ~= "dead"
-end
 
 return M

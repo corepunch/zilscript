@@ -68,8 +68,80 @@ M_LOOK = 3
 M_FLASH = 4
 M_OBJDESC = 5
 
-ROOM_ITEMS = {}
-ROOM_EXITS = {}
+local suggestions = {
+	READBIT = "READ",
+	TAKEBIT = "TAKE",
+	CONTBIT = "OPEN",
+	DOORBIT = "OPEN",
+}
+
+local function objects_in_room(room)
+	local i = 0
+	return function()
+		while true do
+			i = i + 1
+			local o = OBJECTS[i]
+			if not o then return nil end
+			if i ~= ADVENTURER and o.LOC == room then return i, o end
+		end
+	end
+end
+
+local function connected_exits(room)
+    local i, keys = 0, {}
+    for d in pairs(_DIRECTIONS) do keys[#keys+1]=d end
+    return function()
+        while i<#keys do
+            i=i+1; local d=_DIRECTIONS[keys[i]]; local pp=GETPT(room,d)
+            if pp then return keys[i], pp end
+        end
+    end
+end
+
+local function add_items(room)
+	local items = {}
+	for obj in objects_in_room(room) do
+		local verbs = {}
+		local action = GETP(obj, PQACTION)
+		local text = GETP(obj, PQTEXT) and not FSETQ(obj, READBIT)
+		local item = GETP(obj, PQDESC) or ""
+		if action then
+			local func = FUNCTIONS[tonumber(action)]
+			for k, v in pairs(_G) do if v == func then verbs = _G['_'..k] break end end
+		end
+		if text then table.insert(verbs, "EXAMINE") end
+		local fnd = function(name, array) 
+			for _, n in ipairs(array) do if n == name then return true end end
+		end
+		for k, v in pairs(suggestions) do
+			if FSETQ(obj, _G[k]) and not fnd(v, verbs) then
+				table.insert(verbs, v)
+			end
+		end
+		local words = {}
+		for word in item:gmatch("%S+") do
+			table.insert(words, word:sub(1,1):upper() .. word:sub(2):lower())
+		end
+		table.insert(items, {table.concat(words, " "), verbs, add_items(obj)})
+	end
+	return items
+end
+
+local function add_exits(room)
+	local exits = {}
+	for d, pp in connected_exits(room) do
+		if PTSIZE(pp) == 1 then
+			local desc = GETP(GETB(pp, 0), PQDESC)
+			if not FSETQ(GETB(pp, 0), ONBIT) then
+				desc = desc .. " (pitch black)"
+			end
+			table.insert(exits, {d, desc})
+		elseif PTSIZE(pp) == 2 then
+			table.insert(exits, {d, string.format("\"%s\"", mem:string(GET(pp, 0)))})
+		end
+	end
+	return exits
+end
 
 local function encode_fptr(n)
   return string.format("<@F:%X>", n)
@@ -191,6 +263,7 @@ function TELL(...)
 		if v == D then object = true
 		elseif object then object = false io_write(GETP(v, _G["PQDESC"]))
 		elseif type(v) == "number" then io_write(mem: string(v))
+		elseif v == '>' then -- skip
 		else io_write(tostring(v)) end
 	end
 end
@@ -208,11 +281,26 @@ function PRINTN(n) io_write(tostring(n)) end
 function PRINTC(ch) io_write(string.char(ch)) end
 function CRLF() io_write("\n") end
 
+function JIGS_UP(msg)
+	TELL(msg, CR)
+	MOVE(WINNER, HERE)
+	-- os.exit(1)
+end
+
+local routes = {
+	['room-items'] = add_items,
+	['room-exits'] = add_exits,
+}
+
 -- Modified READ to yield with output
 function READ(inbuf, parse)
 	-- Yield with accumulated output, get input back
-	local s = coroutine.yield({scene=io_flush(),items=ROOM_ITEMS,exits=ROOM_EXITS})
-	
+	local s = coroutine.yield(io_flush())
+	::restart_read::
+	if routes[s] then
+		s = coroutine.yield(routes[s](HERE))
+		goto restart_read
+	end
 	-- Handle nil input (e.g., EOF)
 	if not s then
 		os.exit(0)
@@ -223,7 +311,7 @@ function READ(inbuf, parse)
 		local index = cache.words[word: lower()] or 0
 		table.insert(p, makeword(index).. string.char(#word, pos&0xff))
 	end
-	mem: write(s: lower()..'\0', inbuf+1)
+	mem:write(s: lower()..'\0', inbuf+1)
 	mem:write(string.char(#p)..table.concat(p), parse+1)
 end
 
@@ -617,84 +705,6 @@ end
 -- end
 
 -- LTABLE = TABLE
-
-local function objects_in_room(room)
-	local i = 0
-	return function()
-		while true do
-			i = i + 1
-			local o = OBJECTS[i]
-			if not o then return nil end
-			if i ~= ADVENTURER and o.LOC == room then return i, o end
-		end
-	end
-end
-
-local function connected_exits(room)
-    local i, keys = 0, {}
-    for d in pairs(_DIRECTIONS) do keys[#keys+1]=d end
-    return function()
-        while i<#keys do
-            i=i+1; local d=_DIRECTIONS[keys[i]]; local pp=GETPT(room,d)
-            if pp then return keys[i], pp end
-        end
-    end
-end
-
-local suggestions = {
-	READBIT = "READ",
-	TAKEBIT = "TAKE",
-	CONTBIT = "OPEN",
-	DOORBIT = "OPEN",
-}
-
-local function add_items(room, indent)
-	for obj in objects_in_room(room) do
-		local verbs = {}
-		local action = GETP(obj, PQACTION)
-		local text = GETP(obj, PQTEXT) and not FSETQ(obj, READBIT)
-		local item = GETP(obj, PQDESC) or ""
-		if action then
-			local func = FUNCTIONS[tonumber(action)]
-			for k, v in pairs(_G) do if v == func then verbs = _G['_'..k] break end end
-		end
-		if text then table.insert(verbs, "EXAMINE") end
-		local fnd = function(name, array) 
-			for _, n in ipairs(array) do if n == name then return true end end
-		end
-		for k, v in pairs(suggestions) do
-			if FSETQ(obj, _G[k]) and not fnd(v, verbs) then
-				table.insert(verbs, v)
-			end
-		end
-		local words = {}
-		for word in item:gmatch("%S+") do
-			table.insert(words, word:sub(1,1):upper() .. word:sub(2):lower())
-		end
-		table.insert(ROOM_ITEMS, {table.concat(words, " "), indent or 0, verbs})
-		add_items(obj, (indent or 0) + 1)
-	end
-end
-
-local function add_exits(room)
-	for d, pp in connected_exits(room) do
-		if PTSIZE(pp) == 1 then
-			local desc = GETP(GETB(pp, 0), PQDESC)
-			if not FSETQ(GETB(pp, 0), ONBIT) then
-				desc = desc .. " (pitch black)"
-			end
-			table.insert(ROOM_EXITS, {d, desc})
-		elseif PTSIZE(pp) == 2 then
-			table.insert(ROOM_EXITS, {d, string.format("\"%s\"", mem:string(GET(pp, 0)))})
-		end
-	end
-end
-
-function GM_NOTES(room)
-	ROOM_ITEMS, ROOM_EXITS = {}, {}
-	add_items(room)
-	add_exits(room)
-end
 
 -- === Done ===
 print("ZIL runtime initialized.")
