@@ -51,7 +51,6 @@
         (DESC "oak desk")
         (LDESC "A heavy oak desk sits against one wall, its surface thick with dust.")
         (FLAGS SURFACEBIT)
-        (TEXT "The desk has three drawers. The top two are broken and empty.")
         (ACTION DESK-F)>
 <OBJECT BRASS-KEY
         (IN RECEPTION-ROOM)
@@ -727,7 +726,7 @@
         (SYNONYM DRAWER)
         (ADJECTIVE BOTTOM)
         (DESC "bottom drawer")
-        (LDESC "A sturdy bottom drawer from the desk lies here, locked tight.")
+        (LDESC "The bottom drawer from the desk has been removed and sits here, locked tight.")
         (FLAGS CONTBIT NDESCBIT)
         (CAPACITY 10)
         (ACTION DRAWER-F)>
