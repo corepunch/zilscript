@@ -42,7 +42,7 @@
       (FLAGS RLANDBIT ONBIT)>
 <ROUTINE DESK-F ()
          <COND (<VERB? EXAMINE LOOK-INSIDE>
-                <TELL "The desk has three drawers. The top two are broken and empty. They hang open uselessly." CR>
+                <TELL "The desk has three drawers. The top two are broken and empty. They hang open uselessly. The bottom drawer has been pulled out and sits on the floor nearby." CR>
                 <RTRUE>)>>
 <OBJECT OAK-DESK
         (IN RECEPTION-ROOM)
@@ -726,7 +726,7 @@
         (SYNONYM DRAWER)
         (ADJECTIVE BOTTOM)
         (DESC "bottom drawer")
-        (LDESC "The bottom drawer from the desk has been removed and sits here, locked tight.")
+        (LDESC "The bottom drawer from the desk sits on the floor, locked tight.")
         (FLAGS CONTBIT NDESCBIT)
         (CAPACITY 10)
         (ACTION DRAWER-F)>
