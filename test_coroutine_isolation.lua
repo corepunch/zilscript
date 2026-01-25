@@ -28,7 +28,9 @@ print("✓ Game environments are isolated")
 print()
 
 -- Create coroutines for both games (if they had GO functions)
--- These GO functions need to yield to allow multiple resumes
+-- These GO functions use infinite loops and yield to allow multiple resumes
+-- This is intentional for testing coroutine isolation - the test controls
+-- how many times each coroutine is resumed
 game1.GO = function()
 	while true do
 		game1.call_count = (game1.call_count or 0) + 1
