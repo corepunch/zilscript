@@ -37,7 +37,7 @@
 <ROOM RECEPTION-ROOM
       (IN ROOMS)
       (DESC "Reception Room")
-      (LDESC "This cramped room once served as the sanitarium's reception. Filing cabinets line the opposite wall, their drawers hanging open like gaping mouths. Something glints among the papers scattered on the floor.")
+      (LDESC "This cramped room once served as the sanitarium's reception. Filing cabinets line the opposite wall, their drawers hanging open like gaping mouths. Something glints among the papers scattered on the floor. The entrance hall lies to the east.")
       (EAST TO SANITARIUM-ENTRANCE)
       (FLAGS RLANDBIT ONBIT)>
 <OBJECT OAK-DESK
@@ -146,7 +146,7 @@
 <ROOM MORGUE
       (IN ROOMS)
       (DESC "Morgue")
-      (LDESC "The temperature drops as you enter the morgue. Medical instruments hang on the wall. This place feels wrong, as though something lingers here still.")
+      (LDESC "The temperature drops as you enter the morgue. Medical instruments hang on the wall. This place feels wrong, as though something lingers here still. The patient ward lies to the south.")
       (SOUTH TO PATIENT-WARD)
       (FLAGS RLANDBIT)>
 <ROUTINE DRAWERS-F ()
@@ -197,7 +197,7 @@
 <ROOM BASEMENT-CORRIDOR
       (IN ROOMS)
       (DESC "Basement Corridor")
-      (LDESC "The basement corridor stretches into shadow. Water pools on the cracked floor. The stairs ascend to darkness above.")
+      (LDESC "The basement corridor stretches into shadow. Water pools on the cracked floor. The stairs ascend to darkness above. Passages lead east to the boiler room, west to storage, and north into deeper darkness.")
       (UP TO BASEMENT-STAIRS)
       (EAST TO BOILER-ROOM)
       (WEST TO STORAGE-ROOM)
@@ -237,7 +237,7 @@
 <ROOM BOILER-ROOM
       (IN ROOMS)
       (DESC "Boiler Room")
-      (LDESC "Coal dust covers everything. The room radiates a sense of dormant power, waiting to awaken.")
+      (LDESC "Coal dust covers everything. The room radiates a sense of dormant power, waiting to awaken. The corridor lies to the west.")
       (WEST TO BASEMENT-CORRIDOR)
       (FLAGS RLANDBIT)>
 <ROUTINE BOILER-F ()
@@ -285,7 +285,7 @@
 <ROOM FLOODING-CHAMBER
       (IN ROOMS)
       (DESC "Flooded Chamber")
-      (LDESC "Water covers the floor to ankle depth. The chamber is vast and dark, with arched stone ceilings disappearing into shadow. The source of the water is unclear. To the north, a passage leads deeper into the complex.")
+      (LDESC "Water covers the floor to ankle depth. The chamber is vast and dark, with arched stone ceilings disappearing into shadow. The source of the water is unclear. To the north, a passage leads deeper into the complex. The corridor lies to the south.")
       (SOUTH TO BASEMENT-CORRIDOR)
       (NORTH TO ISOLATION-WARD)
       (EAST TO HYDROTHERAPY-ROOM IF STEAM-DOOR-OPEN)
@@ -334,7 +334,7 @@
 <ROOM HYDROTHERAPY-ROOM
       (IN ROOMS)
       (DESC "Hydrotherapy Room")
-      (LDESC "Rubber hoses dangle from fixtures overhead. The tiles are cracked and stained.")
+      (LDESC "Rubber hoses dangle from fixtures overhead. The tiles are cracked and stained. The flooded chamber lies to the west.")
       (WEST TO FLOODING-CHAMBER)
       (FLAGS RLANDBIT)>
 <ROUTINE TUBS-F ()
@@ -393,7 +393,7 @@
 <ROOM ELECTROSHOCK-THEATER
       (IN ROOMS)
       (DESC "Electroshock Theater")
-      (LDESC "A concrete room. The walls are scorched in places. A viewing window overlooks the room from above. To the east, a stairway leads up. West lies a padded cell.")
+      (LDESC "A concrete room. The walls are scorched in places. A viewing window overlooks the room from above. To the east, a stairway leads up. West lies a padded cell. The isolation ward lies to the south.")
       (SOUTH TO ISOLATION-WARD)
       (EAST TO OBSERVATION-DECK)
       (WEST TO PADDED-CELL)
@@ -426,7 +426,7 @@
 <ROOM PADDED-CELL
       (IN ROOMS)
       (DESC "Padded Cell")
-      (LDESC "The small room reeks of decay. Something has been written on the walls in what looks like dried blood.")
+      (LDESC "The small room reeks of decay. Something has been written on the walls in what looks like dried blood. The electroshock theater lies to the east.")
       (EAST TO ELECTROSHOCK-THEATER)
       (FLAGS RLANDBIT)>
 <ROUTINE PADDING-F ()
@@ -510,7 +510,7 @@
 <ROOM DIRECTORS-OFFICE
       (IN ROOMS)
       (DESC "Director's Office")
-      (LDESC "A large office with wood paneling. Bookshelves line the walls, filled with medical texts and journals.")
+      (LDESC "A large office with wood paneling. Bookshelves line the walls, filled with medical texts and journals. The administrative wing lies to the west.")
       (WEST TO ADMINISTRATIVE-WING)
       (FLAGS RLANDBIT ONBIT)>
 <ROUTINE MASSIVE-DESK-F ()
