@@ -58,16 +58,19 @@ local function run_test_file(test_file_path)
 
 		local GREEN = "\27[1;32m"
 		local RED = "\27[1;31m"
+		local NEUTRAL = "\27[36m"
 		local RESET = "\27[0m"
 
-		local function report(test) 
-			local err = game_coro:resume(test:gsub("-", "_"))
+		local function feedback(test, err)
 			if err then
 				print(RED .. "[FAIL] " .. (cmd.description or test) .. RESET)
-				print(RED .. err .. RESET)
+				if type(err) == "string" then print(RED .. err .. RESET) end
 			else
 				print(GREEN .. "[PASS] " .. (cmd.description or test) .. RESET)
 			end
+		end
+		local function report(test) 
+			feedback(test, game_coro:resume(test:gsub("-", "_")))
 		end
 
 		if cmd.here then
@@ -77,14 +80,11 @@ local function run_test_file(test_file_path)
 		elseif cmd.flag then
 			report("test:flag "..cmd.flag)
 		elseif cmd.text then
-			-- Check if expected text is present in the output
-			if output and output:find(cmd.text, 1, true) then
-				print(GREEN .. "[PASS] " .. (cmd.description or ("Text present: " .. cmd.text)) .. RESET)
-			else
-				print(RED .. "[FAIL] " .. (cmd.description or ("Text not found: " .. cmd.text)) .. RESET)
-				print(RED .. "Expected text: " .. cmd.text .. RESET)
-			end
+			feedback(cmd.text, not (output or ""):find(cmd.text, 1, true))
+		else
+			print(NEUTRAL .. "[SKIP] " .. (cmd.description or cmd.input) .. RESET)
 		end
+		print(output)
 	end
 	
 	print("\n=== Test commands completed ===")
