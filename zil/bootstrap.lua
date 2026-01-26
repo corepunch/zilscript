@@ -466,6 +466,8 @@ local function assert_inventory(obj_name, expected)
 end
 
 -- Assert that an object is at a specific location
+-- Note: This always expects the object to BE at the location (expected=true)
+-- To check if an object is NOT at a location, use check-location instead
 local function assert_location(obj_name, location_name)
 	local obj_num, obj = find_object_by_name(obj_name)
 	if not obj_num then
