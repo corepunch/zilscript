@@ -56,7 +56,16 @@ local function run_test_file(test_file_path)
 		if result then
 			-- Check if result is a test response (table with status)
 			if type(result) == "table" and result.status then
-				print(string.format("[TEST] %s: %s", result.status, result.message))
+				-- Add ANSI color codes for status
+				local color_codes = {
+					ok = "\27[1;32m",    -- Green for ok/pass
+					pass = "\27[1;32m",  -- Green for pass
+					fail = "\27[1;31m",  -- Red for fail
+					error = "\27[1;31m", -- Red for error
+				}
+				local reset = "\27[0m"
+				local color = color_codes[result.status] or ""
+				print(string.format("[TEST] %s%s%s: %s", color, result.status, reset, result.message))
 			else
 				print(result)
 			end

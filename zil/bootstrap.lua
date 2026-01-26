@@ -317,7 +317,7 @@ local function check_flag(obj_name, flag_name)
 	
 	local is_set = FSETQ(obj_num, flag)
 	return {
-		status = "ok",
+		status = is_set and "ok" or "fail",
 		object = obj_name,
 		flag = flag_name,
 		is_set = is_set,
@@ -364,7 +364,7 @@ local function check_inventory(obj_name)
 	-- Check if object is held by player (ADVENTURER is typically object 1)
 	local in_inventory = INQ(obj_num, ADVENTURER)
 	return {
-		status = "ok",
+		status = in_inventory and "ok" or "fail",
 		object = obj_name,
 		in_inventory = in_inventory,
 		message = string.format("%s is %s player's inventory", 

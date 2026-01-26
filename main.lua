@@ -47,25 +47,39 @@ local game, input = runtime.create_game(env), nil
 repeat
 	local res = game:resume(input)
   
-  io.write(highlight(res))
-  -- if res.items then
-  --   print("\nItems:")
-  --   for item, verbs in pairs(res.items) do
-  --     if #verbs > 0 then
-  --       print(string.format("  %s (%s)", item:upper(), table.concat(verbs, ', ')))
-  --     else
-  --       print(string.format("  %s", item:upper()))
-  --     end
-  --   end
-  -- end
-  -- if res.exits then
-  --   print("\nExits:")
-  --   for exit, desc in pairs(res.exits) do
-  --     print(string.format("  %s -> %s", exit, desc))
-  --   end
-  -- end
-  input = io.read()
-  io.write("\n")
+	-- Check if result is a test response (table with status)
+	if type(res) == "table" and res.status then
+		-- Add ANSI color codes for status
+		local color_codes = {
+			ok = "\27[1;32m",    -- Green for ok/pass
+			pass = "\27[1;32m",  -- Green for pass
+			fail = "\27[1;31m",  -- Red for fail
+			error = "\27[1;31m", -- Red for error
+		}
+		local reset = "\27[0m"
+		local color = color_codes[res.status] or ""
+		io.write(string.format("[TEST] %s%s%s: %s\n", color, res.status, reset, res.message))
+	else
+		io.write(highlight(res))
+	end
+	-- if res.items then
+	--   print("\nItems:")
+	--   for item, verbs in pairs(res.items) do
+	--     if #verbs > 0 then
+	--       print(string.format("  %s (%s)", item:upper(), table.concat(verbs, ', ')))
+	--     else
+	--       print(string.format("  %s", item:upper()))
+	--     end
+	--   end
+	-- end
+	-- if res.exits then
+	--   print("\nExits:")
+	--   for exit, desc in pairs(res.exits) do
+	--     print(string.format("  %s -> %s", exit, desc))
+	--   end
+	-- end
+	input = io.read()
+	io.write("\n")
 until not input or not game:is_running()
 
 -- local ast = parser.parse_file "zork1/actions.zil"
