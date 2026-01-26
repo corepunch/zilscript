@@ -1,4 +1,11 @@
--- Simple test to verify check commands now return ok/fail properly
+-- Test file to verify that test:check-flag and test:check-inventory
+-- properly return "ok" or "fail" based on actual game state.
+--
+-- This test addresses the issue where these commands always returned "ok"
+-- even when the tested condition was false, making it impossible to detect
+-- test failures. After the fix:
+-- - test:check-inventory returns "ok" when object IS in inventory, "fail" when NOT
+-- - test:check-flag returns "ok" when flag IS set, "fail" when NOT set
 return {
 	name = "Test Check Commands (ok/fail behavior)",
 	files = {
