@@ -26,16 +26,25 @@ M.reset = RESET
 function M.format_test_result(result)
 	-- Validate input
 	if type(result) ~= "table" then
-		error("format_test_result: expected table, got " .. type(result))
+		error(string.format("test_format.format_test_result: expected table, got %s: %s", 
+			type(result), tostring(result)))
 	end
 	if not result.status then
-		error("format_test_result: result.status is required")
+		error(string.format("test_format.format_test_result: result.status is required (got %s)", 
+			type(result.status)))
 	end
 	if not result.message then
-		error("format_test_result: result.message is required")
+		error(string.format("test_format.format_test_result: result.message is required (got %s)", 
+			type(result.message)))
 	end
 	
-	local color = M.colors[result.status] or ""
+	-- Get color, warn if status is unknown
+	local color = M.colors[result.status]
+	if not color then
+		io.stderr:write(string.format("WARNING: Unknown test status '%s', using no color\n", result.status))
+		color = ""
+	end
+	
 	return string.format("[TEST] %s%s%s: %s", color, result.status, M.reset, result.message)
 end
 
