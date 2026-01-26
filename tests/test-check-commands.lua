@@ -69,5 +69,15 @@ return {
 			input = "test:check-flag BOTTOM_DRAWER OPENBIT",
 			description = "Check if drawer is open (should be ok - just opened)"
 		},
+		-- Test check-location when object is at the location (should show ok)
+		{
+			input = "test:check-location PATIENT_LEDGER BOTTOM_DRAWER",
+			description = "Check if ledger is in drawer (should be ok)"
+		},
+		-- Test check-location when object is NOT at the location (should show fail)
+		{
+			input = "test:check-location PATIENT_LEDGER SANITARIUM_GATE",
+			description = "Check if ledger is at gate (should fail - it's in the drawer)"
+		},
 	}
 }

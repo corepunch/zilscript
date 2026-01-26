@@ -343,7 +343,7 @@ local function check_location(obj_name, location_name)
 	local obj_loc = LOC(obj_num)
 	local is_at_location = (obj_loc == loc_num)
 	return {
-		status = "ok",
+		status = is_at_location and "ok" or "fail",
 		object = obj_name,
 		location = location_name,
 		is_at_location = is_at_location,
