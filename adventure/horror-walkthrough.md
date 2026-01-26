@@ -46,7 +46,7 @@ This is a complete walkthrough for the horror.zil adventure game - an expansion 
 ### Act 1: Entrance and Upper Floors
 
 1. `take flashlight` - Pick up the flashlight (working light source)
-2. `turn on flashlight` or `light flashlight` - Turn on the flashlight for dark areas
+2. `light flashlight` - Turn on the flashlight for dark areas
 3. `examine plaque` - Learn about Blackwood Sanitarium (Est. 1898, Closed 1952)
 4. `take plaque`
 5. `north` - Enter Sanitarium Entrance Hall
