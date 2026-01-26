@@ -6,6 +6,9 @@
 -- test failures. After the fix:
 -- - test:check-inventory returns "ok" when object IS in inventory, "fail" when NOT
 -- - test:check-flag returns "ok" when flag IS set, "fail" when NOT set
+--
+-- Note: Object names use hyphens (e.g., BOTTOM-DRAWER) which are automatically
+-- converted to underscores internally for ZIL naming conventions.
 return {
 	name = "Test Check Commands (ok/fail behavior)",
 	files = {
@@ -23,7 +26,7 @@ return {
 		},
 		-- Test check-inventory when object is NOT in inventory (should show fail)
 		{
-			input = "test:check-inventory BRASS_PLAQUE",
+			input = "test:check-inventory BRASS-PLAQUE",
 			description = "Check if plaque is in inventory (should fail - not taken yet)"
 		},
 		-- Take the plaque
@@ -33,7 +36,7 @@ return {
 		},
 		-- Test check-inventory when object IS in inventory (should show ok)
 		{
-			input = "test:check-inventory BRASS_PLAQUE",
+			input = "test:check-inventory BRASS-PLAQUE",
 			description = "Check if plaque is in inventory (should be ok - just taken)"
 		},
 		-- Move to reception room to test flags
@@ -47,7 +50,7 @@ return {
 		},
 		-- Test check-flag when flag is NOT set (should show fail)
 		{
-			input = "test:check-flag BOTTOM_DRAWER OPENBIT",
+			input = "test:check-flag BOTTOM-DRAWER OPENBIT",
 			description = "Check if drawer is open (should fail - not opened yet)"
 		},
 		-- Take the key
@@ -66,17 +69,17 @@ return {
 		},
 		-- Test check-flag when flag IS set (should show ok)
 		{
-			input = "test:check-flag BOTTOM_DRAWER OPENBIT",
+			input = "test:check-flag BOTTOM-DRAWER OPENBIT",
 			description = "Check if drawer is open (should be ok - just opened)"
 		},
 		-- Test check-location when object is at the location (should show ok)
 		{
-			input = "test:check-location PATIENT_LEDGER BOTTOM_DRAWER",
+			input = "test:check-location PATIENT-LEDGER BOTTOM-DRAWER",
 			description = "Check if ledger is in drawer (should be ok)"
 		},
 		-- Test check-location when object is NOT at the location (should show fail)
 		{
-			input = "test:check-location PATIENT_LEDGER SANITARIUM_GATE",
+			input = "test:check-location PATIENT-LEDGER SANITARIUM-GATE",
 			description = "Check if ledger is at gate (should fail - it's in the drawer)"
 		},
 	}
