@@ -334,11 +334,16 @@ local function assert_here(location_name)
 	assert_location("ADVENTURER", location_name)
 end
 
+local function assert_global(var_name)
+	assert(_G[var_name], "Global variable not set: " .. var_name)
+end
+
 local test_cmds = {
 	["test:flag"] = { assert_flag, 3 },
 	["test:here"] = { assert_here, 2 },
 	["test:location"] = { assert_location, 3 },
 	["test:inventory"] = { assert_inventory, 2 },
+	["test:global"] = { assert_global, 2 },
 }
 
 local routes = {

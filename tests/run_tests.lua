@@ -65,7 +65,11 @@ local function run_test_file(test_file_path)
 			if err then
 				print(RED .. "[FAIL] " .. (cmd.description or test) .. RESET)
 				print(RED .. output .. RESET)
-				if type(err) == "string" then print(RED .. err .. RESET) end
+				if output and output:find("too many things") then
+					print(RED .. game_coro:resume("inventory") .. RESET)
+				elseif type(err) == "string" then
+					print(RED .. err .. RESET)
+				end
 			else
 				print(GREEN .. "[PASS] " .. (cmd.description or test) .. RESET)
 			end
@@ -80,6 +84,8 @@ local function run_test_file(test_file_path)
 			report("test:inventory "..cmd.inventory)
 		elseif cmd.flag then
 			report("test:flag "..cmd.flag)
+		elseif cmd.global then
+			report("test:global "..cmd.global)
 		elseif cmd.text then
 			feedback(cmd.text, not (output or ""):lower():find(cmd.text:lower(), 1, true))
 		else

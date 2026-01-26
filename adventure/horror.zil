@@ -17,6 +17,16 @@
         (FLAGS READBIT TAKEBIT)
         (TEXT "The plaque reads: 'Blackwood Sanitarium - Est. 1898 - Closed by Order 1952'")
         (SIZE 5)>
+<ROOM SANITARIUM-ENTRANCE
+      (IN ROOMS)
+      (DESC "Sanitarium Entrance Hall")
+      (LDESC "The entrance hall reeks of mildew and decay. A grand staircase ascends to darkness in the east. To the west, a doorway leads to what might have been a reception area. North, you can make out an operating theater through a half-open door. A narrow staircase descends into the basement.")
+      (SOUTH TO SANITARIUM-GATE)
+      (WEST TO RECEPTION-ROOM)
+      (NORTH TO OPERATING-THEATER)
+      (EAST TO PATIENT-WARD)
+      (DOWN TO BASEMENT-STAIRS)
+      (FLAGS RLANDBIT ONBIT)>
 <ROUTINE WORKING-FLASHLIGHT-F ()
          <COND (<AND <VERB? LAMP-ON>
                      <NOT ,WORKING-FLASHLIGHT-LIT-FLAG>>
@@ -42,20 +52,10 @@
         (SYNONYM FLASHLIGHT LIGHT TORCH LAMP)
         (ADJECTIVE METAL WORKING)
         (DESC "flashlight")
-        (LDESC "A sturdy flashlight lies on the ground.")
+        (LDESC "A flashlight lies abandoned on the dusty floor.")
         (FLAGS TAKEBIT LIGHTBIT)
         (SIZE 5)
         (ACTION WORKING-FLASHLIGHT-F)>
-<ROOM SANITARIUM-ENTRANCE
-      (IN ROOMS)
-      (DESC "Sanitarium Entrance Hall")
-      (LDESC "The entrance hall reeks of mildew and decay. A grand staircase ascends to darkness in the east. To the west, a doorway leads to what might have been a reception area. North, you can make out an operating theater through a half-open door. A narrow staircase descends into the basement. A flashlight lies abandoned on the dusty floor.")
-      (SOUTH TO SANITARIUM-GATE)
-      (WEST TO RECEPTION-ROOM)
-      (NORTH TO OPERATING-THEATER)
-      (EAST TO PATIENT-WARD)
-      (DOWN TO BASEMENT-STAIRS)
-      (FLAGS RLANDBIT ONBIT)>
 <OBJECT WALLPAPER
         (IN SANITARIUM-ENTRANCE)
         (SYNONYM WALLPAPER PAPER PLASTER)
@@ -213,7 +213,7 @@
         (DESC "doctor's journal")
         (LDESC "A journal rests on a small desk in the corner.")
         (FLAGS READBIT TAKEBIT)
-        (TEXT "The subject showed remarkable resilience. But the serum... it changed something fundamental. Patient 237 died on the table, yet I swear I saw movement hours later. I have made a terrible mistake. God forgive me, I must seal this place.")
+        (TEXT "The subject showed remarkable resilience. But the serum... it changed something fundamental. Patient 237 died on the table, yet I swear I saw movement hours later. The eyes... the eyes opened. I have made a terrible mistake. God forgive me, I must seal this place.")
         (SIZE 6)
         (ACTION JOURNAL-F)>
 <ROOM BASEMENT-STAIRS
