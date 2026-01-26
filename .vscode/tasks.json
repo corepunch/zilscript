@@ -5,7 +5,7 @@
       "label": "run lua",
       "type": "shell",
       "command": "make",
-      "args": [ "run" ],
+      "args": [ "test-horror" ],
       // "command": "lua",
       // "args": [ "main.lua" ],
       "group": {

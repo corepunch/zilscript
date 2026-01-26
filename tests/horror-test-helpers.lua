@@ -10,33 +10,9 @@ return {
 		"zork1/main.zil",
 	},
 	commands = {
-		{
-			input = "look",
-			description = "Start at Sanitarium Gate"
-		},
-		{
-			input = "test:get-location",
-			description = "Verify starting location is SANITARIUM_GATE"
-		},
-		{
-			input = "examine plaque",
-			description = "Look at the plaque"
-		},
-		{
-			input = "take plaque",
-			description = "Take the brass plaque"
-		},
-		{
-			input = "test:check-inventory BRASS_PLAQUE",
-			description = "Verify plaque is in inventory"
-		},
-		{
-			input = "north",
-			description = "Move north"
-		},
-		{
-			input = "test:get-location",
-			description = "Verify we moved to a new location"
-		},
+		{input="look",here="SANITARIUM-GATE",description="Start at Sanitarium Gate"},
+		{input="examine plaque",description="Learn about Blackwood Sanitarium"},
+		{input="take plaque",inventory="BRASS-PLAQUE",description="Take the brass plaque"},
+		{input="north",here="SANITARIUM-ENTRANCE",description="Enter Sanitarium Entrance Hall"},
 	}
 }

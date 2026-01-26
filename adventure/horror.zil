@@ -724,7 +724,7 @@
         (ADJECTIVE BOTTOM)
         (DESC "bottom drawer")
         (LDESC "A sturdy drawer that seems to be locked.")
-        (FLAGS CONTBIT NDESCBIT)
+        (FLAGS CONTBIT SEARCHBIT NDESCBIT)
         (CAPACITY 10)
         (ACTION DRAWER-F)>
 <ROUTINE LEDGER-F ()

@@ -587,6 +587,8 @@ function print_node(buf, node, indent)
           buf.write("APPLY(function()")
           print_node(buf, node[i], indent + 1, true)
           buf.write(" end)")
+        elseif node.name == 'VERB?' then
+          buf.write("VQ%s", value(node[i]))
         else
           print_node(buf, node[i], indent + 1, false)
         end

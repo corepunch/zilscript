@@ -52,15 +52,30 @@ local function run_test_file(test_file_path)
 			break
 		end
 		
-		print("> " .. cmd.input)
-		result = game_coro:resume(cmd.input)
-		if result then
-			-- Check if result is a test response (table with status)
-			if type(result) == "table" and result.status then
-				print(test_format.format_test_result(result))
+		-- print("> " .. cmd.input)
+		-- print(game_coro:resume(cmd.input))
+		game_coro:resume(cmd.input)
+
+		local GREEN = "\27[1;32m"
+		local RED = "\27[1;31m"
+		local RESET = "\27[0m"
+
+		local function report(test) 
+			local err = game_coro:resume(test:gsub("-", "_"))
+			if err then
+				print(RED .. "[FAIL] " .. (cmd.description or test) .. RESET)
+				print(RED .. err .. RESET)
 			else
-				print(result)
+				print(GREEN .. "[PASS] " .. (cmd.description or test) .. RESET)
 			end
+		end
+
+		if cmd.here then
+			report("test:here "..cmd.here)
+		elseif cmd.inventory then
+			report("test:inventory "..cmd.inventory)
+		elseif cmd.flag then
+			report("test:flag "..cmd.flag)
 		end
 	end
 	

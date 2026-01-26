@@ -56,7 +56,7 @@ _OTBL = {}
 
 T = true
 CR = "\n"
-VERB = ""
+PRSA = nil
 PRSO = nil
 PRSI = nil
 
@@ -229,7 +229,7 @@ end
 -- === Utility functions ===
 
 function VERBQ(...)
-	return EQUALQ(VERB, ...)
+	return EQUALQ(PRSA, ...)
 end
 
 function PICK_ONE(table)
@@ -310,215 +310,53 @@ local GREEN = "\27[1;32m"
 local RED = "\27[1;31m"
 local RESET = "\27[0m"
 
--- Check if an object has a specific flag set
-local function check_flag(obj_name, flag_name)
-	local test_name = string.format("check-flag %s %s", obj_name, flag_name)
-	
-	local obj_num, obj = find_object_by_name(obj_name)
-	assert(obj_num, "Object not found: " .. obj_name)
-	
+local function assert_flag(obj_name, flag_name)	
+	local obj_num = find_object_by_name(obj_name)
 	local flag = _G[flag_name]
-	assert(flag, "Unknown flag: " .. flag_name)
-	
-	local is_set = FSETQ(obj_num, flag)
-	if is_set then
-		TELL(GREEN, "[TEST] ", test_name, ": ok", RESET, CR)
-	else
-		TELL(RED, "[TEST] ", test_name, ": fail", RESET, CR)
-	end
+	assert(obj_num, "Object not found: " .. obj_name)	
+	assert(flag, "Unknown flag: " .. flag_name)	
+	assert(FSETQ(obj_num, flag), "Object does not have flag: " .. flag_name)
 end
 
--- Check if an object is in a specific location (room or container)
-local function check_location(obj_name, location_name)
-	local test_name = string.format("check-location %s %s", obj_name, location_name)
-	
-	local obj_num, obj = find_object_by_name(obj_name)
-	assert(obj_num, "Object not found: " .. obj_name)
-	
-	local loc_num, loc = find_object_by_name(location_name)
-	assert(loc_num, "Location not found: " .. location_name)
-	
-	local obj_loc = LOC(obj_num)
-	local is_at_location = (obj_loc == loc_num)
-	if is_at_location then
-		TELL(GREEN, "[TEST] ", test_name, ": ok", RESET, CR)
-	else
-		TELL(RED, "[TEST] ", test_name, ": fail", RESET, CR)
-	end
-end
-
--- Check player's inventory for an object
-local function check_inventory(obj_name)
-	local test_name = string.format("check-inventory %s", obj_name)
-	
-	local obj_num, obj = find_object_by_name(obj_name)
-	assert(obj_num, "Object not found: " .. obj_name)
-	
-	-- Check if object is held by player (ADVENTURER is typically object 1)
-	local in_inventory = INQ(obj_num, ADVENTURER)
-	if in_inventory then
-		TELL(GREEN, "[TEST] ", test_name, ": ok", RESET, CR)
-	else
-		TELL(RED, "[TEST] ", test_name, ": fail", RESET, CR)
-	end
-end
-
--- Get current location name
-local function get_location()
-	local here_name = "unknown"
-	if HERE then
-		for n, o in ipairs(OBJECTS) do
-			if n == HERE then
-				here_name = o.NAME or "unknown"
-				break
-			end
-		end
-	end
-	TELL(GREEN, "[TEST] get-location: ", here_name, RESET, CR)
-end
-
--- Helper to convert string to boolean
-local function to_boolean(str)
-	if type(str) == "boolean" then return str end
-	if type(str) ~= "string" then return nil end
-	local lower = str:lower()
-	if lower == "true" or lower == "yes" or lower == "1" then
-		return true
-	elseif lower == "false" or lower == "no" or lower == "0" then
-		return false
-	end
-	return nil
-end
-
--- Assert that an object has (or doesn't have) a specific flag
-local function assert_flag(obj_name, flag_name, expected)
-	local obj_num, obj = find_object_by_name(obj_name)
-	if not obj_num then
-		return {status = "error", message = "Object not found: " .. obj_name}
-	end
-	
-	local flag = _G[flag_name]
-	if not flag then
-		return {status = "error", message = "Unknown flag: " .. flag_name}
-	end
-	
-	local expected_bool = to_boolean(expected)
-	if expected_bool == nil then
-		return {status = "error", message = "Invalid expected value: " .. tostring(expected) .. " (use true/false)"}
-	end
-	
-	local is_set = FSETQ(obj_num, flag)
-	local passed = (is_set == expected_bool)
-	
-	return {
-		status = passed and "pass" or "fail",
-		object = obj_name,
-		flag = flag_name,
-		expected = expected_bool,
-		actual = is_set,
-		message = string.format("%s %s %s (expected: %s)", 
-			obj_name, 
-			is_set and "has" or "does not have", 
-			flag_name,
-			expected_bool and "has" or "does not have")
-	}
-end
-
--- Assert that an object is (or isn't) in player's inventory
-local function assert_inventory(obj_name, expected)
-	local obj_num, obj = find_object_by_name(obj_name)
-	if not obj_num then
-		return {status = "error", message = "Object not found: " .. obj_name}
-	end
-	
-	local expected_bool = to_boolean(expected)
-	if expected_bool == nil then
-		return {status = "error", message = "Invalid expected value: " .. tostring(expected) .. " (use true/false)"}
-	end
-	
-	local in_inventory = INQ(obj_num, ADVENTURER)
-	local passed = (in_inventory == expected_bool)
-	
-	return {
-		status = passed and "pass" or "fail",
-		object = obj_name,
-		expected = expected_bool,
-		actual = in_inventory,
-		message = string.format("%s is %s player's inventory (expected: %s)", 
-			obj_name,
-			in_inventory and "in" or "not in",
-			expected_bool and "in" or "not in")
-	}
-end
-
--- Assert that an object is at a specific location
--- Note: This always expects the object to BE at the location (expected=true)
--- To check if an object is NOT at a location, use check-location instead
 local function assert_location(obj_name, location_name)
-	local obj_num, obj = find_object_by_name(obj_name)
-	if not obj_num then
-		return {status = "error", message = "Object not found: " .. obj_name}
-	end
-	
-	local loc_num, loc = find_object_by_name(location_name)
-	if not loc_num then
-		return {status = "error", message = "Location not found: " .. location_name}
-	end
-	
-	local obj_loc = LOC(obj_num)
-	local is_at_location = (obj_loc == loc_num)
-	
-	return {
-		status = is_at_location and "pass" or "fail",
-		object = obj_name,
-		location = location_name,
-		expected = true,
-		actual = is_at_location,
-		message = string.format("%s is %s %s (expected: at %s)", 
-			obj_name,
-			is_at_location and "at" or "not at",
-			location_name,
-			location_name)
-	}
+	local obj_num = find_object_by_name(obj_name)
+	local loc_num = find_object_by_name(location_name)
+	assert(obj_num, "Object not found: " .. obj_name)	
+	assert(loc_num, "Location not found: " .. location_name)
+	assert(LOC(obj_num) == loc_num, obj_name .. " is not at the specified location: " .. location_name)
 end
 
--- Parse test command and execute appropriate check
-local function handle_test_command(cmd)
-	local parts = {}
-	for part in cmd:gmatch("%S+") do
-		table.insert(parts, part)
-	end
-	
-	-- Assertion commands (with expected values) - these still return status
-	if parts[1] == "assert-flag" and #parts >= 4 then
-		return assert_flag(parts[2], parts[3], parts[4])
-	elseif parts[1] == "assert-inventory" and #parts >= 3 then
-		return assert_inventory(parts[2], parts[3])
-	elseif parts[1] == "assert-location" and #parts >= 3 then
-		return assert_location(parts[2], parts[3])
-	-- Check commands - these print directly and don't return
-	elseif parts[1] == "check-flag" and #parts >= 3 then
-		check_flag(parts[2], parts[3])
-		return nil
-	elseif parts[1] == "check-location" and #parts >= 3 then
-		check_location(parts[2], parts[3])
-		return nil
-	elseif parts[1] == "check-inventory" and #parts >= 2 then
-		check_inventory(parts[2])
-		return nil
-	elseif parts[1] == "get-location" then
-		get_location()
-		return nil
-	else
-		TELL(RED, "[TEST] Unknown test command: ", cmd, RESET, CR)
-		return nil
-	end
+local function assert_inventory(obj_name)
+	assert_location(obj_name, "ADVENTURER")
 end
+
+local function assert_here(location_name)
+	assert_location("ADVENTURER", location_name)
+end
+
+local test_cmds = {
+	["test:flag"] = { assert_flag, 3 },
+	["test:here"] = { assert_here, 2 },
+	["test:location"] = { assert_location, 3 },
+	["test:inventory"] = { assert_inventory, 2 },
+}
 
 local routes = {
 	['room-items'] = add_items,
 	['room-exits'] = add_exits,
 }
+
+-- Parse test command and execute appropriate check
+local function handle_test_command(cmd)
+	local parts = {}
+	for part in cmd:gmatch("%S+") do table.insert(parts, part) end
+	local cmd_info = test_cmds[parts[1]]
+	if cmd_info and #parts >= cmd_info[2] then
+		return cmd_info[1](table.unpack(parts, 2))
+	else
+		TELL(RED, "[TEST] Unknown test command: ", cmd, RESET, CR)
+	end
+end
 
 -- Modified READ to yield with output
 function READ(inbuf, parse)
@@ -531,15 +369,9 @@ function READ(inbuf, parse)
 	end
 	-- Handle test commands (starting with "test:")
 	if s and s:match("^test:") then
-		local test_cmd = s:sub(6) -- Remove "test:" prefix
-		local result = handle_test_command(test_cmd)
-		-- If result is nil, check commands already printed output via TELL
-		-- If result is a table, it's from assert commands, yield it
-		if result then
-			s = coroutine.yield(result)
-		else
-			s = coroutine.yield(io_flush())
-		end
+		local ok, err = pcall(handle_test_command, s)
+		io_flush()
+		s = coroutine.yield(not ok and err or nil)
 		goto restart_read
 	end
 	-- Handle nil input (e.g., EOF)
