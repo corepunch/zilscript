@@ -4,7 +4,26 @@ DATA_DIR = /Users/igor/Developer/zil-engine
 LIB_PATH = $(BUILD_DIR)
 
 # Targets
-.PHONY: run clean
+.PHONY: run clean test test-all test-unit test-integration test-zork1 test-parser test-containers test-directions test-light test-pronouns test-take help
+
+help:
+	@echo "Available targets:"
+	@echo "  run               - Run the game in GUI mode"
+	@echo "  run_text          - Run the game in text mode"
+	@echo "  clean             - Clean up build artifacts"
+	@echo ""
+	@echo "Test targets:"
+	@echo "  test              - Run all tests (unit + integration)"
+	@echo "  test-all          - Alias for 'test'"
+	@echo "  test-unit         - Run unit tests only"
+	@echo "  test-integration  - Run all integration tests"
+	@echo "  test-zork1        - Run Zork1 integration tests"
+	@echo "  test-parser       - Run all parser/runtime tests"
+	@echo "  test-containers   - Run container interaction tests"
+	@echo "  test-directions   - Run direction/movement tests"
+	@echo "  test-light        - Run light source tests"
+	@echo "  test-pronouns     - Run pronoun tests"
+	@echo "  test-take         - Run TAKE command tests"
 
 run:
 	@echo "Setting DYLD_LIBRARY_PATH to $(LIB_PATH) and running $(APP_NAME)..."
@@ -25,3 +44,44 @@ copy_resources:
 clean:
 	@echo "Cleaning up..."
 	# Add cleaning commands here if needed
+
+# Test targets
+test: test-unit test-integration
+	@echo "All tests completed successfully!"
+
+test-all: test
+	@echo "All tests completed successfully!"
+
+test-unit:
+	@echo "Running unit tests..."
+	lua tests/unit/run_all.lua
+
+test-integration: test-zork1 test-parser
+	@echo "All integration tests completed!"
+
+test-zork1:
+	@echo "Running Zork1 integration tests..."
+	lua tests/run_tests.lua tests/zork1_basic.lua
+
+test-parser: test-containers test-directions test-light test-pronouns test-take
+	@echo "All parser/runtime tests completed!"
+
+test-containers:
+	@echo "Running container tests..."
+	lua tests/run_tests.lua tests/test-containers.lua
+
+test-directions:
+	@echo "Running direction tests..."
+	lua tests/run_tests.lua tests/test-directions.lua
+
+test-light:
+	@echo "Running light tests..."
+	lua tests/run_tests.lua tests/test-light.lua
+
+test-pronouns:
+	@echo "Running pronoun tests..."
+	lua tests/run_tests.lua tests/test-pronouns.lua
+
+test-take:
+	@echo "Running take command tests..."
+	lua tests/run_tests.lua tests/test-take.lua

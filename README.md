@@ -24,9 +24,32 @@ This will compile the ZIL files specified in `main.lua` and start the interactiv
 
 The project includes both unit tests for individual components and integration tests for the full game runtime.
 
+### Quick Start with Make
+
+The easiest way to run tests is using the provided Makefile targets:
+
+```bash
+make test              # Run all tests (unit + integration)
+make test-unit         # Run unit tests only
+make test-integration  # Run all integration tests
+make test-parser       # Run all parser/runtime tests
+```
+
+For a complete list of available test targets, run:
+
+```bash
+make help
+```
+
 ### Running Unit Tests
 
-To run all unit tests:
+To run all unit tests using make:
+
+```bash
+make test-unit
+```
+
+Or directly with lua:
 
 ```bash
 lua tests/unit/run_all.lua
@@ -42,15 +65,23 @@ lua tests/unit/test_runtime.lua   # Runtime tests
 
 ### Running Integration Tests
 
-To run the default integration test suite:
+To run all integration tests using make:
 
 ```bash
-lua tests/run_tests.lua
+make test-integration
 ```
 
 To run a specific integration test file:
 
 ```bash
+make test-directions               # Run direction tests
+make test-containers               # Run container tests
+```
+
+Or directly with lua:
+
+```bash
+lua tests/run_tests.lua tests/test-directions.lua
 lua tests/run_tests.lua tests/zork1_extended.lua
 ```
 
