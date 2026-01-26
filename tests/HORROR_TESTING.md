@@ -56,6 +56,121 @@ The test infrastructure includes special helper commands that can be used in tes
 
 ### Available Test Commands
 
+There are two types of test commands:
+1. **Check commands** - Report current state with `status="ok"` (backward compatible)
+2. **Assert commands** - Verify expected state with `status="pass"` or `status="fail"` (new)
+
+### Assertion Commands (Recommended)
+
+Use these commands to verify that game state matches expectations. They return `pass` when expectations are met, `fail` when they aren't.
+
+#### `test:assert-inventory <object-name> <true|false>`
+Asserts that an object is (or isn't) in the player's inventory.
+
+**Example:**
+```lua
+{
+    input = "test:assert-inventory BRASS_KEY true",
+    description = "Assert brass key is in inventory"
+}
+```
+
+**Returns on success:**
+```lua
+{
+    status = "pass",
+    object = "BRASS_KEY",
+    expected = true,
+    actual = true,
+    message = "BRASS_KEY is in player's inventory (expected: in)"
+}
+```
+
+**Returns on failure:**
+```lua
+{
+    status = "fail",
+    object = "BRASS_KEY",
+    expected = true,
+    actual = false,
+    message = "BRASS_KEY is not in player's inventory (expected: in)"
+}
+```
+
+#### `test:assert-flag <object-name> <flag-name> <true|false>`
+Asserts that an object has (or doesn't have) a specific flag set.
+
+**Example:**
+```lua
+{
+    input = "test:assert-flag BOTTOM_DRAWER OPENBIT true",
+    description = "Assert drawer is open"
+}
+```
+
+**Returns on success:**
+```lua
+{
+    status = "pass",
+    object = "BOTTOM_DRAWER",
+    flag = "OPENBIT",
+    expected = true,
+    actual = true,
+    message = "BOTTOM_DRAWER has OPENBIT (expected: has)"
+}
+```
+
+**Returns on failure:**
+```lua
+{
+    status = "fail",
+    object = "BOTTOM_DRAWER",
+    flag = "OPENBIT",
+    expected = true,
+    actual = false,
+    message = "BOTTOM_DRAWER does not have OPENBIT (expected: has)"
+}
+```
+
+#### `test:assert-location <object-name> <location-name>`
+Asserts that an object is at a specific location (room or container).
+
+**Example:**
+```lua
+{
+    input = "test:assert-location PATIENT_LEDGER BOTTOM_DRAWER",
+    description = "Assert ledger is in drawer"
+}
+```
+
+**Returns on success:**
+```lua
+{
+    status = "pass",
+    object = "PATIENT_LEDGER",
+    location = "BOTTOM_DRAWER",
+    expected = true,
+    actual = true,
+    message = "PATIENT_LEDGER is at BOTTOM_DRAWER (expected: at BOTTOM_DRAWER)"
+}
+```
+
+**Returns on failure:**
+```lua
+{
+    status = "fail",
+    object = "PATIENT_LEDGER",
+    location = "BOTTOM_DRAWER",
+    expected = true,
+    actual = false,
+    message = "PATIENT_LEDGER is not at BOTTOM_DRAWER (expected: at BOTTOM_DRAWER)"
+}
+```
+
+### Check Commands (Backward Compatible)
+
+These commands report the current state without asserting expectations. They always return `status="ok"` unless there's an error.
+
 #### `test:get-location`
 Returns the current room/location name.
 
@@ -143,7 +258,7 @@ Checks if an object is at a specific location (room or container).
 
 ## Common ZIL Flags
 
-When using `test:check-flag`, here are the most commonly used flags:
+When using `test:check-flag` or `test:assert-flag`, here are the most commonly used flags:
 
 - `OPENBIT` - Container/door is open
 - `ONBIT` - Light source is lit / Room is naturally lit
@@ -154,6 +269,43 @@ When using `test:check-flag`, here are the most commonly used flags:
 - `READBIT` - Object can be read
 - `TOUCHBIT` - Object has been touched/taken
 - `INVISIBLE` - Object is not visible
+
+## Using Assertion vs Check Commands
+
+**Use assertion commands** (`test:assert-*`) when you want to verify that game state matches expectations:
+- Testing that an action succeeded (e.g., drawer opened after unlock command)
+- Validating puzzle solutions (e.g., key is now in inventory)
+- Ensuring game winnability (e.g., required items are accessible)
+
+**Use check commands** (`test:check-*`) when you just want to inspect current state:
+- Debugging game flow
+- Understanding current object locations
+- Exploring game state without assertions
+
+**Example: Testing the drawer puzzle with assertions**
+```lua
+-- Before unlocking
+{
+    input = "test:assert-flag BOTTOM_DRAWER OPENBIT false",
+    description = "Verify drawer starts locked (should pass)"
+},
+-- Unlock the drawer
+{
+    input = "unlock drawer with key",
+    description = "Unlock the drawer"
+},
+{
+    input = "open drawer",
+    description = "Open the drawer"
+},
+-- After unlocking
+{
+    input = "test:assert-flag BOTTOM_DRAWER OPENBIT true",
+    description = "Verify drawer is now open (should pass)"
+},
+```
+
+If the unlock command failed, the second assertion would return `status="fail"`, making it easy to identify the problem.
 
 ## Object and Room Names
 
@@ -170,7 +322,7 @@ You can find the ZIL names in the `.zil` source files and convert hyphens to und
 
 ## Creating Custom Tests
 
-You can create custom test files to verify specific scenarios or puzzle sequences. Here's a minimal example:
+You can create custom test files to verify specific scenarios or puzzle sequences. Here's an example using the new assertion commands:
 
 ```lua
 return {
@@ -197,20 +349,36 @@ return {
             description = "Take brass key"
         },
         {
-            input = "test:check-inventory BRASS_KEY",
-            description = "Verify we have the key"
+            input = "test:assert-inventory BRASS_KEY true",
+            description = "Assert we have the key (should pass)"
         },
         {
-            input = "unlock drawer",
+            input = "test:assert-flag BOTTOM_DRAWER OPENBIT false",
+            description = "Assert drawer is closed before unlock (should pass)"
+        },
+        {
+            input = "unlock drawer with key",
             description = "Unlock the drawer"
         },
         {
-            input = "test:check-flag BOTTOM_DRAWER OPENBIT",
-            description = "Verify drawer is now open"
+            input = "open drawer",
+            description = "Open the drawer"
+        },
+        {
+            input = "test:assert-flag BOTTOM_DRAWER OPENBIT true",
+            description = "Assert drawer is now open (should pass)"
+        },
+        {
+            input = "test:assert-location PATIENT_LEDGER BOTTOM_DRAWER",
+            description = "Assert ledger is in drawer (should pass)"
         },
         {
             input = "take ledger",
             description = "Take the patient ledger"
+        },
+        {
+            input = "test:assert-inventory PATIENT_LEDGER true",
+            description = "Assert ledger is in inventory (may fail due to game bug)"
         },
     }
 }
@@ -222,13 +390,24 @@ Save this to a file like `tests/horror-key-puzzle.lua` and run it with:
 lua tests/run_tests.lua tests/horror-key-puzzle.lua
 ```
 
+The test runner will display `[TEST] pass:` for successful assertions and `[TEST] fail:` for failed assertions, making it easy to identify issues.
+
 ## Implementation Details
 
 The test helper functions are implemented in `zil/bootstrap.lua`:
+
+**Check functions (report state):**
 - `check_flag(obj_name, flag_name)` - Checks object flags
 - `check_location(obj_name, location_name)` - Checks object location
 - `check_inventory(obj_name)` - Checks player inventory
 - `get_location()` - Gets current player location
+
+**Assert functions (verify expectations):**
+- `assert_flag(obj_name, flag_name, expected)` - Asserts flag state matches expectation
+- `assert_location(obj_name, location_name)` - Asserts object is at expected location
+- `assert_inventory(obj_name, expected)` - Asserts inventory state matches expectation
+
+**Command handler:**
 - `handle_test_command(cmd)` - Parses and dispatches test commands
 
 These functions are integrated into the game's READ loop and respond to inputs prefixed with `test:`.
