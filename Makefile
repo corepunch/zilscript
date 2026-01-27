@@ -4,7 +4,7 @@ DATA_DIR = /Users/igor/Developer/zil-engine
 LIB_PATH = $(BUILD_DIR)
 
 # Targets
-.PHONY: run clean test test-all test-unit test-integration test-zork1 test-parser test-containers test-directions test-light test-pronouns test-take test-horror-helpers test-horror-partial test-horror test-horror-all help
+.PHONY: run clean test test-all test-unit test-integration test-zork1 test-zork1-walkthrough test-parser test-containers test-directions test-light test-pronouns test-take test-horror-helpers test-horror-partial test-horror test-horror-all help
 
 help:
 	@echo "Available targets:"
@@ -18,6 +18,7 @@ help:
 	@echo "  test-unit         - Run unit tests only"
 	@echo "  test-integration  - Run all integration tests"
 	@echo "  test-zork1        - Run Zork1 integration tests"
+	@echo "  test-zork1-walkthrough - Run Zork1 complete walkthrough test"
 	@echo "  test-parser       - Run all parser/runtime tests"
 	@echo "  test-containers   - Run container interaction tests"
 	@echo "  test-directions   - Run direction/movement tests"
@@ -66,6 +67,10 @@ test-integration: test-zork1 test-parser test-horror-all
 test-zork1:
 	@echo "Running Zork1 integration tests..."
 	lua tests/run_tests.lua tests/zork1_basic.lua
+
+test-zork1-walkthrough:
+	@echo "Running Zork1 complete walkthrough test..."
+	lua tests/run_tests.lua tests/zork1-walkthrough.lua
 
 test-parser: test-containers test-directions test-light test-pronouns test-take
 	@echo "All parser/runtime tests completed!"
