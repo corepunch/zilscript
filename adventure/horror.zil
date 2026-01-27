@@ -262,6 +262,7 @@
         (ADJECTIVE PIPE METAL)
         (DESC "metal valve")
         (LDESC "A wheel valve on one of the pipes, crusted with rust.")
+        (FLAGS TURNBIT)
         (ACTION VALVE-F)>
 <ROOM BOILER-ROOM
       (IN ROOMS)

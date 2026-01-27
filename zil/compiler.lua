@@ -404,10 +404,10 @@ form.RFATAL = function(buf, node, indent)
   buf.write("\terror(2)")
 end
 
-local __again = 123
+local __again = 0xDEADBEEF
 
 form.AGAIN = function(buf, node, indent)
-  buf.write("\terror(%d)", __again)
+  buf.write("\terror(0x%X)", __again)
 end
 
 -- PROG (do block)
@@ -424,7 +424,7 @@ form.PROG = function(buf, node, indent)
   buf.writeln("end")
   buf.writeln("local __ok%d, __res%d", p, p)
   buf.writeln("repeat __ok%d, __res%d = pcall(__prog%d)", p, p, p)
-  buf.writeln("until __ok%d or __res%d ~= %d", p, p, __again)
+  buf.writeln("until __ok%d or __res%d ~= 0x%X", p, p, __again)
   buf.writeln("if not __ok%d then error(__res%d)", p, p)
   buf.writeln("else __tmp = __res%d or true end", p, p)
 end
@@ -442,10 +442,10 @@ form.REPEAT = function(buf, node, indent)
     buf.writeln()
   end
   buf.writeln()
-  buf.writeln("error(%d) end", __again)
+  buf.writeln("error(0x%X) end", __again)
   buf.writeln("local __ok%d, __res%d", p, p)
   buf.writeln("repeat __ok%d, __res%d = pcall(__prog%d)", p, p, p)
-  buf.writeln("until __ok%d or __res%d ~= %d", p, p, __again)
+  buf.writeln("until __ok%d or __res%d ~= 0x%X", p, p, __again)
   buf.writeln("if not __ok%d then error(__res%d)", p, p)
   buf.writeln("else __tmp = __res%d or true end", p, p)
 end
@@ -633,10 +633,11 @@ local function compile_routine(decl, body, node)
     body.writeln()
   end
   body.writeln("\t return __tmp end)")
-  body.writeln("\tif __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then")
+  -- body.writeln("\tif __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then")
+  body.writeln("\tif __ok or type(__res) ~= 'string' then")
   -- body.writeln("print('\t\t(%s) '..tostring(__res))", name:gsub("_", "-"))
   body.writeln("return __res")
-  body.writeln(string.format("\telse error('%s\\n'..__res) end", name))
+  body.writeln(string.format("\telse error(__res and '%s\\n'..__res or '%s') end", name, name))
   body.writeln("end")
 
   body.writeln("_%s = {", name)

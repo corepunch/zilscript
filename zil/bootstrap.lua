@@ -265,7 +265,7 @@ function TELL(...)
 		local v = select(i, ...)
 		if v == D then object = true
 		elseif object then object = false io_write(GETP(v, _G["PQDESC"]))
-		elseif type(v) == "number" then io_write(tostring(v))
+		elseif type(v) == "number" then io_write(mem:string(v))
 		elseif v == '>' then -- skip
 		else io_write(tostring(v)) end
 	end
@@ -758,16 +758,6 @@ end
 
 ROOM = OBJECT
 
--- Queue / control
-function QUEUE(i, turns)
-  local t = {FUNC = i, TURNS = turns}
-  table.insert(QUEUES, t)
-  return t
-end
-
-function ENABLE(i) i.ENABLED = true end
-function DISABLE(i) i.ENABLED = false end
-
 function ITABLE(size)
 	local address = mem:write_word(size)
 	mem:write(string.rep("\0", size))
@@ -790,6 +780,7 @@ end
 function LTABLE(...)
 	local tbl = {}
 	for i = 1, select("#", ...) do
+		-- print("LTABLE arg", i, select(i, ...))
     local v = select(i, ...)
 		if type(v) == 'string' then table.insert(tbl, makeword(mem:writestring2(v)))
 		elseif type(v) == 'number' then table.insert(tbl, makeword(v))
@@ -804,28 +795,109 @@ end
 
 BUZZ(".", ",", "\"")
 
-function CLOCKER()
-end
--- function TABLE(...)
--- 	local contents = {}
--- 	for _, k in ipairs {...} do
--- 		if type(k) == 'string' then
--- 			table.insert(contents, write_string(k))
--- 		elseif type(k) == "number" then
--- 			table.insert(contents, k)
--- 		else
--- 			print(debug.traceback())
--- 			error("Can't use type "..type(k).." in table")
--- 		end
--- 	end
--- 	local address = #mem + 1
--- 	for _, k in ipairs(contents) do
--- 		write_word(k)
--- 	end
--- 	return address
--- end
+-- GCLOCK - Clock/Interrupt system for Zork
+-- (c) Copyright 1983 Infocom, Inc. All Rights Reserved
 
--- LTABLE = TABLE
+-- Constants
+C_TABLELEN = 180
+C_INTLEN = 6  -- Size of each interrupt entry (not used in Lua but kept for clarity)
+
+-- Entry offsets (in original ZIL these are array indices)
+C_ENABLED = 1  -- ZIL: 0
+C_TICK = 2     -- ZIL: 1
+C_RTN = 3      -- ZIL: 2
+
+-- Globals
+C_TABLE = {}  -- Will store interrupt entries as objects
+C_DEMONS = C_TABLELEN  -- Pointer to where demons start (grows backwards)
+C_INTS = C_TABLELEN    -- Pointer to where interrupts start (grows backwards)
+CLOCK_WAIT = false
+MOVES = 0
+P_WON = false  -- Game state flag
+
+-- QUEUE: Set or update an interrupt's tick count
+function QUEUE(rtn, tick)
+    local cint = INT(rtn)
+    cint[C_TICK] = tick
+    return cint
+end
+
+-- INT: Find or create an interrupt/demon entry
+function INT(rtn, demon)
+    demon = demon or false
+    
+    -- Search for existing entry with this routine
+    for i = C_INTS + 1, C_TABLELEN do
+        local entry = C_TABLE[i]
+        if entry and entry[C_RTN] == rtn then
+            return entry
+        end
+    end
+    
+    -- Not found - create new entry
+    -- Move the pointer(s) back to make space
+    C_INTS = C_INTS - 1
+    if demon then
+        C_DEMONS = C_DEMONS - 1
+    end
+    
+    -- Create new interrupt entry at C_INTS + 1
+    local new_int = {
+        [C_ENABLED] = 0,  -- 0 = disabled
+        [C_TICK] = 0,
+        [C_RTN] = rtn
+    }
+    
+    C_TABLE[C_INTS + 1] = new_int
+    return new_int
+end
+
+-- ENABLE/DISABLE helpers
+function ENABLE(i)
+    i[C_ENABLED] = 1
+end
+
+function DISABLE(i)
+    i[C_ENABLED] = 0
+end
+
+-- CLOCKER: Process all active interrupts/demons each turn
+function CLOCKER() end
+function CLOCKER2()
+    -- If clock is paused, unpause and skip this turn
+    if CLOCK_WAIT then
+        CLOCK_WAIT = false
+        return false
+    end
+    
+    -- Determine starting point:
+    -- If game won (P_WON), process all interrupts from C_INTS
+    -- Otherwise, only process demons from C_DEMONS
+    local start = (P_WON and C_INTS or C_DEMONS) + 1
+    local flag = false
+    
+    -- Process each interrupt/demon
+    for i = start, C_TABLELEN do
+        local entry = C_TABLE[i]
+        if entry and entry[C_ENABLED] ~= 0 then
+            local tick = entry[C_TICK]
+            if tick ~= 0 then
+                -- Decrement tick counter
+                entry[C_TICK] = tick - 1
+                
+                -- If tick reached 0 or below, execute the routine
+                if entry[C_TICK] <= 0 then
+                    if entry[C_RTN]() then
+                        flag = true
+                    end
+                end
+            end
+        end
+    end
+    
+    MOVES = MOVES + 1
+    return flag
+end
 
 -- === Done ===
 print("ZIL runtime initialized.")

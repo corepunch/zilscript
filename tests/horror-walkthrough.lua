@@ -57,7 +57,7 @@ return {
 		{input="walk down",here="BASEMENT-STAIRS",description="Descend to Basement Stairs"},
 		{input="walk down",here="BASEMENT-CORRIDOR",description="Continue to Basement Corridor"},
 		{input="examine pipes",text="valve",description="Notice the valve"},
-		{input="turn valve",global="VALVE-TURNED-FLAG",description="Release steam - important for later"},
+		{input="turn valve with bare hands",global="VALVE-TURNED-FLAG",description="Release steam - important for later"},
 		{input="walk east",here="BOILER-ROOM",description="Enter Boiler Room"},
 		{input="examine boiler",text="iron",description="See the massive iron furnace"},
 		{input="open boiler",flag="IRON-BOILER OPENBIT",description="Open the boiler"},

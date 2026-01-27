@@ -44,9 +44,9 @@ function M.execute(code, name, env, silent)
 	
 	local ok, run_err = pcall(chunk)
 	if not ok then
-		if not silent then
+		-- if not silent then
 			print("Runtime error: " .. run_err)
-		end
+		-- end
 		return false
 	end
 	
@@ -128,7 +128,15 @@ function M.create_game(env, silent)
 	return {
 		-- Start the game by calling GO()
 		-- Returns true on success, false on failure
-		coroutine = coroutine.create(function() M.execute("GO()", 'main', env, silent) end),
+		coroutine = coroutine.create(function()
+			local ok, err = xpcall(M.execute, debug.traceback, "GO()", 'main', env, silent)
+			if not ok then
+				print("Coroutine error:\n" .. tostring(err))
+				error(err) -- rethrow so resume() fails
+			else
+				print("\n*** Game has ended ***\n")
+	    end
+		end),
 		-- Resume the game coroutine with input
 		-- Returns: status (boolean), result (any value or error message)
 		-- resume = function (self, input) return coroutine.resume(self.coroutine, input) end,
