@@ -599,6 +599,7 @@ function OBJECT(object)
 			end
 		elseif k == "GLOBAL" then table.insert(t, makeprop(table.concat2(v, string.char), k))
 		elseif k == "LOC" then o.LOC = v
+		-- elseif k == "ACTION" then table.insert(t, makeprop(table.concat2(v, string.char), k))
 		elseif type(v) == 'string' then table.insert(t, makeprop(mem:writestring_alt(v), k))
 		elseif type(v) == 'number' then table.insert(t, makeprop(string.char(v&0xff), k))
 		elseif type(v) == 'function' then table.insert(t, makeprop(mem:writestring_alt(fn(v)), k))
@@ -780,7 +781,6 @@ end
 function LTABLE(...)
 	local tbl = {}
 	for i = 1, select("#", ...) do
-		-- print("LTABLE arg", i, select(i, ...))
     local v = select(i, ...)
 		if type(v) == 'string' then table.insert(tbl, makeword(mem:writestring2(v)))
 		elseif type(v) == 'number' then table.insert(tbl, makeword(v))
@@ -788,7 +788,7 @@ function LTABLE(...)
 		else error("LTABLE: Unsupported type "..type(v))
 		end
 	end
-	local address = mem:write_word((#{...})*2)
+	local address = mem:write_word((#{...}))
 	mem:write(table.concat(tbl))
 	return address
 end
@@ -862,8 +862,7 @@ function DISABLE(i)
 end
 
 -- CLOCKER: Process all active interrupts/demons each turn
-function CLOCKER() end
-function CLOCKER2()
+function CLOCKER()
     -- If clock is paused, unpause and skip this turn
     if CLOCK_WAIT then
         CLOCK_WAIT = false

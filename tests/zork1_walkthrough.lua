@@ -11,6 +11,7 @@ return {
 	  "zork1/actions.zil",
   	"zork1/syntax.zil",
   	"zork1/dungeon.zil",
+	  "zork1/actions.zil",
 		"zork1/main.zil",
 	},
 	commands = {
