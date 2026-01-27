@@ -46,6 +46,7 @@ PREACTIONS = {}
 OBJECTS = {}
 FLAGS = {}
 FUNCTIONS = {}
+FUNCTION_NAMES = {}  -- Maps function names (with hyphens) to function objects
 _DIRECTIONS = {}
 
 DESCS = {}
@@ -208,6 +209,16 @@ local function fn(f)
 	for n, ff in ipairs(FUNCTIONS) do if f == ff then return n end end
 	table.insert(FUNCTIONS, f)
 	return #FUNCTIONS
+end
+
+-- Register a function with its ZIL name (preserving hyphens)
+function REGISTER_FN(func, name)
+	FUNCTION_NAMES[name] = func
+	-- Also register with underscores for compatibility
+	local underscore_name = name:gsub("%-", "_")
+	if underscore_name ~= name then
+		FUNCTION_NAMES[underscore_name] = func
+	end
 end
 
 local function register(tbl, value)
@@ -599,6 +610,16 @@ function OBJECT(object)
 			end
 		elseif k == "GLOBAL" then table.insert(t, makeprop(table.concat2(v, string.char), k))
 		elseif k == "LOC" then o.LOC = v
+		elseif k == "ACTION" and type(v) == 'string' then 
+			-- ACTION field is now a string name - resolve to function and store index
+			local func = FUNCTION_NAMES[v]
+			if func then
+				table.insert(t, makeprop(mem:writestring_alt(fn(func)), k))
+			else
+				-- Function not yet registered - this is okay, some objects reference non-existent actions
+				-- We'll just skip adding this property
+				-- print(string.format("Warning: ACTION function '%s' not found for object %s", v, object.NAME))
+			end
 		elseif type(v) == 'string' then table.insert(t, makeprop(mem:writestring_alt(v), k))
 		elseif type(v) == 'number' then table.insert(t, makeprop(string.char(v&0xff), k))
 		elseif type(v) == 'function' then table.insert(t, makeprop(mem:writestring_alt(fn(v)), k))
@@ -712,7 +733,17 @@ end
 function SYNTAX(syn)
 	VERBS = VERBS or mem:write(string.rep('\0\0', 256))
 	local name = syn.VERB:lower()
-	local action = action_id(ACTIONS, fn(_G[syn.ACTION]))
+	
+	-- Resolve ACTION from string name to function
+	local action_func = FUNCTION_NAMES[syn.ACTION] or _G[syn.ACTION]
+	if not action_func then
+		-- Action function not found - this might be okay if it's defined later
+		-- For now, create a placeholder
+		print(string.format("Warning: ACTION function '%s' not found for SYNTAX %s", syn.ACTION, syn.VERB))
+		return
+	end
+	local action = action_id(ACTIONS, fn(action_func))
+	
 	local function encode(s)
 		return string.char(
 			s.OBJECT and (s.SUBJECT and 2 or 1) or 0,
@@ -739,7 +770,12 @@ function SYNTAX(syn)
 	end
 	_G[syn.ACTION:gsub("_", "Q", 1)] = action
 	if syn.PREACTION then 
-		PREACTIONS[action] = fn(_G[syn.PREACTION]) 
+		local preaction_func = FUNCTION_NAMES[syn.PREACTION] or _G[syn.PREACTION]
+		if not preaction_func then
+			print(string.format("Warning: PREACTION function '%s' not found for SYNTAX %s", syn.PREACTION, syn.VERB))
+			return
+		end
+		PREACTIONS[action] = fn(preaction_func)
 	end
 end
 

@@ -123,6 +123,18 @@ local function write_value_field(buf, node)
   end
 end
 
+-- Write ACTION field as a string (function name)
+local function write_action_field(buf, node)
+  for child in Compiler.iter_children(node, 1) do
+    -- Convert the identifier to string with hyphens preserved
+    local val = tostring(child.value or child.name)
+    val = val:gsub("^[,.]+", "")  -- Remove leading commas/dots
+    val = val:gsub("[,.]", "")    -- Remove internal commas/dots
+    buf.write("\"%s\"", val)
+    break
+  end
+end
+
 local FIELD_WRITERS = {
   FLAGS = write_list_string,
   SYNONYM = write_list_string,
@@ -130,7 +142,7 @@ local FIELD_WRITERS = {
   DESC = write_string_field,
   LDESC = write_string_field,
   FDESC = write_string_field,
-  ACTION = write_value_field,
+  ACTION = write_action_field,
   IN = write_value_field,
   GLOBAL = write_list,
 }
@@ -508,10 +520,15 @@ form.SYNTAX = function(buf, node, indent)
   end
   
   if safeget(node[i], 'value') == "=" then
-    buf.writeln("\tACTION = \"%s\",", value(node[i + 1]))
+    -- Get action name with hyphens preserved
+    local action_name = tostring(node[i + 1].value or node[i + 1].name)
+    action_name = action_name:gsub("^[,.]+", ""):gsub("[,.]", "")
+    buf.writeln("\tACTION = \"%s\",", action_name)
 
     if safeget(node[i+2], 'value') then
-      buf.writeln("\tPREACTION = \"%s\",", value(node[i+2]))
+      local preaction_name = tostring(node[i+2].value or node[i+2].name)
+      preaction_name = preaction_name:gsub("^[,.]+", ""):gsub("[,.]", "")
+      buf.writeln("\tPREACTION = \"%s\",", preaction_name)
     end
 
   end
@@ -620,6 +637,9 @@ end
 -- Top-level compilation functions
 local function compile_routine(decl, body, node)
   local name = value(node[1])
+  local original_name = tostring(node[1].value or node[1].name)
+  original_name = original_name:gsub("^[,.]+", ""):gsub("[,.]", "")
+  
   Compiler.current_verbs = {}
   -- decl.writeln("%s = nil", name)
   body.writeln("%s = function(...)", name)
@@ -639,6 +659,9 @@ local function compile_routine(decl, body, node)
   body.writeln("return __res")
   body.writeln(string.format("\telse error(__res and '%s\\n'..__res or '%s') end", name, name))
   body.writeln("end")
+
+  -- Register the function with its original ZIL name (with hyphens)
+  body.writeln("REGISTER_FN(%s, \"%s\")", name, original_name)
 
   body.writeln("_%s = {", name)
   for _, v in ipairs(Compiler.current_verbs) do
