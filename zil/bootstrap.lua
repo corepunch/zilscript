@@ -318,11 +318,11 @@ local function assert_flag(obj_name, flag_name)
 	assert(FSETQ(obj_num, flag), "Object does not have flag: " .. flag_name)
 end
 
-local function assert_no_flag(obj_name, flag_name)	
+local function assert_no_flag(obj_name, flag_name)
 	local obj_num = find_object_by_name(obj_name)
 	local flag = _G[flag_name]
-	assert(obj_num, "Object not found: " .. obj_name)	
-	assert(flag, "Unknown flag: " .. flag_name)	
+	assert(obj_num, "Object not found: " .. obj_name)
+	assert(flag, "Unknown flag: " .. flag_name)
 	assert(not FSETQ(obj_num, flag), "Object has flag (expected NOT to have): " .. flag_name)
 end
 

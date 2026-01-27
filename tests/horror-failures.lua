@@ -78,7 +78,7 @@ return {
 		},
 		{
 			flag = "BRASS_PLAQUE TAKEBIT",
-			description = "Verify brass plaque can be taken"
+			description = "Verify brass plaque has TAKEBIT flag"
 		},
 		{
 			input = "take plaque",
