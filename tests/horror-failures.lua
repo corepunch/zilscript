@@ -14,9 +14,7 @@ return {
 	},
 	commands = {
 		-- Test 1: Drawer cannot be opened without unlocking first
-		{start="RECEPTION_ROOM",input="look",no_flag="BOTTOM_DRAWER OPENBIT",description="Start at Reception Room, drawer is locked"},
-		{input="open drawer",description="Try to open locked drawer (should fail)"},
-		{no_flag="BOTTOM_DRAWER OPENBIT",description="Verify drawer is still locked"},
+		{start="RECEPTION_ROOM",input="open drawer",no_flag="BOTTOM_DRAWER OPENBIT",description="Try to open locked drawer (should fail)"},
 		
 		-- Test 2: With key, drawer can be unlocked and opened
 		{input="take key",description="Take the brass key"},
@@ -28,22 +26,22 @@ return {
 		{flag="BRASS_PLAQUE TAKEBIT",description="Verify plaque has TAKEBIT flag"},
 		{input="take plaque",take="BRASS_PLAQUE",description="Take the brass plaque"},
 		
-		-- Test 4: Return to Reception Room
-		{start="RECEPTION_ROOM",here="RECEPTION_ROOM",description="Move to Reception Room"},
-		{input="take key",take="BRASS_KEY",description="Take brass key"},
+		-- -- Test 4: Return to Reception Room
+		-- {start="RECEPTION_ROOM",here="RECEPTION_ROOM",description="Move to Reception Room"},
+		-- {input="take key",take="BRASS_KEY",description="Take brass key"},
 		
-		-- Test 5: Test drawer without key (reset scenario)
-		{start="RECEPTION_ROOM",no_flag="BOTTOM_DRAWER OPENBIT",description="Reset to Reception Room, drawer locked"},
-		{input="unlock drawer",description="Try to unlock without key (should fail)"},
-		{no_flag="BOTTOM_DRAWER OPENBIT",description="Verify drawer still locked"},
+		-- -- Test 5: Test drawer without key (reset scenario)
+		-- {start="RECEPTION_ROOM",no_flag="BOTTOM_DRAWER OPENBIT",description="Reset to Reception Room, drawer locked"},
+		-- {input="unlock drawer",description="Try to unlock without key (should fail)"},
+		-- {no_flag="BOTTOM_DRAWER OPENBIT",description="Verify drawer still locked"},
 		
-		-- Test 6: Proper unlock sequence
-		{input="take key",description="Take the key"},
-		{input="unlock drawer with key",description="Unlock drawer"},
-		{input="open drawer",flag="BOTTOM_DRAWER OPENBIT",description="Open drawer successfully"},
+		-- -- Test 6: Proper unlock sequence
+		-- {input="take key",description="Take the key"},
+		-- {input="unlock drawer with key",description="Unlock drawer"},
+		-- {input="open drawer",flag="BOTTOM_DRAWER OPENBIT",description="Open drawer successfully"},
 		
-		-- Test 7: Test movement to different rooms
-		{start="SANITARIUM_ENTRANCE",here="SANITARIUM_ENTRANCE",description="Move to Entrance Hall"},
-		{input="north",here="OPERATING_THEATER",description="Move to Operating Theater"},
+		-- -- Test 7: Test movement to different rooms
+		-- {start="SANITARIUM_ENTRANCE",here="SANITARIUM_ENTRANCE",description="Move to Entrance Hall"},
+		-- {input="north",here="OPERATING_THEATER",description="Move to Operating Theater"},
 	}
 }

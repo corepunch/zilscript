@@ -380,7 +380,6 @@ local test_cmds = {
 	["test:global"] = { assert_global, 2 },
 	["test:lose"] = { assert_lose, 2 },
 	["test:start-location"] = { set_start_location, 2 },
-	["test:start_location"] = { set_start_location, 2 },  -- underscore version for test runner
 }
 
 local routes = {
@@ -629,9 +628,9 @@ function REST(s, i)
 end
 
 function APPLY(func, ...)
-	if type(func)=='number' then
+	if type(func) == 'number' then
 		if func == 0 then return end
-		FUNCTIONS[func](...)
+		return FUNCTIONS[func](...)
 	else
 		return func and func(...)
 	end

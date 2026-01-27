@@ -53,11 +53,23 @@ local function run_test_file(test_file_path)
 		end
 		
 		-- print("> " .. cmd.input)
-		
+		-- Capture the output from the game
+		-- Skip the initial resume if this is a test-only command (no input)
+		local output = ""
 		local GREEN = "\27[1;32m"
 		local RED = "\27[1;31m"
 		local NEUTRAL = "\27[36m"
 		local RESET = "\27[0m"
+
+		if cmd.start then
+			if game_coro:resume("test:start-location " .. cmd.start) then
+				print(RED .. "[WARN] Failed to set start location to " .. cmd.start .. RESET)
+			end
+		end
+		
+		if cmd.input then
+			output = game_coro:resume(cmd.input)
+		end
 
 		local function feedback(test, err)
 			if err then
@@ -76,6 +88,7 @@ local function run_test_file(test_file_path)
 				print(GREEN .. "[PASS] " .. (cmd.description or test) .. RESET .. " (" .. input_str .. ")")
 			end
 		end
+		
 		local function report(test) 
 			feedback(test, game_coro:resume(test:gsub("-", "_")))
 		end
@@ -90,53 +103,16 @@ local function run_test_file(test_file_path)
 			end
 		end
 
-		-- Process commands in order: start -> input -> assertions
-		-- 1. Execute start (teleport) if present (silently if other commands present)
-		if cmd.start then
-			if cmd.input or cmd.here or cmd.take or cmd.lose or cmd.flag or cmd.no_flag or cmd.text then
-				-- Execute silently if there are other commands
-				silent_execute("test:start-location "..cmd.start)
-			else
-				-- Report if this is the only command
-				report("test:start-location "..cmd.start)
-			end
-		elseif cmd.start_location then
-			if cmd.input or cmd.here or cmd.take or cmd.lose or cmd.flag or cmd.no_flag or cmd.text then
-				silent_execute("test:start-location "..cmd.start_location)
-			else
-				report("test:start-location "..cmd.start_location)
-			end
-		end
-		
-		-- 2. Execute input command if present
-		local output
-		if cmd.input then
-			output = game_coro:resume(cmd.input)
-		end
-		
-		-- 3. Execute test assertions (these will report)
-		-- If no assertions, but we had input, report the input
-		local has_assertion = cmd.here or cmd.take or cmd.lose or cmd.flag or cmd.no_flag or cmd.global or cmd.text
-		
-		if cmd.here then
-			report("test:here "..cmd.here)
-		elseif cmd.take then
-			report("test:take "..cmd.take)
-		elseif cmd.lose then
-			report("test:lose "..cmd.lose)
-		elseif cmd.flag then
-			report("test:flag "..cmd.flag)
-		elseif cmd.no_flag then
-			report("test:no-flag "..cmd.no_flag)
-		elseif cmd.global then
-			report("test:global "..cmd.global)
+		if cmd.here then report("test:here "..cmd.here)
+		elseif cmd.take then report("test:take "..cmd.take)
+		elseif cmd.lose then report("test:lose "..cmd.lose)
+		elseif cmd.flag then report("test:flag "..cmd.flag)
+		elseif cmd.no_flag then report("test:no-flag "..cmd.no_flag)
+		elseif cmd.global then report("test:global "..cmd.global)
 		elseif cmd.text then
-			feedback(cmd.text, not (output or ""):lower():find(cmd.text:lower(), 1, true))
-		elseif cmd.input then
-			-- Input command without assertion - just print SKIP
-			print(NEUTRAL .. "[SKIP] " .. (cmd.description or cmd.input) .. RESET)
-		elseif not cmd.start and not cmd.start_location then
-			-- No recognized commands at all
+			local found = not (output or ""):lower():find(cmd.text:lower(), 1, true)
+			feedback(cmd.text, found)
+		else
 			print(NEUTRAL .. "[SKIP] " .. (cmd.description or cmd.input) .. RESET)
 		end
 		-- print(output)
