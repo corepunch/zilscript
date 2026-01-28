@@ -596,7 +596,7 @@ function OBJECT(object)
 		elseif k == "LOC" then o.LOC = v
 		-- elseif k == "ACTION" then table.insert(t, makeprop(table.concat2(v, string.char), k))
 		elseif type(v) == 'string' then table.insert(t, makeprop(mem:writestring_alt(v), k))
-		elseif type(v) == 'number' then table.insert(t, makeprop(string.char(v&0xff), k))
+		elseif type(v) == 'number' then table.insert(t, makeprop(string.char(math.min(v,0xff)), k))
 		elseif type(v) == 'function' then table.insert(t, makeprop(mem:writestring_alt(fn(v)), k))
 		elseif _DIRECTIONS[k] then			
 			local str
@@ -650,7 +650,7 @@ function PUT(obj, i, val)
 end
 function PUTB(s, i, val) 
 	assert(type(s) == 'number', "PUTB: Only number types")
-	mem:write(string.char(val&0xff), s+i)
+	mem:write(string.char(math.min(val,0xff)), s+i)
 end
 -- function GET(t, i) return type(t) == 'table' and t[i * 2] or 0 end
 -- function GETB(t, i) return type(t) == 'table' and t[i] or 0 end
