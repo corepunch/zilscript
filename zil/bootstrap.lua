@@ -505,7 +505,6 @@ local function learn(word, atom, value)
 	if not word then return 0 end
 	word = word:lower()
 	if type(value) == 'table' then value = register(value, word) end
-	if word == 'open' then print(word) end
 	if cache.words[word] then
 		local index = cache.words[word]
 		local ent = mem:read(7, cache.words[word])
@@ -603,13 +602,20 @@ function OBJECT(object)
 		elseif type(v) == 'string' then table.insert(t, makeprop(mem:writestring_alt(v), k))
 		elseif type(v) == 'number' then table.insert(t, makeprop(string.char(v&0xff), k))
 		elseif type(v) == 'function' then table.insert(t, makeprop(mem:writestring_alt(fn(v)), k))
-		elseif _DIRECTIONS[k] then
-			local str = string.char(v[1])
-			local say = v.say and mem:write(v.say.."\0") or makeword(0)
-			if v.door then
-				str = str..string.char(v.door)..say..string.char(0)
-			elseif v.flag then
-				str = str..string.char(v.flag)..say
+		elseif _DIRECTIONS[k] then			
+			local str
+			if v.per then
+				str = makeword(fn(v.per))..string.char(0) -- FEXIT = 3
+			elseif type(v[1]) == 'string' then
+				str = mem:write(v[1].."\0") -- NEXIT = 2
+			else
+				str = string.char(v[1]) -- UEXIT = 1
+				local say = v.say and mem:write(v.say.."\0") or makeword(0)
+				if v.door then
+					str = str..string.char(v.door)..say..string.char(0) -- DEXIT = 5
+				elseif v.flag then
+					str = str..string.char(v.flag)..say -- CEXIT = 4
+				end
 			end
 			table.insert(t, makeprop(str, k))
 		else 

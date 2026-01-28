@@ -622,29 +622,29 @@ local function compile_routine(decl, body, node)
   local name = value(node[1])
   Compiler.current_verbs = {}
   -- decl.writeln("%s = nil", name)
-  body.writeln("%s = function(...)", name)
-  write_function_header(body, node)
-  -- body.writeln("\tprint('\t%s')", name:gsub("_", "-"))
-  body.writeln("\tlocal __ok, __res = pcall(function()")
-  body.writeln("\tlocal __tmp = nil")
+  decl.writeln("%s = function(...)", name)
+  write_function_header(decl, node)
+  -- decl.writeln("\tprint('\t%s')", name:gsub("_", "-"))
+  decl.writeln("\tlocal __ok, __res = pcall(function()")
+  decl.writeln("\tlocal __tmp = nil")
   for i = 3, #node do
-    if need_return(node[i]) then body.write("\t__tmp = ") end
-    print_node(body, node[i], 1)
-    body.writeln()
+    if need_return(node[i]) then decl.write("\t__tmp = ") end
+    print_node(decl, node[i], 1)
+    decl.writeln()
   end
-  body.writeln("\t return __tmp end)")
-  -- body.writeln("\tif __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then")
-  body.writeln("\tif __ok or type(__res) ~= 'string' then")
-  -- body.writeln("print('\t\t(%s) '..tostring(__res))", name:gsub("_", "-"))
-  body.writeln("return __res")
-  body.writeln(string.format("\telse error(__res and '%s\\n'..__res or '%s') end", name, name))
-  body.writeln("end")
+  decl.writeln("\t return __tmp end)")
+  -- decl.writeln("\tif __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then")
+  decl.writeln("\tif __ok or type(__res) ~= 'string' then")
+  -- decl.writeln("print('\t\t(%s) '..tostring(__res))", name:gsub("_", "-"))
+  decl.writeln("return __res")
+  decl.writeln(string.format("\telse error(__res and '%s\\n'..__res or '%s') end", name, name))
+  decl.writeln("end")
 
-  body.writeln("_%s = {", name)
+  decl.writeln("_%s = {", name)
   for _, v in ipairs(Compiler.current_verbs) do
-   body.writeln("\t'%s',", v)
+   decl.writeln("\t'%s',", v)
   end
-  body.writeln("}")
+  decl.writeln("}")
 end
 
 local function compile_object(decl, body, node)
@@ -660,6 +660,9 @@ local function compile_object(decl, body, node)
       if value(field[2]) == "TO" then
         body.write("\t%s = ", value(field[1]))
         write_nav(body, field)
+        body.writeln(",")
+      elseif value(field[2]) == "PER" then
+        body.write("\t%s = { per = %s }", value(field[1]), value(field[3]))
         body.writeln(",")
       else
         local prop = value(field[1])
