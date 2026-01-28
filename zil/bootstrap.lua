@@ -560,6 +560,29 @@ function GETP(obj, prop)
 	if ptsize == 2 then return mem:string(mem:word(ptr)) end
 	assert(false, "Unsupported property to get")
 end
+function NEXTP(obj, prop)
+	-- Returns the next property number after prop
+	-- If prop is 0, returns the first property
+	-- If no more properties, returns 0
+	local tbl = getobj(obj).tbl
+	local l = mem:byte(tbl)+tbl+1
+	local pname, psize = mem:byte(l), mem:byte(l+1)
+	local header = 2
+	local found = (prop == 0)  -- If prop is 0, return first property
+	while psize > 0 do
+		if found then
+			-- Return this property (the next one after prop)
+			return pname
+		end
+		if pname == prop then
+			-- Found the requested property, next iteration will return the next one
+			found = true
+		end
+		l = l+psize+header
+		pname, psize = mem:byte(l), mem:byte(l+1)
+	end
+	return 0  -- No more properties
+end
 
 table.concat2 = function(t, fn)
 	local tmp = {}

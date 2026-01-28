@@ -23,8 +23,8 @@ test.describe("Compiler - Basic Compilation", function(t)
 		local ast = parser.parse(code)
 		local result = compiler.compile(ast)
 		
-		assert.assert_match(result.body, "HELLO = function")
-		assert.assert_match(result.body, "error%(1%)")
+		assert.assert_match(result.declarations, "HELLO = function")
+		assert.assert_match(result.declarations, "error%(1%)")
 	end)
 	
 	t.it("should compile routine with parameters", function(assert)
@@ -32,8 +32,8 @@ test.describe("Compiler - Basic Compilation", function(t)
 		local ast = parser.parse(code)
 		local result = compiler.compile(ast)
 		
-		assert.assert_match(result.body, "ADD = function")
-		assert.assert_match(result.body, "local A, B")
+		assert.assert_match(result.declarations, "ADD = function")
+		assert.assert_match(result.declarations, "local m_A, m_B")
 	end)
 end)
 
@@ -88,7 +88,7 @@ test.describe("Compiler - Control Flow", function(t)
 		local result = compiler.compile(ast)
 		
 		assert.assert_not_nil(result)
-		assert.assert_match(result.body, "if")
+		assert.assert_match(result.declarations, "if")
 	end)
 	
 	t.it("should compile REPEAT loop", function(assert)
@@ -101,7 +101,7 @@ test.describe("Compiler - Control Flow", function(t)
 		local result = compiler.compile(ast)
 		
 		assert.assert_not_nil(result)
-		assert.assert_match(result.body, "repeat")
+		assert.assert_match(result.declarations, "repeat")
 	end)
 end)
 
@@ -152,9 +152,61 @@ test.describe("Compiler - Edge Cases", function(t)
 		local result = compiler.compile(ast)
 		
 		assert.assert_not_nil(result)
-		assert.assert_match(result.body, "A = function")
-		assert.assert_match(result.body, "B = function")
-		assert.assert_match(result.body, "C = function")
+		assert.assert_match(result.declarations, "A = function")
+		assert.assert_match(result.declarations, "B = function")
+		assert.assert_match(result.declarations, "C = function")
+	end)
+end)
+
+test.describe("Compiler - Local Variable Naming", function(t)
+	t.it("should prefix local variables with m_", function(assert)
+		local code = [[<ROUTINE TEST (X "AUX" Y) <SET Y .X> <RETURN .Y>>]]
+		local ast = parser.parse(code)
+		local result = compiler.compile(ast)
+		
+		-- Parameters should have m_ prefix
+		assert.assert_match(result.declarations, "local m_X")
+		-- AUX variables should have m_ prefix
+		assert.assert_match(result.declarations, "local m_Y")
+		-- SET target should use m_ prefix
+		assert.assert_match(result.declarations, "m_Y = m_X")
+	end)
+	
+	t.it("should resolve function/local variable naming conflicts", function(assert)
+		-- This tests the issue from zork1/actions.zil line 3991
+		local code = [[
+			<ROUTINE PROB (N) <RETURN .N>>
+			<ROUTINE ROB ("OPTIONAL" (PROB <>)) <COND (<PROB .PROB> <RETURN T>)>>
+		]]
+		local ast = parser.parse(code)
+		local result = compiler.compile(ast)
+		
+		-- Function PROB should be defined without m_ prefix
+		assert.assert_match(result.declarations, "PROB = function")
+		-- Local variable PROB should have m_ prefix
+		assert.assert_match(result.declarations, "m_PROB")
+		-- Function call with local variable as argument
+		assert.assert_match(result.declarations, "PROB%(m_PROB%)")
+	end)
+	
+	t.it("should handle SET with local variables", function(assert)
+		local code = [[<ROUTINE TEST ("AUX" X) <SET X 10> <RETURN .X>>]]
+		local ast = parser.parse(code)
+		local result = compiler.compile(ast)
+		
+		-- SET should use m_ prefix for the target
+		assert.assert_match(result.declarations, "m_X = 10")
+	end)
+	
+	t.it("should handle optional parameters with defaults", function(assert)
+		local code = [[<ROUTINE TEST ("OPTIONAL" (X 5)) <RETURN .X>>]]
+		local ast = parser.parse(code)
+		local result = compiler.compile(ast)
+		
+		-- Optional parameter should have m_ prefix
+		assert.assert_match(result.declarations, "m_X")
+		-- Default value assignment should use m_ prefix
+		assert.assert_match(result.declarations, "m_X = 5")
 	end)
 end)
 
