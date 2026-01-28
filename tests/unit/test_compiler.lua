@@ -33,7 +33,7 @@ test.describe("Compiler - Basic Compilation", function(t)
 		local result = compiler.compile(ast)
 		
 		assert.assert_match(result.declarations, "ADD = function")
-		assert.assert_match(result.declarations, "local A_local, B_local")
+		assert.assert_match(result.declarations, "local m_A, m_B")
 	end)
 end)
 
@@ -159,17 +159,17 @@ test.describe("Compiler - Edge Cases", function(t)
 end)
 
 test.describe("Compiler - Local Variable Naming", function(t)
-	t.it("should suffix local variables with _local", function(assert)
+	t.it("should prefix local variables with m_", function(assert)
 		local code = [[<ROUTINE TEST (X "AUX" Y) <SET Y .X> <RETURN .Y>>]]
 		local ast = parser.parse(code)
 		local result = compiler.compile(ast)
 		
-		-- Parameters should have _local suffix
-		assert.assert_match(result.declarations, "local X_local")
-		-- AUX variables should have _local suffix
-		assert.assert_match(result.declarations, "local Y_local")
-		-- SET target should use _local suffix
-		assert.assert_match(result.declarations, "Y_local = X_local")
+		-- Parameters should have m_ prefix
+		assert.assert_match(result.declarations, "local m_X")
+		-- AUX variables should have m_ prefix
+		assert.assert_match(result.declarations, "local m_Y")
+		-- SET target should use m_ prefix
+		assert.assert_match(result.declarations, "m_Y = m_X")
 	end)
 	
 	t.it("should resolve function/local variable naming conflicts", function(assert)
@@ -181,12 +181,12 @@ test.describe("Compiler - Local Variable Naming", function(t)
 		local ast = parser.parse(code)
 		local result = compiler.compile(ast)
 		
-		-- Function PROB should be defined without _local
+		-- Function PROB should be defined without m_ prefix
 		assert.assert_match(result.declarations, "PROB = function")
-		-- Local variable PROB should have _local suffix
-		assert.assert_match(result.declarations, "PROB_local")
+		-- Local variable PROB should have m_ prefix
+		assert.assert_match(result.declarations, "m_PROB")
 		-- Function call with local variable as argument
-		assert.assert_match(result.declarations, "PROB%(PROB_local%)")
+		assert.assert_match(result.declarations, "PROB%(m_PROB%)")
 	end)
 	
 	t.it("should handle SET with local variables", function(assert)
@@ -194,8 +194,8 @@ test.describe("Compiler - Local Variable Naming", function(t)
 		local ast = parser.parse(code)
 		local result = compiler.compile(ast)
 		
-		-- SET should use _local suffix for the target
-		assert.assert_match(result.declarations, "X_local = 10")
+		-- SET should use m_ prefix for the target
+		assert.assert_match(result.declarations, "m_X = 10")
 	end)
 	
 	t.it("should handle optional parameters with defaults", function(assert)
@@ -203,10 +203,10 @@ test.describe("Compiler - Local Variable Naming", function(t)
 		local ast = parser.parse(code)
 		local result = compiler.compile(ast)
 		
-		-- Optional parameter should have _local suffix
-		assert.assert_match(result.declarations, "X_local")
-		-- Default value assignment should use _local suffix
-		assert.assert_match(result.declarations, "X_local = 5")
+		-- Optional parameter should have m_ prefix
+		assert.assert_match(result.declarations, "m_X")
+		-- Default value assignment should use m_ prefix
+		assert.assert_match(result.declarations, "m_X = 5")
 	end)
 end)
 

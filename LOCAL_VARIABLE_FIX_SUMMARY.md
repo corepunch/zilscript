@@ -18,7 +18,7 @@ In `zork1/actions.zil` line 3991, the ROB function:
 ```
 
 ## Solution
-Implemented a `_local` suffix for all local variables to distinguish them from functions and global variables.
+Implemented a `m_` prefix for all local variables to distinguish them from functions and global variables.
 
 ### How It Works
 In ZIL:
@@ -28,8 +28,8 @@ In ZIL:
 
 The compiler now:
 1. Tracks all local variables (parameters and AUX) in the current function scope
-2. Adds `_local` suffix when `.VAR` is encountered (local variable reference)
-3. Adds `_local` suffix when a variable is used in SET/IGRTR?/DLESS? and is in the local vars list
+2. Adds `m_` prefix when `.VAR` is encountered (local variable reference)
+3. Adds `m_` prefix when a variable is used in SET/IGRTR?/DLESS? and is in the local vars list
 4. Keeps function names unchanged
 
 ### Result
@@ -38,7 +38,7 @@ The compiler now:
 PROB(PROB)  -- Both function and parameter named PROB
 
 -- After (fixed):
-PROB(PROB_local)  -- Function PROB, parameter PROB_local
+PROB(m_PROB)  -- Function PROB, parameter m_PROB
 ```
 
 ## Changes Made
@@ -46,9 +46,9 @@ PROB(PROB_local)  -- Function PROB, parameter PROB_local
 ### Core Compiler Changes
 1. **zil/compiler.lua**
    - Added `Compiler.local_vars` table to track local variables in current scope
-   - Modified `value()` function to detect `.` prefix and add `_local` suffix
+   - Modified `value()` function to detect `.` prefix and add `m_` prefix
    - Added `local_var_name()` helper to convert bare identifiers to local var names
-   - Modified `write_function_header()` to register and suffix all params/AUX variables
+   - Modified `write_function_header()` to register and prefix all params/AUX variables
    - Modified `compile_set()` to use `local_var_name()` for SET targets
    - Modified `IGRTR?` and `DLESS?` handlers for local variable targets
    - Modified `compile_routine()` to reset `Compiler.local_vars` per function
@@ -58,7 +58,7 @@ PROB(PROB_local)  -- Function PROB, parameter PROB_local
    - Added 4 new comprehensive tests for local variable naming
    - Fixed 6 existing tests to use correct output field (`declarations` vs `body`)
    - Test coverage for:
-     - Basic local variable suffixing
+     - Basic local variable prefixing
      - Function/local variable naming conflict resolution (PROB/ROB scenario)
      - SET with local variables
      - Optional parameters with defaults
@@ -72,16 +72,16 @@ PROB(PROB_local)  -- Function PROB, parameter PROB_local
 
 ### Integration Tests
 - ✅ Game loads and runs successfully
-- ✅ ROB function compiles correctly with `PROB(PROB_local)` pattern
+- ✅ ROB function compiles correctly with `PROB(m_PROB)` pattern
 - ✅ All zork1 actions compile without conflicts
 
 ### Verification
 Verified the specific ROB/PROB conflict from zork1/actions.zil:
 ```lua
 ROB = function(...)
-  local WHAT_local, WHERE_local, PROB_local = ...
+  local m_WHAT, m_WHERE, m_PROB = ...
   ...
-  if APPLY(function() __tmp = PASS(NOT(PROB_local) or PROB(PROB_local)) return __tmp end) then
+  if APPLY(function() __tmp = PASS(NOT(m_PROB) or PROB(m_PROB)) return __tmp end) then
     ...
   end
   ...

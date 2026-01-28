@@ -140,9 +140,9 @@ local function value(node)
     end)
   end
   
-  -- Add _local suffix for local variable references (those that started with .)
+  -- Add m_ prefix for local variable references (those that started with .)
   if is_local then
-    result = result .. "_local"
+    result = "m_" .. result
   end
   
   return result
@@ -153,17 +153,17 @@ end
 -- but it doesn't have the . prefix (e.g., SET target, function parameters)
 local function local_var_name(node)
   local bare_name = value(node)
-  -- If it already has _local suffix (from a .VAR reference), return as is
-  if bare_name:match("_local$") then
+  -- If it already has m_ prefix (from a .VAR reference), return as is
+  if bare_name:match("^m_") then
     return bare_name
   end
   
   -- Get the original identifier name to check if it's in the local vars list
   local original_name = tostring(node.value or node.name)
   
-  -- Only add _local suffix if this is actually a local variable
+  -- Only add m_ prefix if this is actually a local variable
   if Compiler.local_vars[original_name] then
-    return bare_name .. "_local"
+    return "m_" .. bare_name
   end
   
   -- Otherwise, return as is (it's a global)
