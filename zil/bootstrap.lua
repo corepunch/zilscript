@@ -171,7 +171,7 @@ local mem = setmetatable({size=0},{__index={
 		return pos
 	end,
 
-	writestring_alt = function (self, s)
+	writestring_property = function (self, s)
 		if type(s) == 'number' then s = encode_fptr(s) end
 		return makeword(self:write(makeword(#s)..s))
 	end,
@@ -225,14 +225,23 @@ function VERBQ(...)
 	return EQUALQ(PRSA, ...)
 end
 
+function RANDOM(base)
+	local value = math.random(1, base)
+	-- print(value)
+	return value
+end
+
 function PICK_ONE(table)
-	local num = mem:word(table)/2
-	local sel = math.random(2, num)
-	return mem:word(table+sel*2)
+	local table_size = mem:byte(table)
+	return mem:word(table + RANDOM(table_size) * 2)
+end
+
+function RANDOM_ELEMENT(frob)
+	return GET(frob, RANDOM(GET(frob, 0)))
 end
 
 function PROB(base)
-	return math.random(100) <= base
+	return RANDOM(100) <= base
 end
 
 ZPROB = PROB
@@ -264,7 +273,7 @@ function TELL(...)
 	end
 end
 
-function PRINT(str) io_write(str) end
+function PRINT(n) io_write(mem:string(n)) end
 function PRINTD(ptr) io_write(GETP(ptr, _G["PQDESC"])) end
 function PRINTR(ptr) io_write(GETP(ptr, _G["PQLDESC"])) end
 function PRINTB(ptr) 
@@ -445,7 +454,7 @@ function ZEROQ(a) return (a or 0) == 0 end
 function ONEQ(a) return a == 1 end
 function ADD(a, b) return (a or 0) + (b or 0) end
 function SUB(a, b) return (a or 0) - (b or 0) end
-function DIV(a, b) return (a or 0) / (b or 0) end
+function DIV(a, b) return (a or 0) // (b or 0) end
 function MUL(a, b) return (a or 0) * (b or 0) end
 
 -- function GQ(a, b) return a > b end
@@ -534,9 +543,14 @@ function PTSIZE(ptr)
 end
 function PUTP(obj, prop, val)
 	local ptr = GETPT(obj, prop)
-	assert(type(val) == 'number', "Only numbers are supported in PUTP")
+	if type(val) == 'string' then
+		assert(PTSIZE(ptr) == 2, "String size must be 2")
+		mem:write(mem:writestring_property(val), ptr)
+		return
+	end
+	assert(type(val) == 'number', "Only numbers are supported in PUTP, not "..type(val))
 	assert(PTSIZE(ptr) == 1, "Number size must be 1")
-	mem:write(string.char(val), ptr)
+	mem:write(string.char(math.min(val,0xff)), ptr)
 end
 function GETP(obj, prop)
 	if not GETPT(obj, prop) then return nil end
@@ -595,9 +609,9 @@ function OBJECT(object)
 		elseif k == "GLOBAL" then table.insert(t, makeprop(table.concat2(v, string.char), k))
 		elseif k == "LOC" then o.LOC = v
 		-- elseif k == "ACTION" then table.insert(t, makeprop(table.concat2(v, string.char), k))
-		elseif type(v) == 'string' then table.insert(t, makeprop(mem:writestring_alt(v), k))
+		elseif type(v) == 'string' then table.insert(t, makeprop(mem:writestring_property(v), k))
 		elseif type(v) == 'number' then table.insert(t, makeprop(string.char(math.min(v,0xff)), k))
-		elseif type(v) == 'function' then table.insert(t, makeprop(mem:writestring_alt(fn(v)), k))
+		elseif type(v) == 'function' then table.insert(t, makeprop(mem:writestring_property(fn(v)), k))
 		elseif _DIRECTIONS[k] then			
 			local str
 			if v.per then
@@ -649,7 +663,7 @@ function PUT(obj, i, val)
 	end
 end
 function PUTB(s, i, val) 
-	assert(type(s) == 'number', "PUTB: Only number types")
+	assert(type(s) == 'number', "PUTB: Only number types, not "..type(s))
 	mem:write(string.char(math.min(val,0xff)), s+i)
 end
 -- function GET(t, i) return type(t) == 'table' and t[i * 2] or 0 end
@@ -679,6 +693,8 @@ function GET(s, i)
 	end
 	if not i then return 0 end
 	if type(s) == 'number' then
+		if not GETB(s,i*2) then print("First argument NULL in GET at",i,": ", debug.traceback()) end
+		if not GETB(s,i*2+1) then print("Second argument NULL in GET at",i,": ", debug.traceback()) end
 		return GETB(s,i*2)|(GETB(s,i*2+1)<<8)
 	end
 	assert(type(s) == 'table', "GET requires a table")

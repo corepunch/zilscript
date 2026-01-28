@@ -598,7 +598,7 @@ function print_node(buf, node, indent)
         if is_cond(node[i]) then
           buf.write("APPLY(function()")
           print_node(buf, node[i], indent + 1, true)
-          buf.write(" end)")
+          buf.write(" end) or __tmp")
         elseif node.name == 'VERB?' then
           buf.write("VQ%s", value(node[i]))
         else
