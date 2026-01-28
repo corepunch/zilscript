@@ -45,7 +45,7 @@ return {
 		{ input="open trap door", text="The door reluctantly opens to reveal a rickety staircase descending into darkness." },
 		{ input="walk down", text="The trap door crashes shut, and you hear someone barring it." },
 		{ input="walk north", text="The Troll Room" },
-		{ input="kill troll with sword", global="TROLL-FLAG" },
+		{ input="kill troll with sword", global="TROLL-FLAG", description="The troll is knocked out!" },
 		-- { input="kill troll with sword", text="You are still recovering from that last blow, so your attack is ineffective." },
 		-- { input="kill troll with sword", text="Clang! Crash! The troll parries." },
 		-- { input="kill troll with sword", text="The troll is confused and can't fight back." },
