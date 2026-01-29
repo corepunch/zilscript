@@ -1,4 +1,4 @@
-# ZIL Runtime
+<img width="1024" height="729" alt="221370b1-dd6a-4880-b247-edd1c392ade5" src="https://github.com/user-attachments/assets/36f13b5a-45f9-416c-aaa5-fb041a8feb78" />
 
 A Lua-based runtime for the Zork Implementation Language (ZIL).
 
