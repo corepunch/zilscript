@@ -20,6 +20,15 @@ local function run_test_file(test_file_path)
 		print("Failed to load bootstrap")
 		return false
 	end
+
+	local seed = 0
+	local rnd = [[local n=]] .. tostring(seed) .. [[
+	function RANDOM(max)
+	  local m=n
+	  n=n+1
+	  return m%max+1
+	end]]
+	runtime.execute(rnd, 'random', game, false)
 	
 	-- Load ZIL files (use defaults or custom list from test config)
 	local files = test_config.files or {
