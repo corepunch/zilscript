@@ -552,12 +552,8 @@ function PUTP(obj, prop, val)
 		mem:write(mem:stringprop(val), ptr)
 		return
 	elseif type(val) == 'function' then
-		print(prop, PTSIZE(ptr))
 		assert(PTSIZE(ptr) == 2, "Function property "..prop.." size must be 2")
 		mem:write(mem:stringprop(fn(val)), ptr)
-	end
-	if PTSIZE(ptr) ~= 1 then
-		print(translate(debug.traceback()))
 	end
 	assert(type(val) == 'number', "Only numbers are supported in PUTP, not "..type(val))
 	assert(PTSIZE(ptr) == 1, "Number property "..prop.." size must be 1 for value "..val)
@@ -801,6 +797,7 @@ end
 function BUZZ(...)
 	for _, buzz in ipairs {...} do
 		learn(buzz, PSQBUZZ_WORD, nil)
+		_G['WQ'..buzz:upper()] = cache.words[buzz:lower()]
 	end
 end
 
