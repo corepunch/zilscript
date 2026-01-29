@@ -941,8 +941,8 @@ function CLOCKER()
                 -- Decrement tick counter
                 entry[C_TICK] = tick - 1
                 
-                -- If tick reached 0 or below, execute the routine
-                if entry[C_TICK] <= 0 then
+                -- Check the OLD value (tick <= 1), not the new one!
+                if tick <= 1 then
                     if entry[C_RTN]() then
                         flag = true
                     end

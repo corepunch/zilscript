@@ -81,7 +81,6 @@ local function run_test_file(test_file_path)
 		end
 
 		local function feedback(test, err)
-			-- print(output)
 			if err then
 				local input_str = cmd.input or test
 				print(RED .. "[FAIL] " .. (cmd.description or test) .. RESET .. " (" .. input_str .. ")")
@@ -98,6 +97,7 @@ local function run_test_file(test_file_path)
 				local input_str = cmd.input or test
 				print(GREEN .. "[PASS] " .. (cmd.description or test) .. RESET .. " (" .. input_str .. ")")
 			end
+			print(output)
 		end
 		
 		local function report(test) 

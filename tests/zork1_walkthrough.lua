@@ -245,7 +245,8 @@ return {
 		{ input="walk south", text="Reservoir South" },
 		{ input="walk east", text="Dam" },
 		{ input="walk east", text="Dam Base" },
-		{ input="inflate plastic with pump", text="The boat inflates and appears seaworthy." },
+		-- replaced command to use new INFLATE syntax
+		{ input="inflat plastic with pump", text="The boat inflates and appears seaworthy." },
 		{ input="drop pump", text="Dropped." },
 		{ input="walk inside boat", text="You are now in the magic boat." },
 		{ input="launch", text="(magic boat)" },
