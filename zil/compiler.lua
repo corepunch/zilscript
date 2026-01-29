@@ -17,59 +17,42 @@ local function Buffer()
   local lines = {}
   local current_line = 1  -- Track current Lua line number
   
-  -- Helper to count newlines and record source mapping
-  local function count_newlines_and_map(text)
-    local newline_count = 0
-    for _ in text:gmatch("\n") do
-      newline_count = newline_count + 1
-      current_line = current_line + 1
-      
-      -- Record source mapping if we have source info
-      if Compiler.current_lua_filename and Compiler.current_source then
-        local src = Compiler.current_source
-        sourcemap.add_mapping(
-          Compiler.current_lua_filename,
-          current_line,
-          src.filename,
-          src.line,
-          src.col
-        )
-      end
+  -- Helper to record source mapping for current line
+  local function record_mapping()
+    if Compiler.current_lua_filename and Compiler.current_source then
+      local src = Compiler.current_source
+      sourcemap.add_mapping(
+        Compiler.current_lua_filename,
+        current_line,
+        src.filename,
+        src.line,
+        src.col
+      )
     end
-    return newline_count
+  end
+  
+  -- Helper to count newlines and record source mapping
+  local function process_newlines(text)
+    for _ in text:gmatch("\n") do
+      current_line = current_line + 1
+      record_mapping()
+    end
   end
   
   return {
     write = function(fmt, ...)
       local text = string.format(fmt, ...)
       table.insert(lines, text)
-      count_newlines_and_map(text)
+      process_newlines(text)
     end,
     writeln = function(fmt, ...)
-      local text = ""
       if fmt then
-        text = string.format(fmt, ...)
+        local text = string.format(fmt, ...)
         table.insert(lines, text)
+        process_newlines(text)
       end
       table.insert(lines, "\n")
-      
-      -- Count newlines in the formatted text
-      count_newlines_and_map(text)
-      
-      -- Record source mapping for the line we're about to finish
-      -- This must happen BEFORE incrementing current_line
-      if Compiler.current_lua_filename and Compiler.current_source then
-        local src = Compiler.current_source
-        sourcemap.add_mapping(
-          Compiler.current_lua_filename,
-          current_line,
-          src.filename,
-          src.line,
-          src.col
-        )
-      end
-      
-      -- Count the newline we just added (increment after recording mapping)
+      record_mapping()
       current_line = current_line + 1
     end,
     indent = function(level)
@@ -90,6 +73,25 @@ end
 
 local function safeget(node, attr)
   return node and node[attr] or nil
+end
+
+-- Helper: Convert leading digits to letters (0-9 -> a-j)
+local function digits_to_letters(str)
+  return str:gsub("^(%d+)", function(digits)
+    return digits:gsub("%d", function(d)
+      return string.char(string.byte('a') + tonumber(d))
+    end)
+  end)
+end
+
+-- Helper: Normalize identifier to Lua-safe name
+local function normalize_identifier(str)
+  return str
+    :gsub("^[,.]+", "")        -- Remove leading commas/dots
+    :gsub("[,.]", "")          -- Remove internal commas/dots
+    :gsub("%-", "_")           -- Replace - with _
+    :gsub("%?", "Q")           -- Question mark to Q
+    :gsub("\\", "/")           -- Backslash to forward slash
 end
 
 -- Convert ZIL values to Lua representations
@@ -116,7 +118,6 @@ local function value(node)
   
   -- Property references (,P?...)
   if val:match("^,P%?") then
-    -- return string.format('"PQ%s"', val:sub(4))
     return string.format('PQ%s', val:sub(4))
   end
 
@@ -124,20 +125,11 @@ local function value(node)
   local is_local = val:match("^%.")
   
   -- Convert identifier to Lua-safe name
-  local result = val
-    :gsub("^[,.]+", "")        -- Remove leading commas/dots
-    :gsub("[,.]", "")          -- Remove internal commas/dots
-    :gsub("%-", "_") -- Replace - between alphanumeric chars
-    :gsub("%?", "Q")           -- Question mark to Q
-    :gsub("\\", "/")           -- Backslash to forward slash
+  local result = normalize_identifier(val)
   
-  -- Convert leading numbers to letters (a-j for 0-9)
+  -- Convert leading numbers to letters
   if result:match("^%d") then
-    result = result:gsub("^(%d+)", function(digits)
-      return digits:gsub("%d", function(d)
-        return string.char(string.byte('a') + tonumber(d))
-      end)
-    end)
+    result = digits_to_letters(result)
   end
   
   -- Add m_ prefix for local variable references (those that started with .)
@@ -170,30 +162,31 @@ local function local_var_name(node)
   return bare_name
 end
 
--- Field writer functions
-local function write_list_string(buf, node)
+-- Helper: Write a list with optional formatting function
+local function write_formatted_list(buf, node, formatter)
   local list = {}
-  buf.write("{")
   for child in Compiler.iter_children(node, 1) do
-    table.insert(list, string.format('"%s"', value(child)))
+    table.insert(list, formatter and formatter(child) or value(child))
   end
+  buf.write("{")
   buf.write(table.concat(list, ", "))
   buf.write("}")
+end
+
+-- Field writer functions
+local function write_list_string(buf, node)
+  write_formatted_list(buf, node, function(child)
+    return string.format('"%s"', value(child))
+  end)
 end
 
 local function write_list(buf, node)
-  local list = {} 
-  buf.write("{")
-  for child in Compiler.iter_children(node, 1) do
-    table.insert(list, value(child))
-  end
-  buf.write(table.concat(list, ", "))
-  buf.write("}")
+  write_formatted_list(buf, node)
 end
 
-local function write_string_field(buf, node)
+local function write_first_child(buf, node, quote_non_strings)
   for child in Compiler.iter_children(node, 1) do
-    if child.type ~= "string" then
+    if quote_non_strings and child.type ~= "string" then
       buf.write('"%s"', child.value)
     else
       buf.write("%s", value(child))
@@ -202,11 +195,12 @@ local function write_string_field(buf, node)
   end
 end
 
+local function write_string_field(buf, node)
+  write_first_child(buf, node, true)
+end
+
 local function write_value_field(buf, node)
-  for child in Compiler.iter_children(node, 1) do
-    buf.write("%s", value(child))
-    break
-  end
+  write_first_child(buf, node, false)
 end
 
 local FIELD_WRITERS = {
@@ -302,8 +296,34 @@ local function need_return(node)
   return node.value ~= "" and (node.type ~= "expr" or not nodes[node.name])
 end
 
+-- Operator to function name mapping
+local OPERATOR_MAP = {
+  ["+"] = "ADD",
+  ["-"] = "SUB",
+  ["/"] = "DIV",
+  ["*"] = "MULL",
+  ["=?"] = "EQUALQ",
+  ["==?"] = "EQUALQ",
+  ["N=?"] = "NEQUALQ",
+  ["N==?"] = "NEQUALQ",
+  ["0?"] = "ZEROQ",
+  ["1?"] = "ONEQ",
+}
+
+-- Convert ZIL function name to Lua function name
+local function normalize_function_name(name)
+  return OPERATOR_MAP[name] or name:gsub("%-", "_"):gsub("%?", "Q")
+end
+
 -- Forward declaration
 local print_node
+
+-- Helper: Register a variable as local and return its name
+local function register_local_var(arg)
+  local var_name = tostring(arg.value or arg.name)
+  Compiler.local_vars[var_name] = true
+  return var_name
+end
 
 -- Function header with locals and optional parameters
 local function write_function_header(buf, node)
@@ -328,28 +348,19 @@ local function write_function_header(buf, node)
         mode = "optional"
       end
     elseif arg.type == "list" then
+      local first_elem = arg[1]
+      register_local_var(first_elem)
       if mode == "locals" then
-        -- Register AUX variable
-        local var_name = tostring(arg[1].value or arg[1].name)
-        Compiler.local_vars[var_name] = true
         table.insert(locals, arg)
       else
-        -- Register optional parameter
-        local var_name = tostring(arg[1].value or arg[1].name)
-        Compiler.local_vars[var_name] = true
-        table.insert(params, local_var_name(arg[1]))
+        table.insert(params, local_var_name(first_elem))
         table.insert(optionals, arg)
       end
     elseif arg.type == "ident" then
+      register_local_var(arg)
       if mode == "locals" then
-        -- Register AUX variable
-        local var_name = tostring(arg.value or arg.name)
-        Compiler.local_vars[var_name] = true
         table.insert(locals, arg)
       else
-        -- Register mandatory parameter
-        local var_name = tostring(arg.value or arg.name)
-        Compiler.local_vars[var_name] = true
         local param_with_suffix = local_var_name(arg)
         table.insert(params, param_with_suffix)
         table.insert(mandatory, param_with_suffix)
@@ -435,7 +446,6 @@ form.COND = function(buf, node, indent)
     
     -- Then clauses
     for j = 2, #clause do
-    -- for j = math.min(#clause, 2), #clause do
       buf.writeln()
       buf.indent(indent + 1)
       if need_return(clause[j]) then buf.write("\t__tmp = ") end
@@ -468,16 +478,24 @@ end
 form.SET = compile_set
 form.SETG = compile_set
 
-form["IGRTR?"] = function(buf, node, indent)
+-- Helper: Increment/decrement with comparison (IGRTR?, DLESS? share pattern)
+local function write_modify_compare(buf, node, op, cmp)
   local target = local_var_name(node[1])
-  buf.write("APPLY(function() %s = %s + 1", target, target)
-  buf.write(" return %s > %s end)", target, value(node[2]))
+  buf.write("APPLY(function() %s = %s %s 1", target, target, op)
+  buf.write(" return %s %s %s end)", target, cmp, value(node[2]))
+end
+
+form["IGRTR?"] = function(buf, node, indent)
+  write_modify_compare(buf, node, "+", ">")
 end
 
 form["DLESS?"] = function(buf, node, indent)
-  local target = local_var_name(node[1])
-  buf.write("APPLY(function() %s = %s - 1", target, target)
-  buf.write(" return %s < %s end)", target, value(node[2]))
+  write_modify_compare(buf, node, "-", "<")
+end
+
+-- Helper: Generate error return with specified value
+local function write_error_return(buf, error_value)
+  buf.write("\terror(%s)", error_value)
 end
 
 -- RETURN
@@ -491,48 +509,23 @@ form.RETURN = function(buf, node, indent)
   end
 end
 
--- RTRUE
+-- RTRUE, RFALSE, RFATAL - simple error returns
 form.RTRUE = function(buf, node, indent)
-  buf.write("\terror(true)")
+  write_error_return(buf, "true")
 end
 
--- RFALSE
 form.RFALSE = function(buf, node, indent)
-  buf.write("\terror(false)")
+  write_error_return(buf, "false")
 end
 
--- RFATAL
 form.RFATAL = function(buf, node, indent)
-  buf.write("\terror(2)")
+  write_error_return(buf, "2")
 end
 
 local __again = 0xDEADBEEF
 
-form.AGAIN = function(buf, node, indent)
-  buf.write("\terror(0x%X)", __again)
-end
-
--- PROG (do block)
-form.PROG = function(buf, node, indent)
-  local p = Compiler.prog
-  Compiler.prog = Compiler.prog + 1
-  buf.writeln()
-  buf.indent(indent)
-  buf.writeln("local __prog%d = function()", p)
-  for i = 2, #node do
-    buf.indent(indent + 1)
-    print_node(buf, node[i], indent + 1)--add_return and i == #node)
-  end
-  buf.writeln("end")
-  buf.writeln("local __ok%d, __res%d", p, p)
-  buf.writeln("repeat __ok%d, __res%d = pcall(__prog%d)", p, p, p)
-  buf.writeln("until __ok%d or __res%d ~= 0x%X", p, p, __again)
-  buf.writeln("if not __ok%d then error(__res%d)", p, p)
-  buf.writeln("else __tmp = __res%d or true end", p, p)
-end
-
--- REPEAT (while true loop)
-form.REPEAT = function(buf, node, indent)
+-- Helper: Generate pcall-wrapped prog block (PROG and REPEAT share structure)
+local function write_prog_block(buf, node, indent, is_repeat)
   local p = Compiler.prog
   Compiler.prog = Compiler.prog + 1
   buf.writeln()
@@ -541,10 +534,14 @@ form.REPEAT = function(buf, node, indent)
   for i = 2, #node do
     buf.indent(indent + 1)
     print_node(buf, node[i], indent + 1)
-    buf.writeln()
+    if is_repeat then buf.writeln() end
   end
-  buf.writeln()
-  buf.writeln("error(0x%X) end", __again)
+  if is_repeat then
+    buf.writeln()
+    buf.writeln("error(0x%X) end", __again)
+  else
+    buf.writeln("end")
+  end
   buf.writeln("local __ok%d, __res%d", p, p)
   buf.writeln("repeat __ok%d, __res%d = pcall(__prog%d)", p, p, p)
   buf.writeln("until __ok%d or __res%d ~= 0x%X", p, p, __again)
@@ -552,9 +549,23 @@ form.REPEAT = function(buf, node, indent)
   buf.writeln("else __tmp = __res%d or true end", p, p)
 end
 
--- BUZZ
-form.BUZZ = function(buf, node, indent)
-  buf.write("BUZZ(")
+-- PROG (do block)
+form.PROG = function(buf, node, indent)
+  write_prog_block(buf, node, indent, false)
+end
+
+-- REPEAT (while true loop)
+form.REPEAT = function(buf, node, indent)
+  write_prog_block(buf, node, indent, true)
+end
+
+form.AGAIN = function(buf, node, indent)
+  buf.write("\terror(0x%X)", __again)
+end
+
+-- Helper: Generate a function call with string arguments from node values
+local function write_string_call(buf, name, node)
+  buf.write("%s(", name)
   for i = 1, #node do
     if i > 1 then buf.write(", ") end
     buf.write('"%s"', node[i].value)
@@ -562,14 +573,13 @@ form.BUZZ = function(buf, node, indent)
   buf.writeln(")")
 end
 
--- SYNONYM
+-- BUZZ and SYNONYM use the same pattern
+form.BUZZ = function(buf, node, indent)
+  write_string_call(buf, "BUZZ", node)
+end
+
 form.SYNONYM = function(buf, node, indent)
-  buf.write("SYNONYM(")
-  for i = 1, #node do
-    if i > 1 then buf.write(", ") end
-    buf.write('"%s"', node[i].value)
-  end
-  buf.writeln(")")
+  write_string_call(buf, "SYNONYM", node)
 end
 
 -- GLOBAL
@@ -621,27 +631,28 @@ form.SYNTAX = function(buf, node, indent)
   buf.writeln("}")
 end
 
-form.LTABLE = function(buf, node)
+-- Helper: Generate a table constructor call (LTABLE, TABLE share same pattern)
+local function write_table_call(buf, name, node)
   local start = safeget(node[1], 'type') == "list" and 2 or 1
-  buf.write("LTABLE(")
+  buf.write("%s(", name)
   for i = start, #node do
     print_node(buf, node[i], 0)
     if i < #node then buf.write(",") end
   end
   buf.write(")")
 end
+
+form.LTABLE = function(buf, node)
+  write_table_call(buf, "LTABLE", node)
+end
+
+form.TABLE = function(buf, node)
+  write_table_call(buf, "TABLE", node)
+end
+
 form.ITABLE = function(buf, node)
   local num = node[1].value == "NONE" and node[2].value or node[1].value
   buf.write("ITABLE(%s)", num)
-end
-form.TABLE = function(buf, node)
-  local start = safeget(node[1], 'type') == "list" and 2 or 1
-  buf.write("TABLE(")
-  for i = start, #node do
-    print_node(buf, node[i], 0)
-    if i < #node then buf.write(",") end
-  end
-  buf.write(")")
 end
 
 -- AND/OR
@@ -688,20 +699,8 @@ function print_node(buf, node, indent)
     else
       -- Generic function call
       if indent == 1 then buf.indent(indent) end
-      local ops = {
-        ["+"] = "ADD",
-        ["-"] = "SUB",
-        ["/"] = "DIV",
-        ["*"] = "MULL",
-        ["=?"] = "EQUALQ",
-        ["==?"] = "EQUALQ",
-        ["N=?"] = "NEQUALQ",
-        ["N==?"] = "NEQUALQ",
-        ["0?"] = "ZEROQ",
-        ["1?"] = "ONEQ",
-      }
       if node.name == 'VERB?' then table.insert(Compiler.current_verbs, node[1].value) end
-      buf.write("%s(", ops[node.name] or node.name:gsub("%-", "_"):gsub("%?", "Q"))
+      buf.write("%s(", normalize_function_name(node.name))
       for i = 1, #node do
         if is_cond(node[i]) then
           buf.write("APPLY(function()")
@@ -730,10 +729,8 @@ local function compile_routine(decl, body, node)
   local name = value(node[1])
   Compiler.current_verbs = {}
   Compiler.local_vars = {}  -- Reset local variables for new routine
-  -- decl.writeln("%s = nil", name)
   decl.writeln("%s = function(...)", name)
   write_function_header(decl, node)
-  -- decl.writeln("\tprint('\t%s')", name:gsub("_", "-"))
   decl.writeln("\tlocal __ok, __res = pcall(function()")
   decl.writeln("\tlocal __tmp = nil")
   for i = 3, #node do
@@ -742,9 +739,7 @@ local function compile_routine(decl, body, node)
     decl.writeln()
   end
   decl.writeln("\t return __tmp end)")
-  -- decl.writeln("\tif __ok or (type(__res) ~= 'string' and type(__res) ~= 'nil') then")
   decl.writeln("\tif __ok or type(__res) ~= 'string' then")
-  -- decl.writeln("print('\t\t(%s) '..tostring(__res))", name:gsub("_", "-"))
   decl.writeln("return __res")
   decl.writeln(string.format("\telse error(__res and '%s\\n'..__res or '%s') end", name, name))
   decl.writeln("end")
@@ -756,27 +751,33 @@ local function compile_routine(decl, body, node)
   decl.writeln("}")
 end
 
+-- Helper: Normalize property name (IN/LOCATION -> LOC)
+local function normalize_property(prop)
+  if prop == "IN" or prop == "LOCATION" then return "LOC" end
+  return prop
+end
+
 local function compile_object(decl, body, node)
   local name = value(node[1])
 
-  -- decl.writeln('%s = setmetatable({}, { __tostring = function(self) return self.DESC or "%s" end })', name, name)
   decl.writeln('%s = DECL_OBJECT("%s")', name, name)
   body.writeln("%s {", node.name)
   body.writeln("\tNAME = \"%s\",", name)
+  
   for i = 2, #node do
     local field = node[i]
     if field.type == "list" and safeget(field[1], 'type') == "ident" and field[2] then
-      if value(field[2]) == "TO" then
-        body.write("\t%s = ", value(field[1]))
+      local field_name = value(field[1])
+      local field_value = value(field[2])
+      
+      if field_value == "TO" then
+        body.write("\t%s = ", field_name)
         write_nav(body, field)
         body.writeln(",")
-      elseif value(field[2]) == "PER" then
-        body.write("\t%s = { per = %s }", value(field[1]), value(field[3]))
-        body.writeln(",")
+      elseif field_value == "PER" then
+        body.writeln("\t%s = { per = %s },", field_name, value(field[3]))
       else
-        local prop = value(field[1])
-        if prop == "IN" then prop = "LOC" end
-        if prop == "LOCATION" then prop = "LOC" end
+        local prop = normalize_property(field_name)
         body.write("\t%s = ", prop)
         write_field(body, field, field[1].value)
         body.writeln(",")
@@ -813,6 +814,12 @@ local DIRECT_STATEMENTS = {
   -- PROG = true,
 }
 
+-- Helper: Get source line number from AST node
+local function get_source_line(node_or_ast)
+  local meta = getmetatable(node_or_ast)
+  return meta and meta.source and meta.source.line or 0
+end
+
 -- Main compilation entry point
 -- lua_filename: the name of the Lua file being generated (for source mapping) - optional
 function Compiler.compile(ast, lua_filename)
@@ -830,31 +837,24 @@ function Compiler.compile(ast, lua_filename)
     if node.type == "expr" then
       local name = node.name or ""
       
-      -- Skip GDECL
+      -- Skip forms that don't generate output
       if name == "GDECL" or name == "PROG" then
-        goto continue
-      end
-      
-      -- Direct statements
-      if DIRECT_STATEMENTS[name] then
+        -- Skip
+      -- Direct statements (print to body directly)
+      elseif DIRECT_STATEMENTS[name] then
         print_node(body, node, 0, false)
-        goto continue
-      end
-      
-      -- Compile with appropriate handler
-      if safeget(node[1], 'value') then
+      -- Forms with specialized compilers
+      elseif safeget(node[1], 'value') then
         local compiler = TOP_LEVEL_COMPILERS[name]
         if compiler then
           compiler(decl, body, node)
         else
-          io.stderr:write(string.format("Unknown top-level form: %s on line %d\n", name, getmetatable(ast).source.line))
+          io.stderr:write(string.format("Unknown top-level form: %s on line %d\n", name, get_source_line(node)))
         end
       else
-        io.stderr:write(string.format("Expected type in <%s> on line %d\n", name, getmetatable(ast).source.line))
+        io.stderr:write(string.format("Expected type in <%s> on line %d\n", name, get_source_line(node)))
       end
     end
-    
-    ::continue::
   end
   
   return {
