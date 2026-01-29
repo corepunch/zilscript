@@ -493,7 +493,7 @@ form["DLESS?"] = function(buf, node, indent)
   write_modify_compare(buf, node, "-", "<")
 end
 
--- Helper: Generate error return with optional value (RETURN, RTRUE, RFALSE, RFATAL)
+-- Helper: Generate error return with specified value
 local function write_error_return(buf, error_value)
   buf.write("\terror(%s)", error_value)
 end
@@ -849,10 +849,10 @@ function Compiler.compile(ast, lua_filename)
         if compiler then
           compiler(decl, body, node)
         else
-          io.stderr:write(string.format("Unknown top-level form: %s on line %d\n", name, get_source_line(ast)))
+          io.stderr:write(string.format("Unknown top-level form: %s on line %d\n", name, get_source_line(node)))
         end
       else
-        io.stderr:write(string.format("Expected type in <%s> on line %d\n", name, get_source_line(ast)))
+        io.stderr:write(string.format("Expected type in <%s> on line %d\n", name, get_source_line(node)))
       end
     end
   end
