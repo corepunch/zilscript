@@ -687,6 +687,10 @@ end
 
 function PUT(obj, i, val)
 	if type(obj) == 'number' then
+		-- Convert function values to their index in FUNCTIONS table
+		if type(val) == 'function' then
+			val = fn(val)
+		end
 		mem:write(makeword(val or 0), obj+i*2)
 	elseif type(obj) == 'table' then
 		obj[i] = val
