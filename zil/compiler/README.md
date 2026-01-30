@@ -16,8 +16,23 @@ Source Code → Parser → AST → Checker → Emitter → Lua Code
 
 ### `init.lua`
 Main module entry point. Coordinates all compiler components and provides the public API:
-- `Compiler.compile(ast, lua_filename)` - Main compilation function
+- `Compiler.compile(ast, lua_filename, options)` - Main compilation function
+  - `ast` - Abstract syntax tree from parser
+  - `lua_filename` - Optional output filename for source mapping
+  - `options` - Optional table with:
+    - `enable_semantic_check` - Boolean, enables semantic analysis (default: false)
+  - Returns table with:
+    - `declarations` - Function and object declarations
+    - `body` - Main code body
+    - `combined` - Combined output
+    - `diagnostics` - Diagnostic collection with any errors/warnings
 - `Compiler.iter_children(node, skip)` - AST node iteration helper
+
+**Integration with TypeScript-inspired modules:**
+The compiler now internally uses:
+- `diagnostics.lua` for structured error collection
+- `checker.lua` for optional semantic analysis (when `enable_semantic_check = true`)
+- Maintains backward compatibility - existing code works without changes
 
 ### `buffer.lua`
 Output buffer management for efficient string concatenation with source mapping support:
@@ -166,6 +181,8 @@ end
 
 ## Usage
 
+### Basic Usage (Backward Compatible)
+
 The module can be required as before:
 
 ```lua
@@ -173,10 +190,52 @@ local compiler = require 'zil.compiler'
 local result = compiler.compile(ast, "output.lua")
 ```
 
-The result is a table with three fields:
+The result is a table with four fields:
 - `declarations` - Function and object declarations
 - `body` - Main code body
 - `combined` - Combined output (declarations + body)
+- `diagnostics` - Diagnostic collection with errors/warnings (NEW)
+
+### Advanced Usage with TypeScript-Inspired Features
+
+Enable semantic checking:
+
+```lua
+local compiler = require 'zil.compiler'
+local result = compiler.compile(ast, "output.lua", {
+  enable_semantic_check = true  -- Enables semantic analysis
+})
+
+-- Check for semantic errors
+if result.diagnostics.has_errors() then
+  print("Compilation errors found:")
+  result.diagnostics.report()
+end
+
+-- Access diagnostics directly
+local diag = result.diagnostics
+print(diag.summary())  -- "2 errors, 1 warning"
+```
+
+### Migration Path
+
+**Old code (still works):**
+```lua
+local result = compiler.compile(ast)
+-- Uses: result.declarations, result.body, result.combined
+```
+
+**New code (with diagnostics):**
+```lua
+local result = compiler.compile(ast, "output.lua")
+-- Uses: result.diagnostics for error handling
+```
+
+**Advanced (with semantic checking):**
+```lua
+local result = compiler.compile(ast, "output.lua", {enable_semantic_check = true})
+-- Uses: result.diagnostics for semantic errors
+```
 
 ## Design Principles
 
