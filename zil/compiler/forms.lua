@@ -194,7 +194,7 @@ function Forms.create_handlers(compiler, print_node)
   form.GLOBAL = function(buf, node, indent)
     buf.write("%s = ", compiler.value(node[1]))
     for i = 2, #node do
-      print_node(buf, node[i], 0 and i == #node)
+      print_node(buf, node[i], 0)
       buf.writeln()
     end
   end
