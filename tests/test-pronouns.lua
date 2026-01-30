@@ -35,7 +35,7 @@ return {
 		},
 		{
 			input = "inventory",
-			text = "apple",
+			text = "nail",
 			description = "Check inventory has both items"
 		},
 		{
