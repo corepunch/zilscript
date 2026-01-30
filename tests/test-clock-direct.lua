@@ -53,30 +53,30 @@ assert(type(env.INT) == "function", "INT should be a function")
 assert(type(env.CLOCKER) == "function", "CLOCKER should be a function")
 print("✓ All functions defined\n")
 
--- Test 4: Test INT function - create an interrupt
-print("Test 4: Test INT function")
+-- Test 4: Test INT function - create a demon
+print("Test 4: Test INT function (demon)")
 -- Create a test function and register it
 env.TEST_INTERRUPT = function()
-  print("  Test interrupt called!")
+  print("  Test demon called!")
   return env.T
 end
 local fn_idx = #env.FUNCTIONS + 1
 env.FUNCTIONS[fn_idx] = env.TEST_INTERRUPT
 
-print("  Calling INT with function index:", fn_idx)
+print("  Calling INT with function index:", fn_idx, "(as demon)")
 print("  C_INTS before:", env.C_INTS)
 print("  C_DEMONS before:", env.C_DEMONS)
 
 local cint = run(string.format([[
-  INT(%d, nil)
+  INT(%d, T)
 ]], fn_idx))
 
 print("  Result from INT:", cint, type(cint))
 print("  C_INTS after:", env.C_INTS)
 print("  C_DEMONS after:", env.C_DEMONS)
 
-assert(cint, "INT should return an interrupt entry")
-print("✓ INT created interrupt entry\n")
+assert(cint, "INT should return a demon entry")
+print("✓ INT created demon entry\n")
 
 -- Test 5: Test QUEUE function
 print("Test 5: Test QUEUE function")
@@ -107,81 +107,96 @@ print("\n=== All Clock System Tests Passed ===")
 -- Additional comprehensive tests
 print("\n=== Additional Comprehensive Tests ===\n")
 
--- Test 8: Test interrupt firing when tick counts down
-print("Test 8: Test interrupt firing")
-local interrupt_fired = false
-env.TEST_FIRE = function()
-  interrupt_fired = true
+-- Test 8: Test demon firing when tick counts down
+print("Test 8: Test demon firing")
+-- Create a completely new unique function for this test
+-- Use a high index to avoid conflicts
+local test8_idx = 1000 + math.random(1, 10000)
+env.FUNCTIONS[test8_idx] = function()
+  env.test8_fired = (env.test8_fired or 0) + 1
   return env.T
 end
-table.insert(env.FUNCTIONS, env.TEST_FIRE)
-local fire_idx = #env.FUNCTIONS
 
--- Queue with tick = 2 (will fire on 2nd CLOCKER call)
-run(string.format("QUEUE(%d, 2)", fire_idx))
-print("  Queued interrupt with tick=2")
+print("  Creating new demon with unique function index:", test8_idx)
+
+-- Create as demon (not regular interrupt) since P_WON is false
+local demon8 = env.INT(test8_idx, env.T)  -- Create demon directly without run()
+print("  Demon address:", demon8)
+print("  C_DEMONS:", env.C_DEMONS, " C_TABLELEN:", env.C_TABLELEN)
+print("  CLOCKER will scan from", env.C_DEMONS + 1, "to", env.C_TABLELEN)
+env.ENABLE(demon8)
+env.QUEUE(test8_idx, 2)
+local tick = env.GET(demon8, env.C_TICK)
+print("  Queued demon with tick:", tick)
 
 -- First CLOCKER call - should decrement to 1, not fire
-interrupt_fired = false
-run("CLOCKER()")
-assert(not interrupt_fired, "Interrupt should not fire on first CLOCKER (tick=2 -> 1)")
-print("  ✓ Tick=2: Interrupt not fired")
+env.test8_fired = 0
+env.CLOCKER()
+tick = env.GET(demon8, env.C_TICK)
+print("  After 1st CLOCKER: tick =", tick, ", fired =", env.test8_fired > 0)
+assert(env.test8_fired == 0, "Demon should not fire on first CLOCKER (tick=2 -> 1)")
+print("  ✓ Tick=2: Demon not fired")
 
 -- Second CLOCKER call - should decrement to 0 and fire
-interrupt_fired = false  
-run("CLOCKER()")
-assert(interrupt_fired, "Interrupt should fire on second CLOCKER (tick=1 -> 0)")
-print("  ✓ Tick=1: Interrupt fired")
-print("✓ Interrupt fires at correct time\n")
+env.test8_fired = 0  
+env.CLOCKER()
+tick = env.GET(demon8, env.C_TICK)
+print("  After 2nd CLOCKER: tick =", tick, ", fired =", env.test8_fired > 0)
+assert(env.test8_fired > 0, "Demon should fire on second CLOCKER (tick=1 -> 0)")
+print("  ✓ Tick=1: Demon fired")
+print("✓ Demon fires at correct time\n")
 
--- Test 9: Test finding existing interrupt
-print("Test 9: Test INT finds existing interrupt")
-local first_int = run(string.format("INT(%d, nil)", fire_idx))
-local second_int = run(string.format("INT(%d, nil)", fire_idx))
+-- Test 9: Test finding existing demon
+print("Test 9: Test INT finds existing demon")
+local first_int = env.INT(test8_idx, env.T)
+local second_int = env.INT(test8_idx, env.T)
 assert(first_int == second_int, string.format("INT should return same entry for same function (got %s and %s)", tostring(first_int), tostring(second_int)))
-print("✓ INT reuses existing interrupt entry\n")
+print("✓ INT reuses existing demon entry\n")
 
--- Test 10: Test multiple interrupts
-print("Test 10: Test multiple interrupts")
-local count1, count2 = 0, 0
-env.TEST_INT1 = function() count1 = count1 + 1; return env.T end
-env.TEST_INT2 = function() count2 = count2 + 1; return env.T end
-table.insert(env.FUNCTIONS, env.TEST_INT1)
-table.insert(env.FUNCTIONS, env.TEST_INT2)
-local idx1, idx2 = #env.FUNCTIONS - 1, #env.FUNCTIONS
+-- Test 10: Test multiple demons
+print("Test 10: Test multiple demons")
+local test10_idx1 = 2000 + math.random(1, 1000)
+local test10_idx2 = 3000 + math.random(1, 1000)
+env.FUNCTIONS[test10_idx1] = function() env.count1 = (env.count1 or 0) + 1; return env.T end
+env.FUNCTIONS[test10_idx2] = function() env.count2 = (env.count2 or 0) + 1; return env.T end
 
-run(string.format("QUEUE(%d, 1)", idx1))
-run(string.format("QUEUE(%d, 2)", idx2))
+-- Create demons and enable them
+local d1 = env.INT(test10_idx1, env.T)
+local d2 = env.INT(test10_idx2, env.T)
+env.ENABLE(d1)
+env.ENABLE(d2)
+env.QUEUE(test10_idx1, 1)
+env.QUEUE(test10_idx2, 2)
 
-count1, count2 = 0, 0
-run("CLOCKER()")  -- idx1 should fire (tick 1->0), idx2 should not (tick 2->1)
-assert(count1 == 1, "First interrupt should fire")
-assert(count2 == 0, "Second interrupt should not fire yet")
+env.count1, env.count2 = 0, 0
+env.CLOCKER()  -- d1 should fire (tick 1->0), d2 should not (tick 2->1)
+assert(env.count1 == 1, "First demon should fire")
+assert(env.count2 == 0, "Second demon should not fire yet")
 
-run("CLOCKER()")  -- idx2 should fire (tick 1->0)
-assert(count2 == 1, "Second interrupt should fire")
-print("✓ Multiple interrupts work correctly\n")
+env.CLOCKER()  -- d2 should fire (tick 1->0)
+assert(env.count2 == 1, "Second demon should fire")
+print("✓ Multiple demons work correctly\n")
 
 -- Test 11: Test C_INTS and C_DEMONS boundaries
-print("Test 11: Test interrupt tracking")
-print("  C_INTS:", env.C_INTS, " (should be less than 180 after creating interrupts)")
-print("  C_DEMONS:", env.C_DEMONS, " (should equal 180 - no demons created)")
-assert(env.C_INTS < 180, "C_INTS should decrease as interrupts are added")
-assert(env.C_DEMONS == 180, "C_DEMONS should still be 180 (no demons created)")
-print("✓ Interrupt boundaries correct\n")
+print("Test 11: Test demon tracking")
+print("  C_INTS:", env.C_INTS, " (decreases when demons are created)")
+print("  C_DEMONS:", env.C_DEMONS, " (decreases when demons are created)")
+assert(env.C_INTS < 180, "C_INTS should decrease as demons are added")
+assert(env.C_DEMONS < 180, "C_DEMONS should decrease as demons are created")
+print("✓ Demon boundaries correct\n")
 
--- Test 12: Test interrupt tick=0 doesn't fire
-print("Test 12: Test tick=0 interrupts don't fire")
-local zero_fired = false
-env.TEST_ZERO = function() zero_fired = true; return env.T end
-table.insert(env.FUNCTIONS, env.TEST_ZERO)
-local zero_idx = #env.FUNCTIONS
-run(string.format("QUEUE(%d, 0)", zero_idx))
+-- Test 12: Test demon tick=0 doesn't fire
+print("Test 12: Test tick=0 demons don't fire")
+local test12_idx = 4000 + math.random(1, 1000)
+env.FUNCTIONS[test12_idx] = function() env.zero_fired = true; return env.T end
+local d12 = env.INT(test12_idx, env.T)
+env.ENABLE(d12)
+env.QUEUE(test12_idx, 0)
 
-zero_fired = false
-run("CLOCKER()")
-assert(not zero_fired, "Interrupt with tick=0 should not fire")
-print("✓ Tick=0 interrupts don't fire\n")
+env.zero_fired = false
+env.CLOCKER()
+assert(not env.zero_fired, "Demon with tick=0 should not fire")
+print("✓ Tick=0 demons don't fire\n")
 
 print("\n=== All Comprehensive Tests Passed ===")
 
