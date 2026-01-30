@@ -58,7 +58,7 @@ For complete test documentation including all available tests, how to write test
 - `tests/` - Test framework and test files
   - `run_tests.lua` - Integration test runner
   - `zork1_basic.lua` - Basic integration tests
-  - `zork1_extended.lua` - Extended integration tests
+  - `zork1_walkthrough.lua` - Extended integration tests
   - `unit/` - Unit tests directory
     - `test_framework.lua` - Unit testing framework
     - `test_parser.lua` - Parser unit tests
