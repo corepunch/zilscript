@@ -107,7 +107,7 @@ See [TYPESCRIPT_IMPROVEMENTS.md](TYPESCRIPT_IMPROVEMENTS.md) for details on Type
 - **Source Mapping**: Error messages reference ZIL source files, not generated Lua files (see [SOURCE_MAPPING.md](SOURCE_MAPPING.md))
 - **Modular Compiler**: Clean separation of concerns across 12 focused modules
 - **TypeScript-Inspired Architecture**: Visitor pattern, diagnostic collection, semantic checking, and structured emission
-- **Test Infrastructure**: 154+ unit tests plus comprehensive integration tests
+- **Test Infrastructure**: 149+ unit test assertions plus comprehensive integration tests
 - **Test Assertions**: Built-in test commands for verifying game state
 
 ### Debugging

@@ -95,14 +95,11 @@ function Diagnostics.new()
   
   -- Clear all diagnostics
   function collection.clear()
-    diagnostics = {}
-    errors = {}
-    warnings = {}
-    infos = {}
-    collection.diagnostics = diagnostics
-    collection.errors = errors
-    collection.warnings = warnings
-    collection.infos = infos
+    -- Clear tables in place to maintain references
+    for k in pairs(diagnostics) do diagnostics[k] = nil end
+    for k in pairs(errors) do errors[k] = nil end
+    for k in pairs(warnings) do warnings[k] = nil end
+    for k in pairs(infos) do infos[k] = nil end
   end
   
   -- Format a single diagnostic for display

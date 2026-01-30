@@ -198,9 +198,9 @@ Inspired by the TypeScript compiler architecture, the ZIL compiler follows these
    - `forms.lua` depends on `utils.lua`
    - `toplevel.lua` depends on `utils.lua` and `fields.lua`
    - `print_node.lua` depends on `utils.lua`
-   - `visitor.lua` is self-contained (no dependencies)
-   - `diagnostics.lua` is self-contained
-   - `emitter.lua` depends on `buffer.lua` and `utils.lua`
+   - `visitor.lua` is self-contained (no internal dependencies)
+   - `diagnostics.lua` is self-contained (no internal dependencies)
+   - `emitter.lua` depends on `buffer.lua`
    - `checker.lua` depends on `diagnostics.lua` and `visitor.lua`
 
 3. **Visitor Pattern**: Clean AST traversal using the visitor pattern

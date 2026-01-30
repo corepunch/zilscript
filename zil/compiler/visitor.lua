@@ -2,8 +2,6 @@
 -- Inspired by TypeScript's forEachChild and visitor pattern
 -- Provides a clean, extensible way to traverse and transform the AST
 
-local utils = require 'zil.compiler.utils'
-
 local Visitor = {}
 
 -- Create a new visitor with optional handlers

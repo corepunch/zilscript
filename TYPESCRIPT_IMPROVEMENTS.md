@@ -222,10 +222,11 @@ The new architecture enables:
 
 ### 5. **Testing**
 Each module can be tested independently:
-- 2 visitor tests
-- 6 diagnostic tests
-- 5 emitter tests
-- 7 checker tests
+- Visitor module: 2 tests
+- Diagnostics module: 3 tests  
+- Emitter module: 2 tests
+- Checker module: 3 tests
+- **Total: 10 new test cases with 20 assertions**
 
 All passing with zero regressions!
 

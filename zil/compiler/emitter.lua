@@ -3,7 +3,6 @@
 -- Separates code generation from AST traversal
 
 local buffer_module = require 'zil.compiler.buffer'
-local utils = require 'zil.compiler.utils'
 
 local Emitter = {}
 
