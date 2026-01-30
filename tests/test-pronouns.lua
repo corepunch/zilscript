@@ -15,46 +15,57 @@ return {
 	commands = {
 		{
 			input = "look",
+			here = "STARTROOM",
 			description = "Look at starting room"
 		},
 		{
 			input = "inventory",
+			text = "wallet",
 			description = "Check starting inventory"
 		},
 		{
 			input = "take apple",
+			take = "APPLE",
 			description = "Take the apple"
 		},
 		{
 			input = "take nail",
+			take = "NAIL",
 			description = "Take the nail"
 		},
 		{
 			input = "inventory",
+			text = "apple",
 			description = "Check inventory has both items"
 		},
 		{
 			input = "examine apple",
+			text = "apple",
 			description = "Examine the apple"
 		},
 		{
 			input = "drop apple",
+			lose = "APPLE",
 			description = "Drop the apple"
 		},
 		{
 			input = "drop nail",
+			lose = "NAIL",
 			description = "Drop the nail"
 		},
 		{
 			input = "drop wallet",
+			lose = "WALLET",
 			description = "Drop wallet"
 		},
 		{
 			input = "west",
+			here = "HALLWAY",
 			description = "Move to hallway"
 		},
 		{
 			input = "look",
+			here = "HALLWAY",
 			description = "Look in hallway"
 		},
 	}
