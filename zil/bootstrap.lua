@@ -853,6 +853,20 @@ end
 BUZZ(".", ",", "\"")
 
 
+-- ENABLE/DISABLE helpers for clock interrupts
+-- These are defined as macros in ZIL (macros.zil) but we implement them as functions
+-- ENABLE: <DEFMAC ENABLE ('INT) <FORM PUT .INT ,C-ENABLED? 1>>
+-- DISABLE: <DEFMAC DISABLE ('INT) <FORM PUT .INT ,C-ENABLED? 0>>
+function ENABLE(i)
+    PUT(i, C_ENABLEDQ, 1)
+    return i
+end
+
+function DISABLE(i)
+    PUT(i, C_ENABLEDQ, 0)
+    return i
+end
+
 function FLAMINGQ(OBJ)
 	return FSETQ(OBJ, FLAMEBIT) and FSETQ(OBJ, ONBIT)
 end
