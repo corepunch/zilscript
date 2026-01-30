@@ -260,22 +260,24 @@ return {
 
 ### Integration Test Coverage
 - ✅ Zork1: Basic commands and extended sequences
-- ✅ Parser Features: Directions, containers, light, take, pronouns
+- ✅ Parser Features: Directions, containers, light, take, pronouns, clock
 - ✅ Horror Game: Walkthroughs and failure conditions
 - ✅ Source Mapping: End-to-end error translation
+- ✅ Test Assertions: Test framework commands
 
-### Missing Tests
-- Clock/time mechanics (test-clock.lua exists but not in CI)
-- Additional game-specific features
+### Additional Tests Not in CI
+- Horror game tests (optional, may be too long for CI)
+- Source mapping accuracy tests (optional, development-focused)
 
 ## CI/CD Integration
 
 Tests are automatically run on pull requests and pushes to main/master branches via GitHub Actions (`.github/workflows/test.yml`).
 
-Current CI tests:
-- All unit tests
-- Zork1 integration tests
-- Parser/runtime tests (directions, take, containers, light, pronouns)
+**Tests included in CI:**
+- **Unit tests**: Parser, Compiler, Runtime, Source Mapping (134+ tests)
+- **Zork1 integration tests**: Basic and walkthrough tests
+- **Parser/runtime tests**: Directions, take, containers, light, pronouns, clock
+- **Test assertion tests**: Test framework command verification
 
 ## Test Results Interpretation
 
