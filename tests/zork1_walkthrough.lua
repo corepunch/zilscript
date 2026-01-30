@@ -300,7 +300,9 @@ return {
 		{ input="climb tree", text="Up a Tree" },
 		{ input="take egg", text="Taken." },
 		{ input="climb down", text="(tree)" },
-		-- { input="climb down", text="(down the tree)" },
+		-- NOTE: Reference Zork outputs "(down the tree)" but ZIL source shows this is correct:
+		-- When P-END-ON-PREP is true (command ends on preposition), GWIM prints just the object desc
+		-- See zork1/parser.zil GWIM function lines 912-924
 		{ input="walk south", text="North of House" },
 		{ input="walk east", text="Behind House" },
 		{ input="enter house", text="Kitchen" },
