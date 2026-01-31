@@ -332,7 +332,18 @@
         (ACTION SHELVES-F)>
 <ROUTINE MEDICAL-BAG-F ()
          <COND (<VERB? EXAMINE LOOK-INSIDE>
-                <TELL "An old leather doctor's bag, cracked and worn. " <COND (<FSET? ,MEDICAL-BAG ,OPENBIT> <TELL "Looking inside, you can see ">)> <COND (<FSET? ,MEDICAL-BAG ,OPENBIT> <COND (<IN? ,BANDAGES ,MEDICAL-BAG> <TELL "some bandages">)> <COND (<AND <IN? ,MORPHINE-VIAL ,MEDICAL-BAG> <IN? ,BANDAGES ,MEDICAL-BAG>> <TELL " and ">)> <COND (<IN? ,MORPHINE-VIAL ,MEDICAL-BAG> <TELL "a vial">)> <TELL ".">)> CR>
+                <TELL "An old leather doctor's bag, cracked and worn.">
+                <COND (<FSET? ,MEDICAL-BAG ,OPENBIT>
+                       <TELL " Looking inside, you can see">
+                       <COND (<IN? ,BANDAGES ,MEDICAL-BAG>
+                              <TELL " some bandages">)>
+                       <COND (<AND <IN? ,MORPHINE-VIAL ,MEDICAL-BAG>
+                                   <IN? ,BANDAGES ,MEDICAL-BAG>>
+                              <TELL " and">)>
+                       <COND (<IN? ,MORPHINE-VIAL ,MEDICAL-BAG>
+                              <TELL " a vial">)>
+                       <TELL ".">)>
+                <CRLF>
                 <RTRUE>)>>
 <OBJECT MEDICAL-BAG
         (IN SHELVES)
@@ -1137,10 +1148,6 @@
 	<SETG WINNER ,ADVENTURER>
 	<SETG PLAYER ,WINNER>
 	<MOVE ,WINNER ,HERE>
-	<ENABLE <QUEUE I-WHISPER -1>>
-	<ENABLE <QUEUE I-FOOTSTEPS -1>>
-	<ENABLE <QUEUE I-FLICKERING -1>>
-	<ENABLE <QUEUE I-COLD-DRAFT -1>>
 	<QUEUE I-WHISPER 8>
 	<QUEUE I-FOOTSTEPS 12>
 	<QUEUE I-FLICKERING 10>
