@@ -273,17 +273,20 @@ function Forms.createHandlers(compiler, printNode)
 
   -- FORM - Construct a form (used in macros)
   form.FORM = function(buf, node, indent)
-    -- FORM creates a list/form at compile time
-    -- For now, emit as a table constructor
-    buf.write("{")
+    -- FORM creates an expression form at compile time
+    -- Convert it to the actual form it represents
     if node[1] then
-      buf.write("type='expr', name='%s'", compiler.value(node[1]))
+      -- Create a new expression node with the FORM's contents
+      local form_name = compiler.value(node[1])
+      buf.write("%s(", utils.normalizeFunctionName(form_name))
       for i = 2, #node do
-        buf.write(", ")
         printNode(buf, node[i], indent)
+        if i < #node then buf.write(", ") end
       end
+      buf.write(")")
+    else
+      buf.write("nil")
     end
-    buf.write("}")
   end
 
   return form
