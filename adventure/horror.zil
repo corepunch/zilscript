@@ -491,7 +491,7 @@
          <COND (<VERB? EXAMINE COUNT>
                 <TELL "The scratches are too numerous to count. They cover every inch of the cell walls. Some form words: 'HELP ME' 'NO MORE' 'PLEASE'. One message is larger than the rest: 'PATIENT 189 STILL ALIVE IN THE CHAPEL'." CR>
                 <RTRUE>)
-               (<VERB? TOUCH>
+               (<VERB? RUB>
                 <TELL "You run your fingers over the scratches. They're deep—gouged by fingernails over years of desperation." CR>
                 <RTRUE>)
                (<VERB? READ>
@@ -519,7 +519,7 @@
                (<VERB? BOARD SIT>
                 <TELL "You have no desire to sit in that terrible chair." CR>
                 <RTRUE>)
-               (<VERB? TOUCH>
+               (<VERB? RUB>
                 <TELL "You touch the cold metal armrest. The leather restraints feel disturbingly well-worn. You pull your hand away quickly." CR>
                 <RTRUE>)
                (<VERB? PUSH PULL>
@@ -539,7 +539,7 @@
                (<VERB? TURN SWITCH-ON>
                 <TELL "You reach for a switch, but think better of it. Who knows what might happen if you activated this nightmare device." CR>
                 <RTRUE>)
-               (<VERB? TOUCH>
+               (<VERB? RUB>
                 <TELL "You touch one of the electrodes. It's cold and stained with something dark. You feel a faint tingle and quickly pull your hand away." CR>
                 <RTRUE>)>>
 <OBJECT SHOCK-MACHINE
@@ -559,7 +559,7 @@
          <COND (<VERB? EXAMINE READ>
                 <TELL "The padding is torn and moldering. On one wall, written in what appears to be dried blood, are the words: 'THE CHAPEL BEYOND THE GARDEN. HE WAITS THERE. PATIENT 189.'." CR>
                 <RTRUE>)
-               (<VERB? TOUCH>
+               (<VERB? RUB>
                 <TELL "You touch the rotting padding. It's damp and spongy, falling apart at the slightest pressure." CR>
                 <RTRUE>)
                (<VERB? SMELL>
@@ -585,7 +585,7 @@
                (<VERB? SMELL>
                 <TELL "The straitjacket smells of sweat, fear, and something metallic—perhaps old blood." CR>
                 <RTRUE>)
-               (<VERB? TOUCH>
+               (<VERB? RUB>
                 <TELL "The canvas is rough and stiff. The stains feel crusty under your fingers." CR>
                 <RTRUE>)>>
 <OBJECT STRAITJACKET
@@ -670,7 +670,7 @@
          <COND (<VERB? EXAMINE>
                 <TELL "The portrait shows Dr. Mordecai, a gaunt man with piercing eyes and a cruel mouth. The nameplate reads: 'Dr. Heinrich Mordecai - Director 1935-1952'. His eyes seem to follow you around the room." CR>
                 <RTRUE>)
-               (<VERB? TOUCH>
+               (<VERB? RUB>
                 <TELL "You reach out to touch the portrait. The paint feels oddly warm. You could swear the eyes moved." CR>
                 <RTRUE>)
                (<VERB? TAKE>
@@ -837,7 +837,7 @@
                (<VERB? PRAY>
                 <TELL "You bow your head and try to pray, but the words die in your throat. This place mocks faith." CR>
                 <RTRUE>)
-               (<VERB? TOUCH>
+               (<VERB? RUB>
                 <TELL "You run your fingers over the carved symbols. They're strangely warm to the touch, and you quickly pull your hand away." CR>
                 <RTRUE>)>>
 <OBJECT PEWS
@@ -854,7 +854,7 @@
                (<VERB? LAMP-OFF BLOW>
                 <TELL "You try to extinguish the candles, but the green flames resist. No amount of blowing can put them out. They burn with an unnatural persistence." CR>
                 <RTRUE>)
-               (<VERB? TOUCH>
+               (<VERB? RUB>
                 <TELL "You reach toward the flame, expecting heat. Instead, you feel only cold—a deep, bone-chilling cold that makes you recoil." CR>
                 <RTRUE>)
                (<VERB? TAKE>
@@ -901,7 +901,7 @@
          <COND (<VERB? EXAMINE>
                 <TELL "An ancient silver cross, tarnished black with age. Strange symbols are etched into its surface—symbols that seem to writhe when you look directly at them. Despite its age, it radiates a strange warmth." CR>
                 <RTRUE>)
-               (<VERB? TOUCH>
+               (<VERB? RUB>
                 <TELL "The cross feels unnaturally warm in your hand. The symbols seem to pulse under your touch." CR>
                 <RTRUE>)
                (<VERB? PRAY>
@@ -930,7 +930,7 @@
                 <TELL "The figure tilts its head slightly. A voice like wind through dead leaves whispers: 'Free... at last... thank... you...' Then it turns to ash and crumbles to the floor. The green flames extinguish. Whatever held it here is finally broken." CR>
                 <REMOVE ,PATIENT-189>
                 <RTRUE>)
-               (<VERB? TOUCH>
+               (<VERB? RUB>
                 <TELL "You reach toward Patient 189, but stop yourself. The air around it feels wrong—cold and electric." CR>
                 <RTRUE>)
                (<VERB? GIVE>
@@ -988,7 +988,7 @@
          <COND (<VERB? EXAMINE>
                 <TELL "The scalpel's blade is rusty but still razor-sharp along one edge. The handle is stained with something dark." CR>
                 <RTRUE>)
-               (<VERB? TOUCH>
+               (<VERB? RUB>
                 <TELL "You carefully touch the blade. It's still very sharp—sharp enough to cut." CR>
                 <RTRUE>)
                (<VERB? THROW>
@@ -1038,7 +1038,7 @@
                (<VERB? SMELL>
                 <TELL "Even from here, the smell of decay is overwhelming. You step back, fighting nausea." CR>
                 <RTRUE>)
-               (<VERB? TOUCH PUSH>
+               (<VERB? RUB PUSH>
                 <TELL "Your hand stops inches from the bundle. Every instinct screams at you not to touch it." CR>
                 <RTRUE>)>>
 <OBJECT CANVAS-BUNDLE
