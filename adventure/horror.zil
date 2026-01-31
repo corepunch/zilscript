@@ -1111,28 +1111,25 @@
 <ROUTINE I-WHISPER ()
 	<COND (<EQUAL? ,HERE ,SANITARIUM-ENTRANCE ,PATIENT-WARD ,MORGUE ,CHAPEL>
 	       <TELL "You hear a faint, anguished whisper echoing through the halls..." CR>)>
-	<QUEUE I-WHISPER <+ 10 <RANDOM 10>>>
-	T>
+	<RTRUE>>
 
 <ROUTINE I-FOOTSTEPS ()
 	<COND (<EQUAL? ,HERE ,SANITARIUM-ENTRANCE ,RECEPTION-ROOM ,OPERATING-THEATER>
 	       <TELL "Distant footsteps echo from somewhere above you." CR>)>
-	<QUEUE I-FOOTSTEPS <+ 15 <RANDOM 15>>>
-	T>
+	<RTRUE>>
 
 <ROUTINE I-FLICKERING ()
 	<COND (<AND ,LIT
 	            <EQUAL? ,HERE ,BASEMENT-STAIRS ,BOILER-ROOM ,MORGUE>>
 	       <TELL "The shadows seem to flicker and move of their own accord." CR>)>
-	<QUEUE I-FLICKERING <+ 12 <RANDOM 8>>>
-	T>
+	<RTRUE>>
 
 <ROUTINE I-COLD-DRAFT ()
 	<COND (<EQUAL? ,HERE ,MORGUE ,CHAPEL ,PATIENT-WARD>
 	       <TELL "A cold draft makes you shiver, though there are no open windows." CR>)>
-	<QUEUE I-COLD-DRAFT <+ 20 <RANDOM 10>>>
-	T>
+	<RTRUE>>
 
+; Initialize clock-driven demons for atmospheric effects in GO routine
 <ROUTINE GO ()
 	<SETG HERE ,SANITARIUM-GATE>
 	<THIS-IS-IT ,BRASS-PLAQUE>
@@ -1140,11 +1137,10 @@
 	<SETG WINNER ,ADVENTURER>
 	<SETG PLAYER ,WINNER>
 	<MOVE ,WINNER ,HERE>
-	; Initialize clock-driven demons for atmospheric effects
-	<ENABLE <INT I-WHISPER T>>
-	<ENABLE <INT I-FOOTSTEPS T>>
-	<ENABLE <INT I-FLICKERING T>>
-	<ENABLE <INT I-COLD-DRAFT T>>
+	<ENABLE <QUEUE I-WHISPER -1>>
+	<ENABLE <QUEUE I-FOOTSTEPS -1>>
+	<ENABLE <QUEUE I-FLICKERING -1>>
+	<ENABLE <QUEUE I-COLD-DRAFT -1>>
 	<QUEUE I-WHISPER 8>
 	<QUEUE I-FOOTSTEPS 12>
 	<QUEUE I-FLICKERING 10>
