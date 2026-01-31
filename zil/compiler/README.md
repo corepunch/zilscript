@@ -1,315 +1,341 @@
-# ZIL Compiler Module
+# ZIL Compiler
 
-This directory contains the modularized ZIL to Lua compiler. The compiler architecture is inspired by the TypeScript compiler, featuring clean separation of concerns, visitor pattern for AST traversal, diagnostic collection, and modular code generation.
+This directory contains the ZIL to Lua compiler. It transforms ZIL source code (the Zork Implementation Language) into executable Lua code.
 
-## Architecture Overview
+## How It Works
 
-The compiler follows a multi-phase architecture similar to TypeScript:
+The compiler takes an Abstract Syntax Tree (AST) from the parser and generates Lua code in three simple steps:
 
 ```
-Source Code → Parser → AST → Checker → Emitter → Lua Code
-                              ↓
-                        Diagnostics
+┌─────────────┐       ┌──────────────┐       ┌─────────────┐
+│  ZIL AST    │  -->  │   Compiler   │  -->  │  Lua Code   │
+│  (Input)    │       │  (Transform) │       │  (Output)   │
+└─────────────┘       └──────────────┘       └─────────────┘
+                             │
+                             ├─> Declarations (functions, objects)
+                             ├─> Body (main code)
+                             └─> Diagnostics (errors, warnings)
 ```
 
-## Core Modules
+### Compilation Flow
 
-### `init.lua`
-Main module entry point. Coordinates all compiler components and provides the public API:
-- `Compiler.compile(ast, lua_filename, options)` - Main compilation function
-  - `ast` - Abstract syntax tree from parser
-  - `lua_filename` - Optional output filename for source mapping
-  - `options` - Optional table with:
-    - `enable_semantic_check` - Boolean, enables semantic analysis (default: false)
-  - Returns table with:
-    - `declarations` - Function and object declarations
-    - `body` - Main code body
-    - `combined` - Combined output
-    - `diagnostics` - Diagnostic collection with any errors/warnings
+1. **Input**: AST nodes representing ZIL code (ROUTINE, OBJECT, COND, SET, etc.)
+2. **Process**: Walk the AST tree, transforming each node to Lua using specialized handlers
+3. **Output**: Lua code split into declarations and body sections, plus any diagnostics
 
-**Integration with TypeScript-inspired modules:**
-The compiler now internally uses:
-- `diagnostics.lua` for structured error collection
-- `checker.lua` for optional semantic analysis (when `enable_semantic_check = true`)
-- Maintains backward compatibility - existing code works without changes
 
-### `buffer.lua`
-Output buffer management for efficient string concatenation with source mapping support:
-- `Buffer.new(compiler)` - Create a new output buffer with line tracking
-- Provides `write()`, `writeln()`, `indent()`, `get()` methods
+## Core Components
 
-### `utils.lua`
-Utility functions used throughout the compiler:
-- `safeget(node, attr)` - Safe node attribute access
-- `normalize_identifier(str)` - Convert ZIL identifiers to Lua-safe names
-- `digits_to_letters(str)` - Convert leading digits to letters (0-9 -> a-j)
-- `normalize_function_name(name)` - Convert ZIL function names to Lua
-- `is_cond(n)` - Check if node is a COND expression
-- `need_return(node)` - Check if node needs return wrapper
-- `get_source_line(node)` - Extract source line from AST node
+The compiler is built from several focused modules, each with a clear responsibility:
 
-### `value.lua`
-Value conversion functions for translating ZIL values to Lua:
-- `value(node, compiler)` - Convert ZIL values to Lua representations
-- `local_var_name(node, compiler)` - Convert identifiers to local variable names
-- `register_local_var(arg, compiler)` - Register a variable as local
+### The Main Pipeline
 
-### `fields.lua`
-Field writing functions for ZIL objects (ROOM, OBJECT):
-- `write_field(buf, node, field_name, compiler)` - Write object field
-- `write_nav(buf, node, compiler)` - Write navigation direction
-- `FIELD_WRITERS` - Dispatch table for different field types
+**`init.lua`** - The Orchestrator
+- Entry point: `Compiler.compile(ast, lua_filename, options)`
+- Coordinates all compilation steps
+- Manages two output buffers: declarations (functions/objects) and body (main code)
+- Returns compiled code plus diagnostics
 
-### `forms.lua`
-Expression form handlers for ZIL special forms:
-- `create_handlers(compiler, print_node)` - Create form handler table
-- Handlers for: COND, SET, SETG, RETURN, RTRUE, RFALSE, PROG, REPEAT, AGAIN, BUZZ, SYNONYM, GLOBAL, CONSTANT, SYNTAX, LTABLE, TABLE, ITABLE, AND, OR, etc.
+**`print_node.lua`** - The AST Walker
+- Recursively traverses the AST tree
+- Dispatches to specialized handlers based on node type
+- Core function that drives the entire compilation process
 
-### `toplevel.lua`
-Top-level compilation functions:
-- `compile_routine(decl, body, node, compiler, print_node)` - Compile ROUTINE forms
-- `compile_object(decl, body, node, compiler)` - Compile OBJECT/ROOM forms
-- `write_function_header(buf, node, compiler, print_node)` - Generate function headers with parameters
-- `print_syntax_object(buf, nodes, start_idx, field_name, compiler)` - Handle SYNTAX objects
-- `TOP_LEVEL_COMPILERS` - Registry of top-level form compilers
-- `DIRECT_STATEMENTS` - Set of forms that print directly to output
+**`buffer.lua`** - The Output Manager
+- Handles string concatenation efficiently
+- Tracks indentation for clean Lua output
+- Integrates with source mapping for error messages
 
-### `print_node.lua`
-AST node printing logic:
-- `create_print_node(compiler, form_handlers)` - Create the main print_node function that traverses AST and generates Lua code
+### The Transformation Modules
 
-## Advanced Modules (TypeScript-Inspired)
+**`value.lua`** - Value Converter
+- Converts ZIL values to Lua equivalents
+- Handles identifiers, strings, numbers, property references
+- Examples:
+  - `.VARNAME` → `m_varname` (local variables)
+  - `"text"` → `"text"` (strings)
+  - `<PROP X>` → `obj.X` (property access)
 
-### `visitor.lua`
-AST visitor pattern implementation (inspired by TypeScript's `forEachChild`):
-- `Visitor.new(handlers, default_handler)` - Create a visitor with custom node handlers
-- `visitor.visit_node(node, context)` - Visit a single AST node
-- `visitor.visit_children(node, context, skip)` - Visit all children of a node
-- `visitor.for_each_child(node, fn, context)` - Iterate over children with callback
-- `visitor.transform(node, context)` - Transform AST by visiting and modifying nodes
-- `visitor.walk(node, context)` - Depth-first tree traversal
-- `Visitor.collector(predicate)` - Create a visitor that collects matching nodes
-- `Visitor.counter()` - Create a visitor that counts nodes by type
+**`forms.lua`** - Expression Handlers
+- Contains handlers for ZIL special forms (COND, SET, PROG, REPEAT, etc.)
+- Each handler knows how to emit the right Lua code for its form
+- Example: `COND` becomes `if-elseif-else` chain
 
-**Example Usage:**
-```lua
-local visitor = require 'zil.compiler.visitor'
+**`toplevel.lua`** - Top-Level Compilers
+- Compiles ROUTINE (functions), OBJECT, and ROOM declarations
+- Manages function parameters and local variables
+- Wraps routines in error handling (pcall)
 
--- Collect all ROUTINE nodes
-local collector = visitor.collector(function(node)
-  return node.type == "expr" and node.name == "ROUTINE"
-end)
-collector.walk(ast, {})
-local routines = collector.get_collected()
+**`fields.lua`** - Object Property Writers
+- Writes properties for OBJECT and ROOM definitions
+- Dispatch table for different field types (FLAGS, DESC, ACTION, etc.)
+
+**`utils.lua`** - Shared Utilities
+- Identifier normalization (ZIL names → Lua-safe names)
+- Operator mapping
+- Common node inspection functions
+
+### Advanced Features (Optional)
+
+**`checker.lua`** - Semantic Analysis
+- Symbol table management
+- Scope tracking
+- Undefined variable detection
+- Enable with `enable_semantic_check = true` option
+
+**`diagnostics.lua`** - Error Collection
+- Structured error and warning collection
+- Source location tracking
+- Formatted error reporting
+
+**`visitor.lua`** - AST Visitor Pattern
+- Generic tree traversal utilities
+- Collect/transform/analyze AST nodes
+- Used by checker and other analysis tools
+
+**`emitter.lua`** - Code Generation Helpers
+- High-level code emission abstractions
+- Automatic indentation
+- Used internally for cleaner code generation
+
+## How Modules Work Together
+
+Here's what happens when you compile a ZIL ROUTINE:
+
 ```
-
-### `diagnostics.lua`
-Structured error collection and reporting (inspired by TypeScript's diagnostic system):
-- `Diagnostics.new()` - Create a diagnostic collection
-- `collection.error(code, message, location, node)` - Add an error diagnostic
-- `collection.warning(code, message, location, node)` - Add a warning diagnostic
-- `collection.has_errors()` - Check if any errors were reported
-- `collection.format_all()` - Format all diagnostics for display
-- `collection.report()` - Report diagnostics to stderr
-- Diagnostic categories: ERROR, WARNING, INFO, MESSAGE
-- Diagnostic codes for different error types (UNKNOWN_FORM, UNDEFINED_VARIABLE, etc.)
-
-**Example Usage:**
-```lua
-local diagnostics = require 'zil.compiler.diagnostics'
-
-local diag = diagnostics.new()
-diag.error(diagnostics.Code.UNDEFINED_VARIABLE, 
-           "Variable 'foo' is not defined",
-           {filename = "test.zil", line = 42, col = 10})
-
-if diag.has_errors() then
-  diag.report()  -- Prints: test.zil:42:10 ERROR [ZIL1004]: Variable 'foo' is not defined
-end
-```
-
-### `emitter.lua`
-Code generation abstraction (inspired by TypeScript's emitter):
-- `Emitter.new(compiler)` - Create a code emitter
-- `emitter.emit_function(name, params, body_fn)` - Emit a function definition
-- `emitter.emit_block(fn)` - Emit a block with automatic indentation
-- `emitter.emit_table(entries_fn)` - Emit a table constructor
-- `emitter.emit_if(condition, then_fn, else_fn)` - Emit conditional statement
-- Automatic indentation management
-- Source location tracking for source maps
-
-**Example Usage:**
-```lua
-local emitter_module = require 'zil.compiler.emitter'
-
-local emitter = emitter_module.new(compiler)
-emitter.emit_function("my_function", {"param1", "param2"}, function()
-  emitter.writeln_indented("print(param1)")
-  emitter.writeln_indented("return param2")
-end)
-local code = emitter.get_output()
-```
-
-### `checker.lua`
-Semantic analysis and symbol table management (inspired by TypeScript's binder/checker):
-- `Checker.new(diagnostics)` - Create a semantic checker with optional diagnostic collection
-- `checker.declare_symbol(name, kind, declaration)` - Declare a new symbol
-- `checker.lookup_symbol(name)` - Look up a symbol by name
-- `checker.enter_scope(kind)` - Enter a new lexical scope
-- `checker.exit_scope()` - Exit current scope
-- `checker.check_defined(name, node)` - Verify a symbol is defined
-- `checker.check_ast(ast)` - Perform semantic analysis on entire AST
-- Symbol kinds: ROUTINE, GLOBAL, CONSTANT, LOCAL, PARAMETER, OBJECT, ROOM
-- Automatic scope tracking and symbol resolution
-
-**Example Usage:**
-```lua
-local checker_module = require 'zil.compiler.checker'
-local diagnostics = require 'zil.compiler.diagnostics'
-
-local diag = diagnostics.new()
-local checker = checker_module.new(diag)
-
--- Check AST for semantic errors
-checker.check_ast(ast)
-
-if diag.has_errors() then
-  diag.report()
-end
+1. init.lua receives AST node: {type="expr", name="ROUTINE", ...}
+2. print_node.lua sees it's a ROUTINE
+3. Dispatches to toplevel.compile_routine()
+4. toplevel.compile_routine():
+   - Parses function parameters using utils.lua
+   - Registers local variables
+   - Creates function header
+   - Calls print_node.lua recursively for function body
+5. Inside function body, print_node.lua encounters SET, COND, etc:
+   - Dispatches to forms.lua handlers
+   - Each handler uses value.lua to convert values
+   - Emits Lua code to buffer.lua
+6. buffer.lua accumulates all output
+7. init.lua returns complete Lua function
 ```
 
 ## Usage
 
-### Basic Usage (Backward Compatible)
-
-The module can be required as before:
+### Basic Usage
 
 ```lua
 local compiler = require 'zil.compiler'
+
+-- ast is from the parser
 local result = compiler.compile(ast, "output.lua")
+
+-- Access the generated code
+print(result.declarations)  -- Functions and object declarations
+print(result.body)          -- Main execution code
+print(result.combined)      -- Both combined
 ```
 
-The result is a table with four fields:
-- `declarations` - Function and object declarations
-- `body` - Main code body
-- `combined` - Combined output (declarations + body)
-- `diagnostics` - Diagnostic collection with errors/warnings (NEW)
-
-### Advanced Usage with TypeScript-Inspired Features
-
-Enable semantic checking:
+### With Semantic Checking
 
 ```lua
-local compiler = require 'zil.compiler'
 local result = compiler.compile(ast, "output.lua", {
-  enable_semantic_check = true  -- Enables semantic analysis
+  enable_semantic_check = true
 })
 
--- Check for semantic errors
+-- Check for errors
 if result.diagnostics.has_errors() then
-  print("Compilation errors found:")
-  result.diagnostics.report()
+  result.diagnostics.report()  -- Prints errors to stderr
 end
-
--- Access diagnostics directly
-local diag = result.diagnostics
-print(diag.summary())  -- "2 errors, 1 warning"
 ```
 
-### Migration Path
+### Result Structure
 
-**Old code (still works):**
 ```lua
-local result = compiler.compile(ast)
--- Uses: result.declarations, result.body, result.combined
+{
+  declarations = "function my_routine(...)\n  ...\nend",
+  body = "MY_OBJECT { NAME = ..., DESC = ... }",
+  combined = declarations .. "\n" .. body,
+  diagnostics = {
+    errors = {...},
+    warnings = {...},
+    has_errors = function() ... end,
+    report = function() ... end
+  }
+}
 ```
 
-**New code (with diagnostics):**
-```lua
-local result = compiler.compile(ast, "output.lua")
--- Uses: result.diagnostics for error handling
+## Examples
+
+### Example 1: Simple ROUTINE Compilation
+
+**Input ZIL:**
+```zil
+<ROUTINE HELLO (NAME)
+  <TELL "Hello, " .NAME "!">>
 ```
 
-**Advanced (with semantic checking):**
+**AST (simplified):**
 ```lua
-local result = compiler.compile(ast, "output.lua", {enable_semantic_check = true})
--- Uses: result.diagnostics for semantic errors
+{type="expr", name="ROUTINE", value={
+  {type="ident", name="HELLO"},
+  {type="expr", value={{type="ident", name="NAME"}}},
+  {type="expr", name="TELL", value={
+    {type="string", value="Hello, "},
+    {type="ident", name=".NAME"},
+    {type="string", value="!"}
+  }}
+}}
+```
+
+**Output Lua:**
+```lua
+function HELLO(NAME)
+  local m_name = NAME
+  TELL("Hello, ", m_name, "!")
+end
+```
+
+### Example 2: Object with Properties
+
+**Input ZIL:**
+```zil
+<OBJECT LAMP
+  (IN ROOM)
+  (DESC "lamp")
+  (FLAGS LIGHT)>
+```
+
+**Output Lua:**
+```lua
+LAMP = {
+  IN = ROOM,
+  DESC = "lamp",
+  FLAGS = {LIGHT}
+}
+```
+
+### Example 3: COND Expression
+
+**Input ZIL:**
+```zil
+<COND (<FSET? OBJ LIGHT> <TELL "It's glowing">)
+      (<FSET? OBJ DARK> <TELL "It's dark">)
+      (ELSE <TELL "It's normal">)>
+```
+
+**Output Lua:**
+```lua
+if FSET_P(OBJ, LIGHT) then
+  TELL("It's glowing")
+elseif FSET_P(OBJ, DARK) then
+  TELL("It's dark")
+else
+  TELL("It's normal")
+end
+```
+
+## Module API Reference
+
+### init.lua
+
+```lua
+Compiler.compile(ast, lua_filename, options)
+```
+- **ast**: AST from parser (required)
+- **lua_filename**: Output filename for source maps (optional)
+- **options**: Configuration table (optional)
+  - `enable_semantic_check`: Enable semantic analysis (default: false)
+- **Returns**: {declarations, body, combined, diagnostics}
+
+### buffer.lua
+
+```lua
+Buffer.new(compiler)         -- Create new buffer
+buffer:write(str)            -- Write string
+buffer:writeln(str)          -- Write string + newline
+buffer:indent()              -- Increase indentation
+buffer:dedent()              -- Decrease indentation
+buffer:get()                 -- Get accumulated output
+```
+
+### utils.lua
+
+```lua
+normalize_identifier(str)    -- "MY-VAR" -> "MY_VAR"
+normalize_function_name(str) -- "FSET?" -> "FSET_P"
+digits_to_letters(str)       -- "9LIVES" -> "jLIVES"
+is_cond(node)               -- Check if COND expression
+need_return(node)           -- Check if needs return
+```
+
+### value.lua
+
+```lua
+value(node, compiler)        -- Convert ZIL value to Lua
+local_var_name(node, comp)   -- Get local variable name
+register_local_var(arg, c)   -- Register local variable
+```
+
+### Advanced Modules
+
+**visitor.lua** - AST traversal
+```lua
+Visitor.new(handlers, default)
+visitor:walk(node, context)
+Visitor.collector(predicate)
+```
+
+**diagnostics.lua** - Error reporting
+```lua
+Diagnostics.new()
+diag:error(code, msg, loc, node)
+diag:warning(code, msg, loc, node)
+diag:has_errors()
+diag:report()
+```
+
+**checker.lua** - Semantic analysis
+```lua
+Checker.new(diagnostics)
+checker:check_ast(ast)
+checker:enter_scope(kind)
+checker:exit_scope()
 ```
 
 ## Design Principles
 
-Inspired by the TypeScript compiler architecture, the ZIL compiler follows these principles:
+The compiler follows these key principles:
 
-1. **Separation of Concerns**: Each module handles a specific aspect of compilation
-   - Parser generates AST
-   - Visitor traverses AST
-   - Checker performs semantic analysis
-   - Emitter generates code
-   - Diagnostics collect and report errors
+1. **Modularity**: Each file has one clear responsibility
+2. **Separation of Concerns**: Parsing, checking, and code generation are separate
+3. **Extensibility**: Easy to add new ZIL forms or features
+4. **Error Recovery**: Collect multiple errors before failing
+5. **Source Mapping**: Maintain connection to original ZIL source for debugging
 
-2. **Clear Dependencies**: Modules depend on each other in a clear hierarchy:
-   - `init.lua` orchestrates all other modules
-   - `buffer.lua` is self-contained with only sourcemap dependency
-   - `utils.lua` has no internal dependencies
-   - `value.lua` depends on `utils.lua`
-   - `fields.lua` depends on `utils.lua`
-   - `forms.lua` depends on `utils.lua`
-   - `toplevel.lua` depends on `utils.lua` and `fields.lua`
-   - `print_node.lua` depends on `utils.lua`
-   - `visitor.lua` is self-contained (no internal dependencies)
-   - `diagnostics.lua` is self-contained (no internal dependencies)
-   - `emitter.lua` depends on `buffer.lua`
-   - `checker.lua` depends on `diagnostics.lua` and `visitor.lua`
+## Module Dependencies
 
-3. **Visitor Pattern**: Clean AST traversal using the visitor pattern
-   - Separates tree traversal from node processing
-   - Extensible through custom handlers
-   - Supports transformation and collection operations
+```
+init.lua (orchestrator)
+  ├── buffer.lua (output)
+  ├── print_node.lua (AST walker)
+  │   ├── forms.lua (expression handlers)
+  │   ├── toplevel.lua (top-level compilers)
+  │   │   └── fields.lua (object properties)
+  │   └── value.lua (value conversion)
+  │       └── utils.lua (utilities)
+  ├── checker.lua (optional semantic analysis)
+  │   ├── diagnostics.lua
+  │   └── visitor.lua
+  └── diagnostics.lua (error collection)
+```
 
-4. **Diagnostic Collection**: Errors don't halt compilation immediately
-   - Multiple errors can be collected and reported together
-   - Structured error messages with codes and source locations
-   - Categorized by severity (ERROR, WARNING, INFO)
+## Contributing
 
-5. **Lazy Evaluation**: Following TypeScript's approach
-   - Checker only resolves what's needed
-   - Emitter generates code on-demand
-   - Efficient for large codebases
+When adding new ZIL forms:
 
-6. **Backward Compatibility**: The module maintains the same public API as the original monolithic compiler
+1. Add handler to `forms.lua` for expressions
+2. Add compiler to `toplevel.lua` for top-level forms
+3. Update `value.lua` if new value types are needed
+4. Add tests in `tests/compiler/`
 
-7. **Testability**: Each module can be tested independently
-
-## Comparison with TypeScript Compiler
-
-| Feature | TypeScript | ZIL Compiler |
-|---------|-----------|--------------|
-| **Scanner** | `scanner.ts` | Built into `parser.lua` |
-| **Parser** | `parser.ts` | `parser.lua` |
-| **AST Nodes** | `Node` hierarchy | Table-based with type field |
-| **Binder** | `binder.ts` | `checker.lua` (symbol table) |
-| **Checker** | `checker.ts` | `checker.lua` (semantic analysis) |
-| **Emitter** | `emitter.ts` | `emitter.lua` + `print_node.lua` |
-| **Diagnostics** | Built-in system | `diagnostics.lua` |
-| **Visitor Pattern** | `forEachChild` | `visitor.lua` |
-| **Source Maps** | Full support | `sourcemap.lua` + `buffer.lua` |
-| **Symbol Table** | Global + scoped | `checker.lua` scopes |
-
-## Migration Path
-
-The new modules are optional and don't break existing code:
-
-1. **Current code** continues to work with `init.lua` API
-2. **New projects** can use visitor, diagnostics, emitter, and checker modules
-3. **Gradual migration** possible by adopting modules one at a time
-
-## Future Enhancements
-
-Potential improvements inspired by TypeScript:
-
-1. **Transformer Pipeline**: Add AST transformation passes before emission
-2. **Module System**: Better support for ZIL includes and dependencies
-3. **Incremental Compilation**: Cache compilation results for faster rebuilds
-4. **Language Server Protocol**: Enable IDE integration
-5. **Control Flow Analysis**: Track variable initialization and usage
-6. **Type Inference**: Optional type checking for ZIL code
+The modular design makes it easy to extend without touching unrelated code.
