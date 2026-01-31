@@ -516,7 +516,10 @@
          <COND (<VERB? EXAMINE>
                 <TELL "The chair is bolted to the floor. Leather restraints hang from the arms and legs. Electrodes are positioned where they would contact a victim's temples. You feel sick looking at it." CR>
                 <RTRUE>)
-               (<VERB? BOARD SIT>
+               (<VERB? BOARD>
+                <TELL "You have no desire to sit in that terrible chair." CR>
+                <RTRUE>)
+               (<VERB? SIT>
                 <TELL "You have no desire to sit in that terrible chair." CR>
                 <RTRUE>)
                (<VERB? RUB>
@@ -565,7 +568,7 @@
                (<VERB? SMELL>
                 <TELL "The padding reeks of mildew, decay, and something else—the sour smell of old fear." CR>
                 <RTRUE>)
-               (<VERB? TAKE PULL>
+               (<VERB? PULL>
                 <TELL "The padding tears away in chunks when you pull it, but there's nothing behind it but more rot." CR>
                 <RTRUE>)>>
 <OBJECT PADDING
@@ -851,8 +854,11 @@
          <COND (<VERB? EXAMINE>
                 <TELL "The CANDLES burn with green flames that give off no heat. The light makes everything look diseased." CR>
                 <RTRUE>)
-               (<VERB? LAMP-OFF BLOW>
+               (<VERB? LAMP-OFF>
                 <TELL "You try to extinguish the candles, but the green flames resist. No amount of blowing can put them out. They burn with an unnatural persistence." CR>
+                <RTRUE>)
+               (<VERB? BLOW>
+                <TELL "You try to blow out the candles, but the green flames refuse to be extinguished." CR>
                 <RTRUE>)
                (<VERB? RUB>
                 <TELL "You reach toward the flame, expecting heat. Instead, you feel only cold—a deep, bone-chilling cold that makes you recoil." CR>
@@ -907,8 +913,11 @@
                (<VERB? PRAY>
                 <TELL "You clutch the cross and try to pray. The symbols grow warmer, almost hot, as if responding to your faith—or mocking it." CR>
                 <RTRUE>)
-               (<VERB? GIVE THROW>
-                <TELL "The cross seems too important to give away or discard." CR>
+               (<VERB? THROW>
+                <TELL "The cross seems too important to discard." CR>
+                <RTRUE>)
+               (<VERB? GIVE>
+                <TELL "The cross seems too important to give away." CR>
                 <RTRUE>)>>
 <OBJECT ANCIENT-RELIC
         (IN WOODEN-BOX)
@@ -1038,8 +1047,11 @@
                (<VERB? SMELL>
                 <TELL "Even from here, the smell of decay is overwhelming. You step back, fighting nausea." CR>
                 <RTRUE>)
-               (<VERB? RUB PUSH>
+               (<VERB? RUB>
                 <TELL "Your hand stops inches from the bundle. Every instinct screams at you not to touch it." CR>
+                <RTRUE>)
+               (<VERB? PUSH>
+                <TELL "You cannot bring yourself to push the bundle. The thought of touching it fills you with dread." CR>
                 <RTRUE>)>>
 <OBJECT CANVAS-BUNDLE
         (IN DISSECTION-TABLE)
