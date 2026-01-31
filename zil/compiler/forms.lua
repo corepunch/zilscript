@@ -1,4 +1,13 @@
 -- Expression form handlers for ZIL compiler
+-- Each handler is responsible for emitting code for a specific ZIL form
+--
+-- Pattern Note: These handlers receive (buf, node, indent) and use:
+-- - buf.write() for output (dot notation, not colon)
+-- - node[i].value for direct property access (like TypeScript)
+-- - compiler.value(node) for value conversion (helper function pattern)
+--
+-- This follows TypeScript's emitter pattern where specialized functions
+-- handle different node types, rather than having nodes emit themselves.
 local utils = require 'zil.compiler.utils'
 
 local Forms = {}

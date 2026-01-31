@@ -1,6 +1,18 @@
 -- AST node code generation using visitor pattern principles
 -- This module provides the print_node function that generates Lua code from ZIL AST
 -- It follows visitor pattern principles by delegating to specialized handlers
+--
+-- Architecture Note: TypeScript uses an external emitter function (emitNode)
+-- that walks the AST, rather than having nodes emit themselves.
+-- We follow the same pattern:
+-- - AST nodes are pure data (no emit methods)
+-- - External printNode function traverses and emits code
+-- - Separation of concerns: data vs behavior
+-- - More flexible and testable than self-emitting nodes
+--
+-- Node Access Pattern: We use direct property access like node[i].value
+-- This matches TypeScript's approach: node.members[0].text
+-- Direct access is clear, performant, and standard in both Lua and TypeScript
 local utils = require 'zil.compiler.utils'
 
 local PrintNode = {}
