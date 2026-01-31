@@ -271,6 +271,21 @@ function Forms.createHandlers(compiler, printNode)
     compileLogical(buf, node, indent, "OR", compiler, printNode)
   end
 
+  -- FORM - Construct a form (used in macros)
+  form.FORM = function(buf, node, indent)
+    -- FORM creates a list/form at compile time
+    -- For now, emit as a table constructor
+    buf.write("{")
+    if node[1] then
+      buf.write("type='expr', name='%s'", compiler.value(node[1]))
+      for i = 2, #node do
+        buf.write(", ")
+        printNode(buf, node[i], indent)
+      end
+    end
+    buf.write("}")
+  end
+
   return form
 end
 
