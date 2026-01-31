@@ -115,12 +115,12 @@ function TopLevel.compileRoutine(decl, body, node, compiler, printNode)
   compiler.current_verbs = {}
   compiler.local_vars = {}  -- Reset local variables for new routine
   decl.writeln("%s = function(...)", name)
-  TopLevel.write_function_header(decl, node, compiler, print_node)
+  TopLevel.writeFunctionHeader(decl, node, compiler, printNode)
   decl.writeln("\tlocal __ok, __res = pcall(function()")
   decl.writeln("\tlocal __tmp = nil")
   for i = 3, #node do
-    if utils.need_return(node[i]) then decl.write("\t__tmp = ") end
-    print_node(decl, node[i], 1)
+    if utils.needReturn(node[i]) then decl.write("\t__tmp = ") end
+    printNode(decl, node[i], 1)
     decl.writeln()
   end
   decl.writeln("\t return __tmp end)")
