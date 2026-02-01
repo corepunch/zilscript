@@ -33,6 +33,9 @@ jobs:
     - name: Run Horror walkthrough tests
       run: lua tests/run_tests.lua tests/horror-walkthrough.lua
 
+    - name: Run horror failing conditions tests
+      run: lua5.4 run-zil-test.lua tests.test-horror-failures
+
     - name: Run parser/runtime tests - directions
       run: lua5.4 run-zil-test.lua tests.test-directions
     
