@@ -36,7 +36,7 @@ function Preprocessor.process(code, filename, options)
 	local result = {}
 	local in_comment = false
 	
-	for line in code:gmatch("[^\r\n]*") do
+	for line in (code .. "\n"):gmatch("([^\r\n]*)\r?\n") do
 		-- Check for INSERT-FILE directive: <INSERT-FILE "path"> or <INSERT-FILE "../path">
 		local insert_path = line:match('<INSERT%-FILE%s+"([^"]+)">')
 		
@@ -79,9 +79,9 @@ function Preprocessor.process(code, filename, options)
 			})
 			
 			-- Add comment to mark the included file
-			table.insert(result, ";\"Included from: " .. full_path .. "\"")
+			table.insert(result, ";Included from: " .. full_path)
 			table.insert(result, processed)
-			table.insert(result, ";\"End of: " .. full_path .. "\"")
+			table.insert(result, ";End of: " .. full_path)
 		else
 			-- Keep the original line
 			table.insert(result, line)

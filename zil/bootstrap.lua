@@ -451,7 +451,11 @@ end
 -- ASSERT-EQUAL: Check if two values are equal
 function ASSERT_EQUAL(actual, expected, msg)
 	test_count = test_count + 1
-	if (actual or 0) == (expected or 0) then
+	-- Note: Both nil and false are valid values, but for game testing
+	-- we typically want to treat nil as 0 for numeric comparisons
+	local actual_val = (actual == nil or actual == false) and 0 or actual
+	local expected_val = (expected == nil or expected == false) and 0 or expected
+	if actual_val == expected_val then
 		test_passed = test_passed + 1
 		TELL(GREEN, "[PASS] ", msg or "Values are equal", RESET, CR)
 		return true
@@ -465,7 +469,11 @@ end
 -- ASSERT-NOT-EQUAL: Check if two values are not equal
 function ASSERT_NOT_EQUAL(actual, expected, msg)
 	test_count = test_count + 1
-	if (actual or 0) ~= (expected or 0) then
+	-- Note: Both nil and false are valid values, but for game testing
+	-- we typically want to treat nil as 0 for numeric comparisons
+	local actual_val = (actual == nil or actual == false) and 0 or actual
+	local expected_val = (expected == nil or expected == false) and 0 or expected
+	if actual_val ~= expected_val then
 		test_passed = test_passed + 1
 		TELL(GREEN, "[PASS] ", msg or "Values are not equal", RESET, CR)
 		return true
