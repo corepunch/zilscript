@@ -41,6 +41,15 @@ require "zilscript.bootstrap"
 -- _G['io_write'] = io.write
 -- _G['io_flush'] = io.flush
 
+-- Override RANDOM function for deterministic tests
+local seed = 0
+_G.n = seed
+function RANDOM(max)
+  local m = _G.n
+  _G.n = _G.n + 1
+  return m % max + 1
+end
+
 -- Load the test module from command line argument
 local test_module = arg[1]
 if not test_module then

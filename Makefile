@@ -1,5 +1,5 @@
 # Targets
-.PHONY: test test-all test-unit test-integration test-zork1 test-parser test-containers test-directions test-light test-pronouns test-take test-horror-helpers test-horror-partial test-horror test-horror-failures test-horror-all test-pure-zil help
+.PHONY: test test-all test-unit test-integration test-zork1 test-parser test-containers test-directions test-light test-pronouns test-take test-turnbit test-clock test-horror-helpers test-horror-partial test-horror test-horror-failures test-horror-all test-pure-zil help
 
 help:
 	@echo "Available targets:"
@@ -18,6 +18,8 @@ help:
 	@echo "  test-light        - Run light source tests"
 	@echo "  test-pronouns     - Run pronoun tests"
 	@echo "  test-take         - Run TAKE command tests"
+	@echo "  test-turnbit      - Run TURNBIT flag tests"
+	@echo "  test-clock        - Run clock system tests"
 	@echo "  test-horror-helpers - Run horror test helpers"
 	@echo "  test-horror-partial - Run horror partial walkthrough"
 	@echo "  test-horror-failures - Run horror failing conditions tests"
@@ -45,28 +47,36 @@ test-zork1:
 	@echo "Running Zork1 integration tests..."
 	lua tests/run_tests.lua tests/zork1_walkthrough.lua
 
-test-parser: test-containers test-directions test-light test-pronouns test-take
+test-parser: test-containers test-directions test-light test-pronouns test-take test-turnbit test-clock
 	@echo "All parser/runtime tests completed!"
 
 test-containers:
 	@echo "Running container tests..."
-	lua tests/run_tests.lua tests/test-containers.lua
+	@lua5.4 run-zil-test.lua tests.test-containers
 
 test-directions:
 	@echo "Running direction tests..."
-	lua tests/run_tests.lua tests/test-directions.lua
+	@lua5.4 run-zil-test.lua tests.test-directions
 
 test-light:
 	@echo "Running light tests..."
-	lua tests/run_tests.lua tests/test-light.lua
+	@lua5.4 run-zil-test.lua tests.test-light
 
 test-pronouns:
 	@echo "Running pronoun tests..."
-	lua tests/run_tests.lua tests/test-pronouns.lua
+	@lua5.4 run-zil-test.lua tests.test-pronouns
 
 test-take:
 	@echo "Running take command tests..."
-	lua tests/run_tests.lua tests/test-take.lua
+	@lua5.4 run-zil-test.lua tests.test-take
+
+test-turnbit:
+	@echo "Running TURNBIT flag tests..."
+	@lua5.4 run-zil-test.lua tests.test-turnbit
+
+test-clock:
+	@echo "Running clock system tests..."
+	@lua5.4 run-zil-test.lua tests.test-clock
 
 test-horror-helpers:
 	@echo "Running horror test helpers..."
@@ -91,5 +101,12 @@ test-pure-zil:
 	@echo "Running pure ZIL tests..."
 	@lua5.4 run-zil-test.lua tests.test-simple-new
 	@lua5.4 run-zil-test.lua tests.test-insert-file
+	@lua5.4 run-zil-test.lua tests.test-containers
+	@lua5.4 run-zil-test.lua tests.test-directions
+	@lua5.4 run-zil-test.lua tests.test-light
+	@lua5.4 run-zil-test.lua tests.test-pronouns
+	@lua5.4 run-zil-test.lua tests.test-take
+	@lua5.4 run-zil-test.lua tests.test-turnbit
+	@lua5.4 run-zil-test.lua tests.test-clock
 	@lua5.4 run-zil-test.lua tests.zork1-walkthrough
 	@echo "All pure ZIL tests completed!"

@@ -1,3 +1,10 @@
+<INSERT-FILE "zork1/globals">
+<INSERT-FILE "zork1/clock">
+<INSERT-FILE "zork1/parser">
+<INSERT-FILE "zork1/verbs">
+<INSERT-FILE "zork1/syntax">
+<INSERT-FILE "zork1/main">
+
 <DIRECTIONS NORTH SOUTH EAST WEST>
 <CONSTANT RELEASEID 1>
 
@@ -43,3 +50,19 @@
     <V-LOOK>
     <MAIN-LOOP>
     <AGAIN>>
+
+<GLOBAL CO <CO-CREATE GO>>
+
+<ROUTINE RUN-TEST ()
+    <ASSERT "Look at starting room" <CO-RESUME ,CO "look" T> <==? ,HERE ,STARTROOM>>
+    <ASSERT "Check wallet in inventory" <CO-RESUME ,CO "inventory" T> <==? <LOC ,WALLET> ,ADVENTURER>>
+    <ASSERT "Take the apple" <CO-RESUME ,CO "take apple" T> <==? <LOC ,APPLE> ,ADVENTURER>>
+    <ASSERT "Take the nail" <CO-RESUME ,CO "take nail" T> <==? <LOC ,NAIL> ,ADVENTURER>>
+    <CO-RESUME ,CO "inventory">
+    <CO-RESUME ,CO "examine apple">
+    <ASSERT "Drop the apple" <CO-RESUME ,CO "drop apple" T> <N==? <LOC ,APPLE> ,ADVENTURER>>
+    <ASSERT "Drop the nail" <CO-RESUME ,CO "drop nail" T> <N==? <LOC ,NAIL> ,ADVENTURER>>
+    <ASSERT "Drop wallet" <CO-RESUME ,CO "drop wallet" T> <N==? <LOC ,WALLET> ,ADVENTURER>>
+    <ASSERT "Move to hallway" <CO-RESUME ,CO "west" T> <==? ,HERE ,HALLWAY>>
+    <CO-RESUME ,CO "look">
+    <TELL CR "All tests completed!" CR>>
