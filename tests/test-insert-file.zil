@@ -29,14 +29,14 @@
 <ROUTINE RUN-TEST ()
     <TELL "Testing basic ASSERT functionality..." CR CR>
     
-    <ASSERT ,ADVENTURER "ADVENTURER object exists">
+    <ASSERT "ADVENTURER object exists" ,ADVENTURER>
     
     <TEST-SETUP ,STARTROOM>
-    <ASSERT <==? <LOC ,ADVENTURER> ,STARTROOM> "ADVENTURER at STARTROOM after TEST-SETUP">
-    <ASSERT <==? ,HERE ,STARTROOM> "HERE is STARTROOM">
+    <ASSERT "ADVENTURER at STARTROOM after TEST-SETUP" <==? <LOC ,ADVENTURER> ,STARTROOM>>
+    <ASSERT "HERE is STARTROOM" <==? ,HERE ,STARTROOM>>
     
-    <ASSERT <==? <LOC ,APPLE> ,STARTROOM> "Apple in STARTROOM">
+    <ASSERT "Apple in STARTROOM" <==? <LOC ,APPLE> ,STARTROOM>>
     <MOVE ,APPLE ,ADVENTURER>
-    <ASSERT <==? <LOC ,APPLE> ,ADVENTURER> "Apple in inventory">
+    <ASSERT "Apple in inventory" <==? <LOC ,APPLE> ,ADVENTURER>>
     
     <TELL CR "All tests completed!" CR>>

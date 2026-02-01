@@ -21,24 +21,24 @@
     <TELL "Testing ASSERT function..." CR CR>
     
     ;"Basic assertions using ASSERT"
-    <ASSERT T "Basic true assertion">
-    <ASSERT <NOT <>> "Basic false assertion">
-    <ASSERT <==? 5 5> "Numbers are equal">
-    <ASSERT <N==? 3 5> "Numbers are not equal">
+    <ASSERT "Basic true assertion" T>
+    <ASSERT "Basic false assertion" <NOT <>>
+    <ASSERT "Numbers are equal" <==? 5 5>>
+    <ASSERT "Numbers are not equal" <N==? 3 5>>
     
     ;"Test object location"
     <SETG HERE ,TESTROOM>
     <SETG WINNER ,ADVENTURER>
     <MOVE ,ADVENTURER ,HERE>
     
-    <ASSERT <==? <LOC ,ADVENTURER> ,TESTROOM> "Adventurer at test room">
-    <ASSERT <==? ,HERE ,TESTROOM> "HERE is test room">
+    <ASSERT "Adventurer at test room" <==? <LOC ,ADVENTURER> ,TESTROOM>>
+    <ASSERT "HERE is test room" <==? ,HERE ,TESTROOM>>
     
     ;"Test flag"
-    <ASSERT <FSET? ,APPLE ,TAKEBIT> "Apple has TAKEBIT">
+    <ASSERT "Apple has TAKEBIT" <FSET? ,APPLE ,TAKEBIT>>
     
     ;"Test inventory"
     <MOVE ,APPLE ,ADVENTURER>
-    <ASSERT <==? <LOC ,APPLE> ,ADVENTURER> "Apple in inventory">
+    <ASSERT "Apple in inventory" <==? <LOC ,APPLE> ,ADVENTURER>>
     
     <TELL CR "All tests completed!" CR>>

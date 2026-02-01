@@ -909,8 +909,14 @@ function CO_CREATE(func)
 	return co
 end
 
-function CO_RESUME(co, param)
-	return coroutine.resume(co, param)
+ -- if only_flag is true, return only success flag, for chaining of arguments
+function CO_RESUME(co, param, only_flag)
+	local ok, err = coroutine.resume(co, param)
+	if only_flag then
+		return ok
+	else
+		return ok, err
+	end
 end
 
 -- === Finalize PREPOSITIONS table ===

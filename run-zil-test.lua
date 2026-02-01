@@ -11,14 +11,16 @@ local RESET = "\27[0m"
 local success = true
 
 -- ASSERT that checks condition and prints [PASS] or [FAIL]
-function ASSERT(condition, msg)
-	if condition then
-		print(GREEN .. "[PASS] " .. (msg or "Assertion passed") .. RESET)
-		return true
-	else
-		success = false
-		print(RED .. "[FAIL] " .. (msg or "Assertion failed") .. RESET)
-		return false
+function ASSERT(msg, ...)
+	for _, condition in ipairs {...} do
+		if condition then
+			print(GREEN .. "[PASS] " .. (msg or "Assertion passed") .. RESET)
+			return true
+		else
+			success = false
+			print(RED .. "[FAIL] " .. (msg or "Assertion failed") .. RESET)
+			return false
+		end
 	end
 end
 
