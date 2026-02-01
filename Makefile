@@ -90,7 +90,7 @@ test-horror-all: test-horror-helpers test-horror-partial test-horror-failures te
 test-pure-zil:
 	@echo "Running pure ZIL tests..."
 	@echo "  - Simple ASSERT..."
-	@lua5.4 tests/test-simple-new.lua
+	@lua5.4 run-zil-test.lua tests.test-simple-new
 	@echo "  - Basic functionality..."
-	@lua5.4 tests/test-insert.lua
+	@lua5.4 run-zil-test.lua tests.test-insert-file
 	@echo "All pure ZIL tests passed!"

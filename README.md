@@ -59,24 +59,32 @@ You can now write tests entirely in ZIL without Lua wrappers:
     <ASSERT T "This passes">
     <ASSERT <==? 5 5> "Numbers match">
     <ASSERT <FSET? ,APPLE ,TAKEBIT> "Apple is takeable">
-    <TEST-SUMMARY>>
+    <TELL "All tests completed!" CR>>
 
 <ROUTINE GO () <TEST-MY-FEATURE>>
 ```
 
-Run with:
+Run with the generic test runner:
+```bash
+lua5.4 run-zil-test.lua tests.my-test
+```
+
+Or create a custom runner (tests/my-test.lua):
 ```lua
+function ASSERT(...) return assert(...) end
 require "zil"
 require "zil.bootstrap"
-ENABLE_DIRECT_OUTPUT()
+_G.io_write = io.write
+_G.io_flush = io.flush
 require "tests.my-test"
 GO()
+io.flush()
 ```
 
 **Features:**
-- Single ASSERT function - combine with ZIL operators (==?, FSET?, etc.)
-- Colored pass/fail output
-- Proper exit codes for CI/CD
+- ASSERT is just Lua's built-in `assert()` - works with any ZIL expression
+- Combine with ZIL operators: `==?`, `FSET?`, `LOC`, etc.
+- Simple, minimal setup
 
 For integration test documentation, see **[tests/TESTS.md](tests/TESTS.md)**.
 

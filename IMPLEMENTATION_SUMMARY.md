@@ -1,50 +1,47 @@
-# Implementation Summary: Pure ZIL Testing with ASSERT
+# Implementation Summary: Pure ZIL Testing
 
 ## Problem Statement
-Enable writing ZIL test files without Lua wrappers by adding ASSERT capability to bootstrap.lua.
+Enable writing ZIL test files without Lua wrappers.
 
 ## Solution Implemented
 
-### Single ASSERT Function
+### Minimal Test Runner
 
-Added one simple ASSERT function that works with ZIL's built-in operators:
+Created `run-zil-test.lua` - a generic runner for any ZIL test:
 
-```zil
-<ASSERT condition "message">
-```
-
-**Examples:**
-- `<ASSERT T "Basic true">` - Direct boolean
-- `<ASSERT <==? 5 5> "Equal">` - Using ==? operator  
-- `<ASSERT <FSET? ,APPLE ,TAKEBIT> "Has flag">` - Using FSET? operator
-- `<ASSERT <==? <LOC ,APPLE> ,ROOM> "At location">` - Using LOC and ==?
-
-This leverages ZIL's existing operators: ==?, N==?, FSET?, LOC, NOT, etc.
-
-### Test Pattern
-
-**Test file:**
-```zil
-<ROUTINE TEST-MY-FEATURE ()
-    <ASSERT T "Test passes">
-    <ASSERT <==? 5 5> "Numbers equal">
-    <TEST-SUMMARY>>
-
-<ROUTINE GO () <TEST-MY-FEATURE>>
-```
-
-**Runner:**
 ```lua
+function ASSERT(...) return assert(...) end
 require "zil"
 require "zil.bootstrap"
-ENABLE_DIRECT_OUTPUT()
-require "tests.my-test"
+_G.io_write = io.write
+_G.io_flush = io.flush
+require(arg[1] or "tests.test-example")
 GO()
+io.flush()
 ```
+
+Usage: `lua5.4 run-zil-test.lua tests.my-test`
+
+### ASSERT in Tests
+
+ASSERT is just Lua's `assert()` - simple and powerful:
+
+```zil
+<ASSERT T "Basic">
+<ASSERT <==? 5 5> "Equal">
+<ASSERT <FSET? ,APPLE ,TAKEBIT> "Has flag">
+<ASSERT <==? <LOC ,APPLE> ,ROOM> "At location">
+```
+
+### Bootstrap Changes
+
+- Removed complex ASSERT implementation
+- Removed TEST-SUMMARY, ENABLE_DIRECT_OUTPUT
+- Simplified io_write/io_flush to check for global overrides
 
 ## Benefits
 
-- **Simpler** - One function instead of nine specialized ones
+- **Minimal** - Just 10 lines for a test runner
+- **Simple** - ASSERT is Lua's assert
 - **Flexible** - Works with any ZIL expression
-- **Idiomatic** - Uses standard ZIL syntax
-- **No Preprocessor** - Uses existing require system
+- **Direct** - No special output modes needed

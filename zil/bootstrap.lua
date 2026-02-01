@@ -252,41 +252,27 @@ ZPROB = PROB
 
 -- At the top of bootstrap, add output buffer
 local output_buffer = {}
-local direct_output_mode = false  -- When true, print directly instead of buffering
 
 local function io_write(...)
-	if direct_output_mode then
-		-- Direct output mode for simple tests (no coroutine)
-		for i = 1, select("#", ...) do
-			io.write(tostring(select(i, ...)))
-		end
-	else
-		-- Buffered mode for coroutine-based games
-		for i = 1, select("#", ...) do
-			table.insert(output_buffer, tostring(select(i, ...)))
-		end
+	-- Check if io_write was overridden globally (for tests)
+	if _G.io_write then
+		return _G.io_write(...)
+	end
+	-- Default: buffered mode for coroutine-based games
+	for i = 1, select("#", ...) do
+		table.insert(output_buffer, tostring(select(i, ...)))
 	end
 end
 
 local function io_flush()
-	if direct_output_mode then
-		io.flush()
-		return ""
-	else
-		local text = table.concat(output_buffer)
-		output_buffer = {}
-		return text
+	-- Check if io_flush was overridden globally (for tests)
+	if _G.io_flush then
+		return _G.io_flush()
 	end
-end
-
--- Enable direct output mode (for simple tests without coroutines)
-function ENABLE_DIRECT_OUTPUT()
-	direct_output_mode = true
-end
-
--- Disable direct output mode (for coroutine-based games)
-function DISABLE_DIRECT_OUTPUT()
-	direct_output_mode = false
+	-- Default: return buffered content
+	local text = table.concat(output_buffer)
+	output_buffer = {}
+	return text
 end
 
 function TELL(...)
@@ -347,11 +333,6 @@ end
 local GREEN = "\27[1;32m"
 local RED = "\27[1;31m"
 local RESET = "\27[0m"
-
--- Test result tracking
-local test_count = 0
-local test_passed = 0
-local test_failed = 0
 
 local function assert_flag(obj_name, flag_name)	
 	local obj_num = find_object_by_name(obj_name)
@@ -423,48 +404,6 @@ local function move_object_to_location(obj_name, location_name)
 	-- Special handling for THIEF: clear INVISIBLE flag so they can be interacted with
 	if obj_name:upper():gsub("-", "_") == "THIEF" and _G.INVISIBLE then
 		FCLEAR(obj_num, _G.INVISIBLE)
-	end
-end
-
--- === ZIL-Callable Test Assertion Function ===
--- Single assertion function - can be combined with comparison operators
--- Example: <ASSERT <==? ,HERE ,STARTROOM> "At start room">
---          <ASSERT <FSET? ,APPLE ,TAKEBIT> "Apple is takeable">
-
-function ASSERT(condition, msg)
-	test_count = test_count + 1
-	if condition then
-		test_passed = test_passed + 1
-		TELL(GREEN, "[PASS] ", msg or "Assertion passed", RESET, CR)
-		return true
-	else
-		test_failed = test_failed + 1
-		TELL(RED, "[FAIL] ", msg or "Assertion failed", RESET, CR)
-		return false
-	end
-end
-
--- TEST-SUMMARY: Print test summary and exit with appropriate code
-function TEST_SUMMARY()
-	CRLF()
-	TELL("=== Test Summary ===", CR)
-	TELL("Total tests: ", tostring(test_count), CR)
-	TELL(GREEN, "Passed: ", tostring(test_passed), RESET, CR)
-	if test_failed > 0 then
-		TELL(RED, "Failed: ", tostring(test_failed), RESET, CR)
-	else
-		TELL("Failed: ", tostring(test_failed), CR)
-	end
-	CRLF()
-	if test_failed == 0 and test_count > 0 then
-		TELL(GREEN, "All tests passed!", RESET, CR)
-		os.exit(0)
-	elseif test_count == 0 then
-		TELL(RED, "No tests were run!", RESET, CR)
-		os.exit(1)
-	else
-		TELL(RED, "Some tests failed!", RESET, CR)
-		os.exit(1)
 	end
 end
 

@@ -1,8 +1,22 @@
 #!/usr/bin/env lua5.4
--- Test the simplified ASSERT function
+-- Test using simplified approach
 require "zil"
 require "zil.bootstrap"
 
-ENABLE_DIRECT_OUTPUT()
+-- Set up ASSERT
+function ASSERT(...)
+	return assert(...)
+end
+
+-- Set up direct output
+_G.io_write = io.write
+_G.io_flush = io.flush
+
+-- Load test
 require "tests.test-simple-new"
+
+-- Run test
 GO()
+
+-- Flush output
+io.flush()
