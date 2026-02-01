@@ -31,7 +31,7 @@ This will compile the ZIL files specified in `main.lua` and start the interactiv
 
 ## Testing
 
-The project includes comprehensive testing at multiple levels: unit tests (134+), integration tests, and game walkthroughs.
+The project includes comprehensive testing at multiple levels: unit tests (134+), integration tests, game walkthroughs, and **pure ZIL tests**.
 
 ### Quick Start
 
@@ -39,6 +39,7 @@ The project includes comprehensive testing at multiple levels: unit tests (134+)
 make test              # Run all tests (unit + integration)
 make test-unit         # Run unit tests only
 make test-integration  # Run integration tests only
+make test-pure-zil     # Run pure ZIL tests (new!)
 ```
 
 ### Test Categories
@@ -46,8 +47,35 @@ make test-integration  # Run integration tests only
 - **Unit Tests**: Parser (60 tests), Compiler (44 tests), Runtime (25 tests), Source Mapping (5 tests)
 - **Integration Tests**: Zork1 game tests, parser/runtime tests, horror game tests
 - **Parser/Runtime Tests**: Directions, containers, light, take, pronouns
+- **Pure ZIL Tests**: Self-contained tests written entirely in ZIL using ASSERT function
 
-For complete test documentation including all available tests, how to write tests, and test assertion commands, see **[tests/TESTS.md](tests/TESTS.md)**.
+### Writing Pure ZIL Tests (New!)
+
+You can now write tests entirely in ZIL without Lua wrappers:
+
+```zil
+<ROUTINE TEST-MY-FEATURE ()
+    <TELL "Testing..." CR>
+    <ASSERT T "This passes">
+    <ASSERT <==? 5 5> "Numbers match">
+    <ASSERT <FSET? ,APPLE ,TAKEBIT> "Apple is takeable">
+    <TELL "All tests completed!" CR>>
+
+<ROUTINE GO () <TEST-MY-FEATURE>>
+```
+
+Run with the generic test runner:
+```bash
+lua5.4 run-zil-test.lua tests.my-test
+```
+
+**Features:**
+- ASSERT checks condition and prints [PASS] or [FAIL]
+- Combine with ZIL operators: `==?`, `FSET?`, `LOC`, etc.
+- Simple, minimal setup
+- Only ZIL test files needed - one generic Lua runner for all tests
+
+For integration test documentation, see **[tests/TESTS.md](tests/TESTS.md)**.
 
 ## Project Structure
 
@@ -55,7 +83,7 @@ For complete test documentation including all available tests, how to write test
 - `zil/` - ZIL runtime implementation
   - `init.lua` - Main module for require system (loads when you `require "zil"`)
   - `base.lua` - Core loader functionality for .zil files
-  - `bootstrap.lua` - Core runtime functions and globals
+  - `bootstrap.lua` - Core runtime functions and globals (includes ASSERT function)
   - `parser.lua` - ZIL parser
   - `compiler.lua` - ZIL to Lua compiler
   - `evaluate.lua` - Expression evaluator
@@ -63,6 +91,7 @@ For complete test documentation including all available tests, how to write test
   - `sourcemap.lua` - Source mapping for error messages
 - `tests/` - Test framework and test files
   - `run_tests.lua` - Integration test runner
+  - Pure ZIL test examples (test-simple-new.zil, test-insert-file.zil, etc.)
   - `zork1_basic.lua` - Basic integration tests
   - `zork1_walkthrough.lua` - Extended integration tests
   - `unit/` - Unit tests directory

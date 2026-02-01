@@ -254,12 +254,22 @@ ZPROB = PROB
 local output_buffer = {}
 
 local function io_write(...)
+	-- Check if io_write was overridden globally (for tests)
+	if _G.io_write then
+		return _G.io_write(...)
+	end
+	-- Default: buffered mode for coroutine-based games
 	for i = 1, select("#", ...) do
 		table.insert(output_buffer, tostring(select(i, ...)))
 	end
 end
 
 local function io_flush()
+	-- Check if io_flush was overridden globally (for tests)
+	if _G.io_flush then
+		return _G.io_flush()
+	end
+	-- Default: return buffered content
 	local text = table.concat(output_buffer)
 	output_buffer = {}
 	return text
