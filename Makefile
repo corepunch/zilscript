@@ -120,5 +120,6 @@ test-pure-zil:
 	@lua5.4 run-zil-test.lua tests.test-clock
 	@lua5.4 run-zil-test.lua tests.test-assertions
 	@lua5.4 run-zil-test.lua tests.test-check-commands
+	@lua5.4 run-zil-test.lua tests.test-horror-helpers
 	@lua5.4 run-zil-test.lua tests.zork1-walkthrough
 	@echo "All pure ZIL tests completed!"
