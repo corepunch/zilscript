@@ -100,16 +100,13 @@ The ZIL runtime is modular and well-tested, with a compiler architecture inspire
 - **Bootstrap** (`zil/bootstrap.lua`): Core runtime functions and globals
 - **Source Mapping** (`zil/sourcemap.lua`): Maps Lua errors back to ZIL source locations
 
-See [zil/compiler/README.md](zil/compiler/README.md) for compiler module documentation.
-See [TYPESCRIPT_IMPROVEMENTS.md](TYPESCRIPT_IMPROVEMENTS.md) for details on TypeScript-inspired improvements.
-See [TYPESCRIPT_PATTERN_EVIDENCE.md](TYPESCRIPT_PATTERN_EVIDENCE.md) for proof that TypeScript uses the same code patterns.
+See [zil/compiler/README.md](zil/compiler/README.md) for detailed compiler module documentation.
 
 ### Key Features
 
 - **Source Mapping**: Error messages reference ZIL source files, not generated Lua files (see [SOURCE_MAPPING.md](SOURCE_MAPPING.md))
 - **Modular Compiler**: Clean separation of concerns across 12 focused modules
 - **TypeScript-Inspired Architecture**: Visitor pattern, diagnostic collection, semantic checking, and structured emission
-- **Proven Patterns**: Uses same `node[i].property` pattern as TypeScript (see [TYPESCRIPT_PATTERN_EVIDENCE.md](TYPESCRIPT_PATTERN_EVIDENCE.md))
 - **Test Infrastructure**: 149+ unit test assertions plus comprehensive integration tests
 - **Test Assertions**: Built-in test commands for verifying game state
 
