@@ -1,16 +1,9 @@
-APP_NAME = orca
-BUILD_DIR = /Users/igor/Developer/ui-framework/build/bin
-DATA_DIR = /Users/igor/Developer/zil-engine
-LIB_PATH = $(BUILD_DIR)
-
 # Targets
-.PHONY: run clean test test-all test-unit test-integration test-zork1 test-parser test-containers test-directions test-light test-pronouns test-take test-horror-helpers test-horror-partial test-horror test-horror-failures test-horror-all help
+.PHONY: test test-all test-unit test-integration test-zork1 test-parser test-containers test-directions test-light test-pronouns test-take test-horror-helpers test-horror-partial test-horror test-horror-failures test-horror-all help
 
 help:
 	@echo "Available targets:"
-	@echo "  run               - Run the game in GUI mode"
 	@echo "  run-text          - Run the game in text mode"
-	@echo "  clean             - Clean up build artifacts"
 	@echo ""
 	@echo "Test targets:"
 	@echo "  test              - Run all tests (unit + integration)"
@@ -30,25 +23,8 @@ help:
 	@echo "  test-horror       - Run horror complete walkthrough"
 	@echo "  test-horror-all   - Run all horror tests"
 
-run:
-	@echo "Setting DYLD_LIBRARY_PATH to $(LIB_PATH) and running $(APP_NAME)..."
-	DYLD_LIBRARY_PATH=$(LIB_PATH) $(BUILD_DIR)/$(APP_NAME) $(DATA_DIR)
-
 run-text:
 	lua main.lua
-
-cluster:
-	@echo "Setting DYLD_LIBRARY_PATH to $(LIB_PATH) and running $(APP_NAME)..."
-	DYLD_LIBRARY_PATH=$(LIB_PATH) $(BUILD_DIR)/$(APP_NAME) -lib=$(BUILD_DIR) -data=$(CLUSTER_DIR)
-
-copy-resources:
-	@echo "Copying contents of current directory to $(RESOURCES_DIR)..."
-	@mkdir -p $(RESOURCES_DIR)  # Ensure the target directory exists
-	@cp -r ./* $(RESOURCES_DIR)
-
-clean:
-	@echo "Cleaning up..."
-	# Add cleaning commands here if needed
 
 # Test targets
 test: test-unit test-integration
