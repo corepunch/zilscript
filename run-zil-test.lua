@@ -27,10 +27,8 @@ function ASSERT_TEXT(expected, ok, actual)
 		print(GREEN .. "[PASS] " .. expected .. RESET)
 		return true
 	else
-		success = false
-		print(RED .. "[FAIL] " .. expected .. RESET)
-		print(RED .. actual .. RESET)
-		return false
+		print(RED .. "[FAIL] " .. expected .. '\n' .. actual .. RESET)
+		os.exit(success and 0 or 1)
 	end
 end
 
@@ -52,7 +50,7 @@ end
 print("Running ZIL test: " .. test_module)
 require(test_module)
 
--- Run the GO routine
+-- Run the RUN_TEST routine
 RUN_TEST()
 
 -- Flush any remaining output
