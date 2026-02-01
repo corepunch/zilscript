@@ -1,8 +1,18 @@
 <DIRECTIONS NORTH SOUTH EAST WEST UP DOWN IN OUT>
 <CONSTANT RELEASEID 1>
 
-;"Include common test utilities"
-<INSERT-FILE "test-utils">
+;"Define common test objects inline"
+<OBJECT ADVENTURER
+        (DESC "you")
+        (SYNONYM ADVENTURER ME SELF)
+        (FLAGS)>
+
+<ROUTINE TEST-SETUP (ROOM-OBJ)
+    <SETG HERE .ROOM-OBJ>
+    <SETG LIT T>
+    <SETG WINNER ,ADVENTURER>
+    <SETG PLAYER ,WINNER>
+    <MOVE ,ADVENTURER ,HERE>>
 
 <ROOM STARTROOM
       (IN ROOMS)
@@ -37,43 +47,42 @@
         (FLAGS TAKEBIT VOWELBIT)>
 
 <ROUTINE TEST-DIRECTIONS ()
-    <TELL "Testing direction/movement commands..." CR CR>
+    <TELL "Testing direction/movement..." CR CR>
     
     ;"Setup initial state"
     <TEST-SETUP ,STARTROOM>
     
     ;"Test starting location"
-    <ASSERT-AT-LOCATION ,ADVENTURER ,STARTROOM "Start at STARTROOM">
+    <ASSERT <==? <LOC ,ADVENTURER> ,STARTROOM> "Start at STARTROOM">
     
-    ;"Note: This is a pure ZIL test - it tests the data structures"
-    ;"not the actual parser/movement commands. For full parser testing,"
-    ;"use the Lua wrapper test files like test-directions.lua"
+    ;"Note: This tests the data structures, not the parser/movement commands"
+    ;"For full parser testing, use the Lua wrapper test files"
     
     ;"Test room connections exist"
-    <ASSERT-TRUE <GETPT ,STARTROOM ,PQNORTH> "STARTROOM has NORTH exit">
-    <ASSERT-TRUE <GETPT ,HALLWAY ,PQSOUTH> "HALLWAY has SOUTH exit">
-    <ASSERT-TRUE <GETPT ,CLOSET ,PQOUT> "CLOSET has OUT exit">
+    <ASSERT <GETPT ,STARTROOM ,PQNORTH> "STARTROOM has NORTH exit">
+    <ASSERT <GETPT ,HALLWAY ,PQSOUTH> "HALLWAY has SOUTH exit">
+    <ASSERT <GETPT ,CLOSET ,PQOUT> "CLOSET has OUT exit">
     
     ;"Test object locations"
-    <ASSERT-AT-LOCATION ,APPLE ,STARTROOM "Apple in STARTROOM">
+    <ASSERT <==? <LOC ,APPLE> ,STARTROOM> "Apple in STARTROOM">
     
     ;"Test manual movement"
     <MOVE ,ADVENTURER ,HALLWAY>
     <SETG HERE ,HALLWAY>
-    <ASSERT-AT-LOCATION ,ADVENTURER ,HALLWAY "Moved to HALLWAY">
-    <ASSERT-EQUAL ,HERE ,HALLWAY "HERE is HALLWAY">
+    <ASSERT <==? <LOC ,ADVENTURER> ,HALLWAY> "Moved to HALLWAY">
+    <ASSERT <==? ,HERE ,HALLWAY> "HERE is HALLWAY">
     
     <MOVE ,ADVENTURER ,CLOSET>
     <SETG HERE ,CLOSET>
-    <ASSERT-AT-LOCATION ,ADVENTURER ,CLOSET "Moved to CLOSET">
+    <ASSERT <==? <LOC ,ADVENTURER> ,CLOSET> "Moved to CLOSET">
     
     <MOVE ,ADVENTURER ,HALLWAY>
     <SETG HERE ,HALLWAY>
-    <ASSERT-AT-LOCATION ,ADVENTURER ,HALLWAY "Back to HALLWAY">
+    <ASSERT <==? <LOC ,ADVENTURER> ,HALLWAY> "Back to HALLWAY">
     
     <MOVE ,ADVENTURER ,STARTROOM>
     <SETG HERE ,STARTROOM>
-    <ASSERT-AT-LOCATION ,ADVENTURER ,STARTROOM "Back to STARTROOM">
+    <ASSERT <==? <LOC ,ADVENTURER> ,STARTROOM> "Back to STARTROOM">
     
     <TEST-SUMMARY>>
 

@@ -426,11 +426,12 @@ local function move_object_to_location(obj_name, location_name)
 	end
 end
 
--- === ZIL-Callable Test Assertion Functions ===
--- These functions can be called directly from ZIL code using <ASSERT ...>
+-- === ZIL-Callable Test Assertion Function ===
+-- Single assertion function - can be combined with comparison operators
+-- Example: <ASSERT <==? ,HERE ,STARTROOM> "At start room">
+--          <ASSERT <FSET? ,APPLE ,TAKEBIT> "Apple is takeable">
 
--- ASSERT-TRUE: Check if a condition is true
-function ASSERT_TRUE(condition, msg)
+function ASSERT(condition, msg)
 	test_count = test_count + 1
 	if condition then
 		test_passed = test_passed + 1
@@ -439,167 +440,6 @@ function ASSERT_TRUE(condition, msg)
 	else
 		test_failed = test_failed + 1
 		TELL(RED, "[FAIL] ", msg or "Assertion failed", RESET, CR)
-		return false
-	end
-end
-
--- ASSERT-FALSE: Check if a condition is false
-function ASSERT_FALSE(condition, msg)
-	return ASSERT_TRUE(not condition, msg)
-end
-
--- ASSERT-EQUAL: Check if two values are equal
-function ASSERT_EQUAL(actual, expected, msg)
-	test_count = test_count + 1
-	-- Note: Both nil and false are valid values, but for game testing
-	-- we typically want to treat nil as 0 for numeric comparisons
-	local actual_val = (actual == nil or actual == false) and 0 or actual
-	local expected_val = (expected == nil or expected == false) and 0 or expected
-	if actual_val == expected_val then
-		test_passed = test_passed + 1
-		TELL(GREEN, "[PASS] ", msg or "Values are equal", RESET, CR)
-		return true
-	else
-		test_failed = test_failed + 1
-		TELL(RED, "[FAIL] ", msg or "Values not equal", " - Expected: ", tostring(expected), ", Actual: ", tostring(actual), RESET, CR)
-		return false
-	end
-end
-
--- ASSERT-NOT-EQUAL: Check if two values are not equal
-function ASSERT_NOT_EQUAL(actual, expected, msg)
-	test_count = test_count + 1
-	-- Note: Both nil and false are valid values, but for game testing
-	-- we typically want to treat nil as 0 for numeric comparisons
-	local actual_val = (actual == nil or actual == false) and 0 or actual
-	local expected_val = (expected == nil or expected == false) and 0 or expected
-	if actual_val ~= expected_val then
-		test_passed = test_passed + 1
-		TELL(GREEN, "[PASS] ", msg or "Values are not equal", RESET, CR)
-		return true
-	else
-		test_failed = test_failed + 1
-		TELL(RED, "[FAIL] ", msg or "Values are equal (expected different)", " - Both values: ", tostring(actual), RESET, CR)
-		return false
-	end
-end
-
--- ASSERT-IN-INVENTORY: Check if object is in inventory
-function ASSERT_IN_INVENTORY(obj, msg)
-	test_count = test_count + 1
-	local obj_num = type(obj) == "number" and obj or find_object_by_name(obj)
-	if not obj_num then
-		test_failed = test_failed + 1
-		TELL(RED, "[FAIL] ", msg or "Object not found", RESET, CR)
-		return false
-	end
-	local winner = _G.WINNER or find_object_by_name("ADVENTURER")
-	if LOC(obj_num) == winner then
-		test_passed = test_passed + 1
-		TELL(GREEN, "[PASS] ", msg or "Object in inventory", RESET, CR)
-		return true
-	else
-		test_failed = test_failed + 1
-		TELL(RED, "[FAIL] ", msg or "Object not in inventory", RESET, CR)
-		return false
-	end
-end
-
--- ASSERT-NOT-IN-INVENTORY: Check if object is not in inventory
-function ASSERT_NOT_IN_INVENTORY(obj, msg)
-	test_count = test_count + 1
-	local obj_num = type(obj) == "number" and obj or find_object_by_name(obj)
-	if not obj_num then
-		test_failed = test_failed + 1
-		TELL(RED, "[FAIL] ", msg or "Object not found", RESET, CR)
-		return false
-	end
-	local winner = _G.WINNER or find_object_by_name("ADVENTURER")
-	if LOC(obj_num) ~= winner then
-		test_passed = test_passed + 1
-		TELL(GREEN, "[PASS] ", msg or "Object not in inventory", RESET, CR)
-		return true
-	else
-		test_failed = test_failed + 1
-		TELL(RED, "[FAIL] ", msg or "Object is in inventory (expected not to be)", RESET, CR)
-		return false
-	end
-end
-
--- ASSERT-AT-LOCATION: Check if object is at a specific location
-function ASSERT_AT_LOCATION(obj, loc, msg)
-	test_count = test_count + 1
-	local obj_num = type(obj) == "number" and obj or find_object_by_name(obj)
-	local loc_num = type(loc) == "number" and loc or find_object_by_name(loc)
-	if not obj_num then
-		test_failed = test_failed + 1
-		TELL(RED, "[FAIL] ", msg or "Object not found", RESET, CR)
-		return false
-	end
-	if not loc_num then
-		test_failed = test_failed + 1
-		TELL(RED, "[FAIL] ", msg or "Location not found", RESET, CR)
-		return false
-	end
-	if LOC(obj_num) == loc_num then
-		test_passed = test_passed + 1
-		TELL(GREEN, "[PASS] ", msg or "Object at correct location", RESET, CR)
-		return true
-	else
-		test_failed = test_failed + 1
-		TELL(RED, "[FAIL] ", msg or "Object not at expected location", RESET, CR)
-		return false
-	end
-end
-
--- ASSERT-HAS-FLAG: Check if object has a flag set
-function ASSERT_HAS_FLAG(obj, flag, msg)
-	test_count = test_count + 1
-	local obj_num = type(obj) == "number" and obj or find_object_by_name(obj)
-	if not obj_num then
-		test_failed = test_failed + 1
-		TELL(RED, "[FAIL] ", msg or "Object not found", RESET, CR)
-		return false
-	end
-	local flag_num = type(flag) == "number" and flag or _G[flag]
-	if not flag_num then
-		test_failed = test_failed + 1
-		TELL(RED, "[FAIL] ", msg or "Unknown flag", RESET, CR)
-		return false
-	end
-	if FSETQ(obj_num, flag_num) then
-		test_passed = test_passed + 1
-		TELL(GREEN, "[PASS] ", msg or "Object has flag", RESET, CR)
-		return true
-	else
-		test_failed = test_failed + 1
-		TELL(RED, "[FAIL] ", msg or "Object does not have flag", RESET, CR)
-		return false
-	end
-end
-
--- ASSERT-NOT-HAS-FLAG: Check if object does not have a flag set
-function ASSERT_NOT_HAS_FLAG(obj, flag, msg)
-	test_count = test_count + 1
-	local obj_num = type(obj) == "number" and obj or find_object_by_name(obj)
-	if not obj_num then
-		test_failed = test_failed + 1
-		TELL(RED, "[FAIL] ", msg or "Object not found", RESET, CR)
-		return false
-	end
-	local flag_num = type(flag) == "number" and flag or _G[flag]
-	if not flag_num then
-		test_failed = test_failed + 1
-		TELL(RED, "[FAIL] ", msg or "Unknown flag", RESET, CR)
-		return false
-	end
-	if not FSETQ(obj_num, flag_num) then
-		test_passed = test_passed + 1
-		TELL(GREEN, "[PASS] ", msg or "Object does not have flag", RESET, CR)
-		return true
-	else
-		test_failed = test_failed + 1
-		TELL(RED, "[FAIL] ", msg or "Object has flag (expected not to have)", RESET, CR)
 		return false
 	end
 end

@@ -47,7 +47,7 @@ make test-pure-zil     # Run pure ZIL tests (new!)
 - **Unit Tests**: Parser (60 tests), Compiler (44 tests), Runtime (25 tests), Source Mapping (5 tests)
 - **Integration Tests**: Zork1 game tests, parser/runtime tests, horror game tests
 - **Parser/Runtime Tests**: Directions, containers, light, take, pronouns
-- **Pure ZIL Tests**: Self-contained tests written entirely in ZIL using ASSERT functions
+- **Pure ZIL Tests**: Self-contained tests written entirely in ZIL using ASSERT function
 
 ### Writing Pure ZIL Tests (New!)
 
@@ -56,8 +56,9 @@ You can now write tests entirely in ZIL without Lua wrappers:
 ```zil
 <ROUTINE TEST-MY-FEATURE ()
     <TELL "Testing..." CR>
-    <ASSERT-TRUE T "This passes">
-    <ASSERT-EQUAL 5 5 "Numbers match">
+    <ASSERT T "This passes">
+    <ASSERT <==? 5 5> "Numbers match">
+    <ASSERT <FSET? ,APPLE ,TAKEBIT> "Apple is takeable">
     <TEST-SUMMARY>>
 
 <ROUTINE GO () <TEST-MY-FEATURE>>
@@ -73,12 +74,9 @@ GO()
 ```
 
 **Features:**
-- Built-in ASSERT functions (ASSERT-TRUE, ASSERT-EQUAL, ASSERT-IN-INVENTORY, etc.)
-- INSERT-FILE support for including shared utilities: `<INSERT-FILE "test-utils">`
+- Single ASSERT function - combine with ZIL operators (==?, FSET?, etc.)
 - Colored pass/fail output
 - Proper exit codes for CI/CD
-
-See **[tests/PURE_ZIL_TESTING.md](tests/PURE_ZIL_TESTING.md)** for complete guide.
 
 For integration test documentation, see **[tests/TESTS.md](tests/TESTS.md)**.
 
@@ -88,8 +86,7 @@ For integration test documentation, see **[tests/TESTS.md](tests/TESTS.md)**.
 - `zil/` - ZIL runtime implementation
   - `init.lua` - Main module for require system (loads when you `require "zil"`)
   - `base.lua` - Core loader functionality for .zil files
-  - `bootstrap.lua` - Core runtime functions and globals (includes ASSERT functions)
-  - `preprocessor.lua` - Handles INSERT-FILE directives
+  - `bootstrap.lua` - Core runtime functions and globals (includes ASSERT function)
   - `parser.lua` - ZIL parser
   - `compiler.lua` - ZIL to Lua compiler
   - `evaluate.lua` - Expression evaluator
@@ -97,8 +94,7 @@ For integration test documentation, see **[tests/TESTS.md](tests/TESTS.md)**.
   - `sourcemap.lua` - Source mapping for error messages
 - `tests/` - Test framework and test files
   - `run_tests.lua` - Integration test runner
-  - `PURE_ZIL_TESTING.md` - Guide for writing pure ZIL tests
-  - Pure ZIL test examples (test-simple-assert.zil, test-insert-file.zil, etc.)
+  - Pure ZIL test examples (test-simple-new.zil, test-insert-file.zil, etc.)
   - `zork1_basic.lua` - Basic integration tests
   - `zork1_walkthrough.lua` - Extended integration tests
   - `unit/` - Unit tests directory

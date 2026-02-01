@@ -1,8 +1,18 @@
 <DIRECTIONS NORTH SOUTH>
 <CONSTANT RELEASEID 1>
 
-;"Include common test utilities"
-<INSERT-FILE "test-utils">
+;"Define common test objects inline (no INSERT-FILE needed)"
+<OBJECT ADVENTURER
+        (DESC "you")
+        (SYNONYM ADVENTURER ME SELF)
+        (FLAGS)>
+
+<ROUTINE TEST-SETUP (ROOM-OBJ)
+    <SETG HERE .ROOM-OBJ>
+    <SETG LIT T>
+    <SETG WINNER ,ADVENTURER>
+    <SETG PLAYER ,WINNER>
+    <MOVE ,ADVENTURER ,HERE>>
 
 <ROOM STARTROOM
       (IN ROOMS)
@@ -16,23 +26,23 @@
         (DESC "apple")
         (FLAGS TAKEBIT)>
 
-<ROUTINE TEST-WITH-INSERT-FILE ()
-    <TELL "Testing INSERT-FILE functionality..." CR CR>
+<ROUTINE TEST-BASIC ()
+    <TELL "Testing basic ASSERT functionality..." CR CR>
     
-    ;"Test that ADVENTURER is available from included file"
-    <ASSERT-TRUE ,ADVENTURER "ADVENTURER object exists from included file">
+    ;"Test that ADVENTURER object exists"
+    <ASSERT ,ADVENTURER "ADVENTURER object exists">
     
-    ;"Test that TEST-SETUP routine is available"
+    ;"Test that TEST-SETUP routine works"
     <TEST-SETUP ,STARTROOM>
-    <ASSERT-AT-LOCATION ,ADVENTURER ,STARTROOM "ADVENTURER at STARTROOM after TEST-SETUP">
-    <ASSERT-EQUAL ,HERE ,STARTROOM "HERE is STARTROOM">
+    <ASSERT <==? <LOC ,ADVENTURER> ,STARTROOM> "ADVENTURER at STARTROOM after TEST-SETUP">
+    <ASSERT <==? ,HERE ,STARTROOM> "HERE is STARTROOM">
     
     ;"Test basic functionality"
-    <ASSERT-AT-LOCATION ,APPLE ,STARTROOM "Apple in STARTROOM">
+    <ASSERT <==? <LOC ,APPLE> ,STARTROOM> "Apple in STARTROOM">
     <MOVE ,APPLE ,ADVENTURER>
-    <ASSERT-IN-INVENTORY ,APPLE "Apple in inventory">
+    <ASSERT <==? <LOC ,APPLE> ,ADVENTURER> "Apple in inventory">
     
     <TEST-SUMMARY>>
 
 <ROUTINE GO ()
-    <TEST-WITH-INSERT-FILE>>
+    <TEST-BASIC>>
