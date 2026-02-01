@@ -135,6 +135,7 @@ function M.create_game_env()
 		os = os,
 		coroutine = coroutine,
 		setmetatable = setmetatable,
+		getmetatable = getmetatable,
 		ipairs = ipairs,
 		pairs = pairs,
 		table = table,
@@ -151,6 +152,7 @@ function M.create_game_env()
 		next = next,
 		translate = sourcemap.translate,
 		_LOADED = {},  -- Per-environment module cache
+		package = package,  -- Make package available for INCLUDE_FILE
 	}
 	
 	-- Create per-environment require function

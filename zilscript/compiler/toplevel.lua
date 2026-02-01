@@ -213,6 +213,7 @@ TopLevel.DIRECT_STATEMENTS = {
   GLOBAL = true,
   CONSTANT = true,
   SETG = true,
+  ["INSERT-FILE"] = true,
 }
 
 return TopLevel
