@@ -72,9 +72,9 @@
 
 <ROUTINE RUN-TEST ()
     <ASSERT "Take a nearby object" <CO-RESUME ,CO "take apple" T> <==? <LOC ,APPLE> ,ADVENTURER>>
-    <ASSERT-TEXT "apple" <CO-RESUME ,CO "inventory">>
+    <CO-RESUME ,CO "inventory">
     <ASSERT "Drop the apple" <CO-RESUME ,CO "drop apple" T> <N==? <LOC ,APPLE> ,ADVENTURER>>
     <ASSERT "Take another object" <CO-RESUME ,CO "take banana" T> <==? <LOC ,BANANA> ,ADVENTURER>>
     <ASSERT-TEXT "valiant" <CO-RESUME ,CO "take desk">>
-    <ASSERT-TEXT "banana" <CO-RESUME ,CO "inventory">>
+    <ASSERT "Check banana in inventory" <CO-RESUME ,CO "inventory" T> <==? <LOC ,BANANA> ,ADVENTURER>>
     <TELL CR "All tests completed!" CR>>

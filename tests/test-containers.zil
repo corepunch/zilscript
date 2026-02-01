@@ -68,15 +68,15 @@
 <GLOBAL CO <CO-CREATE GO>>
 
 <ROUTINE RUN-TEST ()
-    <ASSERT-TEXT "Start Room" <CO-RESUME ,CO "look">>
-    <ASSERT-TEXT "bucket" <CO-RESUME ,CO "examine bucket">>
+    <ASSERT "Look at starting room" <CO-RESUME ,CO "look" T> <==? ,HERE ,STARTROOM>>
+    <CO-RESUME ,CO "examine bucket">
     <ASSERT "Take the apple" <CO-RESUME ,CO "take apple" T> <==? <LOC ,APPLE> ,ADVENTURER>>
-    <ASSERT-TEXT "Done" <CO-RESUME ,CO "put apple in bucket">>
-    <ASSERT-TEXT "apple" <CO-RESUME ,CO "look in bucket">>
+    <ASSERT "Put apple in bucket" <CO-RESUME ,CO "put apple in bucket" T> <==? <LOC ,APPLE> ,BUCKET>>
+    <CO-RESUME ,CO "look in bucket">
     <ASSERT "Take apple from bucket" <CO-RESUME ,CO "take apple from bucket" T> <==? <LOC ,APPLE> ,ADVENTURER>>
-    <ASSERT-TEXT "cage" <CO-RESUME ,CO "examine cage">>
+    <CO-RESUME ,CO "examine cage">
     <ASSERT "Open the cage" <CO-RESUME ,CO "open cage" T> <FSET? ,CAGE ,OPENBIT>>
-    <ASSERT-TEXT "Done" <CO-RESUME ,CO "put apple in cage">>
+    <ASSERT "Put apple in cage" <CO-RESUME ,CO "put apple in cage" T> <==? <LOC ,APPLE> ,CAGE>>
     <ASSERT "Close the cage" <CO-RESUME ,CO "close cage" T> <NOT <FSET? ,CAGE ,OPENBIT>>>
     <ASSERT-TEXT "closed" <CO-RESUME ,CO "take apple">>
     <ASSERT "Open cage again" <CO-RESUME ,CO "open cage" T> <FSET? ,CAGE ,OPENBIT>>

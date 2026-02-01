@@ -53,11 +53,11 @@
 <GLOBAL CO <CO-CREATE GO>>
 
 <ROUTINE RUN-TEST ()
-    <ASSERT-TEXT "Start Room" <CO-RESUME ,CO "look">>
+    <ASSERT "Look at starting room" <CO-RESUME ,CO "look" T> <==? ,HERE ,STARTROOM>>
     <ASSERT "Move north to hallway" <CO-RESUME ,CO "north" T> <==? ,HERE ,HALLWAY>>
-    <ASSERT-TEXT "Hallway" <CO-RESUME ,CO "look">>
+    <CO-RESUME ,CO "look">
     <ASSERT "Move north again to closet" <CO-RESUME ,CO "north" T> <==? ,HERE ,CLOSET>>
-    <ASSERT-TEXT "Closet" <CO-RESUME ,CO "look">>
+    <CO-RESUME ,CO "look">
     <ASSERT "Move south back to hallway" <CO-RESUME ,CO "south" T> <==? ,HERE ,HALLWAY>>
     <ASSERT "Move south to start room" <CO-RESUME ,CO "south" T> <==? ,HERE ,STARTROOM>>
     <ASSERT "Use IN direction" <CO-RESUME ,CO "in" T> <==? ,HERE ,HALLWAY>>

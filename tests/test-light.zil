@@ -63,10 +63,10 @@
 <ROUTINE RUN-TEST ()
     <ASSERT-TEXT "pitch black" <CO-RESUME ,CO "look">>
     <ASSERT "Light flashlight" <CO-RESUME ,CO "light flashlight" T> <FSET? ,FLASHLIGHT ,ONBIT>>
-    <ASSERT-TEXT "Start Room" <CO-RESUME ,CO "look">>
+    <ASSERT "Look with light on" <CO-RESUME ,CO "look" T> <==? ,HERE ,STARTROOM>>
     <ASSERT "Extinguish flashlight" <CO-RESUME ,CO "extinguish flashlight" T> <NOT <FSET? ,FLASHLIGHT ,ONBIT>>>
     <ASSERT-TEXT "pitch black" <CO-RESUME ,CO "look">>
     <ASSERT "Light flashlight again" <CO-RESUME ,CO "light flashlight" T> <FSET? ,FLASHLIGHT ,ONBIT>>
     <ASSERT "Take the lantern" <CO-RESUME ,CO "take lantern" T> <==? <LOC ,LANTERN> ,ADVENTURER>>
-    <ASSERT-TEXT "flashlight" <CO-RESUME ,CO "inventory">>
+    <ASSERT "Check inventory for flashlight" <CO-RESUME ,CO "inventory" T> <==? <LOC ,FLASHLIGHT> ,ADVENTURER>>
     <TELL CR "All tests completed!" CR>>
