@@ -291,11 +291,11 @@ function Forms.createHandlers(compiler, printNode)
 
   -- INSERT-FILE - Include and execute another ZIL file
   form["INSERT-FILE"] = function(buf, node, indent)
-    -- Generate INCLUDE_FILE call with the filename
+    -- Generate INSERT_FILE call with the filename
     if node[1] and node[1].type == "string" then
-      buf.write('INCLUDE_FILE("%s")', node[1].value)
+      buf.write('INSERT_FILE("%s")', node[1].value)
     else
-      buf.write('INCLUDE_FILE("")')
+      buf.write('INSERT_FILE("")')
     end
   end
 

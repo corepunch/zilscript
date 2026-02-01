@@ -152,7 +152,7 @@ function M.create_game_env()
 		next = next,
 		translate = sourcemap.translate,
 		_LOADED = {},  -- Per-environment module cache
-		package = package,  -- Make package available for INCLUDE_FILE
+		package = package,  -- Make package available for INSERT_FILE
 	}
 	
 	-- Create per-environment require function

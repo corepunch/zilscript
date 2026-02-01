@@ -903,13 +903,14 @@ function OPENABLEQ(OBJ)
 		return FSETQ(OBJ, DOORBIT) or FSETQ(OBJ, CONTBIT)
 end
 
-function CREATE_COROUTINE(func)
-	print("Creating coroutine for function:", func)
-	return coroutine.create(func)
+function CO_CREATE(func)
+	local co = coroutine.create(func)
+	coroutine.resume(co)  -- Start the coroutine
+	return co
 end
 
-function YIELD_COROUTINE(co, param)
-	return coroutine.yield(co, param)
+function CO_RESUME(co, param)
+	return coroutine.resume(co, param)
 end
 
 -- === Finalize PREPOSITIONS table ===
@@ -947,9 +948,9 @@ function FINALIZE_PREPOSITIONS()
 end
 
 -- === File Inclusion ===
--- INCLUDE_FILE loads and executes a ZIL file
+-- INSERT_FILE loads and executes a ZIL file
 -- This is used by INSERT-FILE directive to include other files
-function INCLUDE_FILE(filename)
+function INSERT_FILE(filename)
 	-- Convert module-style filename (e.g., "zork1.globals") to file path
 	local name_path = filename:gsub("%.", "/")
 	local file, filepath
@@ -978,7 +979,7 @@ function INCLUDE_FILE(filename)
 	end
 	
 	if not file then
-		error(string.format("INCLUDE_FILE: Cannot open file '%s' (tried package.zilpath and direct paths)", filename))
+		error(string.format("INSERT_FILE: Cannot open file '%s' (tried package.zilpath and direct paths)", filename))
 	end
 	
 	local content = file:read("*all")
@@ -990,20 +991,20 @@ function INCLUDE_FILE(filename)
 	
 	local ok, ast = pcall(parser.parse, content, filename)
 	if not ok then
-		error(string.format("INCLUDE_FILE: Failed to parse '%s': %s", filename, ast))
+		error(string.format("INSERT_FILE: Failed to parse '%s': %s", filename, ast))
 	end
 	
 	local result = compiler.compile(ast, filename .. ".lua")
 	
 	-- Execute the compiled code in the current environment
-	local chunk, load_err = load(result.combined, "@" .. filename, "t", _G)
+	local chunk, load_err = load(result.combined, "@" .. filename  .. '.zil', "t", _G)
 	if not chunk then
-		error(string.format("INCLUDE_FILE: Failed to load '%s': %s", filename, load_err))
+		error(string.format("INSERT_FILE: Failed to load '%s': %s", filename, load_err))
 	end
 	
 	local exec_ok, exec_err = pcall(chunk)
 	if not exec_ok then
-		error(string.format("INCLUDE_FILE: Failed to execute '%s': %s", filename, exec_err))
+		error(string.format("INSERT_FILE: Failed to execute '%s': %s", filename, exec_err))
 	end
 end
 

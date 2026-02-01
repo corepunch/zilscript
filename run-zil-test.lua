@@ -22,12 +22,24 @@ function ASSERT(condition, msg)
 	end
 end
 
+function ASSERT_TEXT(expected, ok, actual)
+	if ok and actual:find(expected) then
+		print(GREEN .. "[PASS] " .. expected .. RESET)
+		return true
+	else
+		success = false
+		print(RED .. "[FAIL] " .. expected .. RESET)
+		print(RED .. actual .. RESET)
+		return false
+	end
+end
+
 require "zilscript"
 require "zilscript.bootstrap"
 
 -- Set up direct output (bypass ZIL's buffering system)
-_G['io_write'] = io.write
-_G['io_flush'] = io.flush
+-- _G['io_write'] = io.write
+-- _G['io_flush'] = io.flush
 
 -- Load the test module from command line argument
 local test_module = arg[1]
@@ -41,7 +53,7 @@ print("Running ZIL test: " .. test_module)
 require(test_module)
 
 -- Run the GO routine
-GO()
+RUN_TEST()
 
 -- Flush any remaining output
 io.flush()

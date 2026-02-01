@@ -26,7 +26,7 @@
         (FLAGS TAKEBIT)>
 
 
-<ROUTINE GO ()
+<ROUTINE RUN-TEST ()
     <TELL "Testing basic ASSERT functionality..." CR CR>
     
     <ASSERT ,ADVENTURER "ADVENTURER object exists">

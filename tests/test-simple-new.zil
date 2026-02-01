@@ -17,7 +17,7 @@
         (DESC "apple")
         (FLAGS TAKEBIT)>
 
-<ROUTINE GO ()
+<ROUTINE RUN-TEST ()
     <TELL "Testing ASSERT function..." CR CR>
     
     ;"Basic assertions using ASSERT"
