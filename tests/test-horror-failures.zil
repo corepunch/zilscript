@@ -28,6 +28,7 @@
     <SETG HERE ,RECEPTION-ROOM>
     <MOVE ,WINNER ,HERE>
     
+    ;"Try opening locked drawer - command should fail, drawer remains closed (no OPENBIT)"
     <ASSERT "Try to open locked drawer (should fail - drawer is locked)" 
         <CO-RESUME ,CO "open drawer" T> 
         <NOT <FSET? ,BOTTOM-DRAWER ,OPENBIT>>>
@@ -37,6 +38,7 @@
         <CO-RESUME ,CO "take key" T> 
         <==? <LOC ,BRASS-KEY> ,ADVENTURER>>
     
+    ;"In horror.zil, the 'unlock' command both unlocks AND opens the drawer (sets OPENBIT)"
     <ASSERT "Unlock drawer with key (opens it)" 
         <CO-RESUME ,CO "unlock drawer with key" T> 
         <FSET? ,BOTTOM-DRAWER ,OPENBIT>>
