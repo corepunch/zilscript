@@ -81,7 +81,7 @@ For integration test documentation, see **[tests/TESTS.md](tests/TESTS.md)**.
 
 - `main.lua` - Main entry point for running the game
 - `zil-script/` - ZIL runtime implementation
-  - `init.lua` - Main module for require system (loads when you `require "zil"`)
+  - `init.lua` - Main module for require system (loads when you `require "zil-script"`)
   - `base.lua` - Core loader functionality for .zil files
   - `bootstrap.lua` - Core runtime functions and globals (includes ASSERT function)
   - `parser.lua` - ZIL parser
