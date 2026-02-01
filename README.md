@@ -10,6 +10,7 @@ This project provides a runtime environment for executing ZIL programs, includin
 ## Features
 
 - **ZIL to Lua Compilation**: Compiles ZIL source code to Lua for execution
+- **Require System**: Load .zil files using Lua's `require()` function, just like moonscript
 - **Source Mapping**: Error messages automatically reference ZIL source files instead of generated Lua files (see [SOURCE_MAPPING.md](SOURCE_MAPPING.md))
 - **Interactive Gameplay**: Full support for classic text adventure games
 - **Comprehensive Testing**: Unit and integration tests for all components
@@ -52,10 +53,14 @@ For complete test documentation including all available tests, how to write test
 
 - `main.lua` - Main entry point for running the game
 - `zil/` - ZIL runtime implementation
+  - `init.lua` - Main module for require system (loads when you `require "zil"`)
+  - `base.lua` - Core loader functionality for .zil files
   - `bootstrap.lua` - Core runtime functions and globals
   - `parser.lua` - ZIL parser
   - `compiler.lua` - ZIL to Lua compiler
   - `evaluate.lua` - Expression evaluator
+  - `runtime.lua` - Runtime loader utilities
+  - `sourcemap.lua` - Source mapping for error messages
 - `tests/` - Test framework and test files
   - `run_tests.lua` - Integration test runner
   - `zork1_basic.lua` - Basic integration tests
@@ -85,6 +90,65 @@ local files = {
 ```
 
 You can modify this list to load different ZIL files or create your own adventure.
+
+## Using the Require System
+
+The ZIL runtime now supports a require-based loading system similar to [moonscript](https://github.com/leafo/moonscript), allowing you to load .zil files using Lua's standard `require()` function.
+
+### Basic Usage
+
+```lua
+-- Initialize the ZIL loader
+require "zil"
+
+-- Now you can require .zil files just like Lua modules
+-- This will automatically compile and load zork1/actions.zil
+local actions = require "zork1.actions"
+```
+
+### How It Works
+
+When you `require "zil"`:
+1. The ZIL loader is automatically installed into Lua's package system
+2. A `package.zilpath` is created (similar to `package.path`) that tells Lua where to find .zil files
+3. When you `require` a module, Lua will search for both .lua and .zil files
+4. If a .zil file is found, it's automatically compiled to Lua and executed
+5. The compiled module is cached by Lua's require system (no recompilation on subsequent requires)
+
+### Example
+
+```lua
+require "zil"  -- Initialize the loader
+
+-- Load ZIL modules
+local test = require "tests.test-require"  -- Loads tests/test-require.zil
+
+-- The compiled code is cached
+local test2 = require "tests.test-require"  -- Reuses cached version
+```
+
+For a complete example, see [examples/require_example.lua](examples/require_example.lua).
+
+### Advanced Usage
+
+The `zil` module also provides utility functions:
+
+```lua
+local zil = require "zil"
+
+-- Compile ZIL code to Lua
+local lua_code = zil.to_lua('<ROUTINE FOO () <RETURN 1>>')
+
+-- Load ZIL code from a string
+local chunk = zil.loadstring('<ROUTINE BAR () <TELL "Hello">>')
+
+-- Load and execute a ZIL file
+zil.dofile("myfile.zil")
+
+-- Manage the loader
+zil.remove_loader()  -- Remove the ZIL loader
+zil.insert_loader()  -- Re-insert the ZIL loader
+```
 
 ## Development
 
