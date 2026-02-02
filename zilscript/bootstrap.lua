@@ -214,6 +214,13 @@ local function fn(f)
 	return #FUNCTIONS
 end
 
+-- Expose fn as a global function for use in ZIL code
+function ROUTINE_NUM(f)
+	if type(f) == 'number' then return f end  -- Already a number
+	if type(f) ~= 'function' then return f end  -- Not a function
+	return fn(f)
+end
+
 local function register(tbl, value)
 	local n = 0
 	if type(value) == "string" then value = value:lower() end
