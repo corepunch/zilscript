@@ -111,7 +111,9 @@
     <ASSERT-TEXT "Dropped." <CO-RESUME ,CO "drop wrench">>
     <ASSERT-TEXT "Deep Canyon" <CO-RESUME ,CO "walk south">>
     <ASSERT-TEXT "Loud Room" <CO-RESUME ,CO "walk down">>
-    <ASSERT-TEXT "Engravings Cave" <CO-RESUME ,CO "walk southe">> ;"start=ROUND-ROOM"
+    <SETG HERE ,ROUND-ROOM>
+    <MOVE ,ADVENTURER ,HERE>
+    <ASSERT-TEXT "Engravings Cave" <CO-RESUME ,CO "walk southe">>
     <ASSERT-TEXT "Dome Room" <CO-RESUME ,CO "walk east">>
     <ASSERT-TEXT "Torch Room" <CO-RESUME ,CO "walk down">>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take torch">>
@@ -336,7 +338,7 @@
     <ASSERT-TEXT "Maze" <CO-RESUME ,CO "walk up">>
     <ASSERT-TEXT "You won't be able to get back up to the tunnel you are going through when it gets to the next room." <CO-RESUME ,CO "walk down">>
     <ASSERT-TEXT "Grating Room" <CO-RESUME ,CO "walk northe">>
-    ;"<ASSERT-TEXT 'grate' description='Unlock the grate' <CO-RESUME ,CO 'unlock grate'>>"
+    ;<ASSERT-TEXT "grate" description="Unlock the grate" <CO-RESUME ,CO "unlock grate">>
     <CO-RESUME ,CO "unlock grate">
     <ASSERT-TEXT "The grating opens to reveal trees above you." <CO-RESUME ,CO "open grate">>
     <ASSERT-TEXT "Clearing" <CO-RESUME ,CO "walk up">>
