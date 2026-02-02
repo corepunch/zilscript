@@ -155,6 +155,11 @@ function Forms.createHandlers(compiler, printNode)
       saved_local_vars[k] = v
     end
     
+    -- Emit do block start
+    buf.writeln()
+    buf.indent(indent)
+    buf.writeln("do")
+    
     -- Process bindings and emit local declarations
     if bindings and bindings.type == "list" then
       for _, binding in ipairs(bindings) do
@@ -166,21 +171,25 @@ function Forms.createHandlers(compiler, printNode)
           local lua_var_name = compiler.localVarName(binding[1])
           
           -- Emit local variable declaration with initialization
-          buf.writeln()
-          buf.indent(indent)
+          buf.indent(indent + 1)
           buf.write("local %s = ", lua_var_name)
-          printNode(buf, binding[2], indent + 1)
+          printNode(buf, binding[2], indent + 2)
+          buf.writeln()
         end
       end
     end
     
     -- Process body expressions
     for i = 2, #node do
-      buf.writeln()
-      buf.indent(indent)
+      buf.indent(indent + 1)
       if utils.needReturn(node[i]) then buf.write("__tmp = ") end
-      printNode(buf, node[i], indent)
+      printNode(buf, node[i], indent + 1)
+      buf.writeln()
     end
+    
+    -- Emit do block end
+    buf.indent(indent)
+    buf.writeln("end")
     
     -- Restore the previous local_vars state
     compiler.local_vars = saved_local_vars
