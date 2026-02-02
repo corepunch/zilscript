@@ -1,7 +1,7 @@
 #!/usr/bin/env lua
 -- Unit tests for zil/parser.lua
 
-local test = require 'tests.unit.test_framework'
+local test = require 'tests.test_framework'
 local parser = require 'zilscript.parser'
 
 test.describe("Parser - Basic Types", function(t)

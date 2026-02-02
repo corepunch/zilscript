@@ -1,7 +1,7 @@
 #!/usr/bin/env lua
 -- Unit tests for new TypeScript-inspired compiler modules
 
-local test = require 'tests.unit.test_framework'
+local test = require 'tests.test_framework'
 local parser = require 'zilscript.parser'
 local visitor_module = require 'zilscript.compiler.visitor'
 local diagnostics_module = require 'zilscript.compiler.diagnostics'
@@ -134,3 +134,7 @@ test.describe("Checker Module", function(t)
     assert.assert_nil(checker.lookup_symbol("LOCAL_VAR"), "Should not find local")
   end)
 end)
+
+-- Run tests and exit with appropriate code
+local success = test.summary()
+os.exit(success and 0 or 1)

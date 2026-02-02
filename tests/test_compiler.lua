@@ -1,7 +1,7 @@
 #!/usr/bin/env lua
 -- Unit tests for zil/compiler.lua
 
-local test = require 'tests.unit.test_framework'
+local test = require 'tests.test_framework'
 local parser = require 'zilscript.parser'
 local compiler = require 'zilscript.compiler'
 
