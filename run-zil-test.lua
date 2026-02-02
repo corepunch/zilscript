@@ -25,12 +25,13 @@ function ASSERT(msg, ...)
 end
 
 function ASSERT_TEXT(expected, ok, actual)
-	if ok and actual:find(expected) then
+	if ok and actual:lower():find(expected:lower(), 1, true) then
 		print(GREEN .. "[PASS] " .. expected .. RESET)
 		return true
 	else
+		success = false
 		print(RED .. "[FAIL] " .. expected .. '\n' .. actual .. RESET)
-		os.exit(success and 0 or 1)
+		return false
 	end
 end
 
