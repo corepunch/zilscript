@@ -586,8 +586,11 @@ function OBJECT(object)
 			end
 		elseif k == "GLOBAL" then table.insert(t, makeprop(table.concat2(v, string.char), k))
 		elseif k == "LOC" then 
-			-- LOC can be a number (object ID) or a table (container like ROOMS)
-			-- For tables, we use 0 as a special value meaning "in a container"
+			-- LOC property: stores the object's location as a numeric object ID
+			-- In proper ZIL games, containers like ROOMS are defined as objects with numeric IDs
+			-- If LOC is a table (e.g., bootstrap's default ROOMS = {}), we use 0 to indicate "no valid location"
+			-- This is acceptable because well-formed ZIL will redefine ROOMS as an actual object
+			-- Once ROOMS is defined as an object, its numeric ID will be used correctly
 			local loc_value = type(v) == 'number' and v or 0
 			table.insert(t, makeprop(string.char(loc_value), k))
 		-- using PQACTION for ACTION property, commented out original function support
