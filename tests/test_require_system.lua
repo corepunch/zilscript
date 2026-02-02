@@ -5,7 +5,7 @@ local test = require 'tests.test_framework'
 
 test.describe("ZIL Require System", function(t)
   -- Need to save this outside the test for reuse
-  local zil, loaders, original_path
+  local zil, loaders, original_path, original_zilpath
   
   t.it("should load zil module", function(assert)
     zil = require "zilscript"
@@ -31,13 +31,21 @@ test.describe("ZIL Require System", function(t)
   end)
   
   t.it("should load .zil file via require", function(assert)
-    -- First, ensure tests directory is in the path
+    -- Save original paths
     original_path = package.path
+    original_zilpath = package.zilpath
+    
+    -- Modify paths temporarily
     package.path = package.path .. ";./zil/?.lua"
     package.zilpath = package.zilpath .. ";./zil/?.zil"
     
     -- Now require should work
     local success, test_module = pcall(require, "test-require")
+    
+    -- Restore paths immediately
+    package.path = original_path
+    package.zilpath = original_zilpath
+    
     if not success then
       error("Failed to load test-require.zil: " .. tostring(test_module))
     end
@@ -98,9 +106,6 @@ test.describe("ZIL Require System", function(t)
       end
     end
     assert.assert_equal(count_after, count_before, "Loader should not be inserted multiple times")
-    
-    -- Clean up
-    package.path = original_path
   end)
 end)
 
