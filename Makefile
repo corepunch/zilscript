@@ -48,101 +48,101 @@ test-all: test
 
 test-unit:
 	@echo "Running unit tests..."
-	lua tests/unit/run_all.lua
+	lua tests/run_all.lua
 
 test-integration: test-zork1 test-parser test-horror-all
 	@echo "All integration tests completed!"
 
 test-zork1:
 	@echo "Running Zork1 integration tests..."
-	@lua5.4 run-zil-test.lua tests.zork1-walkthrough
+	@lua5.4 run-zil-test.lua zil/zork1-walkthrough
 
 test-parser: test-containers test-directions test-light test-pronouns test-take test-turnbit test-clock test-clock-direct test-assertions test-check-commands test-simple-new test-insert-file test-let
 	@echo "All parser/runtime tests completed!"
 
 test-containers:
 	@echo "Running container tests..."
-	@lua5.4 run-zil-test.lua tests.test-containers
+	@lua5.4 run-zil-test.lua zil/test-containers
 
 test-directions:
 	@echo "Running direction tests..."
-	@lua5.4 run-zil-test.lua tests.test-directions
+	@lua5.4 run-zil-test.lua zil/test-directions
 
 test-light:
 	@echo "Running light tests..."
-	@lua5.4 run-zil-test.lua tests.test-light
+	@lua5.4 run-zil-test.lua zil/test-light
 
 test-pronouns:
 	@echo "Running pronoun tests..."
-	@lua5.4 run-zil-test.lua tests.test-pronouns
+	@lua5.4 run-zil-test.lua zil/test-pronouns
 
 test-take:
 	@echo "Running take command tests..."
-	@lua5.4 run-zil-test.lua tests.test-take
+	@lua5.4 run-zil-test.lua zil/test-take
 
 test-turnbit:
 	@echo "Running TURNBIT flag tests..."
-	@lua5.4 run-zil-test.lua tests.test-turnbit
+	@lua5.4 run-zil-test.lua zil/test-turnbit
 
 test-clock:
 	@echo "Running clock system tests..."
-	@lua5.4 run-zil-test.lua tests.test-clock
+	@lua5.4 run-zil-test.lua zil/test-clock
 
 test-clock-direct:
 	@echo "Running clock system direct tests..."
-	@lua5.4 run-zil-test.lua tests.test-clock-direct
+	@lua5.4 run-zil-test.lua zil/test-clock-direct
 
 test-assertions:
 	@echo "Running assertion tests..."
-	@lua5.4 run-zil-test.lua tests.test-assertions
+	@lua5.4 run-zil-test.lua zil/test-assertions
 
 test-check-commands:
 	@echo "Running check commands tests..."
-	@lua5.4 run-zil-test.lua tests.test-check-commands
+	@lua5.4 run-zil-test.lua zil/test-check-commands
 
 test-simple-new:
 	@echo "Running simple assertion tests..."
-	@lua5.4 run-zil-test.lua tests.test-simple-new
+	@lua5.4 run-zil-test.lua zil/test-simple-new
 
 test-insert-file:
 	@echo "Running INSERT-FILE tests..."
-	@lua5.4 run-zil-test.lua tests.test-insert-file
+	@lua5.4 run-zil-test.lua zil/test-insert-file
 
 test-let:
 	@echo "Running LET form tests..."
-	@lua5.4 run-zil-test.lua tests.test-let
+	@lua5.4 run-zil-test.lua zil/test-let
 
 test-horror-helpers:
 	@echo "Running horror test helpers..."
-	@lua5.4 run-zil-test.lua tests.test-horror-helpers
+	@lua5.4 run-zil-test.lua zil/test-horror-helpers
 
 test-horror:
 	@echo "Running horror complete walkthrough tests..."
-	lua5.4 run-zil-test.lua tests.horror-walkthrough
+	lua5.4 run-zil-test.lua zil/horror-walkthrough
 
 test-horror-failures:
 	@echo "Running horror failing conditions tests..."
-	@lua5.4 run-zil-test.lua tests.test-horror-failures
+	@lua5.4 run-zil-test.lua zil/test-horror-failures
 
 test-horror-all: test-horror-helpers test-horror-partial test-horror-failures test-horror
 	@echo "All horror tests completed!"
 
 test-pure-zil:
 	@echo "Running pure ZIL tests..."
-	@lua5.4 run-zil-test.lua tests.test-simple-new
-	@lua5.4 run-zil-test.lua tests.test-insert-file
-	@lua5.4 run-zil-test.lua tests.test-let
-	@lua5.4 run-zil-test.lua tests.test-containers
-	@lua5.4 run-zil-test.lua tests.test-directions
-	@lua5.4 run-zil-test.lua tests.test-light
-	@lua5.4 run-zil-test.lua tests.test-pronouns
-	@lua5.4 run-zil-test.lua tests.test-take
-	@lua5.4 run-zil-test.lua tests.test-turnbit
-	@lua5.4 run-zil-test.lua tests.test-clock
-	@lua5.4 run-zil-test.lua tests.test-clock-direct
-	@lua5.4 run-zil-test.lua tests.test-assertions
-	@lua5.4 run-zil-test.lua tests.test-check-commands
-	@lua5.4 run-zil-test.lua tests.test-horror-helpers
-	@lua5.4 run-zil-test.lua tests.test-horror-failures
-	@lua5.4 run-zil-test.lua tests.zork1-walkthrough
+	@lua5.4 run-zil-test.lua zil/test-simple-new
+	@lua5.4 run-zil-test.lua zil/test-insert-file
+	@lua5.4 run-zil-test.lua zil/test-let
+	@lua5.4 run-zil-test.lua zil/test-containers
+	@lua5.4 run-zil-test.lua zil/test-directions
+	@lua5.4 run-zil-test.lua zil/test-light
+	@lua5.4 run-zil-test.lua zil/test-pronouns
+	@lua5.4 run-zil-test.lua zil/test-take
+	@lua5.4 run-zil-test.lua zil/test-turnbit
+	@lua5.4 run-zil-test.lua zil/test-clock
+	@lua5.4 run-zil-test.lua zil/test-clock-direct
+	@lua5.4 run-zil-test.lua zil/test-assertions
+	@lua5.4 run-zil-test.lua zil/test-check-commands
+	@lua5.4 run-zil-test.lua zil/test-horror-helpers
+	@lua5.4 run-zil-test.lua zil/test-horror-failures
+	@lua5.4 run-zil-test.lua zil/zork1-walkthrough
 	@echo "All pure ZIL tests completed!"

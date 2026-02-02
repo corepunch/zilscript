@@ -51,7 +51,7 @@ The `zilscript/sourcemap.lua` module provides:
 
 ### Unit Tests
 ```bash
-lua5.4 tests/unit/test_sourcemap.lua
+lua5.4 tests/test_sourcemap.lua
 ```
 
 Tests the source mapping module in isolation:

@@ -5,12 +5,18 @@
 require 'zilscript'
 
 local test_files = {
-	"tests/unit/test_parser.lua",
-	"tests/unit/test_compiler.lua",
-	"tests/unit/test_runtime.lua",
-	"tests/unit/test_typescript_modules.lua",
-	"tests/unit/test_defmac.lua",
-	"tests/unit/test_macro_expansion.lua"
+	"tests/test_compiler.lua",
+	"tests/test_comprehensive_accuracy.lua",
+	"tests/test_defmac.lua",
+	"tests/test_framework.lua",
+	"tests/test_line_accuracy.lua",
+	"tests/test_macro_expansion.lua",
+	"tests/test_parser.lua",
+	"tests/test_require_system.lua",
+	"tests/test_runtime.lua",
+	"tests/test_sourcemap_integration.lua",
+	"tests/test_sourcemap.lua",
+	"tests/test_typescript_modules.lua",
 }
 
 local all_passed = true

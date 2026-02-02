@@ -22,7 +22,7 @@ jobs:
         sudo apt-get install -y lua5.4
     
     - name: Run unit tests
-      run: lua5.4 tests/unit/run_all.lua
+      run: lua5.4 tests/run_all.lua
     
     - name: Run Zork1 walkthrough tests
       run: lua5.4 run-zil-test.lua tests.zork1-walkthrough
