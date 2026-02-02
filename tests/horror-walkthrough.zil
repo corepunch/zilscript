@@ -37,7 +37,7 @@
 	<ASSERT-TEXT "mistake" <CO-RESUME ,CO "read journal">> ;"Learn about the terrible experiment"
 	<ASSERT "Free hands by dropping journal" <CO-RESUME ,CO "drop journal" T> <N==? <LOC ,MORDECAI-JOURNAL> ,ADVENTURER>>
 	
-	-- Act 2: Basement Exploration
+	;"Act 2: Basement Exploration"
 	<ASSERT "Return to Patient Ward" <CO-RESUME ,CO "walk south" T> <==? ,HERE ,PATIENT-WARD>>
 	<ASSERT "Return to Entrance Hall" <CO-RESUME ,CO "walk west" T> <==? ,HERE ,SANITARIUM-ENTRANCE>>
 	<ASSERT "Descend to Basement Stairs" <CO-RESUME ,CO "walk down" T> <==? ,HERE ,BASEMENT-STAIRS>>
@@ -90,7 +90,7 @@
 	<ASSERT "Drop straitjacket (optional item, not needed)" <CO-RESUME ,CO "drop jacket" T> <N==? <LOC ,STRAITJACKET> ,ADVENTURER>>
 	<ASSERT "Return to Electroshock Theater" <CO-RESUME ,CO "walk east" T> <==? ,HERE ,ELECTROSHOCK-THEATER>>
 	
-	-- Act 3: Administrative Wing and Final Confrontation
+	;"Act 3: Administrative Wing and Final Confrontation"
 	<ASSERT "Climb to Observation Deck" <CO-RESUME ,CO "walk east" T> <==? ,HERE ,OBSERVATION-DECK>>
 	<ASSERT-TEXT "theater" <CO-RESUME ,CO "examine mirror">> ;"One-way mirror overlooking theater"
 	<ASSERT "Take observation logbook" <CO-RESUME ,CO "take logbook" T> <==? <LOC ,OBSERVATION-LOGBOOK> ,ADVENTURER>>
