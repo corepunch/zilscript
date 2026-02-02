@@ -77,7 +77,11 @@ function M.create_env_require(env)
 		
 		-- Special handling for 'zilscript.bootstrap' module - load bootstrap file directly
 		if modname == 'zilscript.bootstrap' then
-			local file = assert(io.open(dir.."/zilscript/bootstrap.lua", "r"))
+			local filepath = dir.."/zilscript/bootstrap.lua"
+			local file = io.open(filepath, "r")
+			if not file then
+				error("Bootstrap file not found at " .. filepath)
+			end
 			local code = file:read("*a")
 			file:close()
 			
