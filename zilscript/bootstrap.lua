@@ -124,11 +124,15 @@ local function add_items(room)
 				table.insert(verbs, v)
 			end
 		end
+		local marks, unique_verbs = {}, {}
+		for _, verb in ipairs(verbs) do
+			if not marks[verb] then table.insert(unique_verbs, verb) marks[verb] = true end
+		end
 		local words = {}
 		for word in item:gmatch("%S+") do
 			table.insert(words, word:sub(1,1):upper() .. word:sub(2):lower())
 		end
-		table.insert(items, {table.concat(words, " "), verbs, add_items(obj)})
+		table.insert(items, {table.concat(words, " "), unique_verbs, add_items(obj)})
 	end
 	return items
 end
