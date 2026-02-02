@@ -59,4 +59,3 @@ end)
 -- Run tests and exit with appropriate code
 local success = test.summary()
 os.exit(success and 0 or 1)
-
