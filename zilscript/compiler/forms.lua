@@ -163,7 +163,12 @@ function Forms.createHandlers(compiler, printNode)
     -- Process bindings and emit local declarations
     if bindings and bindings.type == "list" then
       for _, binding in ipairs(bindings) do
-        if binding.type == "list" and #binding >= 2 then
+        if binding.type == "list" then
+          -- Validate binding has exactly 2 elements (variable and initializer)
+          if #binding ~= 2 then
+            error(string.format("LET binding must have exactly 2 elements (variable and initializer), got %d", #binding))
+          end
+          
           -- Register the variable name
           compiler.registerLocalVar(binding[1])
           
