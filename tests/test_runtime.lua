@@ -1,7 +1,7 @@
 #!/usr/bin/env lua
 -- Unit tests for zil/runtime.lua
 
-local test = require 'tests.unit.test_framework'
+local test = require 'tests.test_framework'
 local runtime = require 'zilscript.runtime'
 
 test.describe("Runtime - Environment Creation", function(t)
