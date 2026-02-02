@@ -88,7 +88,7 @@ local function objects_in_room(room)
 			i = i + 1
 			local o = OBJECTS[i]
 			if not o then return nil end
-			if i ~= ADVENTURER and o.LOC == room then return i, o end
+			if i ~= ADVENTURER and GETP(i, PQLOC) == room then return i, o end
 		end
 	end
 end
@@ -404,22 +404,22 @@ MULL = MUL
 -- Object / room ops
 local function getobj(num) return OBJECTS[num] end
 
-function LOC(obj) return getobj(obj).LOC end
-function INQ(obj, room) return getobj(obj).LOC == room end
-function MOVE(obj, dest) getobj(obj).LOC = dest end
-function REMOVE(obj) getobj(obj).LOC = nil end
+function LOC(obj) return GETP(obj, PQLOC) end
+function INQ(obj, room) return GETP(obj, PQLOC) == room end
+function MOVE(obj, dest) PUTP(obj, PQLOC, dest) end
+function REMOVE(obj) PUTP(obj, PQLOC, 0) end
 
 function FIRSTQ(obj)
 	for n, o in ipairs(OBJECTS) do
-		if o.LOC == obj then return n end
+		if GETP(n, PQLOC) == obj then return n end
 	end
 end
 
 function NEXTQ(obj)
-  local parent = getobj(obj).LOC
+  local parent = GETP(obj, PQLOC)
   local found = false
   for n, o in ipairs(OBJECTS) do
-    if o.LOC == parent then
+    if GETP(n, PQLOC) == parent then
       if found then return n end
       if n == obj then found = true end
     end
@@ -585,7 +585,11 @@ function OBJECT(object)
 				o.FLAGS = o.FLAGS | (1 << _G[f])
 			end
 		elseif k == "GLOBAL" then table.insert(t, makeprop(table.concat2(v, string.char), k))
-		elseif k == "LOC" then o.LOC = v
+		elseif k == "LOC" then 
+			-- LOC can be a number (object ID) or a table (container like ROOMS)
+			-- For tables, we use 0 as a special value meaning "in a container"
+			local loc_value = type(v) == 'number' and v or 0
+			table.insert(t, makeprop(string.char(loc_value), k))
 		-- using PQACTION for ACTION property, commented out original function support
 		elseif k == "ACTION" or k == "DESCFCN" then 
 			table.insert(t, makeprop(type(v) == 'function' and mem:stringprop(fn(v)) or '\0\0', k))
@@ -611,6 +615,11 @@ function OBJECT(object)
 		else 
 			assert(false, "Unsupported property "..k.." of type "..type(v))
 		end
+	end
+	-- Ensure LOC property always exists (default to 0 if not specified)
+	if not object.LOC then
+		local loc_value = 0
+		table.insert(t, makeprop(string.char(loc_value), "LOC"))
 	end
 	table.insert(t, string.char(0,0))
 	o.tbl = mem:write(table.concat(t))
