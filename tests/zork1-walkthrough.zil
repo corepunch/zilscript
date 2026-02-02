@@ -312,7 +312,7 @@
     <ASSERT-TEXT "Maze" <CO-RESUME ,CO "walk south">>
     <ASSERT-TEXT "Cyclops Room" <CO-RESUME ,CO "walk southe">>
     <ASSERT-TEXT "The cyclops, hearing the name of his father's deadly nemesis, flees the room by knocking down the wall on the east of the room." <CO-RESUME ,CO "Ulysses">>
-    <ASSERT "Move thief to Cyclops Room for testing" <CO-RESUME ,CO "test:move THIEF CYCLOPS-ROOM">>
+    <ASSERT "Move thief to Cyclops Room for testing" <MOVE ,THIEF ,CYCLOPS-ROOM> <FCLEAR ,THIEF INVISIBLE>>
     <ASSERT-TEXT "The thief is taken aback by your unexpected generosity, but accepts the jewel-encrusted egg and stops to admire its beauty." <CO-RESUME ,CO "give egg to thief">>
     <ASSERT-TEXT "Strange Passage" <CO-RESUME ,CO "walk east">>
     <ASSERT-TEXT "Living Room" <CO-RESUME ,CO "walk east">>
@@ -320,7 +320,7 @@
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take knife">>
     <ASSERT-TEXT "Strange Passage" <CO-RESUME ,CO "walk west">>
     <ASSERT-TEXT "Cyclops Room" <CO-RESUME ,CO "walk west">>
-    <ASSERT "Move thief to Treasure Room for encounter" <MOVE ,THIEF ,TREASURE-ROOM>>
+    <ASSERT "Move thief to Treasure Room for encounter" <MOVE ,THIEF ,TREASURE-ROOM> <FCLEAR ,THIEF INVISIBLE>>
     <ASSERT "Enter Treasure Room" <CO-RESUME ,CO "walk up"> <==? ,HERE ,TREASURE-ROOM>>
     ;<ASSERT-TEXT "The thief is disarmed by a subtle feint past his guard." <CO-RESUME ,CO "kill thief with knife">>
     ;<ASSERT-TEXT "You dodge as the thief comes in low." <CO-RESUME ,CO "kill thief with knife">>
