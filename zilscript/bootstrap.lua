@@ -74,6 +74,7 @@ M_LOOK = 3
 M_FLASH = 4
 M_OBJDESC = 5
 
+local mem
 local suggestions = {
 	READBIT = "READ",
 	TAKEBIT = "TAKE",
@@ -89,6 +90,9 @@ local function objects_in_room(room)
 			local o = OBJECTS[i]
 			if not o then return nil end
 			if i ~= ADVENTURER and GETP(i, PQLOC) == room then return i, o end
+			for _, v in pairs(OBJECTS[room].GLOBALS or {}) do
+				if v == i then return i, o end
+			end
 		end
 	end
 end
@@ -166,7 +170,7 @@ local function makeword(val)
 	return string.char(val&0xff, (val>>8)&0xff)
 end
 
-local mem = setmetatable({size=0},{__index={
+mem = setmetatable({size=0},{__index={
 	write = function(self, buffer, pos)
 		if not pos then pos = self.size + 1 end  -- Append if no pos
 		local buf_len = #buffer
@@ -592,7 +596,9 @@ function OBJECT(object)
 				if not _G[f] then _G[f] = register(FLAGS, f) end
 				o.FLAGS = o.FLAGS | (1 << _G[f])
 			end
-		elseif k == "GLOBAL" then table.insert(t, makeprop(table.concat2(v, string.char), k))
+		elseif k == "GLOBAL" then 
+			table.insert(t, makeprop(table.concat2(v, string.char), k))
+			o.GLOBALS = v
 		elseif k == "LOC" then 
 			-- LOC property: stores the object's location as a numeric object ID
 			-- In proper ZIL games, containers like ROOMS are defined as objects with numeric IDs
