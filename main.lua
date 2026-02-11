@@ -6,10 +6,10 @@ local modules = {
   "zork1.clock",
   "zork1.parser",
   "zork1.verbs",
-  -- "zork1.actions",
+  "zork1.actions",
   "zork1.syntax",
-  -- "zork1.dungeon",
-  "adventure.horror",
+  "zork1.dungeon",
+  -- "adventure.horror",
   "zork1.main",
 }
 

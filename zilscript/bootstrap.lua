@@ -324,25 +324,22 @@ function TELL(...)
 	return true
 end
 
-function PRINT(n) io_write(mem:string(n)) end
-function PRINTD(ptr) io_write(GETP(ptr, _G["PQDESC"])) end
-function PRINTR(ptr) io_write(GETP(ptr, _G["PQLDESC"])) end
+function PRINT(n) io_write(mem:string(n)) return true end
+function PRINTD(ptr) io_write(GETP(ptr, _G["PQDESC"])) return true end
+function PRINTR(ptr) io_write(GETP(ptr, _G["PQLDESC"])) return true end
 function PRINTB(ptr)
-	-- Debug: uncomment to see what's happening
-	-- io_write("[PRINTB ptr=" .. tostring(ptr) .. "]")
 	for word, index in pairs(cache.words) do
 		if index == ptr then 
 			io_write(word)
-			return
+			return true
 		end
 	end
-	-- If we get here, no word was found for this pointer
-	-- io_write("[NO_WORD:" .. tostring(ptr) .. "]")
+	return false
 end
-function PRINTI(n) io_write(tostring(n)) end
-function PRINTN(n) io_write(tostring(n)) end
-function PRINTC(ch) io_write(string.char(ch)) end
-function CRLF() io_write("\n") end
+function PRINTI(n) io_write(tostring(n)) return true end
+function PRINTN(n) io_write(tostring(n)) return true end
+function PRINTC(ch) io_write(string.char(ch)) return true end
+function CRLF() io_write("\n") return true end
 
 function JIGS_UP(msg)
 	TELL(msg, CR)
