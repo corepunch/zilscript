@@ -160,7 +160,11 @@ function PrintNode.createPrintNode(compiler, form_handlers)
       else
         -- Default handler for generic function calls
         if indent == 1 then buf.indent(indent) end
-        if node.name == 'VERB?' then table.insert(compiler.current_verbs, node[1].value) end
+        if node.name == 'VERB?' then 
+          local verb = node[1] and node[1].value
+          if verb == 'THROUGH' then verb = 'ENTER' end
+          table.insert(compiler.current_verbs, verb)
+        end
         buf.write("%s(", utils.normalizeFunctionName(node.name))
         
         -- Visit children (visitor pattern)
