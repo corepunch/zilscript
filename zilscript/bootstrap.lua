@@ -268,7 +268,7 @@ function RANDOM(base)
 end
 
 function PICK_ONE(table)
-	local num = mem:word(table)/2
+	local num = mem:word(table)
 	-- local sel = math.random(2, num)
 	local sel = RANDOM(num-1)+1
 	return mem:word(table+sel*2)
