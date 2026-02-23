@@ -51,10 +51,6 @@ FLAGS = {}
 FUNCTIONS = {}
 _DIRECTIONS = {}
 
--- Registry of ZIL global variables and their values (populated at runtime via SETG)
--- Used by SAVE/RESTORE to persist game-state variables
-_ZG = {}
-
 DESCS = {}
 DIRS = {}
 
@@ -361,7 +357,7 @@ function CRLF() io_write("\n") return true end
 
 function JIGS_UP(msg)
 	TELL(msg, CR)
-	MOVE(WINNER, HERE)
+	MOVE(GETG(WINNER), GETG(HERE))
 	-- os.exit(1)
 end
 
@@ -376,7 +372,7 @@ function READ(inbuf, parse)
 	local s = coroutine.yield(io_flush())
 	::restart_read::
 	if routes[s] then
-		s = coroutine.yield(routes[s](HERE))
+		s = coroutine.yield(routes[s](GETG(HERE)))
 		goto restart_read
 	end
 	-- Handle nil input (e.g., EOF)
@@ -431,10 +427,56 @@ local function getobj(num) return OBJECTS[num] end
 -- In ZIL, <VALUE var> gets the runtime value of a variable
 function VALUE(x) return x end
 
--- SETG/GETG: runtime functions for ZIL global variable access.
--- SETG records the variable name and value so SAVE/RESTORE knows which globals to persist.
-function SETG(name, val) _G[name] = val; _ZG[name] = val; return val end
-function GETG(name) return _G[name] end
+-- === ZIL Global Variable Storage ===
+-- Each ZIL global occupies a 2-byte (word) slot in mem, exactly as in the Z-machine.
+-- _G[name] is set to the NEGATIVE of the slot address, so GETG can distinguish
+-- global slots (negative) from plain object/room indices (positive).
+-- SAVE/RESTORE work automatically: globals are embedded in mem with no extra table.
+-- Converts a ZIL value to a 16-bit integer word for mem storage.
+-- Mirrors Z-machine semantics: nil/false = 0, true = 1, integers pass through.
+-- Complex types (tables, functions, coroutines) are never written to mem and are
+-- handled by the `else` branch in SETG/GLOBAL, so they never reach to_zword.
+local function to_zword(val)
+	if val == nil or val == false then return 0
+	elseif val == true then return 1
+	else return math.tointeger(val) or 0
+	end
+end
+
+-- GLOBAL: allocate a 2-byte mem slot, write the initial value, and bind the
+-- name to the slot's negative address.
+function GLOBAL(name, val)
+	_G[name] = -(mem:write_word(to_zword(val)))
+end
+
+-- SETG: write a new value into the global's mem slot (string-based name).
+-- If the global has not been declared with GLOBAL, a slot is allocated lazily.
+-- Complex types (tables, coroutines, etc.) are stored directly in _G, not in mem,
+-- and are therefore not saved/restored (consistent with Z-machine semantics).
+function SETG(name, val)
+	local addr = _G[name]
+	if type(addr) == 'number' and addr < 0 then
+		mem:write(makeword(to_zword(val)), -addr)
+	else
+		local a = mem:write_word(to_zword(val))
+		_G[name] = -a
+	end
+	return val
+end
+
+-- GETG: read the current value from a global's mem slot.
+-- Negative ptr = global slot address; positive / non-number = object index or
+-- complex type, returned directly so `,ROOM-NAME` expressions work unchanged.
+-- NOTE: stored word 0 maps to Lua `false` (not 0) so that `if ,FLAG then` works
+-- correctly in ZIL code. All runtime comparisons (EQUALQ, NOT, etc.) treat
+-- `false` and 0 identically via the `(a or 0)` pattern, so round-trips are safe.
+function GETG(ptr)
+	if type(ptr) == 'number' and ptr < 0 then
+		local v = mem:word(-ptr)
+		return v ~= 0 and v or false
+	end
+	return ptr
+end
 
 function LOC(obj) return GETP(obj, PQLOC) end
 function INQ(obj, room) return GETP(obj, PQLOC) == room end
@@ -965,10 +1007,11 @@ function INSERT_FILE(filename)
 end
 
 -- === Save / Restore game state ===
--- The save file contains: mem (which holds object properties, locations, and FLAGS),
--- followed by a section of ZIL global variable values tracked in _ZG.
+-- The save file contains mem (which holds object properties, locations, FLAGS,
+-- and all ZIL global variable slots allocated by GLOBAL/SETG).
+-- No separate globals section is needed: globals live in mem.
 
-local SAVE_MAGIC = "ZILSAVE\1"
+local SAVE_MAGIC = "ZILSAVE\2"
 local SAVE_CHUNK_SIZE = 4096  -- Write mem to file in chunks to avoid table.unpack limits
 
 -- Write a 4-byte little-endian integer into file
@@ -976,22 +1019,9 @@ local function write_int32(file, val)
 	file:write(string.char(val & 0xff, (val >> 8) & 0xff, (val >> 16) & 0xff, (val >> 24) & 0xff))
 end
 
--- Write an 8-byte little-endian integer into file
-local function write_int64(file, val)
-	write_int32(file, val & 0xffffffff)
-	write_int32(file, (val >> 32) & 0xffffffff)
-end
-
 -- Read a 4-byte little-endian integer from a 4-byte string
 local function read_int32(s)
 	return s:byte(1) | (s:byte(2) << 8) | (s:byte(3) << 16) | (s:byte(4) << 24)
-end
-
--- Read an 8-byte little-endian integer from a string at byte offset 1..8
-local function read_int64(s)
-	local val = 0
-	for i = 1, 8 do val = val | (s:byte(i) << ((i - 1) * 8)) end
-	return val
 end
 
 function SAVE(filename)
@@ -1006,6 +1036,7 @@ function SAVE(filename)
 	file:write(SAVE_MAGIC)
 
 	-- mem: size (4 bytes LE) + raw bytes written in chunks
+	-- ZIL global slots are embedded in mem, so no separate section is needed.
 	local size = mem.size
 	write_int32(file, size)
 	local pos = 1
@@ -1015,27 +1046,6 @@ function SAVE(filename)
 		for i = pos, chunk_end do bytes[#bytes + 1] = mem[i] or 0 end
 		file:write(string.char(table.unpack(bytes)))
 		pos = chunk_end + 1
-	end
-
-	-- ZIL globals: count (2 bytes LE) + name-length-prefixed name + typed value
-	local to_save = {}
-	for name, val in pairs(_ZG) do
-		if type(val) == 'number' or type(val) == 'boolean' then
-			to_save[#to_save + 1] = {name, val}
-		end
-	end
-	file:write(string.char(#to_save & 0xff, (#to_save >> 8) & 0xff))
-	for _, entry in ipairs(to_save) do
-		local name, val = entry[1], entry[2]
-		local namelen = math.min(#name, 255)
-		file:write(string.char(namelen) .. name:sub(1, namelen))
-		if type(val) == 'number' then
-			file:write(string.char(1))  -- type 1 = number
-			write_int64(file, val)
-		else
-			file:write(string.char(2))  -- type 2 = boolean
-			file:write(string.char(val and 1 or 0))
-		end
 	end
 
 	file:close()
@@ -1058,7 +1068,7 @@ function RESTORE(filename)
 		return false
 	end
 
-	-- Restore mem
+	-- Restore mem (includes all object data and global variable slots)
 	local sb = file:read(4)
 	if not sb or #sb < 4 then file:close(); return false end
 	local size = read_int32(sb)
@@ -1076,32 +1086,7 @@ function RESTORE(filename)
 		end
 	end
 
-	-- Restore ZIL globals
-	local gc = file:read(2)
-	if gc and #gc >= 2 then
-		local num_globals = gc:byte(1) | (gc:byte(2) << 8)
-		for _ = 1, num_globals do
-			local nl = file:read(1)
-			if not nl then break end
-			local name = file:read(nl:byte())
-			if not name then break end
-			local gtype = file:read(1)
-			if not gtype then break end
-			if gtype:byte() == 1 then
-				local vb = file:read(8)
-				if vb and #vb >= 8 then
-					local val = read_int64(vb)
-					_G[name] = val; _ZG[name] = val
-				end
-			elseif gtype:byte() == 2 then
-				local vb = file:read(1)
-				if vb then
-					local val = vb:byte() ~= 0
-					_G[name] = val; _ZG[name] = val
-				end
-			end
-		end
-	end
+	-- ZIL globals are read directly from the restored mem via GETG; no extra step needed.
 
 	file:close()
 	return true
