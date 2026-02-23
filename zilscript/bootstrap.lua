@@ -51,9 +51,9 @@ FLAGS = {}
 FUNCTIONS = {}
 _DIRECTIONS = {}
 
--- Registry of ZIL global variable names (populated at runtime via SETG)
+-- Registry of ZIL global variables and their values (populated at runtime via SETG)
 -- Used by SAVE/RESTORE to persist game-state variables
-_ZGLOBALS = {}
+_ZG = {}
 
 DESCS = {}
 DIRS = {}
@@ -88,14 +88,28 @@ local suggestions = {
 
 local function objects_in_room(room)
 	local i = 0
+	-- Cache the GLOBAL property pointer and size for this room (computed once per iterator)
+	local global_ptr, global_size
+	local function init_globals()
+		local global_prop = _G["PQGLOBAL"]
+		if global_prop then
+			global_ptr = GETPT(room, global_prop)
+			global_size = global_ptr and PTSIZE(global_ptr) or 0
+		else
+			global_size = 0
+		end
+	end
 	return function()
+		if not global_size then init_globals() end
 		while true do
 			i = i + 1
 			local o = OBJECTS[i]
 			if not o then return nil end
 			if i ~= ADVENTURER and GETP(i, PQLOC) == room then return i, o end
-			for _, v in pairs(OBJECTS[room].GLOBALS or {}) do
-				if v == i then return i, o end
+			if global_size > 0 then
+				for j = 0, global_size - 1 do
+					if mem:byte(global_ptr + j) == i then return i, o end
+				end
 			end
 		end
 	end
@@ -418,8 +432,8 @@ local function getobj(num) return OBJECTS[num] end
 function VALUE(x) return x end
 
 -- SETG/GETG: runtime functions for ZIL global variable access.
--- SETG records the variable name so SAVE/RESTORE knows which globals to persist.
-function SETG(name, val) _G[name] = val; _ZGLOBALS[name] = true; return val end
+-- SETG records the variable name and value so SAVE/RESTORE knows which globals to persist.
+function SETG(name, val) _G[name] = val; _ZG[name] = val; return val end
 function GETG(name) return _G[name] end
 
 function LOC(obj) return GETP(obj, PQLOC) end
@@ -622,7 +636,6 @@ function OBJECT(object)
 			end
 		elseif k == "GLOBAL" then 
 			table.insert(t, makeprop(table.concat2(v, string.char), k))
-			o.GLOBALS = v
 		elseif k == "LOC" then 
 			-- LOC property: stores the object's location as a numeric object ID
 			-- In proper ZIL games, containers like ROOMS are defined as objects with numeric IDs
@@ -953,7 +966,7 @@ end
 
 -- === Save / Restore game state ===
 -- The save file contains: mem (which holds object properties, locations, and FLAGS),
--- followed by a section of ZIL global variable values tracked in _ZGLOBALS.
+-- followed by a section of ZIL global variable values tracked in _ZG.
 
 local SAVE_MAGIC = "ZILSAVE\1"
 local SAVE_CHUNK_SIZE = 4096  -- Write mem to file in chunks to avoid table.unpack limits
@@ -1006,8 +1019,7 @@ function SAVE(filename)
 
 	-- ZIL globals: count (2 bytes LE) + name-length-prefixed name + typed value
 	local to_save = {}
-	for name in pairs(_ZGLOBALS) do
-		local val = _G[name]
+	for name, val in pairs(_ZG) do
 		if type(val) == 'number' or type(val) == 'boolean' then
 			to_save[#to_save + 1] = {name, val}
 		end
@@ -1077,10 +1089,16 @@ function RESTORE(filename)
 			if not gtype then break end
 			if gtype:byte() == 1 then
 				local vb = file:read(8)
-				if vb and #vb >= 8 then _G[name] = read_int64(vb) end
+				if vb and #vb >= 8 then
+					local val = read_int64(vb)
+					_G[name] = val; _ZG[name] = val
+				end
 			elseif gtype:byte() == 2 then
 				local vb = file:read(1)
-				if vb then _G[name] = vb:byte() ~= 0 end
+				if vb then
+					local val = vb:byte() ~= 0
+					_G[name] = val; _ZG[name] = val
+				end
 			end
 		end
 	end

@@ -9,7 +9,7 @@ local sourcemap = require 'zilscript.sourcemap'
 local M = {}
 
 -- Ensure SETG/GETG are available for ZIL global variable access.
--- The full versions (with _ZGLOBALS tracking) are defined in bootstrap.lua;
+-- The full versions (with _ZG tracking) are defined in bootstrap.lua;
 -- these minimal stubs allow ZIL modules to be loaded without bootstrap.
 if not _G.SETG then _G.SETG = function(name, val) _G[name] = val; return val end end
 if not _G.GETG then _G.GETG = function(name) return _G[name] end end
