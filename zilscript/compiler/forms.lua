@@ -258,14 +258,23 @@ function Forms.createHandlers(compiler, printNode)
 
   -- GLOBAL and CONSTANT
   form.GLOBAL = function(buf, node, indent)
+    local name = compiler.value(node[1])
+    buf.write("%s = ", name)
+    for i = 2, #node do
+      printNode(buf, node[i], 0)
+      buf.writeln()
+    end
+    -- Register in ZIL globals registry so SAVE/RESTORE can persist this variable
+    buf.writeln('if _ZGLOBALS then _ZGLOBALS[%q] = true end', name)
+  end
+
+  form.CONSTANT = function(buf, node, indent)
     buf.write("%s = ", compiler.value(node[1]))
     for i = 2, #node do
       printNode(buf, node[i], 0)
       buf.writeln()
     end
   end
-
-  form.CONSTANT = form.GLOBAL
 
   -- SYNTAX
   form.SYNTAX = function(buf, node, indent)
