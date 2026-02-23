@@ -51,10 +51,6 @@ FLAGS = {}
 FUNCTIONS = {}
 _DIRECTIONS = {}
 
--- Registry of ZIL global variable names (populated at runtime via SETG)
--- Used by SAVE/RESTORE to persist game-state variables
-_ZGLOBALS = {}
-
 DESCS = {}
 DIRS = {}
 
@@ -358,6 +354,11 @@ local routes = {
 
 -- Modified READ to yield with output
 function READ(inbuf, parse)
+
+	for k, v in pairs(_G) do
+		if type(v) == 'boolean' then print(k, type(v)) end
+	end
+
 	-- Yield with accumulated output, get input back
 	local s = coroutine.yield(io_flush())
 	::restart_read::

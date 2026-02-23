@@ -259,9 +259,9 @@ function Forms.createHandlers(compiler, printNode)
   -- GLOBAL and CONSTANT
   form.GLOBAL = function(buf, node, indent)
     local name = compiler.value(node[1])
-    buf.write("SETG(%q, ", name)
+    buf.write("%s = ", name)
     printNode(buf, node[2], 0)
-    buf.writeln(")")
+    buf.writeln()
   end
 
   form.CONSTANT = function(buf, node, indent)
