@@ -141,7 +141,19 @@ function Forms.createHandlers(compiler, printNode)
   form.SET = function(buf, node, indent)
     compileSet(buf, node, indent, compiler, printNode)
   end
-  form.SETG = form.SET
+  form.SETG = function(buf, node, indent)
+    local name = compiler.value(node[1])
+    buf.write("SETG(%q, ", name)
+    local val = node[2]
+    if utils.isCond(val) then
+      buf.write("APPLY(function()")
+      printNode(buf, val, indent + 1)
+      buf.write(" return __tmp end)")
+    else
+      printNode(buf, val, indent + 1)
+    end
+    buf.write(")")
+  end
 
   -- LET - Local variable bindings
   form.LET = function(buf, node, indent)
@@ -258,14 +270,19 @@ function Forms.createHandlers(compiler, printNode)
 
   -- GLOBAL and CONSTANT
   form.GLOBAL = function(buf, node, indent)
+    local name = compiler.value(node[1])
+    buf.write("SETG(%q, ", name)
+    printNode(buf, node[2], 0)
+    buf.writeln(")")
+  end
+
+  form.CONSTANT = function(buf, node, indent)
     buf.write("%s = ", compiler.value(node[1]))
     for i = 2, #node do
       printNode(buf, node[i], 0)
       buf.writeln()
     end
   end
-
-  form.CONSTANT = form.GLOBAL
 
   -- SYNTAX
   form.SYNTAX = function(buf, node, indent)

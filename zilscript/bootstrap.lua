@@ -51,6 +51,10 @@ FLAGS = {}
 FUNCTIONS = {}
 _DIRECTIONS = {}
 
+-- Registry of ZIL global variable names (populated at runtime via SETG)
+-- Used by SAVE/RESTORE to persist game-state variables
+_ZGLOBALS = {}
+
 DESCS = {}
 DIRS = {}
 
@@ -413,6 +417,11 @@ local function getobj(num) return OBJECTS[num] end
 -- In ZIL, <VALUE var> gets the runtime value of a variable
 function VALUE(x) return x end
 
+-- SETG/GETG: runtime functions for ZIL global variable access.
+-- SETG records the variable name so SAVE/RESTORE knows which globals to persist.
+function SETG(name, val) _G[name] = val; _ZGLOBALS[name] = true; return val end
+function GETG(name) return _G[name] end
+
 function LOC(obj) return GETP(obj, PQLOC) end
 function INQ(obj, room) return GETP(obj, PQLOC) == room end
 function MOVE(obj, dest) PUTP(obj, PQLOC, dest) end
@@ -485,8 +494,26 @@ local function learn(word, atom, value)
 	return value or cache.words[word]
 end
 
-function FSET(obj, flag) getobj(obj).FLAGS = (getobj(obj).FLAGS or 0) | (1<<flag) end
-function FCLEAR(obj, flag) getobj(obj).FLAGS = (getobj(obj).FLAGS or 0) & ~(1<<flag) end
+local function write_flags_to_mem(o)
+	if o._flags_addr then
+		local flags = o.FLAGS or 0
+		mem:write(string.char(
+			flags & 0xff, (flags >> 8) & 0xff, (flags >> 16) & 0xff, (flags >> 24) & 0xff,
+			(flags >> 32) & 0xff, (flags >> 40) & 0xff, (flags >> 48) & 0xff, (flags >> 56) & 0xff
+		), o._flags_addr)
+	end
+end
+
+function FSET(obj, flag)
+	local o = getobj(obj)
+	o.FLAGS = (o.FLAGS or 0) | (1<<flag)
+	write_flags_to_mem(o)
+end
+function FCLEAR(obj, flag)
+	local o = getobj(obj)
+	o.FLAGS = (o.FLAGS or 0) & ~(1<<flag)
+	write_flags_to_mem(o)
+end
 function FSETQ(obj, flag) return getobj(obj).FLAGS and (getobj(obj).FLAGS & (1<<flag)) ~= 0 end
 function GETPT(obj, prop)
 	local tbl = getobj(obj).tbl
@@ -637,6 +664,12 @@ function OBJECT(object)
 	end
 	table.insert(t, string.char(0,0))
 	o.tbl = mem:write(table.concat(t))
+	-- Allocate 8 bytes in mem for object FLAGS so they are included in mem dumps
+	local flags_val = o.FLAGS or 0
+	o._flags_addr = mem:write(string.char(
+		flags_val & 0xff, (flags_val >> 8) & 0xff, (flags_val >> 16) & 0xff, (flags_val >> 24) & 0xff,
+		(flags_val >> 32) & 0xff, (flags_val >> 40) & 0xff, (flags_val >> 48) & 0xff, (flags_val >> 56) & 0xff
+	))
 end
 
 function REST(s, i)
@@ -916,6 +949,144 @@ function INSERT_FILE(filename)
 	if not exec_ok then
 		error(string.format("INSERT_FILE: Failed to execute '%s': %s", filename, exec_err))
 	end
+end
+
+-- === Save / Restore game state ===
+-- The save file contains: mem (which holds object properties, locations, and FLAGS),
+-- followed by a section of ZIL global variable values tracked in _ZGLOBALS.
+
+local SAVE_MAGIC = "ZILSAVE\1"
+local SAVE_CHUNK_SIZE = 4096  -- Write mem to file in chunks to avoid table.unpack limits
+
+-- Write a 4-byte little-endian integer into file
+local function write_int32(file, val)
+	file:write(string.char(val & 0xff, (val >> 8) & 0xff, (val >> 16) & 0xff, (val >> 24) & 0xff))
+end
+
+-- Write an 8-byte little-endian integer into file
+local function write_int64(file, val)
+	write_int32(file, val & 0xffffffff)
+	write_int32(file, (val >> 32) & 0xffffffff)
+end
+
+-- Read a 4-byte little-endian integer from a 4-byte string
+local function read_int32(s)
+	return s:byte(1) | (s:byte(2) << 8) | (s:byte(3) << 16) | (s:byte(4) << 24)
+end
+
+-- Read an 8-byte little-endian integer from a string at byte offset 1..8
+local function read_int64(s)
+	local val = 0
+	for i = 1, 8 do val = val | (s:byte(i) << ((i - 1) * 8)) end
+	return val
+end
+
+function SAVE(filename)
+	filename = filename or "savefile.sav"
+	local file = io.open(filename, "wb")
+	if not file then
+		TELL("Cannot open save file.", CR)
+		return false
+	end
+
+	-- Header
+	file:write(SAVE_MAGIC)
+
+	-- mem: size (4 bytes LE) + raw bytes written in chunks
+	local size = mem.size
+	write_int32(file, size)
+	local pos = 1
+	while pos <= size do
+		local chunk_end = math.min(pos + SAVE_CHUNK_SIZE - 1, size)
+		local bytes = {}
+		for i = pos, chunk_end do bytes[#bytes + 1] = mem[i] or 0 end
+		file:write(string.char(table.unpack(bytes)))
+		pos = chunk_end + 1
+	end
+
+	-- ZIL globals: count (2 bytes LE) + name-length-prefixed name + typed value
+	local to_save = {}
+	for name in pairs(_ZGLOBALS) do
+		local val = _G[name]
+		if type(val) == 'number' or type(val) == 'boolean' then
+			to_save[#to_save + 1] = {name, val}
+		end
+	end
+	file:write(string.char(#to_save & 0xff, (#to_save >> 8) & 0xff))
+	for _, entry in ipairs(to_save) do
+		local name, val = entry[1], entry[2]
+		local namelen = math.min(#name, 255)
+		file:write(string.char(namelen) .. name:sub(1, namelen))
+		if type(val) == 'number' then
+			file:write(string.char(1))  -- type 1 = number
+			write_int64(file, val)
+		else
+			file:write(string.char(2))  -- type 2 = boolean
+			file:write(string.char(val and 1 or 0))
+		end
+	end
+
+	file:close()
+	return true
+end
+
+function RESTORE(filename)
+	filename = filename or "savefile.sav"
+	local file = io.open(filename, "rb")
+	if not file then
+		TELL("Cannot open save file.", CR)
+		return false
+	end
+
+	-- Verify header
+	local magic = file:read(#SAVE_MAGIC)
+	if magic ~= SAVE_MAGIC then
+		TELL("Invalid save file.", CR)
+		file:close()
+		return false
+	end
+
+	-- Restore mem
+	local sb = file:read(4)
+	if not sb or #sb < 4 then file:close(); return false end
+	local size = read_int32(sb)
+	local data = file:read(size)
+	if not data or #data < size then file:close(); return false end
+	for i = 1, size do mem[i] = data:byte(i) end
+	mem.size = size
+
+	-- Re-sync object FLAGS caches from restored mem
+	for _, o in ipairs(OBJECTS) do
+		if o._flags_addr then
+			local flags = 0
+			for i = 0, 7 do flags = flags | (mem:byte(o._flags_addr + i) << (i * 8)) end
+			o.FLAGS = flags
+		end
+	end
+
+	-- Restore ZIL globals
+	local gc = file:read(2)
+	if gc and #gc >= 2 then
+		local num_globals = gc:byte(1) | (gc:byte(2) << 8)
+		for _ = 1, num_globals do
+			local nl = file:read(1)
+			if not nl then break end
+			local name = file:read(nl:byte())
+			if not name then break end
+			local gtype = file:read(1)
+			if not gtype then break end
+			if gtype:byte() == 1 then
+				local vb = file:read(8)
+				if vb and #vb >= 8 then _G[name] = read_int64(vb) end
+			elseif gtype:byte() == 2 then
+				local vb = file:read(1)
+				if vb then _G[name] = vb:byte() ~= 0 end
+			end
+		end
+	end
+
+	file:close()
+	return true
 end
 
 -- === Done ===
