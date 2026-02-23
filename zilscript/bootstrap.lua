@@ -354,10 +354,9 @@ local routes = {
 
 -- Modified READ to yield with output
 function READ(inbuf, parse)
-
-	for k, v in pairs(_G) do
-		if type(v) == 'boolean' then print(k, type(v)) end
-	end
+	-- for k, v in pairs(_G) do
+	-- 	if type(v) == 'boolean' then print(k, type(v)) end
+	-- end
 
 	-- Yield with accumulated output, get input back
 	local s = coroutine.yield(io_flush())
