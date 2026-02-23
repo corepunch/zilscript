@@ -39,6 +39,13 @@ function Value.value(node, compiler)
     return string.format('PQ%s', val:sub(4))
   end
 
+  -- Global variable references (,VARNAME) - compile to GETG("VARNAME")
+  if val:match("^,") then
+    local name = utils.normalizeIdentifier(val:sub(2))  -- strip leading comma
+    if name:match("^%d") then name = utils.digitsToLetters(name) end
+    return string.format('GETG("%s")', name)
+  end
+
   -- Check if this is a local variable reference (starts with .)
   local is_local = val:match("^%.")
   

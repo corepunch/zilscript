@@ -55,6 +55,18 @@ _DIRECTIONS = {}
 -- Used by SAVE/RESTORE to persist game-state variables
 _ZGLOBALS = {}
 
+-- Set a ZIL global variable and register it in _ZGLOBALS for save/restore
+function SETG(name, val)
+	_G[name] = val
+	_ZGLOBALS[name] = true
+	return val
+end
+
+-- Get a ZIL global variable by name
+function GETG(name)
+	return _G[name]
+end
+
 DESCS = {}
 DIRS = {}
 
@@ -1000,7 +1012,8 @@ function SAVE(filename)
 
 	-- ZIL globals: count (2 bytes LE) + name-length-prefixed name + typed value
 	local to_save = {}
-	for name, val in pairs(_G) do
+	for name in pairs(_ZGLOBALS) do
+		local val = _G[name]
 		if type(val) == 'number' or type(val) == 'boolean' then
 			table.insert(to_save, {name, val})
 		end
