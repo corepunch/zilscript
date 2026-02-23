@@ -51,7 +51,7 @@ FLAGS = {}
 FUNCTIONS = {}
 _DIRECTIONS = {}
 
--- Registry of ZIL global variable names (populated by compiled <GLOBAL> forms)
+-- Registry of ZIL global variable names (populated at runtime via SETG)
 -- Used by SAVE/RESTORE to persist game-state variables
 _ZGLOBALS = {}
 
@@ -416,6 +416,11 @@ local function getobj(num) return OBJECTS[num] end
 -- VALUE function: identity function for ZIL's <VALUE var> form
 -- In ZIL, <VALUE var> gets the runtime value of a variable
 function VALUE(x) return x end
+
+-- SETG/GETG: runtime functions for ZIL global variable access.
+-- SETG records the variable name so SAVE/RESTORE knows which globals to persist.
+function SETG(name, val) _G[name] = val; _ZGLOBALS[name] = true; return val end
+function GETG(name) return _G[name] end
 
 function LOC(obj) return GETP(obj, PQLOC) end
 function INQ(obj, room) return GETP(obj, PQLOC) == room end
