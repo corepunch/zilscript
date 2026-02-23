@@ -489,27 +489,34 @@ local function learn(word, atom, value)
 	return value or cache.words[word]
 end
 
-local function write_flags_to_mem(o)
-	if o._flags_addr then
-		local flags = o.FLAGS or 0
-		mem:write(string.char(
-			flags & 0xff, (flags >> 8) & 0xff, (flags >> 16) & 0xff, (flags >> 24) & 0xff,
-			(flags >> 32) & 0xff, (flags >> 40) & 0xff, (flags >> 48) & 0xff, (flags >> 56) & 0xff
-		), o._flags_addr)
-	end
+local function flags_read(ptr)
+	local flags = 0
+	for i = 0, 7 do flags = flags | (mem:byte(ptr + i) << (i * 8)) end
+	return flags
+end
+
+local function flags_write(ptr, flags)
+	mem:write(string.char(
+		flags & 0xff, (flags >> 8) & 0xff, (flags >> 16) & 0xff, (flags >> 24) & 0xff,
+		(flags >> 32) & 0xff, (flags >> 40) & 0xff, (flags >> 48) & 0xff, (flags >> 56) & 0xff
+	), ptr)
 end
 
 function FSET(obj, flag)
-	local o = getobj(obj)
-	o.FLAGS = (o.FLAGS or 0) | (1<<flag)
-	write_flags_to_mem(o)
+	local ptr = GETPT(obj, PQFLAGS)
+	if not ptr then return end
+	flags_write(ptr, flags_read(ptr) | (1 << flag))
 end
 function FCLEAR(obj, flag)
-	local o = getobj(obj)
-	o.FLAGS = (o.FLAGS or 0) & ~(1<<flag)
-	write_flags_to_mem(o)
+	local ptr = GETPT(obj, PQFLAGS)
+	if not ptr then return end
+	flags_write(ptr, flags_read(ptr) & ~(1 << flag))
 end
-function FSETQ(obj, flag) return getobj(obj).FLAGS and (getobj(obj).FLAGS & (1<<flag)) ~= 0 end
+function FSETQ(obj, flag)
+	local ptr = GETPT(obj, PQFLAGS)
+	if not ptr then return false end
+	return (flags_read(ptr) & (1 << flag)) ~= 0
+end
 function GETPT(obj, prop)
 	local tbl = getobj(obj).tbl
 	local l = mem:byte(tbl)+tbl+1
@@ -657,14 +664,14 @@ function OBJECT(object)
 		local loc_value = 0
 		table.insert(t, makeprop(string.char(loc_value), "LOC"))
 	end
-	table.insert(t, string.char(0,0))
-	o.tbl = mem:write(table.concat(t))
-	-- Allocate 8 bytes in mem for object FLAGS so they are included in mem dumps
+	-- Add FLAGS as an 8-byte property in the property table
 	local flags_val = o.FLAGS or 0
-	o._flags_addr = mem:write(string.char(
+	table.insert(t, makeprop(string.char(
 		flags_val & 0xff, (flags_val >> 8) & 0xff, (flags_val >> 16) & 0xff, (flags_val >> 24) & 0xff,
 		(flags_val >> 32) & 0xff, (flags_val >> 40) & 0xff, (flags_val >> 48) & 0xff, (flags_val >> 56) & 0xff
-	))
+	), "FLAGS"))
+	table.insert(t, string.char(0,0))
+	o.tbl = mem:write(table.concat(t))
 end
 
 function REST(s, i)
@@ -1047,15 +1054,6 @@ function RESTORE(filename)
 	if not data or #data < size then file:close(); return false end
 	for i = 1, size do mem[i] = data:byte(i) end
 	mem.size = size
-
-	-- Re-sync object FLAGS caches from restored mem
-	for _, o in ipairs(OBJECTS) do
-		if o._flags_addr then
-			local flags = 0
-			for i = 0, 7 do flags = flags | (mem:byte(o._flags_addr + i) << (i * 8)) end
-			o.FLAGS = flags
-		end
-	end
 
 	-- Restore ZIL globals
 	local gc = file:read(2)
