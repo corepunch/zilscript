@@ -141,19 +141,7 @@ function Forms.createHandlers(compiler, printNode)
   form.SET = function(buf, node, indent)
     compileSet(buf, node, indent, compiler, printNode)
   end
-  form.SETG = function(buf, node, indent)
-    local name = compiler.value(node[1])
-    buf.write("SETG(%q, ", name)
-    local val = node[2]
-    if utils.isCond(val) then
-      buf.write("APPLY(function()")
-      printNode(buf, val, indent + 1)
-      buf.write(" return __tmp end)")
-    else
-      printNode(buf, val, indent + 1)
-    end
-    buf.write(")")
-  end
+  form.SETG = form.SET
 
   -- LET - Local variable bindings
   form.LET = function(buf, node, indent)

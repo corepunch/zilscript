@@ -417,11 +417,6 @@ local function getobj(num) return OBJECTS[num] end
 -- In ZIL, <VALUE var> gets the runtime value of a variable
 function VALUE(x) return x end
 
--- SETG/GETG: runtime functions for ZIL global variable access.
--- SETG records the variable name so SAVE/RESTORE knows which globals to persist.
-function SETG(name, val) _G[name] = val; _ZGLOBALS[name] = true; return val end
-function GETG(name) return _G[name] end
-
 function LOC(obj) return GETP(obj, PQLOC) end
 function INQ(obj, room) return GETP(obj, PQLOC) == room end
 function MOVE(obj, dest) PUTP(obj, PQLOC, dest) end
@@ -953,7 +948,6 @@ end
 
 -- === Save / Restore game state ===
 -- The save file contains: mem (which holds object properties, locations, and FLAGS),
--- followed by a section of ZIL global variable values tracked in _ZGLOBALS.
 
 local SAVE_MAGIC = "ZILSAVE\1"
 local SAVE_CHUNK_SIZE = 4096  -- Write mem to file in chunks to avoid table.unpack limits
@@ -1006,13 +1000,12 @@ function SAVE(filename)
 
 	-- ZIL globals: count (2 bytes LE) + name-length-prefixed name + typed value
 	local to_save = {}
-	for name in pairs(_ZGLOBALS) do
-		local val = _G[name]
+	for name, val in pairs(_G) do
 		if type(val) == 'number' or type(val) == 'boolean' then
-			to_save[#to_save + 1] = {name, val}
+			table.insert(to_save, {name, val})
 		end
 	end
-	file:write(string.char(#to_save & 0xff, (#to_save >> 8) & 0xff))
+	file:write(makeword(#to_save))
 	for _, entry in ipairs(to_save) do
 		local name, val = entry[1], entry[2]
 		local namelen = math.min(#name, 255)
