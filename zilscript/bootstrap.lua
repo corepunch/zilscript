@@ -187,6 +187,7 @@ mem = setmetatable({size=0},{__index={
 	write = function(self, buffer, pos)
 		if not pos then pos = self.size + 1 end  -- Append if no pos
 		local buf_len = #buffer
+		assert(pos+buf_len-1 <= 0xffff, "Memory overflow: can't write beyond 65535")
 		for i = 1, buf_len do
 			local byte = buffer:byte(i)
 			if pos + i - 1 > self.size then self.size = pos + i - 1 end
