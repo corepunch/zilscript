@@ -496,10 +496,9 @@ local function flags_read(ptr)
 end
 
 local function flags_write(ptr, flags)
-	mem:write(string.char(
-		flags & 0xff, (flags >> 8) & 0xff, (flags >> 16) & 0xff, (flags >> 24) & 0xff,
-		(flags >> 32) & 0xff, (flags >> 40) & 0xff, (flags >> 48) & 0xff, (flags >> 56) & 0xff
-	), ptr)
+	local bytes = {}
+	for i = 0, 7 do bytes[i + 1] = (flags >> (i * 8)) & 0xff end
+	mem:write(string.char(table.unpack(bytes)), ptr)
 end
 
 function FSET(obj, flag)
@@ -666,10 +665,9 @@ function OBJECT(object)
 	end
 	-- Add FLAGS as an 8-byte property in the property table
 	local flags_val = o.FLAGS or 0
-	table.insert(t, makeprop(string.char(
-		flags_val & 0xff, (flags_val >> 8) & 0xff, (flags_val >> 16) & 0xff, (flags_val >> 24) & 0xff,
-		(flags_val >> 32) & 0xff, (flags_val >> 40) & 0xff, (flags_val >> 48) & 0xff, (flags_val >> 56) & 0xff
-	), "FLAGS"))
+	local flags_bytes = {}
+	for i = 0, 7 do flags_bytes[i + 1] = (flags_val >> (i * 8)) & 0xff end
+	table.insert(t, makeprop(string.char(table.unpack(flags_bytes)), "FLAGS"))
 	table.insert(t, string.char(0,0))
 	o.tbl = mem:write(table.concat(t))
 end
