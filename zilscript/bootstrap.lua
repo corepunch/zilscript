@@ -591,7 +591,7 @@ table.concat2 = function(t, fn)
 end
 
 function DECL_OBJECT(name)
-	table.insert(OBJECTS, {NAME=name,FLAGS=0})
+	table.insert(OBJECTS, {NAME=name})
 	return #OBJECTS
 end
 
@@ -1084,6 +1084,14 @@ function RESTORE(filename)
 
 	file:close()
 	return true
+end
+
+-- === Finalize ===
+-- Called after all game modules are loaded to free initialization-only caches
+function FINALIZE_GAME()
+	PREPOSITIONS._hash = nil
+	cache.verbs = nil
+	cache.synonyms = nil
 end
 
 -- === Done ===

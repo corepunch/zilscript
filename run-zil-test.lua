@@ -64,6 +64,9 @@ end
 print("Running ZIL test: " .. test_module)
 require(test_module)
 
+-- Free initialization-only caches now that all modules are loaded
+if FINALIZE_GAME then FINALIZE_GAME() end
+
 -- Run the RUN_TEST routine
 RUN_TEST()
 

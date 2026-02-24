@@ -268,8 +268,8 @@ function M.load_modules(env, modules, options)
 		end
 	end
 	
-	-- REMOVED: FINALIZE_PREPOSITIONS call - prepositions now use pre-allocated array format
-	-- M.execute("if FINALIZE_PREPOSITIONS then FINALIZE_PREPOSITIONS() end", 'finalize', env, options.silent)
+	-- Call FINALIZE_GAME if available, to free initialization-only caches
+	M.execute("if FINALIZE_GAME then FINALIZE_GAME() end", 'finalize', env, options.silent)
 	
 	return true
 end
