@@ -494,11 +494,6 @@ local function learn(word, atom, value)
 	return value or cache.words[word]
 end
 
-local function flags_write(ptr, flags)
-	local bytes = {}
-	for i = 0, 3 do bytes[i + 1] = (flags >> (i * 8)) & 0xff end
-	mem:write(string.char(table.unpack(bytes)), ptr)
-end
 
 function FSET(obj, flag)
 	PUTP(obj, PQFLAGS, GETP(obj, PQFLAGS) | (1 << flag))
@@ -550,7 +545,7 @@ function GETP(obj, prop)
 	local ptsize = PTSIZE(ptr)
 	if ptsize == 1 then return mem:byte(ptr) end
 	if ptsize == 2 then return mem:word(ptr) ~= 0 and mem:string(mem:word(ptr)) or nil end
-	if ptsize == 4 then return mem:dword(ptr) ~= 0 and mem:dword(ptr) or 0 end
+	if ptsize == 4 then return mem:dword(ptr) end
 	assert(false, "Unsupported property to get")
 end
 function NEXTP(obj, prop)
