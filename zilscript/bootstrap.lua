@@ -44,8 +44,13 @@ PROPERTIES = {}
 PREPOSITIONS = {[0] = 0}  -- Initialize with count = 0
 PREPOSITIONS._hash = {}   -- Helper hash for quick lookup during population
 ADJECTIVES = {}
-ACTIONS = {}
-PREACTIONS = {}
+-- ACTIONS/PREACTIONS: mem-allocated 256×2-byte dispatch tables, lazily initialized on first SYNTAX call.
+-- They are populated during loading (by SYNTAX) AND read at runtime on every command dispatch:
+-- the game's PERFORM routine calls <GET ,ACTIONS .A> and <GET ,PREACTIONS .A> to find and
+-- invoke the handler for the current verb. Keeping them in mem is therefore correct -- they
+-- are not loading-only data.
+ACTIONS = 0   -- mem address of action dispatch table (action_id → fn_idx)
+PREACTIONS = 0  -- mem address of pre-action dispatch table (action_id → fn_idx)
 FLAGS = {}
 FUNCTIONS = {}
 _DIRECTIONS = {}
@@ -75,6 +80,8 @@ M_OBJDESC = 5
 
 local mem
 local _obj_count = 0  -- number of declared objects; object IDs are 1.._obj_count
+local _act_count = 0  -- number of registered actions; action IDs are 1.._act_count
+local _act_fn_to_id = {}  -- build-time reverse-lookup: fn_idx -> action_id
 local suggestions = {
 	READBIT = "READ",
 	TAKEBIT = "TAKE",
@@ -761,10 +768,15 @@ function DIRECTIONS(...)
 	end
 end
 
-local function action_id(ACTIONS, action)
-	for i, a in ipairs(ACTIONS) do if action == a then return i end end
-	table.insert(ACTIONS, action)
-	return #ACTIONS
+local function action_id(fn_idx)
+	if _act_fn_to_id[fn_idx] then return _act_fn_to_id[fn_idx] end
+	_act_count = _act_count + 1
+	assert(_act_count <= 255, "Too many actions (max 255)")
+	_act_fn_to_id[fn_idx] = _act_count
+	-- Write fn_idx at offset _act_count*2 so that GET(ACTIONS, _act_count) = mem:word(ACTIONS + _act_count*2) reads it back.
+	-- Action IDs are 1-based; offset 0 is unused (same convention as VERBS).
+	mem:write(makeword(fn_idx), ACTIONS + _act_count * 2)
+	return _act_count
 end
 
 function TRACEBACK()
@@ -779,8 +791,12 @@ end
 
 function SYNTAX(syn)
 	VERBS = VERBS or mem:write(string.rep('\0\0', 256))
+	if ACTIONS == 0 then
+		ACTIONS = mem:write(string.rep('\0\0', 256))
+		PREACTIONS = mem:write(string.rep('\0\0', 256))
+	end
 	local name = syn.VERB:lower()
-	local action = action_id(ACTIONS, fn(_G[syn.ACTION]))
+	local action = action_id(fn(_G[syn.ACTION]))
 	local function encode(s)
 		return string.char(
 			s.OBJECT and (s.SUBJECT and 2 or 1) or 0,
@@ -807,7 +823,7 @@ function SYNTAX(syn)
 	end
 	_G[syn.ACTION:gsub("_", "Q", 1)] = action
 	if syn.PREACTION then 
-		PREACTIONS[action] = fn(_G[syn.PREACTION]) 
+		mem:write(makeword(fn(_G[syn.PREACTION])), PREACTIONS + action * 2)
 	end
 end
 
