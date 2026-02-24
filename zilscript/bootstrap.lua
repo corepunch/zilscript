@@ -178,6 +178,11 @@ local function makedword(val)
 	return string.char(val&0xff, (val>>8)&0xff, (val>>16)&0xff, (val>>24)&0xff)
 end
 
+local function makeqword(val)
+	return string.char(val&0xff, (val>>8)&0xff, (val>>16)&0xff, (val>>24)&0xff,
+	                   (val>>32)&0xff, (val>>40)&0xff, (val>>48)&0xff, (val>>56)&0xff)
+end
+
 mem = setmetatable({size=0},{__index={
 	write = function(self, buffer, pos)
 		if not pos then pos = self.size + 1 end  -- Append if no pos
@@ -208,6 +213,7 @@ mem = setmetatable({size=0},{__index={
 	byte = function(self, idx) return self[idx+1] end,
 	word = function(self, ptr) return self:byte(ptr)|(self:byte(ptr+1)<<8) end,
 	dword = function(self, ptr) return self:byte(ptr)|(self:byte(ptr+1)<<8)|(self:byte(ptr+2)<<16)|(self:byte(ptr+3)<<24) end,
+	qword = function(self, ptr) return self:byte(ptr)|(self:byte(ptr+1)<<8)|(self:byte(ptr+2)<<16)|(self:byte(ptr+3)<<24)|(self:byte(ptr+4)<<32)|(self:byte(ptr+5)<<40)|(self:byte(ptr+6)<<48)|(self:byte(ptr+7)<<56) end,
 	string = function(self, ptr)
 		local str = self:table_to_str(ptr + 2, ptr + self:word(ptr) + 1)
 		return decode_fptr(str) or str
@@ -538,6 +544,7 @@ function PUTP(obj, prop, val)
 	if PTSIZE(ptr) == 1 then mem:write(makebyte(val), ptr)
 	elseif PTSIZE(ptr) == 2 then mem:write(makeword(val), ptr)
 	elseif PTSIZE(ptr) == 4 then mem:write(makedword(val), ptr)
+	elseif PTSIZE(ptr) == 8 then mem:write(makeqword(val), ptr)
 	else
 		error("Unsupported property size for number: "..PTSIZE(ptr))
 	end
@@ -549,6 +556,7 @@ function GETP(obj, prop)
 	if ptsize == 1 then return mem:byte(ptr) end
 	if ptsize == 2 then return mem:word(ptr) ~= 0 and mem:string(mem:word(ptr)) or nil end
 	if ptsize == 4 then return mem:dword(ptr) end
+	if ptsize == 8 then return mem:qword(ptr) end
 	assert(false, "Unsupported property to get")
 end
 function NEXTP(obj, prop)
@@ -621,7 +629,7 @@ function OBJECT(object)
 				if not _G[f] then _G[f] = register(FLAGS, f) end
 				flags = flags | (1 << _G[f])
 			end
-			table.insert(t, makeprop(makedword(flags), k))
+			table.insert(t, makeprop(makeqword(flags), k))
 		elseif k == "GLOBAL" then 
 			table.insert(t, makeprop(table.concat2(v, string.char), k))
 			o.GLOBALS = v
