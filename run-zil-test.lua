@@ -12,13 +12,20 @@ local success = true
 
 -- ASSERT that checks condition and prints [PASS] or [FAIL]
 function ASSERT(msg, ...)
-	for _, condition in ipairs {...} do
+	local args = {...}
+	for i, condition in ipairs(args) do
 		if condition then
 			print(GREEN .. "[PASS] " .. (msg or "Assertion passed") .. RESET)
 			return true
 		else
 			success = false
-			print(RED .. "[FAIL] " .. (msg or "Assertion failed") .. RESET)
+			-- If the next arg is a string it's the error from a failed CO_RESUME — show it
+			local detail = args[i + 1]
+			if type(detail) == 'string' then
+				print(RED .. "[FAIL] " .. (msg or "Assertion failed") .. '\n' .. detail .. RESET)
+			else
+				print(RED .. "[FAIL] " .. (msg or "Assertion failed") .. RESET)
+			end
 			return false
 		end
 	end
