@@ -491,13 +491,13 @@ end
 
 local function flags_read(ptr)
 	local flags = 0
-	for i = 0, 7 do flags = flags | (mem:byte(ptr + i) << (i * 8)) end
+	for i = 0, 3 do flags = flags | (mem:byte(ptr + i) << (i * 8)) end
 	return flags
 end
 
 local function flags_write(ptr, flags)
 	local bytes = {}
-	for i = 0, 7 do bytes[i + 1] = (flags >> (i * 8)) & 0xff end
+	for i = 0, 3 do bytes[i + 1] = (flags >> (i * 8)) & 0xff end
 	mem:write(string.char(table.unpack(bytes)), ptr)
 end
 
@@ -663,10 +663,10 @@ function OBJECT(object)
 		local loc_value = 0
 		table.insert(t, makeprop(string.char(loc_value), "LOC"))
 	end
-	-- Add FLAGS as an 8-byte property in the property table
+	-- Add FLAGS as a 4-byte property in the property table
 	local flags_val = o.FLAGS or 0
 	local flags_bytes = {}
-	for i = 0, 7 do flags_bytes[i + 1] = (flags_val >> (i * 8)) & 0xff end
+	for i = 0, 3 do flags_bytes[i + 1] = (flags_val >> (i * 8)) & 0xff end
 	table.insert(t, makeprop(string.char(table.unpack(flags_bytes)), "FLAGS"))
 	table.insert(t, string.char(0,0))
 	o.tbl = mem:write(table.concat(t))
