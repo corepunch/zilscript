@@ -83,6 +83,16 @@ local suggestions = {
 }
 
 local function objects_in_room(room)
+	local room_globals = {}
+	local pqglobal = rawget(_G, "PQGLOBAL")
+	if pqglobal and GETPT(room, pqglobal) then
+		local ptr = GETPT(room, pqglobal)
+		local size = PTSIZE(ptr)
+		for i = 0, size - 1 do
+			room_globals[mem:byte(ptr + i)] = true
+		end
+	end
+
 	local i = 0
 	return function()
 		while true do
@@ -90,9 +100,7 @@ local function objects_in_room(room)
 			local o = OBJECTS[i]
 			if not o then return nil end
 			if i ~= ADVENTURER and GETP(i, PQLOC) == room then return i, o end
-			for _, v in pairs(OBJECTS[room].GLOBALS or {}) do
-				if v == i then return i, o end
-			end
+			if i ~= ADVENTURER and room_globals[i] then return i, o end
 		end
 	end
 end
@@ -631,9 +639,8 @@ function OBJECT(object)
 				flags = flags | (1 << _G[f])
 			end
 			table.insert(t, makeprop(makeqword(flags), k))
-		elseif k == "GLOBAL" then 
+		elseif k == "GLOBAL" then 	
 			table.insert(t, makeprop(table.concat2(v, string.char), k))
-			o.GLOBALS = v
 		elseif k == "LOC" then 
 			-- LOC property: stores the object's location as a numeric object ID
 			-- In proper ZIL games, containers like ROOMS are defined as objects with numeric IDs
