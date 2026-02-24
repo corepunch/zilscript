@@ -170,6 +170,10 @@ local function makeword(val)
 	return string.char(val&0xff, (val>>8)&0xff)
 end
 
+local function makedword(val)
+	return string.char(val&0xff, (val>>8)&0xff, (val>>16)&0xff, (val>>24)&0xff)
+end
+
 mem = setmetatable({size=0},{__index={
 	write = function(self, buffer, pos)
 		if not pos then pos = self.size + 1 end  -- Append if no pos
@@ -199,6 +203,7 @@ mem = setmetatable({size=0},{__index={
 
 	byte = function(self, idx) return self[idx+1] end,
 	word = function(self, ptr) return self:byte(ptr)|(self:byte(ptr+1)<<8) end,
+	dword = function(self, ptr) return self:byte(ptr)|(self:byte(ptr+1)<<8)|(self:byte(ptr+2)<<16)|(self:byte(ptr+3)<<24) end,
 	string = function(self, ptr)
 		local str = self:table_to_str(ptr + 2, ptr + self:word(ptr) + 1)
 		return decode_fptr(str) or str
@@ -489,12 +494,6 @@ local function learn(word, atom, value)
 	return value or cache.words[word]
 end
 
-local function flags_read(ptr)
-	local flags = 0
-	for i = 0, 3 do flags = flags | (mem:byte(ptr + i) << (i * 8)) end
-	return flags
-end
-
 local function flags_write(ptr, flags)
 	local bytes = {}
 	for i = 0, 3 do bytes[i + 1] = (flags >> (i * 8)) & 0xff end
@@ -502,19 +501,13 @@ local function flags_write(ptr, flags)
 end
 
 function FSET(obj, flag)
-	local ptr = GETPT(obj, PQFLAGS)
-	if not ptr then return end
-	flags_write(ptr, flags_read(ptr) | (1 << flag))
+	PUTP(obj, PQFLAGS, GETP(obj, PQFLAGS) | (1 << flag))
 end
 function FCLEAR(obj, flag)
-	local ptr = GETPT(obj, PQFLAGS)
-	if not ptr then return end
-	flags_write(ptr, flags_read(ptr) & ~(1 << flag))
+	PUTP(obj, PQFLAGS, GETP(obj, PQFLAGS) & ~(1 << flag))
 end
 function FSETQ(obj, flag)
-	local ptr = GETPT(obj, PQFLAGS)
-	if not ptr then return false end
-	return (flags_read(ptr) & (1 << flag)) ~= 0
+	return (GETP(obj, PQFLAGS) & (1 << flag)) ~= 0
 end
 function GETPT(obj, prop)
 	local tbl = getobj(obj).tbl
@@ -541,8 +534,15 @@ function PUTP(obj, prop, val)
 		mem:write(mem:stringprop(fn(val)), ptr)
 	end
 	assert(type(val) == 'number', "Only numbers are supported in PUTP, not "..type(val))
-	assert(PTSIZE(ptr) == 1, "Number property "..prop.." size must be 1 for value "..val)
-	mem:write(string.char(math.min(math.max(0,val),0xff)), ptr)
+	if PTSIZE(ptr) == 1 then
+		mem:write(string.char(math.min(math.max(0,val),0xff)), ptr)
+	elseif PTSIZE(ptr) == 2 then
+		mem:write(string.char(val & 0xff, (val >> 8) & 0xff), ptr)
+	elseif PTSIZE(ptr) == 4 then
+		mem:write(makedword(val), ptr)
+	else
+		error("Unsupported property size for number: "..PTSIZE(ptr))
+	end
 end
 function GETP(obj, prop)
 	if not GETPT(obj, prop) then return nil end
@@ -550,6 +550,7 @@ function GETP(obj, prop)
 	local ptsize = PTSIZE(ptr)
 	if ptsize == 1 then return mem:byte(ptr) end
 	if ptsize == 2 then return mem:word(ptr) ~= 0 and mem:string(mem:word(ptr)) or nil end
+	if ptsize == 4 then return mem:dword(ptr) ~= 0 and mem:dword(ptr) or 0 end
 	assert(false, "Unsupported property to get")
 end
 function NEXTP(obj, prop)
@@ -617,10 +618,12 @@ function OBJECT(object)
 				return string.char(learn(adj, PSQADJECTIVE, ADJECTIVES))
 			end), k))
 		elseif k == "FLAGS" then
+			local flags = 0
 			for _, f in ipairs(v) do
 				if not _G[f] then _G[f] = register(FLAGS, f) end
-				o.FLAGS = o.FLAGS | (1 << _G[f])
+				flags = flags | (1 << _G[f])
 			end
+			table.insert(t, makeprop(makedword(flags), k))
 		elseif k == "GLOBAL" then 
 			table.insert(t, makeprop(table.concat2(v, string.char), k))
 			o.GLOBALS = v
@@ -663,12 +666,6 @@ function OBJECT(object)
 		local loc_value = 0
 		table.insert(t, makeprop(string.char(loc_value), "LOC"))
 	end
-	-- Add FLAGS as a 4-byte property in the property table
-	local flags_val = o.FLAGS or 0
-	local flags_bytes = {}
-	for i = 0, 3 do flags_bytes[i + 1] = (flags_val >> (i * 8)) & 0xff end
-	table.insert(t, makeprop(string.char(table.unpack(flags_bytes)), "FLAGS"))
-	table.insert(t, string.char(0,0))
 	o.tbl = mem:write(table.concat(t))
 end
 
