@@ -44,8 +44,13 @@ PROPERTIES = {}
 PREPOSITIONS = {[0] = 0}  -- Initialize with count = 0
 PREPOSITIONS._hash = {}   -- Helper hash for quick lookup during population
 ADJECTIVES = {}
-ACTIONS = 0   -- mem address of 256×2-byte action dispatch table; set on first SYNTAX call
-PREACTIONS = 0  -- mem address of 256×2-byte pre-action dispatch table; set on first SYNTAX call
+-- ACTIONS/PREACTIONS: mem-allocated 256×2-byte dispatch tables, lazily initialized on first SYNTAX call.
+-- They are populated during loading (by SYNTAX) AND read at runtime on every command dispatch:
+-- the game's PERFORM routine calls <GET ,ACTIONS .A> and <GET ,PREACTIONS .A> to find and
+-- invoke the handler for the current verb. Keeping them in mem is therefore correct -- they
+-- are not loading-only data.
+ACTIONS = 0   -- mem address of action dispatch table (action_id → fn_idx)
+PREACTIONS = 0  -- mem address of pre-action dispatch table (action_id → fn_idx)
 FLAGS = {}
 FUNCTIONS = {}
 _DIRECTIONS = {}
