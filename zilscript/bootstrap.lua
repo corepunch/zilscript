@@ -672,7 +672,11 @@ function OBJECT(object)
 		local loc_value = 0
 		table.insert(t, makeprop(makebyte(loc_value), "LOC"))
 	end
-	o.tbl = mem:write(table.concat(t))
+	-- Ensure FLAGS property always exists (default to 0 if not specified)
+	if not object.FLAGS then
+		table.insert(t, makeprop(makeqword(0), "FLAGS"))
+	end
+	o.tbl = mem:write(table.concat(t) .. "\0\0")
 end
 
 function REST(s, i)
