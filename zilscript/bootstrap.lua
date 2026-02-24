@@ -166,6 +166,10 @@ local function decode_fptr(s)
     return hex and tonumber(hex, 16)
 end
 
+local function makebyte(val)
+	return string.char(math.min(math.max(0,val), 0xff))
+end
+
 local function makeword(val)
 	return string.char(val&0xff, (val>>8)&0xff)
 end
@@ -497,9 +501,11 @@ end
 
 function FSET(obj, flag)
 	PUTP(obj, PQFLAGS, GETP(obj, PQFLAGS) | (1 << flag))
+	assert(FSETQ(obj, flag), string.format("Failed to set flag %d on object %d", flag, obj))
 end
 function FCLEAR(obj, flag)
 	PUTP(obj, PQFLAGS, GETP(obj, PQFLAGS) & ~(1 << flag))
+	assert(not FSETQ(obj, flag), string.format("Failed to clear flag %d on object %d", flag, obj))
 end
 function FSETQ(obj, flag)
 	return (GETP(obj, PQFLAGS) & (1 << flag)) ~= 0
@@ -529,12 +535,9 @@ function PUTP(obj, prop, val)
 		mem:write(mem:stringprop(fn(val)), ptr)
 	end
 	assert(type(val) == 'number', "Only numbers are supported in PUTP, not "..type(val))
-	if PTSIZE(ptr) == 1 then
-		mem:write(string.char(math.min(math.max(0,val),0xff)), ptr)
-	elseif PTSIZE(ptr) == 2 then
-		mem:write(string.char(val & 0xff, (val >> 8) & 0xff), ptr)
-	elseif PTSIZE(ptr) == 4 then
-		mem:write(makedword(val), ptr)
+	if PTSIZE(ptr) == 1 then mem:write(makebyte(val), ptr)
+	elseif PTSIZE(ptr) == 2 then mem:write(makeword(val), ptr)
+	elseif PTSIZE(ptr) == 4 then mem:write(makedword(val), ptr)
 	else
 		error("Unsupported property size for number: "..PTSIZE(ptr))
 	end
@@ -629,12 +632,12 @@ function OBJECT(object)
 			-- This is acceptable because well-formed ZIL will redefine ROOMS as an actual object
 			-- Once ROOMS is defined as an object, its numeric ID will be used correctly
 			local loc_value = type(v) == 'number' and v or 0
-			table.insert(t, makeprop(string.char(loc_value), k))
+			table.insert(t, makeprop(makebyte(loc_value), k))
 		-- using PQACTION for ACTION property, commented out original function support
 		elseif k == "ACTION" or k == "DESCFCN" then 
 			table.insert(t, makeprop(type(v) == 'function' and mem:stringprop(fn(v)) or '\0\0', k))
 		elseif type(v) == 'string' then table.insert(t, makeprop(mem:stringprop(v), k))
-		elseif type(v) == 'number' then table.insert(t, makeprop(string.char(math.min(v,0xff)), k))
+		elseif type(v) == 'number' then table.insert(t, makeprop(makebyte(v), k))
 		elseif type(v) == 'function' then table.insert(t, makeprop(mem:stringprop(fn(v)), k))
 		elseif _DIRECTIONS[k] then			
 			local str
@@ -659,7 +662,7 @@ function OBJECT(object)
 	-- Ensure LOC property always exists (default to 0 if not specified)
 	if not object.LOC then
 		local loc_value = 0
-		table.insert(t, makeprop(string.char(loc_value), "LOC"))
+		table.insert(t, makeprop(makebyte(loc_value), "LOC"))
 	end
 	o.tbl = mem:write(table.concat(t))
 end
@@ -688,7 +691,7 @@ end
 
 function PUTB(s, i, val) 
 	assert(type(s) == 'number', "PUTB: Only number types, not "..type(s))
-	mem:write(string.char(math.min(val,0xff)), s+i)
+	mem:write(makebyte(val), s+i)
 end
 -- function GET(t, i) return type(t) == 'table' and t[i * 2] or 0 end
 -- function GETB(t, i) return type(t) == 'table' and t[i] or 0 end
