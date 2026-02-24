@@ -599,7 +599,7 @@ table.concat2 = function(t, fn)
 	return table.concat(tmp)
 end
 
-function DECL_OBJECT(name)
+function DECL_OBJECT()
 	if not _OTBL or _OTBL == 0 then
 		-- Allocate the 256×2-byte object pointer table on first use
 		_OTBL = mem:write(string.rep('\0\0', 256))

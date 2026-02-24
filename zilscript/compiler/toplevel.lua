@@ -146,7 +146,7 @@ end
 function TopLevel.compileObject(decl, body, node, compiler)
   local name = compiler.value(node[1])
 
-  decl.writeln('%s = DECL_OBJECT("%s")', name, name)
+  decl.writeln('%s = DECL_OBJECT()', name)
   body.writeln("%s {", node.name)
   body.writeln("\tNAME = \"%s\",", name)
   
