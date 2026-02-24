@@ -46,7 +46,6 @@ PREPOSITIONS._hash = {}   -- Helper hash for quick lookup during population
 ADJECTIVES = {}
 ACTIONS = {}
 PREACTIONS = {}
-OBJECTS = {}
 FLAGS = {}
 FUNCTIONS = {}
 _DIRECTIONS = {}
@@ -55,7 +54,7 @@ DESCS = {}
 DIRS = {}
 
 _VTBL = {}
-_OTBL = {}
+_OTBL = 0  -- mem address of 256×2-byte object pointer table; set on first DECL_OBJECT
 
 T = true
 CR = "\n"
@@ -75,6 +74,7 @@ M_FLASH = 4
 M_OBJDESC = 5
 
 local mem
+local _obj_count = 0  -- number of declared objects; object IDs are 1.._obj_count
 local suggestions = {
 	READBIT = "READ",
 	TAKEBIT = "TAKE",
@@ -97,10 +97,9 @@ local function objects_in_room(room)
 	return function()
 		while true do
 			i = i + 1
-			local o = OBJECTS[i]
-			if not o then return nil end
-			if i ~= ADVENTURER and GETP(i, PQLOC) == room then return i, o end
-			if i ~= ADVENTURER and room_globals[i] then return i, o end
+			if i > _obj_count then return nil end
+			if i ~= ADVENTURER and GETP(i, PQLOC) == room then return i end
+			if i ~= ADVENTURER and room_globals[i] then return i end
 		end
 	end
 end
@@ -435,7 +434,9 @@ LESSQ = LQ
 MULL = MUL
 
 -- Object / room ops
-local function getobj(num) return OBJECTS[num] end
+-- Returns the mem address of object num's property table block.
+-- _OTBL is the base of a 256×2-byte array allocated in mem by the first DECL_OBJECT call.
+local function getobj(num) return mem:word(_OTBL + (num-1)*2) end
 
 -- VALUE function: identity function for ZIL's <VALUE var> form
 -- In ZIL, <VALUE var> gets the runtime value of a variable
@@ -447,20 +448,20 @@ function MOVE(obj, dest) PUTP(obj, PQLOC, dest) end
 function REMOVE(obj) PUTP(obj, PQLOC, 0) end
 
 function FIRSTQ(obj)
-	for n, o in ipairs(OBJECTS) do
+	for n = 1, _obj_count do
 		if GETP(n, PQLOC) == obj then return n end
 	end
 end
 
 function NEXTQ(obj)
-  local parent = GETP(obj, PQLOC)
-  local found = false
-  for n, o in ipairs(OBJECTS) do
-    if GETP(n, PQLOC) == parent then
-      if found then return n end
-      if n == obj then found = true end
-    end
-  end
+	local parent = GETP(obj, PQLOC)
+	local found = false
+	for n = 1, _obj_count do
+		if GETP(n, PQLOC) == parent then
+			if found then return n end
+			if n == obj then found = true end
+		end
+	end
 end
 
 local function learn(word, atom, value)
@@ -526,7 +527,7 @@ function FSETQ(obj, flag)
 	return (GETP(obj, PQFLAGS) & (1 << flag)) ~= 0
 end
 function GETPT(obj, prop)
-	local tbl = getobj(obj).tbl
+	local tbl = getobj(obj)
 	local l = mem:byte(tbl)+tbl+1
 	local pname, psize = mem:byte(l), mem:byte(l+1)
 	local header = 2
@@ -572,7 +573,7 @@ function NEXTP(obj, prop)
 	-- Returns the next property number after prop
 	-- If prop is 0, returns the first property
 	-- If no more properties, returns 0
-	local tbl = getobj(obj).tbl
+	local tbl = getobj(obj)
 	local l = mem:byte(tbl)+tbl+1
 	local pname, psize = mem:byte(l), mem:byte(l+1)
 	local header = 2
@@ -599,16 +600,16 @@ table.concat2 = function(t, fn)
 end
 
 function DECL_OBJECT(name)
-	table.insert(OBJECTS, {NAME=name,FLAGS=0})
-	return #OBJECTS
+	if not _OTBL or _OTBL == 0 then
+		-- Allocate the 256×2-byte object pointer table on first use
+		_OTBL = mem:write(string.rep('\0\0', 256))
+	end
+	_obj_count = _obj_count + 1
+	assert(_obj_count <= 255, "Too many objects (max 255)")
+	return _obj_count
 end
 
 function OBJECT(object)
-	local function findobj(name)
-		for n, o in ipairs(OBJECTS) do
-			if o.NAME == name then return o, n end
-		end
-	end
 	local function makeprop(body, name)
 		local num = register(PROPERTIES, name)
 		if not _G["PQ"..name] then _G["PQ"..name] = num end
@@ -618,9 +619,9 @@ function OBJECT(object)
 		table.insert(DESCS, object.DESC)
 		table.insert(DESCS, object.DESC:lower())
 	end
-	local o, n = findobj(object.NAME)
+	local n = _G[object.NAME]
 	local t = {string.char(#object.NAME), object.NAME}
-	assert(o, "Can't find object "..object.NAME)
+	assert(n, "DECL_OBJECT not called for "..object.NAME)
 	for k, v in pairs(object) do
 		if k == "NAME" then 
 		elseif k == "SYNONYM" then
@@ -684,7 +685,8 @@ function OBJECT(object)
 	if not object.FLAGS then
 		table.insert(t, makeprop(makeqword(0), "FLAGS"))
 	end
-	o.tbl = mem:write(table.concat(t) .. "\0\0")
+	local tbl_addr = mem:write(table.concat(t) .. "\0\0")
+	mem:write(makeword(tbl_addr), _OTBL + (n-1)*2)
 end
 
 function REST(s, i)
