@@ -166,14 +166,28 @@ local function decode_fptr(s)
     return hex and tonumber(hex, 16)
 end
 
+local function makebyte(val)
+	return string.char(math.min(math.max(0,val), 0xff))
+end
+
 local function makeword(val)
 	return string.char(val&0xff, (val>>8)&0xff)
+end
+
+local function makedword(val)
+	return string.char(val&0xff, (val>>8)&0xff, (val>>16)&0xff, (val>>24)&0xff)
+end
+
+local function makeqword(val)
+	return string.char(val&0xff, (val>>8)&0xff, (val>>16)&0xff, (val>>24)&0xff,
+	                   (val>>32)&0xff, (val>>40)&0xff, (val>>48)&0xff, (val>>56)&0xff)
 end
 
 mem = setmetatable({size=0},{__index={
 	write = function(self, buffer, pos)
 		if not pos then pos = self.size + 1 end  -- Append if no pos
 		local buf_len = #buffer
+		assert(pos+buf_len-1 <= 0xffff, "Memory overflow: can't write beyond 65535")
 		for i = 1, buf_len do
 			local byte = buffer:byte(i)
 			if pos + i - 1 > self.size then self.size = pos + i - 1 end
@@ -199,6 +213,8 @@ mem = setmetatable({size=0},{__index={
 
 	byte = function(self, idx) return self[idx+1] end,
 	word = function(self, ptr) return self:byte(ptr)|(self:byte(ptr+1)<<8) end,
+	dword = function(self, ptr) return self:byte(ptr)|(self:byte(ptr+1)<<8)|(self:byte(ptr+2)<<16)|(self:byte(ptr+3)<<24) end,
+	qword = function(self, ptr) return self:byte(ptr)|(self:byte(ptr+1)<<8)|(self:byte(ptr+2)<<16)|(self:byte(ptr+3)<<24)|(self:byte(ptr+4)<<32)|(self:byte(ptr+5)<<40)|(self:byte(ptr+6)<<48)|(self:byte(ptr+7)<<56) end,
 	string = function(self, ptr)
 		local str = self:table_to_str(ptr + 2, ptr + self:word(ptr) + 1)
 		return decode_fptr(str) or str
@@ -489,27 +505,18 @@ local function learn(word, atom, value)
 	return value or cache.words[word]
 end
 
-local function write_flags_to_mem(o)
-	if o._flags_addr then
-		local flags = o.FLAGS or 0
-		mem:write(string.char(
-			flags & 0xff, (flags >> 8) & 0xff, (flags >> 16) & 0xff, (flags >> 24) & 0xff,
-			(flags >> 32) & 0xff, (flags >> 40) & 0xff, (flags >> 48) & 0xff, (flags >> 56) & 0xff
-		), o._flags_addr)
-	end
-end
 
 function FSET(obj, flag)
-	local o = getobj(obj)
-	o.FLAGS = (o.FLAGS or 0) | (1<<flag)
-	write_flags_to_mem(o)
+	PUTP(obj, PQFLAGS, GETP(obj, PQFLAGS) | (1 << flag))
+	assert(FSETQ(obj, flag), string.format("Failed to set flag %d on object %d", flag, obj))
 end
 function FCLEAR(obj, flag)
-	local o = getobj(obj)
-	o.FLAGS = (o.FLAGS or 0) & ~(1<<flag)
-	write_flags_to_mem(o)
+	PUTP(obj, PQFLAGS, GETP(obj, PQFLAGS) & ~(1 << flag))
+	assert(not FSETQ(obj, flag), string.format("Failed to clear flag %d on object %d", flag, obj))
 end
-function FSETQ(obj, flag) return getobj(obj).FLAGS and (getobj(obj).FLAGS & (1<<flag)) ~= 0 end
+function FSETQ(obj, flag)
+	return (GETP(obj, PQFLAGS) & (1 << flag)) ~= 0
+end
 function GETPT(obj, prop)
 	local tbl = getobj(obj).tbl
 	local l = mem:byte(tbl)+tbl+1
@@ -535,8 +542,13 @@ function PUTP(obj, prop, val)
 		mem:write(mem:stringprop(fn(val)), ptr)
 	end
 	assert(type(val) == 'number', "Only numbers are supported in PUTP, not "..type(val))
-	assert(PTSIZE(ptr) == 1, "Number property "..prop.." size must be 1 for value "..val)
-	mem:write(string.char(math.min(math.max(0,val),0xff)), ptr)
+	if PTSIZE(ptr) == 1 then mem:write(makebyte(val), ptr)
+	elseif PTSIZE(ptr) == 2 then mem:write(makeword(val), ptr)
+	elseif PTSIZE(ptr) == 4 then mem:write(makedword(val), ptr)
+	elseif PTSIZE(ptr) == 8 then mem:write(makeqword(val), ptr)
+	else
+		error("Unsupported property size for number: "..PTSIZE(ptr))
+	end
 end
 function GETP(obj, prop)
 	if not GETPT(obj, prop) then return nil end
@@ -544,6 +556,8 @@ function GETP(obj, prop)
 	local ptsize = PTSIZE(ptr)
 	if ptsize == 1 then return mem:byte(ptr) end
 	if ptsize == 2 then return mem:word(ptr) ~= 0 and mem:string(mem:word(ptr)) or nil end
+	if ptsize == 4 then return mem:dword(ptr) end
+	if ptsize == 8 then return mem:qword(ptr) end
 	assert(false, "Unsupported property to get")
 end
 function NEXTP(obj, prop)
@@ -611,10 +625,12 @@ function OBJECT(object)
 				return string.char(learn(adj, PSQADJECTIVE, ADJECTIVES))
 			end), k))
 		elseif k == "FLAGS" then
+			local flags = 0
 			for _, f in ipairs(v) do
 				if not _G[f] then _G[f] = register(FLAGS, f) end
-				o.FLAGS = o.FLAGS | (1 << _G[f])
+				flags = flags | (1 << _G[f])
 			end
+			table.insert(t, makeprop(makeqword(flags), k))
 		elseif k == "GLOBAL" then 
 			table.insert(t, makeprop(table.concat2(v, string.char), k))
 			o.GLOBALS = v
@@ -625,12 +641,12 @@ function OBJECT(object)
 			-- This is acceptable because well-formed ZIL will redefine ROOMS as an actual object
 			-- Once ROOMS is defined as an object, its numeric ID will be used correctly
 			local loc_value = type(v) == 'number' and v or 0
-			table.insert(t, makeprop(string.char(loc_value), k))
+			table.insert(t, makeprop(makebyte(loc_value), k))
 		-- using PQACTION for ACTION property, commented out original function support
 		elseif k == "ACTION" or k == "DESCFCN" then 
 			table.insert(t, makeprop(type(v) == 'function' and mem:stringprop(fn(v)) or '\0\0', k))
 		elseif type(v) == 'string' then table.insert(t, makeprop(mem:stringprop(v), k))
-		elseif type(v) == 'number' then table.insert(t, makeprop(string.char(math.min(v,0xff)), k))
+		elseif type(v) == 'number' then table.insert(t, makeprop(makebyte(v), k))
 		elseif type(v) == 'function' then table.insert(t, makeprop(mem:stringprop(fn(v)), k))
 		elseif _DIRECTIONS[k] then			
 			local str
@@ -655,16 +671,13 @@ function OBJECT(object)
 	-- Ensure LOC property always exists (default to 0 if not specified)
 	if not object.LOC then
 		local loc_value = 0
-		table.insert(t, makeprop(string.char(loc_value), "LOC"))
+		table.insert(t, makeprop(makebyte(loc_value), "LOC"))
 	end
-	table.insert(t, string.char(0,0))
-	o.tbl = mem:write(table.concat(t))
-	-- Allocate 8 bytes in mem for object FLAGS so they are included in mem dumps
-	local flags_val = o.FLAGS or 0
-	o._flags_addr = mem:write(string.char(
-		flags_val & 0xff, (flags_val >> 8) & 0xff, (flags_val >> 16) & 0xff, (flags_val >> 24) & 0xff,
-		(flags_val >> 32) & 0xff, (flags_val >> 40) & 0xff, (flags_val >> 48) & 0xff, (flags_val >> 56) & 0xff
-	))
+	-- Ensure FLAGS property always exists (default to 0 if not specified)
+	if not object.FLAGS then
+		table.insert(t, makeprop(makeqword(0), "FLAGS"))
+	end
+	o.tbl = mem:write(table.concat(t) .. "\0\0")
 end
 
 function REST(s, i)
@@ -691,7 +704,7 @@ end
 
 function PUTB(s, i, val) 
 	assert(type(s) == 'number', "PUTB: Only number types, not "..type(s))
-	mem:write(string.char(math.min(val,0xff)), s+i)
+	mem:write(makebyte(val), s+i)
 end
 -- function GET(t, i) return type(t) == 'table' and t[i * 2] or 0 end
 -- function GETB(t, i) return type(t) == 'table' and t[i] or 0 end
@@ -1047,15 +1060,6 @@ function RESTORE(filename)
 	if not data or #data < size then file:close(); return false end
 	for i = 1, size do mem[i] = data:byte(i) end
 	mem.size = size
-
-	-- Re-sync object FLAGS caches from restored mem
-	for _, o in ipairs(OBJECTS) do
-		if o._flags_addr then
-			local flags = 0
-			for i = 0, 7 do flags = flags | (mem:byte(o._flags_addr + i) << (i * 8)) end
-			o.FLAGS = flags
-		end
-	end
 
 	-- Restore ZIL globals
 	local gc = file:read(2)
