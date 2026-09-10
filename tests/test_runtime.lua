@@ -407,6 +407,31 @@ test.describe("Runtime - Game Startup", function(t)
 		assert.assert_equal(attempts, 2)
 	end)
 
+	t.it("should propagate lifecycle signals through compiled ZIL routines", function(assert)
+		local env = runtime.create_game_env()
+		runtime.init(env, true)
+		local ast = parser.parse([[<ROUTINE INNER-RESTART () <RESTART>>
+			<ROUTINE OUTER-RESTART () <INNER-RESTART>>
+			<ROUTINE INNER-QUIT () <QUIT>>
+			<ROUTINE OUTER-QUIT () <INNER-QUIT>>]])
+		local code = compiler.compile(ast, "lifecycle.zil")
+		assert.assert_true(runtime.execute(code.combined, "lifecycle", env, true))
+		env.CAPTURE_RESTART_STATE()
+		local attempts = 0
+		env.GO = function()
+			attempts = attempts + 1
+			if attempts == 1 then env.OUTER_RESTART() end
+			coroutine.yield("restarted")
+			env.OUTER_QUIT()
+			error("QUIT returned into the story")
+		end
+		local game = runtime.create_game(env, true)
+		assert.assert_equal(game:start(), "restarted")
+		assert.assert_equal(attempts, 2)
+		game:resume("quit")
+		assert.assert_false(game:is_running())
+	end)
+
 	t.it("should stop cleanly when QUIT is raised", function(assert)
 		local env = runtime.create_game_env()
 		runtime.init(env, true)

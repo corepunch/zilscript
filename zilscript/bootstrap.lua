@@ -900,6 +900,8 @@ function ZIL_RETURN(value)
 end
 
 function ZIL_UNWRAP_RETURN(value)
+	-- Compiled routines must not consume VM lifecycle signals as ZIL returns.
+	if IS_ZIL_CONTROL_SIGNAL(value) then error(value, 0) end
 	if value == zil_nil_return then
 		return nil
 	end
