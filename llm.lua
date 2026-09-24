@@ -107,15 +107,7 @@ local GAMES = {
         modules = {"books.wondertown.wondertown"}
     },
     planetfall = {
-        modules = {
-            "infocom.planetfall.syntax",
-            "infocom.planetfall.misc",
-            "infocom.planetfall.globals",
-            "infocom.planetfall.parser",
-            "infocom.planetfall.verbs",
-            "infocom.planetfall.compone",
-            "infocom.planetfall.comptwo",
-        }
+        modules = {"infocom.planetfall.planetfall"}
     },
 }
 

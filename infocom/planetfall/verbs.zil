@@ -209,6 +209,8 @@ long description (fdesc or ldesc), otherwise will print short."
 
 <GLOBAL SCORE 0>
 
+<GLOBAL SCORE-MAX 80>
+
 <GLOBAL DAY 1>
 
 <ROUTINE SCORE-OBJ (OBJ)

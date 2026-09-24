@@ -101,6 +101,7 @@ Pass `--game <name>` to play different games:
 | zork1 (default) | `infocom.zork1.zork1` |
 | lurkinghorror | `infocom.lurkinghorror.h1` |
 | spellbreaker | `infocom.spellbreaker.z6` |
+| planetfall | `infocom.planetfall.planetfall` |
 | limehouse-killings | `books.limehouse-killings.limehouse-killings` |
 | blackwood-horror | `books.blackwood-horror.blackwood-horror` |
 
