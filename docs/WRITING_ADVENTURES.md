@@ -647,6 +647,45 @@ Indicators:
 - `N ,var` — print a number
 - `A ,obj` — print with article ("a"/"an")
 
+### Prose Links (Tappable Words)
+
+Mark the words a reader may act on with double brackets, as Twine does:
+
+```zil
+(LDESC "A corroded [[brass plaque->plaque]] hangs askew on the gate.")
+<TELL "A gravel path leads [[north]] to the entrance." CR>
+```
+
+- `[[label]]` — the label is both what is printed and what the parser is
+  given. Use it when the prose already ends in the object's noun
+  (`[[crayon drawing]]`) or names a direction (`[[north]]`).
+- `[[label->target]]` — prints the label; the target is the parser's word
+  for the object (`[[iron gates->gate]]`) or a direction
+  (`[[into the basement->down]]`).
+
+A host that renders links (AdventureArena underlines them with a dashed
+rule and offers the object's verbs on tap) sets `PROSE_LINKS` before the
+bootstrap runs and receives the markup. Every other host, and every
+transcript test, reads the plain label, so `ASSERT-TEXT` needs no change.
+
+Keep a link inside one string, and never put one in a room's `DESC`: the
+room name is matched exactly. Link what the player can act on now — do not
+link an object the description is about to withhold.
+
+### Withholding What Must Be Examined
+
+A description says what a glance takes in. What is written on a thing, or
+shut inside one, is learned by examining, reading or opening it — Zork I
+prints the leaflet only when it is read and lists the mailbox's contents
+only once it is open. Do not quote a note, a label or a drawing in `FDESC`
+or `LDESC`, and do not give a closed container `OPENBIT` or `TRANSBIT`.
+
+### Going Back
+
+`GO BACK` (also `WALK BACK`, `BACK`) retraces the player's last step. The
+bootstrap handles it for every story by walking the exit that leads to the
+room the player came from; one-way passages have no way back.
+
 ### Object Movement
 
 ```zil
