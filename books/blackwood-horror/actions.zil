@@ -27,8 +27,8 @@
            <COND (,CHAINS-CUT-FLAG
                   <TELL " To the north, a heavy door stands open, revealing darkness beyond.">)
                  (T
-                  <TELL " At the far end, a heavy door sealed with chains blocks further passage.">)>
-           <TELL CR "A doorway leads west back to the entrance hall." CR>)>>
+                  <TELL " At the far end, a [[heavy door->door]] sealed with [[chains]] blocks further passage.">)>
+           <TELL CR "A doorway leads [[west]] back to the entrance hall." CR>)>>
 
 <ROUTINE BASEMENT-CORRIDOR-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
@@ -140,15 +140,42 @@
                 <TELL "A file folder labeled 'Patient 189 - CONFIDENTIAL'. Inside are medical records and notes. 'Subject shows extraordinary resistance to pain. Mental state deteriorating. Recommending transfer to isolation wing. Dr. Mordecai has expressed personal interest in this case. Update: Patient transferred to chapel for experimental treatment. Nov 1, 1952.'" CR>
                 <RTRUE>)>>
 
+"The cabinet keeps its contents to itself until the player looks: its door is
+ajar, so examining it swings the door wide, as opening it does."
+
+<ROUTINE CABINET-DESC-F (RARG)
+    <COND (<EQUAL? .RARG ,M-OBJDESC>
+           <COND (<FSET? ,METAL-CABINET ,OPENBIT>
+                  <TELL "A [[metal cabinet->cabinet]] stands in the shadows, its door hanging wide." CR>
+                  <COND (<FIRST? ,METAL-CABINET>
+                         <PRINT-CONT ,METAL-CABINET>)>)
+                 (T
+                  <TELL "A [[metal cabinet->cabinet]] stands in the shadows, its door slightly ajar." CR>)>
+           <RTRUE>)>>
+
 <ROUTINE CABINET-F ()
-         <COND (<VERB? EXAMINE LOOK-INSIDE>
-                <TELL "The cabinet's glass doors are cracked but still intact. Inside, you can see various medical instruments">
+         <COND (<AND <VERB? OPEN>
+                     <FSET? ,METAL-CABINET ,OPENBIT>>
+                <TELL "The cabinet door already hangs wide." CR>
+                <RTRUE>)
+               (<VERB? EXAMINE LOOK-INSIDE OPEN SEARCH>
+                <COND (<FSET? ,METAL-CABINET ,OPENBIT>
+                       <TELL "The cabinet door hangs wide on stiff hinges. The shelves hold rusted medical instruments">)
+                      (T
+                       <FSET ,METAL-CABINET ,OPENBIT>
+                       <FSET ,METAL-CABINET ,TOUCHBIT>
+                       <TELL "You ease the cabinet door wide on its stiff hinges. The shelves hold rusted medical instruments">)>
                 <COND (<OR <IN? ,SCALPEL ,METAL-CABINET> <IN? ,ETHER-BOTTLE ,METAL-CABINET>>
-                       <TELL ", including">
+                       <TELL ", and among them">
                        <COND (<IN? ,SCALPEL ,METAL-CABINET> <TELL " a scalpel">)>
                        <COND (<AND <IN? ,SCALPEL ,METAL-CABINET> <IN? ,ETHER-BOTTLE ,METAL-CABINET>> <TELL " and">)>
                        <COND (<IN? ,ETHER-BOTTLE ,METAL-CABINET> <TELL " a bottle">)>)>
                 <TELL "." CR>
+                <RTRUE>)
+               (<AND <VERB? CLOSE>
+                     <FSET? ,METAL-CABINET ,OPENBIT>>
+                <FCLEAR ,METAL-CABINET ,OPENBIT>
+                <TELL "The door swings back on its warped frame and comes to rest slightly ajar." CR>
                 <RTRUE>)>>
 
 <ROUTINE HEAVYDOOR-F ()

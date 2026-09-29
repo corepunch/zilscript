@@ -909,14 +909,30 @@ function ZIL_UNWRAP_RETURN(value)
 	return value
 end
 
+-- Prose links. A story marks the words a reader may act on, Twine-style:
+-- "[[crayon drawing]]", or "[[heavy door->door]]" when the parser's word for
+-- the thing differs from the prose. A host that renders links sets
+-- PROSE_LINKS and receives the markup; every other host, and every
+-- transcript test, reads the plain label.
+local function prose_links(text)
+	if rawget(_G, "PROSE_LINKS") or not text:find("[[", 1, true) then return text end
+	return (text:gsub("%[%[(.-)%]%]", function(link)
+		return link:match("^(.-)%->") or link
+	end))
+end
+
 local function io_write(...)
 	-- Check if io_write was overridden globally (for tests)
 	if _G.io_write then
-		return _G.io_write(...)
+		local parts = table.pack(...)
+		for i = 1, parts.n do
+			if type(parts[i]) == "string" then parts[i] = prose_links(parts[i]) end
+		end
+		return _G.io_write(table.unpack(parts, 1, parts.n))
 	end
 	-- Default: buffered mode for coroutine-based games
 	for i = 1, select("#", ...) do
-		table.insert(output_buffer, tostring(select(i, ...)))
+		table.insert(output_buffer, prose_links(tostring(select(i, ...))))
 	end
 end
 
@@ -1100,8 +1116,47 @@ local function route_response(input)
 	return false
 end
 
+-- "Go back" retraces the last step. The rooms are numbers in globals, so
+-- they are saved, restored and restarted with the rest of the story.
+RETRACE_HERE = RETRACE_HERE or 0
+RETRACE_FROM = RETRACE_FROM or 0
+
+local RETRACE_VERBS = { go = true, walk = true, run = true, head = true, step = true, turn = true }
+
+local function remember_room()
+	local here = rawget(_G, "HERE")
+	if type(here) ~= "number" or here == RETRACE_HERE then return end
+	RETRACE_FROM, RETRACE_HERE = RETRACE_HERE, here
+end
+
+-- The direction that leads to the room the player came from, as a command.
+-- One-way passages and routines that decide an exit as it is walked have no
+-- way back. Returns nil and what to tell the player when there is none; a
+-- bare "back" is then left to the story, which may have its own verb.
+local function retrace(input)
+	local verb, rest = input:lower():match("^%s*(%a+)%s+(%a+)[%s%.!]*$")
+	local bare = input:lower():match("^%s*back[%s%.!]*$") ~= nil
+	if not bare and not (RETRACE_VERBS[verb] and rest == "back") then return input end
+	local here = rawget(_G, "HERE")
+	if type(here) == "number" and RETRACE_FROM ~= 0 then
+		local names = {}
+		for name in pairs(_DIRECTIONS) do table.insert(names, name) end
+		table.sort(names)
+		for _, name in ipairs(names) do
+			local pp = GETPT(here, _DIRECTIONS[name])
+			local size = pp and PTSIZE(pp)
+			if (size == 1 or size == 4 or size == 5) and GETB(pp, REXIT) == RETRACE_FROM then
+				return name:lower()
+			end
+		end
+	end
+	if bare then return input end
+	return nil, "You can't retrace your steps from here.\n"
+end
+
 -- Modified READ to yield with output
 function READ(inbuf, parse)
+	remember_room()
 	-- for k, v in pairs(_G) do
 	-- 	if type(v) == 'boolean' then print(k, type(v)) end
 	-- end
@@ -1118,7 +1173,15 @@ function READ(inbuf, parse)
 	if not s then
 		os.exit(0)
 	end
-	
+	if type(s) == "string" then
+		local command, refusal = retrace(s)
+		if not command then
+			s = coroutine.yield(refusal)
+			goto restart_read
+		end
+		s = command
+	end
+
 	local p = {}
 	for pos, word in s:gmatch("()(%S+)") do
 		-- Z-machine truncates dictionary words to 6 characters

@@ -41,7 +41,7 @@
 <ROOM SANITARIUM-GATE
       (IN ROOMS)
       (DESC "Sanitarium Gate")
-      (LDESC "The rusted iron gates of the abandoned sanitarium stand open, their bars red with rust. The structure looms against the darkening sky, its windows like hollow eye sockets. A gravel path leads north to the entrance.")
+      (LDESC "The rusted [[iron gates->gate]] of the abandoned sanitarium stand open, their bars red with rust. The structure looms against the darkening sky, its windows like hollow eye sockets. A gravel path leads [[north]] to the entrance.")
       (NORTH TO SANITARIUM-ENTRANCE)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL SANITARIUM-BUILDING DEAD-OAK-TREE)>
@@ -49,7 +49,7 @@
 <ROOM SANITARIUM-ENTRANCE
       (IN ROOMS)
       (DESC "Sanitarium Entrance Hall")
-      (LDESC "The entrance hall reeks of mildew and decay. A grand staircase ascends to darkness in the east. To the west, a doorway leads to what might have been a reception area. A narrow staircase descends into the basement.")
+      (LDESC "The entrance hall reeks of mildew and decay. A [[grand staircase->staircase]] ascends to darkness in the east. To the [[west]], a doorway leads to what might have been a reception area. A narrow staircase descends [[into the basement->down]].")
       (SOUTH TO SANITARIUM-GATE)
       (WEST TO RECEPTION-ROOM)
       (NORTH TO OPERATING-THEATER)
@@ -245,7 +245,7 @@
         (SYNONYM PLAQUE BRASS SIGN)
         (ADJECTIVE BRASS CORRODED)
         (DESC "brass plaque")
-        (LDESC "A corroded brass plaque hangs askew on the gate.")
+        (LDESC "A corroded [[brass plaque->plaque]] hangs askew on the gate.")
         (FLAGS READBIT)
         (TEXT "The plaque reads: 'Blackwood Sanitarium - Est. 1898 - Closed by Order 1952'")
         (SIZE 5)
@@ -256,7 +256,7 @@
         (SYNONYM DOOR)
         (ADJECTIVE HALF-OPEN THEATER OPERATING)
         (DESC "door to the operating theater")
-        (LDESC "To the north, a door stands half-open, revealing an operating theater beyond.")
+        (LDESC "To the [[north]], a [[door]] stands half-open, revealing an operating theater beyond.")
         (ACTION THEATER-DOOR-F)>
 
 <OBJECT OAK-DESK
@@ -286,7 +286,7 @@
         (SYNONYM KEY)
         (ADJECTIVE BRASS SMALL)
         (DESC "brass key")
-        (LDESC "A small brass key lies among the scattered papers on the floor, cold to the touch.")
+        (LDESC "A small [[brass key->key]] lies among the scattered papers on the floor, cold to the touch.")
         (FLAGS TAKEBIT)
         (SIZE 2)
         (TEXT "A small brass key with the number '3' engraved on its head. It's ice cold despite being indoors.")>
@@ -296,7 +296,7 @@
         (SYNONYM TABLE)
         (ADJECTIVE OPERATING STAINED)
         (DESC "operating table")
-        (FDESC "Tiers of wooden benches circle a central operating table. Cold metal trays sit abandoned on carts. A single overhead lamp, long dead, still points down at the table like an accusation.")
+        (FDESC "Tiers of wooden benches circle a central [[operating table->table]]. Cold metal trays sit abandoned on carts. A single overhead lamp, long dead, still points down at the table like an accusation.")
         (LDESC "A stained operating table dominates the center of the room.")
         (FLAGS SURFACEBIT CONTBIT OPENBIT)
         (TEXT "The operating table is covered in dark brown stains that you hope are just rust. Leather restraints dangle from all four corners. Deep gouges mar the metal surface, as if someone struggled violently against the bindings.")>
@@ -306,8 +306,9 @@
         (SYNONYM CABINET)
         (ADJECTIVE METAL MEDICAL)
         (DESC "metal cabinet")
-        (LDESC "A metal cabinet stands in the shadows, its door slightly ajar.")
-        (FLAGS CONTBIT OPENBIT TRANSBIT)
+        (DESCFCN CABINET-DESC-F)
+        (FLAGS CONTBIT)
+        (CAPACITY 10)
         (ACTION CABINET-F)>
 
 <OBJECT SCALPEL
@@ -335,7 +336,7 @@
         (SYNONYM BEDS FRAMES BED FRAME)
         (ADJECTIVE RUSTED)
         (DESC "bed frames")
-        (FDESC "Dozens of bed frames line the walls. Most mattresses have rotted away, leaving only rusted springs. Among the debris, you notice a child's crayon drawing pinned to one bedframe—a crude sun, a stick figure, the word 'HOME' in wobbly letters.")
+        (FDESC "Dozens of bed frames line the walls. Most mattresses have rotted away, leaving only rusted springs. Among the debris, a child's [[crayon drawing]] is pinned to one bedframe.")
         (LDESC "Rusted bed frames line the corridor.")
         (TEXT "Dozens of bed frames line the walls. The mattresses have rotted away, leaving only rusted springs and metal frames. Some still have restraint straps attached.")>
 
@@ -400,7 +401,7 @@
         (ADJECTIVE STRANGE GLOWING)
         (DESC "vial of serum")
         (FDESC "Inside the refrigerated drawer, a glass vial glows with an eerie luminescence.")
-        (LDESC "A glass vial containing luminescent liquid. The label reads 'Compound 237 - DO NOT USE'")
+        (LDESC "A glass vial of luminescent liquid, its label too small to read at a glance.")
         (FLAGS TAKEBIT)
         (SIZE 4)
         (ACTION SERUM-F)>
@@ -1058,7 +1059,7 @@
         (SYNONYM LEDGER BOOK)
         (ADJECTIVE PATIENT LEATHER)
         (DESC "patient ledger")
-        (LDESC "A leather-bound ledger with names and dates. The final entry reads: 'Patient 237 - Treatment discontinued. Subject expired during procedure. Dr. Mordecai.'")
+        (LDESC "A leather-bound ledger, swollen with damp, lies closed.")
         (FLAGS READBIT TAKEBIT)
         (TEXT "Patient 237 - Treatment discontinued. Subject expired during procedure. Dr. Mordecai.")
         (SIZE 8)
