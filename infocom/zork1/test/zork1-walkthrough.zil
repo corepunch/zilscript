@@ -14,8 +14,8 @@
     <ASSERT-TEXT "Opening the small mailbox reveals a leaflet." <CO-RESUME ,CO "open mailbox">>
     <ASSERT-TEXT "(Taken)" <CO-RESUME ,CO "read leaflet">>
     <ASSERT-TEXT "Dropped." <CO-RESUME ,CO "drop leaflet">>
-    <ASSERT-TEXT "South of House" <CO-RESUME ,CO "walk south">>
-    <ASSERT-TEXT "Behind House" <CO-RESUME ,CO "walk east">>
+    <ASSERT "Reach South of House" <CO-RESUME ,CO "walk south" T> <==? ,HERE ,SOUTH-OF-HOUSE>>
+    <ASSERT "Reach Behind House" <CO-RESUME ,CO "walk east" T> <==? ,HERE ,EAST-OF-HOUSE>>
     <ASSERT-TEXT "With great effort, you open the window far enough to allow entry." <CO-RESUME ,CO "open window">>
     <ASSERT-TEXT "Kitchen" <CO-RESUME ,CO "enter house">>
     <ASSERT-TEXT "Living Room" <CO-RESUME ,CO "walk west">>
@@ -24,7 +24,7 @@
     <ASSERT-TEXT "The door reluctantly opens to reveal a rickety staircase descending into darkness." <CO-RESUME ,CO "open trap door">>
     <ASSERT-TEXT "The brass lantern is now on." <CO-RESUME ,CO "turn on lamp">>
     <ASSERT-TEXT "The trap door crashes shut, and you hear someone barring it." <CO-RESUME ,CO "walk down">>
-    <ASSERT-TEXT "East of Chasm" <CO-RESUME ,CO "walk south">>
+    <ASSERT "Reach East of Chasm" <CO-RESUME ,CO "walk south" T> <==? ,HERE ,EAST-OF-CHASM>>
     <ASSERT-TEXT "Gallery" <CO-RESUME ,CO "walk east">>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take painting">>
     <ASSERT-TEXT "Studio" <CO-RESUME ,CO "walk north">>
@@ -40,7 +40,7 @@
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take sword">>
     <ASSERT-TEXT "The door reluctantly opens to reveal a rickety staircase descending into darkness." <CO-RESUME ,CO "open trap door">>
     <ASSERT-TEXT "The trap door crashes shut, and you hear someone barring it." <CO-RESUME ,CO "walk down">>
-    <ASSERT-TEXT "The Troll Room" <CO-RESUME ,CO "walk north">>
+    <ASSERT "Reach The Troll Room" <CO-RESUME ,CO "walk north" T> <==? ,HERE ,TROLL-ROOM>>
     <ASSERT "You are still recovering from that last blow, so your attack is ineffective." <CO-RESUME ,CO "kill troll with sword">>
     <ASSERT "Clang! Crash! The troll parries." <CO-RESUME ,CO "kill troll with sword">>
     <ASSERT "The troll is confused and can't fight back." <CO-RESUME ,CO "kill troll with sword">>
@@ -55,13 +55,13 @@
     ;<ASSERT-TEXT "The unarmed troll cannot defend himself: He dies." <CO-RESUME ,CO "kill troll with sword">>
     ;<ASSERT-TEXT "Dropped." <CO-RESUME ,CO "drop sword">>
     <ASSERT-TEXT "East-West Passage" <CO-RESUME ,CO "walk east">>
-    <ASSERT-TEXT "Round Room" <CO-RESUME ,CO "walk east">>
-    <ASSERT-TEXT "Engravings Cave" <CO-RESUME ,CO "walk southe">>
-    <ASSERT-TEXT "Dome Room" <CO-RESUME ,CO "walk east">>
+    <ASSERT "Reach Round Room" <CO-RESUME ,CO "walk east" T> <==? ,HERE ,ROUND-ROOM>>
+    <ASSERT "Reach Engravings Cave" <CO-RESUME ,CO "walk southe" T> <==? ,HERE ,ENGRAVINGS-CAVE>>
+    <ASSERT "Reach Dome Room" <CO-RESUME ,CO "walk east" T> <==? ,HERE ,DOME-ROOM>>
     <ASSERT-TEXT "The rope drops over the side and comes within ten feet of the floor." <CO-RESUME ,CO "tie rope to railing">>
-    <ASSERT-TEXT "Torch Room" <CO-RESUME ,CO "walk down">>
+    <ASSERT "Reach Torch Room" <CO-RESUME ,CO "walk down" T> <==? ,HERE ,TORCH-ROOM>>
     <ASSERT-TEXT "Temple" <CO-RESUME ,CO "walk south">>
-    <ASSERT-TEXT "Egyptian Room" <CO-RESUME ,CO "walk east">>
+    <ASSERT "Reach Egyptian Room" <CO-RESUME ,CO "walk east" T> <==? ,HERE ,EGYPT-ROOM>>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take coffin">>
     <ASSERT-TEXT "Temple" <CO-RESUME ,CO "walk west">>
     <ASSERT-TEXT "Altar" <CO-RESUME ,CO "walk south">>
@@ -69,10 +69,10 @@
     <ASSERT-TEXT "The brass lantern is now off." <CO-RESUME ,CO "turn off lamp">>
     <ASSERT-TEXT "Forest" <CO-RESUME ,CO "walk south">>
     <ASSERT-TEXT "Clearing" <CO-RESUME ,CO "walk north">>
-    <ASSERT-TEXT "Canyon View" <CO-RESUME ,CO "walk east">>
-    <ASSERT-TEXT "Rocky Ledge" <CO-RESUME ,CO "walk down">>
-    <ASSERT-TEXT "Canyon Bottom" <CO-RESUME ,CO "walk down">>
-    <ASSERT-TEXT "End of Rainbow" <CO-RESUME ,CO "walk north">>
+    <ASSERT "Reach Canyon View" <CO-RESUME ,CO "walk east" T> <==? ,HERE ,CANYON-VIEW>>
+    <ASSERT "Reach Rocky Ledge" <CO-RESUME ,CO "walk down" T> <==? ,HERE ,CLIFF-MIDDLE>>
+    <ASSERT "Reach Canyon Bottom" <CO-RESUME ,CO "walk down" T> <==? ,HERE ,CANYON-BOTTOM>>
+    <ASSERT "Reach End of Rainbow" <CO-RESUME ,CO "walk north" T> <==? ,HERE ,END-OF-RAINBOW>>
     <ASSERT-TEXT "Dropped." <CO-RESUME ,CO "drop coffin">>
     <ASSERT-TEXT "The gold coffin opens." <CO-RESUME ,CO "open coffin">>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take sceptre">>
@@ -97,9 +97,9 @@
     <ASSERT-TEXT "The Troll Room" <CO-RESUME ,CO "walk north">>
     <ASSERT-TEXT "East-West Passage" <CO-RESUME ,CO "walk east">>
     <ASSERT-TEXT "Chasm" <CO-RESUME ,CO "walk north">>
-    <ASSERT-TEXT "Reservoir South" <CO-RESUME ,CO "walk northe">>
+    <ASSERT "Reach Reservoir South" <CO-RESUME ,CO "walk northe" T> <==? ,HERE ,RESERVOIR-SOUTH>>
     <ASSERT-TEXT "Dam" <CO-RESUME ,CO "walk east">>
-    <ASSERT-TEXT "Dam Lobby" <CO-RESUME ,CO "walk north">>
+    <ASSERT "Reach Dam Lobby" <CO-RESUME ,CO "walk north" T> <==? ,HERE ,DAM-LOBBY>>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take matches">>
     <ASSERT-TEXT "Maintenance Room" <CO-RESUME ,CO "walk north">>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take wrench">>
@@ -110,7 +110,7 @@
     <ASSERT-TEXT "The sluice gates open and water pours through the dam." <CO-RESUME ,CO "turn bolt with wrench">>
     <ASSERT-TEXT "Dropped." <CO-RESUME ,CO "drop wrench">>
     <ASSERT-TEXT "Deep Canyon" <CO-RESUME ,CO "walk south">>
-    <ASSERT-TEXT "Loud Room" <CO-RESUME ,CO "walk down">>
+    <ASSERT-TEXT "deafeningly loud" <CO-RESUME ,CO "walk down">> ;"The roar drives the player back out"
     <SETG HERE ,ROUND-ROOM>
     <MOVE ,ADVENTURER ,HERE>
     <ASSERT-TEXT "Engravings Cave" <CO-RESUME ,CO "walk southe">>
@@ -124,37 +124,37 @@
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take candles">>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take book">>
     <ASSERT-TEXT "Cave" <CO-RESUME ,CO "walk down">>
-    <ASSERT-TEXT "Entrance to Hades" <CO-RESUME ,CO "walk down">>
+    <ASSERT "Reach Entrance to Hades" <CO-RESUME ,CO "walk down" T> <==? ,HERE ,ENTRANCE-TO-HADES>>
     <ASSERT-TEXT "The bell suddenly becomes red hot and falls to the ground." <CO-RESUME ,CO "ring bell">>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take candles">>
     <ASSERT-TEXT "One of the matches starts to burn." <CO-RESUME ,CO "light match">>
     <ASSERT-TEXT "The candles are lit." <CO-RESUME ,CO "light candles with match">>
     <ASSERT-TEXT "Each word of the prayer reverberates through the hall in a deafening confusion." <CO-RESUME ,CO "read book">>
     <ASSERT-TEXT "Dropped." <CO-RESUME ,CO "drop book">>
-    <ASSERT-TEXT "Land of the Dead" <CO-RESUME ,CO "walk south">>
+    <ASSERT "Reach Land of the Dead" <CO-RESUME ,CO "walk south" T> <==? ,HERE ,LAND-OF-LIVING-DEAD>>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take skull">>
     <ASSERT-TEXT "Entrance to Hades" <CO-RESUME ,CO "walk north">>
     <ASSERT-TEXT "Cave" <CO-RESUME ,CO "walk up">>
-    <ASSERT-TEXT "Mirror Room" <CO-RESUME ,CO "walk north">>
+    <ASSERT "Reach Mirror Room" <CO-RESUME ,CO "walk north" T> <EQUAL? ,HERE ,MIRROR-ROOM-1 ,MIRROR-ROOM-2>>
     <ASSERT-TEXT "There is a rumble from deep within the earth and the room shakes." <CO-RESUME ,CO "rub mirror">>
-    <ASSERT-TEXT "Cold Passage" <CO-RESUME ,CO "walk north">>
-    <ASSERT-TEXT "Slide Room" <CO-RESUME ,CO "walk west">>
-    <ASSERT-TEXT "Mine Entrance" <CO-RESUME ,CO "walk north">>
-    <ASSERT-TEXT "Squeaky Room" <CO-RESUME ,CO "walk west">>
+    <ASSERT "Reach Cold Passage" <CO-RESUME ,CO "walk north" T> <==? ,HERE ,COLD-PASSAGE>>
+    <ASSERT "Reach Slide Room" <CO-RESUME ,CO "walk west" T> <==? ,HERE ,SLIDE-ROOM>>
+    <ASSERT "Reach Mine Entrance" <CO-RESUME ,CO "walk north" T> <==? ,HERE ,MINE-ENTRANCE>>
+    <ASSERT "Reach Squeaky Room" <CO-RESUME ,CO "walk west" T> <==? ,HERE ,SQUEEKY-ROOM>>
     <ASSERT-TEXT "You are carrying:" <CO-RESUME ,CO "inventory">>
-    <ASSERT-TEXT "Bat Room" <CO-RESUME ,CO "walk north">>
-    <ASSERT-TEXT "Shaft Room" <CO-RESUME ,CO "walk east">>
+    <ASSERT "Reach Bat Room" <CO-RESUME ,CO "walk north" T> <==? ,HERE ,BAT-ROOM>>
+    <ASSERT "Reach Shaft Room" <CO-RESUME ,CO "walk east" T> <==? ,HERE ,SHAFT-ROOM>>
     <ASSERT-TEXT "Done." <CO-RESUME ,CO "put torch in basket">>
     <ASSERT-TEXT "Done." <CO-RESUME ,CO "put screwdriver in basket">>
     <ASSERT-TEXT "The brass lantern is now on." <CO-RESUME ,CO "turn on lamp">>
-    <ASSERT-TEXT "Smelly Room" <CO-RESUME ,CO "walk north">>
-    <ASSERT-TEXT "Gas Room" <CO-RESUME ,CO "walk down">>
+    <ASSERT "Reach Smelly Room" <CO-RESUME ,CO "walk north" T> <==? ,HERE ,SMELLY-ROOM>>
+    <ASSERT "Reach Gas Room" <CO-RESUME ,CO "walk down" T> <==? ,HERE ,GAS-ROOM>>
     <ASSERT-TEXT "Coal Mine" <CO-RESUME ,CO "walk east">>
     <ASSERT-TEXT "Coal Mine" <CO-RESUME ,CO "walk northe">>
     <ASSERT-TEXT "Coal Mine" <CO-RESUME ,CO "walk southe">>
     <ASSERT-TEXT "Coal Mine" <CO-RESUME ,CO "walk southwest">>
-    <ASSERT-TEXT "Ladder Top" <CO-RESUME ,CO "walk down">>
-    <ASSERT-TEXT "Ladder Bottom" <CO-RESUME ,CO "walk down">>
+    <ASSERT "Reach Ladder Top" <CO-RESUME ,CO "walk down" T> <==? ,HERE ,LADDER-TOP>>
+    <ASSERT "Reach Ladder Bottom" <CO-RESUME ,CO "walk down" T> <==? ,HERE ,LADDER-BOTTOM>>
     <ASSERT-TEXT "Dead End" <CO-RESUME ,CO "walk south">>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take coal">>
     <ASSERT-TEXT "Ladder Bottom" <CO-RESUME ,CO "walk north">>
@@ -176,13 +176,13 @@
     <ASSERT-TEXT "Coal Mine" <CO-RESUME ,CO "walk southwest">>
     <ASSERT-TEXT "Ladder Top" <CO-RESUME ,CO "walk down">>
     <ASSERT-TEXT "Ladder Bottom" <CO-RESUME ,CO "walk down">>
-    <ASSERT-TEXT "Timber Room" <CO-RESUME ,CO "walk west">>
+    <ASSERT "Reach Timber Room" <CO-RESUME ,CO "walk west" T> <==? ,HERE ,TIMBER-ROOM>>
     <ASSERT-TEXT "crystal skull: Dropped." <CO-RESUME ,CO "drop all">>
     <ASSERT-TEXT "Drafty Room" <CO-RESUME ,CO "walk west">>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take coal">>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take screwdriver">>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take torch">>
-    <ASSERT-TEXT "Machine Room" <CO-RESUME ,CO "walk south">>
+    <ASSERT "Reach Machine Room" <CO-RESUME ,CO "walk south" T> <==? ,HERE ,MACHINE-ROOM>>
     <ASSERT-TEXT "The lid opens." <CO-RESUME ,CO "open lid">>
     <ASSERT-TEXT "Done." <CO-RESUME ,CO "put coal in machine">>
     <ASSERT-TEXT "The lid closes." <CO-RESUME ,CO "close lid">>
@@ -227,12 +227,12 @@
     <ASSERT-TEXT "The Troll Room" <CO-RESUME ,CO "walk north">>
     <ASSERT-TEXT "East-West Passage" <CO-RESUME ,CO "walk east">>
     <ASSERT-TEXT "Chasm" <CO-RESUME ,CO "walk north">>
-    <ASSERT-TEXT "Reservoir South" <CO-RESUME ,CO "walk northe">>
-    <ASSERT-TEXT "Reservoir" <CO-RESUME ,CO "walk north">>
+    <ASSERT "Reach Reservoir South" <CO-RESUME ,CO "walk northe" T> <==? ,HERE ,RESERVOIR-SOUTH>>
+    <ASSERT "Reach Reservoir" <CO-RESUME ,CO "walk north" T> <==? ,HERE ,RESERVOIR>>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take trunk">>
-    <ASSERT-TEXT "Reservoir North" <CO-RESUME ,CO "walk north">>
+    <ASSERT "Reach Reservoir North" <CO-RESUME ,CO "walk north" T> <==? ,HERE ,RESERVOIR-NORTH>>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take pump">>
-    <ASSERT-TEXT "Atlantis Room" <CO-RESUME ,CO "walk north">>
+    <ASSERT "Reach Atlantis Room" <CO-RESUME ,CO "walk north" T> <==? ,HERE ,ATLANTIS-ROOM>>
     <ASSERT-TEXT "Your load is too heavy." <CO-RESUME ,CO "take trident">>
     <ASSERT-TEXT "You are carrying:" <CO-RESUME ,CO "inventory">>
     <ASSERT-TEXT "Dropped." <CO-RESUME ,CO "drop torch">>
@@ -241,7 +241,7 @@
     <ASSERT-TEXT "Reservoir" <CO-RESUME ,CO "walk south">>
     <ASSERT-TEXT "Reservoir South" <CO-RESUME ,CO "walk south">>
     <ASSERT-TEXT "Dam" <CO-RESUME ,CO "walk east">>
-    <ASSERT-TEXT "Dam Base" <CO-RESUME ,CO "walk east">>
+    <ASSERT "Reach Dam Base" <CO-RESUME ,CO "walk east" T> <==? ,HERE ,DAM-BASE>>
     ;"replaced command to use new INFLAT syntax"
     <ASSERT-TEXT "The boat inflates and appears seaworthy." <CO-RESUME ,CO "inflat plastic with pump">>
     <ASSERT-TEXT "Dropped." <CO-RESUME ,CO "drop pump">>
@@ -259,7 +259,7 @@
     <ASSERT-TEXT "Your load is too heavy." <CO-RESUME ,CO "take shovel">>
     <ASSERT-TEXT "Dropped." <CO-RESUME ,CO "drop buoy">>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take shovel">>
-    <ASSERT-TEXT "Sandy Cave" <CO-RESUME ,CO "walk northe">>
+    <ASSERT "Reach Sandy Cave" <CO-RESUME ,CO "walk northe" T> <==? ,HERE ,SANDY-CAVE>>
     <ASSERT-TEXT "What do you want to dig?" <CO-RESUME ,CO "dig">>
     <ASSERT-TEXT "(with the shovel)" <CO-RESUME ,CO "sand">>
     <ASSERT-TEXT "(with the shovel)" <CO-RESUME ,CO "dig sand">>
@@ -289,9 +289,9 @@
     <ASSERT-TEXT "Done." <CO-RESUME ,CO "put jewels in case">>
     <ASSERT-TEXT "Kitchen" <CO-RESUME ,CO "walk east">>
     <ASSERT-TEXT "Behind House" <CO-RESUME ,CO "walk east">>
-    <ASSERT-TEXT "North of House" <CO-RESUME ,CO "walk north">>
-    <ASSERT-TEXT "Forest Path" <CO-RESUME ,CO "walk north">>
-    <ASSERT-TEXT "Up a Tree" <CO-RESUME ,CO "climb tree">>
+    <ASSERT "Reach North of House" <CO-RESUME ,CO "walk north" T> <==? ,HERE ,NORTH-OF-HOUSE>>
+    <ASSERT "Reach Forest Path" <CO-RESUME ,CO "walk north" T> <==? ,HERE ,PATH>>
+    <ASSERT "Reach Up a Tree" <CO-RESUME ,CO "climb tree" T> <==? ,HERE ,UP-A-TREE>>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take egg">>
     <ASSERT-TEXT "(tree)" <CO-RESUME ,CO "climb down">>
     <ASSERT-TEXT "North of House" <CO-RESUME ,CO "walk south">>
@@ -310,11 +310,11 @@
     <ASSERT-TEXT "Maze" <CO-RESUME ,CO "walk southwest">>
     <ASSERT-TEXT "Maze" <CO-RESUME ,CO "walk east">>
     <ASSERT-TEXT "Maze" <CO-RESUME ,CO "walk south">>
-    <ASSERT-TEXT "Cyclops Room" <CO-RESUME ,CO "walk southe">>
+    <ASSERT "Reach Cyclops Room" <CO-RESUME ,CO "walk southe" T> <==? ,HERE ,CYCLOPS-ROOM>>
     <ASSERT-TEXT "The cyclops, hearing the name of his father's deadly nemesis, flees the room by knocking down the wall on the east of the room." <CO-RESUME ,CO "Ulysses">>
     <ASSERT "Move thief to Cyclops Room for testing" <MOVE ,THIEF ,CYCLOPS-ROOM> <FCLEAR ,THIEF INVISIBLE>>
     <ASSERT-TEXT "The thief is taken aback by your unexpected generosity, but accepts the jewel-encrusted egg and stops to admire its beauty." <CO-RESUME ,CO "give egg to thief">>
-    <ASSERT-TEXT "Strange Passage" <CO-RESUME ,CO "walk east">>
+    <ASSERT "Reach Strange Passage" <CO-RESUME ,CO "walk east" T> <==? ,HERE ,STRANGE-PASSAGE>>
     <ASSERT-TEXT "Living Room" <CO-RESUME ,CO "walk east">>
     <ASSERT-TEXT "Done." <CO-RESUME ,CO "put coins in case">>
     <ASSERT-TEXT "Taken." <CO-RESUME ,CO "take knife">>
@@ -337,7 +337,7 @@
     <ASSERT-TEXT "Maze" <CO-RESUME ,CO "walk west">>
     <ASSERT-TEXT "Maze" <CO-RESUME ,CO "walk up">>
     <ASSERT-TEXT "You won't be able to get back up to the tunnel you are going through when it gets to the next room." <CO-RESUME ,CO "walk down">>
-    <ASSERT-TEXT "Grating Room" <CO-RESUME ,CO "walk northe">>
+    <ASSERT "Reach Grating Room" <CO-RESUME ,CO "walk northe" T> <==? ,HERE ,GRATING-ROOM>>
     ;<ASSERT-TEXT "grate" description="Unlock the grate" <CO-RESUME ,CO "unlock grate">>
     <CO-RESUME ,CO "unlock grate">
     <ASSERT-TEXT "The grating opens to reveal trees above you." <CO-RESUME ,CO "open grate">>

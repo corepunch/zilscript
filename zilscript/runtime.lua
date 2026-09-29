@@ -300,41 +300,46 @@ end
 -- Create a coroutine for the game that yields on input
 -- Returns a coroutine object
 function M.create_game(env, silent)
+	-- The ending's text: printed after the last READ, so no prompt yields it.
+	local function final_output()
+		if type(env.TAKE_OUTPUT) == "function" then return env.TAKE_OUTPUT() end
+	end
 	local co
 	co = coroutine.create(function()
 		-- Check if we're restoring from a save (LLM mode)
-		local restored = rawget(_G, "_LLM_RESTORED")
-		if restored then
-			-- Skip GO() initialization, go directly to MAIN_LOOP
-			local success = M.execute("MAIN_LOOP()", 'main', env, silent)
-			if not success then
-				error("Failed to start game: MAIN_LOOP() not defined or failed")
+		-- A restored save skips GO()'s initialization and re-enters the main
+		-- loop. Both entries run under the same handler, so an ending's QUIT
+		-- or RESTART after a restore ends or restarts the game rather than
+		-- escaping as a raw control signal.
+		local entry = env.GO
+		if rawget(_G, "_LLM_RESTORED") then
+			entry = env.MAIN_LOOP
+			if type(entry) ~= "function" then
+				error("Failed to start game: MAIN_LOOP() not defined")
 			end
-		else
-			-- Normal game start
-			if type(env.GO) ~= "function" then
-				error("Failed to start game: GO() not defined or failed")
-			end
+		elseif type(entry) ~= "function" then
+			error("Failed to start game: GO() not defined or failed")
 		end
 
 		while true do
-			local ok, result = pcall(env.GO)
+			local ok, result = pcall(entry)
 			if ok then
 				if not silent then
 					print("\n*** Game has ended ***\n")
 				end
-				return result
+				return final_output()
 			end
 
 			if type(env.IS_ZIL_CONTROL_SIGNAL) == "function"
 				and env.IS_ZIL_CONTROL_SIGNAL(result, "restart") then
 				-- RESTART restores captured state and re-enters GO().
+				entry = env.GO
 			elseif type(env.IS_ZIL_CONTROL_SIGNAL) == "function"
 				and env.IS_ZIL_CONTROL_SIGNAL(result, "quit") then
 				if not silent then
 					print("\n*** Game has ended ***\n")
 				end
-				return
+				return final_output()
 			else
 				error(tostring(result), 0)
 			end

@@ -131,13 +131,50 @@ local function companion_selector(query)
   end
 end
 
+-- The arrow-key widget needs a terminal. Piped or scripted input gets a
+-- numbered menu read a line at a time: a number picks a choice, anything
+-- else is typed as a command.
+local interactive = os.execute("test -t 0") == true
+
+local function numbered_selector(query)
+  local displayed = {}
+  local function print_group(title, group)
+    local shown = false
+    for _, choice in ipairs(query.choices) do
+      if (choice.group or "scene") == group then
+        if not shown then io.write("\n" .. title .. "\n") shown = true end
+        table.insert(displayed, choice)
+        io.write(string.format("  %d. %s\n", #displayed, choice.label))
+      end
+    end
+  end
+  if query.scene and query.scene.alt then
+    io.write("\n" .. query.scene.alt .. "\n")
+  end
+  io.write("\nWhat will you do?\n")
+  print_group("In this scene", "scene")
+  print_group("Go somewhere", "move")
+  io.write("\nChoose a number, or type any command: ")
+  local input = io.read()
+  if not input then os.exit(0) end
+  local trimmed = input:match("^%s*(.-)%s*$")
+  local index = tonumber(trimmed)
+  local choice = index and displayed[index]
+  if choice then
+    io.write("\n> " .. choice.command .. "\n\n")
+    return {kind = "choice", id = choice.id, command = choice.command}
+  end
+  io.write("\n")
+  return {kind = "typed", command = trimmed}
+end
+
 while game:is_running() do
   local command
 
   if options.interface == "companion" then
     local query = env.COMPANION_QUERY()
     if query.ok and #query.choices > 0 then
-      local result = companion_selector(query)
+      local result = (interactive and companion_selector or numbered_selector)(query)
       if result.kind == "choice" then
         local selected = env.COMPANION_SELECT(result.id)
         if selected.ok then

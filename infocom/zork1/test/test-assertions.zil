@@ -22,6 +22,8 @@
     <ASSERT "Go to reception room" <CO-RESUME ,CO "west" T> <==? ,HERE ,RECEPTION-ROOM>>
     
     ;"Take the key"
+    ;"The key lies under the reception papers until they are searched."
+    <ASSERT-TEXT "brass key" <CO-RESUME ,CO "search papers">>
     <ASSERT "Take brass key" <CO-RESUME ,CO "take key" T> <==? <LOC ,BRASS-KEY> ,ADVENTURER>>
     
     ;"Check drawer is NOT open yet (should pass)"
