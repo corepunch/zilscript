@@ -88,7 +88,13 @@ For every `A --direction--> B` edge:
 - Never write `<ASSERT "..." <CO-RESUME ...> <state-check>>` — coroutine success proves nothing about state
 - Use `<ASSERT-TEXT>` for output, then separate `<ASSERT>` for state transitions
 
-#### F. Duplicate Object Audit
+#### F. Discovery and Prose-Link Audit
+- For every room, `LOOK` on first entry and list each object named. Anything hidden among, under, behind or inside something, anything whose writing is quoted, and any stated conclusion is a **High-severity** "revealed at a glance" defect.
+- Take and drop each portable object; its `LDESC` must be a presence line, not its examine text.
+- Verify every actionable noun and named exit in room and object prose is a `[[link]]`, and run `make lint-zil` (link words and each link target examined through the parser).
+- Confirm suggestions and companion choices never offer an object before it is found.
+
+#### G. Duplicate Object Audit
 For each portable item type, verify exactly one interactive instance exists. Flag duplicates unless explicitly differentiated.
 
 ---

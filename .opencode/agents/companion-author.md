@@ -166,6 +166,9 @@ Only selecting a card may execute its parser command and change game state.
 - Reveal a specific solution only after the intended clue, item, or experiment
   justifies it.
 - Distinguish world truth from player knowledge.
+- Never offer `TAKE` or `READ` for an object that is still `INVISIBLE` or
+  inside a closed container; offer the search of its hiding place instead
+  ("Search the papers heaped on the desk"), and the `TAKE` once it is found.
 
 ### Validate commands empirically
 

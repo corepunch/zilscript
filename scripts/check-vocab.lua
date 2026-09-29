@@ -37,21 +37,21 @@ local function parse_zil_objects(content)
             pos = obj_start + 8
         else
             local depth = 1
-            local search_from = obj_start
             local obj_end = nil
 
-            while search_from <= len do
-                local next_open = content:find("<", search_from + 1)
-                local next_close = content:find(">", search_from + 1)
-                if not next_close then break end
-                if next_open and next_open < next_close then
+            -- Brackets inside strings are prose, such as the "->" of a
+            -- [[label->target]] link, not structure.
+            local in_string = false
+            for i = obj_start + 1, len do
+                local c = content:sub(i, i)
+                if c == '"' and content:sub(i - 1, i - 1) ~= "\\" then
+                    in_string = not in_string
+                elseif not in_string and c == "<" then
                     depth = depth + 1
-                    search_from = next_open
-                else
+                elseif not in_string and c == ">" then
                     depth = depth - 1
-                    search_from = next_close
                     if depth == 0 then
-                        obj_end = next_close
+                        obj_end = i
                         break
                     end
                 end

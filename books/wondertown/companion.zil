@@ -139,11 +139,18 @@
              "climb workbench"
              ,CHOICE-INVESTIGATE
              88>
-     <CHOICE "workshop-floor.take-oil-can"
-             "Pull the tiny copper oil can from under the workbench"
-             "take oil can"
-             ,CHOICE-PROGRESS
-             85>)>
+     <COND (<FSET? ,OIL-CAN ,INVISIBLE>
+            <CHOICE "workshop-floor.look-under-workbench"
+                    "Peer at the copper glint under the workbench"
+                    "look under workbench"
+                    ,CHOICE-INVESTIGATE
+                    85>)
+           (<IN? ,OIL-CAN ,WORKSHOP-FLOOR>
+            <CHOICE "workshop-floor.take-oil-can"
+                    "Pull the tiny copper oil can from under the workbench"
+                    "take oil can"
+                    ,CHOICE-PROGRESS
+                    85>)>)>
    <COND
      (<FSET? ,TOOL-BENCH ,TOUCHBIT>
       <CHOICE "workshop-floor.go-toolbench"
@@ -682,11 +689,18 @@
              "examine cart"
              ,CHOICE-INVESTIGATE
              90>
-     <CHOICE "yard.take-head"
-             "Take the porcelain doll head from the scrap"
-             "take head"
-             ,CHOICE-PROGRESS
-             85>
+     <COND (<FSET? ,DOLL-HEAD ,INVISIBLE>
+            <CHOICE "yard.search-piles"
+                    "Brush the snow from the piles of broken toys"
+                    "search piles"
+                    ,CHOICE-INVESTIGATE
+                    85>)
+           (<IN? ,DOLL-HEAD ,SCRAP-YARD>
+            <CHOICE "yard.take-head"
+                    "Take the porcelain doll head from the scrap"
+                    "take head"
+                    ,CHOICE-PROGRESS
+                    85>)>
      <CHOICE "yard.examine-doll"
              "Look at the headless doll in the cart"
              "examine doll"

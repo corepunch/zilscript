@@ -90,6 +90,7 @@ test.describe("Wondertown companion integration", function(t)
 		assert.assert_equal(book_scene.key, "workbench.top-open")
 		choose("workbench-top.close-repair-book")
 		choose("workbench-top.go-down")
+		-- Examining the workbench found the oil can in the shadows beneath it.
 		choose("workshop-floor.take-oil-can")
 		choose("workshop-floor.go-toolbench")
 
@@ -133,6 +134,8 @@ test.describe("Wondertown companion integration", function(t)
 		choose("square.go-scrap-yard")
 
 		-- Scrap yard: take head, give to cart
+		-- The doll head lies under the snowy scrap until Pip searches it.
+		choose("yard.search-piles")
 		choose("yard.take-head")
 		choose("yard.give-head")
 

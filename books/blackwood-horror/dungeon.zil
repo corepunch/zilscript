@@ -70,7 +70,7 @@
 <ROOM OPERATING-THEATER
       (IN ROOMS)
       (DESC "Operating Theater")
-      (LDESC "The circular theater rises in tiers where students once observed procedures. The air is motionless; even your sleeve brushing the door sounds indecently loud.")
+      (LDESC "The circular theater rises in [[tiers]] where students once observed procedures. The air is motionless; even your sleeve brushing the door sounds indecently loud.")
       (SOUTH TO SANITARIUM-ENTRANCE)
       (FLAGS RLANDBIT ONBIT)>
 
@@ -86,7 +86,7 @@
 <ROOM MORGUE
       (IN ROOMS)
       (DESC "Morgue")
-      (LDESC "The temperature drops as you enter the morgue. Medical instruments hang on the wall, and condensation beads on drawer handles untouched by your breath. The only exit is a passage leading south to the patient ward.")
+      (LDESC "The temperature drops as you enter the morgue. Medical instruments hang on the wall, and condensation beads on drawer handles untouched by your breath. The only exit is a passage leading [[south]] to the patient ward.")
       (SOUTH TO PATIENT-WARD)
       (FLAGS RLANDBIT ONBIT)
       (VALUE 10)>
@@ -94,7 +94,7 @@
 <ROOM BASEMENT-STAIRS
       (IN ROOMS)
       (DESC "Basement Stairs")
-      (LDESC "A narrow stone staircase descends into darkness. The air grows colder with each step. Moisture drips from the ceiling, and the walls are slick with condensation. The stairs lead down into the basement, while the entrance hall lies up the stairs.")
+      (LDESC "A narrow stone staircase descends into darkness. The air grows colder with each step. Moisture drips from the ceiling, and the walls are slick with condensation. The stairs lead [[down]] into the basement, while the entrance hall lies [[up]] the stairs.")
       (UP TO SANITARIUM-ENTRANCE)
       (DOWN TO BASEMENT-CORRIDOR)
       (FLAGS RLANDBIT ONBIT)>
@@ -120,7 +120,7 @@
 <ROOM STORAGE-ROOM
       (IN ROOMS)
       (DESC "Storage Room")
-      (LDESC "This dark storage room is filled with old linens, rusted equipment, and unidentifiable containers in every space. A sour smell permeates the air. The exit lies to the east.")
+      (LDESC "This dark storage room is filled with old linens, rusted equipment, and unidentifiable containers in every space. A sour smell permeates the air. The exit lies to the [[east]].")
       (EAST TO BASEMENT-CORRIDOR)
       (FLAGS RLANDBIT ONBIT)>
 
@@ -144,7 +144,7 @@
 <ROOM ISOLATION-WARD
       (IN ROOMS)
       (DESC "Isolation Ward")
-      (LDESC "Small cells line both sides of a narrow corridor. Scratches cover the walls—thousands of them, as if someone counted the days. The corridor continues north to the electroshock theater.")
+      (LDESC "Small cells line both sides of a narrow corridor. [[Scratches->scratches]] cover the walls—thousands of them, as if someone counted the days. The corridor continues [[north]] to the electroshock theater.")
       (SOUTH TO FLOODING-CHAMBER)
       (NORTH TO ELECTROSHOCK-THEATER)
       (FLAGS RLANDBIT)
@@ -153,7 +153,7 @@
 <ROOM ELECTROSHOCK-THEATER
       (IN ROOMS)
       (DESC "Electroshock Theater")
-      (LDESC "A concrete room. The walls are scorched in places. A viewing window overlooks the room from above. To the east, a stairway climbs upward. A passage to the south leads out to the isolation ward.")
+      (LDESC "A concrete room. The walls are scorched in places. A viewing window overlooks the room from above. To the [[east]], a stairway climbs upward. A passage to the [[south]] leads out to the isolation ward.")
       (SOUTH TO ISOLATION-WARD)
       (EAST TO OBSERVATION-DECK)
       (WEST TO PADDED-CELL)
@@ -163,7 +163,7 @@
 <ROOM PADDED-CELL
       (IN ROOMS)
       (DESC "Padded Cell")
-      (LDESC "The small room reeks of decay. Something has been written on the walls in what looks like dried blood.")
+      (LDESC "The small room reeks of decay. Something has been written on the [[walls]] in what looks like dried blood.")
       (EAST TO ELECTROSHOCK-THEATER)
       (FLAGS RLANDBIT)
       (VALUE 5)>
@@ -171,7 +171,7 @@
 <ROOM OBSERVATION-DECK
       (IN ROOMS)
       (DESC "Observation Deck")
-      (LDESC "A small room with chairs facing a window. This is where doctors watched their experiments. Stairs lead down to the west.")
+      (LDESC "A small room with chairs facing a window. This is where doctors watched their experiments. Stairs lead down to the [[west]].")
       (WEST TO ELECTROSHOCK-THEATER)
       (NORTH TO ADMINISTRATIVE-WING)
       (FLAGS RLANDBIT ONBIT)>
@@ -179,7 +179,7 @@
 <ROOM ADMINISTRATIVE-WING
       (IN ROOMS)
       (DESC "Administrative Wing")
-      (LDESC "Offices line a carpeted corridor. Most doors hang open, revealing ransacked rooms. Filing cabinets are overturned. To the east lies the director's office. North leads to the staff quarters. South returns to the observation deck.")
+      (LDESC "Offices line a carpeted corridor. Most doors hang open, revealing ransacked rooms. [[Filing cabinets->cabinets]] are overturned. To the [[east]] lies the director's office. [[North->north]] leads to the staff quarters. [[South->south]] returns to the observation deck.")
       (SOUTH TO OBSERVATION-DECK)
       (EAST TO DIRECTORS-OFFICE)
       (NORTH TO STAFF-QUARTERS)
@@ -197,7 +197,7 @@
 <ROOM STAFF-QUARTERS
       (IN ROOMS)
       (DESC "Staff Quarters")
-      (LDESC "A dormitory with rows of narrow beds. The air smells of mildew and abandonment. To the west is the cafeteria. South returns to the administrative wing.")
+      (LDESC "A dormitory with rows of narrow beds. The air smells of mildew and abandonment. To the [[west]] is the cafeteria. [[South->south]] returns to the administrative wing.")
       (SOUTH TO ADMINISTRATIVE-WING)
       (WEST TO CAFETERIA)
       (FLAGS RLANDBIT ONBIT)>
@@ -205,7 +205,7 @@
 <ROOM CAFETERIA
       (IN ROOMS)
       (DESC "Cafeteria")
-      (LDESC "Long tables with attached benches fill the room. Trays and plates lie scattered about, covered in dust. East returns to the staff quarters.")
+      (LDESC "Long tables with attached benches fill the room. Trays and plates lie scattered about, covered in dust. [[East->east]] returns to the staff quarters.")
       (EAST TO STAFF-QUARTERS)
       (NORTH TO OVERGROWN-GARDEN)
       (FLAGS RLANDBIT ONBIT)>
@@ -264,7 +264,7 @@
         (SYNONYM DESK)
         (ADJECTIVE HEAVY OAK)
         (DESC "oak desk")
-        (LDESC "A heavy oak desk sits against one wall, its surface thick with dust.")
+        (LDESC "A heavy [[oak desk->desk]] sits against one wall, its surface thick with dust.")
         (FLAGS CONTBIT OPENBIT SURFACEBIT)
         (TEXT "The desk has three drawers. The top two are broken and empty. The bottom drawer appears intact but is locked tight.")
         (ACTION DESK-F)>
@@ -274,8 +274,8 @@
         (SYNONYM FILE FOLDER RECORDS)
         (ADJECTIVE PATIENT CONFIDENTIAL)
         (DESC "patient file")
-        (FDESC "A confidential patient file lies open in the drawer, its contents disturbing.")
-        (LDESC "A file folder marked 'Patient 189 - CONFIDENTIAL'.")
+        (FDESC "A confidential [[patient file->file]] lies open in the drawer, its contents disturbing.")
+        (LDESC "A [[file folder->file]] marked 'Patient 189 - CONFIDENTIAL'.")
         (FLAGS TAKEBIT READBIT)
         (SIZE 3)
         (VALUE 2)
@@ -286,10 +286,19 @@
         (SYNONYM KEY)
         (ADJECTIVE BRASS SMALL)
         (DESC "brass key")
-        (LDESC "A small [[brass key->key]] lies among the scattered papers on the floor, cold to the touch.")
-        (FLAGS TAKEBIT)
+        (FDESC "A small [[brass key->key]] lies among the scattered papers on the floor, cold to the touch.")
+        (LDESC "A small [[brass key->key]] lies here.")
+        (FLAGS TAKEBIT INVISIBLE)
         (SIZE 2)
         (TEXT "A small brass key with the number '3' engraved on its head. It's ice cold despite being indoors.")>
+
+<OBJECT RECEPTION-PAPERS
+        (IN RECEPTION-ROOM)
+        (SYNONYM PAPERS PAPER FORMS)
+        (ADJECTIVE SCATTERED ADMISSION)
+        (DESC "scattered papers")
+        (FLAGS NDESCBIT)
+        (ACTION RECEPTION-PAPERS-F)>
 
 <OBJECT OPERATING-TABLE
         (IN OPERATING-THEATER)
@@ -297,7 +306,7 @@
         (ADJECTIVE OPERATING STAINED)
         (DESC "operating table")
         (FDESC "Tiers of wooden benches circle a central [[operating table->table]]. Cold metal trays sit abandoned on carts. A single overhead lamp, long dead, still points down at the table like an accusation.")
-        (LDESC "A stained operating table dominates the center of the room.")
+        (LDESC "A stained [[operating table->table]] dominates the center of the room.")
         (FLAGS SURFACEBIT CONTBIT OPENBIT)
         (TEXT "The operating table is covered in dark brown stains that you hope are just rust. Leather restraints dangle from all four corners. Deep gouges mar the metal surface, as if someone struggled violently against the bindings.")>
 
@@ -316,7 +325,7 @@
         (SYNONYM SCALPEL KNIFE BLADE)
         (ADJECTIVE SURGICAL RUSTY)
         (DESC "rusty scalpel")
-        (LDESC "A surgical scalpel, its blade dulled by rust but still sharp enough to cut.")
+        (LDESC "A surgical [[scalpel]], its blade dulled by rust but still sharp enough to cut.")
         (FLAGS TAKEBIT WEAPONBIT TOOLBIT)
         (SIZE 3)
         (ACTION SCALPEL-F)>
@@ -326,7 +335,7 @@
         (SYNONYM BOTTLE ETHER CHLOROFORM)
         (ADJECTIVE GLASS)
         (DESC "bottle of ether")
-        (LDESC "A glass bottle labeled 'Ether - Handle with Care'. Some liquid remains inside.")
+        (LDESC "A glass [[bottle]] labeled 'Ether - Handle with Care'. Some liquid remains inside.")
         (FLAGS TAKEBIT)
         (SIZE 5)
         (ACTION ETHER-F)>
@@ -336,8 +345,8 @@
         (SYNONYM BEDS FRAMES BED FRAME)
         (ADJECTIVE RUSTED)
         (DESC "bed frames")
-        (FDESC "Dozens of bed frames line the walls. Most mattresses have rotted away, leaving only rusted springs. Among the debris, a child's [[crayon drawing]] is pinned to one bedframe.")
-        (LDESC "Rusted bed frames line the corridor.")
+        (FDESC "Dozens of [[bed frames->beds]] line the walls. Most mattresses have rotted away, leaving only rusted springs. Among the debris, a child's [[crayon drawing]] is pinned to one bedframe.")
+        (LDESC "Rusted [[bed frames->beds]] line the corridor.")
         (TEXT "Dozens of bed frames line the walls. The mattresses have rotted away, leaving only rusted springs and metal frames. Some still have restraint straps attached.")>
 
 <OBJECT CHILD-DRAWING
@@ -362,7 +371,8 @@
         (SYNONYM CHAINS CHAIN PADLOCK)
         (ADJECTIVE THICK)
         (DESC "chains")
-        (LDESC "Thick chains secure the heavy door.")
+        (LDESC "Thick [[chains]] secure the heavy door.")
+        (FLAGS NDESCBIT) ;"The ward's description tells of them while they hold."
         (VALUE 4)
         (ACTION CHAINS-F)>
 
@@ -371,8 +381,8 @@
         (SYNONYM DRAWERS DRAWER REFRIGERATOR)
         (ADJECTIVE REFRIGERATED METAL)
         (DESC "refrigerated drawers")
-        (LDESC "Refrigerated drawers line both walls.")
-        (FLAGS CONTBIT OPENBIT)
+        (DESCFCN DRAWERS-DESC-F)
+        (FLAGS CONTBIT)
         (ACTION DRAWERS-F)>
 
 <OBJECT DISSECTION-TABLE
@@ -380,7 +390,7 @@
         (SYNONYM TABLE)
         (ADJECTIVE DISSECTION AUTOPSY)
         (DESC "dissection table")
-        (LDESC "In the center, a dissection table holds what appears to be a canvas-wrapped bundle.")
+        (LDESC "In the center stands a steel [[dissection table->table]].")
         (FLAGS SURFACEBIT CONTBIT OPENBIT)
         (ACTION DISTABLE-F)>
 
@@ -389,8 +399,8 @@
         (SYNONYM BUNDLE CANVAS BODY CORPSE)
         (ADJECTIVE WRAPPED)
         (DESC "canvas bundle")
-        (FDESC "On the dissection table, a human-shaped bundle wrapped in stained canvas awaits examination.")
-        (LDESC "A human-shaped bundle wrapped in stained canvas. You'd rather not investigate further.")
+        (FDESC "On the dissection table, a human-shaped [[bundle]] wrapped in stained canvas awaits examination.")
+        (LDESC "A human-shaped [[bundle]] wrapped in stained canvas. You'd rather not investigate further.")
         (FLAGS TAKEBIT)
         (SIZE 50)
         (ACTION BUNDLE-F)>
@@ -400,8 +410,8 @@
         (SYNONYM SERUM VIAL BOTTLE)
         (ADJECTIVE STRANGE GLOWING)
         (DESC "vial of serum")
-        (FDESC "Inside the refrigerated drawer, a glass vial glows with an eerie luminescence.")
-        (LDESC "A glass vial of luminescent liquid, its label too small to read at a glance.")
+        (FDESC "Inside the open refrigerated drawer, a glass [[vial]] glows with an eerie luminescence.")
+        (LDESC "A glass [[vial]] of luminescent liquid, its label too small to read at a glance.")
         (FLAGS TAKEBIT)
         (SIZE 4)
         (ACTION SERUM-F)>
@@ -411,8 +421,8 @@
         (SYNONYM JOURNAL DIARY NOTEBOOK BOOK)
         (ADJECTIVE DOCTOR MORDECAI)
         (DESC "doctor's journal")
-        (FDESC "A personal journal rests on a small desk in the corner, its pages filled with manic handwriting.")
-        (LDESC "A journal rests on a small desk in the corner.")
+        (FDESC "A personal [[journal]] rests on a small desk in the corner, its pages filled with manic handwriting.")
+        (LDESC "A [[journal]] rests on a small desk in the corner.")
         (FLAGS READBIT TAKEBIT)
         (TEXT "The subject showed remarkable resilience. But the serum... it changed something fundamental. Patient 237 died on the table, yet I swear I saw movement hours later. The eyes... the eyes opened. I have made a terrible mistake. God forgive me, I must seal this place.")
         (SIZE 6)
@@ -423,7 +433,7 @@
         (SYNONYM PIPES PIPE CEILING)
         (ADJECTIVE RUSTED DRIPPING)
         (DESC "rusty pipes")
-        (LDESC "Pipes run along the ceiling, rusted and dripping.")
+        (LDESC "[[Pipes->pipes]] run along the ceiling, rusted and dripping.")
         (ACTION PIPES-F)>
 
 <OBJECT VALVE
@@ -431,7 +441,7 @@
         (SYNONYM VALVE WHEEL)
         (ADJECTIVE PIPE METAL)
         (DESC "metal valve")
-        (LDESC "A wheel valve on one of the pipes, crusted with rust.")
+        (LDESC "A wheel [[valve]] on one of the pipes, crusted with rust.")
         (FLAGS TURNBIT)
         (ACTION VALVE-F)>
 
@@ -450,7 +460,7 @@
         (SYNONYM SHOVEL SPADE)
         (ADJECTIVE COAL)
         (DESC "coal shovel")
-        (LDESC "A sturdy coal shovel with a wooden handle.")
+        (LDESC "A sturdy [[coal shovel->shovel]] with a wooden handle.")
         (FLAGS TAKEBIT TOOLBIT)
         (SIZE 10)
         (ACTION SHOVEL-F)>
@@ -460,8 +470,8 @@
         (SYNONYM BIN HOPPER)
         (ADJECTIVE COAL IRON)
         (DESC "coal bin")
-        (LDESC "An iron coal bin crouches beside the boiler.")
-        (FLAGS CONTBIT OPENBIT)
+        (LDESC "An iron [[coal bin->bin]] crouches beside the boiler.")
+        (FLAGS CONTBIT)
         (ACTION COAL-BIN-F)>
 
 <OBJECT LUMP-OF-COAL
@@ -469,7 +479,7 @@
         (SYNONYM COAL LUMP FUEL)
         (ADJECTIVE BLACK DUSTY)
         (DESC "lump of coal")
-        (LDESC "A usable lump of coal rests among the damp slack.")
+        (LDESC "A usable [[lump of coal->coal]] rests among the damp slack.")
         (FLAGS TAKEBIT)
         (SIZE 4)
         (ACTION COAL-F)>
@@ -479,8 +489,8 @@
         (SYNONYM BENCH TABLE WORKBENCH)
         (ADJECTIVE WORK)
         (DESC "workbench")
-        (LDESC "A workbench sits against the far wall, covered with ancient tools.")
-        (FLAGS SURFACEBIT CONTBIT OPENBIT)
+        (LDESC "A [[workbench]] sits against the far wall, covered with ancient tools.")
+        (FLAGS SURFACEBIT CONTBIT)
         (ACTION WORKBENCH-F)>
 
 <OBJECT FLASHLIGHT
@@ -488,7 +498,7 @@
         (SYNONYM FLASHLIGHT LIGHT TORCH)
         (ADJECTIVE ELECTRIC)
         (DESC "flashlight")
-        (LDESC "An old-fashioned electric flashlight, surprisingly heavy.")
+        (LDESC "An old-fashioned electric [[flashlight]], surprisingly heavy.")
         (FLAGS TAKEBIT LIGHTBIT)
         (SIZE 5)
         (ACTION FLASHLIGHT-F)>
@@ -498,8 +508,8 @@
         (SYNONYM SHELVES SHELF)
         (ADJECTIVE SAGGING)
         (DESC "shelves")
-        (LDESC "Shelves line the walls, sagging under the weight of moldering supplies.")
-        (FLAGS CONTBIT OPENBIT)
+        (LDESC "[[Shelves->shelves]] line the walls, sagging under the weight of moldering supplies.")
+        (FLAGS CONTBIT)
         (ACTION SHELVES-F)>
 
 <OBJECT MEDICAL-BAG
@@ -507,8 +517,8 @@
         (SYNONYM BAG SATCHEL)
         (ADJECTIVE MEDICAL LEATHER DOCTOR)
         (DESC "medical bag")
-        (LDESC "An old leather medical bag sits on one of the shelves.")
-        (FLAGS CONTBIT OPENABLEBIT OPENBIT TAKEBIT)
+        (LDESC "An old leather [[medical bag->bag]] sits on one of the shelves, its clasp shut.")
+        (FLAGS CONTBIT OPENABLEBIT TAKEBIT)
         (CAPACITY 15)
         (SIZE 10)
         (ACTION MEDICAL-BAG-F)>
@@ -518,7 +528,7 @@
         (SYNONYM BANDAGES BANDAGE CLOTH)
         (ADJECTIVE YELLOWED CLEAN)
         (DESC "bandages")
-        (LDESC "Clean bandages wrapped in yellowed cloth.")
+        (LDESC "Clean [[bandages]] wrapped in yellowed cloth.")
         (FLAGS TAKEBIT)
         (SIZE 3)
         (ACTION BANDAGES-F)>
@@ -528,7 +538,7 @@
         (SYNONYM VIAL MORPHINE BOTTLE)
         (ADJECTIVE GLASS SMALL)
         (DESC "morphine vial")
-        (LDESC "A sealed glass vial of morphine.")
+        (LDESC "A sealed glass vial of [[morphine]].")
         (FLAGS TAKEBIT)
         (SIZE 2)
         (ACTION MORPHINE-VIAL-F)>
@@ -538,7 +548,7 @@
         (SYNONYM LANTERN LAMP)
         (ADJECTIVE OIL)
         (DESC "oil lantern")
-        (LDESC "An old oil lantern. It still has fuel inside.")
+        (LDESC "An old [[oil lantern->lantern]]. It still has fuel inside.")
         (FLAGS TAKEBIT LIGHTBIT FLAMEBIT)
         (SIZE 8)
         (ACTION LANTERN-F)>
@@ -548,7 +558,7 @@
         (SYNONYM RECORDS FILES PAPERS)
         (ADJECTIVE MEDICAL OLD)
         (DESC "medical records")
-        (LDESC "Yellowed files containing patient records from the 1940s.")
+        (LDESC "Yellowed files containing patient [[records]] from the 1940s.")
         (FLAGS TAKEBIT READBIT)
         (TEXT "Most records are water-damaged, but one file remains legible: Patient 189 - Subject shows unusual resistance to sedation. Transferred to isolation ward for observation.")
         (SIZE 4)
@@ -559,7 +569,7 @@
         (SYNONYM WATER FLOOD PUDDLE)
         (ADJECTIVE STANDING ANKLE)
         (DESC "standing water")
-        (LDESC "Cold water covering the floor.")
+        (LDESC "Cold [[water]] covers the floor.")
         (ACTION STANDING-WATER-F)>
 
 <OBJECT SEALED-DOOR
@@ -576,8 +586,8 @@
         (SYNONYM TUBS TUB BATH)
         (ADJECTIVE PORCELAIN)
         (DESC "porcelain tubs")
-        (LDESC "Large porcelain tubs line the walls, each fitted with restraints.")
-        (FLAGS CONTBIT OPENBIT)
+        (LDESC "Large porcelain [[tubs]] line the walls, each fitted with restraints.")
+        (FLAGS CONTBIT)
         (ACTION TUBS-F)>
 
 <OBJECT SOGGY-NOTEBOOK
@@ -585,7 +595,7 @@
         (SYNONYM NOTEBOOK BOOK DIARY)
         (ADJECTIVE SOGGY WET)
         (DESC "soggy notebook")
-        (LDESC "A water-damaged notebook, barely legible.")
+        (LDESC "A water-damaged [[notebook]], barely legible.")
         (FLAGS TAKEBIT READBIT)
         (TEXT "...water treatment...hours submerged...screaming stopped...Dr. M approved extended sessions...")
         (SIZE 3)
@@ -596,8 +606,9 @@
         (SYNONYM CABINET CUPBOARD)
         (ADJECTIVE MEDICINE MEDICAL)
         (DESC "medicine cabinet")
-        (LDESC "A medicine cabinet is sealed beneath a skin of white frost.")
-        (FLAGS CONTBIT OPENABLEBIT)
+        (LDESC "A [[medicine cabinet->cabinet]] is sealed beneath a skin of white frost.")
+        ;"The room's description follows the frost as it melts."
+        (FLAGS CONTBIT OPENABLEBIT NDESCBIT)
         (ACTION MEDICINE-CABINET-F)>
 
 <OBJECT SYRINGE
@@ -605,7 +616,7 @@
         (SYNONYM SYRINGE NEEDLE)
         (ADJECTIVE MEDICAL)
         (DESC "syringe")
-        (LDESC "A glass syringe with a steel needle.")
+        (LDESC "A glass [[syringe]] with a steel needle.")
         (FLAGS TAKEBIT)
         (SIZE 2)
         (VALUE 3)
@@ -616,7 +627,7 @@
         (SYNONYM DOORS DOOR CELLS)
         (ADJECTIVE CELL HEAVY BARRED)
         (DESC "cell doors")
-        (LDESC "Heavy doors with barred windows stand open, revealing bare concrete rooms within.")
+        (LDESC "Heavy [[doors]] with barred windows stand open, revealing bare concrete rooms within.")
         (ACTION CELL-DOORS-F)>
 
 <OBJECT WALL-SCRATCHES
@@ -624,7 +635,8 @@
         (SYNONYM SCRATCHES MARKS TALLIES WRITING WORDS MESSAGE)
         (ADJECTIVE WALL)
         (DESC "wall scratches")
-        (LDESC "Thousands of scratch marks covering the cell walls.")
+        (LDESC "Thousands of [[scratch marks->scratches]] cover the cell walls.")
+        (FLAGS NDESCBIT) ;"The ward's description tells of them."
         (VALUE 2)
         (ACTION WALL-SCRATCHES-F)>
 
@@ -633,8 +645,8 @@
         (SYNONYM CHAIR)
         (ADJECTIVE SHOCK ELECTRIC METAL)
         (DESC "electroshock chair")
-        (FDESC "In the center of the room, bolted to the floor, sits the chair. Leather restraints dangle from every joint. You know immediately what this is, and your stomach turns.")
-        (LDESC "A chair is bolted to the floor in the center of the room.")
+        (FDESC "In the center of the room, bolted to the floor, sits the [[chair]]. Leather restraints dangle from every joint. You know immediately what this is, and your stomach turns.")
+        (LDESC "A [[chair]] is bolted to the floor in the center of the room.")
         (ACTION SHOCK-CHAIR-F)>
 
 <OBJECT SHOCK-MACHINE
@@ -642,7 +654,7 @@
         (SYNONYM MACHINE EQUIPMENT ELECTRODES)
         (ADJECTIVE SHOCK ELECTRIC)
         (DESC "shock machine")
-        (LDESC "Electrodes dangle from a machine beside the chair.")
+        (LDESC "Electrodes dangle from a [[machine]] beside the chair.")
         (ACTION SHOCK-MACHINE-F)>
 
 <OBJECT PADCELL-DOOR
@@ -650,7 +662,7 @@
         (SYNONYM DOOR)
         (ADJECTIVE HEAVY WEST PADDED)
         (DESC "heavy door to the padded cell")
-        (LDESC "To the west, a heavy door stands ajar, revealing a padded cell beyond.")
+        (LDESC "To the [[west]], a heavy [[door]] stands ajar, revealing a padded cell beyond.")
         (ACTION PADCELL-DOOR-F)>
 
 <OBJECT PADDING
@@ -658,7 +670,7 @@
         (SYNONYM PADDING WALLS WRITING WORDS MESSAGE)
         (ADJECTIVE ROTTING TORN BLOOD DRIED)
         (DESC "padded walls")
-        (LDESC "Every surface is covered in rotting padding, now torn and hanging in strips.")
+        (LDESC "Every surface is covered in rotting [[padding]], now torn and hanging in strips.")
         (ACTION PADDING-F)>
 
 <OBJECT STRAITJACKET
@@ -666,8 +678,8 @@
         (SYNONYM STRAITJACKET JACKET TAG LABEL)
         (ADJECTIVE STRAIT NAME COLLAR)
         (DESC "straitjacket")
-        (FDESC "A straitjacket lies in the corner, its straps unbuckled as if someone left in a hurry.")
-        (LDESC "A straitjacket lies in the corner.")
+        (FDESC "A [[straitjacket]] lies in the corner, its straps unbuckled as if someone left in a hurry.")
+        (LDESC "A [[straitjacket]] lies in the corner.")
         (FLAGS TAKEBIT READBIT)
         (TEXT "The tag reads a name you know. Your name. Dated 1947. Five years before the sanitarium closed.")
         (SIZE 15)
@@ -679,7 +691,7 @@
         (SYNONYM DOOR)
         (ADJECTIVE EAST HEAVY)
         (DESC "door to the electroshock theater")
-        (LDESC "To the east, a heavy door leads back to the electroshock theater.")
+        (LDESC "To the [[east]], a heavy [[door]] leads back to the electroshock theater.")
         (ACTION ESCAPE-DOOR-F)>
 
 <OBJECT ONE-WAY-MIRROR
@@ -687,7 +699,7 @@
         (SYNONYM MIRROR WINDOW GLASS)
         (ADJECTIVE ONE-WAY)
         (DESC "one-way mirror")
-        (LDESC "A one-way mirror overlooks the electroshock theater.")
+        (LDESC "A one-way [[mirror]] overlooks the electroshock theater.")
         (ACTION MIRROR-F)>
 
 <OBJECT OBSERVATION-LOGBOOK
@@ -695,7 +707,7 @@
         (SYNONYM LOGBOOK LOG BOOK)
         (ADJECTIVE OBSERVATION)
         (DESC "observation logbook")
-        (LDESC "A logbook rests on a desk.")
+        (LDESC "A [[logbook]] rests on a desk.")
         (FLAGS TAKEBIT READBIT)
         (TEXT "Session 47 - Patient 189. Subject required maximum voltage. Seizure lasted 4 minutes. Memory loss total. Subject claims to be 'someone else' now. Dr. Mordecai pleased with results.")
         (SIZE 7)
@@ -706,7 +718,7 @@
         (SYNONYM DOOR)
         (ADJECTIVE NORTH ADMINISTRATIVE)
         (DESC "door to the administrative wing")
-        (LDESC "To the north, a door opens to the administrative wing.")
+        (LDESC "To the [[north]], a [[door]] opens to the administrative wing.")
         (ACTION CORRIDOR-DOOR-F)>
 
 <OBJECT SCATTERED-PAPERS
@@ -714,7 +726,7 @@
         (SYNONYM PAPERS FILES DOCUMENTS)
         (ADJECTIVE SCATTERED)
         (DESC "scattered papers")
-        (LDESC "Papers are scattered everywhere.")
+        (LDESC "[[Papers->papers]] are scattered everywhere.")
         (ACTION SCATTERED-PAPERS-F)>
 
 <OBJECT MASSIVE-DESK
@@ -722,7 +734,7 @@
         (SYNONYM DESK)
         (ADJECTIVE MASSIVE WOOD)
         (DESC "massive desk")
-        (LDESC "A massive desk dominates the room.")
+        (LDESC "A massive [[desk]] dominates the room.")
         (FLAGS CONTBIT OPENBIT SURFACEBIT)
         (ACTION MASSIVE-DESK-F)>
 
@@ -731,8 +743,8 @@
         (SYNONYM BOOK TOME VOLUME)
         (ADJECTIVE RED LEATHER HOLLOW)
         (DESC "red leather book")
-        (FDESC "Among the medical texts, one book stands out -- a red leather tome, its spine blank where all others are labeled.")
-        (LDESC "A red leather book with a blank spine sits among the medical volumes.")
+        (FDESC "Among the medical texts, one book stands out -- a red leather [[tome->book]], its spine blank where all others are labeled.")
+        (LDESC "A red leather [[book]] with a blank spine sits among the medical volumes.")
         (FLAGS CONTBIT OPENABLEBIT TAKEBIT)
         (CAPACITY 5)
         (SIZE 6)
@@ -743,7 +755,7 @@
         (SYNONYM PORTRAIT PAINTING PICTURE)
         (ADJECTIVE MORDECAI)
         (DESC "portrait of Dr. Mordecai")
-        (LDESC "A portrait of Dr. Mordecai hangs on the wall, his stern eyes seeming to follow you.")
+        (DESCFCN PORTRAIT-DESC-F)
         (ACTION PORTRAIT-F)>
 
 <OBJECT WALL-SAFE
@@ -751,8 +763,8 @@
         (SYNONYM SAFE)
         (ADJECTIVE WALL METAL)
         (DESC "wall safe")
-        (LDESC "A safe is visible behind a moved painting.")
-        (FLAGS CONTBIT)
+        (LDESC "Where the portrait has swung aside, a [[wall safe->safe]] is set into the paneling.")
+        (FLAGS CONTBIT INVISIBLE)
         (ACTION WALL-SAFE-F)>
 
 <OBJECT OFFICE-DOOR
@@ -760,7 +772,7 @@
         (SYNONYM DOOR)
         (ADJECTIVE WEST HEAVY)
         (DESC "door to the administrative wing")
-        (LDESC "To the west, a door opens back to the administrative wing corridor.")
+        (LDESC "To the [[west]], a [[door]] opens back to the administrative wing corridor.")
         (ACTION OFFICE-DOOR-F)>
 
 <OBJECT SAFE-KEY
@@ -768,7 +780,7 @@
         (SYNONYM KEY)
         (ADJECTIVE SAFE NUMBERED)
         (DESC "safe key")
-        (LDESC "A small key with a numbered tag: S-001.")
+        (LDESC "A small [[key->safe key]] with a numbered tag: S-001.")
         (FLAGS TAKEBIT)
         (SIZE 1)
         (VALUE 2)
@@ -779,8 +791,8 @@
         (SYNONYM NOTES JOURNAL PAPERS)
         (ADJECTIVE PRIVATE MORDECAI)
         (DESC "Dr. Mordecai's notes")
-        (FDESC "Private notes in a tight, obsessive hand detail experiments that should never have been conducted.")
-        (LDESC "Personal notes in Dr. Mordecai's handwriting.")
+        (FDESC "Private [[notes]] in a tight, obsessive hand detail experiments that should never have been conducted.")
+        (LDESC "Personal [[notes]] in Dr. Mordecai's handwriting.")
         (FLAGS TAKEBIT READBIT)
         (TEXT "The experiment succeeded beyond expectations. Patient 189 has transcended death itself. But the cost... the screaming never stops. I hear it in my sleep. The chapel must remain locked. What I've created must never escape.")
         (SIZE 5)
@@ -791,8 +803,8 @@
         (SYNONYM KEY)
         (ADJECTIVE CHAPEL IRON)
         (DESC "chapel key")
-        (FDESC "A heavy iron key lies among the safe's contents, its head carved with a cross.")
-        (LDESC "A large iron key with a cross engraved on the head.")
+        (FDESC "A heavy iron [[key->chapel key]] lies among the safe's contents, its head carved with a cross.")
+        (LDESC "A large iron [[key->chapel key]] with a cross engraved on the head.")
         (FLAGS TAKEBIT)
         (SIZE 6)
         (VALUE 3)
@@ -803,8 +815,8 @@
         (SYNONYM LOCKERS LOCKER)
         (ADJECTIVE METAL)
         (DESC "lockers")
-        (LDESC "Lockers line one wall. Most are open and empty, their contents long gone.")
-        (FLAGS CONTBIT OPENBIT)
+        (LDESC "[[Lockers->lockers]] line one wall, their dented doors hanging crooked.")
+        (FLAGS CONTBIT)
         (ACTION LOCKERS-F)>
 
 <OBJECT PHOTOGRAPH
@@ -812,7 +824,7 @@
         (SYNONYM PHOTOGRAPH PHOTO PICTURE)
         (ADJECTIVE OLD)
         (DESC "photograph")
-        (LDESC "A faded photograph of the sanitarium staff.")
+        (LDESC "A faded [[photograph]] of the sanitarium staff.")
         (FLAGS TAKEBIT)
         (SIZE 1)
         (ACTION PHOTOGRAPH-F)>
@@ -822,7 +834,7 @@
         (SYNONYM COUNTER)
         (ADJECTIVE SERVING)
         (DESC "serving counter")
-        (LDESC "A serving counter separates the dining area from the kitchen beyond.")
+        (LDESC "A serving [[counter]] separates the dining area from the kitchen beyond.")
         (FLAGS SURFACEBIT CONTBIT OPENBIT)
         (ACTION COUNTER-F)>
 
@@ -831,7 +843,7 @@
         (SYNONYM BELL)
         (ADJECTIVE SERVICE COUNTER)
         (DESC "service bell")
-        (LDESC "A small brass bell for summoning staff.")
+        (LDESC "A small brass [[bell]] for summoning staff.")
         (FLAGS TAKEBIT)
         (SIZE 2)
         (ACTION BELL-F)>
@@ -841,7 +853,7 @@
         (SYNONYM DOOR)
         (ADJECTIVE NORTH WOODEN)
         (DESC "door to the garden")
-        (LDESC "To the north, a door leads out to the garden.")
+        (LDESC "To the [[north]], a [[door]] leads out to the garden.")
         (ACTION GARDEN-DOOR-F)>
 
 <OBJECT DEAD-GARDEN
@@ -849,7 +861,7 @@
         (SYNONYM GARDEN WEEDS PLANTS)
         (ADJECTIVE DEAD OVERGROWN)
         (DESC "dead garden")
-        (LDESC "What was once a therapeutic garden is now a wild tangle of weeds and dead plants.")
+        (LDESC "What was once a therapeutic [[garden]] is now a wild tangle of weeds and dead plants.")
         (ACTION DEAD-GARDEN-F)>
 
 <OBJECT CHAPEL-DOOR
@@ -865,7 +877,7 @@
         (SYNONYM PEWS BENCHES)
         (ADJECTIVE WOODEN)
         (DESC "wooden pews")
-        (LDESC "Pews face an altar.")
+        (LDESC "[[Pews->pews]] face an altar.")
         (ACTION PEWS-F)>
 
 <OBJECT GREEN-CANDLES
@@ -881,7 +893,7 @@
         (SYNONYM BOX CASE)
         (ADJECTIVE WOODEN LOCKED SMALL)
         (DESC "wooden box")
-        (LDESC "A small wooden box sits beneath the altar, its surface carved with disturbing symbols.")
+        (LDESC "A small wooden [[box]] sits beneath the altar, its surface carved with disturbing symbols.")
         (FLAGS CONTBIT OPENABLEBIT TAKEBIT)
         (CAPACITY 10)
         (SIZE 8)
@@ -892,8 +904,8 @@
         (SYNONYM RELIC CROSS SILVER AMULET)
         (ADJECTIVE ANCIENT SILVER TARNISHED)
         (DESC "ancient relic")
-        (FDESC "Inside the wooden box, an ancient silver cross gleams with writhing symbols etched into its surface.")
-        (LDESC "An ancient silver cross with writhing symbols etched into its surface.")
+        (FDESC "Inside the wooden box, an ancient silver [[cross->relic]] gleams with writhing symbols etched into its surface.")
+        (LDESC "An ancient silver [[cross->relic]] with writhing symbols etched into its surface.")
         (FLAGS TAKEBIT)
         (SIZE 4)
         (VALUE 3)
@@ -904,8 +916,8 @@
         (SYNONYM PATIENT FIGURE BEING MONSTER SOUL GHOST SOMETHING)
         (ADJECTIVE PATIENT 189)
         (DESC "Patient 189")
-        (FDESC "Something is standing at the altar. It doesn't move. It doesn't breathe. But somehow, horribly, you know it knows you're here.")
-        (LDESC "A figure stands motionless at the altar. It turns to face you—its eyes glow faintly in the darkness.")
+        (FDESC "[[Something->patient]] is standing at the altar. It doesn't move. It doesn't breathe. But somehow, horribly, you know it knows you're here.")
+        (LDESC "A [[figure->patient]] stands motionless at the altar. It turns to face you—its eyes glow faintly in the darkness.")
         (FLAGS ACTORBIT)
         (ACTION PATIENT-189-F)>
 
@@ -1059,7 +1071,7 @@
         (SYNONYM LEDGER BOOK)
         (ADJECTIVE PATIENT LEATHER)
         (DESC "patient ledger")
-        (LDESC "A leather-bound ledger, swollen with damp, lies closed.")
+        (LDESC "A leather-bound [[ledger]], swollen with damp, lies closed.")
         (FLAGS READBIT TAKEBIT)
         (TEXT "Patient 237 - Treatment discontinued. Subject expired during procedure. Dr. Mordecai.")
         (SIZE 8)

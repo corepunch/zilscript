@@ -11,6 +11,7 @@
     <ASSERT "String moved to inventory" <==? <LOC ,KEY-STRING> ,ADVENTURER>>
     
     ;"Test 2: Take oil can"
+    <CO-RESUME ,CO "look under workbench">
     <CO-RESUME ,CO "take oil-can" T>
     <ASSERT "Oil can moved to inventory" <==? <LOC ,OIL-CAN> ,ADVENTURER>>
     

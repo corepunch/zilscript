@@ -16,6 +16,7 @@
     <MOVE ,WINNER ,BOILER-ROOM>
     <MOVE ,LUMP-OF-COAL ,COAL-BIN>
     <MOVE ,COAL-SHOVEL ,BOILER-ROOM>
+    <ASSERT-TEXT "lump of coal" <CO-RESUME ,CO "examine bin">>
     <ASSERT-TEXT "need something broad enough" <CO-RESUME ,CO "take coal">>
 
     ;"The cabinet visibly communicates its state and implied solution."

@@ -8,6 +8,7 @@
     ;"Act 1 — Workshop Exploration"
     <ASSERT "Start" <CO-RESUME ,CO "look" T> <==? ,HERE ,,WORKSHOP-FLOOR>>
     <ASSERT "Take string" <CO-RESUME ,CO "take string" T> <==? <LOC ,KEY-STRING> ,ADVENTURER>>
+    <ASSERT-TEXT "oil can" <CO-RESUME ,CO "look under workbench">>
     <ASSERT "Take oil can" <CO-RESUME ,CO "take oil-can" T> <==? <LOC ,OIL-CAN> ,ADVENTURER>>
     
     ;"Meet Bertrand"
@@ -45,6 +46,7 @@
     ;"Go to scrap-yard"
     <CO-RESUME ,CO "walk west" T>
     <ASSERT "Go to scrap-yard" <CO-RESUME ,CO "walk south" T> <==? ,HERE ,SCRAP-YARD>>
+    <ASSERT-TEXT "doll head" <CO-RESUME ,CO "search piles">> ;"The head lies under the snowy scrap"
     <ASSERT "Take doll head" <CO-RESUME ,CO "take head" T> <==? <LOC ,DOLL-HEAD> ,ADVENTURER>>
     <ASSERT "Give head to cart" <CO-RESUME ,CO "give head to cart"> ,CART-MOVED>
     
