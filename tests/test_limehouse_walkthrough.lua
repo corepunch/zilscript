@@ -108,6 +108,9 @@ test.describe("Limehouse Killings walkthrough", function(t)
 		local suffix = " --save " .. shell_quote(savefile) .. " --game limehouse-killings"
 		assert.assert_equal(run_command("lua5.4 llm.lua --new-game" .. suffix), 0)
 
+		-- A first visit prints the room's description without its name, which
+		-- hosts set as a heading (infocom/zork1/verbs.zil DESCRIBE-ROOM); each
+		-- move is recognized by its own prose.
 		local actions = {
 			{"examine me", "eyes are prehensile"},
 			{"examine myself", "eyes are prehensile"},
@@ -116,16 +119,16 @@ test.describe("Limehouse Killings walkthrough", function(t)
 			{"examine fog", "fog swirls"},
 			{"examine gates", "iron gates"},
 			{"examine path", "gravel path"},
-			{"go north", "Entrance Hall"},
+			{"go north", "Doorways lead south to the gate"},
 			{"examine chandelier", "chandelier hangs"},
 			{"examine portraits", "Portraits of the Ashworth family"},
 			{"examine rug", "Persian rug"},
-			{"go down", "Kitchen"},
+			{"go down", "seen better days"},
 			{"pull servant bell", "distant bell rings"},
 			{"use servant bell", "distant bell rings"},
-			{"go west", "Garden"},
+			{"go west", "overgrown hedges"},
 			{"take footprint cast", "take the footprint cast"},
-			{"go south", "Servants' Quarters"},
+			{"go south", "narrow beds"},
 			{"examine mister hudson", "Mr. Hudson"},
 			{"ask hudson", "What do you want to ask Mr. Hudson about"},
 			{"tell hudson about footprint-cast", "don't know anything about that"},
@@ -165,10 +168,10 @@ test.describe("Limehouse Killings walkthrough", function(t)
 		assert.assert_equal(run_command("lua5.4 llm.lua --new-game" .. suffix), 0)
 
 		local actions = {
-			{"go north", "Entrance Hall"},
-			{"go down", "Kitchen"},
-			{"go west", "Garden"},
-			{"go south", "Servants' Quarters"},
+			{"go north", "Doorways lead south to the gate"},
+			{"go down", "seen better days"},
+			{"go west", "overgrown hedges"},
+			{"go south", "narrow beds"},
 			{"ask hudson about key", "hands you the keyring"},
 			{"go north", "Garden"},
 			{"go east", "Kitchen"},
@@ -178,7 +181,7 @@ test.describe("Limehouse Killings walkthrough", function(t)
 			{"look", "closed but unlocked"},
 			{"open study door", "You open the study door"},
 			{"look", "stands open, revealing the study beyond"},
-			{"go north", "Study"},
+			{"go north", "chalk outline"},
 		}
 
 		for _, entry in ipairs(actions) do

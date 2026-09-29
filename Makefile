@@ -163,6 +163,7 @@ test-limehouse-walkthrough:
 	@lua5.4 run-zil-test.lua books/limehouse-killings/test/test-report-regressions
 	@lua5.4 run-zil-test.lua books/limehouse-killings/test/test-prose-reveal
 	@lua5.4 tests/test_limehouse_walkthrough.lua
+	@lua5.4 tests/test_limehouse_companion.lua
 
 test-wondertown-descriptions:
 	@echo "Running Wondertown description ownership regressions..."

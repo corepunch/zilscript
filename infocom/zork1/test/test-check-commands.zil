@@ -25,6 +25,8 @@
     <ASSERT "Drawer is NOT open initially" <NOT <FSET? ,BOTTOM-DRAWER ,OPENBIT>>>
     
     ;"Take the key"
+    ;"The key lies under the reception papers until they are searched."
+    <ASSERT-TEXT "brass key" <CO-RESUME ,CO "search papers">>
     <ASSERT "Take brass key" <CO-RESUME ,CO "take key" T> <==? <LOC ,BRASS-KEY> ,ADVENTURER>>
     
     ;"Unlock and open drawer - the unlock command both unlocks AND opens it"

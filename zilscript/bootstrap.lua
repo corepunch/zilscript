@@ -957,6 +957,12 @@ local function io_flush()
 	return text
 end
 
+-- What the story printed since the last prompt. A host takes it when the
+-- game ends, since no READ yields that last text.
+function TAKE_OUTPUT()
+	return io_flush()
+end
+
 local function is_control_signal(signal, kind)
 	if kind then
 		return signal == ZIL_CONTROL_SIGNALS[kind]

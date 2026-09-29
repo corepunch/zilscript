@@ -61,7 +61,8 @@ end
 function Terminal:read_key()
   local char = self.stdin:read(1)
   if not char then
-    return nil
+    -- The input ended (a closed pipe): there is nothing left to choose.
+    return {kind = "eof"}
   end
 
   if char == "\27" then

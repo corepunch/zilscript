@@ -88,7 +88,7 @@ local function run_loop(config, terminal)
           selected = 0
           dirty = true
         end
-      elseif key.kind == "interrupt" then
+      elseif key.kind == "interrupt" or key.kind == "eof" then
         return {kind = "interrupt"}
       elseif key.kind == "text" and allow_text then
         typed = typed .. key.text

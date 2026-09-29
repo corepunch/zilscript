@@ -41,10 +41,14 @@ local function run_companion(choices)
     return output
 end
 
+-- Piped input gets the numbered menu (main.lua). A first visit prints a
+-- room's prose without its name, which hosts set as a heading, so rooms are
+-- recognized by their own words.
+
 -- Test 1: Companion loads without errors
 test("companion loads", function()
     local output = run_companion({})
-    assert_contains(output, "Ashworth Manor Gate")
+    assert_contains(output, "Wet iron bars")
     assert_contains(output, "Choose a number")
 end)
 
@@ -69,14 +73,14 @@ end)
 -- Test 5: Entering manor from gate
 test("enter manor works", function()
     local output = run_companion({"1", "3"})
-    assert_contains(output, "Entrance Hall")
+    assert_contains(output, "measured hush")
 end)
 
 -- Test 6: Library accessible from hall
 test("library accessible", function()
     -- Gate: read telegram(1), enter(3), Hall: try study(1), go library(4)
     local output = run_companion({"1", "3", "1", "4"})
-    assert_contains(output, "Library")
+    assert_contains(output, "Floor-to-ceiling bookshelves")
 end)
 
 -- Test 7: Library shows torn page choice
