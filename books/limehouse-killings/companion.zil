@@ -293,6 +293,14 @@
 
 <ROUTINE SUGGEST-STUDY-EXPLORE ()
   <COND
+    ;"The letter lies unseen among the desk papers until they are searched."
+    (<AND <FSET? ,DEAD-LETTER ,INVISIBLE> <IN? ,DEAD-LETTER ,STUDY>>
+     <CHOICE "study.search-desk"
+             "Search the papers heaped on the mahogany desk"
+             "search desk"
+             ,CHOICE-PROGRESS
+             100>
+     <CHOICE-DETAILS "subject" ,DESK>)
     (<NOT ,DEAD-LETTER-FOUND>
      <CHOICE "study.take-letter"
              "Take the unsent letter from the desk"
@@ -341,12 +349,14 @@
           ,CHOICE-INVESTIGATE
           70>
 
-  <CHOICE "study.examine-desk"
-          "Examine the mahogany desk"
-          "examine desk"
-          ,CHOICE-INVESTIGATE
-          65>
-  <CHOICE-DETAILS "subject" ,DESK>
+  <COND
+    (<NOT <FSET? ,DEAD-LETTER ,INVISIBLE>>
+     <CHOICE "study.examine-desk"
+             "Examine the mahogany desk"
+             "examine desk"
+             ,CHOICE-INVESTIGATE
+             65>
+     <CHOICE-DETAILS "subject" ,DESK>)>
 
   <CHOICE "study.examine-window"
           "Examine the window looking out to the garden"
@@ -375,7 +385,7 @@
              ,CHOICE-PROGRESS
              110>
      <CHOICE-DETAILS "subject" ,LOCKED-BOX>)
-    (<AND <NOT ,DEAD-LETTER-FOUND>>
+    (<AND <NOT ,DEAD-LETTER-FOUND> <NOT <FSET? ,DEAD-LETTER ,INVISIBLE>>>
      <CHOICE "study.read-letter"
              "Read the unsent letter"
              "read dead-letter"
@@ -757,7 +767,8 @@
 
 <ROUTINE SUGGEST-GARDEN ()
   <COND
-    (<NOT ,KNIFE-FOUND>
+    ;"The knife hangs unseen in the hedge until the hedge is examined."
+    (<AND <FSET? ,BLOOD-STAINED-KNIFE ,INVISIBLE> <IN? ,BLOOD-STAINED-KNIFE ,GARDEN>>
      <CHOICE "garden.examine-hedges"
              "Look closely at the hedges"
              "examine hedges"
@@ -927,7 +938,7 @@
   <CHOICE-DETAILS "subject" ,TRUNK>
 
   <COND
-    (<IN? ,TRUNK-LETTER ,TRUNK>
+    (<AND <IN? ,TRUNK-LETTER ,TRUNK> <FSET? ,TRUNK ,OPENBIT>>
      <CHOICE "sq.take-trunk-letter"
              "Take the folded note from the trunk"
              "take trunk-letter"

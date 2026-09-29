@@ -69,6 +69,23 @@ Use `PSEUDO` only for trivial one-word scenery where the handler does nothing be
 
 `NDESCBIT` suppresses automatic LDESC listing without hiding the object from the parser. This is the correct pattern for scenery: a parseable noun that does not occupy a room-listing line.
 
+### 0n. Hidden things start INVISIBLE; unseen contents start closed
+An object hidden among, under or behind something gets `(FLAGS ... INVISIBLE)`
+and stays in the room; the hiding place's `ACTION` clears the flag on
+`EXAMINE`/`SEARCH`/`LOOK-INSIDE`/`LOOK-UNDER`/`MOVE` while the object is still
+there, calls `THIS-IS-IT`, and prints the find with a link. A container whose
+contents a glance would not take in has no `OPENBIT`; examining or searching
+it sets `OPENBIT` and `TOUCHBIT` (Blackwood's `UNCOVER`). Guard every hint
+("Something glints…") with the same `INVISIBLE`-and-location test. Companion
+choices and walkthroughs search before they take. Add the assertions of
+`test/test-prose-reveal.zil` for each hidden thing.
+
+### 0o. Prose links are parser commands
+`[[label->target]]` sends `EXAMINE target` and the object's verbs to the
+parser, so the target must parse in that room. Qualify shared nouns, avoid
+words the story also uses as verbs, and remember the dictionary keeps six
+letters (`YELLOWED` collides with `YELLOW`). Run `make lint-zil`.
+
 ### 0j. Object ACTION routines must fall through for unhandled verbs
 An object `ACTION` routine is a selective override, not a blanket handler. Return true only inside a branch that actually handles the current verb. Never put an unconditional trailing `<RTRUE>` after the routine's `<COND>`: it swallows substrate defaults such as TAKE, DROP, OPEN, CLOSE, LOOK-IN, and SEARCH and can produce silent no-ops. Let unmatched verbs return false so the default verb routine runs. After adding or editing an object action, smoke-test at least EXAMINE plus every applicable generic operation (TAKE/DROP for portable objects; OPEN/CLOSE/LOOK-IN for containers).
 

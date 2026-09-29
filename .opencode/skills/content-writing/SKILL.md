@@ -35,6 +35,23 @@ Write player-facing text and interactions that teach play and maintain tone.
     Optional areas and alternate endings receive the same editorial standard as
     the golden path.
 
+18. **Withhold what must be examined.** Before writing any room text,
+    `FDESC`, `LDESC` or `DESCFCN`, ask of each object it names whether a
+    glance really takes it in. Things hidden among, under, behind or inside
+    something are not listed: hint at the hiding place ("Something glints
+    among the [[papers]]") and reveal the thing when the hiding place is
+    examined or searched. Never quote a note, label, diagram or inscription,
+    and never state a deduction, outside `READ`/`EXAMINE`. Follow
+    "Withholding What Must Be Examined" in `docs/WRITING_ADVENTURES.md`.
+19. **Keep `LDESC` to presence.** An `LDESC` shows in every `LOOK` once the
+    object has moved, so it is one short line of where and what; details
+    live in the `EXAMINE` branch.
+20. **Link the prose.** Mark every noun the reader can act on now, and every
+    exit the text names, with `[[label]]` or `[[label->target]]`; link the
+    hiding place, never the hidden thing. Targets are parser phrases
+    (`[[key->chapel key]]`, `[[cast->footprint cast]]`). See "Prose Links"
+    in `docs/WRITING_ADVENTURES.md`.
+
 ## Outputs
 - Draft room and object prose set
 - NPC topic/reaction matrix
@@ -98,6 +115,9 @@ Divide your game into thirds. In the first third, the player should encounter at
 - Every emphasized clue noun and every noun used in a hint resolves through the parser exactly as written.
 - Every visible feature has exactly one coherent description owner on room entry; automatic object lines neither duplicate room prose nor contradict current state.
 - Every `FDESC` intended to appear automatically is on an object without `NDESCBIT`.
+- No description names a thing hidden among, under, behind or inside something before it is found; no description quotes writing or states a conclusion; no container whose contents are not in plain view starts with `OPENBIT`.
+- Every `LDESC` is a one-line presence statement.
+- Room and object prose links every actionable noun and named exit, and `make lint-zil` passes (vocabulary, link words, and every link target examined through the parser).
 - No room prose introduces a portable item that duplicates an identical item already placed elsewhere in the world; each portable object type is unique or explicitly differentiated.
 - Companion labels never reveal source-only knowledge, never overpromise the
   parser outcome, and provide understandable progress or recovery across every

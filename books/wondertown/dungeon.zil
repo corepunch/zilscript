@@ -49,7 +49,7 @@
 <ROOM WORKSHOP-FLOOR
       (IN ROOMS)
       (DESC "Workshop Floor")
-      (LDESC "Grandfather Tolliver's workshop. Sawdust covers the floor like a golden blanket. The brass key hook on the wall is empty — only a frayed string hangs from it. A pet door glows with moonlight to the north.")
+      (LDESC "Grandfather Tolliver's workshop. [[Sawdust->sawdust]] covers the floor like a golden blanket. The brass key [[hook]] on the wall is empty — only a frayed [[string]] hangs from it. A [[pet door->door]] glows with moonlight to the [[north]].")
       (EAST TO TOOL-BENCH)
       (NORTH TO SNOWY-ALLEY)
       (UP TO STORAGE-LOFT IF LADDER-OILED)
@@ -97,7 +97,7 @@
 <ROOM SNOWY-ALLEY
       (IN ROOMS)
       (DESC "Snowy Alley")
-      (LDESC "You emerge into the snowy alley behind the workshop. Fresh snow blankets the cobblestones, and the winter moon casts long blue shadows. Tiny fox footprints — unmistakably toy-sized — lead east through the snow. A streetlamp flickers overhead. It is not a real streetlamp — it is a toy lantern, repurposed and mounted on a pole. The workshop door looms behind you, the pet door at its base.")
+      (LDESC "You emerge into the snowy alley behind the workshop. Fresh snow blankets the cobblestones, and the winter moon casts long blue shadows. Tiny fox [[footprints]] — unmistakably toy-sized — lead [[east]] through the snow. A [[streetlamp]] flickers overhead. It is not a real streetlamp — it is a toy lantern, repurposed and mounted on a pole. The workshop door looms behind you to the [[south]], the pet door at its base.")
       (SOUTH TO WORKSHOP-FLOOR)
       (EAST TO CLOCK-SQUARE)
       (FLAGS RLANDBIT ONBIT)
@@ -106,7 +106,7 @@
 <ROOM CLOCK-SQUARE
       (IN ROOMS)
       (DESC "Clock Square")
-      (LDESC "Abandoned shopfronts line the square — a bakery, a cobbler — each window displaying a toy frozen in its work. Tin toy lamps dot the cobblestones, their light weak and flickering.")
+      (LDESC "Abandoned shopfronts line the square — a bakery, a cobbler — each window displaying a toy frozen in its work. Tin toy [[lamps]] dot the cobblestones, their light weak and flickering. The alley lies [[west]], a quiet corner [[east]], and the scrap-yard [[south]].")
       (WEST TO SNOWY-ALLEY)
       (EAST TO MAILBOX-CORNER)
       (SOUTH TO SCRAP-YARD)
@@ -116,7 +116,7 @@
 <ROOM MAILBOX-CORNER
       (IN ROOMS)
       (DESC "Mailbox Corner")
-      (LDESC "Snow has drifted against the buildings at this quiet corner. Fox footprints lead back west toward the clock square; a fresher set seems to double back before veering south.")
+      (LDESC "Snow has drifted against the buildings at this quiet corner. Fox [[footprints]] lead back [[west]] toward the clock square; a fresher set seems to double back before veering south.")
       (WEST TO CLOCK-SQUARE)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL MOON TOPIC-FOX TOPIC-TOLLIVER FOOTPRINTS CLOCK-TOWER)>
@@ -143,7 +143,7 @@
 <ROOM TOLLIVER-STUDY
       (IN ROOMS)
       (DESC "Tolliver's Study")
-      (LDESC "Grandfather Tolliver's private study smells of wood shavings, old paper, and a faint trace of magic. Stairs lead back down to the workshop, while a narrow passage descends deeper toward a rhythmic, mechanical sound.")
+      (LDESC "Grandfather Tolliver's private study smells of wood shavings, old paper, and a faint trace of magic. Stairs lead back [[out]] to the workshop, while a narrow passage descends deeper, [[down]] toward a rhythmic, mechanical sound.")
       (OUT TO WORKSHOP-FLOOR)
       (DOWN TO WORKSHOP-HEART)
       (FLAGS RLANDBIT ONBIT)
@@ -152,7 +152,7 @@
 <ROOM WORKSHOP-HEART
       (IN ROOMS)
       (DESC "Workshop Heart")
-      (LDESC "You are in a vast chamber hidden behind the workshop clock. The air holds the expectant stillness of a machine waiting to wake.")
+      (LDESC "You are in a vast chamber hidden behind the workshop clock. The air holds the expectant stillness of a machine waiting to wake. The passage climbs back [[up]] to the study.")
       (UP TO TOLLIVER-STUDY)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL TOPIC-HEART TOPIC-TOLLIVER)>
@@ -173,8 +173,7 @@
         (SYNONYM BENCH WORKBENCH TABLE)
         (ADJECTIVE ENORMOUS WOODEN WORK GIANT CLUTTERED)
         (DESC "enormous workbench")
-        (FDESC "The enormous workbench towers above your tiny frame. Its surface is cluttered with tools and half-finished toys.")
-        (LDESC "The enormous workbench towers above you, its surface cluttered with tools.")
+        (DESCFCN WORKBENCH-DESC-F)
         (FLAGS SURFACEBIT CONTBIT OPENBIT SEARCHBIT CLIMBBIT)
         (ACTION WORKBENCH-F)>
 
@@ -183,8 +182,9 @@
         (SYNONYM CAN OILCAN OIL-CAN)
         (ADJECTIVE TINY COPPER OIL)
         (DESC "tiny copper oil can")
-        (LDESC "A tiny copper oil can, still half full, sits in the shadows beneath the workbench.")
-        (FLAGS TAKEBIT)
+        (FDESC "A tiny copper [[oil can->can]], still half full, sits in the shadows beneath the workbench.")
+        (LDESC "A tiny copper [[oil can->can]] lies here.")
+        (FLAGS TAKEBIT INVISIBLE)
         (SIZE 3)
         (ACTION OIL-CAN-F)>
 
@@ -211,7 +211,7 @@
         (SYNONYM BROOM BRUSH)
         (ADJECTIVE TINY SWEEP)
         (DESC "tiny broom")
-        (LDESC "Your tiny broom leans against the workbench.")
+        (LDESC "Your tiny [[broom]] leans against the workbench.")
         (FLAGS TAKEBIT)
         (SIZE 4)
         (ACTION SWEEP-BROOM-F)>
@@ -280,7 +280,7 @@
         (SYNONYM POT VARNISH)
         (ADJECTIVE STICKY VARNISH UNSETTLED)
         (DESC "pot of varnish")
-        (LDESC "A pot of varnish sits open, its contents gone tacky.")
+        (LDESC "A [[pot of varnish->pot]] sits open, its contents gone tacky.")
         (FLAGS CONTBIT OPENBIT SURFACEBIT)
         (ACTION VARNISH-POT-F)>
 
@@ -308,8 +308,7 @@
         (SYNONYM BOOK MANUAL GUIDE ALBUM)
         (ADJECTIVE REPAIR ILLUSTRATED TOLLIVER LEATHER GREEN)
         (DESC "illustrated repair book")
-        (LDESC "Tolliver's enormous green leather repair book rests closed beside a toy sailboat.")
-        (FLAGS CONTBIT OPENABLEBIT READBIT)
+        (FLAGS CONTBIT OPENABLEBIT READBIT NDESCBIT)
         (ACTION REPAIR-BOOK-F)>
 
 <OBJECT HALF-FINISHED-TOYS
@@ -337,7 +336,7 @@
         (SYNONYM CASE DISPLAY CABINET)
         (ADJECTIVE DUSTY GLASS DISPLAY)
         (DESC "dusty glass display case")
-        (LDESC "A dusty glass display case holds forgotten treasures.")
+        (LDESC "A dusty glass display [[case]] holds forgotten treasures.")
         (FLAGS CONTBIT OPENABLEBIT TRANSBIT)
         (ACTION DISPLAY-CASE-F)>
 
@@ -346,8 +345,8 @@
         (SYNONYM SOLDIER TIN-FIGURE FIGURE)
         (ADJECTIVE TIN BRAVE RUSTED)
         (DESC "tin soldier")
-        (FDESC "A brave tin soldier stands inside the case, slightly rusted but still at attention.")
-        (LDESC "A brave tin soldier, slightly rusted but still standing.")
+        (FDESC "A brave [[tin soldier->soldier]] stands inside the case, slightly rusted but still at attention.")
+        (LDESC "A brave [[tin soldier->soldier]], slightly rusted but still standing.")
         (FLAGS TAKEBIT)
         (SIZE 5)
         (ACTION TIN-SOLDIER-F)>
@@ -357,8 +356,8 @@
         (SYNONYM BOX)
         (ADJECTIVE MUSIC SILVER TINY)
         (DESC "silver music box")
-        (FDESC "A small silver music box with a tiny crank on its side.")
-        (LDESC "A silver music box with a tiny crank.")
+        (FDESC "Beside him rests a small silver [[music box->box]] with a tiny crank on its side.")
+        (LDESC "A silver [[music box->box]] with a tiny crank.")
         (FLAGS TAKEBIT TURNBIT)
         (SIZE 4)
         (ACTION MUSIC-BOX-F)>
@@ -377,7 +376,7 @@
         (SYNONYM BUTTON)
         (ADJECTIVE SPARE BLACK)
         (DESC "spare button")
-        (LDESC "A spare button lies near the rag doll. It would make a perfect second eye.")
+        (LDESC "A spare [[button]] lies near the rag doll.")
         (FLAGS TAKEBIT)
         (SIZE 1)
         (ACTION TOY-BUTTON-F)>
@@ -399,7 +398,7 @@
         (SYNONYM BOX CARTON)
         (ADJECTIVE DUSTY CARDBOARD TOY)
         (DESC "dusty cardboard box")
-        (LDESC "A cardboard box labelled 'Broken - For Repair' sits in the corner.")
+        (LDESC "A cardboard [[box]] labelled 'Broken - For Repair' sits in the corner.")
         (FLAGS CONTBIT OPENABLEBIT)
         (ACTION TOY-BOX-F)>
 
@@ -408,8 +407,8 @@
         (SYNONYM ARM DOLL-ARM LIMB)
         (ADJECTIVE PORCELAIN DOLL DELICATE)
         (DESC "porcelain doll arm")
-        (FDESC "A delicate porcelain doll arm, separated from its owner.")
-        (LDESC "A delicate porcelain doll arm rests among the broken toys.")
+        (FDESC "A delicate porcelain doll [[arm]], separated from its owner.")
+        (LDESC "A delicate porcelain doll [[arm]] lies here.")
         (FLAGS TAKEBIT)
         (SIZE 2)
         (ACTION DOLL-ARM-F)>
@@ -419,8 +418,8 @@
         (SYNONYM JOURNAL DIARY BOOK NOTEBOOK)
         (ADJECTIVE LEATHER OLD TOLLIVER)
         (DESC "leather journal")
-        (FDESC "An old leather journal lies among the dust, Grandfather Tolliver's name embossed on the cover.")
-        (LDESC "An old leather journal with Tolliver's name on the cover lies in the dust.")
+        (FDESC "An old leather [[journal]] lies among the dust, Grandfather Tolliver's name embossed on the cover.")
+        (LDESC "An old leather [[journal]] with Tolliver's name on the cover lies in the dust.")
         (FLAGS TAKEBIT READBIT)
         (SIZE 5)
         (TEXT "October 14th — The workshop key grows weaker. I must wind it more often now. The magic in this town depends on it. October 20th — Old Tick tells me the heart of the workshop needs attention. I will attend to it tonight. October 21st — I could not reach the heart alone. Something blocks the way. I must find another path. The toys need me. Pip needs me.")
@@ -471,8 +470,8 @@
         (SYNONYM TOWER CLOCK BUILDING)
         (ADJECTIVE GIANT STONE CLOCK)
         (DESC "giant clock tower")
-        (FDESC "The clock tower dominates the square, its great face showing the hours until dawn with unnerving clarity.")
-        (LDESC "The clock tower dominates the square, its great face tracking the approach of dawn.")
+        (FDESC "The clock [[tower]] dominates the square, its great face showing the hours until dawn with unnerving clarity.")
+        (LDESC "The clock [[tower]] dominates the square, its great face tracking the approach of dawn.")
         (ACTION CLOCK-TOWER-F)>
 
 <OBJECT CLOCK-WINDING
@@ -480,7 +479,7 @@
         (SYNONYM MECHANISM WINDING KEYHOLE)
         (ADJECTIVE BRASS)
         (DESC "brass winding mechanism")
-        (LDESC "A brass winding mechanism sits at the clock tower's base, just out of reach.")
+        (LDESC "A brass winding [[mechanism]] sits at the clock tower's base, just out of reach.")
         (FLAGS TURNBIT)
         (ACTION CLOCK-WINDING-F)>
 
@@ -509,8 +508,8 @@
         (SYNONYM MAILBOX BOX POSTBOX)
         (ADJECTIVE RED TIN TALKING)
         (DESC "red tin mailbox")
-        (FDESC "A red tin mailbox tilts slightly into the snow. Its flap hangs open — and every now and then, it seems to shiver.")
-        (LDESC "A red tin mailbox tilts into the snow, its flap moving occasionally like a mouth.")
+        (FDESC "A red tin [[mailbox]] tilts slightly into the snow. Its flap hangs open — and every now and then, it seems to shiver.")
+        (LDESC "A red tin [[mailbox]] tilts into the snow, its flap moving occasionally like a mouth.")
         (FLAGS CONTBIT OPENBIT ACTORBIT)
         (ACTION MAILBOX-F)>
 
@@ -519,7 +518,7 @@
         (SYNONYM LETTER ENVELOPE NOTE)
         (ADJECTIVE CRUMPLED WHITE)
         (DESC "crumpled letter")
-        (LDESC "A crumpled envelope lies half-buried in the snow.")
+        (LDESC "A crumpled [[envelope]] lies half-buried in the snow.")
         (FLAGS TAKEBIT READBIT)
         (SIZE 2)
         (TEXT "My dear Pip — The heart is failing. I must go and mend it myself. Do not worry. Take care of the toys while I am gone. Wind the key at midnight if I do not return. — Grandfather Tolliver")
@@ -530,7 +529,7 @@
         (SYNONYM SCARF)
         (ADJECTIVE RED WOOL WARM)
         (DESC "red wool scarf")
-        (LDESC "A red wool scarf lies abandoned in the snow. It looks warm.")
+        (LDESC "A red wool [[scarf]] lies abandoned in the snow. It looks warm.")
         (FLAGS TAKEBIT)
         (SIZE 3)
         (ACTION SCARF-F)>
@@ -561,7 +560,7 @@
         (SYNONYM DOLL BODY)
         (ADJECTIVE HEADLESS PORCELAIN BROKEN)
         (DESC "headless doll")
-        (LDESC "A headless porcelain doll lies in the scrap cart. Its dress is torn, but someone has folded its hands neatly.")
+        (LDESC "A [[headless porcelain doll->doll]] lies in the scrap cart. Its dress is torn, but someone has folded its hands neatly.")
         (FLAGS TAKEBIT)
         (SIZE 4)
         (ACTION HEADLESS-DOLL-F)>
@@ -571,17 +570,26 @@
         (SYNONYM HEAD)
         (ADJECTIVE DOLL PORCELAIN PAINTED)
         (DESC "porcelain doll head")
-        (LDESC "A porcelain doll head with painted eyes lies among the scrap. It matches the headless doll.")
-        (FLAGS TAKEBIT)
+        (FDESC "A porcelain [[doll head->head]] with painted eyes lies on the scrap pile where Pip uncovered it.")
+        (LDESC "A porcelain [[doll head->head]] lies here.")
+        (FLAGS TAKEBIT INVISIBLE)
         (SIZE 2)
         (ACTION DOLL-HEAD-F)>
+
+<OBJECT SCRAP-PILES
+        (IN SCRAP-YARD)
+        (SYNONYM PILES PILE SCRAP PLAYTHINGS HEAP)
+        (ADJECTIVE BROKEN DISCARDED SNOWY)
+        (DESC "piles of broken toys")
+        (FLAGS NDESCBIT)
+        (ACTION SCRAP-PILES-F)>
 
 <OBJECT TOY-HORSE
         (IN SCRAP-YARD)
         (SYNONYM HORSE PONY)
         (ADJECTIVE TOY THREE-LEGGED WOODEN)
         (DESC "three-legged horse")
-        (LDESC "A toy horse, one leg missing, lies on its side.")
+        (LDESC "A toy [[horse]], one leg missing, lies on its side.")
         (FLAGS TAKEBIT)
         (SIZE 6)
         (ACTION TOY-HORSE-F)>
@@ -622,7 +630,7 @@
         (SYNONYM BED NEST RAGS)
         (ADJECTIVE COSY RAG)
         (DESC "cosy rag bed")
-        (LDESC "A cosy bed made from rags and twigs fills the centre of the den.")
+        (LDESC "A cosy [[bed]] made from rags and twigs fills the centre of the den.")
         (FLAGS CONTBIT OPENBIT SURFACEBIT)
         (ACTION RAG-BED-F)>
 
@@ -640,7 +648,7 @@
         (SYNONYM BALL YARN STRING)
         (ADJECTIVE RED YARN)
         (DESC "ball of yarn")
-        (LDESC "A ball of red yarn string sits in the corner. Perfect for a fox to chase.")
+        (LDESC "A ball of red [[yarn]] sits in the corner. Perfect for a fox to chase.")
         (FLAGS TAKEBIT)
         (SIZE 2)
         (ACTION STRING-BALL-F)>
@@ -652,7 +660,7 @@
         (SYNONYM COAT JACKET)
         (ADJECTIVE WORN OLD TOLLIVER)
         (DESC "worn coat")
-        (LDESC "Grandfather Tolliver's worn coat hangs on the back of the chair. It still smells like him — wood shavings and old paper.")
+        (LDESC "Grandfather Tolliver's worn [[coat]] hangs on the back of the chair. It still smells like him — wood shavings and old paper.")
         (FLAGS TAKEBIT)
         (SIZE 8)
         (ACTION TOLLIVER-COAT-F)>
@@ -662,7 +670,7 @@
         (SYNONYM CUP TEA MUG)
         (ADJECTIVE COLD STONE)
         (DESC "cold cup of tea")
-        (LDESC "A cup of tea sits beside the inkwell. It is stone cold.")
+        (LDESC "A [[cup of tea->cup]] sits beside the inkwell. It is stone cold.")
         (FLAGS TAKEBIT)
         (SIZE 2)
         (ACTION TEA-CUP-F)>
@@ -672,7 +680,7 @@
         (SYNONYM DESK TABLE)
         (ADJECTIVE WOODEN CLUTTERED)
         (DESC "cluttered wooden desk")
-        (LDESC "A wooden desk is cluttered with papers, diagrams, and an open journal.")
+        (LDESC "A wooden [[desk]] is cluttered with papers.")
         (FLAGS SURFACEBIT CONTBIT OPENBIT)
         (ACTION STUDY-DESK-F)>
 
@@ -681,8 +689,8 @@
         (SYNONYM DIAGRAM DRAWING PAPER PLAN)
         (ADJECTIVE WINDING HAND-DRAWN)
         (DESC "winding diagram")
-        (FDESC "A hand-drawn diagram of the workshop's inner workings. It shows the hidden heart chamber behind the clock, and instructions for winding it: insert the workshop key, turn clockwise, and if possible, surround the heart with companions whose love the toys remember.")
-        (LDESC "A hand-drawn diagram showing the workshop's hidden heart and how to wind it.")
+        (FDESC "A hand-drawn [[diagram]] lies spread across the desk, dense with Tolliver's pencilled notes.")
+        (LDESC "A hand-drawn [[diagram]] of the workshop's inner workings lies here.")
         (FLAGS TAKEBIT READBIT)
         (SIZE 3)
         (ACTION DIAGRAM-F)>
@@ -692,8 +700,8 @@
         (SYNONYM JOURNAL DIARY BOOK NOTEBOOK)
         (ADJECTIVE FINAL OPEN TOLLIVER)
         (DESC "open journal")
-        (FDESC "Tolliver's journal lies open to its final entry.")
-        (LDESC "Tolliver's journal lies open to the final entry.")
+        (FDESC "Tolliver's [[journal]] lies open to its final entry.")
+        (LDESC "Tolliver's [[journal]] lies open to the final entry.")
         (FLAGS TAKEBIT READBIT)
         (SIZE 5)
         (TEXT "I cannot wind the heart alone. The magic has grown weak, and I am old. But Pip — dear Pip — is still small enough to reach the heart chamber. If the key is found, and if Pip has made friends along the way, then perhaps the heart can beat again. I have left the key in the workshop. I only hope it is enough. — G.T.")
@@ -715,12 +723,14 @@
         (SYNONYM MECHANISM HEART CLOCKWORK GEARS)
         (ADJECTIVE GIANT CENTRAL BRASS CLOCKWORK)
         (DESC "workshop heart")
-        (FDESC "The workshop's heart — a vast brass mechanism of interlocking gears — stands silent at the centre of the chamber. At its core, a keyhole waits. Around the chamber walls, dozens of toys stand frozen, as if they came here hoping to be rewound.")
-        (LDESC "The workshop's heart — a giant clockwork mechanism — stands silent and still.")
+        (FDESC "The workshop's [[heart]] — a vast brass mechanism of interlocking gears — stands silent at the centre of the chamber. At its core, a [[keyhole]] waits. Around the chamber walls, dozens of toys stand frozen, as if they came here hoping to be rewound.")
+        (LDESC "The workshop's [[heart]] — a giant clockwork mechanism — stands silent and still.")
         (ACTION HEART-MECH-F)>
 
+;"The keyhole stands in the room, not inside the heart: the heart is no
+  container, so the parser could not see into it."
 <OBJECT KEY-SLOT
-        (IN HEART-MECH)
+        (IN WORKSHOP-HEART)
         (SYNONYM SLOT KEYHOLE HOLE)
         (ADJECTIVE BRASS KEY)
         (DESC "brass keyhole")

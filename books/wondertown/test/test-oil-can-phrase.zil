@@ -15,6 +15,8 @@
     ;  (since it's a synonym) and fails the two-word match."
     
     ;"Test: 'take oil can' should NOT produce the rejection message"
+    ;"The can waits in the shadows under the workbench until Pip looks."
+    <CO-RESUME ,CO "look under workbench">
     <ASSERT "take oil can should work"
             <CO-RESUME ,CO "take oil can" T>
             <NOT <EQUAL? <LOC ,OIL-CAN> ,WORKSHOP-FLOOR>>>

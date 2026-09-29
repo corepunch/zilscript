@@ -201,13 +201,22 @@ local function connected_exits(room)
     end
 end
 
+-- Suggestions offer only what the player has seen: the contents of an open
+-- container or surface, never what lies in a closed one or is INVISIBLE
+-- until examined (Zork I's grating under the leaves).
 local function can_suggest_contents(obj)
-	return FSETQ(obj, SURFACEBIT) or FSETQ(obj, OPENBIT)
+	return FSETQ(obj, OPENBIT) or FSETQ(obj, TRANSBIT)
+end
+
+local function is_hidden(obj)
+	local invisible = rawget(_G, "INVISIBLE")
+	return invisible ~= nil and FSETQ(obj, invisible)
 end
 
 local function add_items(room)
 	local items = {}
 	for obj in objects_in_room(room) do
+		if is_hidden(obj) then goto continue end
 		local verbs = {}
 		local action = GETP(obj, PQACTION)
 		local text = GETP(obj, PQTEXT) and not FSETQ(obj, READBIT)
@@ -240,6 +249,7 @@ local function add_items(room)
 		end
 		local children = can_suggest_contents(obj) and add_items(obj) or {}
 		table.insert(items, {table.concat(words, " "), unique_verbs, children})
+		::continue::
 	end
 	return items
 end

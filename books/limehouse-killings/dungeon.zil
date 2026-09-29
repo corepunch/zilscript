@@ -170,8 +170,8 @@
 <OBJECT TELEGRAM
       (IN ASHWORTH-MANOR-GATE)
       (DESC "creased telegram")
-      (FDESC "A creased telegram has been pinned beneath a stone beside the open gate.")
-      (LDESC "The rain-spotted telegram bears Lady Ashworth's hand and a hurried postscript.")
+      (FDESC "A creased [[telegram]] has been pinned beneath a stone beside the open gate.")
+      (LDESC "A rain-spotted [[telegram]] lies here.")
       (SYNONYM TELEGRAM MESSAGE WIRE)
       (ADJECTIVE CREASED RAIN-SPOTTED)
       (FLAGS TAKEBIT READBIT)
@@ -191,21 +191,21 @@
 <OBJECT DEAD-LETTER
       (IN STUDY)
       (DESC "unsent letter")
-      (FDESC "A yellowed envelope lies among the papers on the desk, addressed in a shaking hand.")
-      (LDESC "An unsent letter, its paper yellowed with age. The ink is faded but legible, the words a threat from one man to another. The seal is broken, the wax still bearing the initial 'M.'")
-      (SYNONYM LETTER NOTE PAPER DEAD-LETTER)
+      (FDESC "A yellowed [[envelope->letter]] lies on the desk where you turned it up, addressed in a shaking hand.")
+      (LDESC "An unsent [[letter]], its paper yellowed with age, lies here.")
+      (SYNONYM LETTER NOTE PAPER DEAD-LETTER ENVELOPE)
       (ADJECTIVE DEAD UNSENT)
-      (FLAGS TAKEBIT READBIT)
+      (FLAGS TAKEBIT READBIT INVISIBLE)
       (ACTION DEAD-LETTER-F)>
 
 <OBJECT BLOOD-STAINED-KNIFE
       (IN GARDEN)
       (DESC "blood-stained knife")
-      (FDESC "Something glints in the branches near the fountain -- a knife, its blade dark with dried blood.")
-      (LDESC "A sharp blade, its edge stained with dried blood. The handle bears the mark of a surgical instrument, the kind used by doctors and scientists.")
+      (FDESC "A [[knife]] hangs in the hedge branches near the fountain, its blade dark with dried blood.")
+      (LDESC "A blood-stained [[knife]] lies here.")
       (SYNONYM KNIFE BLADE WEAPON BLOOD-STAINED-KNIFE)
       (ADJECTIVE BLOOD STAINED)
-      (FLAGS TAKEBIT WEAPONBIT)
+      (FLAGS TAKEBIT WEAPONBIT INVISIBLE)
       (ACTION BLOOD-STAINED-KNIFE-F)>
 
 <OBJECT LOCKED-BOX
@@ -220,8 +220,8 @@
 <OBJECT POISON-BOTTLE
       (IN STUDY)
       (DESC "poison bottle")
-      (FDESC "A small glass bottle with a faded label sits on the mantelpiece, its contents clear and deadly.")
-      (LDESC "A small glass bottle, its label reading 'Aconitum - Wolfsbane. Highly poisonous.' The liquid inside is clear, its lethality hidden in plain sight.")
+      (FDESC "A small glass [[bottle]] with a faded label sits on the mantelpiece.")
+      (LDESC "A small glass [[bottle]] with a faded label lies here.")
       (SYNONYM BOTTLE VIAL POISON-BOTTLE)
       (ADJECTIVE POISON)
       (FLAGS TAKEBIT READBIT)
@@ -230,8 +230,8 @@
 <OBJECT SECRET-LEDGER
       (IN LIBRARY)
       (DESC "secret ledger")
-      (FDESC "A leather-bound ledger lies open on the reading desk, its pages filled with coded entries.")
-      (LDESC "A leather-bound book, its pages filled with numbers and names. Financial records that tell a story of debt and desperation.")
+      (FDESC "A leather-bound [[ledger]] lies open on the reading desk, its pages filled with close entries.")
+      (LDESC "A leather-bound [[ledger]] lies here.")
       (SYNONYM LEDGER BOOK ACCOUNT)
       (ADJECTIVE SECRET)
       (FLAGS TAKEBIT READBIT)
@@ -242,8 +242,8 @@
 <OBJECT MAGNIFYING-GLASS
       (IN ASHWORTH-ENTRANCE-HALL)
       (DESC "magnifying glass")
-      (FDESC "A magnifying glass rests on the hall table, its brass handle worn smooth.")
-      (LDESC "A brass magnifying glass, its lens clear and strong. Useful for examining small details that the naked eye might miss.")
+      (FDESC "A [[magnifying glass->glass]] rests on the hall table, its brass handle worn smooth.")
+      (LDESC "A brass [[magnifying glass->glass]] lies here.")
       (SYNONYM GLASS LENS MAGNIFIER)
       (ADJECTIVE MAGNIFYING)
       (FLAGS TAKEBIT)
@@ -252,8 +252,8 @@
 <OBJECT LEATHER-ROLL
       (IN DRAWER)
       (DESC "leather roll")
-      (FDESC "A leather roll lies in the open drawer, its contents glinting steel.")
-      (LDESC "A roll of soft leather, neatly tied. Something metallic shifts inside.")
+      (FDESC "A [[leather roll->roll]] lies in the open drawer, neatly tied.")
+      (LDESC "A [[leather roll->roll]], neatly tied, lies here.")
       (SYNONYM ROLL WRAP)
       (ADJECTIVE LEATHER)
       (FLAGS CONTBIT TAKEBIT)
@@ -263,7 +263,7 @@
 <OBJECT LOCKPICK-SET
       (IN LEATHER-ROLL)
       (DESC "lockpick set")
-      (LDESC "A set of metal picks, their tips worn from use. Tools of the trade for those who need to open locked doors.")
+      (LDESC "A set of metal [[picks]], their tips worn from use, lies here.")
       (SYNONYM SET PICKS TOOLS LOCKPICK LOCKPICK-SET)
       (ADJECTIVE LOCKPICK BURGLAR BURGLARS)
       (FLAGS TAKEBIT TOOLBIT)
@@ -272,8 +272,8 @@
 <OBJECT LANTERN
       (IN SERVANTS-QUARTERS)
       (DESC "lantern")
-      (FDESC "An oil lantern sits on the trunk, its glass clean and fuel full.")
-      (LDESC "A brass lantern kept scrupulously clean and full. Hudson has etched each former servant's initial beneath its base.")
+      (FDESC "An oil [[lantern]] sits on the trunk, its glass clean and its fuel full.")
+      (LDESC "A brass [[lantern]] lies here.")
       (SYNONYM LAMP LIGHT LANTERN)
       (ADJECTIVE OIL BRASS)
       (FLAGS TAKEBIT LIGHTBIT)
@@ -282,7 +282,7 @@
 <OBJECT KEYRING
       (IN MR-HUDSON)
       (DESC "keyring")
-      (LDESC "A ring of keys, each one opening a different lock. The study key hangs among them, waiting to be used.")
+      (LDESC "A [[ring of keys->keyring]] lies here.")
       (SYNONYM KEYRING KEYS KEY)
       (FLAGS TAKEBIT TOOLBIT)
       (ACTION KEYRING-F)>
@@ -292,8 +292,8 @@
 <OBJECT TORN-PAGE
       (IN LIBRARY)
       (DESC "torn page")
-      (FDESC "A torn page lies on the reading desk, covered in handwritten notes.")
-      (LDESC "A fragment of paper, its edges ragged. The text reads: 'Among the marked books, follow the rainbow order: red, yellow, green, blue. Only then will the way open.'")
+      (FDESC "A torn [[page]] lies on the reading desk, covered in handwritten notes.")
+      (LDESC "A torn [[page]], covered in handwritten notes, lies here.")
       (SYNONYM PAGE FRAGMENT TORN-PAGE)
       (ADJECTIVE TORN)
       (FLAGS TAKEBIT READBIT)
@@ -311,8 +311,8 @@
 <OBJECT FOOTPRINT-CAST
       (IN GARDEN)
       (DESC "footprint cast")
-      (FDESC "A plaster cast of a footprint sits near the fountain, preserving the evidence.")
-      (LDESC "A plaster cast of a boot print, size 10. Too large for Lady Ashworth, too small for Mr. Hudson.")
+      (FDESC "A plaster [[cast->footprint cast]] of a footprint sits near the fountain, preserving the evidence.")
+      (LDESC "A plaster [[cast->footprint cast]] of a boot print lies here.")
       (SYNONYM FOOTPRINT-CAST CAST MOLD FOOTPRINT IMPRESSION)
       (ADJECTIVE FOOTPRINT PLASTER)
       (FLAGS TAKEBIT)
@@ -321,8 +321,8 @@
 <OBJECT WAX-SEAL
       (IN DINING-ROOM)
       (DESC "wax seal")
-      (FDESC "A crimson wax seal rests on the dining table, pressed with an unknown sigil.")
-      (LDESC "A broken wax seal, its surface bearing the initial 'M.' The mark of Dr. Moriarty.")
+      (FDESC "A crimson wax [[seal]] rests on the dining table, pressed with a sigil.")
+      (LDESC "A broken wax [[seal]] lies here.")
       (SYNONYM SEAL STAMP WAX-SEAL)
       (ADJECTIVE WAX)
       (FLAGS TAKEBIT)
@@ -331,8 +331,8 @@
 <OBJECT BANK-STATEMENT
       (IN LOCKED-BOX)
       (DESC "bank statement")
-      (FDESC "A bank statement rests inside the opened box.")
-      (LDESC "A financial statement showing Dr. Moriarty's account overdrawn. A large withdrawal for 'experimental supplies' catches your eye.")
+      (FDESC "A [[bank statement->statement]] rests inside the opened box.")
+      (LDESC "A [[bank statement->statement]] lies here.")
       (SYNONYM STATEMENT RECEIPT BANK-STATEMENT)
       (ADJECTIVE BANK)
       (FLAGS TAKEBIT READBIT)
@@ -344,7 +344,7 @@
       (IN STUDY)
       (DESC "mahogany desk")
       (LDESC "A mahogany desk, its surface scarred with use. Three drawers, one locked, contain the remnants of Lord Ashworth's work.")
-      (SYNONYM DESK)
+      (SYNONYM DESK PAPERS)
       (ADJECTIVE MAHOGANY)
       (FLAGS NDESCBIT)
       (ACTION DESK-F)>
@@ -544,13 +544,14 @@
       (DESC "trunk")
       (LDESC "A large wooden trunk, its lid heavy.")
       (SYNONYM TRUNK CHEST)
-      (FLAGS NDESCBIT CONTBIT OPENBIT SEARCHBIT)
+      (FLAGS NDESCBIT CONTBIT SEARCHBIT)
+      (ACTION TRUNK-F)
       (CAPACITY 20)>
 
 <OBJECT TRUNK-LETTER
       (IN TRUNK)
       (DESC "folded note")
-      (LDESC "A folded letter, its edges worn. The handwriting is small and cramped.")
+      (LDESC "A [[folded note->note]], its edges worn, lies here.")
       (SYNONYM NOTE)
       (ADJECTIVE FOLDED)
       (FLAGS TAKEBIT READBIT)
@@ -600,7 +601,7 @@
 <OBJECT FOXGLOVE
       (IN PANTRY)
       (DESC "foxglove")
-      (LDESC "A bottle of dried foxglove leaves. The label warns that digitalis may steady a failing heart or stop a healthy one.")
+      (LDESC "A bottle of dried [[foxglove]] leaves stands among the preserves, a skull inked on its label.")
       (SYNONYM FOXGLOVE DIGITALIS)
       (FLAGS TAKEBIT)
       (ACTION FOXGLOVE-F)>
@@ -608,7 +609,7 @@
 <OBJECT CHARCOAL
       (IN PANTRY)
       (DESC "charcoal")
-      (LDESC "A tin of powdered charcoal, labeled for emergency use after swallowed poisons.")
+      (LDESC "A tin of powdered [[charcoal]] waits at the end of the shelf.")
       (SYNONYM CHARCOAL COAL)
       (FLAGS TAKEBIT)
       (ACTION CHARCOAL-F)>
@@ -676,16 +677,17 @@
 <OBJECT MR-HUDSON
       (IN SERVANTS-QUARTERS)
       (DESC "Mr. Hudson")
-      (LDESC "Mr. Hudson, the butler, stands nervously in the servants' quarters. His expression is troubled, his hands fidgeting with a keyring.")
+      (LDESC "Mr. [[Hudson]], the butler, stands nervously in the servants' quarters. His expression is troubled, his hands fidgeting with a keyring.")
       (SYNONYM HUDSON BUTLER MR-HUDSON)
       (ADJECTIVE MR MISTER)
-      (FLAGS ACTORBIT)
+      ;"He never leaves his quarters, whose description follows his mood."
+      (FLAGS ACTORBIT NDESCBIT)
       (ACTION MR-HUDSON-F)>
 
 <OBJECT LADY-ASHWORTH
       (IN DINING-ROOM)
       (DESC "Lady Ashworth")
-      (LDESC "Lady Ashworth sits at the dining table, her expression cold and calculating. She watches you with sharp eyes.")
+      (LDESC "Lady [[Ashworth]] sits at the dining table, her expression cold and calculating. She watches you with sharp eyes.")
       (SYNONYM ASHWORTH WIFE LADY-ASHWORTH)
       (ADJECTIVE LADY)
       (FLAGS ACTORBIT)

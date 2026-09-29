@@ -659,26 +659,119 @@ Mark the words a reader may act on with double brackets, as Twine does:
 - `[[label]]` — the label is both what is printed and what the parser is
   given. Use it when the prose already ends in the object's noun
   (`[[crayon drawing]]`) or names a direction (`[[north]]`).
-- `[[label->target]]` — prints the label; the target is the parser's word
-  for the object (`[[iron gates->gate]]`) or a direction
-  (`[[into the basement->down]]`).
+- `[[label->target]]` — prints the label; the target is the parser's words
+  for the object (`[[iron gates->gate]]`, `[[key->chapel key]]`) or a
+  direction (`[[into the basement->down]]`).
 
-A host that renders links (AdventureArena underlines them with a dashed
+A host that renders links (AdventureArena underlines them with a dotted
 rule and offers the object's verbs on tap) sets `PROSE_LINKS` before the
 bootstrap runs and receives the markup. Every other host, and every
 transcript test, reads the plain label, so `ASSERT-TEXT` needs no change.
 
-Keep a link inside one string, and never put one in a room's `DESC`: the
-room name is matched exactly. Link what the player can act on now — do not
-link an object the description is about to withhold.
+Every story links its prose; a description without links is unfinished:
+
+- **Link every noun the reader can act on right now** in room text,
+  `FDESC`, `LDESC`, `DESCFCN` output and the `TELL` of a discovery: the
+  objects, scenery with an `ACTION`, people, and each exit the text names.
+- **Link the hiding place, not the secret.** A room that says "something
+  glints among the papers" links `[[papers]]`; the key is linked in the
+  message that finds it. Never link an object the description withholds.
+- **The target is a command phrase, not a label.** A tap runs `EXAMINE
+  <target>` and the object's verbs, so the target must parse in that room.
+  Qualify shared nouns (`[[key->safe key]]`), and avoid words the story also
+  uses as verbs: Limehouse's "cast" is a verb, so the plaster cast is
+  `[[cast->footprint cast]]`.
+- **Mind the six-letter dictionary.** Z-machine words keep six letters, so a
+  new `ADJECTIVE YELLOWED` collides with `YELLOW` and can break `PUSH
+  YELLOW BOOK` elsewhere. Run the whole test suite after adding vocabulary.
+- Keep a link inside one string, and never put one in a `DESC`: hosts match
+  room names exactly.
+
+`make lint-zil` checks links two ways: `scripts/check-links.lua` proves every
+target's words exist in some `SYNONYM`/`ADJECTIVE` and that markup is
+balanced; `scripts/check-link-targets.lua` looks at every room with links on
+and runs `EXAMINE <target>` for each object link through the real parser,
+failing on "You can't see any", "noun missing" and the like.
 
 ### Withholding What Must Be Examined
 
-A description says what a glance takes in. What is written on a thing, or
-shut inside one, is learned by examining, reading or opening it — Zork I
-prints the leaflet only when it is read and lists the mailbox's contents
-only once it is open. Do not quote a note, a label or a drawing in `FDESC`
-or `LDESC`, and do not give a closed container `OPENBIT` or `TRANSBIT`.
+A description says what a glance takes in, and nothing more. What lies
+hidden among, under, behind or inside something, what is written on a thing,
+and what a detective would conclude from it, is learned by examining,
+searching, reading or opening — Zork I hides the grating under the leaves,
+prints the leaflet only when it is read, and lists the mailbox's contents
+only once it is open. A reader who can see the key in the room text never
+searches the papers, and the puzzle is gone.
+
+Before writing any `FDESC`, `LDESC`, `DESCFCN` or room text, ask of every
+object it names: *would a glance really take this in?* Words such as
+*among*, *under*, *beneath*, *behind*, *inside*, *tucked*, *half-hidden* or
+*glints* in an object's own description mean it is hidden and must not be
+listed at a glance. Apply the pattern that fits:
+
+1. **Hidden in the open (among, under, behind).** Give the object
+   `INVISIBLE`, keep it in the room, and let the room text hint at the
+   hiding place with a link. The hiding place's `ACTION` reveals it on
+   `EXAMINE`, `SEARCH`, `LOOK-INSIDE`, `LOOK-UNDER` or `MOVE` — only while
+   the object is still there:
+
+   ```zil
+   <OBJECT BRASS-KEY (IN RECEPTION-ROOM) ...
+       (FDESC "A small [[brass key->key]] lies among the scattered papers.")
+       (LDESC "A small [[brass key->key]] lies here.")
+       (FLAGS TAKEBIT INVISIBLE)>
+
+   <ROUTINE RECEPTION-PAPERS-F ()
+       <COND (<VERB? EXAMINE SEARCH LOOK-INSIDE LOOK-UNDER MOVE>
+              <COND (<AND <FSET? ,BRASS-KEY ,INVISIBLE>
+                          <IN? ,BRASS-KEY ,RECEPTION-ROOM>>
+                     <FCLEAR ,BRASS-KEY ,INVISIBLE>
+                     <THIS-IS-IT ,BRASS-KEY>
+                     <TELL "Beneath them lies a small [[brass key->key]]." CR>)
+                    (T <TELL "Nothing else hides among them." CR>)>
+              <RTRUE>)>>
+   ```
+
+   The room shows the hint only while the object is hidden ("Something
+   glints among the [[papers]]"). Blackwood's key and wall safe, Wondertown's
+   oil can and doll head, and Limehouse's knife and letter follow this.
+2. **Inside a container.** Leave `OPENBIT` off every container whose
+   contents are not in plain view — shelves of clutter, bins, drawers,
+   trunks, lockers, tubs, bags. Examining or searching opens it (Blackwood's
+   `UNCOVER` routine sets `OPENBIT` and `TOUCHBIT`), and the room then lists
+   what was found. Only `TRANSBIT` glass shows its contents shut.
+3. **Written or concluded.** Never quote a note, label, diagram or
+   inscription, and never state a deduction ("It matches the headless doll",
+   "too large for Lady Ashworth", "its contents clear and deadly") in
+   `FDESC`, `LDESC` or room text. Say that the thing is there and what it
+   looks like; `READ` and `EXAMINE` give the words and the meaning.
+
+**`LDESC` is presence, not examination.** On this substrate an object's
+`LDESC` is printed in every `LOOK` once it has been moved, so it must be one
+short line of where and what ("A plaster [[cast->footprint cast]] of a boot
+print lies here."). Put details, text and conclusions in the `ACTION`'s
+`EXAMINE`/`READ` branch or `TEXT`.
+
+**Describe each thing once.** When the room text already tells of an object
+and follows its state (a chained door, a frosted cabinet, a nervous butler),
+give the object `NDESCBIT` so its own line does not repeat or contradict
+the room. When a room lists an object, its prose must not also name it.
+
+Everything that knows about the world must respect the secret too: the
+bootstrap's suggestions skip `INVISIBLE` objects and closed containers, and
+`companion.zil` must offer the search ("Search the papers heaped on the
+desk") until the thing is found, never `TAKE` it first. Every hidden thing
+gets a regression test that `LOOK` does not name it, that `TAKE` fails
+before discovery, that the reveal names it, and that `LOOK` then does (see
+each book's `test/test-prose-reveal.zil`).
+
+### Room Icons
+
+A room may carry a picture, as Zork Zero set one beside each room
+description: `(ICON "icons/hall.png")`, a path relative to the story's
+folder. Hosts that show pictures (AdventureArena sets it as a square three
+lines tall that the room's first paragraph wraps around) read it; others
+ignore it. Rooms without art simply omit the property.
 
 ### Going Back
 

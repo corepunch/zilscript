@@ -34,6 +34,8 @@ Stages 1-8 build the adventure. Stages 9-10 harden it through four independent r
 6. **Define `ROUTINE GO ()` in actions.zil** — it is the game entry point.
 7. **Every concrete noun in prose must resolve to a parser-accessible object** — if prose says "door", there must be an object with `SYNONYM DOOR`.
 8. **Never freeze mutable state into LDESC** — use ACTION routines with M-LOOK for dynamic rooms.
+9. **A glance shows only what is in plain sight** — anything hidden among, under, behind or inside something starts `INVISIBLE` (or in a container without `OPENBIT`) and is revealed by examining its hiding place; no description quotes writing or states a conclusion. See "Withholding What Must Be Examined" in `docs/WRITING_ADVENTURES.md`.
+10. **Link the prose** — every actionable noun and named exit in room and object text is a `[[label]]` or `[[label->target]]` link whose target parses; `make lint-zil` must pass. See "Prose Links" in `docs/WRITING_ADVENTURES.md`.
 
 ## File Structure
 

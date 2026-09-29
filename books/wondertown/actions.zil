@@ -97,18 +97,18 @@
 
 <ROUTINE TOOL-BENCH-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "The tool bench stretches away, a landscape of enormous chisels and planes. A low crate, an old chair, and three broad repair books form a sturdy makeshift route to the countertop.">
+           <TELL "The tool bench stretches away, a landscape of enormous chisels and planes beneath a [[tool rack->rack]]. A low crate, an old chair, and three broad repair books form a sturdy makeshift [[route]] to the countertop. The workshop floor lies [[west]].">
            <COND (<NOT ,BERTRAND-WOUND>
-                  <TELL " Captain Bertrand stands frozen on the chair seat, blocking the books and the way upward.">)>
+                  <TELL " Captain [[Bertrand]] stands frozen on the chair seat, blocking the books and the way upward.">)>
            <TELL CR>)>>
 
 <ROUTINE WORKBENCH-TOP-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "The workbench top stretches around Pip like a wooden plain. Half-finished toys wait beneath the lamp, and the workshop floor lies far below.">
+           <TELL "The workbench top stretches around Pip like a wooden plain. [[Half-finished toys->toys]] wait beneath the lamp, and the workshop floor lies far [[below->down]].">
            <COND (,REPAIR-BOOK-OPEN
-                  <TELL " Tolliver's illustrated repair book stands open, its paper workshop rising from the pages.">)
+                  <TELL " Tolliver's illustrated [[repair book->book]] stands open, its paper workshop rising from the pages.">)
                  (T
-                  <TELL " Tolliver's enormous illustrated repair book rests closed beside a toy sailboat.">)>
+                  <TELL " Tolliver's enormous green leather [[repair book->book]] rests closed beside a toy sailboat.">)>
            <TELL CR>)>>
 
 <ROUTINE WORKBENCH-DOWN-EXIT ()
@@ -120,72 +120,91 @@
 
 <ROUTINE COUNTERTOP-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "The toy display spreads across the countertop. Through the frosted shop window, the snowy street and distant clock tower glow in the moonlight.">
-           <TELL " The chair and stacked books provide a careful route back down to the tool bench." CR>)>>
+           <TELL "The toy display spreads across the countertop. Through the frosted shop [[window]], the snowy street and distant clock tower glow in the moonlight.">
+           <TELL " The chair and stacked books provide a careful route back [[down]] to the tool bench." CR>)>>
 
 <ROUTINE STORAGE-LOFT-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "Dust softens the storage loft, and cobwebs drape the rafters like grey curtains.">
-           <TELL " Stairs lead back down." CR>)>>
+           <TELL "Dust softens the storage loft, and [[cobwebs]] drape the rafters like grey curtains.">
+           <TELL " Stairs lead back [[down]]." CR>)>>
 
 <ROUTINE SCRAP-YARD-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "Broken toys lie beneath the snow: dolls, horses, and little painted things someone once loved.">
+           <TELL "Broken toys lie beneath the snow: dolls, horses, and little painted things someone once loved. The clock square lies [[north]].">
            <COND (,CART-MOVED
-                  <TELL " The iron gate to the east stands open now.">)
+                  <TELL " The iron [[gate]] to the [[east]] stands open now.">)
                  (T
-                  <TELL " The way east is blocked.">)>
-           <TELL " Snow covers the piles of discarded playthings." CR>)>>
+                  <TELL " The way east, through an iron [[gate]], is blocked.">)>
+           <COND (<AND <FSET? ,DOLL-HEAD ,INVISIBLE> <IN? ,DOLL-HEAD ,SCRAP-YARD>>
+                  <TELL " Snow covers the [[piles]] of discarded playthings; something pale shows through one of them.">)
+                 (T
+                  <TELL " Snow covers the [[piles]] of discarded playthings.">)>
+           <CRLF>)>>
+
+"The doll head lies INVISIBLE in the scrap piles until Pip searches them."
+
+<ROUTINE SCRAP-PILES-F ()
+    <COND (<VERB? EXAMINE SEARCH LOOK-INSIDE DIG MOVE LOOK-UNDER>
+           <COND (<AND <FSET? ,DOLL-HEAD ,INVISIBLE> <IN? ,DOLL-HEAD ,SCRAP-YARD>>
+                  <FCLEAR ,DOLL-HEAD ,INVISIBLE>
+                  <THIS-IS-IT ,DOLL-HEAD>
+                  <TELL "Pip brushes the snow from the nearest pile. Beneath a tangle of tin and ribbon lies a porcelain [[doll head->head]] with painted eyes." CR>)
+                 (T
+                  <TELL "Only broken things the cart has not reached yet: tin wheels, a snapped drumstick, a kite with no string." CR>)>
+           <RTRUE>)
+          (<VERB? TAKE>
+           <TELL "The piles are far too big for Pip to carry, and frozen together besides." CR>
+           <RTRUE>)>>
 
 <ROUTINE FOX-DEN-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "Rags and twigs form a cosy den between the old crates. A tiny toy candle warms the shadows.">
-           <TELL " The exit leads west to the scrap-yard." CR>)>>
+           <TELL "Rags and twigs form a cosy den between the old crates. A tiny toy [[candle]] warms the shadows.">
+           <TELL " The exit leads [[west]] to the scrap-yard." CR>)>>
 
 ; === DYNAMIC OBJECT DESCRIPTIONS ===
 
 <ROUTINE BERTRAND-DESC-F (RARG)
     <COND (<EQUAL? .RARG ,M-OBJDESC>
            <COND (,BERTRAND-WOUND
-                  <TELL "Captain Bertrand stands proudly beside the now-clear way upward, his jaw fully operational." CR>)
+                  <TELL "Captain [[Bertrand]] stands proudly beside the now-clear way [[upward->up]], his jaw fully operational." CR>)
                  (<NOT <IN? ,BERTRAND-KEY ,TOOL-BENCH>>
-                  <TELL "A painted wooden nutcracker stands frozen on the chair seat beside the stacked books, the winding socket in his back empty." CR>)
+                  <TELL "A painted wooden [[nutcracker]] stands frozen on the chair seat beside the stacked books, the winding socket in his back empty." CR>)
                  (T
-                  <TELL "A painted wooden nutcracker stands frozen on the chair seat beside the stacked books. A tiny brass winding key protrudes from his back." CR>)>
+                  <TELL "A painted wooden [[nutcracker]] stands frozen on the chair seat beside the stacked books. A tiny brass winding [[key->winding key]] protrudes from his back." CR>)>
            <RTRUE>)>>
 
 <ROUTINE MARZIPAN-DESC-F (RARG)
     <COND (<EQUAL? .RARG ,M-OBJDESC>
            <COND (,MARZIPAN-BUTTON
-                  <TELL "Marzipan sits against the window with two mismatched button eyes, humming warmly." CR>)
+                  <TELL "[[Marzipan]] sits against the window with two mismatched button eyes, humming warmly." CR>)
                  (T
-                  <TELL "A rag doll with one button eye sits against the window, humming a soft, meandering tune." CR>)>
+                  <TELL "A [[rag doll->ragdoll]] with one button eye sits against the window, humming a soft, meandering tune." CR>)>
            <RTRUE>)>>
 
 <ROUTINE OLD-TICK-DESC-F (RARG)
     <COND (<EQUAL? .RARG ,M-OBJDESC>
            <COND (,OLD-TICK-HEARD
-                  <TELL "The old cuckoo clock ticks steadily among the shadows, its wooden bird alert behind its little door." CR>)
+                  <TELL "The old cuckoo [[clock]] ticks steadily among the shadows, its wooden bird alert behind its little door." CR>)
                  (T
-                  <TELL "An old cuckoo clock sits silent among the shadows, its hands frozen at five to midnight." CR>)>
+                  <TELL "An old cuckoo [[clock]] sits silent among the shadows, its hands frozen at five to midnight." CR>)>
            <RTRUE>)>>
 
 <ROUTINE SCRAP-CART-DESC-F (RARG)
     <COND (<EQUAL? .RARG ,M-OBJDESC>
            <COND (,CART-MOVED
-                  <TELL "The scrap cart rests beside the track, its bed still full of carefully rescued toys." CR>)
+                  <TELL "The scrap [[cart]] rests beside the track, its bed still full of carefully rescued toys." CR>)
                  (T
-                  <TELL "A scrap-metal cart creaks along a rusted track, gathering broken toys into its bed rather than destroying them." CR>)>
+                  <TELL "A scrap-metal [[cart]] creaks along a rusted track, gathering broken toys into its bed rather than destroying them." CR>)>
            <RTRUE>)>>
 
 <ROUTINE NUTMEG-DESC-F (RARG)
     <COND (<EQUAL? .RARG ,M-OBJDESC>
            <COND (<G? ,NUTMEG-TRUST 2>
-                  <TELL "Nutmeg watches Pip with soft button eyes. The place around her neck where the workshop key hung is empty now." CR>)
+                  <TELL "[[Nutmeg]] watches Pip with soft button eyes. The place around her neck where the workshop key hung is empty now." CR>)
                  (<EQUAL? ,NUTMEG-TRUST -1>
-                  <TELL "Nutmeg curls in the farthest corner with her back to Pip, clutching the workshop key close." CR>)
+                  <TELL "[[Nutmeg]] curls in the farthest corner with her back to Pip, clutching the workshop key close." CR>)
                  (T
-                  <TELL "A patchy fox toy curls in a nest of rags, watching Pip warily. The workshop key ticks faintly around her neck." CR>)>
+                  <TELL "A patchy [[fox]] toy curls in a nest of rags, watching Pip warily. The workshop [[key->workshop key]] ticks faintly around her neck." CR>)>
            <RTRUE>)>>
 
 ; === V-WIND HANDLER ===
@@ -352,14 +371,30 @@
            (<VERB? TAKE>
             <TELL "The hook is fixed firmly to the wall. But the string dangling from it looks like it might come free." CR>)>>
 
+<ROUTINE WORKBENCH-DESC-F (RARG)
+    <COND (<EQUAL? .RARG ,M-OBJDESC>
+           <TELL "The enormous [[workbench]] towers above your tiny frame, its surface cluttered with tools and half-finished toys.">
+           <COND (<AND <FSET? ,OIL-CAN ,INVISIBLE> <IN? ,OIL-CAN ,WORKSHOP-FLOOR>>
+                  <TELL " Beneath it, something small and copper catches the light.">)>
+           <CRLF>
+           <RTRUE>)>>
+
+"The oil can waits INVISIBLE in the shadows under the workbench: the room shows
+a copper glint, and examining or looking under the bench finds it."
+
 <ROUTINE WORKBENCH-F ()
-    <COND (<VERB? EXAMINE LOOK-INSIDE>
-           <TELL "The enormous workbench towers over Pip. Its surface is cluttered with tools and half-finished toys. Underneath, something small and copper catches the light." CR>)
-          (<VERB? LOOK-UNDER>
-           <COND (<IN? ,OIL-CAN ,WORKSHOP-FLOOR>
-                  <TELL "Pip peers under the workbench. A tiny copper oil can sits in the shadows." CR>)
+    <COND (<VERB? EXAMINE LOOK-INSIDE LOOK-UNDER SEARCH>
+           <COND (<VERB? LOOK-UNDER>
+                  <TELL "Pip peers under the workbench.">)
                  (T
-                  <TELL "There is nothing under the workbench now." CR>)>
+                  <TELL "The enormous workbench towers over Pip. Its surface is cluttered with tools and half-finished toys.">)>
+           <COND (<AND <FSET? ,OIL-CAN ,INVISIBLE> <IN? ,OIL-CAN ,WORKSHOP-FLOOR>>
+                  <FCLEAR ,OIL-CAN ,INVISIBLE>
+                  <THIS-IS-IT ,OIL-CAN>
+                  <TELL " Underneath, in the shadows, sits a tiny copper [[oil can->can]].">)
+                 (<VERB? LOOK-UNDER>
+                  <TELL " There is nothing else under it.">)>
+           <CRLF>
            <RTRUE>)
           (<VERB? CLIMB CLIMB-FOO CLIMB-UP>
            <TELL "Pip scrambles up the carved workbench leg, using drawer handles and wooden joints as footholds. At last one hand catches the tabletop. Pip swings over the edge and lands among curls of cedar shavings." CR>

@@ -10,6 +10,7 @@
 	<ASSERT "Enter Sanitarium Entrance Hall" <CO-RESUME ,CO "walk north" T> <==? ,HERE ,SANITARIUM-ENTRANCE>>
 	<ASSERT-TEXT "victorian" <CO-RESUME ,CO "examine wallpaper">> ;"Notice the Victorian-era decay"
 	<ASSERT "Go to Reception Room" <CO-RESUME ,CO "walk west" T> <==? ,HERE ,RECEPTION-ROOM>>
+	<ASSERT-TEXT "brass key" <CO-RESUME ,CO "examine papers">> ;"The key lies under the papers"
 	<ASSERT "Take brass key from scattered papers" <CO-RESUME ,CO "take key" T> <==? <LOC ,BRASS-KEY> ,ADVENTURER>>
 	<ASSERT "Drop key (optional for this walkthrough)" <CO-RESUME ,CO "drop key" T> <N==? <LOC ,BRASS-KEY> ,ADVENTURER>>
 	<ASSERT "Return to Entrance Hall" <CO-RESUME ,CO "walk east" T> <==? ,HERE ,SANITARIUM-ENTRANCE>>
@@ -48,7 +49,7 @@
 	<ASSERT "Enter Storage Room" <CO-RESUME ,CO "walk west" T> <==? ,HERE ,STORAGE-ROOM>>
 	<ASSERT-TEXT "bag" <CO-RESUME ,CO "examine shelves">> ;"Find supplies including medical bag"
 	<ASSERT "Take medical bag" <CO-RESUME ,CO "take bag" T> <==? <LOC ,MEDICAL-BAG> ,ADVENTURER>>
-	<ASSERT "Open medical bag (already open)" <CO-RESUME ,CO "open bag"> <FSET? ,MEDICAL-BAG ,OPENBIT>>
+	<ASSERT "Open medical bag" <CO-RESUME ,CO "open bag"> <FSET? ,MEDICAL-BAG ,OPENBIT>>
 	<ASSERT "Take bandages from bag" <CO-RESUME ,CO "take bandages" T> <==? <LOC ,BANDAGES> ,ADVENTURER>>
 	<ASSERT "Take morphine vial from bag" <CO-RESUME ,CO "take morphine" T> <==? <LOC ,MORPHINE-VIAL> ,ADVENTURER>>
 	<ASSERT "Drop bandages (optional item)" <CO-RESUME ,CO "drop bandages" T> <N==? <LOC ,BANDAGES> ,ADVENTURER>>
@@ -61,6 +62,7 @@
 	<ASSERT "Drop medical records (no longer needed)" <CO-RESUME ,CO "drop records" T> <N==? <LOC ,MEDICAL-RECORDS> ,ADVENTURER>>
 	<ASSERT "Return to Basement Corridor" <CO-RESUME ,CO "walk east" T> <==? ,HERE ,BASEMENT-CORRIDOR>>
 	<ASSERT "Return to Boiler Room with shovel and lantern" <CO-RESUME ,CO "walk east" T> <==? ,HERE ,BOILER-ROOM>>
+	<ASSERT-TEXT "lump of coal" <CO-RESUME ,CO "examine bin">> ;"A usable lump among the slack"
 	<ASSERT "Recover usable coal with the shovel" <CO-RESUME ,CO "take coal" T> <==? <LOC ,LUMP-OF-COAL> ,ADVENTURER>>
 	<ASSERT-TEXT "place the coal" <CO-RESUME ,CO "put coal in boiler">>
 	<ASSERT-TEXT "deep metallic thud" <CO-RESUME ,CO "kindle boiler with lantern">>

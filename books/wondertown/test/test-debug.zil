@@ -4,5 +4,6 @@
     <ASSERT "Start" <CO-RESUME ,CO "look" T> <==? ,HERE ,,WORKSHOP-FLOOR>>
     <ASSERT "Key-string exists" <==? <LOC ,KEY-STRING> ,WORKSHOP-FLOOR>>
     <ASSERT "Oil-can exists" <==? <LOC ,OIL-CAN> ,WORKSHOP-FLOOR>>
+    <CO-RESUME ,CO "examine workbench">
     <ASSERT "Can take oil can" <CO-RESUME ,CO "take copper oil can" T> <==? <LOC ,OIL-CAN> ,ADVENTURER>>
 >

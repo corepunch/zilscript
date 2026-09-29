@@ -161,11 +161,13 @@ test-llm:
 test-limehouse-walkthrough:
 	@echo "Running Limehouse Killings golden-path walkthrough..."
 	@lua5.4 run-zil-test.lua books/limehouse-killings/test/test-report-regressions
+	@lua5.4 run-zil-test.lua books/limehouse-killings/test/test-prose-reveal
 	@lua5.4 tests/test_limehouse_walkthrough.lua
 
 test-wondertown-descriptions:
 	@echo "Running Wondertown description ownership regressions..."
 	@lua5.4 run-zil-test.lua books/wondertown/test/test-description-ownership
+	@lua5.4 run-zil-test.lua books/wondertown/test/test-prose-reveal
 
 test-zilch:
 	@echo "Running ZILCH feature tests..."
@@ -230,6 +232,10 @@ test-pure-zil:
 lint-zil:
 	@echo "Checking vocabulary consistency in book adventures..."
 	@lua5.4 scripts/check-vocab.lua books/limehouse-killings/dungeon.zil books/blackwood-horror/dungeon.zil books/wondertown/dungeon.zil
+	@echo "Checking prose links in book adventures..."
+	@lua5.4 scripts/check-links.lua books/limehouse-killings books/blackwood-horror books/wondertown
+	@echo "Examining every prose link through the parser..."
+	@lua5.4 scripts/check-link-targets.lua books/limehouse-killings books/blackwood-horror books/wondertown
 
 zip:
 	@if [ -z "$(filter-out zip,$(MAKECMDGOALS))" ]; then echo "Usage: make zip <gamename>"; echo "Example: make zip limehouse-killings"; exit 1; fi

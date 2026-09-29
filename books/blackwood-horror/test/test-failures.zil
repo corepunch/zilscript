@@ -17,7 +17,9 @@
         <CO-RESUME ,CO "open drawer" T> 
         <NOT <FSET? ,BOTTOM-DRAWER ,OPENBIT>>>
     
-    ;"Test 2: With key, drawer can be unlocked and opened"
+    ;"Test 2: With key, drawer can be unlocked and opened. The key lies under
+      the papers and must be found first."
+    <ASSERT-TEXT "brass key" <CO-RESUME ,CO "search papers">>
     <ASSERT "Take the brass key" 
         <CO-RESUME ,CO "take key" T> 
         <==? <LOC ,BRASS-KEY> ,ADVENTURER>>
