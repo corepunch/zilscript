@@ -24,8 +24,7 @@
 <GLOBAL HINT-LEVEL 0>
 <GLOBAL SCORE-MAX 68>
 <GLOBAL RANKINGS
-    <LTABLE 0
-         "Confused Patient"
+    <LTABLE "Confused Patient"
          "Curious Inmate"
          "Asylum Explorer"
          "Sanitarium Survivor">>
@@ -49,12 +48,13 @@
 <ROOM SANITARIUM-ENTRANCE
       (IN ROOMS)
       (DESC "Sanitarium Entrance Hall")
-      (LDESC "The entrance hall reeks of mildew and decay. A [[grand staircase->staircase]] ascends to darkness in the east. To the [[west]], a doorway leads to what might have been a reception area. A narrow staircase descends [[into the basement->down]].")
+      (LDESC "The entrance hall reeks of mildew and decay. A [[grand staircase->staircase]] rises into darkness and ends at a collapsed landing. To the [[west]], a doorway leads to what might have been a reception area; to the [[east]], a corridor opens onto the patient ward. A narrow staircase descends [[into the basement->down]].")
       (SOUTH TO SANITARIUM-GATE)
       (WEST TO RECEPTION-ROOM)
       (NORTH TO OPERATING-THEATER)
       (EAST TO PATIENT-WARD)
       (DOWN TO BASEMENT-STAIRS)
+      (UP "The grand staircase ends at a collapsed landing. There is no way up.")
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL SANITARIUM-BUILDING DEAD-OAK-TREE)>
 
@@ -103,7 +103,7 @@
       (IN ROOMS)
       (DESC "Basement Corridor")
       (ACTION BASEMENT-CORRIDOR-FCN)
-      (LDESC "The basement corridor is pitch black, stretching into shadow. Stone stairs climb upward into darkness. To the east, a passage leads toward the sound of dripping water. West lies what might have been storage. North, another corridor descends toward deeper chambers.")
+      (LDESC "The basement corridor is dim, stretching into shadow. Stone stairs climb upward toward the entrance hall. To the east, a passage smells of coal and old smoke. West lies what might have been storage. North, another corridor descends into total darkness, toward the sound of dripping water.")
       (UP TO BASEMENT-STAIRS)
       (EAST TO BOILER-ROOM)
       (WEST TO STORAGE-ROOM)
@@ -275,7 +275,7 @@
         (ADJECTIVE PATIENT CONFIDENTIAL)
         (DESC "patient file")
         (FDESC "A confidential [[patient file->file]] lies open in the drawer, its contents disturbing.")
-        (LDESC "A [[file folder->file]] marked 'Patient 189 - CONFIDENTIAL'.")
+        (LDESC "A [[file folder->file]] marked 'Patient 189 - CONFIDENTIAL' lies here.")
         (FLAGS TAKEBIT READBIT)
         (SIZE 3)
         (VALUE 2)
@@ -325,7 +325,7 @@
         (SYNONYM SCALPEL KNIFE BLADE)
         (ADJECTIVE SURGICAL RUSTY)
         (DESC "rusty scalpel")
-        (LDESC "A surgical [[scalpel]], its blade dulled by rust but still sharp enough to cut.")
+        (LDESC "A rusty surgical [[scalpel]] lies here.")
         (FLAGS TAKEBIT WEAPONBIT TOOLBIT)
         (SIZE 3)
         (ACTION SCALPEL-F)>
@@ -335,7 +335,7 @@
         (SYNONYM BOTTLE ETHER CHLOROFORM)
         (ADJECTIVE GLASS)
         (DESC "bottle of ether")
-        (LDESC "A glass [[bottle]] labeled 'Ether - Handle with Care'. Some liquid remains inside.")
+        (LDESC "A glass [[bottle]] labeled 'Ether - Handle with Care' stands here.")
         (FLAGS TAKEBIT)
         (SIZE 5)
         (ACTION ETHER-F)>
@@ -400,7 +400,7 @@
         (ADJECTIVE WRAPPED)
         (DESC "canvas bundle")
         (FDESC "On the dissection table, a human-shaped [[bundle]] wrapped in stained canvas awaits examination.")
-        (LDESC "A human-shaped [[bundle]] wrapped in stained canvas. You'd rather not investigate further.")
+        (LDESC "A human-shaped [[bundle]] wrapped in stained canvas lies here.")
         (FLAGS TAKEBIT)
         (SIZE 50)
         (ACTION BUNDLE-F)>
@@ -411,7 +411,7 @@
         (ADJECTIVE STRANGE GLOWING)
         (DESC "vial of serum")
         (FDESC "Inside the open refrigerated drawer, a glass [[vial]] glows with an eerie luminescence.")
-        (LDESC "A glass [[vial]] of luminescent liquid, its label too small to read at a glance.")
+        (LDESC "A glass [[vial]] of luminescent liquid lies here, glowing faintly.")
         (FLAGS TAKEBIT)
         (SIZE 4)
         (ACTION SERUM-F)>
@@ -422,7 +422,7 @@
         (ADJECTIVE DOCTOR MORDECAI)
         (DESC "doctor's journal")
         (FDESC "A personal [[journal]] rests on a small desk in the corner, its pages filled with manic handwriting.")
-        (LDESC "A [[journal]] rests on a small desk in the corner.")
+        (LDESC "Dr. Mordecai's [[journal]] lies here.")
         (FLAGS READBIT TAKEBIT)
         (TEXT "The subject showed remarkable resilience. But the serum... it changed something fundamental. Patient 237 died on the table, yet I swear I saw movement hours later. The eyes... the eyes opened. I have made a terrible mistake. God forgive me, I must seal this place.")
         (SIZE 6)
@@ -441,7 +441,7 @@
         (SYNONYM VALVE WHEEL)
         (ADJECTIVE PIPE METAL)
         (DESC "metal valve")
-        (LDESC "A wheel [[valve]] on one of the pipes, crusted with rust.")
+        (LDESC "A wheel [[valve]] juts from one of the pipes, crusted with rust.")
         (FLAGS TURNBIT)
         (ACTION VALVE-F)>
 
@@ -460,7 +460,7 @@
         (SYNONYM SHOVEL SPADE)
         (ADJECTIVE COAL)
         (DESC "coal shovel")
-        (LDESC "A sturdy [[coal shovel->shovel]] with a wooden handle.")
+        (LDESC "A sturdy [[coal shovel->shovel]] lies here.")
         (FLAGS TAKEBIT TOOLBIT)
         (SIZE 10)
         (ACTION SHOVEL-F)>
@@ -479,7 +479,7 @@
         (SYNONYM COAL LUMP FUEL)
         (ADJECTIVE BLACK DUSTY)
         (DESC "lump of coal")
-        (LDESC "A usable [[lump of coal->coal]] rests among the damp slack.")
+        (LDESC "A [[lump of coal->coal]] lies here.")
         (FLAGS TAKEBIT)
         (SIZE 4)
         (ACTION COAL-F)>
@@ -498,7 +498,7 @@
         (SYNONYM FLASHLIGHT LIGHT TORCH)
         (ADJECTIVE ELECTRIC)
         (DESC "flashlight")
-        (LDESC "An old-fashioned electric [[flashlight]], surprisingly heavy.")
+        (LDESC "An old-fashioned electric [[flashlight]] lies here.")
         (FLAGS TAKEBIT LIGHTBIT)
         (SIZE 5)
         (ACTION FLASHLIGHT-F)>
@@ -517,7 +517,7 @@
         (SYNONYM BAG SATCHEL)
         (ADJECTIVE MEDICAL LEATHER DOCTOR)
         (DESC "medical bag")
-        (LDESC "An old leather [[medical bag->bag]] sits on one of the shelves, its clasp shut.")
+        (LDESC "An old leather [[medical bag->bag]] lies here.")
         (FLAGS CONTBIT OPENABLEBIT TAKEBIT)
         (CAPACITY 15)
         (SIZE 10)
@@ -525,10 +525,10 @@
 
 <OBJECT BANDAGES
         (IN MEDICAL-BAG)
-        (SYNONYM BANDAGES BANDAGE CLOTH)
+        (SYNONYM BANDAGES BANDAGE CLOTH ROLL)
         (ADJECTIVE YELLOWED CLEAN)
-        (DESC "bandages")
-        (LDESC "Clean [[bandages]] wrapped in yellowed cloth.")
+        (DESC "roll of bandages")
+        (LDESC "A roll of clean [[bandages]] lies here.")
         (FLAGS TAKEBIT)
         (SIZE 3)
         (ACTION BANDAGES-F)>
@@ -538,7 +538,7 @@
         (SYNONYM VIAL MORPHINE BOTTLE)
         (ADJECTIVE GLASS SMALL)
         (DESC "morphine vial")
-        (LDESC "A sealed glass vial of [[morphine]].")
+        (LDESC "A sealed glass vial of [[morphine]] lies here.")
         (FLAGS TAKEBIT)
         (SIZE 2)
         (ACTION MORPHINE-VIAL-F)>
@@ -548,7 +548,7 @@
         (SYNONYM LANTERN LAMP)
         (ADJECTIVE OIL)
         (DESC "oil lantern")
-        (LDESC "An old [[oil lantern->lantern]]. It still has fuel inside.")
+        (LDESC "An old [[oil lantern->lantern]] stands here.")
         (FLAGS TAKEBIT LIGHTBIT FLAMEBIT)
         (SIZE 8)
         (ACTION LANTERN-F)>
@@ -558,7 +558,7 @@
         (SYNONYM RECORDS FILES PAPERS)
         (ADJECTIVE MEDICAL OLD)
         (DESC "medical records")
-        (LDESC "Yellowed files containing patient [[records]] from the 1940s.")
+        (LDESC "A sheaf of yellowed patient [[records]] lies here.")
         (FLAGS TAKEBIT READBIT)
         (TEXT "Most records are water-damaged, but one file remains legible: Patient 189 - Subject shows unusual resistance to sedation. Transferred to isolation ward for observation.")
         (SIZE 4)
@@ -595,7 +595,7 @@
         (SYNONYM NOTEBOOK BOOK DIARY)
         (ADJECTIVE SOGGY WET)
         (DESC "soggy notebook")
-        (LDESC "A water-damaged [[notebook]], barely legible.")
+        (LDESC "A water-damaged [[notebook]] lies here.")
         (FLAGS TAKEBIT READBIT)
         (TEXT "...water treatment...hours submerged...screaming stopped...Dr. M approved extended sessions...")
         (SIZE 3)
@@ -616,7 +616,7 @@
         (SYNONYM SYRINGE NEEDLE)
         (ADJECTIVE MEDICAL)
         (DESC "syringe")
-        (LDESC "A glass [[syringe]] with a steel needle.")
+        (LDESC "A glass [[syringe]] lies here.")
         (FLAGS TAKEBIT)
         (SIZE 2)
         (VALUE 3)
@@ -679,7 +679,7 @@
         (ADJECTIVE STRAIT NAME COLLAR)
         (DESC "straitjacket")
         (FDESC "A [[straitjacket]] lies in the corner, its straps unbuckled as if someone left in a hurry.")
-        (LDESC "A [[straitjacket]] lies in the corner.")
+        (LDESC "A [[straitjacket]] lies here.")
         (FLAGS TAKEBIT READBIT)
         (TEXT "The tag reads a name you know. Your name. Dated 1947. Five years before the sanitarium closed.")
         (SIZE 15)
@@ -707,7 +707,8 @@
         (SYNONYM LOGBOOK LOG BOOK)
         (ADJECTIVE OBSERVATION)
         (DESC "observation logbook")
-        (LDESC "A [[logbook]] rests on a desk.")
+        (FDESC "A [[logbook]] rests on a desk.")
+        (LDESC "The observation [[logbook]] lies here.")
         (FLAGS TAKEBIT READBIT)
         (TEXT "Session 47 - Patient 189. Subject required maximum voltage. Seizure lasted 4 minutes. Memory loss total. Subject claims to be 'someone else' now. Dr. Mordecai pleased with results.")
         (SIZE 7)
@@ -744,7 +745,7 @@
         (ADJECTIVE RED LEATHER HOLLOW)
         (DESC "red leather book")
         (FDESC "Among the medical texts, one book stands out -- a red leather [[tome->book]], its spine blank where all others are labeled.")
-        (LDESC "A red leather [[book]] with a blank spine sits among the medical volumes.")
+        (LDESC "A red leather [[book]] with a blank spine lies here.")
         (FLAGS CONTBIT OPENABLEBIT TAKEBIT)
         (CAPACITY 5)
         (SIZE 6)
@@ -780,7 +781,7 @@
         (SYNONYM KEY)
         (ADJECTIVE SAFE NUMBERED)
         (DESC "safe key")
-        (LDESC "A small [[key->safe key]] with a numbered tag: S-001.")
+        (LDESC "A small [[key->safe key]] with a numbered tag lies here.")
         (FLAGS TAKEBIT)
         (SIZE 1)
         (VALUE 2)
@@ -792,7 +793,7 @@
         (ADJECTIVE PRIVATE MORDECAI)
         (DESC "Dr. Mordecai's notes")
         (FDESC "Private [[notes]] in a tight, obsessive hand detail experiments that should never have been conducted.")
-        (LDESC "Personal [[notes]] in Dr. Mordecai's handwriting.")
+        (LDESC "Dr. Mordecai's private [[notes]] lie here.")
         (FLAGS TAKEBIT READBIT)
         (TEXT "The experiment succeeded beyond expectations. Patient 189 has transcended death itself. But the cost... the screaming never stops. I hear it in my sleep. The chapel must remain locked. What I've created must never escape.")
         (SIZE 5)
@@ -804,7 +805,7 @@
         (ADJECTIVE CHAPEL IRON)
         (DESC "chapel key")
         (FDESC "A heavy iron [[key->chapel key]] lies among the safe's contents, its head carved with a cross.")
-        (LDESC "A large iron [[key->chapel key]] with a cross engraved on the head.")
+        (LDESC "A large iron [[key->chapel key]] engraved with a cross lies here.")
         (FLAGS TAKEBIT)
         (SIZE 6)
         (VALUE 3)
@@ -824,7 +825,7 @@
         (SYNONYM PHOTOGRAPH PHOTO PICTURE)
         (ADJECTIVE OLD)
         (DESC "photograph")
-        (LDESC "A faded [[photograph]] of the sanitarium staff.")
+        (LDESC "A faded [[photograph]] of the sanitarium staff lies here.")
         (FLAGS TAKEBIT)
         (SIZE 1)
         (ACTION PHOTOGRAPH-F)>
@@ -843,7 +844,7 @@
         (SYNONYM BELL)
         (ADJECTIVE SERVICE COUNTER)
         (DESC "service bell")
-        (LDESC "A small brass [[bell]] for summoning staff.")
+        (LDESC "A small brass service [[bell]] sits here.")
         (FLAGS TAKEBIT)
         (SIZE 2)
         (ACTION BELL-F)>
@@ -893,7 +894,8 @@
         (SYNONYM BOX CASE)
         (ADJECTIVE WOODEN LOCKED SMALL)
         (DESC "wooden box")
-        (LDESC "A small wooden [[box]] sits beneath the altar, its surface carved with disturbing symbols.")
+        (FDESC "A small wooden [[box]] sits beneath the altar, its surface carved with disturbing symbols.")
+        (LDESC "A small wooden [[box]] carved with disturbing symbols sits here.")
         (FLAGS CONTBIT OPENABLEBIT TAKEBIT)
         (CAPACITY 10)
         (SIZE 8)
@@ -905,7 +907,7 @@
         (ADJECTIVE ANCIENT SILVER TARNISHED)
         (DESC "ancient relic")
         (FDESC "Inside the wooden box, an ancient silver [[cross->relic]] gleams with writhing symbols etched into its surface.")
-        (LDESC "An ancient silver [[cross->relic]] with writhing symbols etched into its surface.")
+        (LDESC "An ancient silver [[cross->relic]] lies here, symbols writhing across its surface.")
         (FLAGS TAKEBIT)
         (SIZE 4)
         (VALUE 3)

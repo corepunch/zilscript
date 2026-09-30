@@ -65,7 +65,7 @@ test.describe("LLM Mode", function(t)
 
 		local exit_code, output = run_command("lua5.4 llm.lua --new-game --save " .. shell_quote(savefile))
 		assert.assert_equal(exit_code, 0)
-		assert.assert_match(output, "West of House")
+		assert.assert_match(output, "open field west of a white house")
 		assert.assert_equal(read_file(savefile .. ".actions"), "")
 
 		cleanup(savefile)

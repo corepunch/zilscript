@@ -113,7 +113,14 @@ On this substrate, untouched objects with `FDESC` are printed directly by `PRINT
 Missing `>` is the most common and hardest-to-spot bug.
 
 ### 3. Define `ROUTINE GO ()` in actions.zil
-The game entry point must exist. Set up HERE, LIT, WINNER, PLAYER, call V-LOOK, call MAIN-LOOP.
+The game entry point must exist. Set up HERE, `<SETG VERBOSE T>`, LIT, WINNER, PLAYER, call V-LOOK, call MAIN-LOOP.
+VERBOSE is not optional. The substrate starts in Infocom's BRIEF mode, where a
+revisited room prints only its name. Readers show that name as a heading, so
+returning to a room shows no text at all. `make lint-zil` fails without it.
+
+Deaths use `JIGS-UP`, which ends the story through `FINISH` (score, then
+RESTART/RESTORE/QUIT). Never advertise a death that no command can reach; test
+each one and expect the FINISH prompt.
 
 ### 4. Custom SYNTAX uses `= V-ROUTINE`
 Only add syntax for verbs absent from the substrate. Search `infocom/zork1/syntax.zil` first.

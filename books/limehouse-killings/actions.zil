@@ -1205,7 +1205,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
     <TELL "Score: " N ,SCORE " of " N ,SCORE-MAX " points, in " N ,MOVES>
     <COND (<1? ,MOVES> <TELL " move.">) (T <TELL " moves.">)>
     <CRLF>
-    <TELL "Rank: " <GET ,RANKINGS </ ,SCORE 15>> "." CR>
+    <TELL "Rank: " <GET ,RANKINGS <+ </ ,SCORE 15> 1>> "." CR>
     <TELL "Evidence: " N ,EVIDENCE-FOUND " of 5. Suspects: " N ,SUSPECTS-INTERVIEWED " of 3." CR>
     ,SCORE>
 
@@ -1363,6 +1363,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
 
 <ROUTINE GO ()
 	<SETG HERE ,ASHWORTH-MANOR-GATE>
+	<SETG VERBOSE T>
 	<SETG LIT T>
 	<SETG WINNER ,ADVENTURER>
 	<SETG PLAYER ,WINNER>

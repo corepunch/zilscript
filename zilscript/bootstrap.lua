@@ -1099,10 +1099,14 @@ function PRINTC(ch) io_write(string.char(ch)) return true end
 function PRINC(n) io_write(tostring(n)) return true end
 function CRLF() io_write("\n") return true end
 
+-- The default death for stories that do not define their own JIGS-UP (Zork I
+-- does; the books do not). A death ends the story: FINISH reports the score
+-- and offers RESTART, RESTORE or QUIT. Printing the message and carrying on
+-- let a player walk away from being devoured or electrocuted.
 function JIGS_UP(msg)
 	TELL(msg, CR)
-	MOVE(WINNER, HERE)
-	-- os.exit(1)
+	if type(FINISH) == "function" then return FINISH() end
+	return QUIT()
 end
 
 local routes = {

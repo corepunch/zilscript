@@ -302,7 +302,10 @@ end
 function M.create_game(env, silent)
 	-- The ending's text: printed after the last READ, so no prompt yields it.
 	local function final_output()
-		if type(env.TAKE_OUTPUT) == "function" then return env.TAKE_OUTPUT() end
+		if type(env.TAKE_OUTPUT) == "function" then
+			local text = env.TAKE_OUTPUT()
+			if text ~= "" then return text end
+		end
 	end
 	local co
 	co = coroutine.create(function()
