@@ -2,15 +2,13 @@
 
 <ROUTINE NEST-PSEUDO ()
     <COND (<VERB? EXAMINE>
-           <TELL "An old bird's nest tucked into the fireplace grate. Long abandoned -- like everything else here." CR>)>
-    <RTRUE>>
+           <TELL "An old bird's nest tucked into the fireplace grate. Long abandoned -- like everything else here." CR>)>>
 
 <ROUTINE ASHES-PSEUDO ()
     <COND (<VERB? EXAMINE>
            <TELL "Cold grey ashes. Nothing of value." CR>)
           (<VERB? SEARCH>
-           <TELL "You sift through the ashes. Just soot and old char." CR>)>
-    <RTRUE>>
+           <TELL "You sift through the ashes. Just soot and old char." CR>)>>
 
 ; === DISCOVERY ===
 
@@ -63,10 +61,10 @@ searched, as Zork I hides the grating under the leaves."
 
 <ROUTINE BASEMENT-CORRIDOR-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "The basement corridor is pitch black, stretching into shadow. Stone stairs climb [[upward->up]] into darkness.">
+           <TELL "The basement corridor is dim, stretching into shadow. Stone stairs climb [[upward->up]] toward the entrance hall.">
            <COND (,VALVE-TURNED-FLAG
                   <TELL " Steam hisses from the pipes overhead, filling the corridor with an acrid mist.">)>
-           <TELL " To the [[east]], a passage leads toward the sound of dripping water. [[West->west]] lies what might have been storage. [[North->north]], another corridor descends toward deeper chambers." CR>)>>
+           <TELL " To the [[east]], a passage smells of coal and old smoke. [[West->west]] lies what might have been storage. [[North->north]], another corridor descends into total darkness, toward the sound of dripping water." CR>)>>
 
 <ROUTINE BOILER-ROOM-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
@@ -518,10 +516,7 @@ ajar, so examining it swings the door wide, as opening it does."
                 <TELL "The machine has various dials and switches. Labels indicate voltage levels up to dangerous levels. The electrodes are stained dark." CR>
                 <RTRUE>)
                (<VERB? TURN SWITCH-ON>
-                <COND (<IN? ,WINNER ,SHOCK-CHAIR>
-                       <JIGS-UP "The switch closes with a hard ceramic snap. White fire crosses the electrodes, and the room vanishes before you can scream.">)
-                      (T
-                       <TELL "You throw the switch. A blue arc cracks between the empty electrodes, filling the room with the smell of scorched dust. You shut it off before the ancient wiring can do worse." CR>)>
+                <TELL "You throw the switch. A blue arc cracks between the empty electrodes, filling the room with the smell of scorched dust. You shut it off before the ancient wiring can do worse." CR>
                 <RTRUE>)
                (<VERB? RUB>
                 <TELL "You touch one of the electrodes. It's cold and stained with something dark. You feel a faint tingle and quickly pull your hand away." CR>
@@ -775,11 +770,11 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
            <TELL "The green light in its eyes gutters. Patient 189 shudders, mouth opening in a soundless cry. The green flames around the chapel gutter and die." CR>
            <TELL "Then it speaks, in a voice like someone remembering how: 'I remember... who I was.'" CR>
            <COND (<G? ,PATIENT-LORE 4>
-                  <TELL " It looks into you, and the missing years return—not as a story you learned, but as your own memory: the straps, Mordecai's voice, the name Patient 189 replacing yours. The figure is not your double. It is the pain they cut away from you and locked here. When you take its hand, it folds into your shadow, and for the first time since 1947 you are whole." CR>)
+                  <TELL "It looks into you, and the missing years return—not as a story you learned, but as your own memory: the straps, Mordecai's voice, the name Patient 189 replacing yours. The figure is not your double. It is the pain they cut away from you and locked here. When you take its hand, it folds into your shadow, and for the first time since 1947 you are whole." CR>)
                  (<G? ,PATIENT-LORE 2>
-                  <TELL " It looks at you with recognition—not as a stranger, but as someone who understands what it endured." CR>)
+                  <TELL "It looks at you with recognition—not as a stranger, but as someone who understands what it endured." CR>)
                  (T
-                  <TELL " Its eyes pass over you without recognition. You freed it, but it never knew you." CR>)>
+                  <TELL "Its eyes pass over you without recognition. You freed it, but it never knew you." CR>)>
            <TELL "It crumbles to ash. The candles go out. The air suddenly smells like rain and grass—ordinary, living air. You're free." CR>
            <SETG GAME-WON T>
            <SETG PATIENT-STATE 3>
@@ -862,7 +857,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
 <ROUTINE V-INJECT ()
     <COND (<NOT <EQUAL? ,PRSI ,SYRINGE>>
            <TELL "That is not suitable for an injection." CR>)
-          (<EQUAL? ,PRSO ,WINNER>
+          (<EQUAL? ,PRSO ,WINNER ,ME>
            <JIGS-UP "The serum enters your vein like ice. For one lucid instant you remember the chapel from inside its locked door; then a green light opens behind your eyes and never closes.">)
           (<NOT <EQUAL? ,PRSO ,PATIENT-189>>
            <TELL "You have no reason to inject " THE ,PRSO "." CR>)
@@ -955,7 +950,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
 
 <ROUTINE PEWS-F ()
          <COND (<VERB? EXAMINE>
-                <TELL "The PEWS are ancient and rotting. Strange symbols are carved into the wood—symbols that hurt to look at." CR>
+                <TELL "The pews are ancient and rotting. Strange symbols are carved into the wood—symbols that hurt to look at." CR>
                 <RTRUE>)
                (<VERB? BOARD SIT>
                 <TELL "You sit on one of the pews. The wood is cold and uncomfortable. The symbols carved into it seem to pulse beneath your hands, and you quickly stand back up." CR>
@@ -979,7 +974,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
                        <TELL "The candles will never burn again." CR>
                        <RTRUE>)>)
                (<VERB? EXAMINE>
-                <TELL "The CANDLES burn with green flames that give off no heat. The light makes everything look diseased." CR>
+                <TELL "The candles burn with green flames that give off no heat. The light makes everything look diseased." CR>
                 <RTRUE>)
                (<VERB? LAMP-OFF>
                 <TELL "You try to extinguish the candles, but the green flames resist. No amount of blowing can put them out. They burn with an unnatural persistence." CR>
@@ -1320,23 +1315,19 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
 
 <ROUTINE INSTRUMENTS-PSEUDO ()
     <COND (<VERB? EXAMINE>
-           <TELL "Rusty forceps and clamps lie scattered across trays. Long abandoned, like everything else here." CR>)>
-    <RTRUE>>
+           <TELL "Rusty forceps and clamps lie scattered across trays. Long abandoned, like everything else here." CR>)>>
 
 <ROUTINE TRAYS-PSEUDO ()
     <COND (<VERB? EXAMINE>
-           <TELL "Cold metal instrument trays sit on carts, their contents rusted and useless." CR>)>
-    <RTRUE>>
+           <TELL "Cold metal instrument trays sit on carts, their contents rusted and useless." CR>)>>
 
 <ROUTINE BENCHES-PSEUDO ()
     <COND (<VERB? EXAMINE SIT>
-           <TELL "Tiers of wooden benches circle the operating theater, where students once observed procedures. The wood is dark with age and moisture." CR>)>
-    <RTRUE>>
+           <TELL "Tiers of wooden benches circle the operating theater, where students once observed procedures. The wood is dark with age and moisture." CR>)>>
 
 <ROUTINE GARDEN-BENCHES-F ()
     <COND (<VERB? EXAMINE SIT>
-           <TELL "Broken stone benches, half-consumed by ivy and moss. Whatever respite this garden once offered ended decades ago." CR>)>
-    <RTRUE>>
+           <TELL "Broken stone benches, half-consumed by ivy and moss. Whatever respite this garden once offered ended decades ago." CR>)>>
 
 ; === LOCAL-GLOBALS ACTION HANDLERS ===
 
@@ -1365,27 +1356,23 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
           (<VERB? OPEN>
            <TELL "The gates are already open." CR>)
           (<VERB? CLOSE>
-           <TELL "The hinges resist your weight. You leave the gates as you found them." CR>)>
-    <RTRUE>>
+           <TELL "The hinges resist your weight. You leave the gates as you found them." CR>)>>
 
 <ROUTINE GRAND-STAIRCASE-F ()
-    <COND (<VERB? EXAMINE CLIMB>
-           <TELL "The grand staircase climbs toward a collapsed landing. The safe routes through the sanitarium lie east, west, north, and down." CR>)>
-    <RTRUE>>
+    <COND (<VERB? EXAMINE CLIMB-FOO CLIMB-UP>
+           <TELL "The grand staircase climbs toward a collapsed landing. The safe routes through the sanitarium lie east, west, north, and down." CR>)>>
 
 <ROUTINE WALLPAPER-F ()
     <COND (<VERB? EXAMINE>
            <TELL "Victorian-era wallpaper depicting pastoral scenes, now grotesquely warped by moisture and black mold." CR>)
           (<VERB? READ>
-           <TELL "Victorian-era wallpaper depicting pastoral scenes, now grotesquely warped by moisture and black mold." CR>)>
-    <RTRUE>>
+           <TELL "Victorian-era wallpaper depicting pastoral scenes, now grotesquely warped by moisture and black mold." CR>)>>
 
 <ROUTINE COAL-DUST-F ()
     <COND (<VERB? EXAMINE RUB>
            <TELL "Fine coal dust coats the brick and leaves a black crescent on your fingertip." CR>)
           (<VERB? TAKE>
-           <TELL "The damp dust is useless as fuel; the coal bin may hold something better." CR>)>
-    <RTRUE>>
+           <TELL "The damp dust is useless as fuel; the coal bin may hold something better." CR>)>>
 
 ; === CLOCK-DRIVEN ATMOSPHERIC ROUTINES ===
 
@@ -1499,13 +1486,14 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
     <TELL "Score: " N ,SCORE " of " N ,SCORE-MAX " points, in " N ,MOVES>
     <COND (<1? ,MOVES> <TELL " move.">) (T <TELL " moves.">)>
     <CRLF>
-    <TELL "Rank: " <GET ,RANKINGS </ ,SCORE 20>> "." CR>
+    <TELL "Rank: " <GET ,RANKINGS <+ </ ,SCORE 20> 1>> "." CR>
     ,SCORE>
 
 ; === ENTRY POINT ===
 
 <ROUTINE GO ()
 	<SETG HERE ,SANITARIUM-GATE>
+	<SETG VERBOSE T>
 	<THIS-IS-IT ,BRASS-PLAQUE>
 	<SETG LIT T>
 	<SETG WINNER ,ADVENTURER>

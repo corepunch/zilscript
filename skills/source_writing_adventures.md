@@ -311,6 +311,7 @@ The walkthrough (`walkthrough.zil`) also serves as the entry point that wires th
 
 <ROUTINE GO ()
     <SETG HERE ,STARTING-ROOM>
+    <SETG VERBOSE T>
     <SETG LIT T>
     <SETG WINNER ,ADVENTURER>
     <SETG PLAYER ,WINNER>
@@ -710,6 +711,7 @@ Every game must have a `GO` routine:
 ```zil
 <ROUTINE GO ()
     <SETG HERE ,STARTING-ROOM>
+    <SETG VERBOSE T>
     <SETG LIT T>
     <SETG WINNER ,ADVENTURER>
     <SETG PLAYER ,WINNER>
@@ -1597,6 +1599,7 @@ Here's a minimal but complete adventure demonstrating all major features:
 
 <ROUTINE GO ()
     <SETG HERE ,LIGHTHOUSE-BASE>
+    <SETG VERBOSE T>
     <SETG LIT T>
     <SETG WINNER ,ADVENTURER>
     <SETG PLAYER ,WINNER>

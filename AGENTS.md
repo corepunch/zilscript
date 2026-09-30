@@ -20,7 +20,8 @@ Start with [ARCHITECTURE.md](ARCHITECTURE.md). It is the canonical high-level su
 4. For content or gameplay issues, inspect the relevant adventure folder under [infocom](infocom) or [books](books) before changing engine code.
 5. When debugging ZIL-related failures, prefer adding temporary `TELL`/print commands directly in the relevant ZIL routines to expose values, branch choices, and object locations while narrowing the problem. Remove or clearly quarantine this instrumentation before finishing unless it is intentionally part of a test.
 6. Validate with the smallest relevant target from [Makefile](Makefile); for broad gameplay regressions, use `make test-pure-zil`.
-7. Story prose withholds what must be examined and links what can be acted on. Follow "Prose Links" and "Withholding What Must Be Examined" in [docs/WRITING_ADVENTURES.md](docs/WRITING_ADVENTURES.md), and run `make lint-zil`, which checks vocabulary, link words, and every link target through the parser.
+7. Story prose withholds what must be examined and links what can be acted on. Follow "Prose Links" and "Withholding What Must Be Examined" in [docs/WRITING_ADVENTURES.md](docs/WRITING_ADVENTURES.md), and run `make lint-zil`, which checks vocabulary, link words, and every link target through the parser, and plays common verbs on every object to catch commands that print nothing.
+8. Books start VERBOSE, so a revisited room never prints only its name, and every death ends the story through `FINISH`. See "The GO Routine" in [docs/WRITING_ADVENTURES.md](docs/WRITING_ADVENTURES.md).
 
 ## Playing Games
 

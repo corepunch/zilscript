@@ -360,7 +360,7 @@ Rooms are the locations the player moves between.
 **Required properties:**
 - `(IN ROOMS)` — marks this as a room (always use `ROOMS`)
 - `(DESC "Short Name")` — short name shown in the status line / when entering
-- `(LDESC "Long description...")` — full description shown on first visit or with LOOK
+- `(LDESC "Long description...")` — full description, shown on every visit (books run VERBOSE; see The GO Routine)
 
 **Direction connections:**
 - `(NORTH TO ROOM-NAME)` — unconditional exit
@@ -370,6 +370,16 @@ Rooms are the locations the player moves between.
 **Flags:**
 - `RLANDBIT` — this is a land-based room (standard)
 - `ONBIT` — room is lit (no light source needed). Omit for dark rooms.
+
+**The prose is the map.** Every direction the prose names must be an exit
+that goes there, and every exit must be named. A staircase that "ascends in
+the east" while EAST leads to a ward sends the reader the wrong way. A
+described route that goes nowhere, such as a collapsed staircase, gets a
+string exit, `(UP "The staircase ends at a collapsed landing.")`, so that
+the direction answers. A lit room never calls itself "pitch black". The
+prose announces the dark room next door instead ("North, a corridor
+descends into total darkness"), so that a player without a light is warned
+before the parser's darkness rules can kill them.
 
 ### Objects
 
@@ -567,6 +577,31 @@ Routines are functions that handle player interactions with objects.
 ; Signal "I did NOT handle this, try default"
 <RFALSE>
 ```
+
+**Never end an object's action routine with a bare `<RTRUE>` after its
+COND.** That trailing `<RTRUE>` claims every verb the COND did not handle.
+CLIMB, PUSH, TAKE and the rest then print nothing, and the reader's command
+seems to vanish. Return true inside each branch that handles a verb. Let the
+COND fall through (false) so that unhandled verbs reach the parser's default
+reply:
+
+```zil
+; Wrong: "climb staircase" and "push wallpaper" print nothing
+<ROUTINE WALLPAPER-F ()
+    <COND (<VERB? EXAMINE READ>
+           <TELL "Victorian-era wallpaper, warped by moisture." CR>)>
+    <RTRUE>>
+
+; Right: the TELL returns true for EXAMINE and READ; every other verb falls through
+<ROUTINE WALLPAPER-F ()
+    <COND (<VERB? EXAMINE READ>
+           <TELL "Victorian-era wallpaper, warped by moisture." CR>)>>
+```
+
+Match the action names the syntax produces, not the typed word. CLIMB X is
+`CLIMB-FOO`, CLIMB UP X is `CLIMB-UP`, and a bare `CLIMB` never matches.
+`make lint-zil` plays common verbs on every object in every room and fails
+on any command that prints nothing.
 
 ### Global Variables (Flags)
 
@@ -817,6 +852,7 @@ Every game must have a `GO` routine:
 ```zil
 <ROUTINE GO ()
     <SETG HERE ,STARTING-ROOM>
+    <SETG VERBOSE T>
     <SETG LIT T>
     <SETG WINNER ,ADVENTURER>
     <SETG PLAYER ,WINNER>
@@ -829,6 +865,19 @@ Every game must have a `GO` routine:
     <MAIN-LOOP>
     <AGAIN>>
 ```
+
+**`<SETG VERBOSE T>` is required.** The shared engine in `infocom/zork1/`
+starts in Infocom's BRIEF mode. In that mode a room the player has already
+visited prints only its name. A reader such as AdventureArena shows the room
+name as a heading, so walking back UP a staircase would show a title and no
+text at all. Books always start verbose. Players may still type BRIEF
+themselves. `make lint-zil` fails a story whose GO leaves VERBOSE off.
+
+**Deaths end the story.** `JIGS-UP` prints its message and then calls
+`FINISH`, which reports the score and asks for RESTART, RESTORE or QUIT. A
+book does not define its own JIGS-UP unless it needs Zork-style resurrection.
+Every death an action routine advertises must be reachable. The regression
+test that plays it must expect the FINISH prompt.
 
 ### LET (Local Bindings)
 
@@ -962,12 +1011,19 @@ The format is pairs of `"WORD" ROUTINE-NAME` — when the player refers to that 
     (DESC "sword")
     (FLAGS TAKEBIT WEAPONBIT)
     (FDESC "Above the trophy case hangs an elvish sword of great antiquity.")
-    (LDESC "There is a brass lantern (battery-powered) here.")
+    (LDESC "An elvish sword lies here.")
     (SIZE 30)>
 ```
 
 First visit: "Above the trophy case hangs an elvish sword of great antiquity."
-After being dropped somewhere: "There is an elvish sword here."
+After being dropped somewhere: "An elvish sword lies here."
+
+A takeable object's LDESC is printed in whatever room the player drops it.
+It must be a whole sentence that stays true there: "A glass syringe lies
+here." A fragment ("A glass syringe with a steel needle.") reads as broken
+prose. So does a placement ("A logbook rests on a desk.") printed on the
+cafeteria floor. The original placement goes in FDESC, and detail goes in
+EXAMINE.
 
 ### Room Action Routines (Dynamic Descriptions)
 
@@ -1253,7 +1309,18 @@ For variety, Zork uses tables of responses selected randomly:
     <TELL <PICK-ONE ,SWIMYUKS> CR>>
 ```
 
-`PICK-ONE` selects from the table without repeating recent choices.
+`PICK-ONE` selects from the table without repeating recent choices. The
+leading `0` is PICK-ONE's own bookkeeping slot. Other tables leave it out.
+`<GET ,TABLE 0>` of an LTABLE is its length, and its first entry is element
+1. A rank table therefore lists only names and adds one to the index:
+
+```zil
+<GLOBAL RANKINGS <LTABLE "Confused Patient" "Curious Inmate" "Asylum Explorer">>
+<TELL "Rank: " <GET ,RANKINGS <+ </ ,SCORE 20> 1>> "." CR>
+```
+
+Without the `+ 1`, a score of zero prints the length as if it were a string
+address, and garbage appears.
 
 ### PERFORM (Redirecting Actions)
 

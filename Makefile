@@ -38,7 +38,7 @@ help:
 	@echo "  test-llm          - Run LLM persistence tests"
 	@echo "  test-limehouse-walkthrough - Run Limehouse golden-path LLM test"
 	@echo "  test-wondertown-descriptions - Run Wondertown rendered description regressions"
-	@echo "  lint-zil          - Check printed object names against parser vocabulary"
+	@echo "  lint-zil          - Check vocabulary, prose links, and that every command answers"
 	@echo ""
 	@echo "Horror game tests:"
 	@echo "  test-horror-helpers - Run horror test helpers"
@@ -201,6 +201,7 @@ test-horror-playtest-regressions:
 	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-lore
 	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-systems
 	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-prose-reveal
+	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-navigation
 
 test-horror-all: test-horror-helpers test-horror-partial test-horror-failures test-horror-playtest-regressions test-horror
 	@echo "All horror tests completed!"
@@ -237,6 +238,8 @@ lint-zil:
 	@lua5.4 scripts/check-links.lua books/limehouse-killings books/blackwood-horror books/wondertown
 	@echo "Examining every prose link through the parser..."
 	@lua5.4 scripts/check-link-targets.lua books/limehouse-killings books/blackwood-horror books/wondertown
+	@echo "Playing common verbs on every object..."
+	@lua5.4 scripts/check-responses.lua books/limehouse-killings books/blackwood-horror books/wondertown
 
 zip:
 	@if [ -z "$(filter-out zip,$(MAKECMDGOALS))" ]; then echo "Usage: make zip <gamename>"; echo "Example: make zip limehouse-killings"; exit 1; fi
