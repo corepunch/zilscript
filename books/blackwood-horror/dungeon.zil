@@ -15,7 +15,6 @@
 <GLOBAL PATIENT-FILE-LORE <>>
 <GLOBAL WALL-SCRATCHES-LORE <>>
 <GLOBAL STRAITJACKET-LORE <>>
-<GLOBAL BOILER-FUELED <>>
 <GLOBAL BOILER-LIT <>>
 <GLOBAL BOILER-HEAT 0>
 <GLOBAL CABINET-THAWED <>>
@@ -48,7 +47,7 @@
 <ROOM SANITARIUM-ENTRANCE
       (IN ROOMS)
       (DESC "Sanitarium Entrance Hall")
-      (LDESC "The entrance hall reeks of mildew and decay. A [[grand staircase->staircase]] rises into darkness and ends at a collapsed landing. To the [[west]], a doorway leads to what might have been a reception area; to the [[east]], a corridor opens onto the patient ward. A narrow staircase descends [[into the basement->down]].")
+      (LDESC "The entrance hall reeks of mildew and decay. A [[grand staircase->staircase]] rises into darkness and ends at a collapsed landing. To the [[west]], a doorway leads to what might have been a reception area; to the [[east]], a corridor opens onto the patient ward. A narrow staircase descends [[into the basement->down]]. The entrance gates lie [[south]].")
       (SOUTH TO SANITARIUM-GATE)
       (WEST TO RECEPTION-ROOM)
       (NORTH TO OPERATING-THEATER)
@@ -70,7 +69,7 @@
 <ROOM OPERATING-THEATER
       (IN ROOMS)
       (DESC "Operating Theater")
-      (LDESC "The circular theater rises in [[tiers]] where students once observed procedures. The air is motionless; even your sleeve brushing the door sounds indecently loud.")
+      (LDESC "The circular theater rises in [[tiers]] where students once observed procedures. The air is motionless; even your sleeve brushing the door sounds indecently loud. The doorway [[south]] returns to the entrance hall.")
       (SOUTH TO SANITARIUM-ENTRANCE)
       (FLAGS RLANDBIT ONBIT)>
 
@@ -107,7 +106,7 @@
       (UP TO BASEMENT-STAIRS)
       (EAST TO BOILER-ROOM)
       (WEST TO STORAGE-ROOM)
-      (NORTH TO FLOODING-CHAMBER)
+      (NORTH PER FLOODED-PASSAGE)
       (FLAGS RLANDBIT ONBIT)>
 
 <ROOM BOILER-ROOM
@@ -144,7 +143,7 @@
 <ROOM ISOLATION-WARD
       (IN ROOMS)
       (DESC "Isolation Ward")
-      (LDESC "Small cells line both sides of a narrow corridor. [[Scratches->scratches]] cover the walls—thousands of them, as if someone counted the days. The corridor continues [[north]] to the electroshock theater.")
+      (LDESC "Small cells line both sides of a narrow corridor. [[Scratches->scratches]] cover the walls—thousands of them, as if someone counted the days. The corridor continues [[north]] to the electroshock theater; [[south]] returns to the flooded chamber.")
       (SOUTH TO FLOODING-CHAMBER)
       (NORTH TO ELECTROSHOCK-THEATER)
       (FLAGS RLANDBIT)
@@ -333,7 +332,7 @@
 <OBJECT ETHER-BOTTLE
         (IN METAL-CABINET)
         (SYNONYM BOTTLE ETHER CHLOROFORM)
-        (ADJECTIVE GLASS)
+        (ADJECTIVE ETHER GLASS)
         (DESC "bottle of ether")
         (LDESC "A glass [[bottle]] labeled 'Ether - Handle with Care' stands here.")
         (FLAGS TAKEBIT)
@@ -410,8 +409,8 @@
         (SYNONYM SERUM VIAL BOTTLE)
         (ADJECTIVE STRANGE GLOWING)
         (DESC "vial of serum")
-        (FDESC "Inside the open refrigerated drawer, a glass [[vial]] glows with an eerie luminescence.")
-        (LDESC "A glass [[vial]] of luminescent liquid lies here, glowing faintly.")
+        (FDESC "Inside the open refrigerated drawer, a vial of [[glowing serum->serum]] gives off an eerie luminescence.")
+        (LDESC "A vial of [[glowing serum->serum]] lies here, pulsing faintly.")
         (FLAGS TAKEBIT)
         (SIZE 4)
         (ACTION SERUM-F)>
@@ -509,7 +508,7 @@
         (ADJECTIVE SAGGING)
         (DESC "shelves")
         (LDESC "[[Shelves->shelves]] line the walls, sagging under the weight of moldering supplies.")
-        (FLAGS CONTBIT)
+        (FLAGS CONTBIT SEARCHBIT)
         (ACTION SHELVES-F)>
 
 <OBJECT MEDICAL-BAG
@@ -518,7 +517,7 @@
         (ADJECTIVE MEDICAL LEATHER DOCTOR)
         (DESC "medical bag")
         (LDESC "An old leather [[medical bag->bag]] lies here.")
-        (FLAGS CONTBIT OPENABLEBIT TAKEBIT)
+        (FLAGS CONTBIT OPENABLEBIT SEARCHBIT TAKEBIT)
         (CAPACITY 15)
         (SIZE 10)
         (ACTION MEDICAL-BAG-F)>
@@ -815,7 +814,7 @@
         (IN STAFF-QUARTERS)
         (SYNONYM LOCKERS LOCKER)
         (ADJECTIVE METAL)
-        (DESC "lockers")
+        (DESC "bank of lockers")
         (LDESC "[[Lockers->lockers]] line one wall, their dented doors hanging crooked.")
         (FLAGS CONTBIT)
         (ACTION LOCKERS-F)>
@@ -1063,8 +1062,8 @@
         (SYNONYM DRAWER)
         (ADJECTIVE BOTTOM)
         (DESC "bottom drawer")
-        (LDESC "A sturdy drawer that seems to be locked.")
-        (FLAGS CONTBIT SEARCHBIT NDESCBIT)
+        (LDESC "The desk has a sturdy [[bottom drawer->drawer]].")
+        (FLAGS CONTBIT OPENABLEBIT SEARCHBIT NDESCBIT)
         (CAPACITY 10)
         (ACTION DRAWER-F)>
 

@@ -23,7 +23,7 @@
 	<ASSERT "Return to Entrance Hall" <CO-RESUME ,CO "walk south" T> <==? ,HERE ,SANITARIUM-ENTRANCE>>
 	<ASSERT "Go to Patient Ward" <CO-RESUME ,CO "walk east" T> <==? ,HERE ,PATIENT-WARD>>
 	<ASSERT-TEXT "frames" <CO-RESUME ,CO "examine beds">> ;"See the deteriorated ward"
-	<ASSERT-TEXT "chains" <CO-RESUME ,CO "examine door">> ;"Notice chains blocking morgue"
+	<ASSERT-TEXT "leather restraint strap" <CO-RESUME ,CO "examine door">> ;"Find the cuttable fastening that holds the morgue shut"
 	<ASSERT "Cut through chains with scalpel" <CO-RESUME ,CO "attack chains"> ,CHAINS-CUT-FLAG>
 	<ASSERT "Enter Morgue" <CO-RESUME ,CO "walk north" T> <==? ,HERE ,MORGUE>>
 	<ASSERT-TEXT "drawers" <CO-RESUME ,CO "examine drawers">> ;"Find glowing contents"
@@ -146,4 +146,6 @@
 	<ASSERT "Syringe is carried before SAY HELLO" <==? <LOC ,SYRINGE> ,ADVENTURER>>
 	<ASSERT-TEXT "I remember... who I was" <CO-RESUME ,CO "say hello">>
 	<ASSERT "WIN - freed with relic and serum and syringe" ,GAME-WON>
+
+	<ASSERT-TEXT "end this session" <CO-RESUME ,CO "look">>
 >

@@ -80,8 +80,13 @@ local function expandMacro(call_node, macro, compiler)
   -- Substitute parameters in the macro body
   local function substitute(node)
     if not node then return node end
-    
-    if node.type == "symbol" or node.type == "ident" then
+
+    -- FORM receives quoted syntax from a macro, such as ',FLAMEBIT.
+    -- Its expansion must emit the global reference rather than a quote
+    -- node (which has no scalar value and otherwise compiles to nil).
+    if node.type == "placeholder" and node[1] then
+      return substitute(node[1])
+    elseif node.type == "symbol" or node.type == "ident" then
       -- Check if this is a parameter reference (starts with .)
       local name = node.value
       if name and name:match("^%.") then
@@ -183,9 +188,9 @@ function PrintNode.createPrintNode(compiler, form_handlers)
         -- Default handler for generic function calls
         if indent == 1 then buf.indent(indent) end
         if node.name == 'VERB?' then 
-          local verb = node[1] and node[1].value
-          if verb == 'THROUGH' then verb = 'ENTER' end
-          table.insert(compiler.current_verbs, verb)
+          for _, argument in ipairs(node) do
+            if argument.value then table.insert(compiler.current_verbs, argument.value) end
+          end
         end
         buf.write("%s(", utils.normalizeFunctionName(node.name))
         

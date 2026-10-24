@@ -1,0 +1,11 @@
+# Stage 2-3 puzzle graph
+1. Counterweight negotiation: search Laundry apron -> brass button -> GIVE BUTTON TO ROOK in Rookery -> rook moves to Vane, releases vane -> TURN VANE. Learn garden lies downwind. Alternative SHOW BUTTON then GIVE; never steal or trap bird.
+2. Water route: kitchen spoon -> DIG GUTTER WITH SPOON (or CLEAR GUTTER WITH SPOON). Garden channel changes physically. Wrong tool points out need for narrow scoop, bare hand explains fragile roots. Spoon not consumed.
+3. Historical evidence: OPEN WEATHERBOX -> TAKE REPORT -> STEAM REPORT OVER KETTLE in Kitchen -> READ REPORT. Steam relaxes paper. Alternate SHOW REPORT TO PIP gives clue; folded report cannot be read until softened. Optional pressed flower revealed inside report only after reading.
+4. Safe conversation: Laundry ribbon -> TIE RIBBON TO CHIME in Arch. Ribbon moves onto chime; UNTIE CHIME reverses safely. Without quiet, cloud text describes words breaking up; no fake listening progress.
+5. Negotiation: LISTEN TO CLOUD -> SHOW REPORT TO CLOUD -> ASK CLOUD ABOUT PAUSE -> TELL CLOUD ABOUT PROMISE. Requires wind measured and gutter cleared. Cloud moves onto Terrace once promise agreed. Every missing condition gets a precise useful response. Past apology and listening persist; promise is abstract and global topic, never a duplicate physical card.
+6. Public responsibility: WRITE CARD after agreement -> GIVE CARD TO MICA -> card approved and returned -> PUT CARD IN SLOT in Broadcast. Mica moves there with you only once publishing. Then choose DRIZZLE CLOUD or SHOWER CLOUD from Terrace. Both FINISH, no invalid doomed ending.
+
+Dependencies: 1,2,3,4 in parallel; 3+4 -> evidence; 1+2+evidence+listening+pause -> agreement; agreement -> 6 -> ending.
+Softlocks: report/card/ribbon/button persist as real objects; lost tools can be taken again. Button remains with rook and cannot be traded twice. Rook is reachable. Ribbon can be untied and reused. No score increments, clocks, item destruction, or invalid-ending traps.
+Likely attempts matrix: EXAMINE/TAKE/DROP/READ/SEARCH/OPEN/CLOSE/SHOW/GIVE/USE plus special verb. Unsupported attempts fall through to substrate; USE gives attention-level clue on puzzles. Explicit wrong second object refused. Repeat completion is idempotent.

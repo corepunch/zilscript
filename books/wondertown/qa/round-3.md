@@ -1,0 +1,32 @@
+# Wondertown — blind round 3 of 3
+
+Frozen before reading any book source, tests, design, maps, earlier reports, walkthroughs, or save contents. Seed 97; save `/tmp/wondertown-r3.sav`. Started with `llm.lua --new-game --links`; every subsequent command was selected by its current returned 1-based action number. No free-form `--action`, internal state editing, or source-derived solutions. A Python helper matched a desired command against the latest returned menu and passed only its actual index. After menus exceeded 400 combinations, its printed view omitted most two-object combinations; selected commands still had to exist in that cached menu. Each response was inspected before the next selection.
+
+## Outcome
+
+**The blind session did not reach an ending.** Pip recovered the workshop key, restored the ladder and loft clock, woke Bertrand, repaired Marzipan's eye, opened the scrap-yard gate, befriended Nutmeg through yarn and scarf, and wound the clock tower from the soldier's shoulders. The workshop clock remained closed. All nine surface rooms were explored and several revisited. The final position is Fox Den after retrieving Tolliver's letter specifically to discuss it with Nutmeg.
+
+The blocker is a menu-only progression gap: the clues clearly say that the fox can open the hidden clock latch, but the offered fox actions are examine, tell, attack, and broad tell-about combinations. No recruit, follow, come, or latch action appeared. Default TELL FOX and TELL FOX ABOUT the carried letter return a generic suggestion to reread the manual. TELL FOX ABOUT CLOCK is offered but rejects the unseen clock. This result does not establish that the authored story is impossible; it establishes that this blind menu-only player could not continue.
+
+## Player-visible findings
+
+1. **High — passage/recruitment affordance absent from the available menu.** Both Marzipan and the loft clock explain the fox/latch relationship. The player has earned the key through two concrete kindnesses; returning to the workshop and entering the clock still fails. Revisiting Nutmeg, talking, asking through offered topics, playing the music box, and bringing Tolliver's letter provide no next step.
+2. **Medium — Nutmeg still wears and hugs the key after handing it over.** TAKE WORKSHOP KEY prints her explicit, moving surrender. Inventory then lists the workshop key. On returning to the den, room and examination text still describe the key around her neck; TELL FOX ABOUT WORKSHOP KEY says she hugs it closer. This undermines the emotional change the player just earned.
+3. **Medium — default fox conversation breaks the story's voice.** “Perhaps thinking that you should reread the manual” is especially jarring in this gentle story. A wary reply before trust, and a welcoming reply or useful offer after trust, would preserve Nutmeg's character and guide the next step.
+4. **Medium — giving the matching head directly to the headless doll fails.** Examination explicitly establishes the match. GIVE HEAD TO HEADLESS DOLL says the recipient is uninterested; PUT HEAD IN HEADLESS DOLL says it cannot be done. Giving it to the cart succeeds. The cart's rescue role is well described, so the solution is recoverable, but the natural equivalent should either work through the cart or explain that the cart must do the repair.
+5. **Medium — menu noise and invalid topic commands.** Inventory in Fox Den produced 483 actions, including giving a broom to sawdust, giving an item to itself, reading a journal with itself, and topics naming remote objects that the parser rejects as unseen. This is primarily shared tooling and is owned separately by the parent task.
+6. **Tooling version drift, not a proven book defect.** During this live session, key aliases temporarily collapsed the workshop key and tiny brass winding key. EXAMINE WINDING KEY once rejected an unrelated “case.” Parent reported an identity fix; querying inventory then produced two distinct correct keys, and EXAMINE WORKSHOP KEY worked. After later moves, a room-local key link again emitted `examine winding key` with target `workshop key`. Preserve this observation as tooling evidence, not a claim about book state.
+
+## Literary and puzzle assessment
+
+The setting is immediately legible: cedar, sawdust, broad book steps, snow, rust, and little copper tools create a convincing toy-scale world. Most gates are physical and fair: oil releases the loft ladder, Bertrand's winding clears the upward route, the cart visibly rescues broken toys, and the fox responds to warmth and play rather than theft or violence. The journal and letter deepen Tolliver's absence without long exposition. Nutmeg's key surrender is the strongest scene and gives the quest an emotional consequence.
+
+The surface loop is spacious enough to support exploration, and no actual death clock interrupted more than a hundred deliberate actions. The clock tower gives the soldier a distinct physical role. Oil, button, head, yarn, and scarf each had distinct observed effects. The music box delivered a strong memory of Tolliver but did not affect Nutmeg when played or offered; its later mechanical purpose was not seen. The porcelain arm's promised matching owner and the broom's functional purpose were not found during the blind surface pass. These are unresolved roles, not yet evidence of phantom items. Broken wheels and springs in the loft are descriptive contents rather than separately accessible tools; that read naturally enough as workshop texture.
+
+Useful improvements are state-aware conversations and room descriptions, preserving the kindness-based gates while making the fox's next cooperative action available through the same interface that taught the rest of the game. Do not add interchangeable replacement tools merely to increase puzzle options.
+
+## Persistence and evidence
+
+Every command ran in a separate process against the same save, exercising save/restore through inventory changes, revealed objects, repaired mechanisms, room moves, key handover, and clock winding. Ladder, Bertrand, Marzipan, and cart changes survived revisits. Nutmeg's stale key prose is the exception noted above; no save internals were inspected to diagnose it before this freeze.
+
+The raw unedited session is `round-3.transcript.txt`. Any source-informed diagnosis, fixes, or completed verification belongs in a separate follow-up report and must not be relabeled as blind completion.

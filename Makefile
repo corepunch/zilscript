@@ -72,7 +72,7 @@ test-unit:
 	@echo "Running unit tests..."
 	lua tests/run_all.lua
 
-test-integration: test-zork1 test-zork2 test-game-startup test-parser test-horror-all test-limehouse-walkthrough test-wondertown-descriptions
+test-integration: test-new-books test-zork1 test-zork2 test-game-startup test-parser test-horror-all test-limehouse-walkthrough test-wondertown-descriptions test-book-playtests
 	@echo "All integration tests completed!"
 
 test-zork1:
@@ -206,7 +206,16 @@ test-horror-playtest-regressions:
 test-horror-all: test-horror-helpers test-horror-partial test-horror-failures test-horror-playtest-regressions test-horror
 	@echo "All horror tests completed!"
 
-test-pure-zil:
+.PHONY: test-book-playtests
+test-book-playtests:
+	@set -e; for test in books/*/test/test-round*.zil; do \
+		lua5.4 run-zil-test.lua "$${test%.zil}"; \
+	done
+	@set -e; for test in books/*/test/test_round*_links.lua; do \
+		lua5.4 "$$test"; \
+	done
+
+test-pure-zil: test-new-books test-book-playtests
 	@echo "Running pure ZIL tests..."
 	@lua5.4 run-zil-test.lua zil/test-simple-new
 	@lua5.4 run-zil-test.lua zil/test-insert-file
@@ -233,13 +242,13 @@ test-pure-zil:
 
 lint-zil:
 	@echo "Checking vocabulary consistency in book adventures..."
-	@lua5.4 scripts/check-vocab.lua books/limehouse-killings/dungeon.zil books/blackwood-horror/dungeon.zil books/wondertown/dungeon.zil
+	@lua5.4 scripts/check-vocab.lua $(wildcard books/*/dungeon.zil)
 	@echo "Checking prose links in book adventures..."
-	@lua5.4 scripts/check-links.lua books/limehouse-killings books/blackwood-horror books/wondertown
+	@lua5.4 scripts/check-links.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/dungeon.zil))
 	@echo "Examining every prose link through the parser..."
-	@lua5.4 scripts/check-link-targets.lua books/limehouse-killings books/blackwood-horror books/wondertown
+	@lua5.4 scripts/check-link-targets.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/dungeon.zil))
 	@echo "Playing common verbs on every object..."
-	@lua5.4 scripts/check-responses.lua books/limehouse-killings books/blackwood-horror books/wondertown
+	@lua5.4 scripts/check-responses.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/dungeon.zil))
 
 zip:
 	@if [ -z "$(filter-out zip,$(MAKECMDGOALS))" ]; then echo "Usage: make zip <gamename>"; echo "Example: make zip limehouse-killings"; exit 1; fi
@@ -262,3 +271,14 @@ zip:
 limehouse-killings blackwood-horror wondertown:
 	@true
 
+
+.PHONY: test-new-books
+test-new-books:
+	@set -e; for book in pocket-weather silent-vector last-broadcast; do \
+		for test in books/$$book/test/test-*.zil; do \
+			lua5.4 run-zil-test.lua "$${test%.zil}"; \
+		done; \
+		for test in books/$$book/test/test_*.lua; do \
+			lua5.4 "$$test"; \
+		done; \
+	done

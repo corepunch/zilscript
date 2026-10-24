@@ -1,0 +1,300 @@
+THE SILENT VECTOR
+You remember your own voice saying: 'Keep holding her hand.' You remember doing it. You also remember fastening both your hands into the restraint cradle. Neither recollection accounts for the skin cooling between your fingers.
+
+The receive chain has tripped habitat power. Reset it, find the others, establish a physical reference. There is no countdown; the station's mechanical reserves will hold.
+
+A dry click repeats through the [[padding]]. The [[breaker]] is within reach. The pressure-balanced way [[north]] leads into the habitat.
+
+
+> push habitat breaker
+The [[breaker]] catches. Air moves across your face. The mechanical telltale settles at one atmosphere, and the interlock releases [[north]]. A small fact, independent of anything you remember.
+
+
+> north
+The air at the junction tastes faintly of copper. [[West]] is the torque shop, [[east]] the galley, [[north]] the clinic. The service spine runs [[down]]; the launch cupola is [[up]]. The restraint cradle is [[south]].
+Too much warmth rises from below.
+
+
+> west
+The air smells of warm insulation. A [[protocol card->protocol]] is fastened over the tool recesses. [[East]] returns to the junction.
+A [[torque wrench->wrench]] rests in its recess.
+A [[null spool->spool]] sits in a shaped recess.
+
+
+> take torque wrench
+Taken.
+
+
+> take null spool
+Taken.
+
+
+> read protocol
+RECEIVE ISOLATION / COOL STORAGE. Restore coolant with the torque wrench. FIT SPOOL TO BUS, then CUT BUS WITH SHEARS. The spool absorbs discharge; ceramic blades cannot feed it into your nervous system. Only then OPEN RECEIVER. Compare physical witness foil in the laboratory before accepting autobiographical evidence. Store a recovered wafer in the cold archive. A mechanical rendezvous beacon is safe; radio is not.
+
+
+> east
+The air at the junction tastes faintly of copper. [[West]] is the torque shop, [[east]] the galley, [[north]] the clinic. The service spine runs [[down]]; the launch cupola is [[up]]. The restraint cradle is [[south]].
+
+
+> down
+Warm air breathes through this narrow space. [[West]] leads to the coolant system, [[east]] to the receive relay. The junction is [[up]].
+
+
+> west
+The [[pump]] makes a patient, unsuccessful sucking sound. The service spine is [[east]].
+
+
+> turn coolant pump with torque wrench
+The fitting seats at the wrench's calibrated click. The pump drinks liquid instead of air. Cold storage is available again; the junction air begins to cool.
+
+
+> east
+Warm air breathes through this narrow space. [[West]] leads to the coolant system, [[east]] to the receive relay. The junction is [[up]].
+
+
+> up
+The air at the junction tastes faintly of copper. [[West]] is the torque shop, [[east]] the galley, [[north]] the clinic. The service spine runs [[down]]; the launch cupola is [[up]]. The restraint cradle is [[south]].
+Cool air reaches your ankles; one system has accepted a physical repair.
+
+
+> east
+The [[portrait]] turns slowly in the ventilation. [[Ivo]] is counting on his fingers, stopping at four, starting again. [[West]] returns to the junction; [[east]] leads to the physical archive.
+
+
+> east
+Each footfall makes the [[recorder]] ring softly. A handwritten [[mass ledger->ledger]] is attached beside it. [[West]] returns to the galley.
+
+
+> open witness recorder
+The lid releases with a small musical note.
+A [[witness strip->strip]] rests on the exposed drum.
+
+
+> take witness strip
+Taken.
+
+
+> read mass ledger
+Departure mass: four adults. Your name, Mara Vale, Ivo Chen, Senn Orlov. Four ration allocations. Four return restraints. No mass allowance exists for the fifth biography now shared by the crew. The ledger is indented through to the backing, written before first reception.
+
+
+> west
+The [[portrait]] turns slowly in the ventilation. [[Ivo]] is counting on his fingers, stopping at four, starting again. [[West]] returns to the junction; [[east]] leads to the physical archive.
+
+
+> west
+The air at the junction tastes faintly of copper. [[West]] is the torque shop, [[east]] the galley, [[north]] the clinic. The service spine runs [[down]]; the launch cupola is [[up]]. The restraint cradle is [[south]].
+
+
+> north
+The room smells of soap. A [[clinical log->log]] rests beside the examination area. [[South]] is the junction; [[north]] is the comparison lab.
+[[Mara]] asks whether you have eaten. She does not ask you to remember your name.
+A pair of [[ceramic shears->shears]] lies ready for sterile work.
+
+
+> take ceramic shears
+Taken.
+
+
+> read clinical log
+Mara recorded four independent pulses before reception. Afterwards she added a fifth name, Lena Orlov, then crossed out its empty vital-sign fields. No fifth pulse is recorded. In the margin: 'Requested pediatric analgesia. I remember treating an adult.' No dose was dispensed.
+
+
+> north
+The [[comparator]] vibrates at the edge of hearing. [[South]] returns to the clinic; [[east]] leads to screened quarantine.
+
+
+> compare optical comparator with witness strip
+Four breath loads before reception. Four after. No rupture, no fifth body. The supposed decompression has no matching pressure drop. A reception-time handstamp divides the continuous physical trace; there is no room in it for the accident you all remember.
+
+The pressure trace stays level through the minute when you remember the accident. Something has taught you to remember it. You remember letting go of her hand, and the guilt does not lessen when the mechanism becomes clear.
+
+Show the [[strip]] to Ivo. Isolate the incoming bus before entering the cold core.
+
+
+> south
+The room smells of soap. A [[clinical log->log]] rests beside the examination area. [[South]] is the junction; [[north]] is the comparison lab.
+[[Mara]] asks whether you have eaten. She does not ask you to remember your name.
+
+
+> south
+The air at the junction tastes faintly of copper. [[West]] is the torque shop, [[east]] the galley, [[north]] the clinic. The service spine runs [[down]]; the launch cupola is [[up]]. The restraint cradle is [[south]].
+You remember somebody calling from behind you. The measured breath-load says four people. You turn anyway.
+
+
+> east
+The [[portrait]] turns slowly in the ventilation. [[Ivo]] is counting on his fingers, stopping at four, starting again. [[West]] returns to the junction; [[east]] leads to the physical archive.
+
+
+> show witness strip to operator ivo
+Ivo follows the comparison marks with his finger. Four, four, four. 'I consent to evacuation,' he says. 'I don't consent to pretending we won't miss her.' He sets the [[strip]] back in your hand. 'Cold storage, mechanical beacon. No radio.'
+
+
+> west
+The air at the junction tastes faintly of copper. [[West]] is the torque shop, [[east]] the galley, [[north]] the clinic. The service spine runs [[down]]; the launch cupola is [[up]]. The restraint cradle is [[south]].
+
+
+> down
+Warm air breathes through this narrow space. [[West]] leads to the coolant system, [[east]] to the receive relay. The junction is [[up]].
+
+
+> east
+The [[incoming bus->bus]] sings through your teeth. Its termination socket is empty. The service spine is [[west]]; the receiver vault is [[north]].
+
+
+> fit incoming bus to null spool
+The [[spool]] locks onto the [[bus]]. The line falls to a lower note. Stored energy now has somewhere to go when you cut the bus with ceramic shears.
+
+
+> cut incoming bus with ceramic shears
+The ceramic edges meet. A blue fleck runs into the [[spool]] and dies. The singing stops in your teeth, then in the receiver vault. For the first time, the next thought does not feel anticipated.
+
+
+> north
+The [[receiver]] occupies almost the whole space. [[South]] returns to the relay.
+It is quiet. You remember it thanking you; the memory arrived without a sound.
+
+
+> open signal receiver
+The housing opens on a single [[memory wafer->wafer]], still warm. A cooling crescent remains where it rested against the housing.
+
+
+> take memory wafer
+Taken.
+
+
+> examine memory wafer
+A [[memory wafer->wafer]] on a passive substrate. Its engraved index reads LENA / RESCUE-COMPRESSION / SENN ORLOV. An outer-relay return stamp crosses Asterion's own outbound serial. There is no independent power source.  You remember Lena reciting that serial while she worked. You do not remember teaching it to her. Senn can account for the name; cold storage will hold the sample without playback.
+
+
+> south
+The severed [[incoming bus->bus]] rests without vibration. Silence has a mechanical cause here. The service spine is [[west]]; the receiver vault is [[north]].
+The [[incoming bus->incoming bus]] contains:
+  A [[null spool->null spool]]
+
+
+> west
+Warm air breathes through this narrow space. [[West]] leads to the coolant system, [[east]] to the receive relay. The junction is [[up]].
+
+
+> up
+The air at the junction tastes faintly of copper. [[West]] is the torque shop, [[east]] the galley, [[north]] the clinic. The service spine runs [[down]]; the launch cupola is [[up]]. The restraint cradle is [[south]].
+The compulsive half-heard syllable is gone. You still remember a fifth pair of footsteps here. You cannot hear them now.
+
+
+> north
+The room smells of soap. A [[clinical log->log]] rests beside the examination area. [[South]] is the junction; [[north]] is the comparison lab.
+[[Mara]] holds her own wrist, counting without looking at the time.
+
+
+> north
+The [[comparator]] vibrates at the edge of hearing. [[South]] returns to the clinic; [[east]] leads to screened quarantine.
+Its independent optical trace holds steady. It has not acquired the fifth rhythm you remember.
+
+
+> east
+[[Senn]] sits very upright, as if posture were a measurement. The lab is [[west]]. The interlocked way [[north]] leads to the cold core.
+He waits for you to finish speaking. Then: 'Ask me about my [[daughter]] again. I can answer now.'
+
+
+> examine researcher senn
+[[Senn]] holds his palms apart, the spacing of hands around a face. There is nothing physically between them. Ask about the [[signal]], the [[crew]], or his [[daughter]].
+'My daughter,' he repeats. 'You should ask me again now.'
+
+
+> tell researcher senn about received signal
+'The relay returned our own rescue-compression experiment,' Senn says. 'Its success criterion was continued decoding. A dying person makes you keep listening. We optimized for that without asking what it would feel like from this end.' He looks toward the cold core. 'An inquiry will want to play the only specimen. Preservation means staying there when they ask, and saying no. Even to people who believe they are helping.'
+
+
+> tell researcher senn about missing daughter
+'Lena died at nine,' Senn says. 'I gave the reconstruction my memories as training material. Not to resurrect her. To test whether a rescue call could rebuild missing information from a listener. Then I heard her grown voice. The experiment supplied the years I never got.' He closes his hands. 'I did not stop it.'
+
+
+> north
+Your breath hangs white above the [[cold archive->archive]]. The [[decision console->console]] has two recessed commitments. Quarantine is [[south]].
+
+
+> inventory
+You are carrying:
+  A [[memory wafer->memory wafer]]
+  A [[pair of ceramic shears->ceramic shears]]
+  A [[witness strip->witness strip]]
+  A [[torque wrench->torque wrench]]
+
+
+> put memory wafer in cold archive
+You slide the [[wafer]] into the [[cold archive->archive]]. Frost draws a white border around it. The sample is contained without being read. You can still retrieve it; no final decision has been made.
+
+
+> examine decision console
+Two final commitments. PRESERVE CONSOLE seals the sample in a blind, unpowered capsule and evacuates the living crew with a prohibition on playback. ERASE CONSOLE degausses the sample, removes the station's powered decoding chain, and evacuates the living crew without it. Preservation commits you to guarded custody: rescuers and investigators will want to play their only specimen, and you will have to keep refusing. Erasure destroys that specimen and the possibility of studying what it became. Both leave a physical warning. Neither erases your implanted memories.
+
+Before either commitment: independent comparison, examination of the wafer's origin index, Ivo's consent, receive isolation, cooling, the wafer physically in the archive, and the rendezvous beacon armed. Preparation can still be changed. The next successful PRESERVE or ERASE ends the story.
+
+
+> south
+[[Senn]] sits very upright, as if posture were a measurement. The lab is [[west]]. The interlocked way [[north]] leads to the cold core.
+His hands are closed now. He looks at you when he speaks.
+
+
+> west
+The [[comparator]] vibrates at the edge of hearing. [[South]] returns to the clinic; [[east]] leads to screened quarantine.
+Its independent optical trace holds steady. It has not acquired the fifth rhythm you remember.
+
+
+> south
+The room smells of soap. A [[clinical log->log]] rests beside the examination area. [[South]] is the junction; [[north]] is the comparison lab.
+[[Mara]] holds her own wrist, counting without looking at the time.
+
+
+> south
+The air at the junction tastes faintly of copper. [[West]] is the torque shop, [[east]] the galley, [[north]] the clinic. The service spine runs [[down]]; the launch cupola is [[up]]. The restraint cradle is [[south]].
+
+
+> up
+The stars do not flicker here. The mechanical [[beacon]] points away from the station. The habitat junction is [[down]].
+
+
+> push mechanical beacon
+The [[beacon]] arms with a heavy clunk. [[Mara]] comes up from the clinic, carrying the evacuation count in her head and checking it against four physical restraints. 'Ivo and Senn are coming,' she says. 'You have time. Go back to the cold-core console. Decide with all of us knowing what you did.'
+
+
+> down
+The air at the junction tastes faintly of copper. [[West]] is the torque shop, [[east]] the galley, [[north]] the clinic. The service spine runs [[down]]; the launch cupola is [[up]]. The restraint cradle is [[south]].
+Mara is waiting overhead. Ivo and Senn have agreed to leave; your decision will tell them what they carry.
+
+
+> north
+The room smells of soap. A [[clinical log->log]] rests beside the examination area. [[South]] is the junction; [[north]] is the comparison lab.
+Mara has gone to the launch cupola. The room is clean and empty of people.
+
+
+> north
+The [[comparator]] vibrates at the edge of hearing. [[South]] returns to the clinic; [[east]] leads to screened quarantine.
+Its independent optical trace holds steady. It has not acquired the fifth rhythm you remember.
+
+
+> east
+[[Senn]] sits very upright, as if posture were a measurement. The lab is [[west]]. The interlocked way [[north]] leads to the cold core.
+His hands are closed now. He looks at you when he speaks.
+
+
+> north
+Your breath hangs white above the [[cold archive->archive]]. The [[decision console->console]] has two recessed commitments. Quarantine is [[south]].
+The [[wafer]] rests in cold, independent storage. Nothing is playing it.
+The [[cold archive->cold archive]] contains:
+  A [[memory wafer->memory wafer]]
+
+
+> preserve decision console
+You commit to preservation.
+
+The archive closes without reading the wafer. Four measured bodies; one manufactured biography. You record both facts, and the fact that neither settled the question of suffering. The sealed capsule carries its warning as physical grooves, not an enticing voice.
+
+At the rendezvous, Mara counts four pulses. Ivo asks whether anyone remembers what Lena liked to eat. All four of you answer differently. Senn begins to apologize. You ask him to help inventory the capsule instead.
+
+The rescue ship will not accept the capsule until its medical officer has assessed it. She proposes a test playback. You refuse. For two days you trade sleep for custody while people with clean voices argue that understanding is worth a controlled exposure. Senn gives his first statement beside the unaltered foil. Ivo takes the next watch.  Eventually they accept sealed transfer under your warning. Someone else will hold the keys tomorrow. You have saved the possibility of an answer, and taken responsibility for keeping it unanswered until an answer can be sought safely.
+
+ENDING: THE UNPLAYED WITNESS
+The crew has left the station. Your decision is part of the physical record.

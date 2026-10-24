@@ -1,0 +1,15 @@
+{
+  "id": "books.last-broadcast",
+  "title": "The Last Broadcast",
+  "shortDescription": "A 1936 island murder. An unbroken voice. An alibi made of sound.",
+  "description": "Saint Bride Island, 1936. A gale has isolated the radio station, and its owner is killed during a supposedly live appeal. Four survivors have secrets, but the most convincing alibi may belong to a machine. Explore thirteen rooms, operate period recording apparatus, test witness accounts, and reconstruct a murder from physical evidence before making your accusation. Wrong accusations remain recoverable; an optional casebook supplies help.",
+  "author": "Studio Null",
+  "year": 2026,
+  "rating": 0,
+  "reviewCount": 0,
+  "reviews": [],
+  "startFile": "last-broadcast.zil",
+  "base": "infocom/zork1",
+  "genre": "Historical Detective Mystery",
+  "statusLine": "moves"
+}

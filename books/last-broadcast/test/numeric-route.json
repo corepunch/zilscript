@@ -1,0 +1,576 @@
+[
+  {
+    "number": 9,
+    "label": "station clock: Examine",
+    "command": "examine station clock",
+    "room": "Saint Bride Landing",
+    "running": true
+  },
+  {
+    "number": 4,
+    "label": "casebook: Examine",
+    "command": "examine casebook",
+    "room": "Saint Bride Landing",
+    "running": true
+  },
+  {
+    "number": 11,
+    "label": "hall: Go north",
+    "command": "north",
+    "room": "Station Hall",
+    "running": true
+  },
+  {
+    "number": 5,
+    "label": "appeal board: Read",
+    "command": "read appeal board",
+    "room": "Station Hall",
+    "running": true
+  },
+  {
+    "number": 6,
+    "label": "office: Go north",
+    "command": "north",
+    "room": "Vane's Office",
+    "running": true
+  },
+  {
+    "number": 4,
+    "label": "body: Examine",
+    "command": "examine julian body",
+    "room": "Vane's Office",
+    "running": true
+  },
+  {
+    "number": 6,
+    "label": "office clock: Examine",
+    "command": "examine office clock",
+    "room": "Vane's Office",
+    "running": true
+  },
+  {
+    "number": 11,
+    "label": "route below: Go down",
+    "command": "down",
+    "room": "Vane's Office",
+    "running": true
+  },
+  {
+    "number": 12,
+    "label": "hall: Go south",
+    "command": "south",
+    "room": "Station Hall",
+    "running": true
+  },
+  {
+    "number": 7,
+    "label": "studio: Go east",
+    "command": "east",
+    "room": "Broadcast Studio",
+    "running": true
+  },
+  {
+    "number": 4,
+    "label": "Ruth: Examine",
+    "command": "examine ruth bell",
+    "room": "Broadcast Studio",
+    "running": true
+  },
+  {
+    "number": 7,
+    "label": "Ruth: Ask about microphone",
+    "command": "tell ruth bell about red microphone",
+    "room": "Broadcast Studio",
+    "running": true
+  },
+  {
+    "number": 9,
+    "label": "Ruth: Ask about Vane",
+    "command": "tell ruth bell about julian vane",
+    "room": "Broadcast Studio",
+    "running": true
+  },
+  {
+    "number": 13,
+    "label": "control room: Go east",
+    "command": "east",
+    "room": "Control Room",
+    "running": true
+  },
+  {
+    "number": 11,
+    "label": "routing switch: Examine",
+    "command": "examine routing switch",
+    "room": "Control Room",
+    "running": true
+  },
+  {
+    "number": 16,
+    "label": "cutting room: Go north",
+    "command": "north",
+    "room": "Disc Cutting Room",
+    "running": true
+  },
+  {
+    "number": 4,
+    "label": "cutter: Examine",
+    "command": "examine disc cutter",
+    "room": "Disc Cutting Room",
+    "running": true
+  },
+  {
+    "number": 12,
+    "label": "brass counterweight: Take",
+    "command": "take brass counterweight",
+    "room": "Disc Cutting Room",
+    "running": true
+  },
+  {
+    "number": 8,
+    "label": "register: Read",
+    "command": "read cutter register",
+    "room": "Disc Cutting Room",
+    "running": true
+  },
+  {
+    "number": 10,
+    "label": "archive: Go east",
+    "command": "east",
+    "room": "Record Archive",
+    "running": true
+  },
+  {
+    "number": 5,
+    "label": "cardboard sleeve: Examine",
+    "command": "examine cardboard sleeve",
+    "room": "Record Archive",
+    "running": true
+  },
+  {
+    "number": 6,
+    "label": "cardboard sleeve: Open",
+    "command": "open cardboard sleeve",
+    "room": "Record Archive",
+    "running": true
+  },
+  {
+    "number": 11,
+    "label": "lacquer disc: Examine",
+    "command": "examine lacquer disc",
+    "room": "Record Archive",
+    "running": true
+  },
+  {
+    "number": 12,
+    "label": "lacquer disc: Take",
+    "command": "take lacquer disc",
+    "room": "Record Archive",
+    "running": true
+  },
+  {
+    "number": 10,
+    "label": "wage ledger: Read",
+    "command": "read wage ledger",
+    "room": "Record Archive",
+    "running": true
+  },
+  {
+    "number": 4,
+    "label": "cutting room: Go west",
+    "command": "west",
+    "room": "Disc Cutting Room",
+    "running": true
+  },
+  {
+    "number": 10,
+    "label": "control room: Go south",
+    "command": "south",
+    "room": "Control Room",
+    "running": true
+  },
+  {
+    "number": 17,
+    "label": "workshop: Go south",
+    "command": "south",
+    "room": "Service Workshop",
+    "running": true
+  },
+  {
+    "number": 7,
+    "label": "playback stylus: Take",
+    "command": "take playback stylus",
+    "room": "Service Workshop",
+    "running": true
+  },
+  {
+    "number": 9,
+    "label": "service spanner: Take",
+    "command": "take service spanner",
+    "room": "Service Workshop",
+    "running": true
+  },
+  {
+    "number": 5,
+    "label": "generator room: Go down",
+    "command": "down",
+    "room": "Generator Room",
+    "running": true
+  },
+  {
+    "number": 10,
+    "label": "voltage chart: Read",
+    "command": "read voltage chart",
+    "room": "Generator Room",
+    "running": true
+  },
+  {
+    "number": 7,
+    "label": "cable passage: Go north",
+    "command": "north",
+    "room": "Cable Passage",
+    "running": true
+  },
+  {
+    "number": 4,
+    "label": "stain: Examine",
+    "command": "examine passage stain",
+    "room": "Cable Passage",
+    "running": true
+  },
+  {
+    "number": 9,
+    "label": "hatch: Use with service spanner",
+    "command": "use service hatch with service spanner",
+    "room": "Cable Passage",
+    "running": true
+  },
+  {
+    "number": 13,
+    "label": "office above: Go up",
+    "command": "up",
+    "room": "Vane's Office",
+    "running": true
+  },
+  {
+    "number": 9,
+    "label": "office clock: Compare with voltage chart",
+    "command": "compare office clock with voltage chart",
+    "room": "Vane's Office",
+    "running": true
+  },
+  {
+    "number": 6,
+    "label": "body: Compare with brass counterweight",
+    "command": "compare julian body with brass counterweight",
+    "room": "Vane's Office",
+    "running": true
+  },
+  {
+    "number": 18,
+    "label": "hall: Go south",
+    "command": "south",
+    "room": "Station Hall",
+    "running": true
+  },
+  {
+    "number": 9,
+    "label": "bunkroom: Go up",
+    "command": "up",
+    "room": "Staff Bunkroom",
+    "running": true
+  },
+  {
+    "number": 21,
+    "label": "leather boots: Examine",
+    "command": "examine leather boots",
+    "room": "Staff Bunkroom",
+    "running": true
+  },
+  {
+    "number": 22,
+    "label": "leather boots: Take",
+    "command": "take leather boots",
+    "room": "Staff Bunkroom",
+    "running": true
+  },
+  {
+    "number": 19,
+    "label": "maintenance roster: Read",
+    "command": "read maintenance roster",
+    "room": "Staff Bunkroom",
+    "running": true
+  },
+  {
+    "number": 15,
+    "label": "Ada: Show wage ledger",
+    "command": "show wage ledger to ada mercer",
+    "room": "Staff Bunkroom",
+    "running": true
+  },
+  {
+    "number": 20,
+    "label": "hall: Go down",
+    "command": "down",
+    "room": "Station Hall",
+    "running": true
+  },
+  {
+    "number": 6,
+    "label": "office: Go north",
+    "command": "north",
+    "room": "Vane's Office",
+    "running": true
+  },
+  {
+    "number": 17,
+    "label": "passage below: Go down",
+    "command": "down",
+    "room": "Cable Passage",
+    "running": true
+  },
+  {
+    "number": 6,
+    "label": "stain: Compare with pair of leather boots",
+    "command": "compare passage stain with leather boots",
+    "room": "Cable Passage",
+    "running": true
+  },
+  {
+    "number": 15,
+    "label": "generator room: Go south",
+    "command": "south",
+    "room": "Generator Room",
+    "running": true
+  },
+  {
+    "number": 6,
+    "label": "workshop: Go up",
+    "command": "up",
+    "room": "Service Workshop",
+    "running": true
+  },
+  {
+    "number": 4,
+    "label": "control room: Go north",
+    "command": "north",
+    "room": "Control Room",
+    "running": true
+  },
+  {
+    "number": 12,
+    "label": "gramophone: Use with playback stylus",
+    "command": "use gramophone with playback stylus",
+    "room": "Control Room",
+    "running": true
+  },
+  {
+    "number": 2,
+    "label": "inventory",
+    "command": "inventory",
+    "room": "Control Room",
+    "running": true
+  },
+  {
+    "number": 35,
+    "label": "lacquer disc: Put in gramophone",
+    "command": "put lacquer disc in gramophone",
+    "room": "Control Room",
+    "running": true
+  },
+  {
+    "number": 9,
+    "label": "gramophone: Play",
+    "command": "play gramophone",
+    "room": "Control Room",
+    "running": true
+  },
+  {
+    "number": 32,
+    "label": "lacquer disc: Take",
+    "command": "take lacquer disc",
+    "room": "Control Room",
+    "running": true
+  },
+  {
+    "number": 17,
+    "label": "cutting room: Go north",
+    "command": "north",
+    "room": "Disc Cutting Room",
+    "running": true
+  },
+  {
+    "number": 9,
+    "label": "register: Compare with lacquer disc",
+    "command": "compare cutter register with lacquer disc",
+    "room": "Disc Cutting Room",
+    "running": true
+  },
+  {
+    "number": 10,
+    "label": "control room: Go south",
+    "command": "south",
+    "room": "Control Room",
+    "running": true
+  },
+  {
+    "number": 16,
+    "label": "studio: Go west",
+    "command": "west",
+    "room": "Broadcast Studio",
+    "running": true
+  },
+  {
+    "number": 11,
+    "label": "Ruth: Show lacquer disc",
+    "command": "show lacquer disc to ruth bell",
+    "room": "Broadcast Studio",
+    "running": true
+  },
+  {
+    "number": 14,
+    "label": "hall: Go west",
+    "command": "west",
+    "room": "Station Hall",
+    "running": true
+  },
+  {
+    "number": 8,
+    "label": "kitchen: Go west",
+    "command": "west",
+    "room": "Station Kitchen",
+    "running": true
+  },
+  {
+    "number": 15,
+    "label": "medical bag: Open",
+    "command": "open medical bag",
+    "room": "Station Kitchen",
+    "running": true
+  },
+  {
+    "number": 18,
+    "label": "bloodied dressing: Examine",
+    "command": "examine bloodied dressing",
+    "room": "Station Kitchen",
+    "running": true
+  },
+  {
+    "number": 19,
+    "label": "bloodied dressing: Take",
+    "command": "take bloodied dressing",
+    "room": "Station Kitchen",
+    "running": true
+  },
+  {
+    "number": 11,
+    "label": "Edith: Show bloodied dressing",
+    "command": "show bloodied dressing to edith shaw",
+    "room": "Station Kitchen",
+    "running": true
+  },
+  {
+    "number": 15,
+    "label": "telegraph room: Go west",
+    "command": "west",
+    "room": "Telegraph Room",
+    "running": true
+  },
+  {
+    "number": 16,
+    "label": "telegraph receipt: Read",
+    "command": "read telegraph receipt",
+    "room": "Telegraph Room",
+    "running": true
+  },
+  {
+    "number": 12,
+    "label": "operator: Show telegraph receipt",
+    "command": "show telegraph receipt to tomas vale",
+    "room": "Telegraph Room",
+    "running": true
+  },
+  {
+    "number": 8,
+    "label": "operator: Accuse",
+    "command": "accuse tomas vale",
+    "room": "Telegraph Room",
+    "running": true
+  },
+  {
+    "number": 14,
+    "label": "aerial platform: Go up",
+    "command": "up",
+    "room": "Aerial Platform",
+    "running": true
+  },
+  {
+    "number": 4,
+    "label": "aerial: Examine",
+    "command": "examine aerial",
+    "room": "Aerial Platform",
+    "running": true
+  },
+  {
+    "number": 6,
+    "label": "signal lamp: Examine",
+    "command": "examine signal lamp",
+    "room": "Aerial Platform",
+    "running": true
+  },
+  {
+    "number": 9,
+    "label": "bunkroom: Go east",
+    "command": "east",
+    "room": "Staff Bunkroom",
+    "running": true
+  },
+  {
+    "number": 14,
+    "label": "Ada: Show lacquer disc",
+    "command": "show lacquer disc to ada mercer",
+    "room": "Staff Bunkroom",
+    "running": true
+  },
+  {
+    "number": 15,
+    "label": "Ada: Show pair of leather boots",
+    "command": "show leather boots to ada mercer",
+    "room": "Staff Bunkroom",
+    "running": true
+  },
+  {
+    "number": 17,
+    "label": "Ada: Show brass counterweight",
+    "command": "show brass counterweight to ada mercer",
+    "room": "Staff Bunkroom",
+    "running": true
+  },
+  {
+    "number": 2,
+    "label": "inventory",
+    "command": "inventory",
+    "room": "Staff Bunkroom",
+    "running": true
+  },
+  {
+    "number": 49,
+    "label": "casebook: Reconstruct",
+    "command": "reconstruct casebook",
+    "room": "Staff Bunkroom",
+    "running": true
+  },
+  {
+    "number": 10,
+    "label": "Ada: Ask about wage ledger",
+    "command": "tell ada mercer about wage ledger",
+    "room": "Staff Bunkroom",
+    "running": true
+  },
+  {
+    "number": 6,
+    "label": "Ada: Accuse",
+    "command": "accuse ada mercer",
+    "room": "Staff Bunkroom",
+    "running": false
+  }
+]

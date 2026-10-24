@@ -226,8 +226,8 @@ function Forms.createHandlers(compiler, printNode)
         local values = argument.type == "list" and argument or {argument}
         for i, value in ipairs(values) do
           if dimension.verb and value.type == "ident" then
-            local verb = value.value == "THROUGH" and "ENTER" or value.value
-            compiler.current_verbs[#compiler.current_verbs + 1] = verb
+            local verb = value.value
+            table.insert(compiler.current_verbs, verb)
             buf.write("VQ%s", utils.normalizeIdentifier(verb))
           else
             printNode(buf, value, indent + 1)

@@ -30,7 +30,8 @@ Exact connections:
 - Garden `NORTH` → Greenhouse; Greenhouse `SOUTH` → Garden.
 - Garden `SOUTH` → Servants' Quarters; Servants' Quarters `NORTH` → Garden.
 - Dining Room `NORTH` → Pantry; Pantry `SOUTH` → Dining Room.
-- Library `EAST` or `SOUTH` → Secret Passage after the cipher; passage `WEST` → Library and `EAST` → Study.
+- Library `EAST` → Secret Passage after the cipher; passage `WEST` → Library and `UP` → Study. Study `DOWN` returns to the passage.
+- Study `SOUTHWEST` ↔ Garden `NORTHEAST` through the window, after explicitly opening its seized catch with the fine picks. Hudson's warded key opens the separate hall door; picks cannot replace it.
 
 ## Three-Act Overlay
 

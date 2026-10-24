@@ -32,6 +32,7 @@
 
 <ROUTINE FINISH ("AUX" WRD)
 	 <V-SCORE>
+	 <COND (,PROSE-LINKS <QUIT>)>
 	 <REPEAT ()
 		 <CRLF>
 		 <TELL

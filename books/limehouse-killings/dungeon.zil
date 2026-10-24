@@ -90,7 +90,8 @@
       (DESC "Study")
       (ACTION STUDY-FCN)
       (SOUTH TO ASHWORTH-ENTRANCE-HALL IF STUDY-DOOR IS OPEN ELSE "The study door is closed.")
-      (WEST TO GARDEN IF WINDOW IS OPEN ELSE "The window is closed.")
+      (SW TO GARDEN IF WINDOW IS OPEN ELSE "The window is closed.")
+	  (DOWN TO SECRET-PASSAGE IF CIPHER-SOLVED)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL DESK FIREPLACE WINDOW CHALK-OUTLINE STUDY-DOOR FOG)>
 
@@ -100,7 +101,6 @@
       (ACTION LIBRARY-FCN)
       (WEST TO ASHWORTH-ENTRANCE-HALL)
       (EAST TO SECRET-PASSAGE IF CIPHER-SOLVED)
-      (SOUTH TO SECRET-PASSAGE IF CIPHER-SOLVED)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL BOOKSHELF READING-DESK FIREPLACE COLORED-MARKERS FOG)>
 
@@ -129,6 +129,7 @@
       (EAST TO KITCHEN)
       (NORTH TO GREENHOUSE)
       (SOUTH TO SERVANTS-QUARTERS)
+	  (NE TO STUDY IF WINDOW IS OPEN ELSE "The study window is closed.")
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL FOUNTAIN HEDGES BLOOD-STAINED-KNIFE FOG)>
 
@@ -153,7 +154,7 @@
       (DESC "Secret Passage")
       (ACTION SECRET-PASSAGE-FCN)
       (WEST TO LIBRARY)
-      (EAST TO STUDY)
+      (UP TO STUDY)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL STONE-WALLS COBWEBS DUST FOG)>
 
@@ -252,8 +253,8 @@
 <OBJECT LEATHER-ROLL
       (IN DRAWER)
       (DESC "leather roll")
-      (FDESC "A [[leather roll->roll]] lies in the open drawer, neatly tied.")
-      (LDESC "A [[leather roll->roll]], neatly tied, lies here.")
+      (FDESC "A [[leather roll->roll]] lies in the open drawer.")
+      (LDESC "A [[leather roll->roll]] lies here.")
       (SYNONYM ROLL WRAP)
       (ADJECTIVE LEATHER)
       (FLAGS CONTBIT TAKEBIT)
@@ -464,9 +465,9 @@
       (IN LOCAL-GLOBALS)
       (DESC "blue kettle")
       (LDESC "A blue enamel kettle waits on the range, warm enough to mist its spout.")
-      (SYNONYM KETTLE POT)
+      (SYNONYM KETTLE POT TEA CARD)
       (ADJECTIVE BLUE ENAMEL)
-      (FLAGS NDESCBIT)
+      (FLAGS NDESCBIT DRINKBIT READBIT)
       (ACTION KETTLE-F)>
 
 <OBJECT BELL-WIRE
@@ -573,21 +574,24 @@
       (LDESC "Wet stone walls, slick with moisture. They have stood for centuries.")
       (SYNONYM WALLS WALL)
       (ADJECTIVE STONE)
-      (FLAGS NDESCBIT)>
+      (FLAGS NDESCBIT)
+	  (ACTION STONE-WALLS-F)>
 
 <OBJECT COBWEBS
       (IN SECRET-PASSAGE)
       (DESC "cobwebs")
       (LDESC "Dusty cobwebs fill the air, undisturbed for years.")
       (SYNONYM COBWEBS WEB WEBS)
-      (FLAGS NDESCBIT)>
+      (FLAGS NDESCBIT)
+	  (ACTION COBWEBS-F)>
 
 <OBJECT DUST
       (IN SECRET-PASSAGE)
       (DESC "dust")
-      (LDESC "A thick layer of dust covers everything. No one has been here in a long time.")
-      (SYNONYM DUST)
-      (FLAGS NDESCBIT)>
+      (LDESC "Overlapping scuffs cross the passage dust.")
+      (SYNONYM DUST SCUFF SCUFFS TRAIL)
+      (FLAGS NDESCBIT)
+	  (ACTION DUST-F)>
 
 <OBJECT SHELVES
       (IN PANTRY)
@@ -715,34 +719,58 @@
 <OBJECT MASTER-TOPIC
       (IN GLOBAL-OBJECTS)
       (DESC "master")
-      (SYNONYM MASTER)>
+      (SYNONYM MASTER)
+	  (ACTION CONVERSATION-TOPIC-F)>
 <OBJECT ALIBI-TOPIC
       (IN GLOBAL-OBJECTS)
       (DESC "alibi")
-      (SYNONYM ALIBI)>
+      (SYNONYM ALIBI)
+	  (ACTION CONVERSATION-TOPIC-F)>
 <OBJECT KEY-TOPIC
       (IN GLOBAL-OBJECTS)
       (DESC "key")
-      (SYNONYM KEY)>
+      (SYNONYM KEY)
+	  (ACTION CONVERSATION-TOPIC-F)>
 <OBJECT MORIARTY-TOPIC
       (IN GLOBAL-OBJECTS)
       (DESC "Moriarty")
-      (SYNONYM MORIARTY)>
+      (SYNONYM MORIARTY)
+	  (ACTION CONVERSATION-TOPIC-F)>
 <OBJECT MARRIAGE-TOPIC
       (IN GLOBAL-OBJECTS)
       (DESC "marriage")
-      (SYNONYM MARRIAGE)>
+      (SYNONYM MARRIAGE)
+	  (ACTION CONVERSATION-TOPIC-F)>
 <OBJECT EXPERIMENTS-TOPIC
       (IN GLOBAL-OBJECTS)
       (DESC "experiments")
-      (SYNONYM EXPERIMENTS RESEARCH)>
+      (SYNONYM EXPERIMENTS RESEARCH)
+	  (ACTION CONVERSATION-TOPIC-F)>
 <OBJECT POISON-TOPIC
       (IN GLOBAL-OBJECTS)
       (DESC "poison")
-      (SYNONYM POISON WOLFSBANE)>
+      (SYNONYM POISON WOLFSBANE)
+	  (ACTION CONVERSATION-TOPIC-F)>
 <OBJECT CASE-TOPIC
       (IN GLOBAL-OBJECTS)
       (DESC "investigation")
-      (SYNONYM CASE MURDER INVESTIGATION CRIME)>
+      (SYNONYM CASE MURDER INVESTIGATION CRIME)
+	  (ACTION CONVERSATION-TOPIC-F)>
 
 <GLOBAL HERE ASHWORTH-MANOR-GATE>
+
+<OBJECT PLACE-SETTINGS
+	(IN DINING-ROOM)
+	(DESC "dinner cutlery")
+	(SYNONYM CUTLERY SETTINGS PLATE SOUP SPOON)
+	(ADJECTIVE DINNER BLUNT)
+	(FLAGS NDESCBIT)
+	(ACTION PLACE-SETTINGS-F)>
+
+<OBJECT WHITE-ROSE
+	(IN GARDEN)
+	(DESC "white rose")
+	(SYNONYM ROSE BLOOM PETALS)
+	(ADJECTIVE WHITE)
+	(FLAGS NDESCBIT)
+	(ACTION WHITE-ROSE-F)>

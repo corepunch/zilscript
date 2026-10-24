@@ -1,0 +1,312 @@
+[
+  [
+    10,
+    "push breaker",
+    "push habitat breaker"
+  ],
+  [
+    11,
+    "north",
+    "north"
+  ],
+  [
+    4,
+    "west",
+    "west"
+  ],
+  [
+    8,
+    "take wrench",
+    "take torque wrench"
+  ],
+  [
+    10,
+    "take spool",
+    "take null spool"
+  ],
+  [
+    5,
+    "read protocol",
+    "read protocol"
+  ],
+  [
+    6,
+    "east",
+    "east"
+  ],
+  [
+    7,
+    "down",
+    "down"
+  ],
+  [
+    4,
+    "west",
+    "west"
+  ],
+  [
+    6,
+    "turn pump with wrench",
+    "turn coolant pump with torque wrench"
+  ],
+  [
+    7,
+    "east",
+    "east"
+  ],
+  [
+    6,
+    "up",
+    "up"
+  ],
+  [
+    5,
+    "east",
+    "east"
+  ],
+  [
+    9,
+    "east",
+    "east"
+  ],
+  [
+    5,
+    "open recorder",
+    "open witness recorder"
+  ],
+  [
+    13,
+    "take strip",
+    "take witness strip"
+  ],
+  [
+    10,
+    "read ledger",
+    "read mass ledger"
+  ],
+  [
+    11,
+    "west",
+    "west"
+  ],
+  [
+    9,
+    "west",
+    "west"
+  ],
+  [
+    6,
+    "north",
+    "north"
+  ],
+  [
+    12,
+    "take shears",
+    "take ceramic shears"
+  ],
+  [
+    5,
+    "read log",
+    "read clinical log"
+  ],
+  [
+    7,
+    "north",
+    "north"
+  ],
+  [
+    6,
+    "compare strip with comparator",
+    "compare optical comparator with witness strip"
+  ],
+  [
+    8,
+    "south",
+    "south"
+  ],
+  [
+    6,
+    "south",
+    "south"
+  ],
+  [
+    5,
+    "east",
+    "east"
+  ],
+  [
+    8,
+    "show strip to ivo",
+    "show witness strip to operator ivo"
+  ],
+  [
+    9,
+    "west",
+    "west"
+  ],
+  [
+    7,
+    "down",
+    "down"
+  ],
+  [
+    5,
+    "east",
+    "east"
+  ],
+  [
+    8,
+    "fit spool to bus",
+    "fit incoming bus to null spool"
+  ],
+  [
+    10,
+    "cut bus with shears",
+    "cut incoming bus with ceramic shears"
+  ],
+  [
+    13,
+    "north",
+    "north"
+  ],
+  [
+    5,
+    "open receiver",
+    "open signal receiver"
+  ],
+  [
+    11,
+    "take wafer",
+    "take memory wafer"
+  ],
+  [
+    10,
+    "examine wafer",
+    "examine memory wafer"
+  ],
+  [
+    9,
+    "south",
+    "south"
+  ],
+  [
+    12,
+    "west",
+    "west"
+  ],
+  [
+    6,
+    "up",
+    "up"
+  ],
+  [
+    6,
+    "north",
+    "north"
+  ],
+  [
+    7,
+    "north",
+    "north"
+  ],
+  [
+    9,
+    "east",
+    "east"
+  ],
+  [
+    4,
+    "examine senn",
+    "examine researcher senn"
+  ],
+  [
+    10,
+    "ask senn about signal",
+    "tell researcher senn about received signal"
+  ],
+  [
+    9,
+    "ask senn about daughter",
+    "tell researcher senn about missing daughter"
+  ],
+  [
+    13,
+    "north",
+    "north"
+  ],
+  [
+    2,
+    "inventory",
+    "inventory"
+  ],
+  [
+    18,
+    "put wafer in archive",
+    "put memory wafer in cold archive"
+  ],
+  [
+    8,
+    "examine console",
+    "examine decision console"
+  ],
+  [
+    13,
+    "south",
+    "south"
+  ],
+  [
+    10,
+    "west",
+    "west"
+  ],
+  [
+    8,
+    "south",
+    "south"
+  ],
+  [
+    6,
+    "south",
+    "south"
+  ],
+  [
+    8,
+    "up",
+    "up"
+  ],
+  [
+    6,
+    "push beacon",
+    "push mechanical beacon"
+  ],
+  [
+    7,
+    "down",
+    "down"
+  ],
+  [
+    6,
+    "north",
+    "north"
+  ],
+  [
+    7,
+    "north",
+    "north"
+  ],
+  [
+    9,
+    "east",
+    "east"
+  ],
+  [
+    11,
+    "north",
+    "north"
+  ],
+  [
+    11,
+    "preserve console",
+    "preserve decision console"
+  ]
+]

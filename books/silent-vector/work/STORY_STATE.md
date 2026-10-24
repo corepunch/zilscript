@@ -1,0 +1,3 @@
+# State and milestones
+
+POWER, COOLING, PROOF, ORIGIN, TERMINATED, ISOLATED, CONSENT, EVAC, RESOLVED: Booleans, never scores or timers. Strip and wafer location are physical source of truth; no parallel ownership flag. Real receiver/recorder/archive OPENBIT handles visibility. Milestones form a DAG: power; cooling and proof independently; termination -> isolation; proof -> consent; cooling + wafer containment + consent + isolation -> evac; evac + examined origin index + sample containment -> chosen ending. Mara moves once when the beacon is prepared; Ivo and Senn join her on final commitment. No background daemon is required. Text remains verbose on every visit.

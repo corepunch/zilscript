@@ -123,11 +123,15 @@ M_LEAVE = M_END
 M_CONTAINER = M_OBJECT
 
 local mem
+local cache
 local _obj_count = 0  -- number of declared objects; object IDs are 1.._obj_count
 local _act_count = 0  -- number of registered actions; action IDs are 1.._act_count
 local _act_fn_to_id = {}  -- build-time reverse-lookup: fn_idx -> action_id
 local _pending_syntax = {}  -- SYNTAX entries deferred until action functions are defined
 local _pending_synonyms = {} -- vocabulary aliases applied after all object words exist
+local action_syntax = {}
+local object_phrases = {}
+local object_aliases = {}
 local restart_snapshot
 local suggestions = {
 	READBIT = "READ",
@@ -213,7 +217,72 @@ local function is_hidden(obj)
 	return invisible ~= nil and FSETQ(obj, invisible)
 end
 
-local function add_items(room)
+local function item_patterns(verbs)
+	local preferred = {
+		["LAMP-ON"] = "turn on", ["LAMP-OFF"] = "turn off",
+		["LOOK-INSIDE"] = "look in", KNOCK = "knock on",
+		LISTEN = "listen to", ["CLIMB-FOO"] = "climb",
+		THROUGH = "enter",
+	}
+	local result = {}
+	for _, verb in ipairs(verbs) do
+		local best, scores = {}, {}
+		local wanted = preferred[verb] or (verb == "ASK" and "tell") or verb:lower():gsub("-", " ")
+		local available = action_syntax[verb]
+		-- Some action handlers test a delegated action (CLIMB), while the
+		-- parser dispatches CLIMB-FOO first. Match its real input grammar.
+		if not available then
+			available = {}
+			for _, patterns in pairs(action_syntax) do
+				for _, pattern in ipairs(patterns) do
+					local prefix = pattern.verb .. (pattern.prefix ~= "" and " " .. pattern.prefix or "")
+					if prefix == wanted then table.insert(available, pattern) end
+				end
+			end
+		end
+		for _, pattern in ipairs(available) do
+			local prefix = pattern.verb .. (pattern.prefix ~= "" and " " .. pattern.prefix or "")
+			local kind = pattern.join and "binary" or "unary"
+			local score = (prefix == wanted and 0 or 100) + #prefix
+			if not scores[kind] or score < scores[kind] then
+				best[kind], scores[kind] = pattern, score
+			end
+		end
+		for _, kind in ipairs({ "unary", "binary" }) do
+			if best[kind] and not (kind == "binary" and (verb == "TAKE" or verb == "DROP")) then
+				table.insert(result, best[kind])
+				-- TURN's inherited TO/FOR spellings dispatch the same object
+				-- and instrument as WITH. They are parser synonyms, not three
+				-- different experiments for the reader to select.
+				if kind == "binary" and verb ~= "TURN" then
+					local used = { [best[kind].join] = true }
+					for _, pattern in ipairs(available) do
+						if pattern.verb == best[kind].verb and pattern.prefix == best[kind].prefix
+								and pattern.join and not used[pattern.join] then
+							used[pattern.join] = true
+							table.insert(result, pattern)
+						end
+					end
+				end
+			end
+		end
+	end
+	return result
+end
+
+local function object_noun(obj)
+	if object_phrases[obj] then return object_phrases[obj] end
+	local synonyms = GETPT(obj, PQSYNONYM)
+	if synonyms then
+		local address = GET(synonyms, 0)
+		for word, index in pairs(cache.words) do
+			if index == address then return word end
+		end
+	end
+	return GETP(obj, PQDESC)
+end
+
+local function add_items(room, carried)
 	local items = {}
 	for obj in objects_in_room(room) do
 		if is_hidden(obj) then goto continue end
@@ -225,7 +294,7 @@ local function add_items(room)
 			local func = FUNCTIONS[tonumber(action)]
 			for k, v in pairs(_G) do
 				if v == func then
-					verbs = _G['_'..k] or {}
+					for _, verb in ipairs(_G['_'..k] or {}) do table.insert(verbs, verb) end
 					break
 				end
 			end
@@ -235,20 +304,66 @@ local function add_items(room)
 			for _, n in ipairs(array) do if n == name then return true end end
 		end
 		for k, v in pairs(suggestions) do
-			if FSETQ(obj, _G[k]) and not fnd(v, verbs) then
+			if FSETQ(obj, _G[k]) and not fnd(v, verbs)
+					and not (k == "CONTBIT" and FSETQ(obj, SURFACEBIT)) then
 				table.insert(verbs, v)
 			end
 		end
 		local marks, unique_verbs = {}, {}
 		for _, verb in ipairs(verbs) do
-			if not marks[verb] then table.insert(unique_verbs, verb) marks[verb] = true end
+			if not marks[verb] and not (carried and verb == "TAKE") then
+				table.insert(unique_verbs, verb) marks[verb] = true
+			end
+		end
+		if carried then
+			for _, verb in ipairs({ "DROP", "PUT", "GIVE", "SHOW" }) do
+				if not marks[verb] then table.insert(unique_verbs, verb) marks[verb] = true end
+			end
 		end
 		local words = {}
 		for word in item:gmatch("%S+") do
 			table.insert(words, word:lower())
 		end
-		local children = can_suggest_contents(obj) and add_items(obj) or {}
-		table.insert(items, {table.concat(words, " "), unique_verbs, children})
+		local children = can_suggest_contents(obj) and add_items(obj, carried) or {}
+		local patterns = item_patterns(unique_verbs)
+		-- Optional authored binary relationships keep reader menus faithful to
+		-- the story instead of multiplying every verb by every discovered noun.
+		-- This is ordinary object data: INTERACTIONS "STEAM:KETTLE;SHOW:MICA".
+		-- Both operands must still be visible/discovered; no puzzle is revealed.
+		local interactions = rawget(_G, "PQINTERACTIONS") and GETP(obj, PQINTERACTIONS)
+		if interactions and interactions ~= 0 then
+			local allowed = {}
+			local specification = type(interactions) == "string" and interactions or mem:string(interactions)
+			for name, objects in specification:gmatch("([%w%-]+):([^;]+)") do
+				local partners = allowed[name] or {}
+				allowed[name] = partners
+				for object in objects:gmatch("[%w%-]+") do
+					local id = rawget(_G, object:gsub("%-", "_"))
+					assert(type(id) == "number", "Unknown INTERACTIONS object: " .. object)
+					partners[id] = true
+				end
+			end
+			for index, pattern in ipairs(patterns) do
+				if pattern.join ~= nil then
+					local constrained = {}
+					for key, value in pairs(pattern) do constrained[key] = value end
+					constrained.partners = allowed[pattern.action] or {}
+					patterns[index] = constrained
+				end
+			end
+		end
+		local traits = { actor = FSETQ(obj, ACTORBIT), container = FSETQ(obj, CONTBIT), surface = FSETQ(obj, SURFACEBIT) }
+		if FSETQ(obj, ACTORBIT) then
+			for index, pattern in ipairs(patterns) do
+				if pattern.verb == "give" or pattern.verb == "show" then
+					local reversed = {}
+					for key, value in pairs(pattern) do reversed[key] = value end
+					reversed.reverse = true
+					patterns[index] = reversed
+				end
+			end
+		end
+		table.insert(items, {table.concat(words, " "), unique_verbs, children, patterns, object_noun(obj), carried, object_aliases[obj], traits, obj})
 		::continue::
 	end
 	return items
@@ -724,7 +839,7 @@ end
 
 SET_HEADER(0, "000000")
 
-local cache = {
+cache = {
 	verbs = {},
 	words = {},
 	synonyms = {},
@@ -1069,7 +1184,7 @@ function TELL(...)
 					elseif token == "CTHE" then
 						io_write("The ")
 					end
-					io_write(desc)
+					PRINTD(v)
 				end
 			end
 		elseif number then number = false io_write(tostring(v))
@@ -1082,7 +1197,17 @@ function TELL(...)
 end
 
 function PRINT(n) io_write(mem:string(n)) return true end
-function PRINTD(ptr) io_write(GETP(ptr, _G["PQDESC"])) return true end
+function PRINTD(ptr)
+	local desc = GETP(ptr, _G["PQDESC"]) or ""
+	-- Native inventory/container lists name real objects, so their names are
+	-- actionable too. Room headings must remain headings, not object links.
+	if rawget(_G, "PROSE_LINKS") and GETP(ptr, PQLOC) ~= ROOMS then
+		io_write("[[" .. desc .. "->" .. (object_noun(ptr) or desc) .. "]]")
+	else
+		io_write(desc)
+	end
+	return true
+end
 function PRINTR(ptr) io_write(GETP(ptr, _G["PQLDESC"])) return true end
 function PRINTB(ptr)
 	for word, index in pairs(cache.words) do
@@ -1111,6 +1236,7 @@ end
 
 local routes = {
 	['room-items'] = add_items,
+	['inventory-items'] = function() return add_items(WINNER or ADVENTURER, true) end,
 	['room-exits'] = add_exits,
 	['room-name?'] = is_room_name,
 	['choices'] = companion_route_choices,
@@ -1404,7 +1530,25 @@ learn = function(word, atom, value)
 	if cache.words[word_key] then
 		local index = cache.words[word_key]
 		local ent = mem:read(7, cache.words[word_key])
-		local new = string.char(0,0,0,0,ent:byte(5)|atom,ent:byte(6),value or OQANY)
+		local primary, secondary = ent:byte(6), ent:byte(7)
+		-- Re-registering a verb must update its own slot, preserving a
+		-- second meaning such as OIL as the lantern's adjective. Nouns
+		-- carry no dictionary value and must not erase that meaning either.
+		local flags = ent:byte(5) | atom
+		if ent:byte(5) == 0 then
+			flags, primary, secondary = atom | prim[atom], value or OQANY, 0
+		elseif value ~= nil then
+			if (ent:byte(5) & 3) == prim[atom] then primary = value
+			else secondary = value end
+		end
+		-- WT? asks for a nonzero noun marker even when the same word is
+		-- primarily an adjective (GOLD/COAL); an empty second slot means
+		-- "not a noun" to the parser.
+		if atom == PSQOBJECT then
+			if (flags & 3) == P1QOBJECT and primary == 0 then primary = OQANY
+			elseif (flags & 3) ~= P1QOBJECT and secondary == 0 then secondary = OQANY end
+		end
+		local new = string.char(0,0,0,0,flags,primary,secondary)
 		mem:write(new, index)
 	else
 		local enc = string.char(0,0,0,0,atom|prim[atom],value or OQANY,0)
@@ -1652,6 +1796,13 @@ function OBJECT(object)
 	end
 	local object_name = object.ZIL_NAME or object.NAME
 	local n = _G[object_name]
+	if object.SYNONYM and object.SYNONYM[1] then
+		local adjective = object.ADJECTIVE and object.ADJECTIVE[1]
+		object_phrases[n] = ((adjective and adjective .. " " or "") .. object.SYNONYM[1]):lower()
+		local aliases = {}
+		for _, word in ipairs(object.SYNONYM) do table.insert(aliases, word:lower()) end
+		object_aliases[n] = aliases
+	end
 	local t = {string.char(#object_name), object_name}
 	assert(n, "DECL_OBJECT not called for "..tostring(object_name))
 	-- Object declarations are Lua tables, whose hash iteration order varies from
@@ -1991,6 +2142,20 @@ function SYNTAX(syn)
 		return
 	end
 	local action = action_id(fn(_G[syn.ACTION]))
+	local key = syn.ACTION:gsub("^V_", ""):gsub("_", "-")
+	if syn.OBJECT then
+		local patterns = action_syntax[key] or {}
+		action_syntax[key] = patterns
+		table.insert(patterns, {
+			action = key,
+			verb = syn.VERB:lower(),
+			prefix = syn.PREFIX and syn.PREFIX:lower() or "",
+			join = syn.SUBJECT and (syn.JOIN and syn.JOIN:lower() or "") or nil,
+			held = syn.SUBJECT and syn.SUBJECT.WHERE
+				and ((syn.SUBJECT.WHERE & (SH + SC)) ~= 0)
+				and ((syn.SUBJECT.WHERE & (SOG + SIR)) == 0) or false,
+		})
+	end
 	local function encode(s)
 		return string.char(
 			s.OBJECT and (s.SUBJECT and 2 or 1) or 0,

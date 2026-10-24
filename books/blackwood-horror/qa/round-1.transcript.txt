@@ -1,0 +1,294 @@
+RUN A: Operating Theater
+The rusted [[iron gates->gate]] of the abandoned sanitarium stand open, their bars red with rust. The structure looms against the darkening sky, its windows like hollow eye sockets. A gravel path leads [[north]] to the entrance.
+A corroded [[brass plaque->plaque]] hangs askew on the gate.
+
+
+> read plaque
+The plaque reads: 'Blackwood Sanitarium - Est. 1898 - Closed by Order 1952'
+
+
+> examine gate
+The rusted iron gates stand open. Flakes of old black paint cling to bars bent by years of weather.
+
+
+> north
+The entrance hall reeks of mildew and decay. A [[grand staircase->staircase]] rises into darkness and ends at a collapsed landing. To the [[west]], a doorway leads to what might have been a reception area; to the [[east]], a corridor opens onto the patient ward. A narrow staircase descends [[into the basement->down]].
+To the [[north]], a [[door]] stands half-open, revealing an operating theater beyond.
+
+
+> close door
+You leave it half-open.
+
+
+> north
+The circular theater rises in [[tiers]] where students once observed procedures. The air is motionless; even your sleeve brushing the door sounds indecently loud.
+Tiers of wooden benches circle a central [[operating table->table]]. Cold metal trays sit abandoned on carts. A single overhead lamp, long dead, still points down at the table like an accusation.
+A [[metal cabinet->cabinet]] stands in the shadows, its door slightly ajar.
+
+
+> examine table
+The operating table is covered in dark brown stains that you hope are just rust. Leather restraints dangle from all four corners. Deep gouges mar the metal surface, as if someone struggled violently against the bindings.
+
+
+> open table
+You must tell me how to do that to a operating table.
+
+
+> examine cabinet
+You ease the cabinet door wide on its stiff hinges. The shelves hold rusted medical instruments, and among them a scalpel and a bottle.
+
+
+> open cabinet
+The cabinet door already hangs wide.
+The building settles with a deep structural groan, as if exhaling.
+
+
+> look
+The circular theater rises in [[tiers]] where students once observed procedures. The air is motionless; even your sleeve brushing the door sounds indecently loud.
+Tiers of wooden benches circle a central [[operating table->table]]. Cold metal trays sit abandoned on carts. A single overhead lamp, long dead, still points down at the table like an accusation.
+A [[metal cabinet->cabinet]] stands in the shadows, its door hanging wide.
+The metal cabinet contains:
+  A rusty scalpel
+  A bottle of ether
+
+
+> close cabinet
+The door swings back on its warped frame and comes to rest slightly ajar.
+
+
+> open cabinet
+You ease the cabinet door wide on its stiff hinges. The shelves hold rusted medical instruments, and among them a scalpel and a bottle.
+Distant footsteps echo from somewhere above you.
+
+
+> look
+The circular theater rises in [[tiers]] where students once observed procedures. The air is motionless; even your sleeve brushing the door sounds indecently loud.
+Tiers of wooden benches circle a central [[operating table->table]]. Cold metal trays sit abandoned on carts. A single overhead lamp, long dead, still points down at the table like an accusation.
+A [[metal cabinet->cabinet]] stands in the shadows, its door hanging wide.
+The metal cabinet contains:
+  A rusty scalpel
+  A bottle of ether
+
+
+> listen
+Beyond your breathing, the sanitarium answers with a distant creak and something that might be a footstep.
+
+
+> smell
+The air smells of damp stone, dust, and something antiseptic that decades have not erased.
+
+
+RUN B: Reception / Ward / Basement
+The rusted [[iron gates->gate]] of the abandoned sanitarium stand open, their bars red with rust. The structure looms against the darkening sky, its windows like hollow eye sockets. A gravel path leads [[north]] to the entrance.
+A corroded [[brass plaque->plaque]] hangs askew on the gate.
+
+
+> north
+The entrance hall reeks of mildew and decay. A [[grand staircase->staircase]] rises into darkness and ends at a collapsed landing. To the [[west]], a doorway leads to what might have been a reception area; to the [[east]], a corridor opens onto the patient ward. A narrow staircase descends [[into the basement->down]].
+To the [[north]], a [[door]] stands half-open, revealing an operating theater beyond.
+
+
+> west
+This cramped room once served as the sanitarium's reception. [[Filing cabinets->cabinets]] line the opposite wall, their drawers hanging open like gaping mouths. Something glints among the [[papers]] scattered on the floor. A doorway to the [[east]] opens back to the entrance hall.
+A heavy [[oak desk->desk]] sits against one wall, its surface thick with dust.
+
+
+> examine cabinets
+The reception cabinets stand open and empty. Their labels have faded, and damp has fused the remaining scraps of paper into gray pulp.
+
+
+> examine papers
+You sift through admission forms and invoices pulped by damp. Beneath them lies a small [[brass key->key]], cold to the touch.
+
+
+> take papers
+The papers come apart in your hands, wet and grey.
+
+
+> examine desk
+The desk has three drawers. The top two are broken and empty. The bottom drawer is intact but locked.
+
+
+> open desk
+You must tell me how to do that to a oak desk.
+
+
+> look
+This cramped room once served as the sanitarium's reception. [[Filing cabinets->cabinets]] line the opposite wall, their drawers hanging open like gaping mouths. [[Papers->papers]] lie scattered across the floor. A doorway to the [[east]] opens back to the entrance hall.
+A small [[brass key->key]] lies among the scattered papers on the floor, cold to the touch.
+A heavy [[oak desk->desk]] sits against one wall, its surface thick with dust.
+
+
+> take key
+Taken.
+
+
+> examine desk
+The desk has three drawers. The top two are broken and empty. The bottom drawer is intact but locked.
+
+
+> east
+The entrance hall reeks of mildew and decay. A [[grand staircase->staircase]] rises into darkness and ends at a collapsed landing. To the [[west]], a doorway leads to what might have been a reception area; to the [[east]], a corridor opens onto the patient ward. A narrow staircase descends [[into the basement->down]].
+To the [[north]], a [[door]] stands half-open, revealing an operating theater beyond.
+
+
+> east
+A long corridor with tattered curtains hanging between areas, offering the ghost of privacy. The floor is littered with patient records and broken glass. At the far end, a [[heavy door->door]] sealed with [[chains]] blocks further passage.
+A doorway leads [[west]] back to the entrance hall.
+Dozens of [[bed frames->beds]] line the walls. Most mattresses have rotted away, leaving only rusted springs. Among the debris, a child's [[crayon drawing]] is pinned to one bedframe.
+
+
+> examine door
+The heavy door is secured with thick chains and a rusted padlock. Deep scratches cover its surface, made by fingernails. A tarnished plaque reads 'MORGUE'.
+
+
+> open door
+The door is secured with heavy chains. You need to cut through them.
+
+
+> listen door
+That sentence isn't one I recognize.
+
+
+> knock door
+That sentence isn't one I recognize.
+
+
+> examine chains
+Thick iron chains wrap around the door handles, secured with a massive rusted padlock. The chains look old but still strong.
+A cold draft makes you shiver, though there are no open windows.
+
+
+> attack chains
+What do you want to attack the chains with?
+
+
+> read crayon drawing
+A child's crayon drawing is pinned to the bedframe: a yellow sun above a stick figure with outstretched arms, and the word 'HOME' pressed so hard into the paper that the crayon tore through in places.
+You hear your name whispered -- impossible, you never told anyone you were coming.
+
+
+> take crayon drawing
+The brittle paper would crumble if you tried to remove it from the rusted pin.
+
+
+> west
+The entrance hall reeks of mildew and decay. A [[grand staircase->staircase]] rises into darkness and ends at a collapsed landing. To the [[west]], a doorway leads to what might have been a reception area; to the [[east]], a corridor opens onto the patient ward. A narrow staircase descends [[into the basement->down]].
+To the [[north]], a [[door]] stands half-open, revealing an operating theater beyond.
+
+
+> down
+A narrow stone staircase descends into darkness. The air grows colder with each step. Moisture drips from the ceiling, and the walls are slick with condensation. The stairs lead [[down]] into the basement, while the entrance hall lies [[up]] the stairs.
+
+
+> down
+The basement corridor is dim, stretching into shadow. Stone stairs climb [[upward->up]] toward the entrance hall. To the [[east]], a passage smells of coal and old smoke. [[West->west]] lies what might have been storage. [[North->north]], another corridor descends into total darkness, toward the sound of dripping water.
+[[Pipes->pipes]] run along the ceiling, rusted and dripping.
+A wheel [[valve]] juts from one of the pipes, crusted with rust.
+
+
+> examine pipes
+The pipes are ancient and corroded. Water drips steadily from cracks in the metal. One pipe has a valve.
+
+
+> examine valve
+A large wheel valve covered in rust and grime.
+
+
+> turn valve
+You grip the metal valve and turn with all your strength. It resists, then suddenly gives way with a shriek of metal. Steam hisses from somewhere below.
+
+
+> east
+[[Coal dust->dust]] softens every edge in this low brick chamber. A narrow doorway leads [[west]].
+The room's centerpiece is a massive iron [[boiler]], cold and silent as a tomb.
+An iron [[coal bin->bin]] crouches beside the boiler.
+A [[workbench]] sits against the far wall, covered with ancient tools.
+
+
+> examine boiler
+The boiler is a hulking iron beast. Its open firebox is black with soot and empty of usable fuel. A [[coal shovel->shovel]] leans inside its mouth.
+
+
+> examine bin
+Most of the coal has collapsed into wet black dust, but one solid [[lump of coal->coal]] could still burn. A shovel would keep the filthy slack off your hands.
+
+
+> open bin
+Most of the coal has collapsed into wet black dust, but one solid [[lump of coal->coal]] could still burn. A shovel would keep the filthy slack off your hands.
+
+
+> examine workbench
+The workbench is covered with ancient tools: hammers, wrenches, screwdrivers. Most are rusted solid. A [[flashlight]] lies among them.
+
+
+> open workbench
+You must tell me how to do that to a workbench.
+
+
+> look
+[[Coal dust->dust]] softens every edge in this low brick chamber. A narrow doorway leads [[west]].
+The room's centerpiece is a massive iron [[boiler]], cold and silent as a tomb.
+An iron [[coal bin->bin]] crouches beside the boiler.
+The coal bin contains:
+  A lump of coal
+A [[workbench]] sits against the far wall, covered with ancient tools.
+Sitting on the workbench is: 
+  A flashlight
+The shadows seem to flicker and move of their own accord.
+
+
+> take shovel
+Taken.
+
+
+> take coal
+Using the shovel, you pry a solid lump from the compacted coal and take it.
+
+
+> take flashlight
+Taken.
+
+
+> lamp on flashlight
+There was no verb in that sentence!
+
+
+> west
+The basement corridor is dim, stretching into shadow. Stone stairs climb [[upward->up]] toward the entrance hall. Steam hisses from the pipes overhead, filling the corridor with an acrid mist. To the [[east]], a passage smells of coal and old smoke. [[West->west]] lies what might have been storage. [[North->north]], another corridor descends into total darkness, toward the sound of dripping water.
+[[Pipes->pipes]] run along the ceiling, rusted and dripping.
+A wheel [[valve]] juts from one of the pipes, crusted with rust.
+
+
+> west
+This dark storage room is filled with old linens, rusted equipment, and unidentifiable containers in every space. A sour smell permeates the air. The exit lies to the [[east]].
+[[Shelves->shelves]] line the walls, sagging under the weight of moldering supplies.
+
+
+> examine shelves
+You search through the shelves. Most items are ruined by time and moisture. Among the debris, you find a [[lantern]] and a [[medical bag->bag]] and some old [[medical records->records]].
+
+
+> look
+This dark storage room is filled with old linens, rusted equipment, and unidentifiable containers in every space. A sour smell permeates the air. The exit lies to the [[east]].
+[[Shelves->shelves]] line the walls, sagging under the weight of moldering supplies.
+The shelves contains:
+  A medical bag
+  A oil lantern
+  A medical records
+
+
+> open shelves
+You must tell me how to do that to a shelves.
+
+
+> east
+The basement corridor is dim, stretching into shadow. Stone stairs climb [[upward->up]] toward the entrance hall. Steam hisses from the pipes overhead, filling the corridor with an acrid mist. To the [[east]], a passage smells of coal and old smoke. [[West->west]] lies what might have been storage. [[North->north]], another corridor descends into total darkness, toward the sound of dripping water.
+[[Pipes->pipes]] run along the ceiling, rusted and dripping.
+A wheel [[valve]] juts from one of the pipes, crusted with rust.
+
+
+> north
+You have moved into a dark place.
+It is pitch black. You are likely to be eaten by a grue.
+

@@ -24,5 +24,7 @@
     <ASSERT "Complete GIVE solution sets the win flag" ,GAME-WON>
     <ASSERT "Complete GIVE solution removes Patient 189"
             <NOT <IN? ,PATIENT-189 ,CHAPEL>>>
-    <ASSERT "Complete GIVE solution leaves the player in the Chapel"
-            <==? ,HERE ,CHAPEL>>>
+    <ASSERT "Complete GIVE solution finishes with the player in the Chapel"
+            <==? ,HERE ,CHAPEL>>
+	<ASSERT-TEXT "end this session" <CO-RESUME ,CO "look">>
+>

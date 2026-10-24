@@ -1,0 +1,15 @@
+{
+  "id": "books.silent-vector",
+  "title": "The Silent Vector",
+  "shortDescription": "Four bodies. Five remembered lives. Trust what you can measure.",
+  "description": "The deep-space station Asterion has received a signal that can counterfeit a memory. Everyone remembers a fifth crew member. The station's physical records disagree.\n\nAs the engineer, restore cooling, compare independent evidence, and isolate a transmission that knows how to sound like someone you failed. Three living colleagues have different reasons to keep listening. Getting them home requires more than cutting a cable.\n\nAn original science fiction horror adventure with fourteen rooms, integrated engineering and deduction puzzles, optional progressive hints, and two deliberate endings. No timed deaths. Content includes involuntary memory, bereavement, and psychological distress.",
+  "author": "Studio Null",
+  "year": 2026,
+  "rating": 0,
+  "reviewCount": 0,
+  "startFile": "silent-vector.zil",
+  "base": "infocom/zork1",
+  "reviews": [],
+  "genre": "Science Fiction Horror",
+  "statusLine": "moves"
+}

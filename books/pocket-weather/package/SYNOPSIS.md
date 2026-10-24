@@ -1,0 +1,3 @@
+Your first morning as weather-post apprentice begins with a missing raincloud. The Bureau wants its forecast delivered. Nimbus wants to hide. Explore twelve tactile little places, trade with a rook, coax old paper open with steam, and discover what yesterday's instructions left out.
+
+An original adventure for ages 8 and up, especially for a child and grown-up playing together. Five connected puzzles and an interactive public resolution reward observation, kindness, and careful experiments. No countdown, death, or one-way mistakes. Choose a drizzle or a puddle-sized shower, and make a promise that leaves room to pause.

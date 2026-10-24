@@ -1,0 +1,17 @@
+"The Pocket Weather Bureau"
+<CONSTANT RELEASEID 1>
+<VERSION ZIP>
+<FREQUENT-WORDS?>
+<PROPDEF SIZE 5>
+<PROPDEF CAPACITY 0>
+<PROPDEF VALUE 0>
+<PROPDEF TVALUE 0>
+<INSERT-FILE "main">
+<INSERT-FILE "clock">
+<INSERT-FILE "parser">
+<INSERT-FILE "syntax">
+<INSERT-FILE "macros">
+<INSERT-FILE "verbs">
+<INSERT-FILE "globals">
+<INSERT-FILE "actions">
+<INSERT-FILE "dungeon">

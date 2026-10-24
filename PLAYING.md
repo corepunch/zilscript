@@ -4,7 +4,48 @@ This document explains how agents (or scripts) can play ZIL games to evaluate pl
 
 ## Overview
 
-Use `llm.lua` to interact with games one command at a time. Each invocation loads a save, executes a command, captures the response, and saves state. This works across separate process invocations — no persistent Lua state needed.
+Use `llm.lua` to interact with games one action at a time. For blind testing,
+use the reader's prose links and numbered menus, not invented parser commands.
+The same `Session.parseLinks` and `Session:linkActions` methods power Adventure
+Arena and this interface.
+
+## Blind Link Play
+
+Run from this repository's directory:
+
+```bash
+lua5.4 llm.lua --new-game --links --game wondertown --save /tmp/play.sav --seed 97
+lua5.4 llm.lua --links --game wondertown --save /tmp/play.sav
+lua5.4 llm.lua --choose 4 --game wondertown --save /tmp/play.sav
+```
+
+Output is JSON: `{output, room, running, actions}`. Each action is an array
+`[label, command, linkTarget]`; `--choose N` selects its **1-based position in
+the current list**. Read the result before choosing again. `--links` alone
+observes menus without advancing a turn or rewriting the save. Look, inventory
+and wait are explicit reader controls; inventory and native container lists
+expose links to their real objects. Object menus use actual parser syntax,
+including second objects and conversation topics introduced in prose. No
+hidden-room inspection, source-derived hints or companion walkthrough is
+added. Missing links or missing object actions are bugs to report.
+
+Every chosen action writes the full world-memory image and scalar VM globals,
+including the private random-generator state and reader presentation records.
+Next invocation restores these directly, without replay. The save is required;
+there is no history fallback in link mode. Lua coroutine stacks are not
+serialized: play resumes at the ordinary input boundary, and `FINISH` is
+recorded as terminal so a completed/dead story cannot resume normal play.
+Start a fresh game after story/format changes; there are no save migrations.
+`<save>.transcript` records actual commands and raw prose-link output.
+
+For each QA round, keep the player blind to source, prior reports, maps and
+walkthroughs until observations and transcript are frozen. Only then inspect
+and fix the book. Label subsequent code-informed verification separately.
+
+## Parser Diagnostics
+
+The free-text interface below remains useful for focused parser regressions.
+It is not evidence of a blind link-only completion.
 
 ## Quick Start
 
@@ -104,6 +145,7 @@ Pass `--game <name>` to play different games:
 | planetfall | `infocom.planetfall.planetfall` |
 | limehouse-killings | `books.limehouse-killings.limehouse-killings` |
 | blackwood-horror | `books.blackwood-horror.blackwood-horror` |
+| wondertown | `books.wondertown.wondertown` |
 
 ## Command-Line Reference
 
@@ -145,6 +187,32 @@ commands. See
 complete room/state-family coverage and validation requirements.
 
 ## Evaluating Playability
+
+### Authoring binary reader actions
+
+The reader uses current VM scope, including carried contents, to resolve a
+prose link. A remembered noun alone never grants remote manipulation. Topics
+must resolve through the story's current globals or actual accessible objects.
+Several prose aliases for the same object produce one secondary action.
+
+An object can constrain its binary menu with an ordinary string property:
+
+```zil
+(INTERACTIONS "STEAM:KETTLE,SPOON;SHOW:MICA,CLOUD")
+```
+
+Keys are action identifiers, the suffix of the real `V-...` action (`PUT-ON`
+differs from `PUT`). Values are declared object names. Missing actions in an
+authored property have no binary menu entries; an empty string allows unary
+actions only. Actors list the carried exhibits they accept for reversed
+SHOW/GIVE menus. These relations filter offered pairs without executing an
+action, changing world state, bypassing parser scope, or exposing hidden nouns.
+Include meaningful failed experiments as well as correct pairs. Ordinary
+parser commands still use the story's own action routines and rejection logic.
+
+Books using the link reader finish with the score/progress record and a native
+QUIT signal; the reader does not display unsupported parser restart prompts.
+The persisted debug snapshot remains terminal across fresh invocations.
 
 To assess whether an LLM can play and beat a game:
 

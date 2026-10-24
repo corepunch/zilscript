@@ -1,3 +1,5 @@
+> Current round 2 route: library EAST → passage UP → study; reverse DOWN → WEST. Window uses study SOUTHWEST ↔ garden NORTHEAST and OPEN WINDOW WITH LOCKPICK SET. The study hall lock requires Hudson's key. Earlier transcripts below preserve their historical commands.
+
 # The Limehouse Killings — Complete Playthrough Transcript
 
 **Agent:** Game Tester Agent
