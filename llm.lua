@@ -461,8 +461,7 @@ end
 
 -- If we have an action, execute it
 if args.links then
-	package.path = "../../../?.lua;../../../lua/?.lua;" .. package.path
-	local ok, result = pcall(function()
+		local ok, result = pcall(function()
 		return require("zilscript.link_play").run {
 			args = args, env = env, game = game, gameName = game_name,
 			savefile = savefile, restored = resumed_from_dump,

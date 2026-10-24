@@ -1,5 +1,4 @@
 -- Regressions from independent blind round 1. Runs through the actual parser.
-package.path = "../../../?.lua;../../../lua/?.lua;" .. package.path
 local runtime = require("zilscript.runtime")
 local env = runtime.create_game_env()
 assert(runtime.init(env, true))

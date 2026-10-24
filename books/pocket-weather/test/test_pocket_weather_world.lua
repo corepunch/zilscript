@@ -1,5 +1,4 @@
 -- Headless topology and vocabulary audit; parser traversal, never GUI or waits.
-package.path = "../../../?.lua;../../../lua/?.lua;" .. package.path
 local runtime = require("zilscript.runtime")
 local env = runtime.create_game_env()
 assert(runtime.init(env, true))
