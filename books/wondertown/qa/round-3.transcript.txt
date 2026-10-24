@@ -1,0 +1,538 @@
+You are Pip, Grandfather Tolliver's smallest apprentice. Tonight the toys are falling quiet, and the key that keeps them ticking has vanished. Find it before dawn, while there is still a little magic left.
+
+Grandfather Tolliver's workshop smells of cedar. [[Sawdust->sawdust]] covers the floor like a golden blanket. The brass key [[hook]] on the wall is empty. A [[pet door->door]] glows with moonlight to the [[north]]; the tool bench lies [[east]]. An old cuckoo [[clock]] ticks above a folding loft [[ladder->loft ladder]] and its iron [[lifting mechanism->mechanism]].
+A frayed [[string]] hangs from the key hook.
+The enormous [[workbench]] towers above Pip, its surface cluttered with tools and half-finished toys. Beneath it, something small and copper catches the light.
+Your tiny [[broom]] leans against the workbench.
+
+
+> examine key hook
+The brass key hook on the wall holds no key. Only a frayed [[string]] dangles from it. The hook itself is cold -- no magic left in it at all.
+
+
+> examine folding ladder
+A folding wooden ladder leads toward the storage loft. Its lifting mechanism is rusted solid -- it will not rise without oil.
+
+
+> take tiny broom
+Taken.
+
+
+> look under enormous bench
+Pip peers under the workbench. Underneath, in the shadows, sits a tiny copper [[oil can->can]].
+
+
+> take tiny can
+Taken.
+
+
+> examine tiny can
+A tiny copper oil can, no bigger than Pip's thumb. It is about half full. The label reads: 'Tolliver's Finest -- For Squeaks and Stiff Joints.'
+
+
+> lubricate rusty mechanism with tiny can
+Pip works oil from the tiny copper can into the rusty joints. With a satisfying creak, the mechanism loosens. The folding loft ladder can rise now.
+
+
+> climb folding ladder
+Pip raises the folding ladder and climbs its broad wooden rungs into the loft.
+Dust softens the storage loft, and [[cobwebs]] drape the rafters like grey curtains. Stairs lead back [[down]].
+An old leather [[journal]] lies among the dust, Grandfather Tolliver's name embossed on the cover.
+An old cuckoo [[clock]] sits silent among the shadows, its hands frozen at five to midnight.
+A cardboard [[box]] labelled 'Broken - For Repair' sits in the corner.
+
+
+> read leather journal
+(Taken)
+You open the leather journal. Tolliver's handwriting is neat but growing shakier with each entry. October 14th -- 'The workshop key grows weaker. I must wind it more often now. The magic in this town depends on it.' October 20th -- 'Old Tick tells me the heart needs attention. I will see to it tonight.' October 21st -- 'I could not reach the heart alone. Something blocks the way. I must find another path. The toys need me. Pip needs me.' The rest of the pages are blank.
+
+
+> examine old clock
+An old cuckoo clock, the twin of the one downstairs. It is dusty and still, its hands frozen at five to midnight. Odd -- it seems to be waiting for Pip to do something.
+
+
+> wind old clock
+Pip reaches up and winds the old cuckoo clock. Its hands shudder and begin to move. A tiny wooden bird emerges from its door and chimes: 'The hour of reckoning comes. My brother on the workshop wall guards the way, but only the fox knows how to open it.'
+
+
+> open dusty box
+Pip opens the cardboard box. Inside are broken toy parts: a [[porcelain doll arm->arm]], a wooden wheel, and some springs. Tolliver always meant to fix them.
+
+
+> examine porcelain arm
+A delicate porcelain doll arm, separated from its owner. The fingers are curled gently, as if reaching for something. There is a matching doll somewhere -- perhaps in need of this arm.
+
+
+> take porcelain arm
+Taken.
+
+
+> down
+Grandfather Tolliver's workshop smells of cedar. [[Sawdust->sawdust]] covers the floor like a golden blanket. The brass key [[hook]] on the wall is empty. A [[pet door->door]] glows with moonlight to the [[north]]; the tool bench lies [[east]]. An old cuckoo [[clock]] ticks above a folding loft [[ladder->loft ladder]] and its iron [[lifting mechanism->mechanism]].
+A frayed [[string]] hangs from the key hook.
+The enormous [[workbench]] towers above Pip, its surface cluttered with tools and half-finished toys.
+
+
+> east
+The tool bench stretches away, a landscape of enormous chisels and planes beneath a [[tool rack->rack]]. A low crate, an old chair, and three broad repair books form a sturdy makeshift [[route->steps]] to the countertop. The workshop floor lies [[west]]. Captain [[Bertrand]] stands frozen on the chair seat, blocking the books and the way upward.
+A painted wooden [[nutcracker]] stands frozen on the chair seat beside the stacked books. A tiny brass winding [[key->winding key]] protrudes from his back.
+A [[pot of varnish->pot]] sits open, its contents gone tacky.
+
+
+> wind painted nutcracker
+Bertrand needs his winding key first. There should be one in his back -- try examining him.
+
+
+> examine painted nutcracker
+A painted wooden nutcracker stands frozen mid-stride, one foot raised. His jaw is clamped tight -- whether in a grimace or a smile, it is hard to say. There is a tiny brass winding key in his back.
+
+
+> take winding key
+Taken.
+
+
+> wind painted nutcracker
+Pip inserts the tiny brass key into the nutcracker's back and winds. Bertrand's jaw snaps shut with a sharp CLACK, then opens wide. 'At last! A proper winding! I have been stuck in this ridiculous pose for hours. Captain Bertrand of the Nutcracker Brigade, at your service!' He clicks his heels and steps aside with a smart salute. The way [[up]] is clear.
+
+
+> talk to painted nutcracker
+'I am Captain Bertrand of the Nutcracker Brigade. State your business, small apprentice.' He seems to be waiting for Pip to address him properly.
+
+
+> up
+The toy display spreads across the countertop. Through the frosted shop [[window]], the snowy street and distant clock tower glow in the moonlight. The chair and stacked books provide a careful route back [[down]] to the tool bench.
+A [[rag doll->ragdoll]] with one button eye sits against the window, humming a soft, meandering tune.
+A dusty glass display [[case]] holds forgotten treasures.
+A brave [[tin soldier->soldier]] stands inside the case, slightly rusted but still at attention.
+Beside him rests a small silver [[music box->box]] with a tiny crank on its side.
+A spare [[button]] lies near the rag doll.
+
+
+> examine rag doll
+A rag doll with one button eye and a stitched smile. Her fabric is patched in places, but she is carefully mended -- Tolliver's handiwork. She hums a soft, meandering tune.
+
+
+> tell rag doll
+Marzipan tilts her head and sings: 'Fox feet, fox feet, left the shop / Through the door with a hop and a hop / Key round neck and heart so sore / Find her where the broken toys snore.'
+
+
+> give spare button to ragdoll
+Marzipan takes the button in her fabric hand. 'For me?' She looks at it -- then at you. Her stitched smile somehow seems wider. She sews the button into place beside her other eye. Now both eyes watch you with warmth. 'Thank you, little apprentice. Now I can see twice as much. Let me sing you a secret.' She leans close and whispers: 'Behind the ticking, ticking clock, a door that needs no key or lock. But small paws only fit the crack -- the fox can push the hidden latch way back.'
+
+
+> open dusty case
+Pip flips the brass latch and opens the display case. The glass lid lifts smoothly, releasing the faint scent of old polish.
+
+
+> examine tin soldier
+A brave tin soldier, painted in bright red and blue. There is a spot of rust on his bayonet, but his painted eyes are steady. He stands at attention, as if waiting for orders.
+
+
+> take tin soldier
+Taken.
+
+
+> examine music box
+A small silver music box with a tiny crank on its side. It looks like it would play a tune if wound.
+
+
+> take music box
+Taken.
+
+
+> wind music box
+Pip turns the tiny crank on the music box. A soft melody fills the air -- a lullaby Grandfather Tolliver used to hum while he worked. The sound is sweet and sad. For one brief moment, it feels as if he is standing beside Pip.
+
+
+> down
+The tool bench stretches away, a landscape of enormous chisels and planes beneath a [[tool rack->rack]]. A low crate, an old chair, and three broad repair books form a sturdy makeshift [[route->steps]] to the countertop. The workshop floor lies [[west]].
+Captain [[Bertrand]] stands proudly beside the now-clear way [[upward->up]], his jaw fully operational.
+A [[pot of varnish->pot]] sits open, its contents gone tacky.
+
+
+> west
+Grandfather Tolliver's workshop smells of cedar. [[Sawdust->sawdust]] covers the floor like a golden blanket. The brass key [[hook]] on the wall is empty. A [[pet door->door]] glows with moonlight to the [[north]]; the tool bench lies [[east]]. An old cuckoo [[clock]] ticks above a folding loft [[ladder->loft ladder]] and its iron [[lifting mechanism->mechanism]].
+A frayed [[string]] hangs from the key hook.
+The enormous [[workbench]] towers above Pip, its surface cluttered with tools and half-finished toys.
+
+
+> north
+You emerge into the snowy alley behind the workshop. Fresh snow blankets the cobblestones, and the winter moon casts long blue shadows. Tiny fox [[footprints]] — unmistakably toy-sized — lead [[east]] through the snow. A [[streetlamp]] flickers overhead. It is not a real streetlamp — it is a toy lantern, repurposed and mounted on a pole. The workshop door looms behind you to the [[south]], the pet door at its base.
+
+
+> examine fox footprints
+Tiny fox footprints in the snow -- unmistakably toy-sized. They lead [[east]] through the alley, toward the clock square. Someone small and fast came this way, and not long ago.
+
+
+> east
+Abandoned shopfronts line the square — a bakery, a cobbler — each window displaying a toy frozen in its work. Tin toy [[lamps]] dot the cobblestones, their light weak and flickering. The alley lies [[west]], a quiet corner [[east]], and the scrap-yard [[south]].
+The clock [[tower]] dominates the square, its great face showing the hours until dawn with unnerving clarity.
+A brass winding [[mechanism]] sits at the clock tower's base, just out of reach.
+
+
+> examine brass mechanism
+A brass winding mechanism at the tower's base. It is just out of reach -- Pip needs something to stand on.
+
+
+> east
+Snow has drifted against the buildings at this quiet corner. Fox [[footprints]] double back [[west]] toward the clock square, where they turn south toward the scrap-yard.
+A red tin [[mailbox]] tilts slightly into the snow. Its flap hangs open — and every now and then, it seems to shiver.
+A crumpled [[envelope]] lies half-buried in the snow.
+A red wool [[scarf]] lies abandoned in the snow. It looks warm.
+
+
+> read crumpled letter
+(Taken)
+A crumpled envelope. Inside is a letter in Tolliver's handwriting: 'My dear Pip -- The heart is failing. I must go and mend it myself. Do not worry. Take care of the toys while I am gone. Wind the key at midnight if I do not return. I am proud of you, little apprentice. -- Grandfather Tolliver.' The letter is dated three days ago.
+
+
+> tell red mailbox
+The mailbox shivers but cannot form words. It seems to only know about the things it has seen from its corner.
+
+
+> give red scarf to red mailbox
+That does not seem interested in your gift.
+
+
+> take red scarf
+You're holding too many things already!
+
+
+> inventory
+You are carrying:
+  A [[crumpled letter->crumpled letter]]
+  A [[silver music box->music box]]
+  A [[tin soldier->tin soldier]]
+  A [[tiny brass winding key->winding key]]
+  A [[porcelain doll arm->porcelain arm]]
+  A [[leather journal->leather journal]]
+  A [[tiny copper oil can->tiny can]]
+  A [[tiny broom->tiny broom]]
+
+
+> drop crumpled letter
+Dropped.
+
+
+> drop leather journal
+Dropped.
+
+
+> take red scarf
+Taken.
+
+
+> west
+Abandoned shopfronts line the square — a bakery, a cobbler — each window displaying a toy frozen in its work. Tin toy [[lamps]] dot the cobblestones, their light weak and flickering. The alley lies [[west]], a quiet corner [[east]], and the scrap-yard [[south]].
+The clock [[tower]] dominates the square, its great face showing the hours until dawn with unnerving clarity.
+A brass winding [[mechanism]] sits at the clock tower's base, just out of reach.
+
+
+> south
+Broken toys lie beneath the snow: dolls, horses, and little painted things someone once loved. The clock square lies [[north]]. The way east, through an iron [[gate]], is blocked. Snow covers the [[piles]] of discarded playthings; something pale shows through one of them.
+A scrap-metal [[cart]] creaks along a rusted track, gathering broken toys into its bed rather than destroying them.
+A toy [[horse]], one leg missing, lies on its side.
+
+
+> search broken piles
+Pip brushes the snow from the nearest pile. Beneath a tangle of tin and ribbon lies a porcelain [[doll head->head]] with painted eyes.
+
+
+> examine scrap cart
+A scrap-metal cart on rusted wheels, its open bed edged with low iron rails. It creaks along a track, collecting broken toys. But look closer: someone has carefully repaired the cart's wheels, oiled its axles. This cart is not destroying toys. It is rescuing them. A [[headless porcelain doll->headless doll]] lies in its bed, her hands folded in her lap.
+
+
+> give doll head to headless doll
+That does not seem interested in your gift.
+
+
+> examine headless doll
+A headless porcelain doll in a torn dress. Despite her state, someone has folded her hands neatly in her lap. She looks peaceful, somehow -- as if waiting to be made whole again.
+
+
+> examine doll head
+A porcelain doll head with painted blue eyes and rosebud lips. It matches the headless doll in the cart. They were clearly once part of the same toy.
+
+
+> take doll head
+Taken.
+
+
+> put doll head in headless doll
+You can't do that.
+
+
+> give doll head to scrap cart
+Pip holds up the porcelain doll head. The cart pauses. A mechanical arm -- surprisingly gentle -- extends and takes the head from Pip's hands. It places the head beside the headless doll in its bed. For a moment, the cart is perfectly still. Then it rumbles -- a low, soft sound, like a purr -- and rolls aside, revealing the iron gate to the [[east]].
+
+
+> east
+Rags and twigs form a cosy den between the old crates. A tiny toy [[candle]] warms the shadows. The exit leads [[west]] to the scrap-yard.
+A patchy [[fox]] toy curls in a nest of rags, watching Pip warily. The workshop [[key->workshop key]] ticks faintly around her neck.
+A cosy [[bed]] made from rags and twigs fills the centre of the den.
+A ball of red [[yarn]] sits in the corner. Perfect for a fox to chase.
+
+
+> tell patchy fox
+The [[patchy fox toy->patchy fox]] pauses for a moment, perhaps thinking that you should reread the manual.
+
+
+> examine patchy fox
+A fox-shaped toy with patchy orange fur. Her button eyes watch Pip warily. The workshop key -- the one from the empty hook -- hangs from a string around her neck. It ticks faintly, its magic growing weaker.
+
+
+> give red ball to patchy fox
+Nutmeg looks at the ball of yarn. Despite herself, her paw twitches. She bats it once -- twice -- and then catches herself, embarrassed. 'I used to do this,' she says quietly. 'In the shop window. Before I knew nobody was coming for me.' She curls up with the yarn tucked under her chin.
+Nutmeg looks at Pip with something almost like hope in her button eyes.
+
+
+> tell patchy fox about workshop key
+Nutmeg hugs the key closer. 'I know it is not mine. But it is the only thing that has ever ticked for me. Do you know what that is like? Being a toy nobody wanted?'
+
+
+> inventory
+You are carrying:
+  A [[red wool scarf->red scarf]]
+  A [[silver music box->music box]]
+  A [[tin soldier->tin soldier]]
+  A [[tiny brass winding key->winding key]]
+  A [[porcelain doll arm->porcelain arm]]
+  A [[tiny copper oil can->tiny can]]
+  A [[tiny broom->tiny broom]]
+
+
+> give red scarf to patchy fox
+Nutmeg stares at the red scarf in your hand. 'For... for me?' She reaches out with a trembling paw and touches the wool. 'It is warm. Nobody ever gave me anything warm before.' Her voice cracks on the last word. She wraps the scarf around her neck, where the key used to hang. 'Thank you,' she whispers.
+
+
+> give music box to patchy fox
+That does not seem interested in your gift.
+
+
+> wind music box
+Pip turns the tiny crank on the music box. A soft melody fills the air -- a lullaby Grandfather Tolliver used to hum while he worked. The sound is sweet and sad. For one brief moment, it feels as if he is standing beside Pip.
+
+
+> tell patchy fox about red scarf
+You can't see any red scarf here!
+
+
+> tell patchy fox about workshop key
+Nutmeg hugs the key closer. 'I know it is not mine. But it is the only thing that has ever ticked for me. Do you know what that is like? Being a toy nobody wanted?'
+
+
+> tell patchy fox about fox
+The [[patchy fox toy->patchy fox]] pauses for a moment, perhaps thinking that you should reread the manual.
+
+
+> take workshop key
+Nutmeg is quiet for a long moment. Then, slowly, she paws the key off her neck and places it before Pip. 'Take it,' she says. Her voice cracks. 'I am sorry I took it. I just... I did not want to be alone when the ticking stopped. But you came all this way. You really care, do you not?' She looks up at Pip with her mismatched button eyes. 'Promise you will come back. Please.'
+
+
+> tell patchy fox about clock
+You can't see any clock here!
+
+
+> tell patchy fox
+The [[patchy fox toy->patchy fox]] pauses for a moment, perhaps thinking that you should reread the manual.
+
+
+> west
+Broken toys lie beneath the snow: dolls, horses, and little painted things someone once loved. The clock square lies [[north]]. The iron [[gate]] to the [[east]] stands open now. Snow covers the [[piles]] of discarded playthings.
+The scrap [[cart]] rests beside the track, its bed still full of carefully rescued toys.
+A toy [[horse]], one leg missing, lies on its side.
+
+
+> north
+Abandoned shopfronts line the square — a bakery, a cobbler — each window displaying a toy frozen in its work. Tin toy [[lamps]] dot the cobblestones, their light weak and flickering. The alley lies [[west]], a quiet corner [[east]], and the scrap-yard [[south]].
+The clock [[tower]] dominates the square, its great face showing the hours until dawn with unnerving clarity.
+A brass winding [[mechanism]] sits at the clock tower's base, just out of reach.
+
+
+> west
+You emerge into the snowy alley behind the workshop. Fresh snow blankets the cobblestones, and the winter moon casts long blue shadows. Tiny fox [[footprints]] — unmistakably toy-sized — lead [[east]] through the snow. A [[streetlamp]] flickers overhead. It is not a real streetlamp — it is a toy lantern, repurposed and mounted on a pole. The workshop door looms behind you to the [[south]], the pet door at its base.
+
+
+> south
+Grandfather Tolliver's workshop smells of cedar. [[Sawdust->sawdust]] covers the floor like a golden blanket. The brass key [[hook]] on the wall is empty. A [[pet door->door]] glows with moonlight to the [[north]]; the tool bench lies [[east]]. An old cuckoo [[clock]] ticks above a folding loft [[ladder->loft ladder]] and its iron [[lifting mechanism->mechanism]].
+A frayed [[string]] hangs from the key hook.
+The enormous [[workbench]] towers above Pip, its surface cluttered with tools and half-finished toys.
+
+
+> examine old clock
+An old cuckoo clock hangs on the workshop wall. It ticks softly -- a steady, reassuring sound. The hands show it is nearly midnight. Now that you have the key, the clock seems to tick with more urgency.
+
+
+> enter old clock
+The clock sits flush against the wall. There is no way behind it yet.
+
+
+> inventory
+You are carrying:
+  A [[workshop key->workshop key]]
+  A [[silver music box->music box]]
+  A [[tin soldier->tin soldier]]
+  A [[tiny brass winding key->winding key]]
+  A [[porcelain doll arm->porcelain arm]]
+  A [[tiny copper oil can->tiny can]]
+  A [[tiny broom->tiny broom]]
+
+
+> turn rusty mechanism for case
+You can't see any case here!
+
+
+> east
+The tool bench stretches away, a landscape of enormous chisels and planes beneath a [[tool rack->rack]]. A low crate, an old chair, and three broad repair books form a sturdy makeshift [[route->steps]] to the countertop. The workshop floor lies [[west]].
+Captain [[Bertrand]] stands proudly beside the now-clear way [[upward->up]], his jaw fully operational.
+A [[pot of varnish->pot]] sits open, its contents gone tacky.
+
+
+> tell painted nutcracker about workshop key
+'The master's key? Gone from its hook, I noticed. Most irregular. I would have investigated myself, but...' He gestures at his wooden legs. 'Limited mobility, I am afraid.'
+
+
+> up
+The toy display spreads across the countertop. Through the frosted shop [[window]], the snowy street and distant clock tower glow in the moonlight. The chair and stacked books provide a careful route back [[down]] to the tool bench.
+[[Marzipan]] sits against the window with two mismatched button eyes, humming warmly.
+A dusty glass display [[case]] holds forgotten treasures.
+
+
+> tell rag doll about workshop key
+She tilts her head and sings: 'The key that ticks, the key that tocks / Gone with fox through snowy blocks / Through the door where cold winds blow / That is where you need to go.'
+
+
+> down
+The tool bench stretches away, a landscape of enormous chisels and planes beneath a [[tool rack->rack]]. A low crate, an old chair, and three broad repair books form a sturdy makeshift [[route->steps]] to the countertop. The workshop floor lies [[west]].
+Captain [[Bertrand]] stands proudly beside the now-clear way [[upward->up]], his jaw fully operational.
+A [[pot of varnish->pot]] sits open, its contents gone tacky.
+
+
+> west
+Grandfather Tolliver's workshop smells of cedar. [[Sawdust->sawdust]] covers the floor like a golden blanket. The brass key [[hook]] on the wall is empty. A [[pet door->door]] glows with moonlight to the [[north]]; the tool bench lies [[east]]. An old cuckoo [[clock]] ticks above a folding loft [[ladder->loft ladder]] and its iron [[lifting mechanism->mechanism]].
+A frayed [[string]] hangs from the key hook.
+The enormous [[workbench]] towers above Pip, its surface cluttered with tools and half-finished toys.
+
+
+> listen to old clock
+Pip presses an ear to the clock. Tick, tick, tick -- steady as a heartbeat. Beneath it comes another rhythm, deeper and farther away, like a second heart below the workshop.
+
+
+> climb folding ladder
+Pip raises the folding ladder and climbs its broad wooden rungs into the loft.
+Dust softens the storage loft, and [[cobwebs]] drape the rafters like grey curtains. Stairs lead back [[down]].
+The old cuckoo [[clock]] ticks steadily among the shadows, its wooden bird alert behind its little door.
+A cardboard [[box]] labelled 'Broken - For Repair' sits in the corner.
+
+
+> tell old clock
+Old Tick's wooden bird emerges. 'The answers you seek are already in your pockets, small one. The key, the friends, the heart -- you have everything you need. Now use it.'
+
+
+> inventory
+You are carrying:
+  A [[workshop key->workshop key]]
+  A [[silver music box->music box]]
+  A [[tin soldier->tin soldier]]
+  A [[tiny brass winding key->winding key]]
+  A [[porcelain doll arm->porcelain arm]]
+  A [[tiny copper oil can->tiny can]]
+  A [[tiny broom->tiny broom]]
+
+
+> examine workshop key
+The workshop key. Brass, warm to the touch, with an intricate winding pattern on its head. It ticks faintly -- a tiny heartbeat. This is what keeps Wrenfold's toys alive.
+
+
+> tell old clock about fox
+You can't see any fox here!
+
+
+> down
+Grandfather Tolliver's workshop smells of cedar. [[Sawdust->sawdust]] covers the floor like a golden blanket. The brass key [[hook]] on the wall is empty. A [[pet door->door]] glows with moonlight to the [[north]]; the tool bench lies [[east]]. An old cuckoo [[clock]] ticks above a folding loft [[ladder->loft ladder]] and its iron [[lifting mechanism->mechanism]].
+A frayed [[string]] hangs from the key hook.
+The enormous [[workbench]] towers above Pip, its surface cluttered with tools and half-finished toys.
+
+
+> north
+You emerge into the snowy alley behind the workshop. Fresh snow blankets the cobblestones, and the winter moon casts long blue shadows. Tiny fox [[footprints]] — unmistakably toy-sized — lead [[east]] through the snow. A [[streetlamp]] flickers overhead. It is not a real streetlamp — it is a toy lantern, repurposed and mounted on a pole. The workshop door looms behind you to the [[south]], the pet door at its base.
+
+
+> east
+Abandoned shopfronts line the square — a bakery, a cobbler — each window displaying a toy frozen in its work. Tin toy [[lamps]] dot the cobblestones, their light weak and flickering. The alley lies [[west]], a quiet corner [[east]], and the scrap-yard [[south]].
+The clock [[tower]] dominates the square, its great face showing the hours until dawn with unnerving clarity.
+A brass winding [[mechanism]] sits at the clock tower's base, just out of reach.
+
+
+> wind brass mechanism with workshop key
+Pip climbs onto the tin soldier's shoulders and reaches the winding mechanism. With all Pip's strength, the brass wheel turns. The clock tower's ticking slows to a deep, ponderous beat. Time itself stretches, buying precious extra hours.
+
+
+> south
+Broken toys lie beneath the snow: dolls, horses, and little painted things someone once loved. The clock square lies [[north]]. The iron [[gate]] to the [[east]] stands open now. Snow covers the [[piles]] of discarded playthings.
+The scrap [[cart]] rests beside the track, its bed still full of carefully rescued toys.
+A toy [[horse]], one leg missing, lies on its side.
+
+
+> east
+Rags and twigs form a cosy den between the old crates. A tiny toy [[candle]] warms the shadows. The exit leads [[west]] to the scrap-yard.
+A patchy [[fox]] toy curls in a nest of rags, watching Pip warily. The workshop [[key->workshop key]] ticks faintly around her neck.
+A cosy [[bed]] made from rags and twigs fills the centre of the den.
+
+
+> examine patchy fox
+A fox-shaped toy with patchy orange fur. Her button eyes watch Pip warily. The workshop key -- the one from the empty hook -- hangs from a string around her neck. It ticks faintly, its magic growing weaker.
+
+
+> tell patchy fox about workshop key
+Nutmeg hugs the key closer. 'I know it is not mine. But it is the only thing that has ever ticked for me. Do you know what that is like? Being a toy nobody wanted?'
+
+
+> tell patchy fox about cosy bed
+The [[patchy fox toy->patchy fox]] pauses for a moment, perhaps thinking that you should reread the manual.
+
+
+> west
+Broken toys lie beneath the snow: dolls, horses, and little painted things someone once loved. The clock square lies [[north]]. The iron [[gate]] to the [[east]] stands open now. Snow covers the [[piles]] of discarded playthings.
+The scrap [[cart]] rests beside the track, its bed still full of carefully rescued toys.
+A toy [[horse]], one leg missing, lies on its side.
+
+
+> north
+Abandoned shopfronts line the square — a bakery, a cobbler — each window displaying a toy frozen in its work. Tin toy [[lamps]] dot the cobblestones, their light weak and flickering. The alley lies [[west]], a quiet corner [[east]], and the scrap-yard [[south]].
+The clock [[tower]] dominates the square, its great face showing the hours until dawn with unnerving clarity.
+A brass winding [[mechanism]] sits at the clock tower's base, just out of reach.
+
+
+> east
+Snow has drifted against the buildings at this quiet corner. Fox [[footprints]] double back [[west]] toward the clock square, where they turn south toward the scrap-yard.
+A red tin [[mailbox]] tilts slightly into the snow. Its flap hangs open — and every now and then, it seems to shiver.
+An old leather [[journal]] with Tolliver's name on the cover lies in the dust.
+A crumpled [[envelope]] lies half-buried in the snow.
+
+
+> take crumpled letter
+Taken.
+
+
+> west
+Abandoned shopfronts line the square — a bakery, a cobbler — each window displaying a toy frozen in its work. Tin toy [[lamps]] dot the cobblestones, their light weak and flickering. The alley lies [[west]], a quiet corner [[east]], and the scrap-yard [[south]].
+The clock [[tower]] dominates the square, its great face showing the hours until dawn with unnerving clarity.
+A brass winding [[mechanism]] sits at the clock tower's base, just out of reach.
+
+
+> south
+Broken toys lie beneath the snow: dolls, horses, and little painted things someone once loved. The clock square lies [[north]]. The iron [[gate]] to the [[east]] stands open now. Snow covers the [[piles]] of discarded playthings.
+The scrap [[cart]] rests beside the track, its bed still full of carefully rescued toys.
+A toy [[horse]], one leg missing, lies on its side.
+
+
+> east
+Rags and twigs form a cosy den between the old crates. A tiny toy [[candle]] warms the shadows. The exit leads [[west]] to the scrap-yard.
+A patchy [[fox]] toy curls in a nest of rags, watching Pip warily. The workshop [[key->workshop key]] ticks faintly around her neck.
+A cosy [[bed]] made from rags and twigs fills the centre of the den.
+
+
+> tell patchy fox about crumpled letter
+The [[patchy fox toy->patchy fox]] pauses for a moment, perhaps thinking that you should reread the manual.
+

@@ -365,6 +365,14 @@
           60>
   <CHOICE-DETAILS "subject" ,WINDOW>
 
+  <COND (,CIPHER-SOLVED
+	<CHOICE "study.go-passage"
+		"Go down the hidden stair to the passage"
+		"down"
+		,CHOICE-RETURN
+		80>
+	<CHOICE-DETAILS "group" "move">)>
+
   <CHOICE "study.go-hall"
           "Return to the entrance hall"
           "south"
@@ -418,8 +426,8 @@
   <CHOICE-DETAILS "group" "move">
 
   <CHOICE "study.try-window"
-          "Try the window latch"
-          "open window"
+          "Try a fine pick beneath the window catch"
+          "open window with lockpick set"
           ,CHOICE-EXPERIMENT
           40>
   <CHOICE-DETAILS "subject" ,WINDOW>
@@ -975,8 +983,8 @@
 
 <ROUTINE SUGGEST-SECRET-PASSAGE ()
   <CHOICE "sp.go-study"
-          "Follow the passage east to the study"
-          "east"
+          "Climb the hidden stair into the study"
+          "up"
           ,CHOICE-PROGRESS
           100>
   <CHOICE-DETAILS "group" "move">

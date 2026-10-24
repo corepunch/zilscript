@@ -61,12 +61,12 @@
 
     ; Test 10: Enter secret passage
     <TELL CR "Test 10: Enter secret passage" CR>
-    <PERFORM ,V?GO-SOUTH ,ROOMS>
+    <PERFORM ,V?GO-EAST ,ROOMS>
     <ASSERT <==? ,HERE ,SECRET-PASSAGE> "Should be in secret passage">
 
     ; Test 11: Go to study via secret passage
     <TELL CR "Test 11: Go to study via secret passage" CR>
-    <PERFORM ,V?GO-EAST ,ROOMS>
+    <PERFORM ,V?GO-UP ,ROOMS>
     <ASSERT <==? ,HERE ,STUDY> "Should be in study">
 
     ; Test 12: Examine study

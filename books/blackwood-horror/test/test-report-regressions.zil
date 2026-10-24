@@ -31,7 +31,7 @@
     ;"The boiler's automatic description is the single owner of its current state."
     <SETG HERE ,BOILER-ROOM>
     <MOVE ,WINNER ,BOILER-ROOM>
-    <SETG BOILER-FUELED T>
+    <MOVE ,LUMP-OF-COAL ,IRON-BOILER>
     <SETG BOILER-LIT T>
     <ASSERT-TEXT "boiler is awake now" <CO-RESUME ,CO "look">>
     <ASSERT-NOT-TEXT "cold and silent" <CO-RESUME ,CO "look">>

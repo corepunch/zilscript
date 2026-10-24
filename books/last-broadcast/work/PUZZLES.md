@@ -1,0 +1,14 @@
+# Seven gates and fair-play dependencies
+1. Clock: office clock reads 9:12; generator chart voltage falls at 9:12; wound and warm broadcast chronology place killing after 9:17. COMPARE CHART WITH CLOCK (at office) records clock stall, not death.
+2. Continuity: sleeve -> disc -> player + held stylus. USE STYLUS ON PLAYER seats needle; PUT DISC IN PLAYER; PLAY PLAYER. Repeated coughing gull and an appeal line return exactly: a groove, not living speech. Ruth identifies their rehearsal, never gives culprit as a deduction.
+3. Provenance: TAKE DISC after playback; COMPARE DISC WITH REGISTER in cutting room. Register lists one long disc cut by Ada at 8:40, not Ruth's rejected two-minute trial. Disc edge number, duration and repeating gull corroborate.
+4. Route: examine roster establishes maintenance hatch. TAKE SPANNER; USE SPANNER ON HATCH. OPENBIT governs office DOWN and passage UP identically. No tool is consumed. Service bypass explains access without crossing studio.
+5. Identity: examine passage stain (blood and a square heel repair); COMPARE BOOTS WITH STAIN (carry boots to passage). Repair and fresh blood match; maintenance roster assigns sole hatch spanner to Ada and returns it after 9:20. No footprint alone is proof.
+6. Alternatives: show dressing to Edith (wound dressing is Ruth's); show receipt to Tomas (independent two-way transmission through murder window); show disc to Ruth (her live red lamp was only microphone supply, switch can route disc). Each provides independently checkable truth, not magical confession. Read ledger and show to Ada produces motive but no conviction.
+7. Reconstruct: casebook requires clock, sound, provenance, route, trace, cleared alternatives, motive. It states reconstruction, then asks final accusation of physically present suspect. Wrong accusation describes contradiction, costs nothing. Ada can only be convicted after reconstruction. Player may ask her about ledger afterwards; terminal accusation gives a specific confession, Ruth's final announcement and consequences.
+
+Hints available only by HINT CASEBOOK: attention -> exact missing next experiment. Both pair orders accepted for all comparisons. USE with wrong explicit tool refuses even when correct tool also held. No random events; no depleting resources; no destructive verbs; every suspect stays available. Ordinary failure never resets knowledge.
+
+Final gate refinement: physical route/trace includes a mandatory weapon measurement: EXAMINE CUTTER opens inspection cover, TAKE COUNTERWEIGHT, COMPARE BODY WITH COUNTERWEIGHT. The actual weight remains portable evidence; its matched rim independently ties the office killing to station machinery.
+
+Blind1 revision: reconstruction organizes established measurements without naming the culprit or narrating the full crime. The accusation is the player's own identity inference; wrong accusations use only already-tested facts.

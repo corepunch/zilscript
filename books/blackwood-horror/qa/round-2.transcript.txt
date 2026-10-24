@@ -1,0 +1,461 @@
+The rusted [[iron gates->gate]] of the abandoned sanitarium stand open, their bars red with rust. The structure looms against the darkening sky, its windows like hollow eye sockets. A gravel path leads [[north]] to the entrance.
+A corroded [[brass plaque->plaque]] hangs askew on the gate.
+
+
+> read plaque
+The plaque reads: 'Blackwood Sanitarium - Est. 1898 - Closed by Order 1952'
+
+
+> examine gate
+The rusted iron gates stand open. Flakes of old black paint cling to bars bent by years of weather.
+
+
+> close gate
+The hinges resist your weight. You leave the gates as you found them.
+
+
+> north
+The entrance hall reeks of mildew and decay. A [[grand staircase->staircase]] rises into darkness and ends at a collapsed landing. To the [[west]], a doorway leads to what might have been a reception area; to the [[east]], a corridor opens onto the patient ward. A narrow staircase descends [[into the basement->down]]. The entrance gates lie [[south]].
+To the [[north]], a [[door]] stands half-open, revealing an operating theater beyond.
+
+
+> close door
+You try to shift it, but the sagging door is wedged firmly against the floor. It remains half-open.
+
+
+> west
+This cramped room once served as the sanitarium's reception. [[Filing cabinets->cabinets]] line the opposite wall, their drawers hanging open like gaping mouths. Something glints among the [[papers]] scattered on the floor. A doorway to the [[east]] opens back to the entrance hall.
+A heavy [[oak desk->desk]] sits against one wall, its surface thick with dust.
+
+
+> examine papers
+You sift through admission forms and invoices pulped by damp. Beneath them lies a small [[brass key->key]], cold to the touch.
+
+
+> examine key
+A small brass key with the number '3' engraved on its head. It's ice cold despite being indoors.
+
+
+> take key
+Taken.
+
+
+> examine desk
+The desk has three drawers. The top two are broken and empty. The [[bottom drawer->drawer]] is intact but locked; a number 3 is engraved beside its keyhole.
+
+
+> open drawer with key
+You insert the brass key into the lock. It turns smoothly. The drawer slides open, revealing a leather-bound [[ledger]] and a [[patient file->file]] inside.
+
+
+> read ledger
+(Taken)
+The ledger contains patient records spanning decades. The entries become more disturbing toward the end. The final entry reads: 'Patient 237 - Treatment discontinued. Subject expired during procedure. Dr. Mordecai. May God have mercy on us all.'
+Distant footsteps echo from somewhere above you.
+
+
+> read file
+(Taken)
+A file folder labeled 'Patient 189 - CONFIDENTIAL'. Inside are medical records and notes. 'Subject shows extraordinary resistance to pain. Mental state deteriorating. Recommending transfer to isolation wing. Dr. Mordecai has expressed personal interest in this case. Update: Patient transferred to chapel for experimental treatment. Nov 1, 1952.'
+
+
+> east
+The entrance hall reeks of mildew and decay. A [[grand staircase->staircase]] rises into darkness and ends at a collapsed landing. To the [[west]], a doorway leads to what might have been a reception area; to the [[east]], a corridor opens onto the patient ward. A narrow staircase descends [[into the basement->down]]. The entrance gates lie [[south]].
+To the [[north]], a [[door]] stands half-open, revealing an operating theater beyond.
+
+
+> east
+A long corridor with tattered curtains hanging between areas, offering the ghost of privacy. The floor is littered with patient records and broken glass. At the far end, a [[heavy door->door]] sealed with [[chains]] blocks further passage.
+A doorway leads [[west]] back to the entrance hall.
+Dozens of [[bed frames->beds]] line the walls. Most mattresses have rotted away, leaving only rusted springs. Among the debris, a child's [[crayon drawing]] is pinned to one bedframe.
+A cold draft makes you shiver, though there are no open windows.
+
+
+> read crayon drawing
+A child's crayon drawing is pinned to the bedframe: a yellow sun above a stick figure with outstretched arms, and the word 'HOME' pressed so hard into the paper that the crayon tore through in places.
+The walls seem to breathe a single word: 'run.'
+
+
+> take crayon drawing
+The brittle paper would crumble if you tried to remove it from the rusted pin.
+
+
+> examine chains
+Thick iron chains wrap around the door handles, secured with a massive rusted padlock. The chains look old but still strong.
+The building settles with a deep structural groan, as if exhaling.
+
+
+> open door
+The door is secured with heavy chains. You need to cut through them.
+
+
+> west
+The entrance hall reeks of mildew and decay. A [[grand staircase->staircase]] rises into darkness and ends at a collapsed landing. To the [[west]], a doorway leads to what might have been a reception area; to the [[east]], a corridor opens onto the patient ward. A narrow staircase descends [[into the basement->down]]. The entrance gates lie [[south]].
+To the [[north]], a [[door]] stands half-open, revealing an operating theater beyond.
+
+
+> north
+The circular theater rises in [[tiers]] where students once observed procedures. The air is motionless; even your sleeve brushing the door sounds indecently loud. The doorway [[south]] returns to the entrance hall.
+Tiers of wooden benches circle a central [[operating table->table]]. Cold metal trays sit abandoned on carts. A single overhead lamp, long dead, still points down at the table like an accusation.
+A [[metal cabinet->cabinet]] stands in the shadows, its door slightly ajar.
+
+
+> examine table
+The operating table is covered in dark brown stains that you hope are just rust. Leather restraints dangle from all four corners. Deep gouges mar the metal surface, as if someone struggled violently against the bindings.
+
+
+> open cabinet
+You ease the cabinet door wide on its stiff hinges. The shelves hold rusted medical instruments, and among them a [[scalpel]] and a [[bottle->ether bottle]].
+
+
+> examine scalpel
+The scalpel's blade is rusty but still razor-sharp along one edge. The handle is stained with something dark.
+Distant footsteps echo from somewhere above you.
+
+
+> take scalpel
+Taken.
+
+
+> examine ether bottle
+That sentence isn't one I recognize.
+
+
+> take ether bottle
+That sentence isn't one I recognize.
+
+
+> south
+The entrance hall reeks of mildew and decay. A [[grand staircase->staircase]] rises into darkness and ends at a collapsed landing. To the [[west]], a doorway leads to what might have been a reception area; to the [[east]], a corridor opens onto the patient ward. A narrow staircase descends [[into the basement->down]]. The entrance gates lie [[south]].
+To the [[north]], a [[door]] stands half-open, revealing an operating theater beyond.
+
+
+> down
+A narrow stone staircase descends into darkness. The air grows colder with each step. Moisture drips from the ceiling, and the walls are slick with condensation. The stairs lead [[down]] into the basement, while the entrance hall lies [[up]] the stairs.
+
+
+> down
+The basement corridor is dim, stretching into shadow. Stone stairs climb [[upward->up]] toward the entrance hall. To the [[east]], a passage smells of coal and old smoke. [[West->west]] lies what might have been storage. [[North->north]], another corridor descends into total darkness, toward the sound of dripping water.
+[[Pipes->pipes]] run along the ceiling, rusted and dripping.
+A wheel [[valve]] juts from one of the pipes, crusted with rust.
+
+
+> examine valve
+A large wheel valve covered in rust and grime.
+
+
+> west
+This dark storage room is filled with old linens, rusted equipment, and unidentifiable containers in every space. A sour smell permeates the air. The exit lies to the [[east]].
+[[Shelves->shelves]] line the walls, sagging under the weight of moldering supplies.
+
+
+> examine shelves
+You search through the shelves. Most items are ruined by time and moisture. Among the debris, you find a [[lantern]] and a [[medical bag->bag]] and some old [[medical records->records]].
+
+
+> examine lantern
+A brass oil lantern with a glass chimney and a striker beside its wick. It still contains fuel. Its steady flame could kindle a larger fire.
+
+
+> take lantern
+Taken.
+
+
+> turn on lantern
+You turn the lantern's built-in striker. The wick catches; a warm glow pushes back the darkness.
+
+
+> open bag
+Opening the [[medical bag->bag]] reveals a [[roll of bandages->bandag]], and a [[morphine vial->vial]].
+
+
+> examine vial
+You can't see any vial here!
+
+
+> take bag
+Taken.
+
+
+> examine vial
+A small glass vial labeled 'Morphine Sulfate - 10mg'. The seal is intact.
+
+
+> read records
+Which records do you mean, the [[medical records->record]] or the [[patient file->file]]?
+
+
+> read record
+Which record do you mean, the [[medical records->record]] or the [[patient file->file]]?
+
+
+> east
+The basement corridor is dim, stretching into shadow. Stone stairs climb [[upward->up]] toward the entrance hall. To the [[east]], a passage smells of coal and old smoke. [[West->west]] lies what might have been storage. [[North->north]], another corridor descends into total darkness, toward the sound of dripping water.
+[[Pipes->pipes]] run along the ceiling, rusted and dripping.
+A wheel [[valve]] juts from one of the pipes, crusted with rust.
+
+
+> east
+[[Coal dust->dust]] softens every edge in this low brick chamber. A narrow doorway leads [[west]].
+The room's centerpiece is a massive iron [[boiler]], cold and silent as a tomb.
+An iron [[coal bin->bin]] crouches beside the boiler.
+A [[workbench]] sits against the far wall, covered with ancient tools.
+The shadows seem to flicker and move of their own accord.
+
+
+> examine workbench
+The workbench is covered with ancient tools: hammers, wrenches, screwdrivers. Most are rusted solid. A [[flashlight]] lies among them.
+
+
+> examine flashlight
+A heavy metal flashlight. The switch clicks but produces no light. The batteries are long dead.
+
+
+> examine boiler
+The boiler is a hulking iron beast. Its open firebox is black with soot and empty of usable fuel. A [[coal shovel->shovel]] leans inside its mouth.
+
+
+> examine bin
+Most of the coal has collapsed into wet black dust, but one solid [[lump of coal->coal]] could still burn. A shovel would keep the filthy slack off your hands.
+
+
+> take shovel
+Taken.
+
+
+> take coal
+Using the shovel, you pry a solid lump from the compacted coal and take it.
+
+
+> put coal in boiler
+You place the coal in the boiler's firebox.
+
+
+> burn boiler with lanter
+With a [[oil lantern->lanter]]??!?
+
+
+> turn on boiler
+The boiler has no switch. It must be fueled and lit with a flame.
+
+
+> turn on boiler with lanter
+The [[oil lantern->lanter]] is already lit.
+The shadows seem to flicker and move of their own accord.
+
+
+> west
+The basement corridor is dim, stretching into shadow. Stone stairs climb [[upward->up]] toward the entrance hall. To the [[east]], a passage smells of coal and old smoke. [[West->west]] lies what might have been storage. [[North->north]], another corridor descends into total darkness, toward the sound of dripping water.
+[[Pipes->pipes]] run along the ceiling, rusted and dripping.
+A wheel [[valve]] juts from one of the pipes, crusted with rust.
+
+
+> north
+The chamber is vast and dark, with arched stone ceilings disappearing into shadow. A sealed metal [[door]] to the east is corroded shut.
+To the [[north]], a narrow passage disappears into darkness. The corridor lies to the [[south]].
+Cold [[water]] covers the floor.
+
+
+> examine door
+The [[sealed door->door]] is sealed shut, corroded in place. Steam might loosen it.
+
+
+> north
+Small cells line both sides of a narrow corridor. [[Scratches->scratches]] cover the walls—thousands of them, as if someone counted the days. The corridor continues [[north]] to the electroshock theater; [[south]] returns to the flooded chamber.
+Heavy [[doors]] with barred windows stand open, revealing bare concrete rooms within.
+
+
+> read scratches
+Among the chaos of scratches, you can make out words: 'HELP ME' 'NO MORE' 'PLEASE'. The largest message reads: 'PATIENT 189 STILL ALIVE IN THE CHAPEL'. And then, in a corner, smaller and more recent: the date '1947' and a single word—'remember'—carved with unusual precision.
+
+
+> north
+A concrete room. The walls are scorched in places. A viewing window overlooks the room from above. To the [[east]], a stairway climbs upward. A passage to the [[south]] leads out to the isolation ward.
+In the center of the room, bolted to the floor, sits the [[chair]]. Leather restraints dangle from every joint. You know immediately what this is, and your stomach turns.
+Electrodes dangle from a [[machine]] beside the chair.
+To the [[west]], a heavy [[door]] stands ajar, revealing a padded cell beyond.
+
+
+> west
+The small room reeks of decay. Something has been written on the [[walls]] in what looks like dried blood. The open doorway [[east]] returns to the electroshock theater.
+A [[straitjacket]] lies in the corner, its straps unbuckled as if someone left in a hurry.
+Every surface is covered in rotting [[padding]], now torn and hanging in strips.
+To the [[east]], a heavy [[door]] leads back to the electroshock theater.
+
+
+> examine walls
+The padding is torn and moldering. On one wall, written in what appears to be dried blood, are the words: 'THE CHAPEL BEYOND THE GARDEN. HE WAITS THERE. PATIENT 189.'.
+
+
+> read straitjacket
+(Taken)
+The tag reads a name—the ink is smeared, but the date is unmistakable. 1947. Five years before the sanitarium closed. You stare at it longer than you meant to.
+
+
+> examine padding
+The padding is torn and moldering. On one wall, written in what appears to be dried blood, are the words: 'THE CHAPEL BEYOND THE GARDEN. HE WAITS THERE. PATIENT 189.'.
+
+
+> east
+A concrete room. The walls are scorched in places. A viewing window overlooks the room from above. To the [[east]], a stairway climbs upward. A passage to the [[south]] leads out to the isolation ward.
+In the center of the room, bolted to the floor, sits the [[chair]]. Leather restraints dangle from every joint. You know immediately what this is, and your stomach turns.
+Electrodes dangle from a [[machine]] beside the chair.
+To the [[west]], a heavy [[door]] stands ajar, revealing a padded cell beyond.
+
+
+> east
+A small room with chairs facing a window. This is where doctors watched their experiments. Stairs lead down to the [[west]].
+A [[logbook]] rests on a desk.
+A one-way [[mirror]] overlooks the electroshock theater.
+To the [[north]], a [[door]] opens to the administrative wing.
+
+
+> read logbook
+(Taken)
+The logbook contains clinical observations of treatments. One entry stands out: 'Session 47 - Patient 189. Subject required maximum voltage. Seizure lasted 4 minutes. Memory loss total. Subject claims to be someone else now. Dr. Mordecai pleased with results. Proceeding to next phase.'
+
+
+> north
+Offices line a carpeted corridor. Most doors hang open, revealing ransacked rooms. [[Filing cabinets->cabinets]] are overturned. To the [[east]] lies the director's office. [[North->north]] leads to the staff quarters. [[South->south]] returns to the observation deck.
+[[Papers->papers]] are scattered everywhere.
+
+
+> examine papers
+You sort through the papers. Most are mundane: supply orders, staff schedules, building maintenance. One memo catches your eye: 'All staff reminded - Subject 189 is NOT to be released under any circumstances. Chapel is OFF LIMITS.'.
+
+
+> east
+A large office with wood paneling. Bookshelves line the walls, filled with medical texts and journals.
+Among the medical texts, one book stands out -- a red leather [[tome->book]], its spine blank where all others are labeled.
+A massive [[desk]] dominates the room.
+A [[portrait of Dr. Mordecai->portrait]] hangs on the wall, his stern eyes seeming to follow you.
+To the [[west]], a [[door]] opens back to the administrative wing corridor.
+
+
+> read book
+Which book do you mean, the [[red leather book->red book]], the [[observation logbook->observation logbook]], or the [[patient ledger->patient ledger]]?
+
+
+> read red book
+(Taken)
+The pages are glued together. It's a hollow hiding place, not a real book.
+
+
+> open red book
+You flip the brass latch and open the book. The pages are glued solid—it's not a book at all, but a hollow hiding place. Inside you find a small [[key->safe key]].
+
+
+> examine safe key
+A small brass key with a tag reading 'S-001'. It looks like a safe key.
+
+
+> move portrait
+The portrait swings aside on a hidden hinge, revealing a [[wall safe->safe]] set into the paneling.
+
+
+> open safe with safe key
+The safe is locked. You need the key.
+
+
+> drop safe key
+Dropped.
+
+
+> take safe key
+You're holding too many things already!
+
+
+> drop observation logbook
+Dropped.
+
+
+> take safe key
+Taken.
+
+
+> open safe with safe key
+You unlock the [[wall safe->wall safe]] with the [[safe key->safe key]]. Inside are Dr. Mordecai's private notes and a [[chapel key->chapel key]].
+
+
+> examine wall safe
+The safe is open. Inside you can see its contents.
+
+
+> look
+A large office with wood paneling. Bookshelves line the walls, filled with medical texts and journals.
+The observation [[logbook]] lies here.
+A massive [[desk]] dominates the room.
+The [[portrait of Dr. Mordecai->portrait]] hangs swung aside on its hinge, his stern eyes still following you.
+Where the portrait has swung aside, a [[wall safe->safe]] is set into the paneling.
+Private [[notes]] in a tight, obsessive hand detail experiments that should never have been conducted.
+A heavy iron [[key->chapel key]] lies among the safe's contents, its head carved with a cross.
+To the [[west]], a [[door]] opens back to the administrative wing corridor.
+
+
+> read notes
+(Taken)
+The notes are written in a shaking hand: 'October 30, 1952 - The experiment succeeded beyond my wildest expectations. Patient 189 has transcended death itself. But the cost... the screaming never stops. I hear it in my sleep. The others want to shut down the sanitarium. Fools! They don't understand what we've achieved. The chapel must remain locked. What I've created must never escape.'
+
+
+> drop private notes
+Dropped.
+
+
+> west
+Offices line a carpeted corridor. Most doors hang open, revealing ransacked rooms. [[Filing cabinets->cabinets]] are overturned. To the [[east]] lies the director's office. [[North->north]] leads to the staff quarters. [[South->south]] returns to the observation deck.
+[[Papers->papers]] are scattered everywhere.
+
+
+> north
+A dormitory with rows of narrow beds. The air smells of mildew and abandonment. To the [[west]] is the cafeteria. [[South->south]] returns to the administrative wing.
+[[Lockers->lockers]] line one wall, their dented doors hanging crooked.
+
+
+> open metal lockers
+Most lockers are empty or hold rotted clothing. One still holds a nurse's uniform, and tucked behind it, a [[photograph]].
+
+
+> examine old photograph
+The photograph shows the sanitarium staff posed outside the building. Dr. Mordecai stands in the center, unsmiling. Written on the back: 'Staff photo 1950. Two years before they closed us down. Two years before everything went wrong.'
+
+
+> west
+Long tables with attached benches fill the room. Trays and plates lie scattered about, covered in dust. [[East->east]] returns to the staff quarters.
+A serving [[counter]] separates the dining area from the kitchen beyond.
+Sitting on the [[serving counter->serving counter]] is: 
+  A [[service bell->service bell]]
+To the [[north]], a [[door]] leads out to the garden.
+
+
+> ring service bell
+(Taken)
+You ring the bell. The tinny sound echoes through the Cafeteria. No one comes.
+
+
+> north
+Broken [[benches]] lie among the overgrowth. A stone path, barely visible, leads to a small chapel to the [[north]]. The chapel [[door]] is secured with a heavy iron lock.
+[[South->south]] returns to the cafeteria.
+What was once a therapeutic [[garden]] is now a wild tangle of weeds and dead plants.
+
+
+> read chapel door
+The words carved above the door read: 'HE WHO ENTERS ABANDONS HOPE'.
+
+
+> south
+Long tables with attached benches fill the room. Trays and plates lie scattered about, covered in dust. [[East->east]] returns to the staff quarters.
+A serving [[counter]] separates the dining area from the kitchen beyond.
+To the [[north]], a [[door]] leads out to the garden.
+
+
+> east
+A dormitory with rows of narrow beds. The air smells of mildew and abandonment. To the [[west]] is the cafeteria. [[South->south]] returns to the administrative wing.
+[[Lockers->lockers]] line one wall, their dented doors hanging crooked.
+The [[lockers->metal lockers]] contains:
+  A [[photograph->old photograph]]
+
+
+> south
+Offices line a carpeted corridor. Most doors hang open, revealing ransacked rooms. [[Filing cabinets->cabinets]] are overturned. To the [[east]] lies the director's office. [[North->north]] leads to the staff quarters. [[South->south]] returns to the observation deck.
+[[Papers->papers]] are scattered everywhere.
+

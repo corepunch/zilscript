@@ -9,7 +9,6 @@
 <GLOBAL KEY-FOUND <>>
 <GLOBAL KEY-WOUND <>>
 <GLOBAL BERTRAND-WOUND <>>
-<GLOBAL BERTRAND-POLITE <>>
 <GLOBAL MARZIPAN-BUTTON <>>
 <GLOBAL OLD-TICK-HEARD <>>
 <GLOBAL OLD-TICK-RIDDLES 0>
@@ -49,7 +48,7 @@
 <ROOM WORKSHOP-FLOOR
       (IN ROOMS)
       (DESC "Workshop Floor")
-      (LDESC "Grandfather Tolliver's workshop. [[Sawdust->sawdust]] covers the floor like a golden blanket. The brass key [[hook]] on the wall is empty — only a frayed [[string]] hangs from it. A [[pet door->door]] glows with moonlight to the [[north]].")
+      (LDESC "Grandfather Tolliver's workshop smells of cedar. [[Sawdust->sawdust]] covers the floor like a golden blanket. The brass key [[hook]] on the wall is empty. A [[pet door->door]] glows with moonlight to the [[north]]; the tool bench lies [[east]]. An old cuckoo [[clock]] ticks above a folding loft [[ladder->loft ladder]] and its iron [[lifting mechanism->mechanism]].")
       (EAST TO TOOL-BENCH)
       (NORTH TO SNOWY-ALLEY)
       (UP TO STORAGE-LOFT IF LADDER-OILED)
@@ -116,7 +115,7 @@
 <ROOM MAILBOX-CORNER
       (IN ROOMS)
       (DESC "Mailbox Corner")
-      (LDESC "Snow has drifted against the buildings at this quiet corner. Fox [[footprints]] lead back [[west]] toward the clock square; a fresher set seems to double back before veering south.")
+      (LDESC "Snow has drifted against the buildings at this quiet corner. Fox [[footprints]] double back [[west]] toward the clock square, where they turn south toward the scrap-yard.")
       (WEST TO CLOCK-SQUARE)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL MOON TOPIC-FOX TOPIC-TOLLIVER FOOTPRINTS CLOCK-TOWER)>
@@ -164,7 +163,7 @@
         (SYNONYM HOOK)
         (ADJECTIVE KEY BRASS EMPTY)
         (DESC "brass key hook")
-        (LDESC "A brass key hook on the wall hangs empty. A frayed string dangles from it.")
+        (LDESC "A brass key hook hangs on the wall.")
         (FLAGS NDESCBIT)
         (ACTION KEY-HOOK-F)>
 
@@ -230,8 +229,9 @@
         (SYNONYM STRING CORD THREAD TWINE)
         (ADJECTIVE FRAYED DANGLING)
         (DESC "frayed string")
-        (LDESC "A frayed string dangles from the empty key hook.")
-        (FLAGS TAKEBIT NDESCBIT)
+        (FDESC "A frayed [[string]] hangs from the key hook.")
+        (LDESC "A frayed [[string]] lies here.")
+        (FLAGS TAKEBIT)
         (SIZE 1)
         (ACTION KEY-STRING-F)>
 
@@ -552,7 +552,7 @@
         (DESC "scrap-metal cart")
         (LDESC "A scrap-metal cart creaks along a track, gathering broken toys into its bed.")
         (DESCFCN SCRAP-CART-DESC-F)
-        (FLAGS CONTBIT OPENBIT)
+        (FLAGS CONTBIT OPENBIT SURFACEBIT)
         (ACTION SCRAP-CART-F)>
 
 <OBJECT HEADLESS-DOLL

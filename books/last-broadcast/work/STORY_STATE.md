@@ -1,0 +1,4 @@
+# State
+Abstract booleans LB-CLOCK, LB-SOUND, LB-PROVENANCE, LB-TRACE, LB-RUTH, LB-EDITH, LB-TOMAS, LB-MOTIVE, LB-RECONSTRUCTED, LB-WON. Each changes once, idempotently. Route is hatch OPENBIT, playback installed needle is player TOOLBIT, disc has real containment. Knowledge never replaces physical accessibility requirements for tool use or pair comparisons. No counters or false scores. Act I explores contradictory testimony; Act II proves the mechanism and clears alternatives; Act III reconstructs and confronts. Ending sets LB-WON and FINISH. No death, expiry, lockout or consumable.
+
+Final implementation adds LB-WEAPON (counterweight/wound comparison) and LB-ROUTE (knowledge retained after hatch closes). Needle state is solely the real stylus location in the gramophone; no virtual needle flag. Witness booleans use LB-RUTH-CLEARED, LB-EDITH-CLEARED and LB-TOMAS-CLEARED to avoid aliasing actor identities.

@@ -7,7 +7,8 @@
 --   lua llm.lua --action "take sword" --save game.sav
 --   lua llm.lua --new-game --save game.sav  (start new game and save initial state)
 --
--- Output: JSON with game response and state info
+-- --links outputs JSON using the reader's actual link menus; parser mode
+-- outputs plain story text. Both modes keep a VM memory checkpoint.
 
 local runtime = require 'zilscript.runtime'
 
@@ -27,6 +28,15 @@ while i <= #arg do
         args.game = arg[i]
     elseif a == "--new-game" then
         args.new_game = true
+    elseif a == "--links" then
+        args.links = true
+    elseif a == "--choose" then
+        i = i + 1
+        args.choose = arg[i]
+        args.links = true
+    elseif a == "--seed" then
+        i = i + 1
+        args.seed = arg[i]
     elseif a == "--help" or a == "-h" then
         args.help = true
     end
@@ -40,21 +50,26 @@ LLM Play Mode - Interact with ZIL games programmatically
 Usage:
   lua llm.lua --action "command" [options]
   lua llm.lua --new-game [options]
+  lua llm.lua --new-game --links --game wondertown --save /tmp/play.sav
+  lua llm.lua --choose 4 --game wondertown --save /tmp/play.sav
 
 Options:
   --action, -a "cmd"   Execute this command and exit
-    --save, -s file      Restore from this memory dump file and keep action history in file.actions
+  --save, -s file      VM checkpoint path
   --game, -g name      Game to play (default: zork1)
   --new-game           Start a new game (even if save file exists)
+  --links              List the reader's available actions without a turn
+  --choose N           Execute numbered reader action (implies --links)
+  --seed N             Initial random seed for a new link-mode game
   --help, -h           Show this help
 
-Output: JSON with fields:
-  - ok: boolean (success)
-  - output: string (game response text)
-  - room: string (current room name, if available)
-  - savefile: string (path to saved state)
-    - historyfile: string (path to the action backlog)
-  - error: string (error message, if failed)
+Link output: {output, room, running, actions}.
+Actions are [label, command, linkTarget], numbered from 1 in the current list.
+Only emitted actions can be chosen. Each step saves VM state, its random
+sequence and the reader transcript; it does not replay previous commands.
+Link mode requires its snapshot and never falls back to action-history replay.
+The readable log is <save>.transcript. FINISH is terminal across invocations.
+Parser mode prints plain text and maintains <save>.actions for diagnostics.
 
 Examples:
   lua llm.lua --new-game --save zork1.sav
@@ -67,6 +82,15 @@ end
 
 -- Game configurations
 local GAMES = {
+    ["pocket-weather"] = {
+        modules = {"books.pocket-weather.pocket-weather"}
+    },
+    ["silent-vector"] = {
+        modules = {"books.silent-vector.silent-vector"}
+    },
+    ["last-broadcast"] = {
+        modules = {"books.last-broadcast.last-broadcast"}
+    },
     zork1 = {
         modules = {
             "infocom.zork1.globals",
@@ -169,6 +193,7 @@ end
 
 -- Create game environment
 local env = runtime.create_game_env()
+env.PROSE_LINKS = args.links or false
 
 -- Load bootstrap
 if not runtime.init(env) then
@@ -390,7 +415,7 @@ end
 if not args.new_game then
     if file_exists(savefile, "rb") then
         local ok, restore_err = pcall(function()
-            env.RESTORE(savefile)
+            assert(env.RESTORE(savefile), "Could not restore VM snapshot")
         end)
         if ok then
             _G._LLM_RESTORED = true
@@ -400,7 +425,7 @@ if not args.new_game then
         end
     end
 
-    if not resumed_from_dump and file_exists(historyfile, "r") then
+    if not args.links and not resumed_from_dump and file_exists(historyfile, "r") then
         local ok, replayed_or_err = pcall(replay_action_history, historyfile)
         if not ok then
             write_error_and_exit(replayed_or_err)
@@ -435,6 +460,23 @@ local function execute_action_with_confirmation(action)
 end
 
 -- If we have an action, execute it
+if args.links then
+	package.path = "../../../?.lua;../../../lua/?.lua;" .. package.path
+	local ok, result = pcall(function()
+		return require("zilscript.link_play").run {
+			args = args, env = env, game = game, gameName = game_name,
+			savefile = savefile, restored = resumed_from_dump,
+			start = start_game, act = execute_action_with_confirmation,
+			room = function() return get_room_name(env) end,
+			score = function() return get_score_info(env) end,
+		}
+	end)
+	if not ok then write_error_and_exit(result) end
+	restore()
+	io.write(result .. "\n")
+	os.exit(0)
+end
+
 if args.action then
     local ok, output = pcall(execute_action_with_confirmation, args.action)
     

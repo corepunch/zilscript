@@ -1,9 +1,9 @@
 ; === CUSTOM SYNTAX ===
 
 <SYNTAX WIND OBJECT = V-WIND>
-<SYNTAX WIND OBJECT WITH OBJECT = V-WIND>
+<SYNTAX WIND OBJECT WITH OBJECT (HELD CARRIED) = V-WIND>
 <SYNTAX LUBRICATE OBJECT = V-OIL>
-<SYNTAX LUBRICATE OBJECT WITH OBJECT = V-OIL>
+<SYNTAX LUBRICATE OBJECT WITH OBJECT (HELD CARRIED) = V-OIL>
 <SYNTAX HINT = V-HINTS>
 <SYNTAX EASY = V-EASY-TOGGLE>
 <SYNONYM HINT HINTS>
@@ -13,7 +13,7 @@
     <COND (<1? ,MOVES> <TELL " move.">) (T <TELL " moves.">)>
     <CRLF>
     <TELL "Rank: " <GET ,RANKINGS <+ </ ,SCORE 25> 1>> "." CR>
-    <TELL "Companions: " N ,COMPANION-COUNT " of 6." CR>
+    <TELL "Companions lending strength: " N ,COMPANION-COUNT "." CR>
     ,SCORE>
 
 <ROUTINE SCORE-OBJ (OBJ "AUX" TEMP)
@@ -39,6 +39,7 @@
            <TELL "The countdown to dawn has been disabled. Take your time, little apprentice." CR>)>
     <ENABLE <QUEUE I-DAWN-WARNING 25>>
     <ENABLE <QUEUE I-NUTMEG-AUTONOMY 8>>
+    <TELL "You are Pip, Grandfather Tolliver's smallest apprentice. Tonight the toys are falling quiet, and the key that keeps them ticking has vanished. Find it before dawn, while there is still a little magic left." CR CR>
     <V-LOOK>
     <MAIN-LOOP>
     <AGAIN>>
@@ -98,7 +99,7 @@
 
 <ROUTINE TOOL-BENCH-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "The tool bench stretches away, a landscape of enormous chisels and planes beneath a [[tool rack->rack]]. A low crate, an old chair, and three broad repair books form a sturdy makeshift [[route]] to the countertop. The workshop floor lies [[west]].">
+           <TELL "The tool bench stretches away, a landscape of enormous chisels and planes beneath a [[tool rack->rack]]. A low crate, an old chair, and three broad repair books form a sturdy makeshift [[route->steps]] to the countertop. The workshop floor lies [[west]].">
            <COND (<NOT ,BERTRAND-WOUND>
                   <TELL " Captain [[Bertrand]] stands frozen on the chair seat, blocking the books and the way upward.">)>
            <TELL CR>)>>
@@ -200,10 +201,10 @@
 
 <ROUTINE NUTMEG-DESC-F (RARG)
     <COND (<EQUAL? .RARG ,M-OBJDESC>
-           <COND (<G? ,NUTMEG-TRUST 2>
+           <COND (<EQUAL? ,NUTMEG-TRUST -1>
+                  <TELL "[[Nutmeg]] curls in the farthest corner with her back to Pip." CR>)
+                 (,KEY-FOUND
                   <TELL "[[Nutmeg]] watches Pip with soft button eyes. The place around her neck where the workshop key hung is empty now." CR>)
-                 (<EQUAL? ,NUTMEG-TRUST -1>
-                  <TELL "[[Nutmeg]] curls in the farthest corner with her back to Pip, clutching the workshop key close." CR>)
                  (T
                   <TELL "A patchy [[fox]] toy curls in a nest of rags, watching Pip warily. The workshop [[key->workshop key]] ticks faintly around her neck." CR>)>
            <RTRUE>)>>
@@ -215,7 +216,7 @@
            <COND (,BERTRAND-WOUND
                   <TELL "Bertrand is already wound -- and rather full of himself because of it." CR>)
                  (<IN? ,BERTRAND-KEY ,WINNER>
-                  <TELL "Pip inserts the tiny brass key into the nutcracker's back and winds. Bertrand's jaw snaps shut with a sharp CLACK, then opens wide. 'At last! A proper winding! I have been stuck in this ridiculous pose for hours. Captain Bertrand of the Nutcracker Brigade, at your service!' He clicks his heels and steps aside with a smart salute. The way upstairs is clear." CR>
+                  <TELL "Pip inserts the tiny brass key into the nutcracker's back and winds. Bertrand's jaw snaps shut with a sharp CLACK, then opens wide. 'At last! A proper winding! I have been stuck in this ridiculous pose for hours. Captain Bertrand of the Nutcracker Brigade, at your service!' He clicks his heels and steps aside with a smart salute. The way [[up]] is clear." CR>
                   <SETG BERTRAND-WOUND T>
                   <MOVE ,BERTRAND-KEY ,WINNER>)
                  (T
@@ -233,21 +234,21 @@
            <RTRUE>)
           (<EQUAL? ,PRSO ,OLD-TICK>
            <COND (<NOT ,OLD-TICK-HEARD>
-                  <TELL "Pip reaches up and winds the old cuckoo clock. Its hands shudder and begin to move. A tiny wooden bird emerges from its door and chimes: 'The hour of reckoning comes. Behind me lies the way, but only the fox knows how to open it.'" CR>
+                  <TELL "Pip reaches up and winds the old cuckoo clock. Its hands shudder and begin to move. A tiny wooden bird emerges from its door and chimes: 'The hour of reckoning comes. My brother on the workshop wall guards the way, but only the fox knows how to open it.'" CR>
                   <SETG OLD-TICK-HEARD T>
                   <SETG OLD-TICK-RIDDLES <+ ,OLD-TICK-RIDDLES 1>>)
                  (T
-                  <TELL "Old Tick chimes again, its wooden bird peering at Pip. 'You have wound me twice, small one. Few show such patience. The latch behind me -- it needs a small paw to reach it. Have you made a fox-friend?'" CR>
+                  <TELL "Old Tick chimes again, its wooden bird peering at Pip. 'You have wound me twice, small one. Few show such patience. The latch behind me opens my brother downstairs -- but it needs a small paw to reach it. Have you made a fox-friend?'" CR>
                   <SETG OLD-TICK-RIDDLES <+ ,OLD-TICK-RIDDLES 1>>)>
            <COND (<AND <G? ,NUTMEG-TRUST 0>
                        <NOT ,STUDY-ACCESS>>
-                  <TELL " Suddenly, Nutmeg pads forward from the shadows. 'I can reach it,' she says quietly. 'I know the way. I followed him once -- the old man -- when he went upstairs.' She slips behind the clock. There is a soft click, and the clock swings outward, revealing a narrow staircase. 'The toymaker's study is up there. That is where he went.'" CR>
+                  <TELL " Suddenly, Nutmeg pads forward from the shadows. 'I can reach it,' she says quietly. 'I know the way. I followed him once -- the old man -- when he went upstairs.' She slips behind Old Tick and reaches for a hidden latch. A soft click answers from below. 'The other clock,' she whispers. 'On the workshop floor. It has swung open. The study stairs are behind it. That is where he went.'" CR>
                   <SETG STUDY-ACCESS T>
                   <SCORE-UPD 5>)
                  (<AND <EQUAL? ,NUTMEG-TRUST -1>
                        <IN? ,TIN-SOLDIER ,WINNER>
                        <NOT ,STUDY-ACCESS>>
-                  <TELL " A click sounds behind the clock. Without Nutmeg's help, Pip improvises. The tin soldier's bayonet hooks the hidden latch, and the clock swings open to reveal the stairs." CR>
+                  <TELL " Without Nutmeg's help, Pip improvises. The tin soldier's bayonet hooks the latch behind Old Tick. A click answers from the workshop floor below: the other clock has swung open, revealing the study stairs." CR>
                   <SETG STUDY-ACCESS T>
                   <SCORE-UPD 5>)>
            <RTRUE>)
@@ -368,13 +369,19 @@
 
 <ROUTINE KEY-HOOK-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "The brass key hook on the wall is empty. Only a frayed string dangles from it. The hook itself is cold -- no magic left in it at all." CR>)
+           <TELL "The brass key hook on the wall holds no key.">
+           <COND (<AND <IN? ,KEY-STRING ,WORKSHOP-FLOOR> <NOT <FSET? ,KEY-STRING ,TOUCHBIT>>>
+                  <TELL " Only a frayed [[string]] dangles from it.">)>
+           <TELL " The hook itself is cold -- no magic left in it at all." CR>)
            (<VERB? TAKE>
-            <TELL "The hook is fixed firmly to the wall. But the string dangling from it looks like it might come free." CR>)>>
+            <TELL "The hook is fixed firmly to the wall.">
+            <COND (<AND <IN? ,KEY-STRING ,WORKSHOP-FLOOR> <NOT <FSET? ,KEY-STRING ,TOUCHBIT>>>
+                   <TELL " But the [[string]] dangling from it looks like it might come free.">)>
+            <CRLF>)>>
 
 <ROUTINE WORKBENCH-DESC-F (RARG)
     <COND (<EQUAL? .RARG ,M-OBJDESC>
-           <TELL "The enormous [[workbench]] towers above your tiny frame, its surface cluttered with tools and half-finished toys.">
+           <TELL "The enormous [[workbench]] towers above Pip, its surface cluttered with tools and half-finished toys.">
            <COND (<AND <FSET? ,OIL-CAN ,INVISIBLE> <IN? ,OIL-CAN ,WORKSHOP-FLOOR>>
                   <TELL " Beneath it, something small and copper catches the light.">)>
            <CRLF>
@@ -389,7 +396,7 @@ a copper glint, and examining or looking under the bench finds it."
                   <TELL "Pip peers under the workbench.">)
                  (T
                   <TELL "The enormous workbench towers over Pip. Its surface is cluttered with tools and half-finished toys.">)>
-           <COND (<AND <FSET? ,OIL-CAN ,INVISIBLE> <IN? ,OIL-CAN ,WORKSHOP-FLOOR>>
+           <COND (<AND <IN? ,OIL-CAN ,WORKSHOP-FLOOR> <NOT <FSET? ,OIL-CAN ,TOUCHBIT>>>
                   <FCLEAR ,OIL-CAN ,INVISIBLE>
                   <THIS-IS-IT ,OIL-CAN>
                   <TELL " Underneath, in the shadows, sits a tiny copper [[oil can->can]].">)
@@ -425,12 +432,19 @@ a copper glint, and examining or looking under the bench finds it."
            <TELL "Pip's tiny broom has worn bristles and a handle smooth from use. It was one of the first things Tolliver ever made for his apprentice." CR>)>>
 
 <ROUTINE CLOCK-FACE-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? THROUGH>
+           <COND (,STUDY-ACCESS
+                  <TELL "Pip slips behind the open clock and climbs the narrow staircase." CR>
+                  <GOTO ,TOLLIVER-STUDY>)
+                 (T
+                  <TELL "The clock sits flush against the wall. There is no way behind it yet." CR>)>
+           <RTRUE>)
+          (<VERB? EXAMINE>
            <TELL "An old cuckoo clock hangs on the workshop wall. It ticks softly -- a steady, reassuring sound. The hands show it is nearly midnight.">
            <COND (,KEY-FOUND
-                  <TELL " Now that you have the key, the clock seems to tick with more urgency.">)>
+                  <TELL " Now that you have the key, the clock seems to tick with more urgency. Its twin in the loft may know how to release it.">)>
            <COND (,STUDY-ACCESS
-                  <TELL " The clock has swung open, revealing a narrow staircase leading upward.">)>
+                  <TELL " The clock has swung open, revealing a narrow staircase leading [[into the study->in]].">)>
            <TELL CR>)
           (<VERB? LISTEN>
            <TELL "Pip presses an ear to the clock. Tick, tick, tick -- steady as a heartbeat. Beneath it comes another rhythm, deeper and farther away, like a second heart below the workshop." CR>)>>
@@ -440,14 +454,23 @@ a copper glint, and examining or looking under the bench finds it."
            <TELL "A frayed piece of string, once used to hang the workshop key. The ends are chewed -- by small sharp teeth, from the look of it." CR>)>>
 
 <ROUTINE LOFT-LADDER-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? CLIMB CLIMB-FOO CLIMB-UP>
+           <COND (,LADDER-OILED
+                  <TELL "Pip raises the folding ladder and climbs its broad wooden rungs into the loft." CR>
+                  <GOTO ,STORAGE-LOFT>)
+                 (T
+                  <TELL "The ladder will not rise. Its rusty lifting mechanism needs oil first." CR>)>
+           <RTRUE>)
+          (<VERB? OIL> <V-OIL>)
+          (<VERB? EXAMINE>
            <COND (,LADDER-OILED
                   <TELL "A folding wooden ladder with broad, Pip-sized rungs. With its mechanism oiled, it rises smoothly toward the storage loft." CR>)
                   (T
                    <TELL "A folding wooden ladder leads toward the storage loft. Its lifting mechanism is rusted solid -- it will not rise without oil." CR>)>)>>
 
 <ROUTINE LADDER-MECH-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? OIL> <V-OIL>)
+          (<VERB? EXAMINE>
            <COND (,LADDER-OILED
                   <TELL "The iron lifting mechanism is well-oiled now. It moves freely, allowing the loft ladder to rise." CR>)
                  (T
@@ -463,7 +486,8 @@ a copper glint, and examining or looking under the bench finds it."
 ; === TOOL-BENCH OBJECT HANDLERS ===
 
 <ROUTINE BERTRAND-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? WIND> <V-WIND>)
+          (<VERB? EXAMINE>
            <COND (,BERTRAND-WOUND
                   <TELL "Captain Bertrand of the Nutcracker Brigade stands at attention, positively radiating self-importance. His jaw, now fully operational, is clamped in what he probably considers a dignified expression. The way to the countertop is clear." CR>)
                  (T
@@ -487,7 +511,7 @@ a copper glint, and examining or looking under the bench finds it."
 <ROUTINE BERTRAND-KEY-F ()
     <COND (<VERB? EXAMINE>
            <COND (<IN? ,BERTRAND-KEY ,TOOL-BENCH>
-                  <TELL "A tiny brass winding key protrudes from the nutcracker's back. It looks like it would fit perfectly." CR>)
+                  <TELL "A tiny brass winding key protrudes from the nutcracker's back. Its little wings are made for Pip's fingers; with it, Pip could wind the captain awake." CR>)
                   (T
                    <TELL "A tiny brass winding key. It is the exact size for winding a nutcracker -- or any other clockwork toy." CR>)>)>>
 
@@ -595,11 +619,14 @@ a copper glint, and examining or looking under the bench finds it."
            <RTRUE>)>>
 
 <ROUTINE TIN-SOLDIER-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? PLACE-HEART> <V-PLACE-HEART>)
+          (<VERB? EXAMINE>
            <TELL "A brave tin soldier, painted in bright red and blue. There is a spot of rust on his bayonet, but his painted eyes are steady. He stands at attention, as if waiting for orders." CR>)>>
 
 <ROUTINE MUSIC-BOX-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? WIND> <V-WIND>)
+          (<VERB? PLACE-HEART> <V-PLACE-HEART>)
+          (<VERB? EXAMINE>
            <COND (<FSET? ,MUSIC-BOX ,TOUCHBIT>
                   <TELL "A silver music box. Its crank has been turned recently, and the echo of its melody still seems to linger." CR>)
                   (T
@@ -613,13 +640,16 @@ a copper glint, and examining or looking under the bench finds it."
            <TELL CR>)>>
 
 <ROUTINE TOY-BUTTON-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? GIVE-TO> <V-GIVE-TO>)
+          (<VERB? PLACE-HEART> <V-PLACE-HEART>)
+          (<VERB? EXAMINE>
            <TELL "A spare black button, just the right size for a doll's missing eye. It is smooth and slightly warm, as if someone has been holding it." CR>)>>
 
 ; === STORAGE-LOFT OBJECT HANDLERS ===
 
 <ROUTINE OLD-TICK-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? WIND> <V-WIND>)
+          (<VERB? EXAMINE>
            <COND (,OLD-TICK-HEARD
                   <TELL "The old cuckoo clock is awake now. Its hands move steadily, and the little wooden bird peers out from its door with bright painted eyes. It has the air of something very old and very patient." CR>)
                  (T
@@ -629,6 +659,8 @@ a copper glint, and examining or looking under the bench finds it."
                         <OR <EQUAL? ,PRSI ,TOPIC-TOLLIVER>
                             <EQUAL? ,PRSI ,TOLLIVER-COAT>>>
                    <TELL "Old Tick's wooden bird tilts its head. 'The toymaker? Ah. He visited me every night at midnight. Wound me with care, always with that little smile. He said I was his oldest friend. The night he disappeared, he came up here earlier than usual. He was worried -- said the key was losing power, that he needed to mend the heart himself. He took nothing with him. Not his coat. Not his tea. I have not seen him since.'" CR>)
+                  (<AND ,OLD-TICK-HEARD <NOT ,STUDY-ACCESS>>
+                   <TELL "Old Tick's bird leans out. 'A little more winding, Pip. My latch is stiff, and my fox-friend must hear me call. Wind me again when you have earned her trust.'" CR>)
                   (,OLD-TICK-HEARD
                    <TELL "Old Tick's wooden bird emerges. 'The answers you seek are already in your pockets, small one. The key, the friends, the heart -- you have everything you need. Now use it.'" CR>)
                   (T
@@ -644,13 +676,13 @@ a copper glint, and examining or looking under the bench finds it."
            <COND (<FSET? ,TOY-BOX ,OPENBIT>
                   <TELL "A dusty cardboard box labelled 'Broken -- For Repair'. It is open.">
                   <COND (<IN? ,DOLL-ARM ,TOY-BOX>
-                         <TELL " Inside, a porcelain doll arm lies among other broken pieces.">)>
+                         <TELL " Inside, a [[porcelain doll arm->arm]] lies among other broken pieces.">)>
                   <TELL CR>)
                  (T
                   <TELL "A dusty cardboard box labelled 'Broken -- For Repair'. The flaps are tucked shut." CR>)>)
            (<AND <VERB? OPEN>
                  <NOT <FSET? ,TOY-BOX ,OPENBIT>>>
-            <TELL "Pip opens the cardboard box. Inside are broken toy parts: a porcelain doll arm, a wooden wheel, and some springs. Tolliver always meant to fix them." CR>
+            <TELL "Pip opens the cardboard box. Inside are broken toy parts: a [[porcelain doll arm->arm]], a wooden wheel, and some springs. Tolliver always meant to fix them." CR>
             <FSET ,TOY-BOX ,OPENBIT>
             <RTRUE>)
            (<AND <VERB? OPEN>
@@ -659,8 +691,9 @@ a copper glint, and examining or looking under the bench finds it."
             <RTRUE>)>>
 
 <ROUTINE DOLL-ARM-F ()
-    <COND (<VERB? EXAMINE>
-           <TELL "A delicate porcelain doll arm, separated from its owner. The fingers are curled gently, as if reaching for something. There is a matching doll somewhere -- perhaps in need of this arm." CR>)>>
+    <COND (<VERB? PLACE-HEART> <V-PLACE-HEART>)
+          (<VERB? EXAMINE>
+           <TELL "A delicate porcelain doll arm from Tolliver's repair box. The fingers are curled gently, as if reaching for something. He kept even this little broken piece; it was still worth saving." CR>)>>
 
 <ROUTINE TOLLIVER-JOURNAL-F ()
     <COND (<VERB? READ EXAMINE>
@@ -677,7 +710,10 @@ a copper glint, and examining or looking under the bench finds it."
 
 <ROUTINE FOOTPRINTS-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "Tiny fox footprints in the snow -- unmistakably toy-sized. They lead east through the alley, toward the clock square. Someone small and fast came this way, and not long ago." CR>)>>
+           <COND (<EQUAL? ,HERE ,MAILBOX-CORNER>
+                  <TELL "The toy-sized fox footprints turn back [[west]] to the clock square. From there, they lead south toward the scrap-yard." CR>)
+                 (T
+                  <TELL "Tiny fox footprints in the snow -- unmistakably toy-sized. They lead [[east]] through the alley, toward the clock square. Someone small and fast came this way, and not long ago." CR>)>)>>
 
 <ROUTINE STREETLAMP-F ()
     <COND (<VERB? EXAMINE>
@@ -701,7 +737,8 @@ a copper glint, and examining or looking under the bench finds it."
                    <TELL "The giant clock tower dominates the square. Its face shows the hours until dawn -- each tick of its great hand a reminder that time is running out. A brass winding mechanism sits at the base, too high for Pip to reach alone." CR>)>)>>
 
 <ROUTINE CLOCK-WINDING-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? WIND> <V-WIND>)
+          (<VERB? EXAMINE>
            <COND (,TOWER-WOUND
                   <TELL "The brass winding mechanism has been turned. The gears inside move with a slow, deliberate rhythm." CR>)
                   (T
@@ -730,9 +767,9 @@ a copper glint, and examining or looking under the bench finds it."
            <RTRUE>)
           (<VERB? ASK TELL>
            <COND (<EQUAL? ,PRSI ,NUTMEG>
-                  <TELL "The mailbox shivers. Its flap moves: 'F-f-fox? Yes. Passed this way. Heading to the scrap-yard, east of the square. She looked... cold. Cold and lonely.'" CR>)
+                  <TELL "The mailbox shivers. Its flap moves: 'F-f-fox? Yes. Passed this way. Heading to the scrap-yard, south of the square. She looked... cold. Cold and lonely.'" CR>)
                  (<EQUAL? ,PRSI ,FOOTPRINTS>
-                  <TELL "The mailbox trembles. 'Tracks in the snow. Fox tracks. She went east. Poor dear. Nobody writes her letters.'" CR>)
+                  <TELL "The mailbox trembles. 'Tracks in the snow. Fox tracks. Back west to the square, then south to the scrap-yard. Poor dear. Nobody writes her letters.'" CR>)
                  (T
                   <TELL "The mailbox shivers but cannot form words. It seems to only know about the things it has seen from its corner." CR>)>)>>
 
@@ -744,7 +781,8 @@ a copper glint, and examining or looking under the bench finds it."
            <TELL "A crumpled envelope. Inside is a letter in Tolliver's handwriting: 'My dear Pip -- The heart is failing. I must go and mend it myself. Do not worry. Take care of the toys while I am gone. Wind the key at midnight if I do not return. I am proud of you, little apprentice. -- Grandfather Tolliver.' The letter is dated three days ago." CR>)>>
 
 <ROUTINE SCARF-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? GIVE-TO> <V-GIVE-TO>)
+          (<VERB? EXAMINE>
            <TELL "A red wool scarf, dropped in the snow. It is well-made and still warm -- whoever lost it cannot have gone far. It looks like it would fit a small toy perfectly." CR>)>>
 
 <ROUTINE MAILBOX-LETTERS-F ()
@@ -758,7 +796,7 @@ a copper glint, and examining or looking under the bench finds it."
            <COND (,CART-MOVED
                   <TELL "The scrap cart has rolled aside, its bed still full of rescued toys. It rests peacefully now, its work done for the night." CR>)
                  (T
-                   <TELL "A scrap-metal cart on rusted wheels. It creaks along a track, collecting broken toys into its bed. But look closer: someone has carefully repaired the cart's wheels, oiled its axles. This cart is not destroying toys. It is rescuing them." CR>)>)
+                   <TELL "A scrap-metal cart on rusted wheels, its open bed edged with low iron rails. It creaks along a track, collecting broken toys. But look closer: someone has carefully repaired the cart's wheels, oiled its axles. This cart is not destroying toys. It is rescuing them. A [[headless porcelain doll->headless doll]] lies in its bed, her hands folded in her lap." CR>)>)
           (<VERB? PUSH>
            <COND (,CART-MOVED
                   <TELL "The cart is already out of the way." CR>)
@@ -775,7 +813,8 @@ a copper glint, and examining or looking under the bench finds it."
            <TELL "A headless porcelain doll in a torn dress. Despite her state, someone has folded her hands neatly in her lap. She looks peaceful, somehow -- as if waiting to be made whole again." CR>)>>
 
 <ROUTINE DOLL-HEAD-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? GIVE-TO> <V-GIVE-TO>)
+          (<VERB? EXAMINE>
            <TELL "A porcelain doll head with painted blue eyes and rosebud lips. It matches the headless doll in the cart. They were clearly once part of the same toy." CR>)>>
 
 <ROUTINE TOY-HORSE-F ()
@@ -795,17 +834,21 @@ a copper glint, and examining or looking under the bench finds it."
     <COND (<VERB? EXAMINE>
            <COND (<NOT <IN? ,NUTMEG ,FOX-DEN>>
                   <TELL "Nutmeg is not here. Her den feels empty -- just rags and a dying candle." CR>)
-                 (<G? ,NUTMEG-TRUST 2>
-                  <TELL "Nutmeg, the fox toy. Her patchy orange fur and mismatched button eyes give her a lopsided, vulnerable look. She watches Pip with something close to trust now. The workshop key is no longer around her neck." CR>)
                  (<EQUAL? ,NUTMEG-TRUST -1>
-                  <TELL "Nutmeg is curled in the furthest corner of her den, her back to Pip. Her shoulders tremble slightly. The key is still around her neck, but she will not let Pip near it." CR>)
+                  <TELL "Nutmeg is curled in the furthest corner of her den, her back to Pip. Her shoulders tremble slightly.">
+                  <COND (<NOT ,KEY-FOUND> <TELL " The key is still around her neck, but she will not let Pip near it.">)>
+                  <TELL CR>)
+                 (,KEY-FOUND
+                  <TELL "Nutmeg, the fox toy. Her patchy orange fur and mismatched button eyes give her a lopsided, vulnerable look. She watches Pip with something close to trust now. The workshop key is no longer around her neck." CR>)
                  (T
                   <TELL "A fox-shaped toy with patchy orange fur. Her button eyes watch Pip warily. The workshop key -- the one from the empty hook -- hangs from a string around her neck. It ticks faintly, its magic growing weaker." CR>)>)
           (<VERB? ATTACK>
            <COND (<EQUAL? ,NUTMEG-TRUST -1>
                   <TELL "Pip has already hurt her enough. She flinches at Pip's movement but does not fight back." CR>)
                  (T
-                  <TELL "Nutmeg flinches. 'I knew it,' she whispers. 'You are just like the others.' She retreats to the deepest corner of the den, key clutched tight to her chest. She will not look at Pip anymore." CR>
+                  <TELL "Nutmeg flinches. 'I knew it,' she whispers. 'You are just like the others.' She retreats to the deepest corner of the den">
+                  <COND (<NOT ,KEY-FOUND> <TELL ", key clutched tight to her chest">)>
+                  <TELL ". She will not look at Pip anymore." CR>
                   <SETG NUTMEG-TRUST -1>)>
            <RTRUE>)
           (<VERB? ASK TELL>
@@ -813,8 +856,8 @@ a copper glint, and examining or looking under the bench finds it."
                   <TELL "Nutmeg does not answer. She refuses to even look at you." CR>)
                  (<OR <EQUAL? ,PRSI ,WORKSHOP-KEY>
                       <EQUAL? ,PRSI ,TOPIC-KEY>>
-                  <COND (<G? ,NUTMEG-TRUST 2>
-                         <TELL "Nutmeg looks at the empty hook where the key used to hang. 'It belongs back there, does it not? With the others. I... I was wrong to take it.' She seems lighter now, having said it." CR>)
+                  <COND (,KEY-FOUND
+                         <TELL "Nutmeg looks at the key in Pip's keeping. 'It belongs with the others. I... I was wrong to take it.' She seems lighter now, having said it." CR>)
                         (<G? ,NUTMEG-TRUST 0>
                          <TELL "Nutmeg hugs the key closer. 'I know it is not mine. But it is the only thing that has ever ticked for me. Do you know what that is like? Being a toy nobody wanted?'" CR>)
                         (T
@@ -824,7 +867,15 @@ a copper glint, and examining or looking under the bench finds it."
                    <COND (<G? ,NUTMEG-TRUST 1>
                           <TELL "Nutmeg's ears droop. 'The old man... he fixed me once. When my stitching came loose. He did not have to -- nobody asked him. He just did it. And then he stopped coming. I thought he had forgotten about me. Like everyone else.' A tear -- a tiny bead of condensation -- rolls down her fabric cheek." CR>)
                          (T
-                          <TELL "'The toymaker?' She looks away. 'He was kind. Too kind. He tried to fix everything. And look what happened.' She will not say more -- not yet." CR>)>)>)>>
+                          <TELL "'The toymaker?' She looks away. 'He was kind. Too kind. He tried to fix everything. And look what happened.' She will not say more -- not yet." CR>)>)
+                 (<AND ,KEY-FOUND <NOT ,STUDY-ACCESS>>
+                  <TELL "Nutmeg touches Pip's sleeve. 'The old clock in the loft -- wind him again. His bird can call me to the latch. I will meet you there.'" CR>)
+                 (,KEY-FOUND
+                  <TELL "'You kept your promise,' Nutmeg says. 'I am coming with you. No more waiting alone.'" CR>)
+                 (<G? ,NUTMEG-TRUST 0>
+                  <TELL "Nutmeg uncurls a little. 'You can ask me for the key now,' she says. 'Or about the toymaker. I think I can talk about him.'" CR>)
+                 (T
+                  <TELL "'Nutmeg,' she says at last. 'That is my name. Please do not take the ticking away. It is cold enough here already.'" CR>)>)>>
 
 <ROUTINE WORKSHOP-KEY-F ()
     <COND (<VERB? EXAMINE>
@@ -862,7 +913,8 @@ a copper glint, and examining or looking under the bench finds it."
            <TELL "Pip considers blowing it out, but stops. It is the only warmth in this cold little den." CR>)>>
 
 <ROUTINE STRING-BALL-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? GIVE-TO> <V-GIVE-TO>)
+          (<VERB? EXAMINE>
            <TELL "A ball of red yarn string. It is slightly frayed, as if someone has been playing with it. A fox, perhaps." CR>)>>
 
 ; === TOLLIVER-STUDY OBJECT HANDLERS ===
@@ -911,7 +963,8 @@ a copper glint, and examining or looking under the bench finds it."
 ; === WORKSHOP-HEART OBJECT HANDLERS ===
 
 <ROUTINE HEART-MECH-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? WIND> <V-WIND>)
+          (<VERB? EXAMINE>
            <COND (,KEY-WOUND
                   <TELL "The workshop heart is turning now -- slowly, but steadily. Its brass gears catch the candlelight. A deep, resonant ticking fills the chamber. It sounds like hope.">
                   <COND (<G? ,COMPANION-COUNT 0>
@@ -988,7 +1041,9 @@ a copper glint, and examining or looking under the bench finds it."
                  (<EQUAL? ,NUTMEG-TRUST -1>
                   <TELL "Nutmeg flinches away from your outstretched hand. She does not want anything from you now." CR>)
                  (T
-                  <TELL "Nutmeg stares at the red scarf in your hand. 'For... for me?' She reaches out with a trembling paw and touches the wool. 'It is warm. Nobody ever gave me anything warm before.' Her voice cracks on the last word. She wraps the scarf around her neck, where the key used to hang. 'Thank you,' she whispers." CR>
+                  <TELL "Nutmeg stares at the red scarf in your hand. 'For... for me?' She reaches out with a trembling paw and touches the wool. 'It is warm. Nobody ever gave me anything warm before.' Her voice cracks on the last word. She wraps the scarf around her neck">
+                  <COND (<NOT ,KEY-FOUND> <TELL ", beside the little ticking key">)>
+                  <TELL ". 'Thank you,' she whispers." CR>
                   <COND (<EQUAL? ,NUTMEG-TRUST 0>
                          <SETG NUTMEG-TRUST 1>)
                         (T
@@ -1009,13 +1064,15 @@ a copper glint, and examining or looking under the bench finds it."
                   <MOVE ,STRING-BALL ,NUTMEG>)>
            <RTRUE>)
           (<AND <EQUAL? ,PRSO ,DOLL-HEAD>
-                <EQUAL? ,PRSI ,SCRAP-CART>>
+                <OR <EQUAL? ,PRSI ,SCRAP-CART>
+                    <EQUAL? ,PRSI ,HEADLESS-DOLL>>>
            <COND (<NOT <EQUAL? ,HERE ,SCRAP-YARD>>
                   <TELL "The scrap cart is not here." CR>)
                  (,CART-MOVED
                   <TELL "The cart has already moved aside. Its work here is done." CR>)
                  (T
-           <TELL "Pip holds up the porcelain doll head. The cart pauses. A mechanical arm -- surprisingly gentle -- extends and takes the head from Pip's hands. It places the head beside the headless doll in its bed. For a moment, the cart is perfectly still. Then it rumbles -- a low, soft sound, like a purr -- and rolls aside, revealing the iron gate to the east." CR>
+           <TELL "Pip holds up the porcelain doll head. The cart pauses. A mechanical arm -- surprisingly gentle -- extends and takes the head from Pip's hands. It places the head beside the headless doll in its bed. For a moment, the cart is perfectly still. Then it rumbles -- a low, soft sound, like a purr -- and rolls aside, revealing the iron gate to the [[east]]." CR>
+                  <MOVE ,DOLL-HEAD ,SCRAP-CART>
                   <SETG CART-MOVED T>
                   <SETG CART-HELPED T>
                   <SCORE-UPD 5>)>
@@ -1033,34 +1090,43 @@ a copper glint, and examining or looking under the bench finds it."
 <ROUTINE V-PLACE-HEART ()
     <COND (<NOT <EQUAL? ,HERE ,WORKSHOP-HEART>>
            <TELL "There is no reason to place that here." CR>)
+          (,GAME-WON
+           <TELL "The heart is already beating strongly. There is nothing more to do." CR>)
           (<NOT ,KEY-WOUND>
            <TELL "The heart is not yet wound. Pip must wind it with the key first." CR>)
+          (<NOT <IN? ,PRSO ,WINNER>>
+           <COND (<IN? ,PRSO ,WORKSHOP-HEART>
+                  <TELL "That companion is already lending its strength to the heart." CR>)
+                 (T
+                  <TELL "Pip must carry that companion to the heart first." CR>)>)
           (<EQUAL? ,PRSO ,TIN-SOLDIER>
            <TELL "Pip places the tin soldier beside the heart mechanism. He snaps to attention -- and the heart ticks louder, stronger. His painted eyes seem to brighten. 'Standing guard,' he seems to say, though his tin mouth never moves." CR>
            <SETG COMPANION-COUNT <+ ,COMPANION-COUNT 1>>
            <SCORE-UPD 10>
            <MOVE ,TIN-SOLDIER ,WORKSHOP-HEART>
+           <FCLEAR ,TIN-SOLDIER ,TAKEBIT>
            <CHECK-ENDING>)
           (<EQUAL? ,PRSO ,MUSIC-BOX>
            <TELL "Pip places the silver music box near the heart. Its crank turns by itself, and the lullaby fills the chamber. The gears respond -- their rhythm shifts to match the melody." CR>
            <SETG COMPANION-COUNT <+ ,COMPANION-COUNT 1>>
            <SCORE-UPD 10>
            <MOVE ,MUSIC-BOX ,WORKSHOP-HEART>
+           <FCLEAR ,MUSIC-BOX ,TAKEBIT>
            <CHECK-ENDING>)
           (<EQUAL? ,PRSO ,DOLL-ARM>
            <TELL "Pip places the doll arm gently beside the heart. It is a small gesture, but the heart knows -- every mended toy, every kind act, feeds the magic." CR>
            <SETG COMPANION-COUNT <+ ,COMPANION-COUNT 1>>
            <SCORE-UPD 10>
            <MOVE ,DOLL-ARM ,WORKSHOP-HEART>
+           <FCLEAR ,DOLL-ARM ,TAKEBIT>
            <CHECK-ENDING>)
           (<EQUAL? ,PRSO ,BUTTON>
            <TELL "Pip places the spare button at the heart's base. A tiny offering -- but the heart remembers everything." CR>
            <SETG COMPANION-COUNT <+ ,COMPANION-COUNT 1>>
            <SCORE-UPD 10>
            <MOVE ,BUTTON ,WORKSHOP-HEART>
+           <FCLEAR ,BUTTON ,TAKEBIT>
            <CHECK-ENDING>)
-          (,GAME-WON
-           <TELL "The heart is already beating strongly. There is nothing more to do." CR>)
           (T
            <TELL "Placing that here would not help the heart." CR>)>>
 
@@ -1070,12 +1136,6 @@ a copper glint, and examining or looking under the bench finds it."
                 <NOT <EQUAL? ,NUTMEG-TRUST -1>>>
            <TELL " Nutmeg pads forward from the shadows. 'Let me help,' she says quietly. 'I have been alone long enough. I would like to be part of something.' She curls up at the base of the heart mechanism, her patchy fur glowing faintly in its light." CR>
            <SETG NUTMEG-SAVED T>
-           <SETG COMPANION-COUNT <+ ,COMPANION-COUNT 1>>
-           <SCORE-UPD 10>)>
-    <COND (<AND ,BERTRAND-WOUND
-                ,BERTRAND-POLITE
-                <NOT ,NUTMEG-TRUST -1>>
-           <TELL " Captain Bertrand marches into the chamber. 'The Nutcracker Brigade never abandons its post,' he declares. He takes up position beside the heart, ramrod straight." CR>
            <SETG COMPANION-COUNT <+ ,COMPANION-COUNT 1>>
            <SCORE-UPD 10>)>
     <COND (<G? ,COMPANION-COUNT 2>

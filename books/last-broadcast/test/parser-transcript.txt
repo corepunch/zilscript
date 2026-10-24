@@ -1,0 +1,508 @@
+
+1> examine station clock
+The station clock is running: 9:35. Its spring movement does not depend on the generator. At 9:17 you heard the appeal begin; at 9:21 Ruth found Vane. You wrote both times in your casebook.
+
+
+%SCORE% { "score": 0, "moves": 1, "max": 0 }
+
+2> examine casebook
+The casebook separates heard sound from seen people. Known bounds: Ruth left Vane alive at 9:16, and found him at 9:21. The appeal began at 9:17. Next useful question:
+The office clock may date a power fault. Bring the generator room's voltage chart to it and compare them.
+
+
+%SCORE% { "score": 0, "moves": 2, "max": 0 }
+
+3> north
+Warm varnish smells faintly of fish. An appeal board faces the office; studio and kitchen flank the hall. The bunkroom is upstairs; the landing is behind you.
+
+
+%SCORE% { "score": 0, "moves": 3, "max": 0 }
+
+4> read board
+The appeal board lists tonight's order: 9:12 power test; 9:16 Ruth leaves office; 9:17 Ada speaks; 9:21 Ruth discovers Vane. Ruth wrote the last entry in a hand no longer fit for broadcasting. The two public times agree with your casebook.
+
+
+%SCORE% { "score": 0, "moves": 4, "max": 0 }
+
+5> north
+The body sits with its back to the light. An office clock hangs above the hatch. The hatch is bolted shut over the route below. The hall lies south.
+
+
+%SCORE% { "score": 0, "moves": 5, "max": 0 }
+
+6> examine body
+One blow behind the ear. No struggle, no long chase. The body has stiffened in the attitude of someone signing away another person's future. A crescent of brass dust marks the wound. It may fit something from the cutting room; a physical comparison would be better than speculation. The office clock is a clock, not a coroner.
+
+
+%SCORE% { "score": 0, "moves": 6, "max": 0 }
+
+7> examine office clock
+The office clock reads 9:12. Beneath it: SYNCHRONOUS MOVEMENT -- RESTART BY HAND AFTER UNDERVOLTAGE. The winding knob is innocent; this clock never had a spring. Compare it with the voltage chart from the generator room.
+
+
+%SCORE% { "score": 0, "moves": 7, "max": 0 }
+
+8> down
+The hatch is bolted shut; its square spindle takes a spanner.
+
+
+%SCORE% { "score": 0, "moves": 8, "max": 0 }
+
+9> south
+Warm varnish smells faintly of fish. An appeal board faces the office; studio and kitchen flank the hall. The bunkroom is upstairs; the landing is behind you.
+
+
+%SCORE% { "score": 0, "moves": 9, "max": 0 }
+
+10> east
+The felt smells of old tobacco. Ruth stands beside a microphone, keeping her voice low for a machine that is no longer listening. The hall is west, the control room east.
+
+
+%SCORE% { "score": 0, "moves": 10, "max": 0 }
+
+11> ask ruth about microphone
+'Ada asked me to keep the lamp on while she spoke. I stayed here until she began. Then I cut my hand on a glass and went to Edith. I thought the red meant live.' Ruth looks at the plate below the microphone. 'How thoroughly one can read the wrong word.'
+
+
+%SCORE% { "score": 0, "moves": 10, "max": 0 }
+
+12> ask ruth about vane
+'At 9:16 I left him alive in the office. Edith saw me enter the kitchen straight away. At 9:21 I left her there and found him dead. He owed us wages. That doesn't make what happened a pay rise.'
+
+
+%SCORE% { "score": 0, "moves": 10, "max": 0 }
+
+13> east
+The gramophone stands under a green-shaded light. A routing switch occupies the place of honour. The studio is west, the cutting room north, the workshop south.
+
+
+%SCORE% { "score": 0, "moves": 11, "max": 0 }
+
+14> examine switch
+The routing switch selects MIC or DISC independently of the microphone's red heater lamp. It was found at DISC. A wax dab under its guard records that position; turning it now would tell you nothing about then. The gramophone supplies the second feed.
+
+
+%SCORE% { "score": 0, "moves": 12, "max": 0 }
+
+15> north
+A curl of lacquer has dried beside the cutter. Its register rests on a sloping stand. The control room lies south; the cooler archive is east.
+
+
+%SCORE% { "score": 0, "moves": 13, "max": 0 }
+
+16> examine cutter
+Inside its open cover, a loose brass counterweight rests in a cradle.
+The cutter engraves lacquer on an aluminium base. Its inspection cover lifts without a tool. The register records every cut by edge number and duration.
+
+
+%SCORE% { "score": 0, "moves": 14, "max": 0 }
+
+17> take counterweight
+Taken.
+
+
+%SCORE% { "score": 0, "moves": 15, "max": 0 }
+
+18> read register
+The register has two entries: 8:10, R. Bell, B03, two-minute microphone test, destroyed; 8:40, A. Mercer, A17, six-minute appeal, completed. Both were cut before the gale reached the aerial. Compare the actual disc with this register after hearing it.
+
+
+%SCORE% { "score": 0, "moves": 16, "max": 0 }
+
+19> east
+Cold paper gives the room the smell of a closed church. Only the cutting room leads out.
+A cardboard sleeve lies within reach.
+A wage ledger lies here.
+
+
+%SCORE% { "score": 0, "moves": 17, "max": 0 }
+
+20> examine sleeve
+A stiff sleeve, its flap folded tight. Someone has written REHEARSAL across it, without the usual contempt for the word. Open it to inspect the contents.
+
+
+%SCORE% { "score": 0, "moves": 18, "max": 0 }
+
+21> open sleeve
+Opening the cardboard sleeve reveals a lacquer disc.
+
+
+%SCORE% { "score": 0, "moves": 19, "max": 0 }
+
+22> examine disc
+An aluminium-based lacquer disc, sixteen inches across. Edge number A17; one continuous band, about six minutes at the marked speed. It requires the control-room gramophone and a playback stylus. The edge is chipped; the groove is sound.
+
+
+%SCORE% { "score": 0, "moves": 20, "max": 0 }
+
+23> take disc
+Taken.
+
+
+%SCORE% { "score": 0, "moves": 21, "max": 0 }
+
+24> read ledger
+(Taken)
+The wage ledger records eleven years of deductions for transmitter shares that were never issued. Mercer, H.: deceased; balance carried forward. Ada's father died still paying for a station he did not own. Vane has marked the accounts for destruction after tomorrow's sale. Show the ledger to Ada, rather than inventing her reply.
+
+
+%SCORE% { "score": 0, "moves": 22, "max": 0 }
+
+25> take ledger
+You already have that!
+
+
+%SCORE% { "score": 0, "moves": 23, "max": 0 }
+
+26> west
+A curl of lacquer has dried beside the cutter. Its register rests on a sloping stand. The control room lies south; the cooler archive is east.
+
+
+%SCORE% { "score": 0, "moves": 24, "max": 0 }
+
+27> south
+The gramophone stands under a green-shaded light. A routing switch occupies the place of honour. The studio is west, the cutting room north, the workshop south.
+
+
+%SCORE% { "score": 0, "moves": 25, "max": 0 }
+
+28> south
+The air tastes of solder. The control room is north; the generator room hums below.
+A playback stylus lies here.
+A service spanner lies here.
+
+
+%SCORE% { "score": 0, "moves": 26, "max": 0 }
+
+29> take stylus
+Taken.
+
+
+%SCORE% { "score": 0, "moves": 27, "max": 0 }
+
+30> take spanner
+Taken.
+
+
+%SCORE% { "score": 0, "moves": 28, "max": 0 }
+
+31> down
+The generator shudders on rubber feet. The workshop is above; a cable passage runs north beneath the office.
+A voltage chart lies here.
+
+
+%SCORE% { "score": 0, "moves": 29, "max": 0 }
+
+32> read chart
+(Taken)
+The voltage chart records a brief fall below clock-running voltage at 9:12 and normal supply at 9:13. Every later minute is steady. This is a lighting fault, five minutes before the appeal began. Carry the chart to the office and compare it with the clock.
+
+
+%SCORE% { "score": 0, "moves": 30, "max": 0 }
+
+33> take chart
+You already have that!
+
+
+%SCORE% { "score": 0, "moves": 31, "max": 0 }
+
+34> north
+Hot cable rubber cuts through the smell of damp stone. A stain lies beneath the hatch. The hatch is shut against the office above. The generator room lies south.
+
+
+%SCORE% { "score": 0, "moves": 32, "max": 0 }
+
+35> examine stain
+The stain is a heel print in diluted blood, pointing away from the office hatch. One square repair has been fixed diagonally across its edge, making a distinctive diamond interruption. Examine the staff boots, then bring a pair here for comparison.
+
+
+%SCORE% { "score": 0, "moves": 33, "max": 0 }
+
+36> use spanner on hatch
+The bolt turns. You lift the hatch on its counterbalanced hinges. Warm air rises through a route that never enters the studio.
+
+
+%SCORE% { "score": 0, "moves": 34, "max": 0 }
+
+37> up
+The body sits with its back to the light. An office clock hangs above the hatch. The hatch stands open to the passage below. The hall lies south.
+
+
+%SCORE% { "score": 0, "moves": 35, "max": 0 }
+
+38> compare clock with chart
+9:12 aligns exactly: voltage fell, the synchronous office clock stalled, and nobody restarted it. The stopped hands date an electrical fault, not a killing. The murder belongs between Ruth leaving Vane alive at 9:16 and finding him at 9:21. You rule a new interval in the casebook.
+
+
+%SCORE% { "score": 0, "moves": 36, "max": 0 }
+
+39> compare body with counterweight
+The crescent on the brass rim fits the wound. A tiny broken notch matches the missing interruption in the bruise; blood remains behind the weight's retaining lug. This is the weapon, carried from the cutting room and put back after the blow. You preserve it in the casebook as a measurement, not a flourish.
+
+
+%SCORE% { "score": 0, "moves": 37, "max": 0 }
+
+40> south
+Warm varnish smells faintly of fish. An appeal board faces the office; studio and kitchen flank the hall. The bunkroom is upstairs; the landing is behind you.
+
+
+%SCORE% { "score": 0, "moves": 38, "max": 0 }
+
+41> up
+Soap and wet wool. Ada sits rigid beneath a maintenance roster. The hall is downstairs; the covered walk goes west to the aerial platform.
+A pair of leather boots stands here.
+
+
+%SCORE% { "score": 0, "moves": 39, "max": 0 }
+
+42> examine boots
+Ada's leather boots, offered without grace. The left heel has a square leather repair set diagonally across the edge. Rust-red moisture remains in its stitching. The corresponding print, if any, would be below the office. You may carry them for comparison.
+
+
+%SCORE% { "score": 0, "moves": 40, "max": 0 }
+
+43> take boots
+Taken.
+
+
+%SCORE% { "score": 0, "moves": 41, "max": 0 }
+
+44> read roster
+The maintenance roster assigns Ada the 9:15 inspection beneath the office. The service hatch has a square spindle; the workshop spanner operates it from either side. Ada signed the spanner back at 9:20. Ruth and Edith are assigned to the kitchen, Tomas to the landline. This is duty, not proof of obedience.
+
+
+%SCORE% { "score": 0, "moves": 42, "max": 0 }
+
+45> show ledger to ada
+Ada touches her father's name. 'He promised shares instead of wages. Then sold the station as though none of us had paid for it. Tomorrow he meant to burn the accounts. He told me so at nine-fifteen.'
+Her anger is unmistakable; its existence proves no murder. But the ledger explains why a prepared recording might become more than insurance against a failed microphone. 'Do not let them call him a generous man,' she says.
+
+
+%SCORE% { "score": 0, "moves": 43, "max": 0 }
+
+46> down
+Warm varnish smells faintly of fish. An appeal board faces the office; studio and kitchen flank the hall. The bunkroom is upstairs; the landing is behind you.
+
+
+%SCORE% { "score": 0, "moves": 44, "max": 0 }
+
+47> north
+The body sits with its back to the light. An office clock hangs above the hatch. The hatch stands open to the passage below. The hall lies south.
+
+
+%SCORE% { "score": 0, "moves": 45, "max": 0 }
+
+48> down
+Hot cable rubber cuts through the smell of damp stone. A stain lies beneath the hatch. The open hatch admits light from the office above. The generator room lies south.
+
+
+%SCORE% { "score": 0, "moves": 46, "max": 0 }
+
+49> compare stain with boots
+The square heel repair fills the diamond interruption exactly. Blood is caught inside the repair stitching, not painted on the sole: these boots walked through wet blood away from Vane's office. The matching smear on the hatch is above them. Ada signed for that maintenance route during the murder interval.
+
+
+%SCORE% { "score": 0, "moves": 47, "max": 0 }
+
+50> south
+The generator shudders on rubber feet. The workshop is above; a cable passage runs north beneath the office.
+
+
+%SCORE% { "score": 0, "moves": 48, "max": 0 }
+
+51> up
+The air tastes of solder. The control room is north; the generator room hums below.
+
+
+%SCORE% { "score": 0, "moves": 49, "max": 0 }
+
+52> north
+The gramophone stands under a green-shaded light. A routing switch occupies the place of honour. The studio is west, the cutting room north, the workshop south.
+
+
+%SCORE% { "score": 0, "moves": 50, "max": 0 }
+
+53> use stylus on gramophone
+You fit the sapphire stylus to the pickup. It remains mounted on the gramophone until you take it again. The gramophone is ready for the archive disc.
+
+
+%SCORE% { "score": 0, "moves": 51, "max": 0 }
+
+54> put disc in gramophone
+Done.
+
+
+%SCORE% { "score": 0, "moves": 52, "max": 0 }
+
+55> play gramophone
+The disc turns. Ada's voice asks the mainland for help. A gull coughs twice; she says, 'Even this old island can learn to speak.'
+You heard precisely that cough and sentence at 9:17. A later stutter repeats the first syllable with mechanical patience. This is the appeal you heard, preserved before it was supposedly spoken live.
+At the centre, a pencilled timing mark sets the start at 9:17. Six minutes would carry the voice past 9:22. Ruth in the studio may recognise the rehearsal; the cutting register can authenticate its origin.
+
+
+%SCORE% { "score": 0, "moves": 53, "max": 0 }
+
+56> take disc
+Taken.
+
+
+%SCORE% { "score": 0, "moves": 54, "max": 0 }
+
+57> north
+A curl of lacquer has dried beside the cutter. Its register rests on a sloping stand. The control room lies south; the cooler archive is east.
+
+
+%SCORE% { "score": 0, "moves": 55, "max": 0 }
+
+58> compare register with disc
+A17, six minutes, Ada Mercer, 8:40. Number, duration and the gull cough all agree. Ruth's two-minute test cannot be this disc. Ada prepared a complete substitute for her presence before the appeal began. The register does not prove who started it; that needs the route and witnesses.
+
+
+%SCORE% { "score": 0, "moves": 56, "max": 0 }
+
+59> south
+The gramophone stands under a green-shaded light. A routing switch occupies the place of honour. The studio is west, the cutting room north, the workshop south.
+The gramophone contains:
+  A playback stylus
+
+
+%SCORE% { "score": 0, "moves": 57, "max": 0 }
+
+60> west
+The felt smells of old tobacco. Ruth stands beside a microphone, keeping her voice low for a machine that is no longer listening. The hall is west, the control room east.
+
+
+%SCORE% { "score": 0, "moves": 58, "max": 0 }
+
+61> show disc to ruth
+Ruth repeats the gull cough from memory, then laughs once without pleasure. 'The rehearsal. I was in the cutting room at 8:40. Ada recorded all six minutes. She told me to leave the microphone heater on tonight, and I thought that meant she was live. Just before 9:16 I cut my hand, went to Edith, and stayed with her until 9:21. Ada did not need me to lie. She needed me to misunderstand.'
+The tiny glass cut is still visible. You have both a recording witness and a medical witness to test.
+
+
+%SCORE% { "score": 0, "moves": 59, "max": 0 }
+
+62> west
+Warm varnish smells faintly of fish. An appeal board faces the office; studio and kitchen flank the hall. The bunkroom is upstairs; the landing is behind you.
+
+
+%SCORE% { "score": 0, "moves": 60, "max": 0 }
+
+63> west
+Steam has softened the edges of everything. Edith sits at the scrubbed end of the table. The hall lies east; the telegraph room west.
+A medical bag rests here.
+
+
+%SCORE% { "score": 0, "moves": 61, "max": 0 }
+
+64> open bag
+Opening the medical bag reveals a bloodied dressing.
+
+
+%SCORE% { "score": 0, "moves": 62, "max": 0 }
+
+65> examine dressing
+The bloodied dressing bears the time 9:17 and initials R.B. in Edith's tidy hand. Three tiny glass fragments adhere to it. A surface cut, not a head wound. Show it to Edith and ask whose blood required the discretion.
+
+
+%SCORE% { "score": 0, "moves": 63, "max": 0 }
+
+66> take dressing
+Taken.
+
+
+%SCORE% { "score": 0, "moves": 64, "max": 0 }
+
+67> show dressing to edith
+'Ruth Bell. Three fragments of glass, here, here and here.' Edith points without touching. 'She entered at 9:16; I dated the dressing 9:17 while the appeal began. She sat with me until 9:21. We can account for one another throughout the interval. I concealed a patient's name, not Vane's death.'
+The matching little cut on Ruth's hand explains the blood. It does not match the blunt head wound.
+
+
+%SCORE% { "score": 0, "moves": 65, "max": 0 }
+
+68> west
+The telegraph clicks into a silence its operator seems unwilling to occupy. The kitchen is east. An iron stair reaches the aerial platform.
+A telegraph receipt lies here.
+
+
+%SCORE% { "score": 0, "moves": 66, "max": 0 }
+
+69> read receipt
+(Taken)
+The telegraph receipt carries mainland challenges and Tomas's correct returns at every minute from 9:16 through 9:22. The far-end stamps are intact. Between them, an outgoing message asks a bookmaker for another week. Show it to Tomas; the shame and the alibi are on the same strip.
+
+
+%SCORE% { "score": 0, "moves": 67, "max": 0 }
+
+70> take receipt
+You already have that!
+
+
+%SCORE% { "score": 0, "moves": 68, "max": 0 }
+
+71> show receipt to tomas
+Tomas turns the receipt over. 'A bookmaker. Forty-seven pounds. Vane was going to tell my mother; you may think that funny if you have not met her.'
+The mainland's unpredictable challenges required his hand at the key every minute, 9:16 to 9:22. No interval remains for the office journey. He has hidden a debt, not a departure.
+
+
+%SCORE% { "score": 0, "moves": 69, "max": 0 }
+
+72> accuse tomas
+Tomas concealed a debt, but the mainland challenged his telegraph hand throughout 9:16-9:22. Your theory requires him both at the key and in the office. The accusation fails without costing you evidence; continue the investigation.
+
+
+%SCORE% { "score": 0, "moves": 70, "max": 0 }
+
+73> up
+Rain beads along the aerial. A signal lamp makes a small, brave green circle on the wet iron. The telegraph room is below; a covered walk leads east to the bunkroom.
+
+
+%SCORE% { "score": 0, "moves": 71, "max": 0 }
+
+74> examine aerial
+The aerial sings through the rain. The gulls have left. At 8:40 they were coughing above the cutting-room ventilator; you heard them when you arrived. A voice recorded then would carry fair weather into a storm.
+
+
+%SCORE% { "score": 0, "moves": 72, "max": 0 }
+
+75> examine signal lamp
+The green signal lamp follows the transmitter carrier. It cannot distinguish a live voice from a record, or truth from a man being paid to read it. From here the studio's red lamp is invisible: no outside witness could have seen it.
+
+
+%SCORE% { "score": 0, "moves": 73, "max": 0 }
+
+76> east
+Soap and wet wool. Ada sits rigid beneath a maintenance roster. The hall is downstairs; the covered walk goes west to the aerial platform.
+
+
+%SCORE% { "score": 0, "moves": 74, "max": 0 }
+
+77> reconstruct casebook
+The evidence is sufficient. RECONSTRUCT CASEBOOK, then confront a suspect in person. A wrong accusation will not close the investigation.
+You draw two lines in the casebook: SOUND and PERSON.
+9:12: a voltage sag stops the office clock. 9:16: Ruth leaves Vane alive and joins Edith. Tomas is already answering mainland challenges. 9:17: A17 begins, and Ada's recorded voice starts its six-minute journey without her.
+The prepared appeal continues while its maker takes the scheduled service route. Vane is struck from behind with the cutter's brass counterweight; blood crosses the hatch and leaves in Ada's repaired heel. At 9:20 she signs the spanner back. At 9:21 Ruth finds the body. The accounts explain the quarrel; the machine explains the time; the heel explains whose body moved.
+The record alone clears nobody and convicts nobody. Its provenance, the physical return route, and three tested alternatives converge. Now choose whom to accuse, in person. Ada is in the bunkroom. You may still question her before doing so.
+
+
+%SCORE% { "score": 0, "moves": 75, "max": 0 }
+
+78> ask ada about ledger
+'My father thought the shares would keep me here safely after he died. Instead they kept us both paying. I wanted the proof to live longer than Vane's ownership.'
+
+
+%SCORE% { "score": 0, "moves": 75, "max": 0 }
+
+79> accuse ada
+'The voice stayed here,' you say. 'You did not.'
+Ada looks once at the heel repair. 'I recorded an appeal to save the place. Then he said he would burn my father's name with the accounts. I started the disc because I knew what I was going to do. Not because the machine failed. Because it worked.'
+She describes the counterweight, the hatch, and the spanner returned at nine-twenty. You write the admission beneath the facts which earned it. The ledger will go to the workers; the rest goes to the police. Neither fact cancels the other.
+Ruth makes one last announcement. No music, no rehearsal: Julian Vane is dead; the station will remain silent until morning. Outside, the gulls have returned. They have nothing prepared.
+
+THE LAST BROADCAST -- CASE SOLVED.
+
+The case is solved; the evidence and the workers' accounts are preserved.
+
+Would you like to restart the game from the beginning, restore a saved game position, or end this session of the game?
+(Type RESTART, RESTORE, or QUIT):
+>
+%SCORE% { "score": 0, "moves": 75, "max": 0 }

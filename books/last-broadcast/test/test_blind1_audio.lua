@@ -1,0 +1,11 @@
+-- A reader must hear the decisive fragment before being asked to recognise it.
+local runtime = require("zilscript.runtime")
+local env = runtime.create_game_env()
+assert(runtime.init(env, true))
+env.require("zilscript")
+assert(runtime.load_modules(env, { "books.last-broadcast.last-broadcast" }, { silent = true }))
+local game = runtime.create_game(env, true)
+local opening = game:start()
+assert(opening:find("Even this old island can learn to speak.", 1, true), "The actual opening must plant the recognised sentence")
+assert(opening:find("cough", 1, true), "The actual opening must plant the distinctive gull sound")
+print("Last Broadcast: opening plants the audio evidence")
