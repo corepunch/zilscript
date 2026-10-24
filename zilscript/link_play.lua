@@ -1,7 +1,7 @@
 -- The debug reader uses the application's actual link parser and menus.
 -- Only presentation records live beside the world in SAVE's scalar globals;
 -- resuming never replays actions or inspects story routines for a solution.
-local Session = require("apps.adventure-arena.models.Session")
+local Session = require("zilscript.reader.Session")
 local M = {}
 
 local function json(value)
@@ -132,7 +132,7 @@ function M.run(options)
 	running = game:is_running() and not env.PLAY_ENDED
 	if output then
 		refreshItems()
-		currentItems = require("apps.adventure-arena.helpers.Suggestions").items(currentItems)
+		currentItems = require("zilscript.reader.Suggestions").items(currentItems)
 		local items, encoded = {}, { field(options.room()), field(output), field(#currentItems) }
 		for _, item in ipairs(currentItems) do
 			table.insert(items, { item.name, item.verbs, {} })

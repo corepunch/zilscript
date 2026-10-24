@@ -190,6 +190,10 @@ complete room/state-family coverage and validation requirements.
 
 ### Authoring binary reader actions
 
+The portable reader lives in `zilscript/reader/`. Both the standalone CLI and
+Adventure Arena use this implementation; running book regressions never requires
+a checkout of the application repository beside ZILScript.
+
 The reader uses current VM scope, including carried contents, to resolve a
 prose link. A remembered noun alone never grants remote manipulation. Topics
 must resolve through the story's current globals or actual accessible objects.

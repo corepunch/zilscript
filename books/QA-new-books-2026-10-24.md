@@ -44,6 +44,12 @@ endings; they do not claim a third independent blind round.
 
 ## Shared reader corrections
 
+The shared Session and Suggestions modules live in `zilscript/reader/`. The app
+imports them directly; their former application files have been removed. This
+keeps standalone ZILScript numeric play and regression tests independent of the
+parent app, while checking the same action implementation. CI runs the new-book
+regressions in a standalone checkout.
+
 - Resolve object actions against actual current VM scope, including accessible
   inventory, rather than offering remembered local manipulation after a transfer
   or an NPC's departure.

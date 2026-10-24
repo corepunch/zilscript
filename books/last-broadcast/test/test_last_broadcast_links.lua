@@ -1,8 +1,7 @@
 -- Source-informed numeric-reader regression. No command is sent unless an
 -- actual Session link menu emits it. Independent blind QA is a separate pass.
-package.path = "../../../?.lua;../../../lua/?.lua;" .. package.path
 local runtime = require("zilscript.runtime")
-local Session = require("apps.adventure-arena.models.Session")
+local Session = require("zilscript.reader.Session")
 local env = runtime.create_game_env()
 assert(runtime.init(env, true))
 env.require("zilscript")

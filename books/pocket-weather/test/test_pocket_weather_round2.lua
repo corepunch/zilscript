@@ -1,5 +1,4 @@
 -- Frozen blind-round-2 findings: responses must respect inventory and milestones.
-package.path = "../../../?.lua;../../../lua/?.lua;" .. package.path
 local runtime = require("zilscript.runtime")
 local env = runtime.create_game_env()
 assert(runtime.init(env, true))

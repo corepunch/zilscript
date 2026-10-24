@@ -1,8 +1,7 @@
 -- Source-informed regression: every step must be present in real reader menus.
 -- The separate Python CLI proof crosses save/reload boundaries for every choice.
-package.path = "../../../?.lua;../../../lua/?.lua;" .. package.path
 local runtime = require("zilscript.runtime")
-local Session = require("apps.adventure-arena.models.Session")
+local Session = require("zilscript.reader.Session")
 local env = runtime.create_game_env()
 assert(runtime.init(env, true))
 env.require("zilscript")

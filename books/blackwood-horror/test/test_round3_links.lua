@@ -1,8 +1,7 @@
 -- Round 3: a carried morphine vial must not swallow the glowing-serum link,
 -- and the successful climax must enter FINISH rather than permit more turns.
-package.path = "../../../?.lua;../../../lua/?.lua;" .. package.path
 local runtime = require("zilscript.runtime")
-local Session = require("apps.adventure-arena.models.Session")
+local Session = require("zilscript.reader.Session")
 local env = runtime.create_game_env()
 assert(runtime.init(env, true))
 env.require("zilscript")
