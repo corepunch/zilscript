@@ -15,11 +15,11 @@
 	<CO-RESUME ,CO "examine desk">
 	<ASSERT-TEXT "does not fit" <CO-RESUME ,CO "open bottom drawer with safe key">>
 	<ASSERT "Owning the right key does not make the wrong key fit" <NOT <FSET? ,BOTTOM-DRAWER ,OPENBIT>>>
-	<CO-RESUME ,CO "open bottom drawer with brass key">
+	<CO-RESUME ,CO "open bottom drawer with reception key">
 	<ASSERT "The numbered brass key still opens the drawer" <FSET? ,BOTTOM-DRAWER ,OPENBIT>>
 	<SETG HERE ,DIRECTORS-OFFICE> <MOVE ,WINNER ,HERE>
 	<CO-RESUME ,CO "move portrait">
-	<ASSERT-TEXT "does not fit" <CO-RESUME ,CO "open safe with brass key">>
+	<ASSERT-TEXT "does not fit" <CO-RESUME ,CO "open safe with reception key">>
 	<ASSERT "The drawer key cannot open the safe" <NOT <FSET? ,WALL-SAFE ,OPENBIT>>>
 	<CO-RESUME ,CO "open safe with safe key">
 	<ASSERT "The safe key opens its safe" <FSET? ,WALL-SAFE ,OPENBIT>>

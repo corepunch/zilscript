@@ -92,5 +92,29 @@ test.describe("Vocabulary checker", function(t)
 	end)
 end)
 
+test.describe("Printed modifiers", function(t)
+	t.it("rejects a modifier even when the head noun is registered", function(assert)
+		local path = write_fixture("missing-modifier", [[
+<OBJECT BELL (DESC "small brass bell") (SYNONYM BELL) (ADJECTIVE BRASS)>
+]])
+		local code, output = run_checker(path)
+		assert.assert_not_equal(code, 0)
+		assert.assert_match(output, "DESC modifier 'small' is missing")
+		os.remove(path)
+	end)
+
+	t.it("accepts a complete modifier phrase and noun-only objects", function(assert)
+		local path = write_fixture("complete-modifiers", [[
+<OBJECT BELL (DESC "small brass bell") (SYNONYM BELL CHIME) (ADJECTIVE SMALL BRASS)>
+<OBJECT FOG (DESC "fog") (SYNONYM FOG MIST HAZE)>
+<OBJECT JOURNAL (DESC "doctor's journal") (SYNONYM JOURNAL) (ADJECTIVE DOCTOR)>
+]])
+		local code, output = run_checker(path)
+		assert.assert_equal(code, 0)
+		assert.assert_match(output, "0 critical")
+		os.remove(path)
+	end)
+end)
+
 local success = test.summary()
 os.exit(success and 0 or 1)

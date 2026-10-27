@@ -1186,7 +1186,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
                   <TELL "Lestrade closes his notebook. 'You have discoveries, but not yet an argument. Show me the threat, the poison, and the financial motive.'" CR>
                   <RTRUE>)
                  (<NOT ,PRSI>
-                  <TELL "Lestrade nods toward your evidence. 'Which proof leads the charge? ACCUSE MORIARTY WITH LETTER for Ashworth's own voice, or ACCUSE MORIARTY WITH POISON for the physical case.'" CR>
+                  <TELL "Lestrade nods toward your evidence. 'Which proof leads the charge? ACCUSE MORIARTY WITH UNSENT LETTER for Ashworth's own voice, or ACCUSE MORIARTY WITH POISON for the physical case.'" CR>
                   <RTRUE>)
                  (<OR <EQUAL? ,PRSI ,DEAD-LETTER>
                       <EQUAL? ,PRSI ,POISON-BOTTLE>>
@@ -1409,7 +1409,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
 	<SETG PLAYER ,WINNER>
 	<VOC "SET" OBJECT>
 	<VOC "CAST" OBJECT>
-	<VOC-EXACT "INSPECTOR" "LESTRADE">
+	<VOC-EXACT "INSPECTOR" "OFFICER">
 	<VOC-EXACT "MURDER" "CASE">
 	<VOC-EXACT "INVESTIGATION" "CASE">
 	<MOVE ,WINNER ,HERE>

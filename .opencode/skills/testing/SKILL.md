@@ -100,6 +100,33 @@ For direct ZIL tests, keep each assertion atomic. A successful coroutine resume 
 - Prefer a parser-driven `tests/test_<adventure>_walkthrough.lua` for the release golden path.
 - Add a `make test-<adventure>-walkthrough` target.
 
+## Required adjective and synonym gate
+
+1. Inventory **every object**, including scenery, NPCs, containers and topics.
+   Extract its names and modifiers from all prose sources, especially
+   EXAMINE/action `TELL` responses and later-state text, not only `DESC`.
+2. Verify size, color, material, shape, condition and location modifiers are
+   explicit `ADJECTIVE` entries; verify alternate nouns, singular/plural forms,
+   spellings, names and roles are `SYNONYM` entries. Compare per-object coverage
+   with the bundled original Zork, not just an aggregate word quota.
+3. Run `make test-book-vocabulary` and `make lint-zil`. Require every declared
+   synonym and adjective phrase to resolve to the intended object through the
+   parser. A nonempty response or a dictionary hit alone is insufficient.
+4. Keep literal phrases copied from prose in the regression cases. Play
+   `EXAMINE BELL`, then `RING SMALL BELL` and `RING SMALL BRASS BELL`; assert
+   the actual bell response. Repeat this pattern with object-appropriate verbs.
+   Generated tests over the current vocabulary alone cannot catch omissions.
+5. Test bare nouns, each modifier, complete phrases, alternate head nouns and
+   full NPC titles in actual scope, including carried items that share a noun,
+   discovery, changed states, conversation topics and save/reload. Isolated
+   parser probes supplement these transcripts; they do not prove world scope.
+6. Probe six-character dictionary collisions (`LEATHER`/`LEATHER-BOUND`,
+   `YELLOW`/`YELLOWED`) in both registration orders, and verb/name collisions
+   (`INSPECT`/`INSPECTOR`). Adding vocabulary must not break an existing phrase.
+
+Missing prose vocabulary is a release-blocking parser defect. Follow "Object
+vocabulary is a prose contract" in `docs/WRITING_ADVENTURES.md`.
+
 ## Outputs
 - Updated transcripts
 - Parser-driven automated walkthrough and Make target

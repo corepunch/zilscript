@@ -446,7 +446,7 @@
           },
           "forbiddenChoices": ["heart.wind-heart"],
           "candidateExpectations": [
-            { "id": "heart.place-soldier", "command": "position soldier", "outputContains": "guard", "postcondition": null },
+            { "id": "heart.place-soldier", "command": "position tin soldier", "outputContains": "guard", "postcondition": null },
             { "id": "heart.place-music-box", "command": "position music box", "outputContains": "lullaby", "postcondition": null }
           ],
           "status": "AUTHORED",

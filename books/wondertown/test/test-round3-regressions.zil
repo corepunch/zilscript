@@ -38,14 +38,14 @@
 	<MOVE ,TIN-SOLDIER ,WINNER>
 	<MOVE ,MUSIC-BOX ,WINNER>
 	<SETG KEY-WOUND T>
-	<CO-RESUME ,CO "position soldier">
+	<CO-RESUME ,CO "position tin soldier">
 	<ASSERT "Soldier and Nutmeg each contribute once" <EQUAL? ,COMPANION-COUNT 2>>
-	<CO-RESUME ,CO "position soldier">
+	<CO-RESUME ,CO "position tin soldier">
 	<ASSERT "Repositioning same soldier adds no companion" <EQUAL? ,COMPANION-COUNT 2>>
 	<ASSERT "Repeated offering cannot win" <NOT ,GAME-WON>>
-	<CO-RESUME ,CO "take soldier">
+	<CO-RESUME ,CO "take tin soldier">
 	<ASSERT "A companion stays with the heart it is sustaining" <IN? ,TIN-SOLDIER ,WORKSHOP-HEART>>
-	<CO-RESUME ,CO "position soldier">
+	<CO-RESUME ,CO "position tin soldier">
 	<ASSERT "Taking and replacing cannot duplicate a contribution" <EQUAL? ,COMPANION-COUNT 2>>
 	<CO-RESUME ,CO "position music box">
 	<ASSERT "Distinct second toy completes the heart" ,GAME-WON>

@@ -36,7 +36,12 @@ Implement game logic in ZIL with clean split between world data and routines.
 The substrate (`infocom/zork1/`) provides V-LOOK and the standard SYNTAX definitions.
 
 ### 0a. Make parser vocabulary explicit
-Object IDs and `DESC` strings are not automatically usable nouns. Every player-reachable object needs explicit SYNONYM and ADJECTIVE entries.
+Object IDs and `DESC` strings are not automatically usable nouns. Every player-reachable object needs explicit SYNONYM and ADJECTIVE entries. Include the
+size, color, material and condition words taught by EXAMINE/action responses,
+plus ordinary alternate names and singular/plural nouns, at original Zork's
+vocabulary density. `RING SMALL BELL` must work when the bell is called small.
+Follow "Object vocabulary is a prose contract" in `docs/WRITING_ADVENTURES.md`
+and run `make test-book-vocabulary`.
 
 ### 0b. Make containers reveal reachable contents
 A printed "open" response is not enough. The world model must change — set `OPENBIT`, move contents inside.

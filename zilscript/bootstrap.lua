@@ -1526,7 +1526,12 @@ learn = function(word, atom, value)
 	word = word:lower()
 	-- Z-machine truncates dictionary words to 6 characters
 	local word_key = word:sub(1, 6)
-	if type(value) == 'table' then value = register(value, word) end
+	if type(value) == 'table' then
+		-- Object adjective properties and the dictionary must share one value
+		-- for a six-character word. Registering LEATHER-BOUND after LEATHER
+		-- otherwise replaces the dictionary value and strands earlier objects.
+		value = register(value, atom == PSQADJECTIVE and word_key or word)
+	end
 	if cache.words[word_key] then
 		local index = cache.words[word_key]
 		local ent = mem:read(7, cache.words[word_key])

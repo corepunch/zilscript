@@ -406,6 +406,50 @@ Objects are anything the player can see, examine, or interact with.
 | `(CAPACITY n)` | How much a container can hold |
 | `(ACTION routine-name)` | Custom action handler routine |
 
+### Object vocabulary is a prose contract
+
+Match original Zork's vocabulary density by covering the words a reader will
+actually use for **every object**, including scenery, containers, NPCs and
+topics. Do not restrict this to puzzle objects or the walkthrough's nouns.
+
+- Audit `DESC`, `FDESC`, `LDESC`, `TEXT`, room descriptions, `DESCFCN`, and
+  **EXAMINE/action `TELL` responses**, including later states. If examining a
+  bell calls it small, `RING SMALL BELL` must work immediately. Describing it
+  as brass promises `EXAMINE BRASS BELL` and `RING SMALL BRASS BELL` too.
+- Register size, color, material, shape, condition and distinguishing location
+  words in `ADJECTIVE`. Put head nouns, familiar alternate names, singular and
+  plural forms, NPC names and roles in `SYNONYM`. For a bell, reasonable nouns
+  include `BELL` and `CHIME`; for a wrench, `WRENCH` and `SPANNER`. Only add
+  aliases that honestly describe this particular object.
+- Accept all nouns the prose uses for the same thing: a letter called a note
+  or envelope, a scalpel called a blade, and a drawer called a compartment
+  must not become guess-the-author's-word puzzles. Handle compound modifiers
+  and ordinary spelling variants explicitly where relevant.
+- Treat titles and first names as modifiers in full NPC phrases: test both
+  `EXAMINE LESTRADE` and `EXAMINE INSPECTOR LESTRADE`. Exact-word rewrites
+  must preserve the modifier meaning as well as the bare noun meaning.
+- Use the bundled `infocom/zork1/dungeon.zil` as a concrete editorial baseline:
+  it has about 2.4 noun entries and 1.5 adjective entries per object. Compare
+  per-book totals to spot sparse coverage, then review each object. An average
+  is diagnostic, never a quota: abstract topics need no invented physical
+  adjectives, and unrelated thesaurus words do not improve coverage.
+- Keep distinguishing vocabulary for objects that can share scope, including
+  carried objects. Test every alias on its own, every adjective with a noun,
+  and literal multiword phrases copied from the prose. Assert the resolved
+  object, not merely that the word exists or some output was printed.
+- Exercise discovery, inventory, changed states and NPC topics in real scope.
+  An isolated vocabulary probe does not prove discovery or puzzle behavior.
+  Retain an EXAMINE → described phrase → actual action regression, and test
+  inventory/save/restore where the object can be carried.
+
+Run `make test-book-vocabulary` and `make lint-zil`. The former checks printed
+modifiers and parses every declared noun alias and adjective phrase on every
+book object, plus fixed phrases from the editorial review. Keep its fixed
+phrase cases when editing prose: generating probes only from current vocabulary
+cannot detect a word deleted from that vocabulary. These gates complement the
+manual prose audit and parser-driven walkthrough; they cannot infer every
+modifier from arbitrary narrative text.
+
 **Object flags:**
 
 Organized by use case. Most adventure objects need only a few — see the "Common combinations" below.

@@ -108,7 +108,7 @@ If the lantern becomes mechanical, darkness and light state belong here.
 | Phase | Player-visible behavior | Executable interaction |
 |---|---|---|
 | Initial | Polishes one spoon repeatedly | `ASK HUDSON ABOUT MASTER/ALIBI/KEY` |
-| Player-changed | Stops polishing; admits carrying the threat letter upstairs | `SHOW LETTER TO HUDSON` before Act III |
+| Player-changed | Stops polishing; admits carrying the threat letter upstairs | `SHOW UNSENT LETTER TO HUDSON` before Act III |
 | Story-changed | Packed bag, wrong coat buttons, relief at being noticed | Return after Lestrade arrives |
 
 Dialogue voice: formal, compressed, protective of household ritual. His warmth appears through practical care, especially tea.
@@ -118,7 +118,7 @@ Dialogue voice: formal, compressed, protective of household ritual. His warmth a
 | Phase | Player-visible behavior | Executable interaction |
 |---|---|---|
 | Initial | Untouched soup, geometrically aligned cutlery | `ASK LADY ABOUT MARRIAGE/ALIBI` |
-| Player-changed | Ring and paper betray a tremor; admits destroying first draft | `SHOW LETTER TO LADY` before Act III |
+| Player-changed | Ring and paper betray a tremor; admits destroying first draft | `SHOW UNSENT LETTER TO LADY` before Act III |
 | Story-changed | Mourning ribbon removed; listening for police | Return after Lestrade arrives |
 
 Dialogue voice: controlled and economical. Avoid “cold,” “calculating,” and “composure cracking”; show the physical cost of control.
@@ -128,7 +128,7 @@ Dialogue voice: controlled and economical. Avoid “cold,” “calculating,” 
 | Phase | Player-visible behavior | Executable interaction |
 |---|---|---|
 | Initial | Four-beat fingernail tap beside scientific folios | `ASK MORIARTY ABOUT EXPERIMENTS` |
-| Player-changed | Sweat at collar, gloved hand pocketed, eyes counting exits | `SHOW LETTER TO MORIARTY` or poison confrontation |
+| Player-changed | Sweat at collar, gloved hand pocketed, eyes counting exits | `SHOW UNSENT LETTER TO MORIARTY` or poison confrontation |
 | Story-changed | Moves to hall; muddy heel matches footprint | Return/examine in Act III |
 
 Dialogue voice: precise, superior, involuntarily over-specific when threatened.

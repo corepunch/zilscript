@@ -336,7 +336,7 @@
            <COND (<EQUAL? ,HINT-LEVEL 1> <TELL "The heart is turning, but it needs more than mechanical power." CR>)
                  (<EQUAL? ,HINT-LEVEL 2> <TELL "The toys you have helped can lend their strength." CR>)
                  (<EQUAL? ,HINT-LEVEL 3> <TELL "Place your companions around the heart. Each one adds their love to the magic." CR>)
-                 (T <TELL "POSITION SOLDIER. POSITION MUSIC BOX. Nutmeg and Bertrand will help if you were kind to them." CR>)>
+                 (T <TELL "POSITION TIN SOLDIER. POSITION MUSIC BOX. Nutmeg and Bertrand will help if you were kind to them." CR>)>
            <RTRUE>)
           (<NOT ,BERTRAND-WOUND>
            <COND (<L? ,HINT-LEVEL 4>

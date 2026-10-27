@@ -80,7 +80,7 @@
     <ASSERT "Wind heart" <CO-RESUME ,CO "wind heart"> ,KEY-WOUND>
     
     ;"Place companions"
-    <ASSERT "Place soldier" <CO-RESUME ,CO "position soldier"> <G? ,COMPANION-COUNT 0>>
+    <ASSERT "Place soldier" <CO-RESUME ,CO "position tin soldier"> <G? ,COMPANION-COUNT 0>>
     <ASSERT "Place music box" <CO-RESUME ,CO "position music box"> <G? ,COMPANION-COUNT 0>>
     
     ;"Game won!"

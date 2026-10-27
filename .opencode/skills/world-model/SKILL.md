@@ -67,6 +67,18 @@ Translate design docs into a coherent simulation plan before full implementation
 - Prefer meaningful mazes over filler mazes; if maze-like areas exist, provide landmarks or distinct mechanics.
 - Support optional mastery with alternate/risky/clever solutions where feasible.
 
+## Vocabulary inventory
+
+For every object, record the head nouns, alternate names and modifiers promised
+by room/object prose and EXAMINE/action responses, in all relevant states.
+Require `SYNONYM` coverage for ordinary aliases, singular/plural forms, names
+and roles, and `ADJECTIVE` coverage for size, color, material, shape, condition,
+location and NPC titles. Compare the inventory with original Zork's density;
+avoid sparse key-only vocabulary and arbitrary thesaurus padding. Record exact
+phrase → object → scope → expected action rows, including `RING SMALL BELL`
+when examination calls the bell small. See "Object vocabulary is a prose
+contract" in `docs/WRITING_ADVENTURES.md`.
+
 ## Outputs
 - Updated puzzle dependency graph
 - Object/verb response matrix

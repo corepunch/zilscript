@@ -52,6 +52,21 @@ Write player-facing text and interactions that teach play and maintain tone.
     (`[[key->chapel key]]`, `[[cast->footprint cast]]`). See "Prose Links"
     in `docs/WRITING_ADVENTURES.md`.
 
+## Required vocabulary pass
+
+For **every object**, audit the modifiers and alternate nouns in `DESC`,
+`FDESC`, `LDESC`, `TEXT`, room prose, `DESCFCN`, and EXAMINE/action `TELL`
+responses, including changed states. Put physical and distinguishing modifiers
+in `ADJECTIVE`; put familiar alternative names, singular/plural forms and NPC
+names/roles in `SYNONYM`. A bell called "small" must accept `RING SMALL BELL`;
+a "small brass bell" must accept the whole phrase. Include titles in NPC
+phrases, such as `INSPECTOR LESTRADE`.
+
+Use original Zork's semantic vocabulary density as the baseline, without padding
+abstract objects with invented adjectives. Record literal phrases and expected
+objects for the testing pass. Follow "Object vocabulary is a prose contract"
+in `docs/WRITING_ADVENTURES.md`, and run `make test-book-vocabulary`.
+
 ## Outputs
 - Draft room and object prose set
 - NPC topic/reaction matrix

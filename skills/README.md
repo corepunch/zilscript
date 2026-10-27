@@ -98,7 +98,7 @@ The walkthrough grows with the game. At every commit-sized milestone, all implem
 5. **GO must exist in actions.zil** — entry point for the game.
 6. **Assign one visible description owner** — focal/portable objects usually own `FDESC`/`LDESC`/`DESCFCN`; permanent or stateful scenery may be room-owned and backed by `NDESCBIT` objects or pseudos. Test rendered `LOOK` output for duplication, dead `FDESC`, and stale state.
 7. **Never freeze mutable state into `LDESC`** — follow Zork I's `EAST-HOUSE` pattern.
-8. **Object IDs and DESC text are not parser vocabulary** — every reachable object needs explicit `SYNONYM` nouns and `ADJECTIVE` modifiers.
+8. **All object prose promises parser vocabulary** — every object needs explicit `SYNONYM` nouns/alternate names and `ADJECTIVE` modifiers, including size, color, material and condition taught by EXAMINE/action responses. Match original Zork's density; test `RING SMALL BELL` when the bell is called small. Run `make test-book-vocabulary`; see "Object vocabulary is a prose contract" in `docs/WRITING_ADVENTURES.md`.
 9. **Opening a container must make contents reachable** — use container/search flags, set `OPENBIT`.
 10. **Evidence and milestone counters must be idempotent** — guard one-time increments with per-clue flags.
 11. **Default verb routines never redispatch themselves** — `PERFORM` already visits object actions before the default.

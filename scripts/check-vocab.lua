@@ -8,6 +8,7 @@
 -- What it checks:
 --   CRITICAL: Player-addressable objects have a DESC.
 --   CRITICAL: At least one noun from DESC appears in SYNONYM.
+--   CRITICAL: Modifiers before that noun are registered vocabulary too.
 --   CRITICAL: NDESCBIT does not silently suppress FDESC.
 --   CRITICAL: Static FDESC does not shadow a dynamic DESCFCN.
 --
@@ -79,12 +80,15 @@ local function parse_zil_objects(content)
                 end
 
                 local synonyms = extract_property("SYNONYM") or {}
+                local adjectives = extract_property("ADJECTIVE") or {}
                 local desc = extract_property("DESC")
                 local fdesc = extract_property("FDESC")
                 local descfcn = extract_property("DESCFCN")
                 local flags = extract_property("FLAGS") or {}
 
                 local syn_set = {}
+                local adj_set = {}
+                for _, w in ipairs(adjectives) do adj_set[w] = true end
                 if type(synonyms) == "table" then
                     for _, w in ipairs(synonyms) do syn_set[w] = true end
                 end
@@ -92,6 +96,7 @@ local function parse_zil_objects(content)
                 table.insert(objects, {
                     name = obj_name,
                     synonyms = syn_set,
+                    adjectives = adj_set,
                     has_synonyms = next(syn_set) ~= nil,
                     desc = desc,
                     fdesc = fdesc,
@@ -162,6 +167,28 @@ local function check_object(obj)
                 msg = "no DESC word appears in SYNONYM — parser won't match the printed name",
             })
         end
+
+		-- Only the name's leading modifiers are mechanically identifiable.
+		-- EXAMINE/room prose still needs the editorial audit and parser tests.
+		if matched_noun then
+			for _, word in ipairs(desc_words) do
+				if obj.synonyms[word] then break end
+				word = word:gsub("'s$", "")
+				local known = obj.adjectives[word] or obj.synonyms[word]
+				if not known and word:find("-", 1, true) then
+					known = true
+					for part in word:gmatch("[^-]+") do
+						if not obj.adjectives[part] and not obj.synonyms[part] then known = false end
+					end
+				end
+				if not known and word ~= "a" and word ~= "an" and word ~= "the" then
+					table.insert(issues, {
+						level = "CRITICAL", field = "ADJECTIVE",
+						msg = "DESC modifier '" .. word .. "' is missing from ADJECTIVE/SYNONYM",
+					})
+				end
+			end
+		end
     end
 
     local has_ndescbit = false

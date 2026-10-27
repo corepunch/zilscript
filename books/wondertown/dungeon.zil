@@ -161,7 +161,7 @@
 <OBJECT KEY-HOOK
         (IN WORKSHOP-FLOOR)
         (SYNONYM HOOK)
-        (ADJECTIVE KEY BRASS EMPTY)
+        (ADJECTIVE KEY BRASS EMPTY COLD)
         (DESC "brass key hook")
         (LDESC "A brass key hook hangs on the wall.")
         (FLAGS NDESCBIT)
@@ -179,7 +179,7 @@
 <OBJECT OIL-CAN
         (IN WORKSHOP-FLOOR)
         (SYNONYM CAN OILCAN OIL-CAN)
-        (ADJECTIVE TINY COPPER OIL)
+        (ADJECTIVE TINY COPPER OIL SMALL HALF-FULL)
         (DESC "tiny copper oil can")
         (FDESC "A tiny copper [[oil can->can]], still half full, sits in the shadows beneath the workbench.")
         (LDESC "A tiny copper [[oil can->can]] lies here.")
@@ -190,7 +190,7 @@
 <OBJECT SAWDUST
         (IN WORKSHOP-FLOOR)
         (SYNONYM SAWDUST DUST FLOOR)
-        (ADJECTIVE SOFT GOLDEN)
+        (ADJECTIVE SOFT GOLDEN CEDAR)
         (DESC "soft sawdust")
         (LDESC "Soft sawdust covers the floorboards like a golden blanket.")
         (FLAGS NDESCBIT)
@@ -198,8 +198,8 @@
 
 <OBJECT PET-DOOR
         (IN WORKSHOP-FLOOR)
-        (SYNONYM DOOR PET)
-        (ADJECTIVE PET SMALL WOODEN)
+        (SYNONYM DOOR PET FLAP)
+        (ADJECTIVE PET SMALL WOODEN WORKSHOP)
         (DESC "small pet door")
         (LDESC "A small pet door is cut into the bottom of the workshop's main door.")
         (FLAGS NDESCBIT)
@@ -208,7 +208,7 @@
 <OBJECT SWEEP-BROOM
         (IN WORKSHOP-FLOOR)
         (SYNONYM BROOM BRUSH)
-        (ADJECTIVE TINY SWEEP)
+        (ADJECTIVE TINY SWEEP WORN PIP)
         (DESC "tiny broom")
         (LDESC "Your tiny [[broom]] leans against the workbench.")
         (FLAGS TAKEBIT)
@@ -218,7 +218,7 @@
 <OBJECT CLOCK-FACE
         (IN WORKSHOP-FLOOR)
         (SYNONYM CLOCK CUCKOO)
-        (ADJECTIVE OLD WOODEN WALL)
+        (ADJECTIVE OLD WOODEN WALL CUCKOO TICKING WORKSHOP)
         (DESC "old cuckoo clock")
         (LDESC "An old cuckoo clock hangs on the wall, ticking softly.")
         (FLAGS NDESCBIT)
@@ -227,7 +227,7 @@
 <OBJECT KEY-STRING
         (IN WORKSHOP-FLOOR)
         (SYNONYM STRING CORD THREAD TWINE)
-        (ADJECTIVE FRAYED DANGLING)
+        (ADJECTIVE FRAYED DANGLING CHEWED)
         (DESC "frayed string")
         (FDESC "A frayed [[string]] hangs from the key hook.")
         (LDESC "A frayed [[string]] lies here.")
@@ -238,7 +238,7 @@
 <OBJECT LOFT-LADDER
         (IN WORKSHOP-FLOOR)
         (SYNONYM LADDER STAIRS STAIRCASE)
-        (ADJECTIVE FOLDING LOFT WOODEN)
+        (ADJECTIVE FOLDING LOFT WOODEN BROAD OILED)
         (DESC "folding loft ladder")
         (LDESC "A folding wooden ladder leads toward the storage loft. Its iron lifting mechanism is rusted solid.")
         (FLAGS NDESCBIT)
@@ -247,7 +247,7 @@
 <OBJECT LADDER-MECH
         (IN WORKSHOP-FLOOR)
         (SYNONYM MECHANISM LADDER LIFT WINCH)
-        (ADJECTIVE RUSTY IRON LIFTING)
+        (ADJECTIVE RUSTY IRON LIFTING LADDER RUSTED FROZEN OILED)
         (DESC "rusty ladder mechanism")
         (LDESC "The rusty iron lifting mechanism that raises the folding loft ladder is frozen solid.")
         (FLAGS TURNBIT NDESCBIT)
@@ -258,7 +258,7 @@
 <OBJECT BERTRAND
         (IN TOOL-BENCH)
         (SYNONYM NUTCRACKER BERTRAND SOLDIER CAPTAIN)
-        (ADJECTIVE PAINTED POMPOUS WOODEN)
+        (ADJECTIVE PAINTED POMPOUS WOODEN CAPTAIN FROZEN)
         (DESC "painted wooden nutcracker")
         (LDESC "A painted wooden nutcracker stands at attention, frozen mid-stride.")
         (DESCFCN BERTRAND-DESC-F)
@@ -268,7 +268,7 @@
 <OBJECT BERTRAND-KEY
         (IN TOOL-BENCH)
         (SYNONYM KEY)
-        (ADJECTIVE WINDING TINY BRASS)
+        (ADJECTIVE WINDING TINY BRASS NUTCRACKER LITTLE)
         (DESC "tiny brass winding key")
         (LDESC "There is a tiny brass winding key on the nutcracker's back.")
         (FLAGS TAKEBIT NDESCBIT)
@@ -277,8 +277,8 @@
 
 <OBJECT VARNISH-POT
         (IN TOOL-BENCH)
-        (SYNONYM POT VARNISH)
-        (ADJECTIVE STICKY VARNISH UNSETTLED)
+        (SYNONYM POT VARNISH CAN)
+        (ADJECTIVE STICKY VARNISH UNSETTLED THICK TACKY OPEN)
         (DESC "pot of varnish")
         (LDESC "A [[pot of varnish->pot]] sits open, its contents gone tacky.")
         (FLAGS CONTBIT OPENBIT SURFACEBIT)
@@ -286,8 +286,8 @@
 
 <OBJECT TOOL-RACK
         (IN TOOL-BENCH)
-        (SYNONYM RACK TOOLS)
-        (ADJECTIVE WOODEN TOOL)
+        (SYNONYM RACK TOOLS CHISELS FILES HAMMER HAMMERS)
+        (ADJECTIVE WOODEN TOOL TINY)
         (DESC "tool rack")
         (LDESC "A wooden rack of tools hangs on the wall — chisels, files, tiny hammers.")
         (FLAGS NDESCBIT)
@@ -296,7 +296,7 @@
 <OBJECT MAKESHIFT-STEPS
         (IN TOOL-BENCH)
         (SYNONYM STEPS STAIRCASE CRATE CHAIR BOOK BOOKS STACK ROUTE)
-        (ADJECTIVE MAKESHIFT LOW OLD REPAIR BROAD CLIMBING)
+        (ADJECTIVE MAKESHIFT LOW OLD REPAIR BROAD CLIMBING PACKING STACKED)
         (DESC "makeshift climbing steps")
         (LDESC "A low crate leads to an old chair, where three broad repair books make the final steps to the countertop.")
         (FLAGS NDESCBIT CLIMBBIT)
@@ -306,15 +306,15 @@
 <OBJECT REPAIR-BOOK
         (IN WORKBENCH-TOP)
         (SYNONYM BOOK MANUAL GUIDE ALBUM)
-        (ADJECTIVE REPAIR ILLUSTRATED TOLLIVER LEATHER GREEN)
+        (ADJECTIVE REPAIR ILLUSTRATED TOLLIVER LEATHER GREEN ENORMOUS BATTERED WOODEN OPEN)
         (DESC "illustrated repair book")
         (FLAGS CONTBIT OPENABLEBIT READBIT NDESCBIT)
         (ACTION REPAIR-BOOK-F)>
 
 <OBJECT HALF-FINISHED-TOYS
         (IN WORKBENCH-TOP)
-        (SYNONYM TOYS SAILBOAT BOAT TRAIN DUCK)
-        (ADJECTIVE HALF-FINISHED WOODEN TOY)
+        (SYNONYM TOYS SAILBOAT BOAT TRAIN DUCK INVENTIONS)
+        (ADJECTIVE HALF-FINISHED WOODEN TOY UNFINISHED HALF-RIGGED)
         (DESC "half-finished toys")
         (LDESC "A half-rigged sailboat, a wooden train, and a duck with only one wheel wait beneath the work lamp.")
         (FLAGS NDESCBIT)
@@ -324,7 +324,7 @@
 <OBJECT MARZIPAN
         (IN COUNTERTOP)
         (SYNONYM DOLL RAGDOLL MARZIPAN)
-        (ADJECTIVE RAG ONE-EYED PATCHED)
+        (ADJECTIVE RAG ONE-EYED PATCHED MENDED HUMMING)
         (DESC "one-eyed rag doll")
         (LDESC "A rag doll with one button eye sits against the window, humming softly.")
         (DESCFCN MARZIPAN-DESC-F)
@@ -333,8 +333,8 @@
 
 <OBJECT DISPLAY-CASE
         (IN COUNTERTOP)
-        (SYNONYM CASE DISPLAY CABINET)
-        (ADJECTIVE DUSTY GLASS DISPLAY)
+        (SYNONYM CASE DISPLAY CABINET LATCH)
+        (ADJECTIVE DUSTY GLASS DISPLAY BRASS)
         (DESC "dusty glass display case")
         (LDESC "A dusty glass display [[case]] holds forgotten treasures.")
         (FLAGS CONTBIT OPENABLEBIT TRANSBIT)
@@ -343,7 +343,7 @@
 <OBJECT TIN-SOLDIER
         (IN DISPLAY-CASE)
         (SYNONYM SOLDIER TIN-FIGURE FIGURE)
-        (ADJECTIVE TIN BRAVE RUSTED)
+        (ADJECTIVE TIN BRAVE RUSTED PAINTED RED BLUE)
         (DESC "tin soldier")
         (FDESC "A brave [[tin soldier->soldier]] stands inside the case, slightly rusted but still at attention.")
         (LDESC "A brave [[tin soldier->soldier]], slightly rusted but still standing.")
@@ -353,8 +353,8 @@
 
 <OBJECT MUSIC-BOX
         (IN DISPLAY-CASE)
-        (SYNONYM BOX)
-        (ADJECTIVE MUSIC SILVER TINY)
+        (SYNONYM BOX CRANK)
+        (ADJECTIVE MUSIC SILVER TINY SMALL WINDING)
         (DESC "silver music box")
         (FDESC "Beside him rests a small silver [[music box->box]] with a tiny crank on its side.")
         (LDESC "A silver [[music box->box]] with a tiny crank.")
@@ -365,7 +365,7 @@
 <OBJECT SHOP-WINDOW
         (IN COUNTERTOP)
         (SYNONYM WINDOW)
-        (ADJECTIVE FROSTED GLASS SHOP)
+        (ADJECTIVE FROSTED GLASS SHOP SNOWY)
         (DESC "frosted shop window")
         (LDESC "Through the frosted window, you can see the snowy street outside.")
         (FLAGS NDESCBIT)
@@ -373,8 +373,8 @@
 
 <OBJECT BUTTON
         (IN COUNTERTOP)
-        (SYNONYM BUTTON)
-        (ADJECTIVE SPARE BLACK)
+        (SYNONYM BUTTON EYE)
+        (ADJECTIVE SPARE BLACK SMOOTH WARM)
         (DESC "spare button")
         (LDESC "A spare [[button]] lies near the rag doll.")
         (FLAGS TAKEBIT)
@@ -385,8 +385,8 @@
 
 <OBJECT OLD-TICK
         (IN STORAGE-LOFT)
-        (SYNONYM CLOCK CUCKOO TICK)
-        (ADJECTIVE OLD DUSTY)
+        (SYNONYM CLOCK CUCKOO TICK BIRD)
+        (ADJECTIVE OLD DUSTY CUCKOO WOODEN LOFT FROZEN)
         (DESC "old cuckoo clock")
         (LDESC "An old cuckoo clock, dusty and still, its hands frozen at five to midnight.")
         (DESCFCN OLD-TICK-DESC-F)
@@ -396,7 +396,7 @@
 <OBJECT TOY-BOX
         (IN STORAGE-LOFT)
         (SYNONYM BOX CARTON)
-        (ADJECTIVE DUSTY CARDBOARD TOY)
+        (ADJECTIVE DUSTY CARDBOARD TOY BROKEN REPAIR)
         (DESC "dusty cardboard box")
         (LDESC "A cardboard [[box]] labelled 'Broken - For Repair' sits in the corner.")
         (FLAGS CONTBIT OPENABLEBIT)
@@ -405,7 +405,7 @@
 <OBJECT DOLL-ARM
         (IN TOY-BOX)
         (SYNONYM ARM DOLL-ARM LIMB)
-        (ADJECTIVE PORCELAIN DOLL DELICATE)
+        (ADJECTIVE PORCELAIN DOLL DELICATE BROKEN)
         (DESC "porcelain doll arm")
         (FDESC "A delicate porcelain doll [[arm]], separated from its owner.")
         (LDESC "A delicate porcelain doll [[arm]] lies here.")
@@ -427,8 +427,8 @@
 
 <OBJECT COBWEBS
         (IN STORAGE-LOFT)
-        (SYNONYM COBWEBS WEBS DUST)
-        (ADJECTIVE DUSTY GREY)
+        (SYNONYM COBWEBS WEBS DUST COBWEB WEB)
+        (ADJECTIVE DUSTY GREY GRAY)
         (DESC "dusty cobwebs")
         (LDESC "Dusty cobwebs drape the rafters like grey curtains.")
         (FLAGS NDESCBIT)
@@ -438,8 +438,8 @@
 
 <OBJECT FOOTPRINTS
         (IN SNOWY-ALLEY)
-        (SYNONYM FOOTPRINTS PRINTS TRACKS PAWPRINTS)
-        (ADJECTIVE FOX TINY MUDDY)
+        (SYNONYM FOOTPRINTS PRINTS TRACKS PAWPRINTS FOOTPRINT PRINT TRACK PAWPRINT)
+        (ADJECTIVE FOX TINY MUDDY TOY-SIZED)
         (DESC "tiny fox footprints")
         (LDESC "Tiny fox footprints lead east through the fresh snow. They are unmistakeably toy-sized.")
         (FLAGS NDESCBIT)
@@ -448,7 +448,7 @@
 <OBJECT STREETLAMP
         (IN SNOWY-ALLEY)
         (SYNONYM STREETLAMP LAMP LIGHT LANTERN)
-        (ADJECTIVE FLICKERING TOY)
+        (ADJECTIVE FLICKERING TOY REPURPOSED LIT)
         (DESC "toy streetlamp")
         (LDESC "A streetlamp — actually a repurposed toy lantern — flickers overhead on a pole.")
         (FLAGS LIGHTBIT NDESCBIT)
@@ -457,7 +457,7 @@
 <OBJECT SNOW
         (IN SNOWY-ALLEY)
         (SYNONYM SNOW BLANKET)
-        (ADJECTIVE FRESH DEEP COLD)
+        (ADJECTIVE FRESH DEEP COLD SPARKLING)
         (DESC "fresh snow")
         (LDESC "Fresh snow blankets the cobblestones. It sparkles in the moonlight.")
         (FLAGS NDESCBIT)
@@ -468,7 +468,7 @@
 <OBJECT CLOCK-TOWER
         (IN CLOCK-SQUARE)
         (SYNONYM TOWER CLOCK BUILDING)
-        (ADJECTIVE GIANT STONE CLOCK)
+        (ADJECTIVE GIANT STONE CLOCK GREAT TICKING)
         (DESC "giant clock tower")
         (FDESC "The clock [[tower]] dominates the square, its great face showing the hours until dawn with unnerving clarity.")
         (LDESC "The clock [[tower]] dominates the square, its great face tracking the approach of dawn.")
@@ -477,7 +477,7 @@
 <OBJECT CLOCK-WINDING
         (IN CLOCK-SQUARE)
         (SYNONYM MECHANISM WINDING KEYHOLE)
-        (ADJECTIVE BRASS)
+        (ADJECTIVE BRASS WINDING)
         (DESC "brass winding mechanism")
         (LDESC "A brass winding [[mechanism]] sits at the clock tower's base, just out of reach.")
         (FLAGS TURNBIT)
@@ -486,7 +486,7 @@
 <OBJECT BAKER-TOY
         (IN CLOCK-SQUARE)
         (SYNONYM BAKER TOY FIGURE)
-        (ADJECTIVE WOODEN)
+        (ADJECTIVE WOODEN BAKER PAINTED FROZEN)
         (DESC "wooden baker toy")
         (LDESC "A wooden baker toy stands in the bakery window, frozen mid-knead.")
         (FLAGS NDESCBIT)
@@ -494,8 +494,8 @@
 
 <OBJECT TOY-LAMPS
         (IN CLOCK-SQUARE)
-        (SYNONYM LAMPS LIGHTS)
-        (ADJECTIVE TIN TOY DIM)
+        (SYNONYM LAMPS LIGHTS LAMP LIGHT)
+        (ADJECTIVE TIN TOY DIM WEAK FLICKERING)
         (DESC "tin toy lamps")
         (LDESC "Tin toy lamps dot the cobblestones, their light weak and flickering.")
         (FLAGS LIGHTBIT NDESCBIT)
@@ -505,8 +505,8 @@
 
 <OBJECT MAILBOX
         (IN MAILBOX-CORNER)
-        (SYNONYM MAILBOX BOX POSTBOX)
-        (ADJECTIVE RED TIN TALKING)
+        (SYNONYM MAILBOX BOX POSTBOX FLAP)
+        (ADJECTIVE RED TIN TALKING PAINTED SHIVERING)
         (DESC "red tin mailbox")
         (FDESC "A red tin [[mailbox]] tilts slightly into the snow. Its flap hangs open — and every now and then, it seems to shiver.")
         (LDESC "A red tin [[mailbox]] tilts into the snow, its flap moving occasionally like a mouth.")
@@ -516,7 +516,7 @@
 <OBJECT LETTER
         (IN MAILBOX-CORNER)
         (SYNONYM LETTER ENVELOPE NOTE)
-        (ADJECTIVE CRUMPLED WHITE)
+        (ADJECTIVE CRUMPLED WHITE TOLLIVER)
         (DESC "crumpled letter")
         (LDESC "A crumpled [[envelope]] lies half-buried in the snow.")
         (FLAGS TAKEBIT READBIT)
@@ -527,7 +527,7 @@
 <OBJECT SCARF
         (IN MAILBOX-CORNER)
         (SYNONYM SCARF)
-        (ADJECTIVE RED WOOL WARM)
+        (ADJECTIVE RED WOOL WARM WOOLEN WOOLLEN)
         (DESC "red wool scarf")
         (LDESC "A red wool [[scarf]] lies abandoned in the snow. It looks warm.")
         (FLAGS TAKEBIT)
@@ -537,7 +537,7 @@
 <OBJECT MAILBOX-LETTERS
         (IN MAILBOX)
         (SYNONYM LETTERS MAIL BUNDLE)
-        (ADJECTIVE UNSENT OLD)
+        (ADJECTIVE UNSENT OLD UNOPENED)
         (DESC "bundle of letters")
         (LDESC "A bundle of unsent letters sits inside the mailbox. They are addressed to toys — invitations to birthday parties, thank-you notes, letters from children long grown up.")
         (FLAGS NDESCBIT)
@@ -547,8 +547,8 @@
 
 <OBJECT SCRAP-CART
         (IN SCRAP-YARD)
-        (SYNONYM CART)
-        (ADJECTIVE SCRAP METAL CREAKING)
+        (SYNONYM CART WAGON)
+        (ADJECTIVE SCRAP METAL CREAKING SCRAP-METAL HEAVY RUSTED IRON)
         (DESC "scrap-metal cart")
         (LDESC "A scrap-metal cart creaks along a track, gathering broken toys into its bed.")
         (DESCFCN SCRAP-CART-DESC-F)
@@ -558,7 +558,7 @@
 <OBJECT HEADLESS-DOLL
         (IN SCRAP-CART)
         (SYNONYM DOLL BODY)
-        (ADJECTIVE HEADLESS PORCELAIN BROKEN)
+        (ADJECTIVE HEADLESS PORCELAIN BROKEN TORN)
         (DESC "headless doll")
         (LDESC "A [[headless porcelain doll->doll]] lies in the scrap cart. Its dress is torn, but someone has folded its hands neatly.")
         (FLAGS TAKEBIT)
@@ -568,7 +568,7 @@
 <OBJECT DOLL-HEAD
         (IN SCRAP-YARD)
         (SYNONYM HEAD)
-        (ADJECTIVE DOLL PORCELAIN PAINTED)
+        (ADJECTIVE DOLL PORCELAIN PAINTED BLUE)
         (DESC "porcelain doll head")
         (FDESC "A porcelain [[doll head->head]] with painted eyes lies on the scrap pile where Pip uncovered it.")
         (LDESC "A porcelain [[doll head->head]] lies here.")
@@ -578,8 +578,8 @@
 
 <OBJECT SCRAP-PILES
         (IN SCRAP-YARD)
-        (SYNONYM PILES PILE SCRAP PLAYTHINGS HEAP)
-        (ADJECTIVE BROKEN DISCARDED SNOWY)
+        (SYNONYM PILES PILE SCRAP PLAYTHINGS HEAP TOYS)
+        (ADJECTIVE BROKEN DISCARDED SNOWY TOY FROZEN)
         (DESC "piles of broken toys")
         (FLAGS NDESCBIT)
         (ACTION SCRAP-PILES-F)>
@@ -587,7 +587,7 @@
 <OBJECT TOY-HORSE
         (IN SCRAP-YARD)
         (SYNONYM HORSE PONY)
-        (ADJECTIVE TOY THREE-LEGGED WOODEN)
+        (ADJECTIVE TOY THREE-LEGGED WOODEN CHIPPED MISSING)
         (DESC "three-legged horse")
         (LDESC "A toy [[horse]], one leg missing, lies on its side.")
         (FLAGS TAKEBIT)
@@ -597,7 +597,7 @@
 <OBJECT YARD-GATE
         (IN SCRAP-YARD)
         (SYNONYM GATE GATEWAY)
-        (ADJECTIVE IRON EAST)
+        (ADJECTIVE IRON EAST BLOCKED)
         (DESC "iron gate")
         (LDESC "An iron gate leads east, but the scrap cart blocks the way.")
         (FLAGS NDESCBIT)
@@ -607,8 +607,8 @@
 
 <OBJECT NUTMEG
         (IN FOX-DEN)
-        (SYNONYM FOX NUTMEG VIXEN)
-        (ADJECTIVE PATCHY STUFFED ORANGE)
+        (SYNONYM FOX NUTMEG VIXEN TOY)
+        (ADJECTIVE PATCHY STUFFED ORANGE FOX FOX-SHAPED LOPSIDED)
         (DESC "patchy fox toy")
         (LDESC "A fox-shaped toy with patchy fur curls in the den, watching you with button eyes.")
         (DESCFCN NUTMEG-DESC-F)
@@ -618,7 +618,7 @@
 <OBJECT WORKSHOP-KEY
         (IN FOX-DEN)
         (SYNONYM KEY)
-        (ADJECTIVE WORKSHOP BRASS TICKING)
+        (ADJECTIVE WORKSHOP BRASS TICKING WARM CARVED WINDING)
         (DESC "workshop key")
         (LDESC "The workshop key hangs from a string around the fox's neck, ticking faintly.")
         (FLAGS TAKEBIT NDESCBIT)
@@ -628,7 +628,7 @@
 <OBJECT RAG-BED
         (IN FOX-DEN)
         (SYNONYM BED NEST RAGS)
-        (ADJECTIVE COSY RAG)
+        (ADJECTIVE COSY RAG COZY CEDAR)
         (DESC "cosy rag bed")
         (LDESC "A cosy [[bed]] made from rags and twigs fills the centre of the den.")
         (FLAGS CONTBIT OPENBIT SURFACEBIT)
@@ -637,7 +637,7 @@
 <OBJECT TOY-CANDLE
         (IN FOX-DEN)
         (SYNONYM CANDLE FLAME)
-        (ADJECTIVE TOY WAX TINY)
+        (ADJECTIVE TOY WAX TINY SMALL WARM STEADY)
         (DESC "toy candle")
         (LDESC "A tiny toy candle burns with a warm, steady flame. It is the only light in the den.")
         (FLAGS LIGHTBIT FLAMEBIT NDESCBIT)
@@ -646,7 +646,7 @@
 <OBJECT STRING-BALL
         (IN FOX-DEN)
         (SYNONYM BALL YARN STRING)
-        (ADJECTIVE RED YARN)
+        (ADJECTIVE RED YARN FRAYED)
         (DESC "ball of yarn")
         (LDESC "A ball of red [[yarn]] sits in the corner. Perfect for a fox to chase.")
         (FLAGS TAKEBIT)
@@ -658,7 +658,7 @@
 <OBJECT TOLLIVER-COAT
         (IN TOLLIVER-STUDY)
         (SYNONYM COAT JACKET)
-        (ADJECTIVE WORN OLD TOLLIVER)
+        (ADJECTIVE WORN OLD TOLLIVER TWEED GRANDFATHER WARM)
         (DESC "worn coat")
         (LDESC "Grandfather Tolliver's worn [[coat]] hangs on the back of the chair. It still smells like him — wood shavings and old paper.")
         (FLAGS TAKEBIT)
@@ -668,7 +668,7 @@
 <OBJECT TEA-CUP
         (IN TOLLIVER-STUDY)
         (SYNONYM CUP TEA MUG)
-        (ADJECTIVE COLD STONE)
+        (ADJECTIVE COLD STONE DUSTY BITTER)
         (DESC "cold cup of tea")
         (LDESC "A [[cup of tea->cup]] sits beside the inkwell. It is stone cold.")
         (FLAGS TAKEBIT)
@@ -677,8 +677,8 @@
 
 <OBJECT STUDY-DESK
         (IN TOLLIVER-STUDY)
-        (SYNONYM DESK TABLE)
-        (ADJECTIVE WOODEN CLUTTERED)
+        (SYNONYM DESK TABLE PAPERS)
+        (ADJECTIVE WOODEN CLUTTERED STUDY)
         (DESC "cluttered wooden desk")
         (LDESC "A wooden [[desk]] is cluttered with papers.")
         (FLAGS SURFACEBIT CONTBIT OPENBIT)
@@ -687,7 +687,7 @@
 <OBJECT DIAGRAM
         (IN STUDY-DESK)
         (SYNONYM DIAGRAM DRAWING PAPER PLAN)
-        (ADJECTIVE WINDING HAND-DRAWN)
+        (ADJECTIVE WINDING HAND-DRAWN PENCILLED)
         (DESC "winding diagram")
         (FDESC "A hand-drawn [[diagram]] lies spread across the desk, dense with Tolliver's pencilled notes.")
         (LDESC "A hand-drawn [[diagram]] of the workshop's inner workings lies here.")
@@ -698,7 +698,7 @@
 <OBJECT STUDY-JOURNAL
         (IN STUDY-DESK)
         (SYNONYM JOURNAL DIARY BOOK NOTEBOOK)
-        (ADJECTIVE FINAL OPEN TOLLIVER)
+        (ADJECTIVE FINAL OPEN TOLLIVER GRANDFATHER)
         (DESC "open journal")
         (FDESC "Tolliver's [[journal]] lies open to its final entry.")
         (LDESC "Tolliver's [[journal]] lies open to the final entry.")
@@ -721,7 +721,7 @@
 <OBJECT HEART-MECH
         (IN WORKSHOP-HEART)
         (SYNONYM MECHANISM HEART CLOCKWORK GEARS)
-        (ADJECTIVE GIANT CENTRAL BRASS CLOCKWORK)
+        (ADJECTIVE GIANT CENTRAL BRASS CLOCKWORK WORKSHOP VAST SILENT STILL)
         (DESC "workshop heart")
         (FDESC "The workshop's [[heart]] — a vast brass mechanism of interlocking gears — stands silent at the centre of the chamber. At its core, a [[keyhole]] waits. Around the chamber walls, dozens of toys stand frozen, as if they came here hoping to be rewound.")
         (LDESC "The workshop's [[heart]] — a giant clockwork mechanism — stands silent and still.")
@@ -732,7 +732,7 @@
 <OBJECT KEY-SLOT
         (IN WORKSHOP-HEART)
         (SYNONYM SLOT KEYHOLE HOLE)
-        (ADJECTIVE BRASS KEY)
+        (ADJECTIVE BRASS KEY HEART)
         (DESC "brass keyhole")
         (LDESC "A brass keyhole gleams at the heart mechanism's centre. It is exactly the right size for the workshop key.")
         (FLAGS NDESCBIT)
@@ -740,8 +740,8 @@
 
 <OBJECT SILENT-TOYS
         (IN WORKSHOP-HEART)
-        (SYNONYM TOYS FIGURES WITNESSES)
-        (ADJECTIVE SILENT MOTIONLESS FROZEN)
+        (SYNONYM TOYS FIGURES WITNESSES SOLDIERS DOLLS ANIMALS)
+        (ADJECTIVE SILENT MOTIONLESS FROZEN TOY WOODEN PAINTED DULL)
         (DESC "silent toys")
         (LDESC "Dozens of toys stand motionless around the heart, waiting for the magic to return.")
         (FLAGS NDESCBIT)
@@ -752,7 +752,7 @@
 <OBJECT BAKERY
     (IN LOCAL-GLOBALS)
     (SYNONYM BAKERY SHOP SHOPFRONT)
-    (ADJECTIVE ABANDONED OLD)
+    (ADJECTIVE ABANDONED OLD FROSTED)
     (DESC "bakery")
     (FLAGS NDESCBIT)
     (ACTION BAKERY-F)>
@@ -760,7 +760,7 @@
 <OBJECT WORKSHOP-BUILDING
     (IN LOCAL-GLOBALS)
     (SYNONYM BUILDING WORKSHOP SHOP)
-    (ADJECTIVE OLD COSY TOY)
+    (ADJECTIVE OLD COSY TOY TOLLIVER FROSTED)
     (DESC "workshop building")
     (FLAGS NDESCBIT)
     (ACTION WORKSHOP-BUILDING-F)>
@@ -768,15 +768,15 @@
 <OBJECT MOON
     (IN LOCAL-GLOBALS)
     (SYNONYM MOON SKY)
-    (ADJECTIVE WINTER BRIGHT)
+    (ADJECTIVE WINTER BRIGHT PALE)
     (DESC "winter moon")
     (FLAGS NDESCBIT)
     (ACTION MOON-F)>
 
 <OBJECT COBBLER
     (IN LOCAL-GLOBALS)
-    (SYNONYM COBBLER SHOP SHOPFRONT)
-    (ADJECTIVE OLD ABANDONED)
+    (SYNONYM COBBLER SHOP SHOPFRONT SHOES BOOTS SLIPPERS)
+    (ADJECTIVE OLD ABANDONED COBBLERS DUSTY)
     (DESC "cobbler's shop")
     (FLAGS NDESCBIT)
     (ACTION COBBLER-F)>
@@ -786,7 +786,7 @@
 <OBJECT TOPIC-TOLLIVER
     (IN LOCAL-GLOBALS)
     (SYNONYM TOLLIVER GRANDFATHER MAKER TOYMAKER)
-    (ADJECTIVE OLD KIND)
+    (ADJECTIVE OLD KIND GRANDFATHER)
     (DESC "Grandfather Tolliver")
     (FLAGS NDESCBIT)>
 

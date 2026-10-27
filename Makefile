@@ -243,12 +243,19 @@ test-pure-zil: test-new-books test-book-playtests
 lint-zil:
 	@echo "Checking vocabulary consistency in book adventures..."
 	@lua5.4 scripts/check-vocab.lua $(wildcard books/*/dungeon.zil)
+	@echo "Parsing every book object's synonyms and adjectives..."
+	@lua5.4 tests/test_book_vocabulary.lua $(wildcard books/*/dungeon.zil)
 	@echo "Checking prose links in book adventures..."
 	@lua5.4 scripts/check-links.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/dungeon.zil))
 	@echo "Examining every prose link through the parser..."
 	@lua5.4 scripts/check-link-targets.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/dungeon.zil))
 	@echo "Playing common verbs on every object..."
 	@lua5.4 scripts/check-responses.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/dungeon.zil))
+
+.PHONY: test-book-vocabulary
+test-book-vocabulary:
+	@lua5.4 tests/test_check_vocab.lua
+	@lua5.4 tests/test_book_vocabulary.lua $(wildcard books/*/dungeon.zil)
 
 zip:
 	@if [ -z "$(filter-out zip,$(MAKECMDGOALS))" ]; then echo "Usage: make zip <gamename>"; echo "Example: make zip limehouse-killings"; exit 1; fi

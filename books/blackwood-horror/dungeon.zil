@@ -232,8 +232,8 @@
 
 <OBJECT IRON-GATES
         (IN SANITARIUM-GATE)
-        (SYNONYM GATE GATES)
-        (ADJECTIVE IRON RUSTED)
+        (SYNONYM GATE GATES BARS)
+        (ADJECTIVE IRON RUSTED BLACK OLD)
         (DESC "iron gate")
         (LDESC "The rusted iron gates stand open. Flakes of old black paint cling to bars bent by years of weather.")
         (FLAGS NDESCBIT OPENBIT)
@@ -241,8 +241,8 @@
 
 <OBJECT BRASS-PLAQUE
         (IN SANITARIUM-GATE)
-        (SYNONYM PLAQUE BRASS SIGN)
-        (ADJECTIVE BRASS CORRODED)
+        (SYNONYM PLAQUE BRASS SIGN NAMEPLATE)
+        (ADJECTIVE BRASS CORRODED BOLTED)
         (DESC "brass plaque")
         (LDESC "A corroded [[brass plaque->plaque]] hangs askew on the gate.")
         (FLAGS READBIT)
@@ -253,7 +253,7 @@
 <OBJECT THEATER-DOOR
         (IN SANITARIUM-ENTRANCE)
         (SYNONYM DOOR)
-        (ADJECTIVE HALF-OPEN THEATER OPERATING)
+        (ADJECTIVE HALF-OPEN THEATER OPERATING JAMMED SAGGING)
         (DESC "door to the operating theater")
         (LDESC "To the [[north]], a [[door]] stands half-open, revealing an operating theater beyond.")
         (ACTION THEATER-DOOR-F)>
@@ -261,7 +261,7 @@
 <OBJECT OAK-DESK
         (IN RECEPTION-ROOM)
         (SYNONYM DESK)
-        (ADJECTIVE HEAVY OAK)
+        (ADJECTIVE HEAVY OAK DUSTY WOODEN)
         (DESC "oak desk")
         (LDESC "A heavy [[oak desk->desk]] sits against one wall, its surface thick with dust.")
         (FLAGS CONTBIT OPENBIT SURFACEBIT)
@@ -270,7 +270,7 @@
 
 <OBJECT PATIENT-FILE
         (IN BOTTOM-DRAWER)
-        (SYNONYM FILE FOLDER RECORDS)
+        (SYNONYM FILE FOLDER RECORDS RECORD DOCUMENT)
         (ADJECTIVE PATIENT CONFIDENTIAL)
         (DESC "patient file")
         (FDESC "A confidential [[patient file->file]] lies open in the drawer, its contents disturbing.")
@@ -283,8 +283,8 @@
 <OBJECT BRASS-KEY
         (IN RECEPTION-ROOM)
         (SYNONYM KEY)
-        (ADJECTIVE BRASS SMALL)
-        (DESC "brass key")
+        (ADJECTIVE RECEPTION BRASS SMALL DRAWER 3 THREE)
+        (DESC "reception key")
         (FDESC "A small [[brass key->key]] lies among the scattered papers on the floor, cold to the touch.")
         (LDESC "A small [[brass key->key]] lies here.")
         (FLAGS TAKEBIT INVISIBLE)
@@ -293,8 +293,8 @@
 
 <OBJECT RECEPTION-PAPERS
         (IN RECEPTION-ROOM)
-        (SYNONYM PAPERS PAPER FORMS)
-        (ADJECTIVE SCATTERED ADMISSION)
+        (SYNONYM PAPERS PAPER FORMS INVOICES INVOICE FORM)
+        (ADJECTIVE SCATTERED ADMISSION WET GREY DAMP)
         (DESC "scattered papers")
         (FLAGS NDESCBIT)
         (ACTION RECEPTION-PAPERS-F)>
@@ -302,7 +302,7 @@
 <OBJECT OPERATING-TABLE
         (IN OPERATING-THEATER)
         (SYNONYM TABLE)
-        (ADJECTIVE OPERATING STAINED)
+        (ADJECTIVE OPERATING STAINED METAL BROWN)
         (DESC "operating table")
         (FDESC "Tiers of wooden benches circle a central [[operating table->table]]. Cold metal trays sit abandoned on carts. A single overhead lamp, long dead, still points down at the table like an accusation.")
         (LDESC "A stained [[operating table->table]] dominates the center of the room.")
@@ -311,7 +311,7 @@
 
 <OBJECT METAL-CABINET
         (IN OPERATING-THEATER)
-        (SYNONYM CABINET)
+        (SYNONYM CABINET CUPBOARD)
         (ADJECTIVE METAL MEDICAL)
         (DESC "metal cabinet")
         (DESCFCN CABINET-DESC-F)
@@ -322,7 +322,7 @@
 <OBJECT SCALPEL
         (IN METAL-CABINET)
         (SYNONYM SCALPEL KNIFE BLADE)
-        (ADJECTIVE SURGICAL RUSTY)
+        (ADJECTIVE SURGICAL RUSTY SHARP RUSTED STAINED)
         (DESC "rusty scalpel")
         (LDESC "A rusty surgical [[scalpel]] lies here.")
         (FLAGS TAKEBIT WEAPONBIT TOOLBIT)
@@ -331,8 +331,8 @@
 
 <OBJECT ETHER-BOTTLE
         (IN METAL-CABINET)
-        (SYNONYM BOTTLE ETHER CHLOROFORM)
-        (ADJECTIVE ETHER GLASS)
+        (SYNONYM BOTTLE ETHER CHLOROFORM FLASK)
+        (ADJECTIVE ETHER GLASS FADED)
         (DESC "bottle of ether")
         (LDESC "A glass [[bottle]] labeled 'Ether - Handle with Care' stands here.")
         (FLAGS TAKEBIT)
@@ -341,8 +341,8 @@
 
 <OBJECT BED-FRAMES
         (IN PATIENT-WARD)
-        (SYNONYM BEDS FRAMES BED FRAME)
-        (ADJECTIVE RUSTED)
+        (SYNONYM BEDS FRAMES BED FRAME BEDFRAME BEDFRAMES)
+        (ADJECTIVE RUSTED BED METAL RUSTY)
         (DESC "bed frames")
         (FDESC "Dozens of [[bed frames->beds]] line the walls. Most mattresses have rotted away, leaving only rusted springs. Among the debris, a child's [[crayon drawing]] is pinned to one bedframe.")
         (LDESC "Rusted [[bed frames->beds]] line the corridor.")
@@ -350,8 +350,8 @@
 
 <OBJECT CHILD-DRAWING
         (IN PATIENT-WARD)
-        (SYNONYM DRAWING PICTURE CRAYON ART)
-        (ADJECTIVE CHILD CRAYON)
+        (SYNONYM DRAWING PICTURE CRAYON ART SKETCH)
+        (ADJECTIVE CHILD CRAYON CHILDS BRITTLE)
         (DESC "child's drawing")
         (FLAGS NDESCBIT READBIT)
         (ACTION CHILD-DRAWING-F)>
@@ -359,7 +359,7 @@
 <OBJECT HEAVY-DOOR
         (IN PATIENT-WARD)
         (SYNONYM DOOR)
-        (ADJECTIVE HEAVY SEALED LOCKED MORGUE)
+        (ADJECTIVE HEAVY SEALED LOCKED MORGUE WOODEN SCRATCHED)
         (DESC "heavy door")
         (LDESC "At the far end, a heavy door sealed with chains blocks further passage. Scratches cover the door's surface, as if made by desperate fingers.")
         (FLAGS NDESCBIT)
@@ -367,8 +367,8 @@
 
 <OBJECT CHAINS
         (IN PATIENT-WARD)
-        (SYNONYM CHAINS CHAIN PADLOCK)
-        (ADJECTIVE THICK)
+        (SYNONYM CHAINS CHAIN PADLOCK STRAP FASTENING)
+        (ADJECTIVE THICK IRON SLACK LEATHER RESTRAINT RUSTED)
         (DESC "chains")
         (LDESC "Thick [[chains]] secure the heavy door.")
         (FLAGS NDESCBIT) ;"The ward's description tells of them while they hold."
@@ -377,8 +377,8 @@
 
 <OBJECT REFRIGERATED-DRAWERS
         (IN MORGUE)
-        (SYNONYM DRAWERS DRAWER REFRIGERATOR)
-        (ADJECTIVE REFRIGERATED METAL)
+        (SYNONYM DRAWERS DRAWER REFRIGERATOR UNITS UNIT)
+        (ADJECTIVE REFRIGERATED METAL COLD)
         (DESC "refrigerated drawers")
         (DESCFCN DRAWERS-DESC-F)
         (FLAGS CONTBIT)
@@ -387,7 +387,7 @@
 <OBJECT DISSECTION-TABLE
         (IN MORGUE)
         (SYNONYM TABLE)
-        (ADJECTIVE DISSECTION AUTOPSY)
+        (ADJECTIVE DISSECTION AUTOPSY STEEL STAINLESS METAL)
         (DESC "dissection table")
         (LDESC "In the center stands a steel [[dissection table->table]].")
         (FLAGS SURFACEBIT CONTBIT OPENBIT)
@@ -396,7 +396,7 @@
 <OBJECT CANVAS-BUNDLE
         (IN DISSECTION-TABLE)
         (SYNONYM BUNDLE CANVAS BODY CORPSE)
-        (ADJECTIVE WRAPPED)
+        (ADJECTIVE WRAPPED CANVAS HUMAN-SHAPED STAINED ROTTED DISCOLORED)
         (DESC "canvas bundle")
         (FDESC "On the dissection table, a human-shaped [[bundle]] wrapped in stained canvas awaits examination.")
         (LDESC "A human-shaped [[bundle]] wrapped in stained canvas lies here.")
@@ -406,8 +406,8 @@
 
 <OBJECT STRANGE-SERUM
         (IN REFRIGERATED-DRAWERS)
-        (SYNONYM SERUM VIAL BOTTLE)
-        (ADJECTIVE STRANGE GLOWING)
+        (SYNONYM SERUM VIAL BOTTLE LIQUID COMPOUND)
+        (ADJECTIVE STRANGE GLOWING GLASS LUMINOUS)
         (DESC "vial of serum")
         (FDESC "Inside the open refrigerated drawer, a vial of [[glowing serum->serum]] gives off an eerie luminescence.")
         (LDESC "A vial of [[glowing serum->serum]] lies here, pulsing faintly.")
@@ -418,7 +418,7 @@
 <OBJECT MORDECAI-JOURNAL
         (IN MORGUE)
         (SYNONYM JOURNAL DIARY NOTEBOOK BOOK)
-        (ADJECTIVE DOCTOR MORDECAI)
+        (ADJECTIVE DOCTOR MORDECAI PERSONAL DOCTORS)
         (DESC "doctor's journal")
         (FDESC "A personal [[journal]] rests on a small desk in the corner, its pages filled with manic handwriting.")
         (LDESC "Dr. Mordecai's [[journal]] lies here.")
@@ -430,7 +430,7 @@
 <OBJECT PIPES
         (IN BASEMENT-CORRIDOR)
         (SYNONYM PIPES PIPE CEILING)
-        (ADJECTIVE RUSTED DRIPPING)
+        (ADJECTIVE RUSTED DRIPPING RUSTY ANCIENT CORRODED METAL)
         (DESC "rusty pipes")
         (LDESC "[[Pipes->pipes]] run along the ceiling, rusted and dripping.")
         (ACTION PIPES-F)>
@@ -438,7 +438,7 @@
 <OBJECT VALVE
         (IN BASEMENT-CORRIDOR)
         (SYNONYM VALVE WHEEL)
-        (ADJECTIVE PIPE METAL)
+        (ADJECTIVE PIPE METAL WHEEL LARGE RUSTY)
         (DESC "metal valve")
         (LDESC "A wheel [[valve]] juts from one of the pipes, crusted with rust.")
         (FLAGS TURNBIT)
@@ -446,8 +446,8 @@
 
 <OBJECT IRON-BOILER
         (IN BOILER-ROOM)
-        (SYNONYM BOILER FURNACE)
-        (ADJECTIVE IRON MASSIVE)
+        (SYNONYM BOILER FURNACE FIREBOX)
+        (ADJECTIVE IRON MASSIVE HULKING SOOTY)
         (DESC "iron boiler")
         (DESCFCN IRON-BOILER-DESC-F)
         (FLAGS CONTBIT OPENBIT LIGHTBIT BURNBIT)
@@ -457,7 +457,7 @@
 <OBJECT COAL-SHOVEL
         (IN IRON-BOILER)
         (SYNONYM SHOVEL SPADE)
-        (ADJECTIVE COAL)
+        (ADJECTIVE COAL STURDY HEAVY WOODEN)
         (DESC "coal shovel")
         (LDESC "A sturdy [[coal shovel->shovel]] lies here.")
         (FLAGS TAKEBIT TOOLBIT)
@@ -476,7 +476,7 @@
 <OBJECT LUMP-OF-COAL
         (IN COAL-BIN)
         (SYNONYM COAL LUMP FUEL)
-        (ADJECTIVE BLACK DUSTY)
+        (ADJECTIVE BLACK DUSTY SOLID DENSE OLD BITUMINOUS DIRTY DRY)
         (DESC "lump of coal")
         (LDESC "A [[lump of coal->coal]] lies here.")
         (FLAGS TAKEBIT)
@@ -485,8 +485,8 @@
 
 <OBJECT WORKBENCH
         (IN BOILER-ROOM)
-        (SYNONYM BENCH TABLE WORKBENCH)
-        (ADJECTIVE WORK)
+        (SYNONYM BENCH TABLE WORKBENCH TOOLS TOOL)
+        (ADJECTIVE WORK ANCIENT RUSTED)
         (DESC "workbench")
         (LDESC "A [[workbench]] sits against the far wall, covered with ancient tools.")
         (FLAGS SURFACEBIT CONTBIT)
@@ -495,7 +495,7 @@
 <OBJECT FLASHLIGHT
         (IN WORKBENCH)
         (SYNONYM FLASHLIGHT LIGHT TORCH)
-        (ADJECTIVE ELECTRIC)
+        (ADJECTIVE ELECTRIC OLD-FASHIONED HEAVY METAL DEAD)
         (DESC "flashlight")
         (LDESC "An old-fashioned electric [[flashlight]] lies here.")
         (FLAGS TAKEBIT LIGHTBIT)
@@ -514,7 +514,7 @@
 <OBJECT MEDICAL-BAG
         (IN SHELVES)
         (SYNONYM BAG SATCHEL)
-        (ADJECTIVE MEDICAL LEATHER DOCTOR)
+        (ADJECTIVE MEDICAL LEATHER DOCTOR OLD DOCTORS CRACKED WORN)
         (DESC "medical bag")
         (LDESC "An old leather [[medical bag->bag]] lies here.")
         (FLAGS CONTBIT OPENABLEBIT SEARCHBIT TAKEBIT)
@@ -525,7 +525,7 @@
 <OBJECT BANDAGES
         (IN MEDICAL-BAG)
         (SYNONYM BANDAGES BANDAGE CLOTH ROLL)
-        (ADJECTIVE YELLOWED CLEAN)
+        (ADJECTIVE YELLOWED CLEAN CLOTH)
         (DESC "roll of bandages")
         (LDESC "A roll of clean [[bandages]] lies here.")
         (FLAGS TAKEBIT)
@@ -535,7 +535,7 @@
 <OBJECT MORPHINE-VIAL
         (IN MEDICAL-BAG)
         (SYNONYM VIAL MORPHINE BOTTLE)
-        (ADJECTIVE GLASS SMALL)
+        (ADJECTIVE GLASS SMALL MORPHINE SEALED)
         (DESC "morphine vial")
         (LDESC "A sealed glass vial of [[morphine]] lies here.")
         (FLAGS TAKEBIT)
@@ -545,7 +545,7 @@
 <OBJECT OIL-LANTERN
         (IN SHELVES)
         (SYNONYM LANTERN LAMP)
-        (ADJECTIVE OIL)
+        (ADJECTIVE OIL OLD BRASS)
         (DESC "oil lantern")
         (LDESC "An old [[oil lantern->lantern]] stands here.")
         (FLAGS TAKEBIT LIGHTBIT FLAMEBIT)
@@ -554,8 +554,8 @@
 
 <OBJECT MEDICAL-RECORDS
         (IN SHELVES)
-        (SYNONYM RECORDS FILES PAPERS)
-        (ADJECTIVE MEDICAL OLD)
+        (SYNONYM RECORDS FILES PAPERS RECORD FILE SHEAF)
+        (ADJECTIVE MEDICAL OLD YELLOWED PATIENT WATER-DAMAGED)
         (DESC "medical records")
         (LDESC "A sheaf of yellowed patient [[records]] lies here.")
         (FLAGS TAKEBIT READBIT)
@@ -566,7 +566,7 @@
 <OBJECT STANDING-WATER
         (IN FLOODING-CHAMBER)
         (SYNONYM WATER FLOOD PUDDLE)
-        (ADJECTIVE STANDING ANKLE)
+        (ADJECTIVE STANDING ANKLE COLD MURKY FOUL)
         (DESC "standing water")
         (LDESC "Cold [[water]] covers the floor.")
         (ACTION STANDING-WATER-F)>
@@ -574,7 +574,7 @@
 <OBJECT SEALED-DOOR
         (IN FLOODING-CHAMBER)
         (SYNONYM DOOR)
-        (ADJECTIVE SEALED EAST METAL)
+        (ADJECTIVE SEALED EAST METAL CORRODED)
         (DESC "sealed door")
         (LDESC "A door to the east is sealed shut.")
         (FLAGS NDESCBIT)
@@ -582,8 +582,8 @@
 
 <OBJECT PORCELAIN-TUBS
         (IN HYDROTHERAPY-ROOM)
-        (SYNONYM TUBS TUB BATH)
-        (ADJECTIVE PORCELAIN)
+        (SYNONYM TUBS TUB BATH BATHS)
+        (ADJECTIVE PORCELAIN LARGE STAINED)
         (DESC "porcelain tubs")
         (LDESC "Large porcelain [[tubs]] line the walls, each fitted with restraints.")
         (FLAGS CONTBIT)
@@ -592,7 +592,7 @@
 <OBJECT SOGGY-NOTEBOOK
         (IN PORCELAIN-TUBS)
         (SYNONYM NOTEBOOK BOOK DIARY)
-        (ADJECTIVE SOGGY WET)
+        (ADJECTIVE SOGGY WET WATER-DAMAGED)
         (DESC "soggy notebook")
         (LDESC "A water-damaged [[notebook]] lies here.")
         (FLAGS TAKEBIT READBIT)
@@ -603,7 +603,7 @@
 <OBJECT MEDICINE-CABINET
         (IN HYDROTHERAPY-ROOM)
         (SYNONYM CABINET CUPBOARD)
-        (ADJECTIVE MEDICINE MEDICAL)
+        (ADJECTIVE MEDICINE MEDICAL FROSTED FROZEN GLASS THAWED)
         (DESC "medicine cabinet")
         (LDESC "A [[medicine cabinet->cabinet]] is sealed beneath a skin of white frost.")
         ;"The room's description follows the frost as it melts."
@@ -613,7 +613,7 @@
 <OBJECT SYRINGE
         (IN MEDICINE-CABINET)
         (SYNONYM SYRINGE NEEDLE)
-        (ADJECTIVE MEDICAL)
+        (ADJECTIVE MEDICAL GLASS STEEL SHARP EMPTY)
         (DESC "syringe")
         (LDESC "A glass [[syringe]] lies here.")
         (FLAGS TAKEBIT)
@@ -623,16 +623,16 @@
 
 <OBJECT CELL-DOORS
         (IN ISOLATION-WARD)
-        (SYNONYM DOORS DOOR CELLS)
-        (ADJECTIVE CELL HEAVY BARRED)
+        (SYNONYM DOORS DOOR CELLS CELL)
+        (ADJECTIVE CELL HEAVY BARRED METAL SOLID)
         (DESC "cell doors")
         (LDESC "Heavy [[doors]] with barred windows stand open, revealing bare concrete rooms within.")
         (ACTION CELL-DOORS-F)>
 
 <OBJECT WALL-SCRATCHES
         (IN ISOLATION-WARD)
-        (SYNONYM SCRATCHES MARKS TALLIES WRITING WORDS MESSAGE)
-        (ADJECTIVE WALL)
+        (SYNONYM SCRATCHES MARKS TALLIES WRITING WORDS MESSAGE SCRATCH MARK TALLY)
+        (ADJECTIVE WALL SCRATCH DEEP FINGERNAIL)
         (DESC "wall scratches")
         (LDESC "Thousands of [[scratch marks->scratches]] cover the cell walls.")
         (FLAGS NDESCBIT) ;"The ward's description tells of them."
@@ -641,8 +641,8 @@
 
 <OBJECT SHOCK-CHAIR
         (IN ELECTROSHOCK-THEATER)
-        (SYNONYM CHAIR)
-        (ADJECTIVE SHOCK ELECTRIC METAL)
+        (SYNONYM CHAIR SEAT)
+        (ADJECTIVE SHOCK ELECTRIC METAL ELECTROSHOCK COLD BOLTED)
         (DESC "electroshock chair")
         (FDESC "In the center of the room, bolted to the floor, sits the [[chair]]. Leather restraints dangle from every joint. You know immediately what this is, and your stomach turns.")
         (LDESC "A [[chair]] is bolted to the floor in the center of the room.")
@@ -650,8 +650,8 @@
 
 <OBJECT SHOCK-MACHINE
         (IN ELECTROSHOCK-THEATER)
-        (SYNONYM MACHINE EQUIPMENT ELECTRODES)
-        (ADJECTIVE SHOCK ELECTRIC)
+        (SYNONYM MACHINE EQUIPMENT ELECTRODES ELECTRODE SWITCH DIAL DIALS)
+        (ADJECTIVE SHOCK ELECTRIC ELECTROSHOCK)
         (DESC "shock machine")
         (LDESC "Electrodes dangle from a [[machine]] beside the chair.")
         (ACTION SHOCK-MACHINE-F)>
@@ -659,15 +659,15 @@
 <OBJECT PADCELL-DOOR
         (IN ELECTROSHOCK-THEATER)
         (SYNONYM DOOR)
-        (ADJECTIVE HEAVY WEST PADDED)
+        (ADJECTIVE HEAVY WEST PADDED STEEL REINFORCED WARPED)
         (DESC "heavy door to the padded cell")
         (LDESC "To the [[west]], a heavy [[door]] stands ajar, revealing a padded cell beyond.")
         (ACTION PADCELL-DOOR-F)>
 
 <OBJECT PADDING
         (IN PADDED-CELL)
-        (SYNONYM PADDING WALLS WRITING WORDS MESSAGE)
-        (ADJECTIVE ROTTING TORN BLOOD DRIED)
+        (SYNONYM PADDING WALLS WRITING WORDS MESSAGE WALL)
+        (ADJECTIVE ROTTING TORN BLOOD DRIED PADDED DAMP SPONGY MOLDERING)
         (DESC "padded walls")
         (LDESC "Every surface is covered in rotting [[padding]], now torn and hanging in strips.")
         (ACTION PADDING-F)>
@@ -675,7 +675,7 @@
 <OBJECT STRAITJACKET
         (IN PADDED-CELL)
         (SYNONYM STRAITJACKET JACKET TAG LABEL)
-        (ADJECTIVE STRAIT NAME COLLAR)
+        (ADJECTIVE STRAIT NAME COLLAR HEAVY CANVAS STAINED ROUGH STIFF)
         (DESC "straitjacket")
         (FDESC "A [[straitjacket]] lies in the corner, its straps unbuckled as if someone left in a hurry.")
         (LDESC "A [[straitjacket]] lies here.")
@@ -688,7 +688,7 @@
 <OBJECT ESCAPE-DOOR
         (IN PADDED-CELL)
         (SYNONYM DOOR)
-        (ADJECTIVE EAST HEAVY)
+        (ADJECTIVE EAST HEAVY ELECTROSHOCK THEATER SOLID)
         (DESC "door to the electroshock theater")
         (LDESC "To the [[east]], a heavy [[door]] leads back to the electroshock theater.")
         (ACTION ESCAPE-DOOR-F)>
@@ -704,7 +704,7 @@
 <OBJECT OBSERVATION-LOGBOOK
         (IN OBSERVATION-DECK)
         (SYNONYM LOGBOOK LOG BOOK)
-        (ADJECTIVE OBSERVATION)
+        (ADJECTIVE OBSERVATION CLINICAL)
         (DESC "observation logbook")
         (FDESC "A [[logbook]] rests on a desk.")
         (LDESC "The observation [[logbook]] lies here.")
@@ -716,15 +716,15 @@
 <OBJECT CORRIDOR-DOOR
         (IN OBSERVATION-DECK)
         (SYNONYM DOOR)
-        (ADJECTIVE NORTH ADMINISTRATIVE)
+        (ADJECTIVE NORTH ADMINISTRATIVE HEAVY WOODEN WARPED)
         (DESC "door to the administrative wing")
         (LDESC "To the [[north]], a [[door]] opens to the administrative wing.")
         (ACTION CORRIDOR-DOOR-F)>
 
 <OBJECT SCATTERED-PAPERS
         (IN ADMINISTRATIVE-WING)
-        (SYNONYM PAPERS FILES DOCUMENTS)
-        (ADJECTIVE SCATTERED)
+        (SYNONYM PAPERS FILES DOCUMENTS PAPER FILE DOCUMENT MEMO ORDERS SCHEDULES)
+        (ADJECTIVE SCATTERED MUNDANE)
         (DESC "scattered papers")
         (LDESC "[[Papers->papers]] are scattered everywhere.")
         (ACTION SCATTERED-PAPERS-F)>
@@ -732,7 +732,7 @@
 <OBJECT MASSIVE-DESK
         (IN DIRECTORS-OFFICE)
         (SYNONYM DESK)
-        (ADJECTIVE MASSIVE WOOD)
+        (ADJECTIVE MASSIVE WOOD WOODEN DARK POLISHED)
         (DESC "massive desk")
         (LDESC "A massive [[desk]] dominates the room.")
         (FLAGS CONTBIT OPENBIT SURFACEBIT)
@@ -741,7 +741,7 @@
 <OBJECT HOLLOW-BOOK
         (IN DIRECTORS-OFFICE)
         (SYNONYM BOOK TOME VOLUME)
-        (ADJECTIVE RED LEATHER HOLLOW)
+        (ADJECTIVE RED LEATHER HOLLOW BLANK)
         (DESC "red leather book")
         (FDESC "Among the medical texts, one book stands out -- a red leather [[tome->book]], its spine blank where all others are labeled.")
         (LDESC "A red leather [[book]] with a blank spine lies here.")
@@ -753,7 +753,7 @@
 <OBJECT MORDECAI-PORTRAIT
         (IN DIRECTORS-OFFICE)
         (SYNONYM PORTRAIT PAINTING PICTURE)
-        (ADJECTIVE MORDECAI)
+        (ADJECTIVE MORDECAI DOCTOR DR HEINRICH)
         (DESC "portrait of Dr. Mordecai")
         (DESCFCN PORTRAIT-DESC-F)
         (ACTION PORTRAIT-F)>
@@ -761,7 +761,7 @@
 <OBJECT WALL-SAFE
         (IN DIRECTORS-OFFICE)
         (SYNONYM SAFE)
-        (ADJECTIVE WALL METAL)
+        (ADJECTIVE WALL METAL LOCKED)
         (DESC "wall safe")
         (LDESC "Where the portrait has swung aside, a [[wall safe->safe]] is set into the paneling.")
         (FLAGS CONTBIT INVISIBLE)
@@ -770,7 +770,7 @@
 <OBJECT OFFICE-DOOR
         (IN DIRECTORS-OFFICE)
         (SYNONYM DOOR)
-        (ADJECTIVE WEST HEAVY)
+        (ADJECTIVE WEST HEAVY OFFICE ADMINISTRATIVE WARPED)
         (DESC "door to the administrative wing")
         (LDESC "To the [[west]], a [[door]] opens back to the administrative wing corridor.")
         (ACTION OFFICE-DOOR-F)>
@@ -778,7 +778,7 @@
 <OBJECT SAFE-KEY
         (IN HOLLOW-BOOK)
         (SYNONYM KEY)
-        (ADJECTIVE SAFE NUMBERED)
+        (ADJECTIVE SAFE NUMBERED SMALL BRASS)
         (DESC "safe key")
         (LDESC "A small [[key->safe key]] with a numbered tag lies here.")
         (FLAGS TAKEBIT)
@@ -788,8 +788,8 @@
 
 <OBJECT MORDECAI-NOTES
         (IN WALL-SAFE)
-        (SYNONYM NOTES JOURNAL PAPERS)
-        (ADJECTIVE PRIVATE MORDECAI)
+        (SYNONYM NOTES JOURNAL PAPERS NOTE)
+        (ADJECTIVE PRIVATE MORDECAI DR DOCTOR DOCTORS)
         (DESC "Dr. Mordecai's notes")
         (FDESC "Private [[notes]] in a tight, obsessive hand detail experiments that should never have been conducted.")
         (LDESC "Dr. Mordecai's private [[notes]] lie here.")
@@ -801,7 +801,7 @@
 <OBJECT CHAPEL-KEY
         (IN WALL-SAFE)
         (SYNONYM KEY)
-        (ADJECTIVE CHAPEL IRON)
+        (ADJECTIVE CHAPEL IRON LARGE HEAVY COLD)
         (DESC "chapel key")
         (FDESC "A heavy iron [[key->chapel key]] lies among the safe's contents, its head carved with a cross.")
         (LDESC "A large iron [[key->chapel key]] engraved with a cross lies here.")
@@ -812,8 +812,8 @@
 
 <OBJECT LOCKERS
         (IN STAFF-QUARTERS)
-        (SYNONYM LOCKERS LOCKER)
-        (ADJECTIVE METAL)
+        (SYNONYM LOCKERS LOCKER BANK)
+        (ADJECTIVE METAL DENTED CROOKED)
         (DESC "bank of lockers")
         (LDESC "[[Lockers->lockers]] line one wall, their dented doors hanging crooked.")
         (FLAGS CONTBIT)
@@ -822,7 +822,7 @@
 <OBJECT PHOTOGRAPH
         (IN LOCKERS)
         (SYNONYM PHOTOGRAPH PHOTO PICTURE)
-        (ADJECTIVE OLD)
+        (ADJECTIVE OLD FADED STAFF)
         (DESC "photograph")
         (LDESC "A faded [[photograph]] of the sanitarium staff lies here.")
         (FLAGS TAKEBIT)
@@ -832,7 +832,7 @@
 <OBJECT SERVING-COUNTER
         (IN CAFETERIA)
         (SYNONYM COUNTER)
-        (ADJECTIVE SERVING)
+        (ADJECTIVE SERVING DUSTY)
         (DESC "serving counter")
         (LDESC "A serving [[counter]] separates the dining area from the kitchen beyond.")
         (FLAGS SURFACEBIT CONTBIT OPENBIT)
@@ -840,8 +840,8 @@
 
 <OBJECT BELL
         (IN SERVING-COUNTER)
-        (SYNONYM BELL)
-        (ADJECTIVE SERVICE COUNTER)
+        (SYNONYM BELL CHIME)
+        (ADJECTIVE SERVICE COUNTER SMALL BRASS)
         (DESC "service bell")
         (LDESC "A small brass service [[bell]] sits here.")
         (FLAGS TAKEBIT)
@@ -851,7 +851,7 @@
 <OBJECT GARDEN-DOOR
         (IN CAFETERIA)
         (SYNONYM DOOR)
-        (ADJECTIVE NORTH WOODEN)
+        (ADJECTIVE NORTH WOODEN GARDEN)
         (DESC "door to the garden")
         (LDESC "To the [[north]], a [[door]] leads out to the garden.")
         (ACTION GARDEN-DOOR-F)>
@@ -867,31 +867,31 @@
 <OBJECT CHAPEL-DOOR
         (IN OVERGROWN-GARDEN)
         (SYNONYM DOOR)
-        (ADJECTIVE CHAPEL HEAVY LOCKED)
+        (ADJECTIVE CHAPEL HEAVY LOCKED OAK WOODEN IRON)
       (DESC "chapel door")
       (FLAGS NDESCBIT)
       (ACTION CHAPEL-DOOR-F)>
 
 <OBJECT PEWS
         (IN CHAPEL)
-        (SYNONYM PEWS BENCHES)
-        (ADJECTIVE WOODEN)
+        (SYNONYM PEWS BENCHES PEW BENCH)
+        (ADJECTIVE WOODEN ANCIENT ROTTING COLD)
         (DESC "wooden pews")
         (LDESC "[[Pews->pews]] face an altar.")
         (ACTION PEWS-F)>
 
 <OBJECT GREEN-CANDLES
         (IN CHAPEL)
-        (SYNONYM CANDLES FLAMES)
-        (ADJECTIVE GREEN UNNATURAL)
+        (SYNONYM CANDLES FLAMES CANDLE FLAME)
+        (ADJECTIVE GREEN UNNATURAL WAX COLD DARK)
       (DESC "green candles")
       (FLAGS NDESCBIT)
       (ACTION GREEN-CANDLES-F)>
 
 <OBJECT WOODEN-BOX
         (IN CHAPEL)
-        (SYNONYM BOX CASE)
-        (ADJECTIVE WOODEN LOCKED SMALL)
+        (SYNONYM BOX CASE CASKET)
+        (ADJECTIVE WOODEN LOCKED SMALL CARVED)
         (DESC "wooden box")
         (FDESC "A small wooden [[box]] sits beneath the altar, its surface carved with disturbing symbols.")
         (LDESC "A small wooden [[box]] carved with disturbing symbols sits here.")
@@ -903,7 +903,7 @@
 <OBJECT ANCIENT-RELIC
         (IN WOODEN-BOX)
         (SYNONYM RELIC CROSS SILVER AMULET)
-        (ADJECTIVE ANCIENT SILVER TARNISHED)
+        (ADJECTIVE ANCIENT SILVER TARNISHED BLACK WARM)
         (DESC "ancient relic")
         (FDESC "Inside the wooden box, an ancient silver [[cross->relic]] gleams with writhing symbols etched into its surface.")
         (LDESC "An ancient silver [[cross->relic]] lies here, symbols writhing across its surface.")
@@ -915,7 +915,7 @@
 <OBJECT PATIENT-189
         (IN CHAPEL)
         (SYNONYM PATIENT FIGURE BEING MONSTER SOUL GHOST SOMETHING)
-        (ADJECTIVE PATIENT 189)
+        (ADJECTIVE PATIENT 189 PALE STILL GREEN)
         (DESC "Patient 189")
         (FDESC "[[Something->patient]] is standing at the altar. It doesn't move. It doesn't breathe. But somehow, horribly, you know it knows you're here.")
         (LDESC "A [[figure->patient]] stands motionless at the altar. It turns to face you—its eyes glow faintly in the darkness.")
@@ -927,39 +927,39 @@
 <OBJECT NEST
         (IN RECEPTION-ROOM)
         (SYNONYM NEST)
-        (ADJECTIVE BIRD)
+        (ADJECTIVE BIRD BIRDS OLD ABANDONED)
         (DESC "bird's nest")
         (FLAGS NDESCBIT)
         (ACTION NEST-PSEUDO)>
 
 <OBJECT ASHES
         (IN RECEPTION-ROOM)
-        (SYNONYM ASHES ASH)
-        (ADJECTIVE COLD GREY)
+        (SYNONYM ASHES ASH SOOT CHAR)
+        (ADJECTIVE COLD GREY GRAY)
         (DESC "ashes")
         (FLAGS NDESCBIT)
         (ACTION ASHES-PSEUDO)>
 
 <OBJECT INSTRUMENTS
         (IN OPERATING-THEATER)
-        (SYNONYM INSTRUMENTS)
-        (ADJECTIVE MEDICAL SURGICAL)
+        (SYNONYM INSTRUMENTS INSTRUMENT FORCEPS CLAMPS CLAMP)
+        (ADJECTIVE MEDICAL SURGICAL RUSTY RUSTED)
         (DESC "instruments")
         (FLAGS NDESCBIT)
         (ACTION INSTRUMENTS-PSEUDO)>
 
 <OBJECT TRAYS
         (IN OPERATING-THEATER)
-        (SYNONYM TRAYS)
-        (ADJECTIVE METAL INSTRUMENT)
+        (SYNONYM TRAYS TRAY)
+        (ADJECTIVE METAL INSTRUMENT COLD)
         (DESC "trays")
         (FLAGS NDESCBIT)
         (ACTION TRAYS-PSEUDO)>
 
 <OBJECT THEATER-BENCHES
         (IN OPERATING-THEATER)
-        (SYNONYM BENCHES BENCH TIERS)
-        (ADJECTIVE WOODEN THEATER OPERATING)
+        (SYNONYM BENCHES BENCH TIERS TIER)
+        (ADJECTIVE WOODEN THEATER OPERATING DARK)
         (DESC "wooden benches")
         (FLAGS NDESCBIT)
         (ACTION BENCHES-PSEUDO)>
@@ -967,7 +967,7 @@
 <OBJECT COAL-DUST
         (IN BOILER-ROOM)
         (SYNONYM DUST SOOT)
-        (ADJECTIVE COAL BLACK)
+        (ADJECTIVE COAL BLACK FINE DAMP)
         (DESC "coal dust")
         (FLAGS NDESCBIT)
         (ACTION COAL-DUST-F)>
@@ -975,14 +975,14 @@
 <OBJECT GARDEN-BENCHES
         (IN OVERGROWN-GARDEN)
         (SYNONYM BENCHES BENCH)
-        (ADJECTIVE BROKEN STONE)
+        (ADJECTIVE BROKEN STONE IVY MOSSY)
         (DESC "stone benches")
         (FLAGS NDESCBIT)
         (ACTION GARDEN-BENCHES-F)>
 
 <OBJECT GRAND-STAIRCASE
         (IN SANITARIUM-ENTRANCE)
-        (SYNONYM STAIRCASE STAIRS)
+        (SYNONYM STAIRCASE STAIRS STAIRWAY STEPS)
         (ADJECTIVE GRAND)
         (DESC "grand staircase")
         (FLAGS NDESCBIT)
@@ -991,7 +991,7 @@
 <OBJECT WALLPAPER
         (IN SANITARIUM-ENTRANCE)
         (SYNONYM WALLPAPER PAPER PLASTER)
-        (ADJECTIVE VICTORIAN PEELING)
+        (ADJECTIVE VICTORIAN PEELING VICTORIAN-ERA WARPED MOLDY)
         (DESC "wallpaper")
         (FLAGS NDESCBIT)
         (ACTION WALLPAPER-F)>
@@ -1001,7 +1001,7 @@
 <OBJECT SANITARIUM-BUILDING
     (IN LOCAL-GLOBALS)
     (SYNONYM BUILDING SANITARIUM STRUCTURE FACADE)
-    (ADJECTIVE ABANDONED VICTORIAN SANITARIUM)
+    (ADJECTIVE ABANDONED VICTORIAN SANITARIUM BLACKWOOD CRUMBLING)
     (DESC "sanitarium building")
     (FLAGS NDESCBIT)
     (ACTION SANITARIUM-BUILDING-F)>
@@ -1009,15 +1009,15 @@
 <OBJECT DEAD-OAK-TREE
     (IN LOCAL-GLOBALS)
     (SYNONYM TREE OAK CROWS)
-    (ADJECTIVE DEAD BARE)
+    (ADJECTIVE DEAD BARE MASSIVE LEAFLESS GREY GRAY OAK)
     (DESC "dead oak tree")
     (FLAGS NDESCBIT CLIMBBIT)
     (ACTION DEAD-OAK-TREE-F)>
 
 <OBJECT FILING-CABINETS
     (IN LOCAL-GLOBALS)
-    (SYNONYM CABINETS CABINET DRAWERS FILES)
-    (ADJECTIVE FILING FILE OVERTURNED)
+    (SYNONYM CABINETS CABINET DRAWERS FILES FILE DRAWER)
+    (ADJECTIVE FILING FILE OVERTURNED EMPTY BENT)
     (DESC "filing cabinets")
     (FLAGS NDESCBIT)
     (ACTION FILING-CABINETS-F)>
@@ -1027,7 +1027,7 @@
 <OBJECT TOPIC-MORDECAI
     (IN LOCAL-GLOBALS)
     (SYNONYM MORDECAI DIRECTOR DOCTOR)
-    (ADJECTIVE HEINRICH)
+    (ADJECTIVE HEINRICH DR DOCTOR)
     (DESC "Dr. Mordecai")
     (FLAGS NDESCBIT)>
 
@@ -1060,7 +1060,7 @@
 <OBJECT BOTTOM-DRAWER
         (IN OAK-DESK)
         (SYNONYM DRAWER)
-        (ADJECTIVE BOTTOM)
+        (ADJECTIVE BOTTOM STURDY LOCKED NUMBERED)
         (DESC "bottom drawer")
         (LDESC "The desk has a sturdy [[bottom drawer->drawer]].")
         (FLAGS CONTBIT OPENABLEBIT SEARCHBIT NDESCBIT)
@@ -1069,8 +1069,8 @@
 
 <OBJECT PATIENT-LEDGER
         (IN BOTTOM-DRAWER)
-        (SYNONYM LEDGER BOOK)
-        (ADJECTIVE PATIENT LEATHER)
+        (SYNONYM LEDGER BOOK RECORDS)
+        (ADJECTIVE PATIENT LEATHER LEATHER-BOUND SWOLLEN DAMP)
         (DESC "patient ledger")
         (LDESC "A leather-bound [[ledger]], swollen with damp, lies closed.")
         (FLAGS READBIT TAKEBIT)

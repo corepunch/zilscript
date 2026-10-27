@@ -47,7 +47,7 @@ local function choices()
 end
 record(game:start())
 local commands = {
- "examine forecast",
+ "examine official forecast",
  "take weather card",
  "west",
  "take narrow spoon",
@@ -68,7 +68,7 @@ local commands = {
  "west",
  "south",
  "south",
- "open weatherbox",
+ "open brass weatherbox",
  "take folded report",
  "north",
  "west",

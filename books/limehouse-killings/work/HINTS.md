@@ -71,7 +71,7 @@ Wrong attempts:
 | Attention | “Answers establish alibis; showing evidence changes behavior.” |
 | Direction | “Ask Hudson and Lady Ashworth about their alibis. Ask Moriarty about poison.” |
 | Action | “Show the unsent letter before Act III if you want to expose a suspect's intermediate state.” |
-| Command | `ASK HUDSON ABOUT ALIBI`, `ASK LADY ABOUT ALIBI`, `ASK MORIARTY ABOUT POISON`, `SHOW LETTER TO HUDSON/LADY/MORIARTY` |
+| Command | `ASK HUDSON ABOUT ALIBI`, `ASK LADY ABOUT ALIBI`, `ASK MORIARTY ABOUT POISON`, `SHOW UNSENT LETTER TO HUDSON/LADY/MORIARTY` |
 
 Topicless `ASK NPC` should prompt for a topic, never crash.
 
@@ -82,7 +82,7 @@ Topicless `ASK NPC` should prompt for a topic, never crash.
 | Attention | “Lestrade wants an argument, not an inventory count.” |
 | Direction | “Organize the case as threat, method, and motive.” |
 | Action | “Show him Ashworth's threat, the identified poison, and the financial corroboration.” |
-| Command | `SHOW LETTER TO INSPECTOR`, `SHOW BOTTLE TO INSPECTOR`, `SHOW STATEMENT TO INSPECTOR` |
+| Command | `SHOW UNSENT LETTER TO INSPECTOR`, `SHOW BOTTLE TO INSPECTOR`, `SHOW STATEMENT TO INSPECTOR` |
 
 Early accusation response must name the missing argument links, not say only “not enough evidence.”
 
@@ -93,7 +93,7 @@ Early accusation response must name the missing argument links, not say only “
 | Attention | “The case is complete. Decide which proof should lead.” |
 | Direction | “The letter invites witness confirmation; the poison may provoke specialized knowledge.” |
 | Action | “Accuse Moriarty with either the letter or the poison.” |
-| Command | `ACCUSE MORIARTY WITH LETTER` or `ACCUSE MORIARTY WITH POISON` |
+| Command | `ACCUSE MORIARTY WITH UNSENT LETTER` or `ACCUSE MORIARTY WITH POISON` |
 
 ## General Hint Principles
 

@@ -132,7 +132,7 @@ Canonical sequence:
 
 ```text
 ASK INSPECTOR ABOUT CASE
-SHOW LETTER TO INSPECTOR
+SHOW UNSENT LETTER TO INSPECTOR
 SHOW BOTTLE TO INSPECTOR
 SHOW STATEMENT TO INSPECTOR
 ACCUSE MORIARTY
@@ -140,7 +140,7 @@ ACCUSE MORIARTY
 
 The bare accusation prompts a final choice:
 
-- `ACCUSE MORIARTY WITH LETTER` leads with Ashworth's voice and draws confirming testimony from Hudson and Lady Ashworth.
+- `ACCUSE MORIARTY WITH UNSENT LETTER` leads with Ashworth's voice and draws confirming testimony from Hudson and Lady Ashworth.
 - `ACCUSE MORIARTY WITH POISON` leads with physical evidence and provokes Moriarty into revealing knowledge he should not possess.
 
 Both endings must reference at least two earlier discoveries and imply the next case rather than ending at a numeric victory message.

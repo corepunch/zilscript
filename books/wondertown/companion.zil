@@ -960,7 +960,7 @@
                   <NOT <IN? ,TIN-SOLDIER ,WORKSHOP-HEART>>>
             <CHOICE "heart.place-soldier"
                     "Place the tin soldier beside the heart"
-                    "position soldier"
+                    "position tin soldier"
                     ,CHOICE-PROGRESS
                     95>)>
      <COND (<AND <IN? ,MUSIC-BOX ,WINNER>
