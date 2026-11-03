@@ -857,7 +857,9 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 		      <SET WRD <PREP-FIND .PREP>>
 		      <PRINTB .WRD>)>)>>
 
-<ROUTINE CLAUSE-COPY (SRC DEST "OPTIONAL" (INSRT <>) "AUX" BEG END)
+;"An answer's adjective replaces the question's: a phrase is matched by its
+  first adjective only, so SMALL KEY answered SAFE must become SAFE KEY."
+<ROUTINE CLAUSE-COPY (SRC DEST "OPTIONAL" (INSRT <>) "AUX" BEG END WRD)
 	<SET BEG <GET .SRC <GET ,P-CCTBL ,CC-SBPTR>>>
 	<SET END <GET .SRC <GET ,P-CCTBL ,CC-SEPTR>>>
 	<PUT .DEST
@@ -873,9 +875,13 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 				     2>>>
 		       <RETURN>)
 		      (T
-		       <COND (<AND .INSRT <EQUAL? ,P-ANAM <GET .BEG 0>>>
+		       <SET WRD <GET .BEG 0>>
+		       <COND (<AND .INSRT <EQUAL? ,P-ANAM .WRD>>
 			      <CLAUSE-ADD .INSRT>)>
-		       <CLAUSE-ADD <GET .BEG 0>>)>
+		       <COND (<OR <NOT .INSRT>
+				  <EQUAL? ,P-ANAM .WRD>
+				  <ZERO? <WT? .WRD ,PS?ADJECTIVE>>>
+			      <CLAUSE-ADD .WRD>)>)>
 		<SET BEG <REST .BEG ,P-WORDLEN>>>>
 
 
