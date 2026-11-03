@@ -233,7 +233,7 @@
 <OBJECT IRON-GATES
         (IN SANITARIUM-GATE)
         (SYNONYM GATE GATES BARS)
-        (ADJECTIVE IRON RUSTED BLACK OLD)
+        (ADJECTIVE IRON RUSTED BLACK OLD SANITARIUM)
         (DESC "iron gate")
         (LDESC "The rusted iron gates stand open. Flakes of old black paint cling to bars bent by years of weather.")
         (FLAGS NDESCBIT OPENBIT)
@@ -302,7 +302,7 @@
 <OBJECT OPERATING-TABLE
         (IN OPERATING-THEATER)
         (SYNONYM TABLE)
-        (ADJECTIVE OPERATING STAINED METAL BROWN)
+        (ADJECTIVE OPERATING STAINED METAL BROWN CENTRAL)
         (DESC "operating table")
         (FDESC "Tiers of wooden benches circle a central [[operating table->table]]. Cold metal trays sit abandoned on carts. A single overhead lamp, long dead, still points down at the table like an accusation.")
         (LDESC "A stained [[operating table->table]] dominates the center of the room.")
@@ -430,7 +430,7 @@
 <OBJECT PIPES
         (IN BASEMENT-CORRIDOR)
         (SYNONYM PIPES PIPE CEILING)
-        (ADJECTIVE RUSTED DRIPPING RUSTY ANCIENT CORRODED METAL)
+        (ADJECTIVE RUSTED DRIPPING RUSTY ANCIENT CORRODED METAL BASEMENT BOILER)
         (DESC "rusty pipes")
         (LDESC "[[Pipes->pipes]] run along the ceiling, rusted and dripping.")
         (ACTION PIPES-F)>
@@ -476,7 +476,7 @@
 <OBJECT LUMP-OF-COAL
         (IN COAL-BIN)
         (SYNONYM COAL LUMP FUEL)
-        (ADJECTIVE BLACK DUSTY SOLID DENSE OLD BITUMINOUS DIRTY DRY)
+        (ADJECTIVE BLACK DUSTY SOLID DENSE OLD BITUMINOUS DIRTY DRY FRESH BURNING)
         (DESC "lump of coal")
         (LDESC "A [[lump of coal->coal]] lies here.")
         (FLAGS TAKEBIT)
@@ -583,7 +583,7 @@
 <OBJECT PORCELAIN-TUBS
         (IN HYDROTHERAPY-ROOM)
         (SYNONYM TUBS TUB BATH BATHS)
-        (ADJECTIVE PORCELAIN LARGE STAINED)
+        (ADJECTIVE PORCELAIN LARGE STAINED CRACKED)
         (DESC "porcelain tubs")
         (LDESC "Large porcelain [[tubs]] line the walls, each fitted with restraints.")
         (FLAGS CONTBIT)
@@ -624,7 +624,7 @@
 <OBJECT CELL-DOORS
         (IN ISOLATION-WARD)
         (SYNONYM DOORS DOOR CELLS CELL)
-        (ADJECTIVE CELL HEAVY BARRED METAL SOLID)
+        (ADJECTIVE CELL HEAVY BARRED METAL SOLID SMALL)
         (DESC "cell doors")
         (LDESC "Heavy [[doors]] with barred windows stand open, revealing bare concrete rooms within.")
         (ACTION CELL-DOORS-F)>
@@ -667,7 +667,7 @@
 <OBJECT PADDING
         (IN PADDED-CELL)
         (SYNONYM PADDING WALLS WRITING WORDS MESSAGE WALL)
-        (ADJECTIVE ROTTING TORN BLOOD DRIED PADDED DAMP SPONGY MOLDERING)
+        (ADJECTIVE ROTTING TORN BLOOD DRIED PADDED DAMP SPONGY MOLDERING WET)
         (DESC "padded walls")
         (LDESC "Every surface is covered in rotting [[padding]], now torn and hanging in strips.")
         (ACTION PADDING-F)>
@@ -851,7 +851,7 @@
 <OBJECT GARDEN-DOOR
         (IN CAFETERIA)
         (SYNONYM DOOR)
-        (ADJECTIVE NORTH WOODEN GARDEN)
+        (ADJECTIVE NORTH WOODEN GARDEN WARPED)
         (DESC "door to the garden")
         (LDESC "To the [[north]], a [[door]] leads out to the garden.")
         (ACTION GARDEN-DOOR-F)>
@@ -943,7 +943,7 @@
 <OBJECT INSTRUMENTS
         (IN OPERATING-THEATER)
         (SYNONYM INSTRUMENTS INSTRUMENT FORCEPS CLAMPS CLAMP)
-        (ADJECTIVE MEDICAL SURGICAL RUSTY RUSTED)
+        (ADJECTIVE MEDICAL SURGICAL RUSTY RUSTED CUTTING)
         (DESC "instruments")
         (FLAGS NDESCBIT)
         (ACTION INSTRUMENTS-PSEUDO)>
@@ -1017,7 +1017,7 @@
 <OBJECT FILING-CABINETS
     (IN LOCAL-GLOBALS)
     (SYNONYM CABINETS CABINET DRAWERS FILES FILE DRAWER)
-    (ADJECTIVE FILING FILE OVERTURNED EMPTY BENT)
+    (ADJECTIVE FILING FILE OVERTURNED EMPTY BENT RECEPTION)
     (DESC "filing cabinets")
     (FLAGS NDESCBIT)
     (ACTION FILING-CABINETS-F)>

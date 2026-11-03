@@ -21,16 +21,21 @@ return function(root, expect, exhaustive, bookNames)
 	local books = {
 		["blackwood-horror"] = {
 			BELL = "small bell|small brass bell|brass chime",
-			PIPES = "rusty pipes", SYRINGE = "glass syringe",
+			PIPES = "rusty pipes|basement pipes", SYRINGE = "glass syringe",
 			["COAL-SHOVEL"] = "sturdy shovel|heavy shovel",
 			["SAFE-KEY"] = "small safe key", ["SHOCK-CHAIR"] = "electroshock chair",
 			["PATIENT-LEDGER"] = "leather-bound ledger",
 			["BRASS-KEY"] = "reception key|drawer key|3 key",
+			["PORCELAIN-TUBS"] = "cracked tubs",
+			["CELL-DOORS"] = "small cells",
+			["LUMP-OF-COAL"] = "fresh coal",
+			["CHILD-DRAWING"] = "child's drawing|child’s drawing",
+			NEST = "bird's nest",
 		},
 		["pocket-weather"] = {
 			BELL = "small bell|solid bell|small brass bell",
-			SPOON = "baking spoon|narrow scoop", FLOWER = "blue flower",
-			RIBBON = "wool ribbon|long ribbon", WEATHERBOX = "brass weatherbox",
+			SPOON = "baking spoon|narrow scoop|kitchen spoon", FLOWER = "blue flower",
+			RIBBON = "wool ribbon|long ribbon", WEATHERBOX = "brass weatherbox|archive weatherbox",
 			CARD = "forecast card|blank weather card",
 		},
 		["silent-vector"] = {
@@ -38,13 +43,19 @@ return function(root, expect, exhaustive, bookNames)
 			SHEARS = "nonconductive shears|ceramic scissors",
 			RECORDER = "sealed mechanical recorder", BUS = "live cable",
 			MARA = "mara vale", IVO = "ivo chen", SENN = "senn orlov",
+			CONSOLE = "cold-core console",
+			RECEIVER = "isolated receiver",
+			COMPARATOR = "laboratory comparator",
 		},
 		["last-broadcast"] = {
 			["LB-STYLUS"] = "sapphire stylus|small needle",
 			["LB-PLAYER"] = "spring-driven gramophone|broadcast phonograph",
-			["LB-SPANNER"] = "square-socket spanner",
+			["LB-SPANNER"] = "square-socket spanner|workshop spanner",
 			["LB-WEIGHT"] = "heavy counterweight|loose weight",
 			["LB-EDITH"] = "doctor shaw", ["LB-TOMAS"] = "tomas vale",
+			["LB-SLEEVE"] = "archive sleeve",
+			["LB-DISC"] = "archive disc",
+			["LB-HATCH"] = "office hatch",
 		},
 		["limehouse-killings"] = {
 			["POISON-BOTTLE"] = "small glass bottle",
@@ -54,6 +65,9 @@ return function(root, expect, exhaustive, bookNames)
 			INSPECTOR = "inspector lestrade|officer lestrade", TRUNK = "large wooden chest",
 			["RED-BOOK"] = "red-marked book",
 			["DEAD-LETTER"] = "unsent letter", ["TRUNK-LETTER"] = "folded note",
+			["LOCKED-BOX"] = "ornate box|small box",
+			GATES = "wet bars",
+			KEYRING = "long key",
 		},
 		wondertown = {
 			["MUSIC-BOX"] = "small silver box",
@@ -61,6 +75,8 @@ return function(root, expect, exhaustive, bookNames)
 			["WORKSHOP-KEY"] = "warm brass key",
 			["TOLLIVER-COAT"] = "tweed coat", NUTMEG = "fox toy",
 			["HEART-MECH"] = "workshop heart|vast brass mechanism",
+			WORKBENCH = "carved workbench",
+			COBBLER = "cobbler's shop",
 		},
 	}
 	if bookNames and #bookNames > 0 then

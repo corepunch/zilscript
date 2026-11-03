@@ -214,7 +214,7 @@
       (DESC "locked box")
       (DESCFCN LOCKED-BOX-DESC-F)
       (SYNONYM BOX CONTAINER DIAL)
-      (ADJECTIVE LOCKED LETTERED NAME)
+      (ADJECTIVE LOCKED LETTERED NAME ORNATE SMALL NAME-DIAL)
       (FLAGS CONTBIT SEARCHBIT TURNBIT)
       (ACTION LOCKED-BOX-F)>
 
@@ -285,7 +285,7 @@
       (DESC "keyring")
       (LDESC "A [[ring of keys->keyring]] lies here.")
       (SYNONYM KEYRING KEYS KEY RING)
-      (ADJECTIVE STUDY WARDED)
+      (ADJECTIVE STUDY WARDED LONG)
       (FLAGS TAKEBIT TOOLBIT)
       (ACTION KEYRING-F)>
 
@@ -507,7 +507,7 @@
       (DESC "hedge mazes")
       (LDESC "Tall hedges, their branches thick and tangled. They hide secrets in their shadows.")
       (SYNONYM HEDGES HEDGE BUSHES MAZE MAZES BUSH)
-      (ADJECTIVE TALL THICK TANGLED OVERGROWN)
+      (ADJECTIVE TALL THICK TANGLED OVERGROWN BLACK)
       (FLAGS NDESCBIT)
       (ACTION HEDGES-F)>
 
@@ -516,7 +516,7 @@
       (DESC "exotic plants")
       (LDESC "Exotic plants from around the world, their leaves and flowers a splash of color in the gray manor.")
       (SYNONYM PLANTS FLOWERS PLANT FLOWER WOLFSBANE ACONITUM)
-      (ADJECTIVE EXOTIC PURPLE)
+      (ADJECTIVE EXOTIC PURPLE GREENHOUSE LABELED)
       (FLAGS NDESCBIT)
       (ACTION PLANTS-F)>
 
@@ -525,7 +525,7 @@
       (DESC "plant labels")
       (LDESC "Small labels marking the plants. They identify species and their properties.")
       (SYNONYM LABELS LABEL)
-      (ADJECTIVE PLANT SMALL CURLED)
+      (ADJECTIVE PLANT SMALL CURLED PAPER)
       (FLAGS NDESCBIT)
       (ACTION LABELS-F)>
 
@@ -543,7 +543,7 @@
       (DESC "servant beds")
       (LDESC "Simple beds for the household staff, their sheets worn but clean.")
       (SYNONYM BEDS BED)
-      (ADJECTIVE SERVANT SIMPLE EMPTY)
+      (ADJECTIVE SERVANT SIMPLE EMPTY NARROW)
       (FLAGS NDESCBIT)
       (ACTION BEDS-F)>
 
@@ -645,7 +645,7 @@
       (DESC "iron gates")
       (LDESC "The iron gates stand open, their bars red with rust.")
       (SYNONYM GATES GATE BARS)
-      (ADJECTIVE IRON RUSTED RUSTY STURDY)
+      (ADJECTIVE IRON RUSTED RUSTY STURDY WET)
       (FLAGS NDESCBIT)
       (ACTION GATES-F)>
 

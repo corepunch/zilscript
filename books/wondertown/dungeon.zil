@@ -170,7 +170,7 @@
 <OBJECT WORKBENCH
         (IN WORKSHOP-FLOOR)
         (SYNONYM BENCH WORKBENCH TABLE)
-        (ADJECTIVE ENORMOUS WOODEN WORK GIANT CLUTTERED)
+        (ADJECTIVE ENORMOUS WOODEN WORK GIANT CLUTTERED CARVED TOOL)
         (DESC "enormous workbench")
         (DESCFCN WORKBENCH-DESC-F)
         (FLAGS SURFACEBIT CONTBIT OPENBIT SEARCHBIT CLIMBBIT)
@@ -334,7 +334,7 @@
 <OBJECT DISPLAY-CASE
         (IN COUNTERTOP)
         (SYNONYM CASE DISPLAY CABINET LATCH)
-        (ADJECTIVE DUSTY GLASS DISPLAY BRASS)
+        (ADJECTIVE DUSTY GLASS DISPLAY BRASS TOY)
         (DESC "dusty glass display case")
         (LDESC "A dusty glass display [[case]] holds forgotten treasures.")
         (FLAGS CONTBIT OPENABLEBIT TRANSBIT)
@@ -477,7 +477,7 @@
 <OBJECT CLOCK-WINDING
         (IN CLOCK-SQUARE)
         (SYNONYM MECHANISM WINDING KEYHOLE)
-        (ADJECTIVE BRASS WINDING)
+        (ADJECTIVE BRASS WINDING TINY)
         (DESC "brass winding mechanism")
         (LDESC "A brass winding [[mechanism]] sits at the clock tower's base, just out of reach.")
         (FLAGS TURNBIT)

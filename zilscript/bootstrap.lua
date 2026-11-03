@@ -1341,6 +1341,10 @@ function READ(inbuf, parse)
 			exact_target = exact_spec
 		end
 		local index = (exact_target and cache.words[exact_target]) or cache.words[truncated] or 0
+		-- ZIL vocabulary has no apostrophes, so a possessive such as "child's"
+		-- (or a phone keyboard's "child’s") is read as its owner, CHILD.
+		local stem = index == 0 and (normalized:match("^(.+)'s$") or normalized:match("^(.+)\226\128\153s$"))
+		if stem then index = cache.words[stem:sub(1, 6)] or 0 end
 		table.insert(p, makeword(index).. string.char(#word, pos&0xff))
 	end
 	mem:write(s: lower()..'\0', inbuf+1)
