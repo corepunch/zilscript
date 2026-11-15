@@ -53,7 +53,7 @@
 	<ASSERT "cut cannot bypass termination" <NOT ,ISOLATED>>
 	<ASSERT-TEXT "Only the null spool" <CO-RESUME ,CO "fit wrench to bus">>
 	<ASSERT "wrong part cannot terminate" <NOT ,TERMINATED>>
-	<ASSERT-TEXT "Use FIT" <CO-RESUME ,CO "put spool in bus">>
+	<ASSERT-TEXT "Fit the spool to the bus" <CO-RESUME ,CO "put spool in bus">>
 	<ASSERT "loose storage cannot strand spool" <IN? ,SPOOL ,ADVENTURER>>
 	<CO-RESUME ,CO "north" T>
 	<ASSERT-TEXT "live housing" <CO-RESUME ,CO "open receiver">>

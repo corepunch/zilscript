@@ -29,7 +29,8 @@
 		(T <TELL "The pressure interlock holds. The [[breaker]] needs a reset." CR> <RFALSE>)>>
 <ROUTINE BREAKER-F ()
 	<COND (<VERB? EXAMINE READ>
-		<TELL "The [[breaker]] is tripped, not broken. Its broad face is a push reset. A mechanical pressure telltale shares its housing; no software drives it." CR>)
+		<COND (,POWER <TELL "The [[breaker]] is reset and holding. The mechanical pressure telltale in its housing reads one atmosphere; no software drives it." CR>)
+			(T <TELL "The [[breaker]] is tripped, not broken. Its broad face is a push reset. A mechanical pressure telltale shares its housing; no software drives it." CR>)>)
 		(<VERB? PUSH TURN>
 		<COND (,POWER <TELL "Already reset. The mechanical telltale remains at one atmosphere." CR>)
 			(T <SETG POWER T> <TELL "The [[breaker]] catches. Air moves across your face. The mechanical telltale settles at one atmosphere, and the interlock releases [[north]]. A small fact, independent of anything you remember." CR>)>)>>
@@ -58,7 +59,7 @@
 		<RTRUE>)>>
 <ROUTINE CLINIC-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "The room smells of soap. A [[clinical log->log]] rests beside the examination area. [[South]] is the junction; [[north]] is the comparison lab." CR>
+		<TELL "The room smells of soap. A [[clinical log->log]] rests beside the [[examination area->area]]. [[South]] is the junction; [[north]] is the comparison lab." CR>
 		<COND (<IN? ,MARA ,CLINIC>
 			<COND (,ISOLATED <TELL "[[Mara]] holds her own wrist, counting without looking at the time." CR>)
 				(T <TELL "[[Mara]] asks whether you have eaten. She does not ask you to remember your name." CR>)>)
@@ -102,7 +103,7 @@
 		<RTRUE>)>>
 <ROUTINE LAUNCH-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "The stars do not flicker here. The mechanical [[beacon]] points away from the station. The habitat junction is [[down]]." CR>
+		<TELL "The [[stars]] do not flicker here. The mechanical [[beacon]] points away from the station. The habitat junction is [[down]]." CR>
 		<COND (,EVAC <TELL "The beacon is armed. [[Mara]] waits beside it with room for four living passengers." CR>)>
 		<RTRUE>)>>
 
@@ -115,7 +116,10 @@
 <ROUTINE SHEARS-F ()
 	<COND (<VERB? EXAMINE> <TELL "Nonconductive [[ceramic shears->shears]]. Mara used them for sterile cable work before anyone thought we needed weapons. They cut the incoming bus safely, once it is terminated." CR>)>>
 <ROUTINE SPOOL-F ()
-	<COND (<VERB? EXAMINE> <TELL "A passive [[null spool->spool]]: no processor, just impedance matched to the incoming bus. Fit it to the bus before cutting. Ivo has scratched his initials into its casing. Beside them, a second name has been started and rubbed away." CR>)
+	<COND (<VERB? EXAMINE> <TELL "A passive [[null spool->spool]]: no processor, just impedance matched to the incoming bus. ">
+			<COND (<IN? ,SPOOL ,BUS> <TELL "It is locked onto the bus termination. ">)
+				(T <TELL "Fit it to the bus before cutting. ">)>
+			<TELL "Ivo has scratched his initials into its casing. Beside them, a second name has been started and rubbed away." CR>)
 		(<VERB? FIT> <V-FIT>)
 		(<AND <VERB? TAKE> <IN? ,SPOOL ,BUS>>
 		<TELL "Once fitted, the [[spool]] belongs to the safety termination. Leave it there; no other task needs it." CR>)>>
@@ -127,7 +131,9 @@
 		<TELL "Surface tension pins a child's face in clear droplets. It is beautiful and technically pointless. [[Ivo]] made it for Senn from a family photograph. A fifth adult sometimes seems to stand behind the child; when you count the actual droplets, no such figure is there. Ask Ivo about the [[daughter]]." CR>)>>
 <ROUTINE RECORDER-F ()
 	<COND (<VERB? EXAMINE READ>
-		<TELL "A sealed mechanical witness [[recorder]], disconnected from the network before the signal arrived, still recording pressure mechanically. Open it to recover the foil. It weighs actual breath loads; it cannot record names." CR>)
+		<COND (<NOT <FSET? ,RECORDER ,OPENBIT>> <TELL "A sealed mechanical witness [[recorder]], disconnected from the network before the signal arrived, still recording pressure mechanically. Open it to recover the foil. It weighs actual breath loads; it cannot record names." CR>)
+				(<IN? ,STRIP ,RECORDER> <TELL "A mechanical witness [[recorder]], disconnected from the network before the signal arrived. Its lid stands open; the [[witness strip->strip]] rests on the exposed drum. It weighs actual breath loads; it cannot record names." CR>)
+				(T <TELL "A mechanical witness [[recorder]], disconnected from the network before the signal arrived. Its lid stands open and the drum is bare; the foil has been removed. It weighs actual breath loads; it cannot record names." CR>)>)
 		(<VERB? OPEN SEARCH LOOK-INSIDE>
 		<COND (<FSET? ,RECORDER ,OPENBIT> <TELL "The [[recorder]] is already open." CR>)
 			(T <FSET ,RECORDER ,OPENBIT> <TELL "The lid releases with a small musical note." CR>)>
@@ -153,14 +159,14 @@
 		<COND (,COOLING <TELL "The [[pump]] is sealed and delivering coolant to the cold archive. The square torque fitting holds." CR>)
 			(T <TELL "The [[pump]] draws air through a loose square torque fitting. A calibrated wrench can repair the seal without replacing any parts." CR>)>)
 		(<VERB? TURN>
-		<COND (<NOT <EQUAL? ,PRSI ,WRENCH>> <TELL "The pump needs the calibrated torque wrench, not that tool. TURN PUMP WITH WRENCH seats the square fitting." CR>)
+		<COND (<NOT <EQUAL? ,PRSI ,WRENCH>> <TELL "The pump needs the calibrated torque wrench, not that tool. Only its calibrated click seats the square fitting." CR>)
 			(<NOT <AND <HELD? ,WRENCH> <ACCESSIBLE? ,WRENCH>>> <TELL "Hold the [[wrench]] where you can reach it first." CR>)
 			(,COOLING <TELL "The seal is already seated; more torque would do harm. You leave it alone." CR>)
 			(T <SETG COOLING T> <TELL "The fitting seats at the wrench's calibrated click. The pump drinks liquid instead of air. Cold storage is available again; the junction air begins to cool." CR>)>)>>
 <ROUTINE COMPARATOR-F ()
 	<COND (<VERB? EXAMINE READ>
 		<COND (,PROOF <TELL "The independent optical trace counts four bodies before reception and four after. The supposed decompression has no corresponding pressure drop. Compare the [[strip]] again if you need the raw sequence." CR>)
-			(T <TELL "An optical [[comparator]], built to magnify physical witness foil. It has no network input. COMPARE STRIP WITH COMPARATOR measures the trace without decoding the transmission." CR>)>)
+			(T <TELL "An optical [[comparator]], built to magnify physical witness foil. It has no network input. Comparing a witness strip with it measures the trace without decoding the transmission." CR>)>)
 		(<VERB? COMPARE> <V-COMPARE>)>>
 <ROUTINE V-COMPARE ()
 	<COND (<NOT <AND <OR <AND <EQUAL? ,PRSO ,STRIP> <EQUAL? ,PRSI ,COMPARATOR>> <AND <EQUAL? ,PRSO ,COMPARATOR> <EQUAL? ,PRSI ,STRIP>>> <EQUAL? ,HERE ,LAB>>>
@@ -175,7 +181,7 @@
 			(,TERMINATED <TELL "The [[spool]] is fitted to the [[bus]]. The line can now be cut with nonconductive shears." CR>)
 			(T <TELL "A live [[incoming bus->bus]] with an empty termination socket. Fit a passive null spool before attempting to cut it. The tool must be nonconductive." CR>)>)
 		(<VERB? FIT> <V-FIT>)
-		(<VERB? PUT PUT-ON> <TELL "Use FIT SPOOL TO BUS to engage the actual termination contacts; loose storage does not terminate a live line." CR>)
+		(<VERB? PUT PUT-ON> <TELL "Fit the spool to the bus to engage the actual termination contacts; loose storage does not terminate a live line." CR>)
 		(<VERB? CLOSE OPEN> <TELL "The bus is an exposed termination fitting, not a box with a lid." CR>)
 		(<VERB? CUT>
 		<COND (<NOT <EQUAL? ,PRSI ,SHEARS>> <TELL "Only ceramic shears prevent a conductive return path. That is the wrong tool." CR>)
@@ -188,23 +194,23 @@
 		<TELL "Only the null spool fits the incoming bus termination socket. That combination cannot terminate the line." CR>)
 		(,TERMINATED <TELL "The [[spool]] is already fitted. The termination remains sound." CR>)
 		(<NOT <AND <HELD? ,SPOOL> <ACCESSIBLE? ,SPOOL>>> <TELL "Take the [[spool]] and hold it in reach first." CR>)
-		(T <MOVE ,SPOOL ,BUS> <SETG TERMINATED T>
+		(T <MOVE ,SPOOL ,BUS> <FSET ,SPOOL ,NDESCBIT> <SETG TERMINATED T>
 		<TELL "The [[spool]] locks onto the [[bus]]. The line falls to a lower note. Stored energy now has somewhere to go when you cut the bus with ceramic shears." CR>)>>
 <ROUTINE RECEIVER-F ()
 	<COND (<VERB? EXAMINE READ>
-		<COND (,ISOLATED <TELL "The [[receiver]] is electrically dead. Its mechanical release can now open the housing." CR>)
-			(T <TELL "The [[receiver]] remains live. Its mechanical release is interlocked to the incoming bus. Isolate that bus before opening the housing." CR>)>)
+		<COND (<NOT ,ISOLATED> <TELL "The [[receiver]] remains live. Its mechanical release is interlocked to the incoming bus. Isolate that bus before opening the housing." CR>)
+				(<NOT <FSET? ,RECEIVER ,OPENBIT>> <TELL "The [[receiver]] is electrically dead. Its mechanical release can now open the housing." CR>)
+				(<IN? ,WAFER ,RECEIVER> <TELL "The [[receiver]] is electrically dead and its housing stands open. A single [[memory wafer->wafer]] rests inside." CR>)
+			(T <TELL "The [[receiver]] is electrically dead. Its housing stands open and empty." CR>)>)
 		(<VERB? OPEN SEARCH LOOK-INSIDE>
 		<COND (<NOT ,ISOLATED> <TELL "The live housing cannot be opened. Terminate and sever the incoming bus first." CR>)
 			(T <FSET ,RECEIVER ,OPENBIT>
 				<COND (<IN? ,WAFER ,RECEIVER> <TELL "The housing opens on a single [[memory wafer->wafer]], still warm. A cooling crescent remains where it rested against the housing." CR> <THIS-IS-IT ,WAFER>)
 					(T <TELL "The [[receiver]] is open and empty." CR>)>)>)>>
 <ROUTINE WAFER-F ()
-	<COND (<VERB? EXAMINE READ>
+	<COND (<VERB? EXAMINE>
 		<SETG ORIGIN T>
-		<TELL "A [[memory wafer->wafer]] on a passive substrate. Its engraved index reads LENA / RESCUE-COMPRESSION / SENN ORLOV. An outer-relay return stamp crosses Asterion's own outbound serial. There is no independent power source.
-
-You remember Lena reciting that serial while she worked. You do not remember teaching it to her. Senn can account for the name; cold storage will hold the sample without playback." CR>)
+		<TELL "A [[memory wafer->wafer]] on a passive substrate. Its engraved index reads LENA / RESCUE-COMPRESSION / SENN ORLOV. An outer-relay return stamp crosses Asterion's own outbound serial. There is no independent power source." CR CR "You remember Lena reciting that serial while she worked. You do not remember teaching it to her. Senn can account for the name; cold storage will hold the sample without playback." CR>)
 		(<VERB? LISTEN> <TELL "The unpowered wafer makes no sound. You remember drawing breath with Lena, waiting through the same pause before each answer. The pause ends only when you breathe." CR>)
 		(<VERB? PUT>
 			<COND (<EQUAL? ,PRSI ,COLD-ARCHIVE> <ARCHIVE-F>)
@@ -215,12 +221,12 @@ You remember Lena reciting that serial while she worked. You do not remember tea
 				<TELL "The [[wafer]] is physically contained in the [[cold archive->archive]]. ">
 				<COND (,COOLING <TELL "Independent cooling holds it without a decoder. You can still retrieve it; no final commitment has been made." CR>)
 					(T <TELL "Cooling is unavailable. Restore the coolant pump before committing to storage." CR>)>)
-			(,COOLING <TELL "The [[cold archive->archive]] is cooled and empty, with no decoder. Put the recovered memory wafer in it. The console can preserve it in a blind capsule or erase its physical domains; neither action has yet been committed." CR>)
+			(,COOLING <TELL "The [[cold archive->archive]] is cooled and empty, with no decoder. Put the recovered [[memory wafer->wafer]] in it. The console can preserve it in a blind capsule or erase its physical domains; neither action has yet been committed." CR>)
 			(T <TELL "The [[cold archive->archive]] is too warm for stable storage. Restore the coolant pump before placing a memory wafer here." CR>)>)
 		(<AND <VERB? PUT> <EQUAL? ,PRSI ,COLD-ARCHIVE>>
 		<COND (<NOT <EQUAL? ,PRSO ,WAFER>> <TELL "This chamber is for the memory wafer, not unrelated equipment." CR>)
 			(<NOT ,COOLING> <TELL "The archive is too warm. Repair the coolant pump first; you keep the sample safe in your hand." CR>)
-			(T <MOVE ,WAFER ,COLD-ARCHIVE> <TELL "You slide the [[wafer]] into the [[cold archive->archive]]. Frost draws a white border around it. The sample is contained without being read. You can still retrieve it; no final decision has been made." CR>)>)
+			(T <MOVE ,WAFER ,COLD-ARCHIVE> <FSET ,WAFER ,NDESCBIT> <TELL "You slide the [[wafer]] into the [[cold archive->archive]]. Frost draws a white border around it. The sample is contained without being read. You can still retrieve it; no final decision has been made." CR>)>)
 		(<VERB? CLOSE> <TELL "The archive's access sleeve stays open until a final commitment. Its blind interior contains no decoder." CR>)>>
 
 <ROUTINE MARA-F ()
@@ -262,7 +268,8 @@ You remember Lena reciting that serial while she worked. You do not remember tea
 		<COND (,SENN-DISCLOSED <TELL "[[Senn]] keeps his hands closed on his knees. He follows your gaze instead of supplying your next word. ">)
 			(T <TELL "[[Senn]] holds his palms apart, the spacing of hands around a face. There is nothing physically between them. ">)>
 		<TELL "Ask about the [[signal]], the [[crew]], or his [[daughter]]." CR>
-			<COND (<AND ,ISOLATED <NOT ,SENN-DISCLOSED>> <TELL "'My daughter,' he repeats. 'You should ask me again now.'" CR>)>)
+			<COND (<AND ,ISOLATED <NOT ,SENN-DISCLOSED>> <TELL "'My daughter,' he repeats. 'You should ask me again now.'" CR>)>
+			<RTRUE>)
 		(<VERB? SHOW> <V-SHOW>)
 		(<VERB? TELL>
 		<COND (<EQUAL? ,PRSI ,WAFER> <SENN-CONFESSION>)
@@ -278,7 +285,7 @@ You remember Lena reciting that serial while she worked. You do not remember tea
 			(T <TELL "Senn looks past the equipment. 'Ask me about the signal, or about Lena. I know which one is harder.'" CR>)>)>>
 
 <ROUTINE TOPIC-F ()
-	<COND (<VERB? EXAMINE READ> <TELL "Ask the person here about that subject. Test their account against the physical record, rather than against how familiar it feels." CR>)>>
+	<COND (<VERB? EXAMINE> <TELL "Ask the person here about that subject. Test their account against the physical record, rather than against how familiar it feels." CR>)>>
 <ROUTINE V-SHOW ()
 	<COND (<NOT <AND <HELD? ,PRSO> <ACCESSIBLE? ,PRSO>>>
 		<TELL "Hold the actual item where the other person can inspect it." CR>)
@@ -317,10 +324,10 @@ You remember Lena reciting that serial while she worked. You do not remember tea
 			<TELL "The [[beacon]] arms with a heavy clunk. [[Mara]] comes up from the clinic, carrying the evacuation count in her head and checking it against four physical restraints. 'Ivo and Senn are coming,' she says. 'You have time. Go back to the cold-core console. Decide with all of us knowing what you did.'" CR>)>)>>
 <ROUTINE CONSOLE-F ()
 	<COND (<VERB? EXAMINE READ>
-		<TELL "Two final commitments. PRESERVE CONSOLE seals the sample in a blind, unpowered capsule and evacuates the living crew with a prohibition on playback. ERASE CONSOLE degausses the sample, removes the station's powered decoding chain, and evacuates the living crew without it. Preservation commits you to guarded custody: rescuers and investigators will want to play their only specimen, and you will have to keep refusing. Erasure destroys that specimen and the possibility of studying what it became. Both leave a physical warning. Neither erases your implanted memories." CR CR "Before either commitment: independent comparison, examination of the wafer's origin index, Ivo's consent, receive isolation, cooling, the wafer physically in the archive, and the rendezvous beacon armed. Preparation can still be changed. The next successful PRESERVE or ERASE ends the story." CR>)
+		<TELL "Two final commitments. PRESERVE seals the sample in a blind, unpowered capsule and evacuates the living crew with a prohibition on playback. ERASE degausses the sample, removes the station's powered decoding chain, and evacuates the living crew without it. Preservation commits you to guarded custody: rescuers and investigators will want to play their only specimen, and you will have to keep refusing. Erasure destroys that specimen and the possibility of studying what it became. Both leave a physical warning. Neither erases your implanted memories." CR CR "Before either commitment: independent comparison, examination of the wafer's origin index, Ivo's consent, receive isolation, cooling, the wafer physically in the archive, and the rendezvous beacon armed. Preparation can still be changed. The next successful PRESERVE or ERASE ends the story." CR>)
 		(<VERB? PRESERVE> <V-PRESERVE> <RTRUE>)
 		(<VERB? ERASE> <V-ERASE> <RTRUE>)
-		(<VERB? PUSH TURN> <TELL "These commitments are deliberately distinct. Choose PRESERVE CONSOLE or ERASE CONSOLE after reading the [[console]]." CR>)>>
+		(<VERB? PUSH TURN> <TELL "These commitments are deliberately distinct. Choose PRESERVE or ERASE after reading the [[console]]." CR>)>>
 <ROUTINE READY-TO-END ()
 	<COND (<NOT <AND <EQUAL? ,HERE ,CORE> <EQUAL? ,PRSO ,CONSOLE>>>
 		<TELL "Only the decision console in the cold core can commit that operation." CR> <RFALSE>)
@@ -337,9 +344,7 @@ You remember Lena reciting that serial while she worked. You do not remember tea
 	<COND (<READY-TO-END>
 		<SETG RESOLVED T> <FCLEAR ,COLD-ARCHIVE ,OPENBIT>
 		<MOVE ,IVO ,LAUNCH> <MOVE ,SENN ,LAUNCH>
-		<TELL "You commit to preservation." CR CR "The archive closes without reading the wafer. Four measured bodies; one manufactured biography. You record both facts, and the fact that neither settled the question of suffering. The sealed capsule carries its warning as physical grooves, not an enticing voice." CR CR "At the rendezvous, Mara counts four pulses. Ivo asks whether anyone remembers what Lena liked to eat. All four of you answer differently. Senn begins to apologize. You ask him to help inventory the capsule instead." CR CR "The rescue ship will not accept the capsule until its medical officer has assessed it. She proposes a test playback. You refuse. For two days you trade sleep for custody while people with clean voices argue that understanding is worth a controlled exposure. Senn gives his first statement beside the unaltered foil. Ivo takes the next watch.
-
-Eventually they accept sealed transfer under your warning. Someone else will hold the keys tomorrow. You have saved the possibility of an answer, and taken responsibility for keeping it unanswered until an answer can be sought safely." CR CR "ENDING: THE UNPLAYED WITNESS" CR>
+		<TELL "You commit to preservation." CR CR "The archive closes without reading the wafer. Four measured bodies; one manufactured biography. You record both facts, and the fact that neither settled the question of suffering. The sealed capsule carries its warning as physical grooves, not an enticing voice." CR CR "At the rendezvous, Mara counts four pulses. Ivo asks whether anyone remembers what Lena liked to eat. All four of you answer differently. Senn begins to apologize. You ask him to help inventory the capsule instead." CR CR "The rescue ship will not accept the capsule until its medical officer has assessed it. She proposes a test playback. You refuse. For two days you trade sleep for custody while people with clean voices argue that understanding is worth a controlled exposure. Senn gives his first statement beside the unaltered foil. Ivo takes the next watch." CR CR "Eventually they accept sealed transfer under your warning. Someone else will hold the keys tomorrow. You have saved the possibility of an answer, and taken responsibility for keeping it unanswered until an answer can be sought safely." CR CR "ENDING: THE UNPLAYED WITNESS" CR>
 		<FINISH>)>>
 <ROUTINE V-ERASE ()
 	<COND (<READY-TO-END>

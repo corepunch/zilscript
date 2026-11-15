@@ -15,22 +15,22 @@
     "west"
   ],
   [
-    8,
+    10,
     "take wrench",
     "take torque wrench"
   ],
   [
-    10,
+    12,
     "take spool",
     "take null spool"
   ],
   [
     5,
     "read protocol",
-    "read protocol"
+    "read protocol card"
   ],
   [
-    6,
+    8,
     "east",
     "east"
   ],
@@ -100,7 +100,7 @@
     "north"
   ],
   [
-    12,
+    15,
     "take shears",
     "take ceramic shears"
   ],
@@ -110,7 +110,7 @@
     "read clinical log"
   ],
   [
-    7,
+    10,
     "north",
     "north"
   ],
@@ -125,7 +125,7 @@
     "south"
   ],
   [
-    6,
+    9,
     "south",
     "south"
   ],
@@ -190,7 +190,7 @@
     "south"
   ],
   [
-    12,
+    11,
     "west",
     "west"
   ],
@@ -205,7 +205,7 @@
     "north"
   ],
   [
-    7,
+    10,
     "north",
     "north"
   ],
@@ -240,7 +240,7 @@
     "inventory"
   ],
   [
-    18,
+    17,
     "put wafer in archive",
     "put memory wafer in cold archive"
   ],
@@ -265,7 +265,7 @@
     "south"
   ],
   [
-    6,
+    9,
     "south",
     "south"
   ],
@@ -275,12 +275,12 @@
     "up"
   ],
   [
-    6,
+    7,
     "push beacon",
     "push mechanical beacon"
   ],
   [
-    7,
+    8,
     "down",
     "down"
   ],
@@ -290,7 +290,7 @@
     "north"
   ],
   [
-    7,
+    10,
     "north",
     "north"
   ],

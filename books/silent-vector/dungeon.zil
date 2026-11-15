@@ -17,7 +17,7 @@
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM WORKSHOP (IN ROOMS) (DESC "Torque Shop")
-	(LDESC "The air smells of warm insulation. A [[protocol card->protocol]] is fastened over the tool recesses. [[East]] returns to the junction.")
+	(LDESC "The air smells of warm insulation. A [[protocol card->protocol]] is fastened over the [[tool recesses->recesses]]. [[East]] returns to the junction.")
 	(EAST TO HUB)
 	(FLAGS RLANDBIT ONBIT)>
 
@@ -35,7 +35,7 @@
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM CLINIC (IN ROOMS) (DESC "Clinic")
-	(LDESC "The room smells of soap, a smell you have almost forgotten. A [[clinical log->log]] rests beside the examination area. [[South]] is the junction; [[north]] leads to the comparison laboratory.")
+	(LDESC "The room smells of soap, a smell you have almost forgotten. A [[clinical log->log]] rests beside the [[examination area->area]]. [[South]] is the junction; [[north]] leads to the comparison laboratory.")
 	(ACTION CLINIC-F)
 	(SOUTH TO HUB)
 	(NORTH TO LAB)
@@ -88,7 +88,7 @@
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM LAUNCH (IN ROOMS) (DESC "Launch Cupola")
-	(LDESC "The stars do not flicker here. The mechanical [[beacon]] points away from the station. The habitat junction is [[down]].")
+	(LDESC "The [[stars]] do not flicker here. The mechanical [[beacon]] points away from the station. The habitat junction is [[down]].")
 	(ACTION LAUNCH-F)
 	(DOWN TO HUB)
 	(GLOBAL TOPIC-SIGNAL TOPIC-CREW TOPIC-DAUGHTER)
@@ -234,5 +234,5 @@
 	(SYNONYM STARS STARFIELD SPACE STAR) (ADJECTIVE DISTANT) (FLAGS NDESCBIT) (ACTION STARFIELD-F)>
 <OBJECT LAUNCH-HARDWARE
 	(INTERACTIONS "") (IN LAUNCH) (DESC "evacuation restraints")
-	(SYNONYM RESTRAINTS RESTRAINT REFLECTOR CUPOLA PLACES) (ADJECTIVE EVACUATION PHYSICAL PASSIVE FOUR)
+	(SYNONYM RESTRAINTS RESTRAINT CUPOLA PLACES) (ADJECTIVE EVACUATION PHYSICAL PASSIVE FOUR)
 	(FLAGS NDESCBIT) (ACTION HARDWARE-F)>
