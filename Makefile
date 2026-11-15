@@ -38,6 +38,7 @@ help:
 	@echo "  test-llm          - Run LLM persistence tests"
 	@echo "  test-limehouse-walkthrough - Run Limehouse golden-path LLM test"
 	@echo "  test-wondertown-descriptions - Run Wondertown rendered description regressions"
+	@echo "  test-book-walkthroughs - Win every book by typed commands and by link menus only"
 	@echo "  lint-zil          - Check vocabulary, prose links, and that every command answers"
 	@echo ""
 	@echo "Horror game tests:"
@@ -72,7 +73,7 @@ test-unit:
 	@echo "Running unit tests..."
 	lua tests/run_all.lua
 
-test-integration: test-new-books test-zork1 test-zork2 test-game-startup test-parser test-horror-all test-limehouse-walkthrough test-wondertown-descriptions test-book-playtests
+test-integration: test-new-books test-zork1 test-zork2 test-game-startup test-parser test-horror-all test-limehouse-walkthrough test-wondertown-descriptions test-book-playtests test-book-walkthroughs
 	@echo "All integration tests completed!"
 
 test-zork1:
@@ -215,7 +216,18 @@ test-book-playtests:
 		lua5.4 "$$test"; \
 	done
 
-test-pure-zil: test-new-books test-book-playtests
+# Every book is won twice: by typed commands with state assertions, and by
+# choosing only the commands the reader's link menus offer (tests/link_walk.lua).
+.PHONY: test-book-walkthroughs
+test-book-walkthroughs:
+	@set -e; for test in books/*/test/test-walkthrough.zil; do \
+		lua5.4 run-zil-test.lua "$${test%.zil}"; \
+	done
+	@set -e; for test in books/*/test/test_walkthrough_*.lua; do \
+		lua5.4 "$$test"; \
+	done
+
+test-pure-zil: test-new-books test-book-playtests test-book-walkthroughs
 	@echo "Running pure ZIL tests..."
 	@lua5.4 run-zil-test.lua zil/test-simple-new
 	@lua5.4 run-zil-test.lua zil/test-insert-file

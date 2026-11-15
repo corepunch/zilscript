@@ -204,8 +204,8 @@ function Session:appendParagraph(paragraph)
 	-- A story's CR ends a prose paragraph, including the object descriptions
 	-- printed after a room. Keep each in its own reveal queue item so the
 	-- paragraph gap applies to single newlines too.
-	for line in tostring(paragraph):gmatch("[^\r\n]+") do
-		line = trim(line)
+	for raw in tostring(paragraph):gmatch("[^\r\n]+") do
+		local line = trim(raw)
 		if line ~= "" then
 			local text, links = Session.parseLinks(line)
 			table.insert(self.openEntry.paragraphs, text)

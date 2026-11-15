@@ -42,6 +42,23 @@ For each QA round, keep the player blind to source, prior reports, maps and
 walkthroughs until observations and transcript are frozen. Only then inspect
 and fix the book. Label subsequent code-informed verification separately.
 
+## Replaying a Link Route
+
+`scripts/play-links.lua` plays a whole route in one process, which is faster
+than one `llm.lua` call per step when exploring a book:
+
+```bash
+lua5.4 scripts/play-links.lua wondertown /tmp/route.txt 3
+```
+
+The route file holds one command per line. Each must be offered by a link
+menu at that moment, or the replay stops and prints the menu. The last
+argument is how many trailing steps to print; the current menu follows. A
+line starting with `!` goes straight to the parser, for checking vocabulary
+only. `tests/link_walk.lua` is the module behind it, and behind each book's
+`test/test_walkthrough_links.lua`; `make test-book-walkthroughs` runs those
+beside the typed `test/test-walkthrough.zil` of every book.
+
 ## Parser Diagnostics
 
 The free-text interface below remains useful for focused parser regressions.
