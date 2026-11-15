@@ -83,7 +83,8 @@
       (WEST TO DINING-ROOM)
       (DOWN TO KITCHEN)
       (FLAGS RLANDBIT ONBIT)
-      (GLOBAL CHANDELIER PORTRAITS RUG STUDY-DOOR BELL-WIRE FOG)>
+      (GLOBAL CHANDELIER PORTRAITS RUG STUDY-DOOR BELL-WIRE FOG
+              CASE-TOPIC EXPERIMENTS-TOPIC POISON-TOPIC)>
 
 <ROOM STUDY
       (IN ROOMS)
@@ -93,7 +94,8 @@
       (SW TO GARDEN IF WINDOW IS OPEN ELSE "The window is closed.")
 	  (DOWN TO SECRET-PASSAGE IF CIPHER-SOLVED)
       (FLAGS RLANDBIT ONBIT)
-      (GLOBAL DESK FIREPLACE WINDOW CHALK-OUTLINE STUDY-DOOR FOG)>
+      (GLOBAL DESK FIREPLACE WINDOW CHALK-OUTLINE STUDY-DOOR FOG
+              MORIARTY-TOPIC HUDSON-NAME ASHWORTH-NAME)>
 
 <ROOM LIBRARY
       (IN ROOMS)
@@ -102,7 +104,8 @@
       (WEST TO ASHWORTH-ENTRANCE-HALL)
       (EAST TO SECRET-PASSAGE IF CIPHER-SOLVED)
       (FLAGS RLANDBIT ONBIT)
-      (GLOBAL BOOKSHELF READING-DESK FIREPLACE COLORED-MARKERS FOG)>
+      (GLOBAL BOOKSHELF READING-DESK FIREPLACE COLORED-MARKERS FOG
+              EXPERIMENTS-TOPIC POISON-TOPIC)>
 
 <ROOM DINING-ROOM
       (IN ROOMS)
@@ -111,7 +114,8 @@
       (EAST TO ASHWORTH-ENTRANCE-HALL)
       (NORTH TO PANTRY)
       (FLAGS RLANDBIT ONBIT)
-      (GLOBAL TABLE PORTRAITS WINE-CABINET FOG)>
+      (GLOBAL TABLE PORTRAITS WINE-CABINET FOG
+              MARRIAGE-TOPIC ALIBI-TOPIC CASE-TOPIC)>
 
 <ROOM KITCHEN
       (IN ROOMS)
@@ -131,7 +135,7 @@
       (SOUTH TO SERVANTS-QUARTERS)
 	  (NE TO STUDY IF WINDOW IS OPEN ELSE "The study window is closed.")
       (FLAGS RLANDBIT ONBIT)
-      (GLOBAL FOUNTAIN HEDGES BLOOD-STAINED-KNIFE FOG)>
+      (GLOBAL FOUNTAIN HEDGES FOG)>
 
 <ROOM GREENHOUSE
       (IN ROOMS)
@@ -147,7 +151,8 @@
       (ACTION SERVANTS-QUARTERS-FCN)
       (NORTH TO GARDEN)
       (FLAGS RLANDBIT ONBIT)
-      (GLOBAL BEDS TRUNK UNIFORMS MR-HUDSON FOG)>
+      (GLOBAL BEDS TRUNK UNIFORMS FOG
+              MASTER-TOPIC ALIBI-TOPIC KEY-TOPIC MORIARTY-TOPIC)>
 
 <ROOM SECRET-PASSAGE
       (IN ROOMS)
@@ -164,7 +169,7 @@
       (ACTION PANTRY-FCN)
       (SOUTH TO DINING-ROOM)
       (FLAGS RLANDBIT ONBIT)
-      (GLOBAL SHELVES FOXGLOVE CHARCOAL FOG)>
+      (GLOBAL SHELVES FOG)>
 
 ; === OBJECTS ===
 
@@ -182,9 +187,11 @@
       (IN LOCAL-GLOBALS)
       (DESC "study door")
       (LDESC "A solid oak door separates the entrance hall from the study. Its brass lock is old but substantial.")
-      (SYNONYM DOOR ENTRANCE)
+      (SYNONYM DOOR ENTRANCE BOLT)
       (ADJECTIVE STUDY OAK SOUTH SOLID WOODEN LOCKED)
       (FLAGS DOORBIT NDESCBIT)
+      ;"Only a key or a pick is a sensible thing to try in this lock."
+      (INTERACTIONS "OPEN:KEYRING,LOCKPICK-SET;UNLOCK:KEYRING,LOCKPICK-SET")
       (ACTION STUDY-DOOR-F)>
 
 ; --- Evidence Objects ---
@@ -195,7 +202,7 @@
       (FDESC "A yellowed [[envelope->letter]] lies on the desk where you turned it up, addressed in a shaking hand.")
       (LDESC "An unsent [[letter]], its paper yellowed with age, lies here.")
       (SYNONYM LETTER NOTE PAPER DEAD-LETTER ENVELOPE)
-      (ADJECTIVE DEAD UNSENT YELLOWED)
+      (ADJECTIVE UNSENT DEAD YELLOWED)
       (FLAGS TAKEBIT READBIT INVISIBLE)
       (ACTION DEAD-LETTER-F)>
 
@@ -205,7 +212,7 @@
       (FDESC "A [[knife]] hangs in the hedge branches near the fountain, its blade dark with dried blood.")
       (LDESC "A blood-stained [[knife]] lies here.")
       (SYNONYM KNIFE BLADE WEAPON BLOOD-STAINED-KNIFE DAGGER)
-      (ADJECTIVE BLOOD STAINED BLOOD-STAINED SURGICAL SURGEONS NARROW FINE)
+      (ADJECTIVE BLOOD-STAINED BLOOD STAINED SURGICAL SURGEONS NARROW FINE)
       (FLAGS TAKEBIT WEAPONBIT INVISIBLE)
       (ACTION BLOOD-STAINED-KNIFE-F)>
 
@@ -213,9 +220,11 @@
       (IN STUDY)
       (DESC "locked box")
       (DESCFCN LOCKED-BOX-DESC-F)
-      (SYNONYM BOX CONTAINER DIAL)
+      (SYNONYM BOX CONTAINER DIAL ENGRAVINGS ENGRAVING)
       (ADJECTIVE LOCKED LETTERED NAME ORNATE SMALL NAME-DIAL)
       (FLAGS CONTBIT SEARCHBIT TURNBIT)
+      ;"The dial takes a name and nothing else; the box has no keyhole."
+      (INTERACTIONS "ALIGN:MORIARTY-TOPIC,HUDSON-NAME,ASHWORTH-NAME")
       (ACTION LOCKED-BOX-F)>
 
 <OBJECT POISON-BOTTLE
@@ -223,7 +232,7 @@
       (DESC "poison bottle")
       (FDESC "A small glass [[bottle]] with a faded label sits on the mantelpiece.")
       (LDESC "A small glass [[bottle]] with a faded label lies here.")
-      (SYNONYM BOTTLE VIAL POISON-BOTTLE)
+      (SYNONYM BOTTLE VIAL POISON-BOTTLE LABEL)
       (ADJECTIVE POISON SMALL GLASS FADED POISONOUS)
       (FLAGS TAKEBIT READBIT)
       (ACTION POISON-BOTTLE-F)>
@@ -231,10 +240,10 @@
 <OBJECT SECRET-LEDGER
       (IN LIBRARY)
       (DESC "secret ledger")
-      (FDESC "A leather-bound [[ledger]] lies open on the reading desk, its pages filled with close entries.")
+      (FDESC "A leather-bound [[ledger]] lies open on the reading [[desk->reading desk]], its pages filled with close entries.")
       (LDESC "A leather-bound [[ledger]] lies here.")
       (SYNONYM LEDGER BOOK ACCOUNT ACCOUNTS)
-      (ADJECTIVE SECRET LEATHER LEATHER-BOUND)
+      (ADJECTIVE SECRET LEATHER LEATHER-BOUND OPEN)
       (FLAGS TAKEBIT READBIT)
       (ACTION SECRET-LEDGER-F)>
 
@@ -245,9 +254,9 @@
       (DESC "magnifying glass")
       (FDESC "A [[magnifying glass->glass]] rests on the hall table, its brass handle worn smooth.")
       (LDESC "A brass [[magnifying glass->glass]] lies here.")
-      (SYNONYM GLASS LENS MAGNIFIER)
+      (SYNONYM GLASS LENS MAGNIFIER HANDLE)
       (ADJECTIVE MAGNIFYING BRASS CLEAR)
-      (FLAGS TAKEBIT)
+      (FLAGS TAKEBIT TRANSBIT)
       (ACTION MAGNIFYING-GLASS-F)>
 
 <OBJECT LEATHER-ROLL
@@ -275,7 +284,7 @@
       (DESC "lantern")
       (FDESC "An oil [[lantern]] sits on the trunk, its glass clean and its fuel full.")
       (LDESC "A brass [[lantern]] lies here.")
-      (SYNONYM LAMP LIGHT LANTERN)
+      (SYNONYM LANTERN LAMP LIGHT)
       (ADJECTIVE OIL BRASS CLEAN FULL)
       (FLAGS TAKEBIT LIGHTBIT)
       (ACTION LANTERN-F)>
@@ -296,7 +305,7 @@
       (DESC "torn page")
       (FDESC "A torn [[page]] lies on the reading desk, covered in handwritten notes.")
       (LDESC "A torn [[page]], covered in handwritten notes, lies here.")
-      (SYNONYM PAGE FRAGMENT TORN-PAGE PAPER)
+      (SYNONYM PAGE FRAGMENT TORN-PAGE PAPER NOTES)
       (ADJECTIVE TORN HANDWRITTEN)
       (FLAGS TAKEBIT READBIT)
       (ACTION TORN-PAGE-F)>
@@ -305,7 +314,7 @@
       (IN LIBRARY)
       (DESC "colored markers")
       (LDESC "Small ribbons of color, tied to the bookshelves. Red, blue, green, and yellow markers suggest an organizational system.")
-      (SYNONYM MARKERS RIBBONS TAGS MARKER RIBBON TAG)
+      (SYNONYM RIBBONS MARKERS TAGS MARKER RIBBON TAG)
       (ADJECTIVE COLORED COLOURED SMALL RED BLUE GREEN YELLOW)
       (FLAGS NDESCBIT)
       (ACTION COLORED-MARKERS-F)>
@@ -315,8 +324,8 @@
       (DESC "footprint cast")
       (FDESC "A plaster [[cast->footprint cast]] of a footprint sits near the fountain, preserving the evidence.")
       (LDESC "A plaster [[cast->footprint cast]] of a boot print lies here.")
-      (SYNONYM FOOTPRINT-CAST CAST MOLD FOOTPRINT IMPRESSION MOULD)
-      (ADJECTIVE FOOTPRINT PLASTER BOOT)
+      (SYNONYM CAST FOOTPRINT-CAST MOLD FOOTPRINT IMPRESSION MOULD PRINT)
+      (ADJECTIVE PLASTER FOOTPRINT BOOT)
       (FLAGS TAKEBIT)
       (ACTION FOOTPRINT-CAST-F)>
 
@@ -325,7 +334,7 @@
       (DESC "wax seal")
       (FDESC "A crimson wax [[seal]] rests on the dining table, pressed with a sigil.")
       (LDESC "A broken wax [[seal]] lies here.")
-      (SYNONYM SEAL STAMP WAX-SEAL)
+      (SYNONYM SEAL STAMP WAX-SEAL SIGIL)
       (ADJECTIVE WAX BROKEN CRIMSON)
       (FLAGS TAKEBIT)
       (ACTION WAX-SEAL-F)>
@@ -355,7 +364,7 @@
       (IN STUDY)
       (DESC "fireplace")
       (LDESC "A stone fireplace, its hearth cold. Ashes and a locked box remain from the last fire.")
-      (SYNONYM FIREPLACE HEARTH ASHES ASH)
+      (SYNONYM FIREPLACE HEARTH ASHES ASH FIRE GRATE MANTELPIECE MANTEL PANEL)
       (ADJECTIVE STONE COLD)
       (FLAGS NDESCBIT)
       (ACTION FIREPLACE-F)>
@@ -367,13 +376,14 @@
       (SYNONYM WINDOW GLASS LATCH CATCH)
       (ADJECTIVE TALL CLOUDED RUSTED)
       (FLAGS NDESCBIT)
+      (INTERACTIONS "OPEN:LOCKPICK-SET;UNLOCK:LOCKPICK-SET")
       (ACTION WINDOW-F)>
 
 <OBJECT BOOKSHELF
       (IN LIBRARY)
       (DESC "bookshelf")
       (LDESC "Floor-to-ceiling shelves, filled with books of every description. Colored markers dot the spines, suggesting a hidden pattern.")
-      (SYNONYM BOOKSHELF SHELVES BOOKCASE BOOKSHELVES SHELF)
+      (SYNONYM BOOKSHELVES BOOKSHELF SHELVES BOOKCASE SHELF BOOKS FOLIOS TITLES)
       (ADJECTIVE FLOOR-TO-CEILING)
       (FLAGS NDESCBIT)
       (ACTION BOOKSHELF-F)>
@@ -436,6 +446,7 @@
       (SYNONYM CABINET WINE-CABINET)
       (ADJECTIVE WINE GLASS GLASS-FRONTED UNLATCHED MEDICINAL)
       (FLAGS NDESCBIT CONTBIT SEARCHBIT)
+      (INTERACTIONS "")
       (ACTION WINE-CABINET-F)>
 
 <OBJECT POTS
@@ -451,7 +462,7 @@
       (IN KITCHEN)
       (DESC "cold hearth")
       (LDESC "A stone hearth, cold and empty. The last fire burned long ago.")
-      (SYNONYM HEARTH ASHES ASH)
+      (SYNONYM HEARTH ASHES ASH LINTEL)
       (ADJECTIVE COLD STONE EMPTY)
       (FLAGS NDESCBIT)
       (ACTION HEARTH-F)>
@@ -469,7 +480,7 @@
       (IN LOCAL-GLOBALS)
       (DESC "blue kettle")
       (LDESC "A blue enamel kettle waits on the range, warm enough to mist its spout.")
-      (SYNONYM KETTLE POT TEA CARD)
+      (SYNONYM KETTLE POT TEA CARD STEAM)
       (ADJECTIVE BLUE ENAMEL WARM HOT)
       (FLAGS NDESCBIT DRINKBIT READBIT)
       (ACTION KETTLE-F)>
@@ -504,10 +515,10 @@
 
 <OBJECT HEDGES
       (IN GARDEN)
-      (DESC "hedge mazes")
+      (DESC "overgrown hedges")
       (LDESC "Tall hedges, their branches thick and tangled. They hide secrets in their shadows.")
-      (SYNONYM HEDGES HEDGE BUSHES MAZE MAZES BUSH)
-      (ADJECTIVE TALL THICK TANGLED OVERGROWN BLACK)
+      (SYNONYM HEDGES HEDGE BUSHES BUSH BRANCHES BRANCH)
+      (ADJECTIVE OVERGROWN TALL THICK TANGLED BLACK)
       (FLAGS NDESCBIT)
       (ACTION HEDGES-F)>
 
@@ -515,9 +526,10 @@
       (IN GREENHOUSE)
       (DESC "exotic plants")
       (LDESC "Exotic plants from around the world, their leaves and flowers a splash of color in the gray manor.")
-      (SYNONYM PLANTS FLOWERS PLANT FLOWER WOLFSBANE ACONITUM)
-      (ADJECTIVE EXOTIC PURPLE GREENHOUSE LABELED)
+      (SYNONYM FLOWERS PLANTS PLANT FLOWER WOLFSBANE ACONITUM)
+      (ADJECTIVE PURPLE EXOTIC GREENHOUSE LABELED)
       (FLAGS NDESCBIT)
+      (INTERACTIONS "")
       (ACTION PLANTS-F)>
 
 <OBJECT LABELS
@@ -533,8 +545,8 @@
       (IN GREENHOUSE)
       (DESC "potting bench")
       (LDESC "A wooden potting bench, its surface covered in soil and tools. Labels identify the plants it tends.")
-      (SYNONYM BENCH)
-      (ADJECTIVE POTTING WOODEN)
+      (SYNONYM BENCH STEMS GROOVE)
+      (ADJECTIVE POTTING WOODEN CUT)
       (FLAGS NDESCBIT)
       (ACTION BENCH-F)>
 
@@ -542,8 +554,8 @@
       (IN SERVANTS-QUARTERS)
       (DESC "servant beds")
       (LDESC "Simple beds for the household staff, their sheets worn but clean.")
-      (SYNONYM BEDS BED)
-      (ADJECTIVE SERVANT SIMPLE EMPTY NARROW)
+      (SYNONYM BEDS BED LINEN)
+      (ADJECTIVE NARROW SERVANT SIMPLE EMPTY)
       (FLAGS NDESCBIT)
       (ACTION BEDS-F)>
 
@@ -551,8 +563,8 @@
       (IN SERVANTS-QUARTERS)
       (DESC "trunk")
       (LDESC "A large wooden trunk, its lid heavy.")
-      (SYNONYM TRUNK CHEST)
-      (ADJECTIVE LARGE WOODEN HEAVY)
+      (SYNONYM TRUNK CHEST LID)
+      (ADJECTIVE WOODEN LARGE HEAVY)
       (FLAGS NDESCBIT CONTBIT SEARCHBIT)
       (ACTION TRUNK-F)
       (CAPACITY 20)>
@@ -580,7 +592,7 @@
       (IN SECRET-PASSAGE)
       (DESC "stone walls")
       (LDESC "Wet stone walls, slick with moisture. They have stood for centuries.")
-      (SYNONYM WALLS WALL)
+      (SYNONYM WALLS WALL MORTAR)
       (ADJECTIVE STONE WET SLICK)
       (FLAGS NDESCBIT)
 	  (ACTION STONE-WALLS-F)>
@@ -589,7 +601,7 @@
       (IN SECRET-PASSAGE)
       (DESC "cobwebs")
       (LDESC "Dusty cobwebs fill the air, undisturbed for years.")
-      (SYNONYM COBWEBS WEB WEBS COBWEB)
+      (SYNONYM COBWEBS WEB WEBS COBWEB STRANDS)
       (ADJECTIVE DUSTY TORN)
       (FLAGS NDESCBIT)
 	  (ACTION COBWEBS-F)>
@@ -598,9 +610,10 @@
       (IN SECRET-PASSAGE)
       (DESC "dust")
       (LDESC "Overlapping scuffs cross the passage dust.")
-      (SYNONYM DUST SCUFF SCUFFS TRAIL)
-      (ADJECTIVE PASSAGE OVERLAPPING BROAD)
+      (SYNONYM DUST SCUFF SCUFFS TRAIL MARKS)
+      (ADJECTIVE PASSAGE OVERLAPPING BROAD HEEL)
       (FLAGS NDESCBIT)
+      (INTERACTIONS "")
 	  (ACTION DUST-F)>
 
 <OBJECT SHELVES
@@ -615,8 +628,9 @@
 <OBJECT FOXGLOVE
       (IN PANTRY)
       (DESC "foxglove")
-      (LDESC "A bottle of dried [[foxglove]] leaves stands among the preserves, a skull inked on its label.")
-      (SYNONYM FOXGLOVE DIGITALIS LEAVES)
+      (FDESC "A bottle of dried [[foxglove]] leaves stands among the preserves, a skull inked on its label.")
+      (LDESC "A bottle of dried [[foxglove]] leaves lies here, a skull inked on its label.")
+      (SYNONYM FOXGLOVE DIGITALIS LEAVES SKULL)
       (ADJECTIVE DRIED MEDICINAL)
       (FLAGS TAKEBIT)
       (ACTION FOXGLOVE-F)>
@@ -624,8 +638,9 @@
 <OBJECT CHARCOAL
       (IN PANTRY)
       (DESC "charcoal")
-      (LDESC "A tin of powdered [[charcoal]] waits at the end of the shelf.")
-      (SYNONYM CHARCOAL COAL POWDER)
+      (FDESC "A tin of powdered [[charcoal]] waits at the end of the shelf.")
+      (LDESC "A tin of powdered [[charcoal]] lies here.")
+      (SYNONYM CHARCOAL COAL POWDER TIN)
       (ADJECTIVE POWDERED MEDICINAL)
       (FLAGS TAKEBIT)
       (ACTION CHARCOAL-F)>
@@ -645,7 +660,7 @@
       (DESC "iron gates")
       (LDESC "The iron gates stand open, their bars red with rust.")
       (SYNONYM GATES GATE BARS)
-      (ADJECTIVE IRON RUSTED RUSTY STURDY WET)
+      (ADJECTIVE IRON RUSTED RUSTY STURDY WET OPEN)
       (FLAGS NDESCBIT)
       (ACTION GATES-F)>
 
@@ -660,7 +675,7 @@
 <OBJECT CHANDELIER
       (DESC "chandelier")
       (LDESC "A dusty crystal chandelier hangs above the entrance hall.")
-      (SYNONYM CHANDELIER LIGHT CRYSTAL CRYSTALS)
+      (SYNONYM CHANDELIER LIGHT CRYSTAL CRYSTALS EDGES)
       (ADJECTIVE DUSTY CRYSTAL DULL)
       (FLAGS NDESCBIT)
       (ACTION CHANDELIER-F)>
@@ -684,8 +699,8 @@
 <OBJECT CHALK-OUTLINE
       (DESC "chalk outline")
       (LDESC "A chalk outline marks the place where Lord Ashworth's body was found.")
-      (SYNONYM CHALK-OUTLINE OUTLINE BODY)
-      (ADJECTIVE CHALK BODY)
+      (SYNONYM OUTLINE CHALK-OUTLINE BODY DROPS CARPET FURROW)
+      (ADJECTIVE CHALK BODY TURKEY DARK BLOOD)
       (FLAGS NDESCBIT)
       (ACTION CHALK-OUTLINE-F)>
 
@@ -723,12 +738,14 @@
       (DESC "Inspector Lestrade")
       (LDESC "Inspector Lestrade of Scotland Yard stands in the entrance hall, his expression professional and skeptical. He waits for your evidence.")
       (SYNONYM LESTRADE OFFICER DETECTIVE POLICE SCOTLAND-YARD YARDMAN INSPECTOR POLICEMAN)
-      (ADJECTIVE SCOTLAND INSPECTOR SKEPTICAL OFFICER)
+      (ADJECTIVE INSPECTOR SCOTLAND SKEPTICAL OFFICER)
       (FLAGS ACTORBIT NDESCBIT ARTICLEBIT)
       (ACTION INSPECTOR-F)>
 
 ; Conversation topics are global so ASK ... ABOUT ... can resolve them from
 ; the listener's room without requiring the referenced person or clue nearby.
+; Each witness's room also lists the topics that witness offers in its GLOBAL,
+; so a reader who taps the linked word finds the question in that person's menu.
 <OBJECT MASTER-TOPIC
       (IN GLOBAL-OBJECTS)
       (DESC "master")
@@ -751,6 +768,21 @@
       (DESC "Moriarty")
       (SYNONYM MORIARTY DOCTOR)
       (ADJECTIVE DR DOCTOR)
+	  (ACTION CONVERSATION-TOPIC-F)>
+; The other two names on the locked box's dial. Moriarty's is MORIARTY-TOPIC.
+<OBJECT HUDSON-NAME
+      (IN LOCAL-GLOBALS)
+      (DESC "Mr. Hudson")
+      (SYNONYM HUDSON BUTLER)
+      (ADJECTIVE MR MISTER)
+      (FLAGS NDESCBIT)
+	  (ACTION CONVERSATION-TOPIC-F)>
+<OBJECT ASHWORTH-NAME
+      (IN LOCAL-GLOBALS)
+      (DESC "Lady Ashworth")
+      (SYNONYM ASHWORTH WIDOW)
+      (ADJECTIVE LADY)
+      (FLAGS NDESCBIT)
 	  (ACTION CONVERSATION-TOPIC-F)>
 <OBJECT MARRIAGE-TOPIC
       (IN GLOBAL-OBJECTS)
@@ -787,7 +819,7 @@
 <OBJECT WHITE-ROSE
 	(IN GARDEN)
 	(DESC "white rose")
-	(SYNONYM ROSE BLOOM PETALS FLOWER)
+	(SYNONYM ROSE BLOOM PETALS FLOWER STEM)
 	(ADJECTIVE WHITE)
 	(FLAGS NDESCBIT)
 	(ACTION WHITE-ROSE-F)>
