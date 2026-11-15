@@ -81,7 +81,7 @@ local function evaluate_cond(node, value_node)
 			end
 		elseif node.name == "OR" then
 			for _, child in ipairs(node) do
-				if child[1] and evaluate_cond(child[1], value_node) then
+				if evaluate_cond(child, value_node) then
 					return value_node
 				end
 			end

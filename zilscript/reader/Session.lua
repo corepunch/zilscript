@@ -306,12 +306,17 @@ function Session:linkActions(target)
 				local standardGift = pattern.action == nil or pattern.action == "GIVE" or pattern.action == "SHOW"
 				local recipient = standardGift and (pattern.verb == "give" or pattern.verb == "show") and not pattern.reverse
 				local container = pattern.verb == "put"
+				-- Handing over or putting away needs the thing in hand first.
+				local handed = not pattern.reverse
+					and (pattern.action == nil or pattern.action == "PUT" or standardGift)
+					and (pattern.verb == "put" or pattern.verb == "give" or pattern.verb == "show")
 				local identity = second and (second.identity or second.target or second.noun)
 				if second and identity and not paired[identity]
 						and (not pattern.partners or pattern.partners[identity])
 						and other.target ~= target and second.target ~= commandTarget
 						and (not recipient or traits.actor)
 						and (not container or traits.container or traits.surface)
+						and (not handed or item.carried)
 						and (not (pattern.held or tool or pattern.reverse) or (second and second.carried)) then
 					local join = pattern.join ~= "" and " " .. pattern.join or ""
 					paired[identity] = true

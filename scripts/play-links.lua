@@ -14,6 +14,7 @@ for raw in io.lines(path) do
 	if line ~= "" and line:sub(1, 1) ~= "#" then
 		if line:sub(1, 1) == "!" then
 			-- Parser diagnostic, not link play: typed straight past the menus.
+			if not walk:running() then failure = "The story has ended; nothing can be typed." break end
 			table.insert(shown, "PARSER> " .. line:sub(2) .. "\n" .. tostring(walk.game:resume(line:sub(2))))
 		else
 			local ok, text = pcall(walk.choose, walk, line)

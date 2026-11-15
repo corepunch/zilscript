@@ -305,6 +305,7 @@ function Forms.createHandlers(compiler, printNode)
     local tokens = {
       A = "TELL_A",
       AN = "TELL_A",
+      CA = "TELL_CA",
       THE = "TELL_THE",
       CTHE = "TELL_CTHE",
     }

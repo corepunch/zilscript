@@ -15,8 +15,6 @@ walk:play({
 	"north",
 	{ "examine julian body", expect = "Whatever made it had a matching notch" },
 	{ "examine office clock", expect = "independent witness" },
-	-- A hatch that is still bolted cannot be lowered again.
-	{ "close service hatch", expect = "already bolted shut" },
 	{ "open service hatch", expect = "will not open without it" },
 	{ "down", expect = "bolted shut" },
 	"south",
@@ -63,7 +61,6 @@ walk:play({
 	{ "open medical bag", expect = "bloodied dressing" },
 	{ "examine bloodied dressing", expect = "initials R.B." },
 	-- The dressing lies in the open bag: the refusal must say why.
-	{ "show bloodied dressing to edith shaw", expect = "in hand first" },
 	{ "take bloodied dressing", expect = "Taken" },
 	{ "show bloodied dressing to edith shaw", expect = "Ruth Bell. Three fragments" },
 	{ "examine bloodied dressing", expect = "named the patient" },
@@ -164,14 +161,18 @@ side:play({ "north", "examine disc cutter" })
 typed("examine cover", "inspection cover lifts")
 typed("examine retaining lug", "retaining lug")
 -- An exhibit lying on the floor is refused for the true reason.
-side:play({ "south", "west", "west", "west", "west", "examine telegraph receipt",
-	{ "show telegraph receipt to tomas vale", expect = "in hand first" } })
+-- The menu offers Show only for what is carried; a typed try says why.
+side:play({ "south", "west", "west", "west", "west", "examine telegraph receipt" })
+assert(not side:offers("show telegraph receipt to tomas vale"), "An unheld exhibit offers no Show")
+typed("show telegraph receipt to tomas vale", "in hand first")
 assert(not side.env.LB_TOMAS_CLEARED, "an unheld receipt clears nobody")
 side:play({ "up", "east" })
 typed("examine left heel", "square leather repair")
 -- Lowering an open hatch still works, and only then.
 side.env.FSET(side.env.LB_HATCH, side.env.OPENBIT)
-side:play({ "down", "north", { "close service hatch", expect = "bolt falls home" },
-	{ "close service hatch", expect = "already bolted shut" } })
+side:play({ "down", "north", { "close service hatch", expect = "bolt falls home" } })
+-- The menu no longer offers to lower a bolted hatch; a typed try is refused.
+assert(not side:offers("close service hatch"), "A bolted hatch offers no Close")
+typed("close service hatch", "already bolted shut")
 
 print(string.format("ok - Last Broadcast: links-only walkthrough solves the case in %d steps; state prose and off-path replies pass", steps))

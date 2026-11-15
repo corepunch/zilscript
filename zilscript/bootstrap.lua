@@ -17,6 +17,7 @@ N = 0xBAADF00E
 TELL_A = 0xBAADF00F
 TELL_THE = 0xBAADF010
 TELL_CTHE = 0xBAADF011
+TELL_CA = 0xBAADF012
 
 OQANY=1
 
@@ -282,7 +283,19 @@ local function object_noun(obj)
 	return GETP(obj, PQDESC)
 end
 
-local function add_items(room, carried)
+-- A menu offers what the object's present state allows: nobody opens an
+-- open case, lights a burning lamp, or takes a soldier through shut glass.
+local function allowed_now(obj, verb, sealed)
+	local openable = FSETQ(obj, CONTBIT) or FSETQ(obj, DOORBIT)
+	if verb == "OPEN" then return not FSETQ(obj, OPENBIT) end
+	if verb == "CLOSE" then return FSETQ(obj, OPENBIT) or not openable end
+	if verb == "LAMP-ON" then return not FSETQ(obj, ONBIT) end
+	if verb == "LAMP-OFF" then return FSETQ(obj, ONBIT) or not FSETQ(obj, LIGHTBIT) end
+	if verb == "TAKE" then return not sealed end
+	return true
+end
+
+local function add_items(room, carried, sealed)
 	local items = {}
 	for obj in objects_in_room(room) do
 		if is_hidden(obj) then goto continue end
@@ -311,7 +324,7 @@ local function add_items(room, carried)
 		end
 		local marks, unique_verbs = {}, {}
 		for _, verb in ipairs(verbs) do
-			if not marks[verb] and not (carried and verb == "TAKE") then
+			if not marks[verb] and not (carried and verb == "TAKE") and allowed_now(obj, verb, sealed) then
 				table.insert(unique_verbs, verb) marks[verb] = true
 			end
 		end
@@ -324,7 +337,9 @@ local function add_items(room, carried)
 		for word in item:gmatch("%S+") do
 			table.insert(words, word:lower())
 		end
-		local children = can_suggest_contents(obj) and add_items(obj, carried) or {}
+		-- Seen through glass, not reachable: a closed transparent container.
+		local shut = FSETQ(obj, CONTBIT) and not FSETQ(obj, SURFACEBIT) and not FSETQ(obj, OPENBIT)
+		local children = can_suggest_contents(obj) and add_items(obj, carried, sealed or shut) or {}
 		local patterns = item_patterns(unique_verbs)
 		-- Optional authored binary relationships keep reader menus faithful to
 		-- the story instead of multiplying every verb by every discovered noun.
@@ -1164,6 +1179,7 @@ function TELL(...)
 		elseif v == TELL_A then object = "A"
 		elseif v == TELL_THE then object = "THE"
 		elseif v == TELL_CTHE then object = "CTHE"
+		elseif v == TELL_CA then object = "CA"
 		elseif v == N then number = true
 		elseif object then
 			local token = object
@@ -1179,6 +1195,9 @@ function TELL(...)
 					local desc = GETP(v, _G["PQDESC"]) or ""
 					if token == "A" then
 						io_write(desc:match("^[AEIOUaeiou]") and "an " or "a ")
+					elseif token == "CA" then
+						-- Starts a list line: "An oil lantern", "A brass key".
+						io_write(desc:match("^[AEIOUaeiou]") and "An " or "A ")
 					elseif token == "THE" then
 						io_write("the ")
 					elseif token == "CTHE" then

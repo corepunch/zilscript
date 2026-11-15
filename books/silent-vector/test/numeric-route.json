@@ -1,11 +1,11 @@
 [
   [
-    10,
+    9,
     "push breaker",
     "push habitat breaker"
   ],
   [
-    11,
+    10,
     "north",
     "north"
   ],
@@ -75,17 +75,17 @@
     "open witness recorder"
   ],
   [
-    13,
+    12,
     "take strip",
     "take witness strip"
   ],
   [
-    10,
+    9,
     "read ledger",
     "read mass ledger"
   ],
   [
-    11,
+    10,
     "west",
     "west"
   ],
@@ -155,17 +155,17 @@
     "east"
   ],
   [
-    8,
+    7,
     "fit spool to bus",
     "fit incoming bus to null spool"
   ],
   [
-    10,
+    9,
     "cut bus with shears",
     "cut incoming bus with ceramic shears"
   ],
   [
-    13,
+    12,
     "north",
     "north"
   ],
@@ -175,22 +175,22 @@
     "open signal receiver"
   ],
   [
-    11,
+    10,
     "take wafer",
     "take memory wafer"
   ],
   [
-    10,
+    9,
     "examine wafer",
     "examine memory wafer"
   ],
   [
-    9,
+    8,
     "south",
     "south"
   ],
   [
-    11,
+    10,
     "west",
     "west"
   ],
@@ -240,17 +240,17 @@
     "inventory"
   ],
   [
-    17,
+    16,
     "put wafer in archive",
     "put memory wafer in cold archive"
   ],
   [
-    8,
+    7,
     "examine console",
     "examine decision console"
   ],
   [
-    13,
+    12,
     "south",
     "south"
   ],
@@ -305,7 +305,7 @@
     "north"
   ],
   [
-    11,
+    10,
     "preserve console",
     "preserve decision console"
   ]

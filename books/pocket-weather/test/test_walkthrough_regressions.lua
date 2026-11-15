@@ -130,7 +130,8 @@ lacks(says("shower nimbus cloud", "Mica has approved the card"), "Write your car
 walk:play({ "south", "east" })
 
 -- The slot answers Open in the fiction.
-lacks(says("open broadcast slot", "The slot has no door"), "already open")
+check(not walk:offers("open broadcast slot"), "An always-open slot offers no Open")
+check(walk.game:resume("open broadcast slot"):find("The slot has no door", 1, true), "A typed Open is answered in the fiction")
 walk:choose("put weather card in broadcast slot")
 lacks(says("tell postmaster mica", "Nimbus is waiting for you on the terrace"), "says continuous rain")
 lacks(says("tell postmaster mica about promise", "The whole town has heard that now"), "Bring me the written")
