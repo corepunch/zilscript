@@ -15,7 +15,7 @@
 		<COND (,LB-EDITH-CLEARED <TELL "Tested: the doctor's bloodied dressing and her patient's interval agree." CR>)>
 		<COND (,LB-TOMAS-CLEARED <TELL "Tested: mainland challenges place the operator at his key." CR>)>
 		<COND (,LB-MOTIVE <TELL "Read and answered: wages, unissued shares, and a threatened destruction of the accounts." CR>)>
-		<TELL "Notes record observations, not verdicts. RECONSTRUCT CASEBOOK organizes established facts. For optional explicit next-step guidance, choose HINT CASEBOOK." CR> <RTRUE>)
+		<TELL "Notes record observations, not verdicts. Reconstructing the casebook organizes established facts. Its hint gives optional, explicit next-step guidance." CR> <RTRUE>)
 		(<VERB? HINT> <LB-NEXT> <RTRUE>)
 		(<VERB? RECONSTRUCT> <LB-RECONSTRUCT>)>>
 <ROUTINE GO ()
@@ -65,9 +65,12 @@
 				(T <TELL "The stylus belongs on the control-room gramophone, not there." CR> <RTRUE>)>)>>
 <ROUTINE LB-PLAYER-F ()
 	<COND (<VERB? EXAMINE SEARCH LOOK-INSIDE>
-		<TELL "A spring-driven broadcast [[gramophone]]. Put the archive disc in it; mount the workshop stylus with USE STYLUS ON GRAMOPHONE; then PLAY GRAMOPHONE. The transmitter feed is disconnected, so the experiment will stay in this room." CR>
-		<COND (<IN? ,LB-STYLUS ,LB-PLAYER> <TELL "The pickup is fitted." CR>)>
-		<COND (<IN? ,LB-DISC ,LB-PLAYER> <TELL "The [[lacquer disc]] rests on its platter." CR>)>
+		<TELL "A spring-driven broadcast [[gramophone]]. The transmitter feed is disconnected, so any experiment will stay in this room." CR>
+		<COND (<IN? ,LB-STYLUS ,LB-PLAYER> <TELL "The sapphire stylus is fitted to the pickup." CR>)
+			(T <TELL "The pickup is bare; it takes the playback stylus from the workshop." CR>)>
+		<COND (<IN? ,LB-DISC ,LB-PLAYER> <TELL "The [[lacquer disc]] rests on its platter." CR>)
+			(T <TELL "The platter is empty; it wants the archive disc." CR>)>
+		<COND (<AND <IN? ,LB-STYLUS ,LB-PLAYER> <IN? ,LB-DISC ,LB-PLAYER>> <TELL "It is ready to play." CR>)>
 		<RTRUE>)
 		(<VERB? USE-ON USE-WITH>
 			<COND (<OR <AND <VERB? USE-ON> <EQUAL? ,PRSO ,LB-STYLUS>> <AND <VERB? USE-WITH> <EQUAL? ,PRSI ,LB-STYLUS>>> <LB-MOUNT>)
@@ -78,15 +81,17 @@
 				<COND (<NOT <EQUAL? ,PRSO ,LB-DISC>> <TELL "Only the [[disc]] belongs on this platter." CR> <RTRUE>)>)>)
 		(<VERB? OPEN CLOSE> <TELL "The platter stays open; the [[disc]] must lie flat on it." CR> <RTRUE>)>>
 <ROUTINE LB-MOUNT ()
-	<COND (<NOT <AND <HELD? ,LB-STYLUS> <ACCESSIBLE? ,LB-STYLUS> <ACCESSIBLE? ,LB-PLAYER>>>
-		<TELL "Hold the stylus within reach of the gramophone. A closed bag is no help." CR>)
-		(<IN? ,LB-STYLUS ,LB-PLAYER> <TELL "The pickup is already fitted." CR>)
-		(T <MOVE ,LB-STYLUS ,LB-PLAYER> <TELL "You fit the sapphire stylus to the pickup. It remains mounted on the gramophone until you take it again. The gramophone is ready for the archive disc." CR>)>
+	<COND (<IN? ,LB-STYLUS ,LB-PLAYER> <TELL "The pickup is already fitted." CR>)
+		(<NOT <AND <HELD? ,LB-STYLUS> <ACCESSIBLE? ,LB-STYLUS> <ACCESSIBLE? ,LB-PLAYER>>>
+		<TELL "You need the stylus in your hand, beside the gramophone, to fit it." CR>)
+		(T <MOVE ,LB-STYLUS ,LB-PLAYER> <TELL "You fit the sapphire stylus to the pickup. It remains mounted on the gramophone until you take it again. ">
+			<COND (<IN? ,LB-DISC ,LB-PLAYER> <TELL "The gramophone is ready to play." CR>)
+				(T <TELL "The gramophone is ready for the archive disc." CR>)>)>
 	<RTRUE>>
 <ROUTINE LB-PLAY ()
 	<COND (<NOT <ACCESSIBLE? ,LB-PLAYER>> <TELL "The playback apparatus is in the control room." CR>)
 		(<NOT <IN? ,LB-DISC ,LB-PLAYER>> <TELL "Put the archive disc in the gramophone first." CR>)
-		(<NOT <IN? ,LB-STYLUS ,LB-PLAYER>> <TELL "The pickup is bare. Bring the stylus from the workshop and fit it with USE STYLUS ON GRAMOPHONE." CR>)
+		(<NOT <IN? ,LB-STYLUS ,LB-PLAYER>> <TELL "The pickup is bare. Bring the stylus from the workshop and fit it to the gramophone." CR>)
 		(T <SETG LB-SOUND T>
 		<TELL "The [[disc]] turns. Ada's voice asks the mainland for help. A gull coughs twice; she says, 'Even this old island can learn to speak.'|Two coughs, then that sentence: the sequence in your opening note, now turning beneath a needle. A later stutter repeats the first syllable with mechanical patience. This appeal existed in a groove before it was supposedly spoken live.|At the centre, a pencilled timing mark sets the start at 9:17. Six minutes would carry the voice past 9:22. Ruth in the studio may recognise the rehearsal; the cutting register can authenticate its origin." CR>)>
 	<RTRUE>>
@@ -97,12 +102,17 @@
 
 <ROUTINE LB-OFFICE-CLOCK-F ()
 	<COND (<VERB? EXAMINE READ>
-		<TELL "The [[office clock]] reads 9:12. Beneath it: SYNCHRONOUS MOVEMENT -- RESTART BY HAND AFTER UNDERVOLTAGE. The winding knob is innocent; this clock never had a spring. Its time needs an independent witness." CR> <RTRUE>)
+		<TELL "The [[office clock]] reads 9:12. Beneath it: SYNCHRONOUS MOVEMENT -- RESTART BY HAND AFTER UNDERVOLTAGE. The winding knob is innocent; this clock never had a spring. ">
+		<COND (,LB-CLOCK <TELL "The voltage chart has explained it: the hands date the 9:12 power fault, not the death." CR>)
+			(T <TELL "Its time needs an independent witness." CR>)>
+		<RTRUE>)
 		(<VERB? COMPARE> <LB-COMPARE>)>>
 
 <ROUTINE LB-BODY-F ()
 	<COND (<VERB? EXAMINE SEARCH>
-		<TELL "One blow behind the ear. No struggle, no long chase. The [[body]] has stiffened in the attitude of someone signing away another person's future. A crescent of brass dust marks the wound. The crescent is interrupted by one narrow gap. Whatever made it had a matching notch in its edge. ">
+		<TELL "One blow behind the ear. No struggle, no long chase. The [[body]] has stiffened in the attitude of someone signing away another person's future. A crescent of brass dust marks the wound. The crescent is interrupted by one narrow gap. ">
+		<COND (,LB-WEAPON <TELL "The notched brass counterweight made it. ">)
+			(T <TELL "Whatever made it had a matching notch in its edge. ">)>
 		<COND (,LB-CLOCK <TELL "The [[office clock]] records the electrical fault; the wound belongs to the later interval." CR>)
 			(T <TELL "The [[office clock]] has yet to account for its stopped hands." CR>)>
 		<RTRUE>)
@@ -115,7 +125,7 @@
 <ROUTINE LB-SWITCH-F ()
 	<COND (<VERB? EXAMINE READ>
 		<TELL "The [[routing switch]] selects MIC or DISC independently of the microphone's red heater lamp. It was found at DISC. A wax dab under its guard records that position; turning it now would tell you nothing about then. The [[gramophone]] supplies the second feed." CR> <RTRUE>)
-		(<VERB? TURN PUSH PULL> <TELL "The transmitter is isolated. You test the routing lever without disturbing the wax witness mark: MIC and DISC are independent of the studio heater lamp." CR> <RTRUE>)>>
+		(<VERB? TURN PUSH MOVE> <TELL "The transmitter is isolated. You test the routing lever without disturbing the wax witness mark: MIC and DISC are independent of the studio heater lamp." CR> <RTRUE>)>>
 
 <ROUTINE LB-CUTTER-F ()
 	<COND (<VERB? EXAMINE SEARCH>
@@ -125,7 +135,10 @@
 
 <ROUTINE LB-REGISTER-F ()
 	<COND (<VERB? EXAMINE READ>
-		<TELL "The [[register]] has two entries: 8:10, R. Bell, B03, two-minute microphone test, destroyed; 8:40, A. Mercer, A17, six-minute appeal, completed. Both were cut before the gale reached the aerial. Compare the actual disc with this register after hearing it." CR> <RTRUE>)
+		<TELL "The [[register]] has two entries: 8:10, R. Bell, B03, two-minute microphone test, destroyed; 8:40, A. Mercer, A17, six-minute appeal, completed. Both were cut before the gale reached the aerial. ">
+		<COND (,LB-PROVENANCE <TELL "The A17 entry has been matched to the disc you heard." CR>)
+			(T <TELL "Compare the actual disc with this register after hearing it." CR>)>
+		<RTRUE>)
 		(<VERB? COMPARE> <LB-COMPARE>)>>
 
 <ROUTINE LB-GENERATOR-F ()
@@ -139,7 +152,10 @@
 
 <ROUTINE LB-STAIN-F ()
 	<COND (<VERB? EXAMINE SEARCH>
-		<SETG LB-STAIN-SEEN T> <TELL "The [[stain]] is a heel print in diluted blood, pointing away from the office hatch. One square repair has been fixed diagonally across its edge, making a distinctive diamond interruption. It is precise enough to test against a real heel, not merely imagine a similar shape." CR> <RTRUE>)
+		<SETG LB-STAIN-SEEN T> <TELL "The [[stain]] is a heel print in diluted blood, pointing away from the office hatch. One square repair has been fixed diagonally across its edge, making a distinctive diamond interruption. ">
+		<COND (,LB-TRACE <TELL "The repaired heel of Ada's boots fills it exactly." CR>)
+			(T <TELL "It is precise enough to test against a real heel, not merely imagine a similar shape." CR>)>
+		<RTRUE>)
 		(<VERB? COMPARE> <LB-COMPARE>)>>
 
 <ROUTINE LB-TABLE-F ()
@@ -147,7 +163,7 @@
 		<TELL "A broken tumbler has left a little glass dust in the [[table]] grain. Two cups have gone cold. [[Edith]] keeps looking at the cup opposite hers; she and Ruth were here together during the appeal. Her [[medical bag]] is within reach, with permission to inspect it." CR> <RTRUE>)>>
 
 <ROUTINE LB-BAG-F ()
-	<COND (<VERB? EXAMINE READ>
+	<COND (<VERB? EXAMINE>
 		<TELL "A [[medical bag]], kept private rather than locked. Edith has given permission to inspect it. ">
 		<COND (<FSET? ,LB-BAG ,OPENBIT>
 			<TELL "It stands open now. ">
@@ -156,7 +172,10 @@
 		<CRLF> <RTRUE>)>>
 <ROUTINE LB-DRESSING-F ()
 	<COND (<VERB? EXAMINE READ>
-		<SETG LB-DRESSING-SEEN T> <TELL "The [[bloodied dressing]] bears the time 9:17 and initials R.B. in Edith's tidy hand. Three tiny glass fragments adhere to it. A surface cut, not a head wound. Show it to Edith and ask whose blood required the discretion." CR> <RTRUE>)
+		<SETG LB-DRESSING-SEEN T> <TELL "The [[bloodied dressing]] bears the time 9:17 and initials R.B. in Edith's tidy hand. Three tiny glass fragments adhere to it. A surface cut, not a head wound. ">
+		<COND (,LB-EDITH-CLEARED <TELL "Edith has named the patient: Ruth Bell." CR>)
+			(T <TELL "Show it to Edith and ask whose blood required the discretion." CR>)>
+		<RTRUE>)
 		(<VERB? SHOW> <LB-SHOW>)>>
 
 <ROUTINE LB-TELEGRAPH-F ()
@@ -165,7 +184,10 @@
 
 <ROUTINE LB-RECEIPT-F ()
 	<COND (<VERB? EXAMINE READ>
-		<SETG LB-RECEIPT-SEEN T> <TELL "The [[telegraph receipt]] carries mainland challenges and Tomas's correct returns at every minute from 9:16 through 9:22. The far-end stamps are intact. Between them, an outgoing message asks a bookmaker for another week. Show it to [[Tomas]]; the shame and the alibi are on the same strip." CR> <RTRUE>)
+		<SETG LB-RECEIPT-SEEN T> <TELL "The [[telegraph receipt]] carries mainland challenges and Tomas's correct returns at every minute from 9:16 through 9:22. The far-end stamps are intact. Between them, an outgoing message asks a bookmaker for another week. ">
+		<COND (,LB-TOMAS-CLEARED <TELL "Tomas has owned to both sides of the strip." CR>)
+			(T <TELL "Show it to [[Tomas]]; the shame and the alibi are on the same strip." CR>)>
+		<RTRUE>)
 		(<VERB? SHOW> <LB-SHOW>)>>
 
 <ROUTINE LB-AERIAL-F ()
@@ -191,11 +213,11 @@
 		(<VERB? SHOW> <LB-SHOW>)>>
 
 <ROUTINE LB-VANE-F ()
-	<COND (<VERB? EXAMINE READ>
+	<COND (<VERB? EXAMINE>
 		<TELL "Vane owned Saint Bride and treated its inhabitants as replaceable components. Each of the four survivors has a reason to hate him. A reason is not a route through an office wall." CR> <RTRUE>)>>
 
 <ROUTINE LB-BROADCAST-F ()
-	<COND (<VERB? EXAMINE READ>
+	<COND (<VERB? EXAMINE>
 		<TELL "At 9:17 Ada's voice began the six-minute appeal. Ruth found Vane at 9:21. The investigation must distinguish the continuing voice from the continuing presence of its owner. Your [[casebook]] can reconstruct the evidence when the experiments are complete." CR> <RTRUE>)>>
 
 <ROUTINE LB-SPANNER-F ()
@@ -210,8 +232,11 @@
 		(<VERB? USE-ON USE-WITH OPEN UNLOCK>
 			<COND (<OR <AND <VERB? USE-ON> <EQUAL? ,PRSO ,LB-SPANNER>> <AND <VERB? USE-WITH OPEN UNLOCK> <EQUAL? ,PRSI ,LB-SPANNER>>> <LB-OPEN-HATCH>)
 				(<FSET? ,LB-HATCH ,OPENBIT> <TELL "The [[hatch]] is already open." CR> <RTRUE>)
-				(T <TELL "Only the square service spanner fits. Use it explicitly on the [[hatch]]." CR> <RTRUE>)>)
-		(<VERB? CLOSE> <FCLEAR ,LB-HATCH ,OPENBIT> <TELL "You lower the [[hatch]]. The square bolt falls home." CR> <RTRUE>)>>
+				(T <TELL "Only the square service spanner fits; the [[hatch]] will not open without it." CR> <RTRUE>)>)
+		(<VERB? CLOSE>
+			<COND (<FSET? ,LB-HATCH ,OPENBIT> <FCLEAR ,LB-HATCH ,OPENBIT> <TELL "You lower the [[hatch]]. The square bolt falls home." CR>)
+				(T <TELL "The [[hatch]] is already bolted shut." CR>)>
+			<RTRUE>)>>
 <ROUTINE LB-OPEN-HATCH ()
 	<COND (<NOT <AND <HELD? ,LB-SPANNER> <ACCESSIBLE? ,LB-SPANNER> <ACCESSIBLE? ,LB-HATCH>>>
 		<TELL "Hold the service spanner within reach of the [[hatch]]." CR>)
@@ -305,7 +330,7 @@
 
 <ROUTINE LB-SHOW ()
 	<COND (<NOT <AND <HELD? ,PRSO> <ACCESSIBLE? ,PRSO> <ACCESSIBLE? ,PRSI>>>
-		<TELL "Hold the exhibit where its witness can actually see it. A closed container defeats the demonstration." CR>)
+		<TELL "Take the exhibit in hand first; a witness answers for what is held out to them." CR>)
 		(<AND <EQUAL? ,PRSI ,LB-ADA> <OR <EQUAL? ,PRSO ,LB-DISC ,LB-BOOTS> <EQUAL? ,PRSO ,LB-WEIGHT>>>
 			<LB-ADA-EXHIBIT ,PRSO>)
 		(<AND <EQUAL? ,PRSO ,LB-DISC> <EQUAL? ,PRSI ,LB-RUTH>>
@@ -334,14 +359,14 @@
 		(<NOT ,LB-EDITH-CLEARED> <TELL "Open Edith's medical bag, examine its dressing, and show it to her. Learn whose blood it carries." CR>)
 		(<NOT ,LB-TOMAS-CLEARED> <TELL "Read the telegraph receipt and show it to Tomas. A remote witness can verify a local alibi." CR>)
 		(<NOT ,LB-MOTIVE> <TELL "Read the archive wage ledger and show it to Ada. Her reply belongs to the case, though a motive alone never does." CR>)
-		(T <TELL "The evidence is sufficient. RECONSTRUCT CASEBOOK, then confront a suspect in person. A wrong accusation will not close the investigation." CR> <RFALSE>)>
+		(T <TELL "The evidence is sufficient. Reconstruct the casebook, then confront a suspect in person. A wrong accusation will not close the investigation." CR> <RFALSE>)>
 	<RTRUE>>
 <ROUTINE LB-COMPLETE? ()
 	<AND ,LB-CLOCK ,LB-SOUND ,LB-PROVENANCE ,LB-ROUTE ,LB-WEAPON ,LB-TRACE
 		,LB-RUTH-CLEARED ,LB-EDITH-CLEARED ,LB-TOMAS-CLEARED ,LB-MOTIVE>>
 <ROUTINE LB-RECONSTRUCT ()
 	<COND (<NOT <LB-COMPLETE?>>
-		<TELL "There is still a gap in the reconstruction. The [[casebook]] records established observations; an unanswered measurement or untested witness cannot become a fact by being written neatly. Optional HINT CASEBOOK gives explicit guidance if you want it." CR>)
+		<TELL "There is still a gap in the reconstruction. The [[casebook]] records established observations; an unanswered measurement or untested witness cannot become a fact by being written neatly. The casebook's optional hint gives explicit guidance if you want it." CR>)
 		(T <SETG LB-RECONSTRUCTED T>
 		<TELL "You draw two lines in the [[casebook]]: SOUND and PERSON.|Fixed points: the office hands stopped at 9:12 for an electrical reason. Vane was alive at 9:16 and found at 9:21. A six-minute appeal began at 9:17; the sound existed before that interval.|Physical facts: the notched brass rim matches the wound. Blood crossed the service route, away from the office, inside the stitching of a distinctive repaired heel. The route never enters the studio.|Witnesses: a dated dressing tests the kitchen pair's account; unpredictable mainland challenges test the operator's. The wage accounts explain what was at stake, but anger does not identify a hand.|Leave the last line blank. Which claimed presence survives only as sound, while the physical evidence places its owner elsewhere? Decide whose name belongs there. Accuse that person in person; the casebook will not choose for you." CR>)>
 	<RTRUE>>

@@ -15,9 +15,15 @@
 	;"6: examine body"
 	<CO-RESUME ,CO "examine body">
 	;"7: examine office clock"
-	<CO-RESUME ,CO "examine office clock">
+	<ASSERT-TEXT "independent witness" <CO-RESUME ,CO "examine office clock">>
 	;"8: down"
-	<CO-RESUME ,CO "down">
+	<ASSERT-TEXT "bolted shut" <CO-RESUME ,CO "down">>
+	<ASSERT "Bolted hatch keeps the detective in the office" <EQUAL? ,HERE ,LB-OFFICE>>
+	;"8a: a bolted hatch cannot be lowered again"
+	<ASSERT-TEXT "already bolted shut" <CO-RESUME ,CO "close hatch">>
+	<ASSERT-TEXT "will not open without it" <CO-RESUME ,CO "open hatch">>
+	;"8b: the dead man answers to his name in his own office"
+	<ASSERT-TEXT "One blow behind the ear" <CO-RESUME ,CO "examine vane">>
 	;"9: south"
 	<CO-RESUME ,CO "south">
 	;"10: east"
@@ -30,6 +36,12 @@
 	<CO-RESUME ,CO "east">
 	;"14: examine switch"
 	<CO-RESUME ,CO "examine switch">
+	;"14a: PULL is the parser's MOVE; both test the lever like PUSH"
+	<ASSERT-TEXT "routing lever" <CO-RESUME ,CO "pull switch">>
+	<ASSERT-TEXT "routing lever" <CO-RESUME ,CO "push switch">>
+	;"14b: the gramophone describes its state in prose, not parser syntax"
+	<ASSERT-TEXT "pickup is bare" <CO-RESUME ,CO "examine gramophone">>
+	<ASSERT-NOT-TEXT "USE STYLUS" <CO-RESUME ,CO "examine gramophone">>
 	;"15: north"
 	<CO-RESUME ,CO "north">
 	;"16: examine cutter"
@@ -80,9 +92,13 @@
 	;"38: compare clock with chart"
 	<ASSERT-TEXT "not a killing" <CO-RESUME ,CO "compare clock with chart">>
 	<ASSERT "State after compare clock with chart" ,LB-CLOCK>
+	;"38a: the clock no longer asks for a witness it has had"
+	<ASSERT-TEXT "power fault, not the death" <CO-RESUME ,CO "examine office clock">>
 	;"39: compare body with counterweight"
 	<ASSERT-TEXT "This is the weapon" <CO-RESUME ,CO "compare body with counterweight">>
 	<ASSERT "State after compare body with counterweight" ,LB-WEAPON>
+	;"39a: the wound no longer wonders what made it"
+	<ASSERT-TEXT "counterweight made it" <CO-RESUME ,CO "examine body">>
 	;"40: south"
 	<CO-RESUME ,CO "south">
 	;"41: up"
@@ -105,6 +121,8 @@
 	;"49: compare stain with boots"
 	<ASSERT-TEXT "diamond interruption" <CO-RESUME ,CO "compare stain with boots">>
 	<ASSERT "State after compare stain with boots" ,LB-TRACE>
+	;"49a: the matched print says so"
+	<ASSERT-TEXT "fills it exactly" <CO-RESUME ,CO "examine stain">>
 	;"50: south"
 	<CO-RESUME ,CO "south">
 	;"51: up"
@@ -114,8 +132,12 @@
 	;"53: use stylus on gramophone"
 	<ASSERT-TEXT "It remains mounted" <CO-RESUME ,CO "use stylus on gramophone">>
 	<ASSERT "State after use stylus on gramophone" <IN? ,LB-STYLUS ,LB-PLAYER>>
+	;"53a: a fitted pickup is reported as fitted"
+	<ASSERT-TEXT "already fitted" <CO-RESUME ,CO "use stylus on gramophone">>
 	;"54: put disc in gramophone"
 	<CO-RESUME ,CO "put disc in gramophone">
+	<ASSERT "Disc lies on the platter" <IN? ,LB-DISC ,LB-PLAYER>>
+	<ASSERT-TEXT "ready to play" <CO-RESUME ,CO "examine gramophone">>
 	;"55: play gramophone"
 	<ASSERT-TEXT "gull coughs twice" <CO-RESUME ,CO "play gramophone">>
 	<ASSERT "State after play gramophone" ,LB-SOUND>
@@ -126,6 +148,8 @@
 	;"58: compare register with disc"
 	<ASSERT-TEXT "A17, six minutes" <CO-RESUME ,CO "compare register with disc">>
 	<ASSERT "State after compare register with disc" ,LB-PROVENANCE>
+	;"58a: the register stops asking for a comparison already made"
+	<ASSERT-TEXT "matched to the disc you heard" <CO-RESUME ,CO "read register">>
 	;"59: south"
 	<CO-RESUME ,CO "south">
 	;"60: west"
@@ -141,11 +165,15 @@
 	<CO-RESUME ,CO "open bag">
 	;"65: examine dressing"
 	<CO-RESUME ,CO "examine dressing">
+	;"65a: an exhibit still in the open bag is refused for the true reason"
+	<ASSERT-TEXT "in hand first" <CO-RESUME ,CO "show dressing to edith">>
+	<ASSERT "Unheld dressing clears nobody" <NOT ,LB-EDITH-CLEARED>>
 	;"66: take dressing"
 	<CO-RESUME ,CO "take dressing">
 	;"67: show dressing to edith"
 	<ASSERT-TEXT "Ruth Bell. Three fragments" <CO-RESUME ,CO "show dressing to edith">>
 	<ASSERT "State after show dressing to edith" ,LB-EDITH-CLEARED>
+	<ASSERT-TEXT "named the patient" <CO-RESUME ,CO "examine dressing">>
 	;"68: west"
 	<CO-RESUME ,CO "west">
 	;"69: read receipt"
@@ -155,6 +183,7 @@
 	;"71: show receipt to tomas"
 	<ASSERT-TEXT "No interval remains" <CO-RESUME ,CO "show receipt to tomas">>
 	<ASSERT "State after show receipt to tomas" ,LB-TOMAS-CLEARED>
+	<ASSERT-TEXT "both sides of the strip" <CO-RESUME ,CO "read receipt">>
 	;"72: accuse tomas"
 	<ASSERT-TEXT "accusation fails" <CO-RESUME ,CO "accuse tomas">>
 	<ASSERT "State after accuse tomas" <NOT ,LB-WON>>
@@ -174,5 +203,6 @@
 	;"79: accuse ada"
 	<ASSERT-TEXT "CASE SOLVED" <CO-RESUME ,CO "accuse ada">>
 	<ASSERT "State after accuse ada" ,LB-WON>
+	<ASSERT "The confession happens in the bunkroom" <EQUAL? ,HERE ,LB-BUNKROOM>>
 	<ASSERT "All testimony and physical gates agree" <AND ,LB-CLOCK ,LB-WEAPON ,LB-SOUND ,LB-PROVENANCE ,LB-TRACE ,LB-ROUTE ,LB-RUTH-CLEARED ,LB-EDITH-CLEARED ,LB-TOMAS-CLEARED ,LB-MOTIVE>>
 >
