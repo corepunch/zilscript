@@ -718,6 +718,11 @@
   <COND
     ;"State: Trust -1 (hostile)"
     (<EQUAL? ,NUTMEG-TRUST -1>
+     <CHOICE "den.say-sorry"
+             "Tell Nutmeg that Pip is sorry"
+             "tell fox"
+             ,CHOICE-PROGRESS
+             90>
      <CHOICE "den.examine-nutmeg"
              "Look at Nutmeg from a distance"
              "examine fox"

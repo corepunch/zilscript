@@ -14,7 +14,9 @@
                  <CO-RESUME ,CO "open illustrated book">>
     <ASSERT "Repair book is open" ,REPAIR-BOOK-OPEN>
     <ASSERT-TEXT "already open"
-                 <CO-RESUME ,CO "read illustrated book">>
+                 <CO-RESUME ,CO "open illustrated book">>
+    <ASSERT-TEXT "follow the ticking beneath the ticking"
+                 <CO-RESUME ,CO "read illustrated book">> ;"Reading the open book repeats its clue"
     <CO-RESUME ,CO "down">
     <ASSERT "The open book blocks the descent"
             <EQUAL? ,HERE ,WORKBENCH-TOP>>

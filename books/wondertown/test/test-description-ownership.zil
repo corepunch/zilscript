@@ -27,7 +27,7 @@
     <MOVE ,WINNER ,TOOL-BENCH>
     <MOVE ,BERTRAND-KEY ,WINNER>
     <ASSERT-TEXT "low crate" <CO-RESUME ,CO "look">>
-    <ASSERT-TEXT "winding socket in his back empty" <CO-RESUME ,CO "look">>
+    <ASSERT-TEXT "winding socket in his back is empty" <CO-RESUME ,CO "look">>
     <ASSERT-NOT-TEXT "spool" <CO-RESUME ,CO "look">>
 
     <SETG HERE ,STORAGE-LOFT>

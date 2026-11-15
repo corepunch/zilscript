@@ -384,12 +384,13 @@
           "id": "den.hostile",
           "setup": { "newGame": false, "commands": ["examine workbench", "take oil-can", "oil mechanism with oil-can", "up", "wind clock", "down", "north", "east", "east", "south", "take head", "give head to cart", "east", "attack fox"] },
           "requiredChoices": {
-            "child": ["den.examine-nutmeg", "den.examine-candle", "den.go-scrap-yard"],
-            "story": ["den.examine-nutmeg", "den.examine-candle", "den.go-scrap-yard"]
+            "child": ["den.say-sorry", "den.examine-nutmeg", "den.go-scrap-yard"],
+            "story": ["den.say-sorry", "den.examine-nutmeg", "den.examine-candle", "den.go-scrap-yard"]
           },
           "forbiddenChoices": ["den.take-key", "den.give-scarf", "den.tell-tolliver"],
           "candidateExpectations": [
-            { "id": "den.examine-nutmeg", "command": "examine fox", "outputContains": "corner", "postcondition": null }
+            { "id": "den.examine-nutmeg", "command": "examine fox", "outputContains": "corner", "postcondition": null },
+            { "id": "den.say-sorry", "command": "tell fox", "outputContains": "sorry", "postcondition": null }
           ],
           "status": "AUTHORED",
           "evidence": null
