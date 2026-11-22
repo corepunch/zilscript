@@ -3,7 +3,7 @@ THE SILENT VECTOR
 
 Habitat power is out. Reset it and find the others.
 
-A dry click comes through the [[padding]]. The [[breaker]] is within reach, but the way [[north]] is sealed.
+A dry [[click]] comes through the [[padding]]. The [[breaker]] is within reach, but the way [[north]] is sealed.
 
 
 > push habitat breaker
@@ -11,12 +11,11 @@ The [[breaker]] catches. Air moves across your face. The mechanical telltale set
 
 
 > north
-The air at the junction tastes of [[copper]] between the torque shop [[west]], galley [[east]], clinic [[north]] and cradle [[south]]. The spine runs [[down]], the cupola [[up]].
-Too much warmth rises from below.
+The air at the junction tastes of the [[copper rail->copper]] under your hand. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
 
 
 > west
-Warm insulation lines the [[tool recesses->recesses]] beneath a [[protocol card->protocol]] by the passage [[east]].
+Warm [[insulation]] lines the [[tool recesses->recesses]] beneath a [[protocol card->protocol]] by the passage [[east]].
 
 
 > examine tool recesses
@@ -36,11 +35,11 @@ RECEIVE ISOLATION / COOL STORAGE. Restore coolant with the torque wrench. FIT SP
 
 
 > east
-The air at the junction tastes of [[copper]] between the torque shop [[west]], galley [[east]], clinic [[north]] and cradle [[south]]. The spine runs [[down]], the cupola [[up]].
+The air at the junction tastes of the [[copper rail->copper]] under your hand. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
 
 
 > down
-A draught rattles the [[grille]] between coolant [[west]] and the relay [[east]], below the junction [[above->up]].
+A [[draught]] rattles the [[grille]] between coolant [[west]] and the relay [[east]], below the junction [[above->up]].
 
 
 > west
@@ -52,12 +51,11 @@ The fitting seats at the wrench's calibrated click. The pump drinks liquid inste
 
 
 > east
-A draught rattles the [[grille]] between coolant [[west]] and the relay [[east]], below the junction [[above->up]].
+A [[draught]] rattles the [[grille]] between coolant [[west]] and the relay [[east]], below the junction [[above->up]].
 
 
 > up
-The air at the junction tastes of [[copper]] between the torque shop [[west]], galley [[east]], clinic [[north]] and cradle [[south]]. The spine runs [[down]], the cupola [[up]].
-Cool air reaches your ankles; one system has accepted a physical repair.
+Cool air reaches your ankles below the [[copper rail->copper]]. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
 
 
 > east
@@ -65,7 +63,7 @@ Beneath the turning [[portrait]], [[Ivo]] counts to four and starts again. [[Wes
 
 
 > east
-Each footfall makes the [[recorder]] ring beside its [[mass ledger->ledger]]. The galley lies [[west]].
+Each [[footfall]] makes the [[recorder]] ring beside its [[mass ledger->ledger]]. The galley lies [[west]].
 
 
 > open witness recorder
@@ -86,11 +84,11 @@ Beneath the turning [[portrait]], [[Ivo]] counts to four and starts again. [[Wes
 
 
 > west
-The air at the junction tastes of [[copper]] between the torque shop [[west]], galley [[east]], clinic [[north]] and cradle [[south]]. The spine runs [[down]], the cupola [[up]].
+The air at the junction tastes of the [[copper rail->copper]] under your hand. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
 
 
 > north
-The [[examination area->area]] smells of soap, the [[clinical log->log]] open between the junction [[south]] and the lab [[north]].
+The [[examination area->area]] smells of [[soap]], the [[clinical log->log]] open between the junction [[south]] and the lab [[north]].
 [[Mara]] asks whether you have eaten.
 
 
@@ -119,13 +117,12 @@ Show the [[strip]] to Ivo. Isolate the incoming bus before entering the cold cor
 
 
 > south
-The [[examination area->area]] smells of soap, the [[clinical log->log]] open between the junction [[south]] and the lab [[north]].
+The [[examination area->area]] smells of [[soap]], the [[clinical log->log]] open between the junction [[south]] and the lab [[north]].
 [[Mara]] asks whether you have eaten.
 
 
 > south
-The air at the junction tastes of [[copper]] between the torque shop [[west]], galley [[east]], clinic [[north]] and cradle [[south]]. The spine runs [[down]], the cupola [[up]].
-You remember somebody calling from behind you. The measured breath-load says four people. You turn anyway.
+You count four [[marks->copper]] on the [[rail->copper]], just as the measured breath-load said. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
 
 
 > east
@@ -137,11 +134,11 @@ Ivo follows the comparison marks with his finger. Four, four, four. 'I consent t
 
 
 > west
-The air at the junction tastes of [[copper]] between the torque shop [[west]], galley [[east]], clinic [[north]] and cradle [[south]]. The spine runs [[down]], the cupola [[up]].
+The air at the junction tastes of the [[copper rail->copper]] under your hand. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
 
 
 > down
-A draught rattles the [[grille]] between coolant [[west]] and the relay [[east]], below the junction [[above->up]].
+A [[draught]] rattles the [[grille]] between coolant [[west]] and the relay [[east]], below the junction [[above->up]].
 
 
 > east
@@ -170,7 +167,7 @@ Taken.
 
 
 > examine memory wafer
-A [[memory wafer->wafer]] on a passive substrate. Its engraved index reads LENA / RESCUE-COMPRESSION / SENN ORLOV. An outer-relay return stamp crosses Asterion's own outbound serial. There is no independent power source.
+A [[memory wafer->wafer]] on a passive substrate. Its [[engraved index]] reads LENA / RESCUE-COMPRESSION / SENN ORLOV. An outer-relay [[return stamp]] crosses Asterion's own outbound serial. There is no independent power source.
 
 You remember Lena reciting that serial while she worked. You do not remember teaching it to her. Senn can account for the name; cold storage will hold the sample without playback.
 
@@ -180,27 +177,25 @@ The severed [[incoming bus->bus]] hangs silent. The service spine is [[west]]; t
 
 
 > west
-A draught rattles the [[grille]] between coolant [[west]] and the relay [[east]], below the junction [[above->up]].
+A [[draught]] rattles the [[grille]] between coolant [[west]] and the relay [[east]], below the junction [[above->up]].
 
 
 > up
-The air at the junction tastes of [[copper]] between the torque shop [[west]], galley [[east]], clinic [[north]] and cradle [[south]]. The spine runs [[down]], the cupola [[up]].
-The compulsive half-heard syllable is gone. You still remember a fifth pair of footsteps here. You cannot hear them now.
+At the [[copper rail->copper]], the compulsive half-heard syllable is gone. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
 
 
 > north
-The [[examination area->area]] smells of soap, the [[clinical log->log]] open between the junction [[south]] and the lab [[north]].
+The [[examination area->area]] smells of [[soap]], the [[clinical log->log]] open between the junction [[south]] and the lab [[north]].
 [[Mara]] holds her own wrist, counting without looking at the time.
 
 
 > north
-The [[comparator]] vibrates at the edge of hearing. [[South]] returns to the clinic; [[east]] leads to screened quarantine.
-The optical trace still holds steady.
+The optical trace holds steady on the [[comparator]]. [[South]] returns to the clinic; [[east]] leads to screened quarantine.
 
 
 > east
-[[Senn]] sits between the lab [[west]] and the interlock [[north]] to the cold core.
-He waits for you to finish speaking. Then: 'Ask me about my [[daughter]] again. I can answer now.'
+[[Senn]] sits between the lab [[west]] and the [[interlock]] [[north]] to the cold core.
+He lets you finish speaking before he says, 'Ask me about my [[daughter]] again.'
 
 
 > examine researcher senn
@@ -217,7 +212,7 @@ He waits for you to finish speaking. Then: 'Ask me about my [[daughter]] again. 
 
 
 > north
-Your breath hangs white between the [[cold archive->archive]] and the [[decision console->console]]. Quarantine lies [[south]].
+Your breath hangs white over the [[cold archive->archive]]. The [[decision console->console]] faces the way [[south]] to quarantine.
 
 
 > inventory
@@ -239,22 +234,21 @@ Before either commitment: independent comparison, examination of the wafer's ori
 
 
 > south
-[[Senn]] sits between the lab [[west]] and the interlock [[north]] to the cold core.
-His hands are closed now. He looks at you when he speaks.
+[[Senn]] sits between the lab [[west]] and the [[interlock]] [[north]] to the cold core.
+His hands are closed now, and he meets your eyes.
 
 
 > west
-The [[comparator]] vibrates at the edge of hearing. [[South]] returns to the clinic; [[east]] leads to screened quarantine.
-The optical trace still holds steady.
+The optical trace holds steady on the [[comparator]]. [[South]] returns to the clinic; [[east]] leads to screened quarantine.
 
 
 > south
-The [[examination area->area]] smells of soap, the [[clinical log->log]] open between the junction [[south]] and the lab [[north]].
+The [[examination area->area]] smells of [[soap]], the [[clinical log->log]] open between the junction [[south]] and the lab [[north]].
 [[Mara]] holds her own wrist, counting without looking at the time.
 
 
 > south
-The air at the junction tastes of [[copper]] between the torque shop [[west]], galley [[east]], clinic [[north]] and cradle [[south]]. The spine runs [[down]], the cupola [[up]].
+The air at the junction tastes of the [[copper rail->copper]] under your hand. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
 
 
 > up
@@ -266,28 +260,25 @@ The [[beacon]] arms with a heavy clunk. [[Mara]] comes up from the clinic, carry
 
 
 > down
-The air at the junction tastes of [[copper]] between the torque shop [[west]], galley [[east]], clinic [[north]] and cradle [[south]]. The spine runs [[down]], the cupola [[up]].
-Mara is waiting overhead. Ivo and Senn have agreed to leave; your decision will tell them what they carry.
+From the [[rail->copper]] you can see Mara is waiting overhead. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
 
 
 > north
-The [[examination area->area]] smells of soap, the [[clinical log->log]] open between the junction [[south]] and the lab [[north]].
+The [[examination area->area]] smells of [[soap]], the [[clinical log->log]] open between the junction [[south]] and the lab [[north]].
 Mara has gone to the launch cupola.
 
 
 > north
-The [[comparator]] vibrates at the edge of hearing. [[South]] returns to the clinic; [[east]] leads to screened quarantine.
-The optical trace still holds steady.
+The optical trace holds steady on the [[comparator]]. [[South]] returns to the clinic; [[east]] leads to screened quarantine.
 
 
 > east
-[[Senn]] sits between the lab [[west]] and the interlock [[north]] to the cold core.
-His hands are closed now. He looks at you when he speaks.
+[[Senn]] sits between the lab [[west]] and the [[interlock]] [[north]] to the cold core.
+His hands are closed now, and he meets your eyes.
 
 
 > north
-Your breath hangs white between the [[cold archive->archive]] and the [[decision console->console]]. Quarantine lies [[south]].
-The [[wafer]] rests in cold, independent storage. Nothing is playing it.
+Your breath hangs white as the [[wafer]] rests in cold storage inside the silent [[archive]]. The [[decision console->console]] faces the way [[south]] to quarantine.
 
 
 > preserve decision console

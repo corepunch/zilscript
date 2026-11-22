@@ -1,6 +1,25 @@
+<ROUTINE LB-KITCHEN-LOOK (RARG)
+	<COND (<AND <EQUAL? .RARG ,M-LOOK> <FSET? ,LB-BAG ,OPENBIT>>
+		<TELL "[[Edith]] sits by her open [[medical bag]] at the [[table]] between the [[hall->east]] and the [[telegraph room->west]]." CR>)>>
+
+<ROUTINE LB-ARCHIVE-LOOK (RARG)
+	<COND (<AND <EQUAL? .RARG ,M-LOOK> <FSET? ,LB-SLEEVE ,OPENBIT>>
+		<TELL "A [[draught]] from the [[cutting room to the west->west]] ruffles the [[papers]] beside an open [[cardboard sleeve]]." CR>)>>
+
+<ROUTINE LB-CUTTING-LOOK (RARG)
+	<COND (<AND <EQUAL? .RARG ,M-LOOK> <FSET? ,LB-CUTTER ,OPENBIT>>
+		<TELL "The [[cutter]] stands open beside its [[register]], between the control room [[south]] and the archive [[east]]." CR>)>>
+
+<ROUTINE LB-CONTROL-LOOK (RARG)
+	<COND (<AND <EQUAL? .RARG ,M-LOOK> <FIRST? ,LB-PLAYER>>
+		<TELL "The [[gramophone]] ">
+                <COND (<AND <IN? ,LB-STYLUS ,LB-PLAYER> <IN? ,LB-DISC ,LB-PLAYER>> <TELL "is ready to play">)
+                      (T <TELL "stands">)>
+                <TELL " beside the [[routing switch]], between the studio [[west]], cutting room [[north]] and workshop [[south]]." CR>)>>
+
 <ROUTINE LB-STATION-CLOCK-F ()
 	<COND (<VERB? EXAMINE READ>
-		<TELL "The [[station clock]] is running: 9:35. Its spring movement does not depend on the generator. At 9:17 you heard the appeal begin; at 9:21 Ruth found Vane. You wrote both times in your [[casebook]]." CR>
+		<TELL "Salt has whitened the rim, but the glass still seals the face. The [[station clock]] is running: 9:35. Its spring movement does not depend on the generator. At 9:17 you heard the appeal begin; at 9:21 Ruth found Vane. You wrote both times in your [[casebook]]." CR>
 		<RTRUE>)>>
 <ROUTINE LB-CASEBOOK-F ()
 	<COND (<VERB? EXAMINE READ>
@@ -19,6 +38,7 @@
 		(<VERB? HINT> <LB-NEXT> <RTRUE>)
 		(<VERB? RECONSTRUCT> <LB-RECONSTRUCT>)>>
 <ROUTINE GO ()
+	<SETG COMPACT-ROOM-LISTS T>
 	<SETG HERE ,LB-LANDING> <SETG VERBOSE T> <SETG LIT T>
 	<SETG FUMBLE-PROB 0>
 	<SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER>
@@ -49,6 +69,8 @@
 			<TELL "Its flap is open. ">
 			<COND (<IN? ,LB-DISC ,LB-SLEEVE> <TELL "A [[lacquer disc]] is inside.">) (T <TELL "It is empty.">)>)
 			(T <TELL "Its flap is folded tight. Open it to inspect the contents.">)>
+		<COND (<AND <IN? ,LB-LEDGER ,LB-ARCHIVE> <NOT <FSET? ,LB-LEDGER ,TOUCHBIT>>>
+		       <TELL " Beneath the sleeve, the corner of a [[wage ledger]] pokes out.">)>
 		<CRLF> <RTRUE>)>>
 <ROUTINE LB-DISC-F ()
 	<COND (<VERB? EXAMINE READ>
@@ -57,6 +79,12 @@
 		(<VERB? PLAY> <LB-PLAY>)
 		(<VERB? COMPARE> <LB-COMPARE>)
 		(<VERB? SHOW> <LB-SHOW>)>>
+<ROUTINE LB-WORKBENCH-F ()
+	<COND (<VERB? EXAMINE SEARCH>
+		<TELL "A scrap of [[black felt]] covers one corner, well away from the solder burns.">
+		<COND (<AND <IN? ,LB-STYLUS ,LB-WORKSHOP> <NOT <FSET? ,LB-STYLUS ,TOUCHBIT>>>
+		       <TELL " A sapphire [[playback stylus]] glints against the felt.">)>
+		<CRLF> <RTRUE>)>>
 <ROUTINE LB-STYLUS-F ()
 	<COND (<VERB? EXAMINE>
 		<TELL "A sapphire playback [[stylus]], kept apart from the cutter to prevent a costly confusion. Its sapphire fits the control-room gramophone pickup. It is small enough to lose a fortune." CR> <RTRUE>)
@@ -102,7 +130,7 @@
 
 <ROUTINE LB-OFFICE-CLOCK-F ()
 	<COND (<VERB? EXAMINE READ>
-		<TELL "The [[office clock]] reads 9:12. Beneath it: SYNCHRONOUS MOVEMENT -- RESTART BY HAND AFTER UNDERVOLTAGE. The winding knob is innocent; this clock never had a spring. ">
+		<TELL "The [[office clock]] reads 9:12. Beneath it: SYNCHRONOUS MOVEMENT -- RESTART BY HAND AFTER UNDERVOLTAGE. The [[winding knob]] is innocent; this clock never had a spring. ">
 		<COND (,LB-CLOCK <TELL "The voltage chart has explained it: the hands date the 9:12 power fault, not the death." CR>)
 			(T <TELL "Its time needs an independent witness." CR>)>
 		<RTRUE>)
@@ -110,7 +138,7 @@
 
 <ROUTINE LB-BODY-F ()
 	<COND (<VERB? EXAMINE SEARCH>
-		<TELL "One blow behind the ear. No struggle, no long chase. The [[body]] has stiffened in the attitude of someone signing away another person's future. A crescent of brass dust marks the wound. The crescent is interrupted by one narrow gap. ">
+		<TELL "One blow behind the ear. No struggle, no long chase. The [[body]] has stiffened in the attitude of someone signing away another person's future. A crescent of [[brass dust]] marks the wound. The crescent is interrupted by one narrow gap. ">
 		<COND (,LB-WEAPON <TELL "The notched brass counterweight made it. ">)
 			(T <TELL "Whatever made it had a matching notch in its edge. ">)>
 		<COND (,LB-CLOCK <TELL "The [[office clock]] records the electrical fault; the wound belongs to the later interval." CR>)
@@ -120,11 +148,11 @@
 
 <ROUTINE LB-MICROPHONE-F ()
 	<COND (<VERB? EXAMINE LISTEN>
-		<TELL "The felt around the [[microphone]] smells of old tobacco. The microphone wears a red supply lamp. Its tiny plate says HEATER, not ON AIR. It shows that the microphone is warm, not that its voice reaches the transmitter. [[Ruth]] has been treating the two as synonymous." CR> <RTRUE>)>>
+		<TELL "The felt around the [[microphone]] smells of old tobacco. The microphone wears a red supply lamp. Its tiny [[plate->heater plate]] says HEATER, not ON AIR. It shows that the microphone is warm, not that its voice reaches the transmitter. [[Ruth]] has been treating the two as synonymous." CR> <RTRUE>)>>
 
 <ROUTINE LB-SWITCH-F ()
 	<COND (<VERB? EXAMINE READ>
-		<TELL "The [[routing switch]] selects MIC or DISC independently of the microphone's red heater lamp. It was found at DISC. A wax dab under its guard records that position; turning it now would tell you nothing about then. The [[gramophone]] supplies the second feed." CR> <RTRUE>)
+		<TELL "The [[routing switch]] selects MIC or DISC independently of the microphone's red heater lamp. It was found at DISC. A [[wax dab]] under its guard records that position; turning it now would tell you nothing about then. The [[gramophone]] supplies the second feed." CR> <RTRUE>)
 		(<VERB? TURN PUSH MOVE> <TELL "The transmitter is isolated. You test the routing lever without disturbing the wax witness mark: MIC and DISC are independent of the studio heater lamp." CR> <RTRUE>)>>
 
 <ROUTINE LB-CUTTER-F ()
@@ -152,7 +180,7 @@
 
 <ROUTINE LB-STAIN-F ()
 	<COND (<VERB? EXAMINE SEARCH>
-		<SETG LB-STAIN-SEEN T> <TELL "Up close the damp stone smells of hot rubber. The [[stain]] is a heel print in diluted blood, pointing away from the office hatch. One square repair has been fixed diagonally across its edge, making a distinctive diamond interruption. ">
+		<SETG LB-STAIN-SEEN T> <TELL "Up close the damp stone smells of hot rubber. The [[stain]] is a heel print in diluted blood, pointing away from the office hatch. One [[square repair]] has been fixed diagonally across its edge, making a distinctive diamond interruption. ">
 		<COND (,LB-TRACE <TELL "The repaired heel of Ada's boots fills it exactly." CR>)
 			(T <TELL "It is precise enough to test against a real heel, not merely imagine a similar shape." CR>)>
 		<RTRUE>)
@@ -160,7 +188,7 @@
 
 <ROUTINE LB-TABLE-F ()
 	<COND (<VERB? EXAMINE SEARCH>
-		<TELL "Glass dust from a broken tumbler clings to the scrubbed grain of the [[table]]. Two cups have gone cold. [[Edith]] keeps looking at the cup opposite hers; she and Ruth were here together during the appeal. Her [[medical bag]] is within reach, with permission to inspect it." CR> <RTRUE>)>>
+		<TELL "Glass dust from a broken tumbler clings to the scrubbed grain of the [[table]]. Two [[cups]] have gone cold. [[Edith]] keeps looking at the cup opposite hers; she and Ruth were here together during the appeal. Her [[medical bag]] is within reach, with permission to inspect it." CR> <RTRUE>)>>
 
 <ROUTINE LB-BAG-F ()
 	<COND (<VERB? EXAMINE>
@@ -427,3 +455,8 @@
 			<TELL "Ada starts to turn the counterweight, then stops before her thumb reaches the dark retaining lug. 'I cleaned that machine every morning. Not this evening.' Her voice has lost its broadcast precision. 'Anyone could lift it. That is all I can say about it.'" CR>)
 			(T <TELL "'The cutter's counterweight. Loose, by design. It is meant to balance an arm, not prove a theory. What have you matched its edge to?'" CR>)>)>
 	<RTRUE>>
+
+<ROUTINE LB-HEEL-REPAIR-F ()
+    <COND (<VERB? EXAMINE>
+           <SETG LB-STAIN-SEEN T>
+           <TELL "One corner of the diamond sits right on the curve of the heel. Along its opposite edge the stitches left a row of tiny dots." CR>)>>

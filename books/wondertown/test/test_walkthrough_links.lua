@@ -54,13 +54,18 @@ walk:play({
 	-- Old Tick calls Nutmeg to the latch; the workshop clock swings open.
 	"climb folding ladder",
 	{ "wind old clock", expect = "It has swung open" },
-	{ "down", expect = "leads into the study" },
+	{ "down", expect = "lead into the study" },
 	{ "enter old clock", expect = "chair" },
 	"examine wooden desk",
 	{ "examine winding diagram", expect = "surround the heart with companions" },
 	{ "down", expect = "keyhole waits" },
 	{ "wind giant mechanism", expect = "The heart is beating" },
+	"look",
+	{ "examine workshop key", expect = "one notch" },
 	{ "position music box", expect = "Let me help" },
+	"look",
+	{ "examine music box", expect = "plucks the next note" },
+	{ "examine brass tooth", expect = "feel it trembling" },
 	{ "position tin soldier", expect = "Pip has restored the heart of Wrenfold" },
 })
 

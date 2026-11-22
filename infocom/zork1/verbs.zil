@@ -1683,10 +1683,16 @@ detect a dim light from the east." CR>)>)
 		       <APPLY <GETP .AV ,P?ACTION> ,M-LOOK>)>)>
 	 T>
 
-<ROUTINE DESCRIBE-OBJECTS ("OPTIONAL" (V? <>))
+<GLOBAL COMPACT-ROOM-LISTS <>>
+<GLOBAL LISTING-ROOM <>>
+
+<ROUTINE DESCRIBE-OBJECTS ("OPTIONAL" (V? <>) "AUX" PRINTED)
 	 <COND (,LIT
 		<COND (<FIRST? ,HERE>
-		       <PRINT-CONT ,HERE <SET V? <OR .V? ,VERBOSE>> -1>)>)
+		       <SETG LISTING-ROOM ,COMPACT-ROOM-LISTS>
+		       <SET PRINTED <PRINT-CONT ,HERE <SET V? <OR .V? ,VERBOSE>> -1>>
+		       <SETG LISTING-ROOM <>>
+		       .PRINTED)>)
 	       (T
 		<TELL "Only bats can see in the dark. And you're not one." CR>)>>
 
@@ -1752,8 +1758,51 @@ long description (fdesc or ldesc), otherwise will print short."
 				      <THIS-IS-IT .IT?>)>
 			       <RTRUE>)>>)>>
 
+<ROUTINE LOOSE-ROOM-ITEM? (ITEM)
+    <AND <FSET? .ITEM ,TOUCHBIT> <FSET? .ITEM ,TAKEBIT>
+         <NOT <FSET? .ITEM ,NDESCBIT>> <NOT <FSET? .ITEM ,INVISIBLE>>
+         <NOT <FSET? .ITEM ,ACTORBIT>> <NOT <GETP .ITEM ,P?DESCFCN>>
+         <NOT <AND <SEE-INSIDE? .ITEM> <FIRST? .ITEM>>>>>
+
+;"In a room overview, simple contents share one line. EXAMINE and INVENTORY
+  keep their usual listings. On the floor group only previously moved objects."
+<ROUTINE ROOM-ITEM-LIST (OBJ "AUX" ITEM (COUNT 0) (PRINTED 0))
+    <COND (<OR <EQUAL? .OBJ ,WINNER> <FSET? .OBJ ,ACTORBIT>> <RFALSE>)>
+    <SET ITEM <FIRST? .OBJ>>
+    <REPEAT ()
+        <COND (<NOT .ITEM> <RETURN>)
+              (<EQUAL? .OBJ ,HERE>
+               <COND (<LOOSE-ROOM-ITEM? .ITEM> <SET COUNT <+ .COUNT 1>>)>)
+              (<FSET? .ITEM ,INVISIBLE>)
+              (<OR <GETP .ITEM ,P?DESCFCN>
+                   <AND <SEE-INSIDE? .ITEM> <FIRST? .ITEM>>> <RFALSE>)
+              (<NOT <FSET? .ITEM ,NDESCBIT>> <SET COUNT <+ .COUNT 1>>)>
+        <SET ITEM <NEXT? .ITEM>>>
+    <COND (<OR <0? .COUNT> <AND <EQUAL? .OBJ ,HERE> <L? .COUNT 2>>> <RFALSE>)>
+    <SET ITEM <FIRST? .OBJ>>
+    <REPEAT ()
+        <COND (<NOT .ITEM> <RETURN>)>
+        <COND (<AND <NOT <FSET? .ITEM ,INVISIBLE>> <NOT <FSET? .ITEM ,NDESCBIT>>
+                    <OR <NOT <EQUAL? .OBJ ,HERE>> <LOOSE-ROOM-ITEM? .ITEM>>>
+               <SET PRINTED <+ .PRINTED 1>>
+               <COND (<EQUAL? .PRINTED 1>)
+                     (<EQUAL? .PRINTED .COUNT> <TELL " and ">)
+                     (T <TELL ", ">)>
+               <COND (<EQUAL? .PRINTED 1> <TELL CA .ITEM>)
+                     (T <TELL A .ITEM>)>
+               <COND (<FSET? .ITEM ,ONBIT> <TELL " (lit)">)>)>
+        <SET ITEM <NEXT? .ITEM>>>
+    <COND (<EQUAL? .OBJ ,HERE> <TELL " lie here." CR>)
+          (T <COND (<EQUAL? .COUNT 1> <TELL " is ">) (T <TELL " are ">)>
+             <COND (<FSET? .OBJ ,SURFACEBIT> <TELL "on">) (T <TELL "in">)>
+             <TELL " the " D .OBJ "." CR>)>
+    <RTRUE>>
+
 <ROUTINE PRINT-CONT (OBJ "OPTIONAL" (V? <>) (LEVEL 0)
-		     "AUX" Y 1ST? SHIT AV STR (PV? <>) (INV? <>))
+		     "AUX" Y 1ST? SHIT AV STR (PV? <>) (INV? <>) (GROUPED <>))
+	 <COND (,LISTING-ROOM
+		<SET GROUPED <ROOM-ITEM-LIST .OBJ>>
+		<COND (<AND .GROUPED <NOT <EQUAL? .OBJ ,HERE>>> <RTRUE>)>)>
 	 <COND (<NOT <SET Y <FIRST? .OBJ>>> <RTRUE>)>
 	 <COND (<AND <SET AV <LOC ,WINNER>> <FSET? .AV ,VEHBIT>>
 		T)
@@ -1800,6 +1849,7 @@ long description (fdesc or ldesc), otherwise will print short."
 			       <PRINT-CONT .AV .V? .LEVEL>)>
 			<RETURN>)
 		       (<EQUAL? .Y .AV ,ADVENTURER>)
+		       (<AND .GROUPED <LOOSE-ROOM-ITEM? .Y>>)
 		       (<AND <NOT <FSET? .Y ,INVISIBLE>>
 			     <OR .INV?
 				 <FSET? .Y ,TOUCHBIT>
@@ -1818,7 +1868,7 @@ long description (fdesc or ldesc), otherwise will print short."
 			       <PRINT-CONT .Y .V? .LEVEL>
 			       <SET LEVEL <- .LEVEL 1>> ;"not in Zork III")>)>
 		 <SET Y <NEXT? .Y>>>
-	 <COND (<AND .1ST? .SHIT> <RFALSE>) (T <RTRUE>)>>
+	 <COND (<AND .1ST? .SHIT <NOT .GROUPED>> <RFALSE>) (T <RTRUE>)>>
 
 <ROUTINE FIRSTER (OBJ LEVEL)
 	 <COND %<COND (<==? ,ZORK-NUMBER 1>
@@ -2177,7 +2227,8 @@ stumbled into an authentic grue lair!">))
 
 <ROUTINE OTHER-SIDE (DOBJ "AUX" (P 0) TX) ;"finds room beyond given door"
 	 <REPEAT ()
-		 <COND (<L? <SET P <NEXTP ,HERE .P>> ,LOW-DIRECTION>
+		 <SET P <NEXTP ,HERE .P>>
+		 <COND (<OR <ZERO? .P> <L? .P ,LOW-DIRECTION>>
 			<RETURN <>>)
 		       (ELSE
 			<SET TX <GETPT ,HERE .P>>

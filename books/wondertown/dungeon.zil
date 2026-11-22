@@ -77,15 +77,15 @@
 <ROOM COUNTERTOP
       (IN ROOMS)
       (DESC "Countertop")
-      (LDESC "Moonlight falls through the [[window]] onto the toy display [[case]] by the steps back [[down]].")
+      (LDESC "Moonlight falls through the [[window]] onto the toy display [[case]] by the [[steps]] back [[down]].")
       (DOWN TO TOOL-BENCH)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL WORKSHOP-BUILDING TOPIC-TOLLIVER TOPIC-KEY TOPIC-FOX)>
 
 <ROOM STORAGE-LOFT
-      (IN ROOMS)
+      (IN ROOMS) (ACTION STORAGE-LOFT-LOOK)
       (DESC "Storage Loft")
-      (LDESC "In the storage loft, a dusty [[box]] sits under the [[cobwebs]] beside the ladder back [[down]].")
+      (LDESC "In the storage loft, a dusty [[box]] sits under the [[cobwebs]] beside the [[ladder]] back [[down]].")
       (DOWN TO WORKSHOP-FLOOR)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL TOPIC-TOLLIVER)>
@@ -93,7 +93,7 @@
 <ROOM SNOWY-ALLEY
       (IN ROOMS)
       (DESC "Snowy Alley")
-      (LDESC "Under a flickering [[streetlamp]], tiny [[footprints]] cross the snow [[east]]. The workshop is [[south]].")
+      (LDESC "Under a flickering [[streetlamp]], tiny [[footprints]] cross the [[snow]] [[east]]. The workshop is [[south]].")
       (SOUTH TO WORKSHOP-FLOOR)
       (EAST TO CLOCK-SQUARE)
       (FLAGS RLANDBIT ONBIT)
@@ -102,7 +102,7 @@
 <ROOM CLOCK-SQUARE
       (IN ROOMS)
       (DESC "Clock Square")
-      (LDESC "From the dim [[lamps]] below the [[tower]], paths lead [[west]] to the alley, [[east]] to the mailbox and [[south]] to the scrap-yard.")
+      (LDESC "From the dim [[lamps]] below the [[tower]], [[paths]] lead [[west]] to the alley, [[east]] to the mailbox and [[south]] to the scrap-yard.")
       (WEST TO SNOWY-ALLEY)
       (EAST TO MAILBOX-CORNER)
       (SOUTH TO SCRAP-YARD)
@@ -129,7 +129,7 @@
 <ROOM FOX-DEN
       (IN ROOMS)
       (DESC "Fox Den")
-      (LDESC "A toy [[candle]] warms a rag [[bed]] just inside the entrance to the [[west]].")
+      (LDESC "A toy [[candle]] warms a rag [[bed]] just inside the [[entrance]] to the [[west]].")
       (WEST TO SCRAP-YARD)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL TOPIC-TOLLIVER TOPIC-KEY TOPIC-FOX TOPIC-HEART)>
@@ -137,7 +137,7 @@
 <ROOM TOLLIVER-STUDY
       (IN ROOMS)
       (DESC "Tolliver's Study")
-      (LDESC "Grandfather’s [[chair]] stands empty at his [[desk]]. A ticking comes from [[down]] below, and the stairs lead [[out]].")
+      (LDESC "Grandfather’s [[chair]] stands empty at his [[desk]]. A [[ticking]] comes from [[down]] below, and the [[stairs]] lead [[out]].")
       (OUT TO WORKSHOP-FLOOR)
       (DOWN TO WORKSHOP-HEART)
       (FLAGS RLANDBIT ONBIT)
@@ -146,7 +146,7 @@
 <ROOM WORKSHOP-HEART
       (IN ROOMS)
       (DESC "Workshop Heart")
-      (LDESC "Silent [[toys]] crowd the foot of the passage back [[up]].")
+      (LDESC "Silent [[toys]] crowd the foot of the [[passage]] back [[up]].")
       (UP TO TOLLIVER-STUDY)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL TOPIC-HEART TOPIC-TOLLIVER)>
@@ -164,7 +164,7 @@
 
 <OBJECT WORKBENCH
         (IN WORKSHOP-FLOOR)
-        (SYNONYM BENCH WORKBENCH TABLE)
+        (SYNONYM BENCH WORKBENCH TABLE GLINT GLINTS)
         (ADJECTIVE ENORMOUS WOODEN WORK GIANT CLUTTERED CARVED TOOL)
         (DESC "enormous workbench")
         (FLAGS NDESCBIT SURFACEBIT CONTBIT OPENBIT SEARCHBIT CLIMBBIT)
@@ -175,9 +175,8 @@
         (SYNONYM CAN OILCAN OIL-CAN)
         (ADJECTIVE TINY COPPER OIL SMALL HALF-FULL)
         (DESC "tiny copper oil can")
-        (FDESC "A tiny copper [[oil can->can]], still half full, sits in the shadows beneath the workbench.")
         (LDESC "A tiny copper [[oil can->can]] lies here.")
-        (FLAGS TAKEBIT INVISIBLE)
+        (FLAGS NDESCBIT TAKEBIT INVISIBLE)
         (SIZE 3)
         (ACTION OIL-CAN-F)>
 
@@ -212,8 +211,8 @@
 
 <OBJECT CLOCK-FACE
         (IN WORKSHOP-FLOOR)
-        (SYNONYM CLOCK CUCKOO)
-        (ADJECTIVE OLD WOODEN WALL CUCKOO TICKING WORKSHOP)
+        (SYNONYM CLOCK CUCKOO STAIRS STAIRCASE)
+        (ADJECTIVE OLD WOODEN WALL CUCKOO TICKING WORKSHOP OPEN)
         (DESC "old cuckoo clock")
         (LDESC "An old cuckoo clock hangs on the wall, ticking softly.")
         (FLAGS NDESCBIT)
@@ -231,7 +230,7 @@
 
 <OBJECT LOFT-LADDER
         (IN WORKSHOP-FLOOR)
-        (SYNONYM LADDER STAIRS STAIRCASE)
+        (SYNONYM LADDER)
         (ADJECTIVE FOLDING LOFT WOODEN BROAD OILED)
         (DESC "folding loft ladder")
         (INTERACTIONS "")
@@ -282,7 +281,7 @@
 
 <OBJECT TOOL-RACK
         (IN TOOL-BENCH)
-        (SYNONYM RACK TOOLS CHISELS FILES HAMMER HAMMERS)
+        (SYNONYM RACK TOOLS)
         (ADJECTIVE WOODEN TOOL TINY)
         (DESC "tool rack")
         (LDESC "A wooden rack of tools hangs on the wall — chisels, files, tiny hammers.")
@@ -291,8 +290,8 @@
 
 <OBJECT MAKESHIFT-STEPS
         (IN TOOL-BENCH)
-        (SYNONYM STEPS STAIRCASE CRATE CHAIR BOOK BOOKS STACK ROUTE)
-        (ADJECTIVE MAKESHIFT LOW OLD REPAIR BROAD CLIMBING PACKING STACKED)
+        (SYNONYM STEPS STAIRCASE CRATE CHAIR BOOK BOOKS STACK ROUTE SEAT)
+        (ADJECTIVE MAKESHIFT LOW OLD REPAIR BROAD CLIMBING PACKING STACKED CHAIR)
         (DESC "makeshift climbing steps")
         (LDESC "A low crate leads to an old chair, where three broad repair books make the final steps to the countertop.")
         (FLAGS NDESCBIT CLIMBBIT)
@@ -310,7 +309,7 @@
 
 <OBJECT HALF-FINISHED-TOYS
         (IN WORKBENCH-TOP)
-        (SYNONYM TOYS SAILBOAT BOAT TRAIN DUCK INVENTIONS)
+        (SYNONYM TOYS INVENTIONS)
         (ADJECTIVE HALF-FINISHED WOODEN TOY UNFINISHED HALF-RIGGED)
         (DESC "half-finished toys")
         (LDESC "A half-rigged sailboat, a wooden train, and a duck with only one wheel wait beneath the work lamp.")
@@ -320,8 +319,8 @@
 
 <OBJECT MARZIPAN
         (IN COUNTERTOP)
-        (SYNONYM DOLL RAGDOLL MARZIPAN)
-        (ADJECTIVE RAG ONE-EYED PATCHED MENDED HUMMING)
+        (SYNONYM DOLL RAGDOLL MARZIPAN EYE EYES)
+        (ADJECTIVE RAG ONE-EYED PATCHED MENDED HUMMING BUTTON)
         (DESC "one-eyed rag doll")
         (INTERACTIONS "TELL:NUTMEG,FOOTPRINTS,WORKSHOP-KEY,KEY-HOOK,KEY-STRING")
         (LDESC "A rag doll with one button eye sits against the window, humming softly.")
@@ -331,7 +330,7 @@
 
 <OBJECT DISPLAY-CASE
         (IN COUNTERTOP)
-        (SYNONYM CASE DISPLAY CABINET LATCH)
+        (SYNONYM CASE DISPLAY CABINET)
         (ADJECTIVE DUSTY GLASS DISPLAY BRASS TOY)
         (DESC "dusty glass display case")
         (INTERACTIONS "")
@@ -512,7 +511,7 @@
         (ADJECTIVE RED TIN TALKING PAINTED SHIVERING)
         (DESC "red tin mailbox")
         (INTERACTIONS "TELL:FOOTPRINTS,NUTMEG,SCARF,LETTER")
-        (FDESC "A red [[mailbox]] shivers in the snow.")
+        (FDESC "A red [[mailbox]] shivers in the [[snow]].")
         (LDESC "A red tin [[mailbox]] tilts into the snow, its flap moving occasionally like a mouth.")
         (FLAGS CONTBIT OPENBIT ACTORBIT)
         (ACTION MAILBOX-F)>
@@ -578,9 +577,8 @@
         (ADJECTIVE DOLL PORCELAIN PAINTED BLUE)
         (DESC "porcelain doll head")
         (INTERACTIONS "GIVE-TO:SCRAP-CART,HEADLESS-DOLL;GIVE:SCRAP-CART,HEADLESS-DOLL;PUT:SCRAP-CART")
-        (FDESC "A porcelain [[doll head->head]] with painted eyes lies on the scrap pile where Pip uncovered it.")
         (LDESC "A porcelain [[doll head->head]] lies here.")
-        (FLAGS TAKEBIT INVISIBLE)
+        (FLAGS NDESCBIT TAKEBIT INVISIBLE)
         (SIZE 2)
         (ACTION DOLL-HEAD-F)>
 
@@ -821,3 +819,104 @@
     (ADJECTIVE WORKSHOP CLOCKWORK)
     (DESC "workshop heart")
     (FLAGS NDESCBIT)>
+
+<OBJECT COUNTER-STEPS (IN COUNTERTOP) (DESC "steps down")
+    (SYNONYM STEPS STAIRS CRATE) (ADJECTIVE MAKESHIFT WOODEN)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "From up here Pip can see the three landings: a stack of books, a chair seat, then a crate. The crate looks very small indeed.")>
+
+<OBJECT LOFT-RUNGS (IN STORAGE-LOFT) (DESC "loft ladder")
+    (SYNONYM LADDER RUNGS) (ADJECTIVE LOFT WOODEN)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The top rung is smooth where Tolliver used to hook his thumb to pull himself into the loft.")>
+
+<OBJECT SQUARE-PATHS (IN CLOCK-SQUARE) (DESC "cobbled paths")
+    (SYNONYM PATHS PATH COBBLES) (ADJECTIVE COBBLED WINDING)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The cobbles are tiny wooden blocks set on end. A red [[paint mark]] points toward the mailbox.")>
+
+<OBJECT MAILBOX-SNOW (IN MAILBOX-CORNER) (DESC "drifted snow")
+    (SYNONYM SNOW DRIFT) (ADJECTIVE DRIFTED FRESH)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Snow has banked up on the windy side of the post. The fox tracks shelter in its lee.")>
+
+<OBJECT CART-TRACK (IN SCRAP-YARD) (DESC "rusted track")
+    (SYNONYM TRACK RAIL RAILS) (ADJECTIVE RUSTED IRON)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Two rails curve under the cart. There is just enough room beyond the gate for all four [[wheels->cart wheels]].")>
+
+<OBJECT DEN-ENTRANCE (IN FOX-DEN) (DESC "den entrance")
+    (SYNONYM ENTRANCE OPENING) (ADJECTIVE DEN NARROW)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Rusty wire ends have been bent away from the opening, so a patch of fur can slip through without snagging.")>
+
+<OBJECT STUDY-STAIRS (IN TOLLIVER-STUDY) (DESC "study stairs")
+    (SYNONYM STAIRS STAIRCASE STEPS) (ADJECTIVE STUDY NARROW)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The treads fit Pip’s boots. At the far end the clock case hides them from anyone looking up from the workshop.")>
+
+<OBJECT DISTANT-TICK (IN TOLLIVER-STUDY) (DESC "distant ticking")
+    (SYNONYM TICKING TICK SOUND) (ADJECTIVE DISTANT FAINT)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Pip puts an ear to the floor. This tick comes up through the boards from below the desk.")>
+
+<OBJECT HEART-PASSAGE (IN WORKSHOP-HEART) (DESC "heart passage")
+    (SYNONYM PASSAGE TUNNEL) (ADJECTIVE NARROW BRASS HEART)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Brass pipes run along both sides of the passage. Pip can follow them uphill to Grandfather’s study.")>
+
+<OBJECT DETAIL-SAILBOAT (IN WORKBENCH-TOP) (DESC "sailboat")
+    (SYNONYM SAILBOAT BOAT HULL MAST) (ADJECTIVE WOODEN UNFINISHED)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Pip tips the hull. A round hole goes right through the deck for a mast, and Grandfather has already tied a sail small enough to fit.")>
+
+<OBJECT DETAIL-WOODEN-TRAIN (IN WORKBENCH-TOP) (DESC "wooden train")
+    (SYNONYM TRAIN ENGINE WHEELS) (ADJECTIVE WOODEN RED)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "All the red wheels turn together except the last one. A pencil cross marks the axle Grandfather still meant to fix.")>
+
+<OBJECT DETAIL-WOODEN-DUCK (IN WORKBENCH-TOP) (DESC "wooden duck")
+    (SYNONYM DUCK AXLE WHEEL) (ADJECTIVE WOODEN MISSING)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Under the tilted wing, a stub of axle pokes out. The duck’s good wheel is painted orange, just like its beak.")>
+
+<OBJECT DETAIL-HAMMER (IN TOOL-BENCH) (DESC "hammer")
+    (SYNONYM HAMMER MALLET HAMMERS) (ADJECTIVE TINY JEWELLER'S)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "One end of the head is round as a bead. The other is flat and small enough to tap a nail into a toy shoe.")>
+
+<OBJECT DETAIL-BRASS-LATCH (IN COUNTERTOP) (DESC "brass latch")
+    (SYNONYM LATCH TONGUE) (ADJECTIVE BRASS SMALL)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION LATCH-F)
+    (TEXT "A thin tongue of brass hooks over the edge of the glass. A crescent worn into its end fits Pip’s thumb.")>
+
+<OBJECT DETAIL-PAINT-MARK (IN CLOCK-SQUARE) (DESC "paint mark")
+    (SYNONYM MARK PAINT ARROW) (ADJECTIVE RED PAINT)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Two brushstrokes make an arrow. The second stroke skids across a crack between the cobbles.")>
+
+<OBJECT DETAIL-AXLES (IN SCRAP-YARD) (DESC "axles")
+    (SYNONYM AXLES AXLE GREASE) (ADJECTIVE OILED CART)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The ends shine through the old rust. Whoever looks after this cart put one neat drop of oil on each end.")>
+
+<OBJECT MUSIC-TOOTH (DESC "brass tooth")
+    (SYNONYM TOOTH TINE COMB) (ADJECTIVE BRASS LITTLE)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "A pin lifts the tooth and lets go. Pip can feel it trembling for a moment after the note has died away.")>
+
+<OBJECT CART-WHEELS (IN SCRAP-YARD) (DESC "cart wheels")
+    (SYNONYM WHEELS WHEEL RIMS RIM) (ADJECTIVE CART IRON RUSTED)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION CART-WHEELS-F)>
+
+<OBJECT TOY-CHISELS (IN TOOL-BENCH) (DESC "chisels")
+    (SYNONYM CHISELS CHISEL) (ADJECTIVE TINY)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The widest blade is only as wide as Pip’s little fingernail. A curl of wood still clings to the narrowest one.")>
+
+<OBJECT TOY-FILES (IN TOOL-BENCH) (DESC "needle-files")
+    (SYNONYM NEEDLE-FILES FILES FILE NEEDLE-FILE) (ADJECTIVE FINE)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Pip runs a nail down the handles. One has a round end for smoothing holes, one a flat end for the space between two gear teeth.")>

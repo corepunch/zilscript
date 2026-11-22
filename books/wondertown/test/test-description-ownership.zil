@@ -15,7 +15,13 @@
     <ASSERT-TEXT "broom" <CO-RESUME ,CO "examine workbench">>
     <CO-RESUME ,CO "take broom">
     <CO-RESUME ,CO "drop broom">
-    <ASSERT-TEXT "broom lies here" <CO-RESUME ,CO "look">>
+    <CO-RESUME ,CO "east">
+    <CO-RESUME ,CO "west">
+    <ASSERT-TEXT "A tiny broom and a frayed string lie here." <CO-RESUME ,CO "look">>
+    <CO-RESUME ,CO "take broom">
+    <ASSERT-TEXT "string lies here" <CO-RESUME ,CO "look">>
+    <ASSERT-NOT-TEXT "broom" <CO-RESUME ,CO "look">>
+    <ASSERT-TEXT "tiny broom" <CO-RESUME ,CO "inventory">>
     <ASSERT-NOT-TEXT "leans" <CO-RESUME ,CO "examine workbench">>
 
     ;"Stateful focal objects own their current descriptions."

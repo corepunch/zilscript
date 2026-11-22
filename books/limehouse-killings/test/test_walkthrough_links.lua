@@ -13,6 +13,7 @@ walk:play({
 	{ "read creased telegram", expect = "name of the person it concerned" },
 	"north",
 	{ "open study door", expect = "need the study key" },
+	"examine hall table",
 	{ "take magnifying glass", expect = "take the magnifying glass" },
 	"east",
 	"examine reading desk",

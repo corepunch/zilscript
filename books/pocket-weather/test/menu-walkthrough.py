@@ -22,11 +22,11 @@ def choose(command):
     steps.append({'number': index, 'command': action[1], 'room': state['room'], 'output': state['output']})
     print(len(steps), index, action[1], '->', state['room'])
 commands = [
-'examine forecast', 'take weather card', 'west', 'take narrow spoon', 'west',
+'examine official forecast', 'examine dispatch bell', 'take weather card', 'west', 'examine steaming kettle', 'take narrow spoon', 'west',
 'examine laundry apron', 'take brass button', 'take soft ribbon', 'north',
 'give brass button to aster rook', 'east', 'spin weather vane', 'down', 'east',
 'dig garden gutter with narrow spoon', 'east', 'read rain chart', 'west', 'west', 'south', 'south',
-'open weatherbox', 'take folded report', 'north', 'west',
+'open brass weatherbox', 'take folded report', 'north', 'west',
 'inventory', 'steam folded report over steaming kettle', 'read folded report', 'east', 'north', 'north',
 'tie wind chime to soft ribbon', 'east', 'listen to nimbus cloud',
 'show folded report to nimbus cloud', 'tell nimbus cloud about pause rule',

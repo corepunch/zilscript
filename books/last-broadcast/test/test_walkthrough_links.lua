@@ -42,6 +42,7 @@ walk:play({
 	{ "compare cutter register with lacquer disc", expect = "hear what this disc actually contains" },
 	"south",
 	"south",
+	"examine service workbench",
 	{ "take playback stylus", expect = "Taken" },
 	{ "take service spanner", expect = "Taken" },
 	"down",
@@ -85,6 +86,8 @@ walk:play({
 	{ "put lacquer disc in spring-driven gramophone", expect = "Done" },
 	{ "play spring-driven gramophone", expect = "fit it to the gramophone" },
 	{ "use playback stylus on spring-driven gramophone", expect = "ready to play" },
+	"west", "east",
+	{ "look", expect = "gramophone is ready to play" },
 	{ "examine spring-driven gramophone", expect = "ready to play" },
 	{ "play spring-driven gramophone", expect = "gull coughs twice" },
 	-- The stylus on the pickup is reported as fitted, not as out of reach.
@@ -141,9 +144,9 @@ typed("examine notes", "two columns")
 side:play({ "north", "north" })
 -- The dead man is "Vane" in his own office; the wound and clock parts answer.
 typed("examine vane", "One blow behind the ear")
-typed("examine brass dust", "One blow behind the ear")
+typed("examine brass dust", "skin is entirely clean")
 typed("examine stopped hands", "reads 9:12")
-typed("examine winding knob", "reads 9:12")
+typed("examine winding knob", "stamped SET")
 side:play({ "south", "east", { "examine ruth bell", expect = "Vane" } })
 -- Vane and the broadcast are topics, not documents.
 assert(side:offers("examine julian vane"), "Vane is a linked topic in the studio")
@@ -156,7 +159,7 @@ prose("play spring-driven gramophone", "USE STYLUS")
 assert(not side:offers("pull routing switch"), "PULL is the parser's MOVE; the menu names it Move")
 typed("pull routing switch", "routing lever")
 typed("examine pickup", "pickup is bare")
-typed("examine wax dab", "found at DISC")
+typed("examine wax dab", "edges meet at DISC")
 side:play({ "north", "examine disc cutter" })
 typed("examine cover", "inspection cover lifts")
 typed("examine retaining lug", "retaining lug")

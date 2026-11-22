@@ -29,6 +29,7 @@
           (<VERB? TAKE>
            <TELL "You take the knife carefully. This could be important." CR>
            <MOVE ,BLOOD-STAINED-KNIFE ,WINNER>
+           <FCLEAR ,BLOOD-STAINED-KNIFE ,NDESCBIT>
            <FSET ,BLOOD-STAINED-KNIFE ,TOUCHBIT>
            <COND (<NOT ,KNIFE-FOUND>
                   <SETG KNIFE-FOUND T>
@@ -40,7 +41,9 @@
 <ROUTINE LOCKED-BOX-F ()
     <COND (<VERB? EXAMINE>
            <COND (,LOCKED-BOX-OPENED
-                  <TELL "The box stands open, its dial resting at MORIARTY between the engraved letter, flower, and columns of debt." CR>
+                  <TELL "The box stands open, its dial resting at MORIARTY between the engraved letter, flower, and columns of debt.">
+                  <COND (<IN? ,BANK-STATEMENT ,LOCKED-BOX> <TELL " A [[bank statement->statement]] lies inside.">)>
+                  <CRLF>
                   <RTRUE>)>
            <TELL "The box has no keyhole. A lettered name dial is ringed by tiny engravings: a sealed letter, a purple flower, and columns of debt. The dial can be aligned to any of three names: [[Lady Ashworth->ashworth]], [[Mr. Hudson->hudson]], or [[Dr. Moriarty->moriarty]]. Only the name that connects all three engravings will open it." CR>
            <SETG BOX-CLUE-SEEN T>
@@ -57,7 +60,8 @@
                          <TELL "You align the dial to MORIARTY. Letter, wolfsbane, and debt: the three engravings click beneath your fingers. The box opens, revealing a [[bank statement->statement]]." CR>
                          <SETG LOCKED-BOX-OPENED T>
                          <FSET ,LOCKED-BOX ,OPENBIT>
-                         <MOVE ,BANK-STATEMENT ,LOCKED-BOX>)
+                         <MOVE ,BANK-STATEMENT ,LOCKED-BOX>
+                         <FSET ,BANK-STATEMENT ,NDESCBIT>)
                         (<NOT ,DEAD-LETTER-FOUND>
                          <TELL "The dial resists at the sealed-letter engraving. Search Ashworth's desk and read his correspondence." CR>)
                         (<NOT ,POISON-IDENTIFIED>
@@ -75,12 +79,6 @@
                  (T
                   <TELL "There is no keyhole to pick. The name dial is the lock: examine the box, then align its dial to one of the names." CR>
                   <RTRUE>)>)>>
-
-<ROUTINE LOCKED-BOX-DESC-F (RARG)
-    <COND (<EQUAL? .RARG ,M-OBJDESC>
-           <COND (,LOCKED-BOX-OPENED
-                  <TELL "The ornate name-dial [[box]] lies open among the cold ashes in the [[fireplace]]." CR>)>
-           <RTRUE>)>>
 
 <ROUTINE POISON-BOTTLE-F ()
     <COND (<AND <VERB? USE-ON> <EQUAL? ,PRSI ,PLANTS>>
@@ -124,6 +122,7 @@
            <TELL "You take the magnifying glass." CR>
            <MOVE ,MAGNIFYING-GLASS ,WINNER>
            <FSET ,MAGNIFYING-GLASS ,TOUCHBIT>
+           <FCLEAR ,MAGNIFYING-GLASS ,NDESCBIT>
            <RTRUE>)
           (<VERB? USE>
 		<COND (<OR <HELD? ,FOOTPRINT-CAST> <IN? ,FOOTPRINT-CAST ,HERE>>
@@ -167,6 +166,7 @@
            <TELL "You take the lantern." CR>
            <MOVE ,LANTERN ,WINNER>
            <FSET ,LANTERN ,TOUCHBIT>
+           <FCLEAR ,LANTERN ,NDESCBIT>
            <RTRUE>)
           (<VERB? USE>
            <TELL "You light the lantern. It casts a warm glow." CR>
@@ -273,6 +273,7 @@
           (<VERB? TAKE>
            <TELL "You take the bank statement." CR>
            <MOVE ,BANK-STATEMENT ,WINNER>
+           <FCLEAR ,BANK-STATEMENT ,NDESCBIT>
            <FSET ,BANK-STATEMENT ,TOUCHBIT>
            <RTRUE>)>>
 
@@ -324,13 +325,13 @@ examined or searched."
 <ROUTINE STUDY-DOOR-F ()
     <COND (<VERB? EXAMINE>
            <COND (<FSET? ,STUDY-DOOR ,OPENBIT>
-                  <TELL "The solid oak study door stands open." CR>)
+                  <TELL "The solid oak study door stands open. A fresh scrape on the keep shows where the bolt slid back." CR>)
                  (,STUDY-UNLOCKED
-                  <TELL "The solid oak study door is closed but unlocked." CR>)
+                  <TELL "The solid oak study door is closed but unlocked. The handle turns without catching." CR>)
                  (<==? ,HERE ,STUDY>
                   <TELL "The solid oak study door is closed, its heavy bolt shot home on this side. Opening the door will draw it back." CR>)
                  (T
-                  <TELL "The solid oak study door is closed and locked." CR>)>
+                  <TELL "The solid oak study door is closed and locked. The keyhole faces the hall, but the bolt is on the study side." CR>)>
            <RTRUE>)
           (<VERB? OPEN>
            <COND (<FSET? ,STUDY-DOOR ,OPENBIT>
@@ -401,7 +402,7 @@ examined or searched."
 <ROUTINE WINE-CABINET-F ()
     <COND (<VERB? EXAMINE>
            <SETG CABINET-CLUE-SEEN T>
-           <TELL "The cabinet is unlatched. Dust outlines a missing squat bottle on the medicinal-wine shelf; beside the gap, a handwritten inventory entry reads 'tincture, private laboratory.' Someone removed the delivery bottle without disturbing the dinner wines." CR>
+           <TELL "The cabinet is unlatched. Dust outlines a missing squat bottle on the medicinal-wine shelf; beside the gap, a handwritten [[inventory entry]] reads 'tincture, private laboratory.' Someone removed the delivery bottle without disturbing the dinner wines." CR>
            <RTRUE>)
           (<VERB? OPEN>
            <FSET ,WINE-CABINET ,OPENBIT>
@@ -442,7 +443,7 @@ examined or searched."
 		<TELL "A little strong tea warms your mouth and hands. Hudson has put in too much sugar. For a moment, no one in the house is asking you to prove anything." CR>
 		<RTRUE>)
 	(<VERB? EXAMINE READ>
-           <TELL "The blue enamel kettle is still warm. Hudson has tied on a card: TEA FIRST. THEORIES AFTER. A little tea remains; you may drink it." CR>
+           <TELL "The blue enamel kettle is still warm. Hudson has tied on a [[card->tea card]]: TEA FIRST. THEORIES AFTER. A little tea remains; you may drink it." CR>
            <RTRUE>)
           (<VERB? TAKE>
            <TELL "The kettle belongs on the range; its warmth is more useful here than in your pocket." CR>
@@ -466,7 +467,12 @@ examined or searched."
            <RTRUE>)>>
 
 <ROUTINE DRAWER-F ()
-    <COND (<AND <VERB? OPEN> <FSET? ,DRAWER ,OPENBIT>>
+    <COND (<VERB? EXAMINE>
+           <COND (<NOT <FSET? ,DRAWER ,OPENBIT>> <TELL "The drawer is closed. A thumb-sized hollow under the lip serves as its handle." CR>)
+                 (<IN? ,LEATHER-ROLL ,DRAWER> <TELL "A [[leather roll->roll]] fits snugly between the worn wooden runners." CR>)
+                 (T <TELL "Two dark lines on the runners show where the leather roll used to rest." CR>)>
+           <RTRUE>)
+          (<AND <VERB? OPEN> <FSET? ,DRAWER ,OPENBIT>>
            <TELL "The drawer is already open." CR>
            <RTRUE>)
           (<VERB? OPEN>
@@ -480,7 +486,7 @@ examined or searched."
 
 <ROUTINE FOUNTAIN-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "The fountain is dry, with tarnished coins at the bottom">
+           <TELL "The fountain is dry, with tarnished [[coins]] at the bottom">
            <COND (<AND <IN? ,FOOTPRINT-CAST ,GARDEN> <NOT <FSET? ,FOOTPRINT-CAST ,TOUCHBIT>>>
                   <TELL ". A plaster [[cast->footprint cast]] rests on the rim">)>
            <TELL "." CR>
@@ -540,6 +546,8 @@ hides the grating under the leaves; the garden shows only a glint."
 player has had the lid up, a closed trunk stays closed to a glance."
 
 <ROUTINE TRUNK-F ()
+    <COND (<AND <VERB? EXAMINE SEARCH LOOK-INSIDE OPEN> <IN? ,LANTERN ,SERVANTS-QUARTERS> <NOT <FSET? ,LANTERN ,TOUCHBIT>>>
+           <TELL "An oil [[lantern]] hangs from one of the trunk handles. ">)>
     <COND (<AND <VERB? EXAMINE SEARCH LOOK-INSIDE>
                 <NOT <FSET? ,TRUNK ,TOUCHBIT>>>
            <FSET ,TRUNK ,OPENBIT>
@@ -609,17 +617,23 @@ player has had the lid up, a closed trunk stays closed to a glance."
 <ROUTINE GATE-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
            <COND (<IN? ,TELEGRAM ,ASHWORTH-MANOR-GATE>
-                   <TELL "Beyond the iron [[gates]], Ashworth Manor slips in and out of the fog at the end of the [[path]] [[north]]." CR>)
+                   <TELL "Beyond the iron [[gates]], [[Ashworth Manor]] slips in and out of the [[fog]] at the end of the [[path]] [[north]]." CR>)
                   (T
-                   <TELL "Beyond the open [[gate]], the wet [[path]] leads [[north]] to Ashworth Manor." CR>)>)>>
+                   <TELL "Beyond the open [[gate]], the wet [[path]] leads [[north]] to [[Ashworth Manor]]." CR>)>)>>
 
 <ROUTINE STUDY-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "A chalk [[outline]] stretches from the [[fireplace]] to the mahogany [[desk]]">
+           <TELL "A chalk [[outline]] stretches from the [[fireplace]]">
+           <COND (,LOCKED-BOX-OPENED <TELL ", where the name-dial [[box]] lies open among the cold [[ashes]]">
+                  <COND (<AND <IN? ,BANK-STATEMENT ,LOCKED-BOX> <FSET? ,BANK-STATEMENT ,NDESCBIT>>
+                         <TELL " with a [[bank statement->statement]] inside">)>
+                  <TELL ",">)>
+           <TELL " to the mahogany [[desk]]">
            <COND (<AND <FSET? ,DEAD-LETTER ,INVISIBLE> <IN? ,DEAD-LETTER ,STUDY>>
-                  <TELL ", heaped with papers.">)
-                 (T
-                  <TELL ", its papers scattered.">)>
+                  <TELL ", heaped with [[papers]].">)
+                 (<AND <IN? ,DEAD-LETTER ,STUDY> <FSET? ,DEAD-LETTER ,NDESCBIT>>
+                  <TELL ", where a yellowed [[envelope->letter]] lies uncovered.">)
+                 (T <TELL ", its [[papers]] scattered.">)>
            <COND (<FSET? ,WINDOW ,OPENBIT>
                   <TELL " The garden [[window]] stands open [[southwest]]">)
                  (T
@@ -636,8 +650,8 @@ player has had the lid up, a closed trunk stays closed to a glance."
 
 <ROUTINE LIBRARY-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "Lamplight catches the gilt titles on the [[bookshelves->bookshelf]] above the [[reading desk]]">
-           <COND (<IN? ,DR-MORIARTY ,LIBRARY> <TELL " as [[Moriarty]] taps one spine">)>
+           <TELL "Lamplight catches the gilt [[titles]] on the [[bookshelves->bookshelf]] above the [[reading desk]]">
+           <COND (<IN? ,DR-MORIARTY ,LIBRARY> <TELL " as [[Moriarty]] taps one [[spine]]">)>
            <TELL ".">
            <COND (,CIPHER-SOLVED
                   <TELL " Between the hall [[west]] and the passage [[east]], the bookcase stands open.">)
@@ -658,75 +672,76 @@ player has had the lid up, a closed trunk stays closed to a glance."
     <COND (<EQUAL? .RARG ,M-LOOK>
            <COND (<AND <FSET? ,BLOOD-STAINED-KNIFE ,INVISIBLE> <IN? ,BLOOD-STAINED-KNIFE ,GARDEN>>
                   <TELL "Something glints deep in the [[hedges]] beside the dry [[fountain]].">)
+                 (<AND <IN? ,BLOOD-STAINED-KNIFE ,GARDEN> <FSET? ,BLOOD-STAINED-KNIFE ,NDESCBIT>>
+                  <TELL "A [[knife]] hangs in the parted [[hedges]] beside the dry [[fountain]].">)
                  (T <TELL "Rain beads on the overgrown [[hedges]] beside the dry [[fountain]].">)>
-           <TELL " Paths lead [[east]] to the kitchen, [[north]] to the greenhouse and [[south]] to the servants' quarters.">
-           <COND (<FSET? ,WINDOW ,OPENBIT> <TELL " The study window stands open [[northeast]].">)>
-           <CRLF>)>>
+           <TELL " Paths lead [[east]] to the kitchen, [[north]] to the greenhouse and [[south]] to the servants' quarters">
+           <COND (<FSET? ,WINDOW ,OPENBIT> <TELL ", with a way [[northeast]] through the open [[study window]]">)>
+           <TELL "." CR>)>>
 
 <ROUTINE DINING-ROOM-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "Lady [[Ashworth]] sits alone at a [[table]] set for two">
-           <COND (,CABINET-CLUE-SEEN
-                  <TELL " beside the gap in the wine [[cabinet]].">)
-                 (T
-                  <TELL " beside the wine [[cabinet]].">)>
-           <COND (<==? ,CASE-ACT 3>
-                  <TELL " Lady Ashworth's black ribbon now lies beside the plate while she listens toward the hall.">)
-                 (,LADY-CONFRONTED
-                  <TELL " She has drawn off her wedding ring and set it beside her plate; her fingers keep returning to it.">)>
-           <TELL " Doors lead [[east]] to the hall and [[north]] to the pantry." CR>)>>
+           <COND (<EQUAL? ,CASE-ACT 3> <TELL "Lady [[Ashworth]] listens at the [[table]], her [[black ribbon]] beside her [[plate]].">)
+                 (,LADY-CONFRONTED <TELL "Lady [[Ashworth]] sits at the [[table]], her [[wedding ring]] on the wood beside her [[plate]].">)
+                 (T <TELL "Lady [[Ashworth]] sits alone at a [[table]] set for two.">)>
+           <COND (,CABINET-CLUE-SEEN <TELL " Past the gap in the wine [[cabinet]]">)
+                 (T <TELL " Past the wine [[cabinet]]">)>
+           <TELL ", doors lead [[east]] to the hall and [[north]] to the pantry." CR>)>>
 
 <ROUTINE GREENHOUSE-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "Damp [[labels]] curl beside purple [[flowers]] on the potting [[bench]].">
-           <COND (,POISON-IDENTIFIED
-                  <TELL " One clipped stem matches the plant material suspended in the study vial.">)>
+           <COND (,POISON-IDENTIFIED <TELL "On the potting [[bench]], the [[labels]] confirm your match for the purple [[flowers]].">)
+                 (T <TELL "Damp [[labels]] curl beside purple [[flowers]] on the potting [[bench]].">)>
            <TELL " The garden lies [[south]]." CR>)>>
 
 <ROUTINE SERVANTS-QUARTERS-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
            <TELL "Between the narrow [[beds]] and the [[trunk]],">
            <COND (<==? ,CASE-ACT 3>
-                  <TELL " [[Hudson]] waits with his carpetbag packed.">)
+                  <TELL " [[Hudson]] waits with his [[carpetbag]] packed.">)
                  (,HUDSON-CONFRONTED
                   <TELL " [[Hudson]] has set his polishing cloth aside.">)
                  (T
-                  <TELL " [[Hudson]] keeps polishing the same spoon.">)>
+                  <TELL " [[Hudson]] keeps polishing the same [[spoon]].">)>
            <TELL " The garden lies [[north]]." CR>)>>
 
 <ROUTINE SECRET-PASSAGE-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "[[Cobwebs]] hang from damp [[stone walls]]. One trail cuts the [[dust]] between the library [[west]] and the study steps [[up]].">
+           <TELL "[[Cobwebs]] hang from damp [[stone walls]].">
            <COND (<AND <IN? ,LANTERN ,WINNER> <FSET? ,LANTERN ,ONBIT>>
-                  <TELL " Your lantern warms the wet wall to amber and picks out the recent heel marks.">)>
+                  <TELL " Your lantern picks out fresh [[heel marks->dust]] in the [[dust]]">)
+                 (T <TELL " One [[trail->dust]] cuts the [[dust]]">)>
+           <TELL " between the library [[west]] and the [[study steps]] [[up]].">
            <CRLF>)>>
 
 <ROUTINE PANTRY-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "The [[shelves]] smell of apples and charcoal dust. The dining room lies [[south]]." CR>)>>
+           <TELL "The [[shelves]] smell of [[apples]] and [[charcoal dust]]. The dining room lies [[south]]." CR>)>>
 
 <ROUTINE ENTRANCE-HALL-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "Beneath a dusty [[chandelier]], doorways lead [[south]] to the gate, [[east]] to the library, [[west]] to the dining room and [[down]] to the kitchen.">
+           <COND (<EQUAL? ,CASE-ACT 2> <TELL "A [[bell wire]] quivers over the [[hall table]] beneath the [[chandelier]]">)
+                 (T <TELL "The [[hall table]] gleams under the [[chandelier]]">)>
+           <TELL " between the library [[east]], dining room [[west]], kitchen [[stairs]] [[down]] and gate [[south]].">
            <COND (<FSET? ,STUDY-DOOR ,OPENBIT>
-                  <TELL " The solid oak study [[door]] to the [[north]] stands open, revealing the study beyond.">)
+                  <TELL " The study [[door]] stands open [[north]]">)
                  (,STUDY-UNLOCKED
-                  <TELL " The solid oak study [[door]] to the north is closed but unlocked.">)
+                  <TELL " The north study [[door]] is closed but unlocked">)
                  (T
-                  <TELL " The solid oak study [[door]] to the north is closed and locked.">)>
+                  <TELL " The north study [[door]] is closed and locked">)>
            <COND (<AND ,INSPECTOR-PRESENT <IN? ,INSPECTOR ,ASHWORTH-ENTRANCE-HALL>>
-                  <TELL " [[Inspector Lestrade->lestrade]] has arrived beneath the chandelier, notebook open.">)>
-           <COND (<==? ,CASE-ACT 2>
-                  <TELL " The servant-bell [[wire->bell wire]] still quivers faintly from the opening of the hidden passage.">)>
-           <COND (<IN? ,DR-MORIARTY ,ASHWORTH-ENTRANCE-HALL>
-                  <TELL " Dr. [[Moriarty]] stands near the front door, watching the fog as if measuring his route through it.">)>
+                  <TELL " and [[Inspector Lestrade->lestrade]] has arrived">
+                  <COND (<IN? ,DR-MORIARTY ,ASHWORTH-ENTRANCE-HALL> <TELL " and stands beside [[Moriarty]]">)>
+                  <TELL ".">)
+                 (<IN? ,DR-MORIARTY ,ASHWORTH-ENTRANCE-HALL> <TELL " while [[Moriarty]] waits at the front door.">)
+                 (T <TELL ".">)>
            <CRLF>)>>
 
 ; --- Global Object Actions ---
 
 <ROUTINE FOG-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "The fog swirls around your feet, cold and damp." CR>
+           <TELL "You hold a hand in the fog. Tiny drops gather on the hairs of your wrist before you feel them on your skin." CR>
            <RTRUE>)
           (<VERB? SMELL>
            <TELL "The fog smells of river mud, coal smoke, and rain on iron." CR>
@@ -734,17 +749,25 @@ player has had the lid up, a closed trunk stays closed to a glance."
 
 <ROUTINE GATES-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "The iron gates are rusted but still sturdy. They stand open." CR>
+           <TELL "The iron gates bear the [[Ashworth crest->Ashworth crest]]. Their latch has rusted in the raised position." CR>
            <RTRUE>)>>
 
 <ROUTINE PATH-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "The gravel path leads north to the manor house." CR>
+           <TELL "The gravel path has been raked into [[fans->rake marks]]. One fan has been kicked flat outside the front door." CR>
+           <RTRUE>)>>
+
+<ROUTINE HALL-TABLE-F ()
+    <COND (<VERB? EXAMINE SEARCH>
+           <TELL "Someone has polished the wood right down to the little key scratches.">
+           <COND (<AND <IN? ,MAGNIFYING-GLASS ,ASHWORTH-ENTRANCE-HALL> <NOT <FSET? ,MAGNIFYING-GLASS ,TOUCHBIT>>>
+                  <TELL " A brass [[magnifying glass->glass]] lies in a ring of dust at the back.">)>
+           <CRLF>
            <RTRUE>)>>
 
 <ROUTINE CHANDELIER-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "The chandelier hangs from the ceiling, its crystals dull with dust." CR>
+           <TELL "A single [[clean crystal]] throws a fleck of light onto the hall table. The others wear little caps of dust." CR>
            <RTRUE>)>>
 
 <ROUTINE PORTRAITS-F ()
@@ -759,7 +782,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
 
 <ROUTINE CHALK-OUTLINE-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "The chalk follows a body fallen face down. Three blood drops begin behind the shoulders. A chair leg has dragged a short furrow through the carpet toward the [[fireplace]].">
+           <TELL "The chalk follows a body fallen face down. Three blood drops begin behind the shoulders. A chair leg has dragged a short [[furrow]] through the carpet toward the [[fireplace]].">
            <COND (<AND <IN? ,POISON-BOTTLE ,STUDY> <NOT <FSET? ,POISON-BOTTLE ,TOUCHBIT>>>
                   <TELL " Nothing in the outline explains the [[bottle]] on the mantelpiece.">)>
            <CRLF>
@@ -1353,6 +1376,8 @@ player has had the lid up, a closed trunk stays closed to a glance."
                 <==? ,SUSPECTS-INTERVIEWED 3>
                 <NOT ,INSPECTOR-PRESENT>>
            <SETG CASE-ACT 3>
+           <FCLEAR ,HUDSON-BAG ,INVISIBLE>
+           <FCLEAR ,MOURNING-RIBBON ,INVISIBLE>
            <SETG INSPECTOR-PRESENT T>
            <MOVE ,INSPECTOR ,ASHWORTH-ENTRANCE-HALL>
            <TELL CR "From the entrance hall comes the slam of the outer door and Lestrade's clipped voice. Scotland Yard has arrived. Around the manor, private masks begin to slip." CR>)>
@@ -1410,6 +1435,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
     <RTRUE>>
 
 <ROUTINE GO ()
+	<SETG COMPACT-ROOM-LISTS T>
 	<SETG HERE ,ASHWORTH-MANOR-GATE>
 	<SETG VERBOSE T>
 	<SETG LIT T>
@@ -1464,7 +1490,10 @@ player has had the lid up, a closed trunk stays closed to a glance."
 	<COND (<VERB? EXAMINE>
 		<COND (<AND <EQUAL? ,HERE ,STUDY>
 			    <EQUAL? ,PRSO ,MORIARTY-TOPIC ,HUDSON-NAME ,ASHWORTH-NAME>>
-			<TELL "It is one of the three names lettered round the dial of the box in the fireplace." CR>)
+			<COND (<EQUAL? ,PRSO ,MORIARTY-TOPIC> <COND (,DEAD-LETTER-FOUND <TELL "Moriarty is the scientist Ashworth meant to expose. His name is also one of the three on the box dial." CR>)
+                                     (T <TELL "Moriarty’s name runs all the way round the curve of the dial. The final Y is squeezed against the stop." CR>)>)
+                              (<EQUAL? ,PRSO ,HUDSON-NAME> <TELL "Hudson is the butler. His name takes up the shortest stretch of the dial." CR>)
+                              (T <TELL "Lady Ashworth’s name is on the dial in full. The engraver took care to fit her title on the same line." CR>)>)
 		      (<SET WHO <WITNESS-HERE>>
 			<TELL "That is a question to put to " D .WHO ", not a thing to inspect. The answer may be less straightforward than the question." CR>)
 		      (T
@@ -1484,3 +1513,8 @@ player has had the lid up, a closed trunk stays closed to a glance."
 <ROUTINE V-ALIGN ()
 	<TELL "There is nothing on the " D ,PRSO " to align." CR>
 	<RTRUE>>
+
+<ROUTINE RING-DETAIL ()
+    <COND (<VERB? EXAMINE>
+           <COND (,LADY-CONFRONTED <TELL "A pale band circles Lady Ashworth’s finger. The ring leaves a little arc in the dust each time she nudges it." CR>)
+                 (T <TELL "Her thumb keeps turning the gold band round her finger, even when she folds her hands." CR>)>)>>

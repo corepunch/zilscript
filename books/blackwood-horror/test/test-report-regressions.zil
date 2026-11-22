@@ -28,7 +28,7 @@
     <ASSERT-TEXT "damp stone" <CO-RESUME ,CO "smell">>
     <ASSERT-TEXT "no place to become comfortable" <CO-RESUME ,CO "sit">>
 
-    ;"The boiler's automatic description is the single owner of its current state."
+    ;"A return to the lit boiler shows the fire."
     <SETG HERE ,BOILER-ROOM>
     <MOVE ,WINNER ,BOILER-ROOM>
     <MOVE ,LUMP-OF-COAL ,IRON-BOILER>

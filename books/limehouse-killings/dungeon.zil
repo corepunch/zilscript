@@ -165,9 +165,9 @@
 <OBJECT TELEGRAM
       (IN ASHWORTH-MANOR-GATE)
       (DESC "creased telegram")
-      (FDESC "A stone holds down a creased [[telegram]].")
+      (FDESC "A [[stone]] holds down a creased [[telegram]].")
       (LDESC "A rain-spotted [[telegram]] lies here.")
-      (SYNONYM TELEGRAM MESSAGE WIRE)
+      (SYNONYM TELEGRAM MESSAGE)
       (ADJECTIVE CREASED RAIN-SPOTTED PINNED)
       (FLAGS TAKEBIT READBIT)
       (ACTION TELEGRAM-F)>
@@ -188,30 +188,27 @@
 <OBJECT DEAD-LETTER
       (IN STUDY)
       (DESC "unsent letter")
-      (FDESC "A yellowed [[envelope->letter]] lies on the desk where you turned it up, addressed in a shaking hand.")
       (LDESC "An unsent [[letter]], its paper yellowed with age, lies here.")
       (SYNONYM LETTER NOTE PAPER DEAD-LETTER ENVELOPE)
       (ADJECTIVE UNSENT DEAD YELLOWED)
-      (FLAGS TAKEBIT READBIT INVISIBLE)
+      (FLAGS NDESCBIT TAKEBIT READBIT INVISIBLE)
       (ACTION DEAD-LETTER-F)>
 
 <OBJECT BLOOD-STAINED-KNIFE
       (IN GARDEN)
       (DESC "blood-stained knife")
-      (FDESC "A [[knife]] hangs in the hedge branches near the fountain, its blade dark with dried blood.")
       (LDESC "A blood-stained [[knife]] lies here.")
       (SYNONYM KNIFE BLADE WEAPON BLOOD-STAINED-KNIFE DAGGER)
       (ADJECTIVE BLOOD-STAINED BLOOD STAINED SURGICAL SURGEONS NARROW FINE)
-      (FLAGS TAKEBIT WEAPONBIT INVISIBLE)
+      (FLAGS NDESCBIT TAKEBIT WEAPONBIT INVISIBLE)
       (ACTION BLOOD-STAINED-KNIFE-F)>
 
 <OBJECT LOCKED-BOX
       (IN STUDY)
       (DESC "locked box")
-      (DESCFCN LOCKED-BOX-DESC-F)
       (SYNONYM BOX CONTAINER DIAL ENGRAVINGS ENGRAVING)
       (ADJECTIVE LOCKED LETTERED NAME ORNATE SMALL NAME-DIAL)
-      (FLAGS CONTBIT SEARCHBIT TURNBIT)
+      (FLAGS NDESCBIT CONTBIT SEARCHBIT TURNBIT)
       ;"The dial takes a name and nothing else; the box has no keyhole."
       (INTERACTIONS "ALIGN:MORIARTY-TOPIC,HUDSON-NAME,ASHWORTH-NAME")
       (ACTION LOCKED-BOX-F)>
@@ -239,11 +236,10 @@
 <OBJECT MAGNIFYING-GLASS
       (IN ASHWORTH-ENTRANCE-HALL)
       (DESC "magnifying glass")
-      (FDESC "A [[magnifying glass->glass]] rests on the hall table.")
       (LDESC "A brass [[magnifying glass->glass]] lies here.")
       (SYNONYM GLASS LENS MAGNIFIER HANDLE)
       (ADJECTIVE MAGNIFYING BRASS CLEAR)
-      (FLAGS TAKEBIT TRANSBIT)
+      (FLAGS NDESCBIT TAKEBIT TRANSBIT)
       (ACTION MAGNIFYING-GLASS-F)>
 
 <OBJECT LEATHER-ROLL
@@ -269,11 +265,10 @@
 <OBJECT LANTERN
       (IN SERVANTS-QUARTERS)
       (DESC "lantern")
-      (FDESC "An oil [[lantern]] sits on the trunk, its glass clean and its fuel full.")
       (LDESC "A brass [[lantern]] lies here.")
       (SYNONYM LANTERN LAMP LIGHT)
       (ADJECTIVE OIL BRASS CLEAN FULL)
-      (FLAGS TAKEBIT LIGHTBIT)
+      (FLAGS NDESCBIT TAKEBIT LIGHTBIT)
       (ACTION LANTERN-F)>
 
 <OBJECT KEYRING
@@ -367,7 +362,7 @@
       (IN LIBRARY)
       (DESC "bookshelf")
       (LDESC "Floor-to-ceiling shelves, filled with books of every description. Colored markers dot the spines, suggesting a hidden pattern.")
-      (SYNONYM BOOKSHELVES BOOKSHELF SHELVES BOOKCASE SHELF BOOKS FOLIOS TITLES)
+      (SYNONYM BOOKSHELVES BOOKSHELF SHELVES BOOKCASE SHELF BOOKS FOLIOS TITLES SPINE SPINES)
       (ADJECTIVE FLOOR-TO-CEILING)
       (FLAGS NDESCBIT)
       (ACTION BOOKSHELF-F)>
@@ -492,7 +487,7 @@
       (IN GARDEN)
       (DESC "fountain")
       (LDESC "A stone fountain, dry and silent. Coins lie at the bottom, wishes unfulfilled.")
-      (SYNONYM FOUNTAIN COINS BASIN COIN)
+      (SYNONYM FOUNTAIN BASIN)
       (ADJECTIVE STONE DRY EMPTY TARNISHED)
       (FLAGS NDESCBIT)
       (ACTION FOUNTAIN-F)>
@@ -501,7 +496,7 @@
       (IN GARDEN)
       (DESC "overgrown hedges")
       (LDESC "Tall hedges, their branches thick and tangled. They hide secrets in their shadows.")
-      (SYNONYM HEDGES HEDGE BUSHES BUSH BRANCHES BRANCH)
+      (SYNONYM HEDGES HEDGE BUSHES BUSH BRANCHES BRANCH GLINT GLINTS)
       (ADJECTIVE OVERGROWN TALL THICK TANGLED BLACK)
       (FLAGS NDESCBIT)
       (ACTION HEDGES-F)>
@@ -576,8 +571,8 @@
       (IN SECRET-PASSAGE)
       (DESC "stone walls")
       (LDESC "Wet stone walls, slick with moisture. They have stood for centuries.")
-      (SYNONYM WALLS WALL MORTAR)
-      (ADJECTIVE STONE WET SLICK)
+      (SYNONYM WALLS WALL MORTAR STEPS STAIRS STAIR)
+      (ADJECTIVE STONE WET SLICK STUDY)
       (FLAGS NDESCBIT)
 	  (ACTION STONE-WALLS-F)>
 
@@ -594,8 +589,8 @@
       (IN SECRET-PASSAGE)
       (DESC "dust")
       (LDESC "Overlapping scuffs cross the passage dust.")
-      (SYNONYM DUST SCUFF SCUFFS TRAIL MARKS)
-      (ADJECTIVE PASSAGE OVERLAPPING BROAD HEEL)
+      (SYNONYM DUST SCUFF SCUFFS TRAIL MARKS HEEL)
+      (ADJECTIVE PASSAGE OVERLAPPING BROAD HEEL RECENT)
       (FLAGS NDESCBIT)
       (INTERACTIONS "")
 	  (ACTION DUST-F)>
@@ -650,9 +645,17 @@
       (DESC "gravel path")
       (LDESC "A gravel path leads north through the fog to Ashworth Manor.")
       (SYNONYM PATH WALKWAY DRIVE)
-      (ADJECTIVE GRAVEL MANOR)
+      (ADJECTIVE GRAVEL)
       (FLAGS NDESCBIT)
       (ACTION PATH-F)>
+
+<OBJECT HALL-TABLE
+      (IN ASHWORTH-ENTRANCE-HALL)
+      (DESC "hall table")
+      (SYNONYM TABLE)
+      (ADJECTIVE HALL POLISHED)
+      (FLAGS NDESCBIT)
+      (ACTION HALL-TABLE-F)>
 
 <OBJECT CHANDELIER
       (DESC "chandelier")
@@ -711,7 +714,7 @@
       (DESC "Dr. Moriarty")
       (LDESC "Dr. Moriarty stands by the bookshelf, his expression arrogant and dismissive. He regards you with cool intelligence.")
       (SYNONYM MORIARTY DR-MORIARTY DOCTOR SCIENTIST MAN)
-      (ADJECTIVE DR DOCTOR ARROGANT)
+      (ADJECTIVE DR DOCTOR ARROGANT DR.)
       (FLAGS ACTORBIT NDESCBIT)
       (ACTION DR-MORIARTY-F)>
 
@@ -748,7 +751,7 @@
       (IN GLOBAL-OBJECTS)
       (DESC "Moriarty")
       (SYNONYM MORIARTY DOCTOR)
-      (ADJECTIVE DR DOCTOR)
+      (ADJECTIVE DR DOCTOR DR.)
 	  (ACTION CONVERSATION-TOPIC-F)>
 ; The other two names on the locked box's dial. Moriarty's is MORIARTY-TOPIC.
 <OBJECT HUDSON-NAME
@@ -804,3 +807,93 @@
 	(ADJECTIVE WHITE)
 	(FLAGS NDESCBIT)
 	(ACTION WHITE-ROSE-F)>
+
+<OBJECT TELEGRAM-STONE (IN ASHWORTH-MANOR-GATE) (DESC "smooth stone")
+    (SYNONYM STONE PEBBLE) (ADJECTIVE SMOOTH FLAT)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "It fits in a palm. Its underside is dry and white against the wet gravel.")>
+
+<OBJECT KITCHEN-STAIRS (IN ASHWORTH-ENTRANCE-HALL) (DESC "kitchen stairs")
+    (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE KITCHEN SERVICE)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The narrow treads dip in the middle. Servants carrying trays have taken this way down for years.")>
+
+<OBJECT HUDSON-SPOON (IN SERVANTS-QUARTERS) (DESC "silver spoon")
+    (SYNONYM SPOON SILVERWARE) (ADJECTIVE SILVER POLISHED)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Hudson has rubbed the maker’s stamp almost flat. His cloth goes over the same spot each time footsteps pass outside.")>
+
+<OBJECT PANTRY-APPLES (IN PANTRY) (DESC "stored apples")
+    (SYNONYM APPLES APPLE FRUIT) (ADJECTIVE STORED WRINKLED)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The winter apples sit apart on straw so a bad one cannot spoil its neighbours. One has shrivelled around its stalk.")>
+
+<OBJECT PANTRY-DUST (IN PANTRY) (DESC "charcoal dust")
+    (SYNONYM DUST POWDER) (ADJECTIVE CHARCOAL BLACK)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "A black crescent on the shelf matches the base of the charcoal jar. Even the cook’s fingerprints have left pale gaps in it.")>
+
+<OBJECT OUTSIDE-WINDOW (IN GARDEN) (DESC "study window")
+    (SYNONYM WINDOW SILL) (ADJECTIVE STUDY GARDEN OPEN)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The sill is low enough to step over from the flower bed. A rusty crescent shows where the catch scraped across the frame.")>
+
+<OBJECT WEDDING-RING (IN DINING-ROOM) (DESC "wedding ring")
+    (SYNONYM RING BAND) (ADJECTIVE WEDDING GOLD)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION RING-DETAIL)>
+
+<OBJECT MOURNING-RIBBON (IN DINING-ROOM) (DESC "mourning ribbon")
+    (SYNONYM RIBBON BOW) (ADJECTIVE BLACK MOURNING)
+    (FLAGS NDESCBIT INVISIBLE) (INTERACTIONS "")
+    (TEXT "A crease marks the place where someone unpicked the bow. Lady Ashworth has smoothed it flat with her palm.")>
+
+<OBJECT HUDSON-BAG (IN SERVANTS-QUARTERS) (DESC "packed carpetbag")
+    (SYNONYM CARPETBAG BAG) (ADJECTIVE PACKED CARPET)
+    (FLAGS NDESCBIT INVISIBLE) (INTERACTIONS "")
+    (TEXT "A clean shirt cuff pokes between the fastenings. Hudson has packed in a hurry.")>
+
+<OBJECT MANOR-FACADE (IN ASHWORTH-MANOR-GATE) (DESC "manor house")
+    (SYNONYM MANOR HOUSE FACADE) (ADJECTIVE ASHWORTH BRICK)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The fog parts first around the chimneys. Downstairs, a single [[lit window]] turns the gravel yellow beneath it.")>
+
+<OBJECT DETAIL-ASHWORTH-CREST (IN ASHWORTH-MANOR-GATE) (DESC "Ashworth crest")
+    (SYNONYM CREST ARMS SHIELD) (ADJECTIVE ASHWORTH IRON)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Two iron hounds face each other across a shield. Rain has polished their muzzles bright.")>
+
+<OBJECT DETAIL-LIT-WINDOW (IN ASHWORTH-MANOR-GATE) (DESC "lit window")
+    (SYNONYM WINDOW PANE) (ADJECTIVE LIT DOWNSTAIRS)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "A bar of shadow divides the light. From the gate you can make out the window frame, but the curtains hide the room.")>
+
+<OBJECT DETAIL-CLEAN-CRYSTAL (IN ASHWORTH-ENTRANCE-HALL) (DESC "clean crystal")
+    (SYNONYM CRYSTAL PRISM) (ADJECTIVE CLEAN SINGLE)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "It hangs lower than its neighbours. The dust stops at the height where a raised dusting cloth could reach.")>
+
+<OBJECT DETAIL-FURROW (IN STUDY) (DESC "furrow")
+    (SYNONYM FURROW GROOVE) (ADJECTIVE SHORT CARPET)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The nap lies flat in one direction. At the hearth it bunches up in a ridge, where the chair leg stopped.")>
+
+<OBJECT DETAIL-INVENTORY-ENTRY (IN DINING-ROOM) (DESC "inventory entry")
+    (SYNONYM ENTRY INVENTORY HANDWRITING) (ADJECTIVE HANDWRITTEN WINE)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The usual wines are entered in ink. Someone squeezed the tincture into the margin in pencil, leaving no room for a quantity.")>
+
+<OBJECT DETAIL-COINS (IN GARDEN) (DESC "coins")
+    (SYNONYM COINS COIN COPPER) (ADJECTIVE TARNISHED)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The coins have left green circles on the stone. One landed on its edge and stayed wedged in a crack.")>
+
+<OBJECT DETAIL-TEA-CARD (IN KITCHEN) (DESC "tea card")
+    (SYNONYM CARD STRING) (ADJECTIVE TEA TIED)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Hudson used the clean side of an old order slip. A brown thumbprint has smudged the full stop after TEA FIRST.")>
+
+<OBJECT RAKE-MARKS (IN ASHWORTH-MANOR-GATE) (DESC "rake marks")
+    (SYNONYM MARKS FAN FANS RAKING) (ADJECTIVE RAKE GRAVEL)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The other fans have five neat ridges apiece. Here loose gravel has been pushed up against the doorstep.")>

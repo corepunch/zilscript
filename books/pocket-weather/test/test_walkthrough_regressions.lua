@@ -29,7 +29,9 @@ local function linksLive()
 end
 
 -- The card has one name: the opening called it a forecast card, everything else a weather card.
-check(walk.output:find("[[weather card->card]]", 1, true), "opening names the weather card")
+lacks(walk.output, "weather card")
+says("examine dispatch bell", "blank weather card")
+check(walk.output:find("[[weather card->card]]", 1, true), "the card under the bell is linked")
 lacks(walk.output, "forecast card")
 
 -- PULL is spelled V-MOVE, so the bell's Pull entry answered "You can't move the dispatch bell".
@@ -39,6 +41,10 @@ says("ring dispatch bell", "Ting!")
 -- No reply tells a link reader what to type.
 lacks(says("examine weather card", "write on it once you and Nimbus have agreed"), "WRITE CARD")
 walk:choose("take weather card")
+check(walk.game:resume("examine forecast"):find("orders continuous rain", 1, true),
+	"the official forecast is distinct from the card in hand")
+check(walk.game:resume("examine forecast card"):find("blank weather card", 1, true),
+	"the full card name still reaches the actual card")
 lacks(says("show weather card to postmaster mica", "write it on the card"), "WRITE CARD")
 
 walk:play({ "south", "search brass weatherbox", "take folded report" })

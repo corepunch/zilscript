@@ -1,7 +1,7 @@
 [
   {
     "number": 9,
-    "label": "station clock: Examine",
+    "label": "salt: Examine",
     "command": "examine station clock",
     "room": "Saint Bride Landing",
     "running": true
@@ -14,7 +14,7 @@
     "running": true
   },
   {
-    "number": 11,
+    "number": 12,
     "label": "hall: Go north",
     "command": "north",
     "room": "Station Hall",
@@ -56,7 +56,7 @@
     "running": true
   },
   {
-    "number": 12,
+    "number": 8,
     "label": "hall: Go south",
     "command": "south",
     "room": "Station Hall",
@@ -92,7 +92,7 @@
   },
   {
     "number": 13,
-    "label": "control room: Go east",
+    "label": "control room to the east: Go east",
     "command": "east",
     "room": "Control Room",
     "running": true
@@ -112,7 +112,7 @@
     "running": true
   },
   {
-    "number": 4,
+    "number": 5,
     "label": "cutter: Examine",
     "command": "examine disc cutter",
     "room": "Disc Cutting Room",
@@ -140,14 +140,14 @@
     "running": true
   },
   {
-    "number": 5,
+    "number": 6,
     "label": "cardboard sleeve: Examine",
     "command": "examine cardboard sleeve",
     "room": "Record Archive",
     "running": true
   },
   {
-    "number": 6,
+    "number": 7,
     "label": "cardboard sleeve: Open",
     "command": "open cardboard sleeve",
     "room": "Record Archive",
@@ -175,15 +175,15 @@
     "running": true
   },
   {
-    "number": 4,
-    "label": "cutting room: Go west",
+    "number": 5,
+    "label": "cutting room to the west: Go west",
     "command": "west",
     "room": "Disc Cutting Room",
     "running": true
   },
   {
-    "number": 10,
-    "label": "control room: Go south",
+    "number": 9,
+    "label": "south: Go south",
     "command": "south",
     "room": "Control Room",
     "running": true
@@ -196,7 +196,14 @@
     "running": true
   },
   {
-    "number": 7,
+    "number": 4,
+    "label": "Solder: Examine",
+    "command": "examine service workbench",
+    "room": "Service Workshop",
+    "running": true
+  },
+  {
+    "number": 12,
     "label": "playback stylus: Take",
     "command": "take playback stylus",
     "room": "Service Workshop",
@@ -210,8 +217,8 @@
     "running": true
   },
   {
-    "number": 5,
-    "label": "generator room: Go down",
+    "number": 7,
+    "label": "generator room below: Go down",
     "command": "down",
     "room": "Generator Room",
     "running": true
@@ -245,7 +252,7 @@
     "running": true
   },
   {
-    "number": 13,
+    "number": 12,
     "label": "office above: Go up",
     "command": "up",
     "room": "Vane's Office",
@@ -266,7 +273,7 @@
     "running": true
   },
   {
-    "number": 18,
+    "number": 10,
     "label": "hall: Go south",
     "command": "south",
     "room": "Station Hall",
@@ -280,14 +287,14 @@
     "running": true
   },
   {
-    "number": 21,
+    "number": 22,
     "label": "leather boots: Examine",
     "command": "examine leather boots",
     "room": "Staff Bunkroom",
     "running": true
   },
   {
-    "number": 22,
+    "number": 23,
     "label": "leather boots: Take",
     "command": "take leather boots",
     "room": "Staff Bunkroom",
@@ -322,7 +329,7 @@
     "running": true
   },
   {
-    "number": 17,
+    "number": 16,
     "label": "passage below: Go down",
     "command": "down",
     "room": "Cable Passage",
@@ -336,7 +343,7 @@
     "running": true
   },
   {
-    "number": 15,
+    "number": 7,
     "label": "generator room: Go south",
     "command": "south",
     "room": "Generator Room",
@@ -344,14 +351,14 @@
   },
   {
     "number": 6,
-    "label": "workshop: Go up",
+    "label": "workshop above: Go up",
     "command": "up",
     "room": "Service Workshop",
     "running": true
   },
   {
-    "number": 4,
-    "label": "control room: Go north",
+    "number": 6,
+    "label": "control room to the north: Go north",
     "command": "north",
     "room": "Control Room",
     "running": true
@@ -359,7 +366,7 @@
   {
     "number": 12,
     "label": "gramophone: Use with playback stylus",
-    "command": "use gramophone with playback stylus",
+    "command": "use spring-driven gramophone with playback stylus",
     "room": "Control Room",
     "running": true
   },
@@ -373,14 +380,14 @@
   {
     "number": 35,
     "label": "lacquer disc: Put in gramophone",
-    "command": "put lacquer disc in gramophone",
+    "command": "put lacquer disc in spring-driven gramophone",
     "room": "Control Room",
     "running": true
   },
   {
     "number": 9,
     "label": "gramophone: Play",
-    "command": "play gramophone",
+    "command": "play spring-driven gramophone",
     "room": "Control Room",
     "running": true
   },
@@ -399,22 +406,22 @@
     "running": true
   },
   {
-    "number": 9,
+    "number": 8,
     "label": "register: Compare with lacquer disc",
     "command": "compare cutter register with lacquer disc",
     "room": "Disc Cutting Room",
     "running": true
   },
   {
-    "number": 10,
-    "label": "control room: Go south",
+    "number": 9,
+    "label": "south: Go south",
     "command": "south",
     "room": "Control Room",
     "running": true
   },
   {
-    "number": 16,
-    "label": "studio: Go west",
+    "number": 15,
+    "label": "west: Go west",
     "command": "west",
     "room": "Broadcast Studio",
     "running": true
@@ -428,7 +435,7 @@
   },
   {
     "number": 14,
-    "label": "hall: Go west",
+    "label": "hall to the west: Go west",
     "command": "west",
     "room": "Station Hall",
     "running": true
@@ -441,21 +448,21 @@
     "running": true
   },
   {
-    "number": 15,
+    "number": 11,
     "label": "medical bag: Open",
     "command": "open medical bag",
     "room": "Station Kitchen",
     "running": true
   },
   {
-    "number": 18,
+    "number": 16,
     "label": "bloodied dressing: Examine",
     "command": "examine bloodied dressing",
     "room": "Station Kitchen",
     "running": true
   },
   {
-    "number": 19,
+    "number": 17,
     "label": "bloodied dressing: Take",
     "command": "take bloodied dressing",
     "room": "Station Kitchen",
@@ -469,14 +476,14 @@
     "running": true
   },
   {
-    "number": 15,
+    "number": 16,
     "label": "telegraph room: Go west",
     "command": "west",
     "room": "Telegraph Room",
     "running": true
   },
   {
-    "number": 16,
+    "number": 17,
     "label": "telegraph receipt: Read",
     "command": "read telegraph receipt",
     "room": "Telegraph Room",
@@ -497,21 +504,21 @@
     "running": true
   },
   {
-    "number": 14,
+    "number": 15,
     "label": "aerial platform: Go up",
     "command": "up",
     "room": "Aerial Platform",
     "running": true
   },
   {
-    "number": 4,
-    "label": "aerial: Examine",
-    "command": "examine aerial",
+    "number": 6,
+    "label": "rain: Examine",
+    "command": "examine wet aerial",
     "room": "Aerial Platform",
     "running": true
   },
   {
-    "number": 6,
+    "number": 4,
     "label": "signal lamp: Examine",
     "command": "examine signal lamp",
     "room": "Aerial Platform",
@@ -553,14 +560,14 @@
     "running": true
   },
   {
-    "number": 49,
+    "number": 50,
     "label": "casebook: Reconstruct",
     "command": "reconstruct casebook",
     "room": "Staff Bunkroom",
     "running": true
   },
   {
-    "number": 10,
+    "number": 11,
     "label": "Ada: Ask about wage ledger",
     "command": "tell ada mercer about wage ledger",
     "room": "Staff Bunkroom",

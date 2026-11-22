@@ -66,8 +66,7 @@
  (FLAGS NDESCBIT) (ACTION BELL-F)>
 
 <OBJECT CARD (IN DISPATCH) (DESC "weather card") (SYNONYM CARD FORECAST-CARD) (ADJECTIVE WEATHER FORECAST BLANK SOFT WRITTEN APPROVED APPRENTICE)
- (INTERACTIONS "GIVE:MICA;SHOW:MICA;PUT:SLOT;PUT-ON:SLOT")
- (FDESC "A [[weather card->card]] lies here.") (FLAGS TAKEBIT) (ACTION CARD-F)>
+ (INTERACTIONS "GIVE:MICA;SHOW:MICA;PUT:SLOT;PUT-ON:SLOT") (FLAGS NDESCBIT TAKEBIT) (ACTION CARD-F)>
 
 <OBJECT MICA (IN DISPATCH) (DESC "Postmaster Mica") (SYNONYM MICA POSTMASTER) (ADJECTIVE POSTMASTER MICA)
  (INTERACTIONS "TELL:FORECAST,PROMISE,PAUSE,YESTERDAY;GIVE:CARD;SHOW:CARD,REPORT")
@@ -87,11 +86,11 @@
 
 <OBJECT BUTTON (IN LAUNDRY) (DESC "brass button") (SYNONYM BUTTON BRASS-BUTTON SUN) (ADJECTIVE BRASS SMALL SHINY BRIGHT)
  (INTERACTIONS "GIVE:ROOK;SHOW:ROOK")
- (FLAGS TAKEBIT INVISIBLE) (ACTION BUTTON-F)>
+ (FLAGS NDESCBIT TAKEBIT INVISIBLE) (ACTION BUTTON-F)>
 
 <OBJECT RIBBON (IN LAUNDRY) (DESC "soft ribbon") (SYNONYM RIBBON WOOL STRIP) (ADJECTIVE SOFT WOOL WOOLLEN WOOLEN LONG)
  (INTERACTIONS "TIE:CHIME;UNTIE:CHIME")
- (FLAGS TAKEBIT INVISIBLE) (ACTION RIBBON-F)>
+ (FLAGS NDESCBIT TAKEBIT INVISIBLE) (ACTION RIBBON-F)>
 
 <OBJECT PIP (IN KITCHEN) (DESC "Baker Pip") (SYNONYM PIP BAKER) (ADJECTIVE BAKER PIP)
  (INTERACTIONS "TELL:FORECAST,YESTERDAY,PROMISE,PAUSE;SHOW:REPORT")
@@ -99,7 +98,7 @@
 
 <OBJECT SPOON (IN KITCHEN) (DESC "narrow spoon") (SYNONYM SPOON SCOOP) (ADJECTIVE NARROW BAKING SMALL KITCHEN)
  (INTERACTIONS "")
- (FLAGS TAKEBIT TOOLBIT) (FDESC "A [[narrow spoon->spoon]] is ready for borrowing.") (ACTION SPOON-F)>
+ (FLAGS NDESCBIT TAKEBIT TOOLBIT) (ACTION SPOON-F)>
 
 <OBJECT KETTLE (IN KITCHEN) (DESC "steaming kettle") (SYNONYM KETTLE STEAM) (ADJECTIVE STEAMING HOT METAL WARM)
  (INTERACTIONS "")
@@ -125,15 +124,15 @@
  (INTERACTIONS "")
  (FLAGS NDESCBIT) (ACTION SEEDLINGS-F)>
 
-<OBJECT CHART (IN SHED) (DESC "rain chart") (SYNONYM CHART DIAGRAM PICTURE) (ADJECTIVE RAIN GARDEN)
+<OBJECT CHART (IN SHED) (DESC "rain chart") (SYNONYM CHART DIAGRAM) (ADJECTIVE RAIN GARDEN)
  (INTERACTIONS "")
  (FLAGS NDESCBIT READBIT) (ACTION CHART-F)>
 
-<OBJECT CHIME (IN ARCH) (DESC "wind chime") (SYNONYM CHIME CLAPPER BELL) (ADJECTIVE WIND HARD LOUD)
+<OBJECT CHIME (IN ARCH) (DESC "wind chime") (SYNONYM CHIME BELL) (ADJECTIVE WIND HARD LOUD)
  (INTERACTIONS "TIE:RIBBON;UNTIE:RIBBON")
  (FLAGS NDESCBIT OPENBIT) (ACTION CHIME-F)>
 
-<OBJECT CLOUD (IN HOLLOW) (DESC "Nimbus the cloud") (SYNONYM CLOUD NIMBUS) (ADJECTIVE NIMBUS RAIN FULL)
+<OBJECT CLOUD (IN HOLLOW) (DESC "Nimbus the cloud") (SYNONYM CLOUD NIMBUS RAIN) (ADJECTIVE NIMBUS RAIN FULL)
  (INTERACTIONS "TELL:FORECAST,YESTERDAY,PROMISE,PAUSE;SHOW:REPORT,FLOWER")
  (FLAGS ACTORBIT NDESCBIT) (ACTION CLOUD-F)>
 
@@ -160,3 +159,89 @@
 <OBJECT JOKE (IN LOCAL-GLOBALS) (DESC "weather joke") (SYNONYM JOKE PUN) (ADJECTIVE WEATHER)
  (INTERACTIONS "")
  (FLAGS NDESCBIT) (ACTION TOPIC-F)>
+
+<OBJECT TILES-BELOW (IN VANE-DECK) (DESC "tiles below")
+    (SYNONYM TILES TILE ROOF) (ADJECTIVE WARM RED)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "From above, the tiles look like overlapping fish scales. Rain can slip from one to the next all the way to the garden.")>
+
+<OBJECT ROOKERY-SOAP (IN ROOKERY) (DESC "laundry soap")
+    (SYNONYM SOAP SUDS) (ADJECTIVE LAUNDRY LEMON)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Little [[bubbles]] catch on the perch when a warm puff comes up from the laundry. They smell of lemon peel.")>
+
+<OBJECT HOLLOW-BREEZE (IN TERRACE) (DESC "hollow breeze")
+    (SYNONYM BREEZE WIND) (ADJECTIVE STEADY HOLLOW)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The air brushes one cheek on its way from the hollow to the garden. That is the way a drop would drift.")>
+
+<OBJECT POST-RAIN (IN DISPATCH) (DESC "rain beads")
+    (SYNONYM RAIN BEADS DROPS) (ADJECTIVE COLD BRASS)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Each bead shivers when the bell rings. Two small ones run together and make a fat one at the rim.")>
+
+<OBJECT HOLLOW-SCENT (IN HOLLOW) (DESC "scent of rain")
+    (SYNONYM SCENT SMELL RAIN) (ADJECTIVE DAMP EARTHY)
+    (FLAGS NDESCBIT INVISIBLE) (INTERACTIONS "")
+    (TEXT "The hollow smells like a flowerpot just after watering. The scent lingers even after the cloud moves on.")>
+
+<OBJECT VANE-ABOVE (IN TERRACE) (DESC "overhead vane")
+    (SYNONYM VANE WEATHERCOCK ARROW) (ADJECTIVE OVERHEAD WEATHER)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION OVERHEAD-VANE-F)>
+
+<OBJECT ROOK-WEIGHT (IN ROOKERY) (DESC "vane counterweight")
+    (SYNONYM COUNTERWEIGHT WEIGHT) (ADJECTIVE VANE BRASS)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION ROOK-WEIGHT-F)>
+
+<OBJECT COMMA-BISCUITS (IN KITCHEN) (DESC "comma biscuits")
+    (SYNONYM BISCUITS BISCUIT COMMAS) (ADJECTIVE PLANNED COMMA)
+    (FLAGS NDESCBIT INVISIBLE) (INTERACTIONS "")
+    (TEXT "Pip traces a little hooked shape in the flour. One end will be just right for dunking in tea.")>
+
+<OBJECT DETAIL-BRASS-PEAR (IN ROOKERY) (DESC "brass pear")
+    (SYNONYM PEAR WEIGHT) (ADJECTIVE BRASS)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "It even has a little brass stalk. The stalk is screwed into the arm so the pear can hang upside down without falling.")>
+
+<OBJECT DETAIL-BUBBLES (IN ROOKERY) (DESC "bubbles")
+    (SYNONYM BUBBLES BUBBLE) (ADJECTIVE SOAP LITTLE)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "One bubble settles over a claw mark in the wood. For a moment the tiny scratch looks as big as a ditch.")>
+
+<OBJECT DETAIL-PICTURE (IN SHED) (DESC "picture")
+    (SYNONYM PICTURE HAND DRAWING) (ADJECTIVE RAISED SMALL)
+    (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
+    (ACTION PICTURE-F)
+    (TEXT "The painter left a strip of bare paper between the raised palm and the nearest drop. The hand stays dry.")>
+
+<OBJECT DETAIL-PLUME (IN KITCHEN) (DESC "plume")
+    (SYNONYM PLUME STEAM VAPOUR) (ADJECTIVE GENTLE WARM)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Just above the spout the steam is nearly invisible. Higher up it blooms white and leaves the air damp against your cheek.")>
+
+<OBJECT DETAIL-BRASS-LIP (IN ARCHIVE) (DESC "brass lip")
+    (SYNONYM LIP RIM BRIM) (ADJECTIVE BRASS LITTLE)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "A bead of water follows the rim all the way to a low corner and drips off outside the box.")>
+
+<OBJECT DETAIL-WOOL-THREAD (DESC "wool thread")
+    (SYNONYM THREAD SEAM) (ADJECTIVE LOOSE WOOL)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The thread is the colour of the pocket. It runs back into a row of tiny stitches that has held through many wash days.")>
+
+<OBJECT LIGHT-DRIZZLE (DESC "drizzle")
+    (SYNONYM DRIZZLE) (ADJECTIVE LIGHT)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Nimbus holds out a wispy edge. A few small drops hang far apart, with room for the breeze between them.")>
+
+<OBJECT PUDDLE-SHOWER (DESC "shower")
+    (SYNONYM SHOWER) (ADJECTIVE SHORT)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Nimbus bunches up a corner. Heavy drops crowd together there, enough to fill a little hollow in the soil.")>
+
+<OBJECT CHIME-CLAPPER (IN ARCH) (DESC "clapper")
+    (SYNONYM CLAPPER TONGUE) (ADJECTIVE HARD METAL)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION CLAPPER-F)>

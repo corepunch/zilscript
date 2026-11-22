@@ -1,92 +1,85 @@
 #!/usr/bin/env lua
--- check-link-targets.lua: Play each prose link through the parser.
---
--- Usage:
---   lua5.4 scripts/check-link-targets.lua books/blackwood-horror
---
--- check-links.lua proves a link's words exist; this proves the parser takes
--- them. The story is started with PROSE_LINKS set, every room is lit and
--- looked at, and each object link in the description is examined in a fresh
--- game, as a reader's tap would. A reply that the parser did not understand
--- the words, or cannot see the thing, is a broken link. Directions are
--- skipped: exits are the map's business.
-
+-- Follow each room link and the links its EXAMINE reply introduces, as a reader and by typing.
+-- Usage: lua5.4 scripts/check-link-targets.lua books/blackwood-horror
 package.path = "./?.lua;./?/init.lua;" .. package.path
-local runtime = require("zilscript.runtime")
+local Walk = require("tests.link_walk")
 
-local DIRECTIONS = {
-	north = true, south = true, east = true, west = true, up = true, down = true,
-	northeast = true, northwest = true, southeast = true, southwest = true,
-	ne = true, nw = true, se = true, sw = true, ["in"] = true, out = true,
-}
+local directions = {}
+for word in ("north south east west northeast northwest southeast southwest ne nw se sw up down in out"):gmatch("%S+") do
+	directions[word] = true
+end
 
--- Replies that mean the tap did nothing the reader asked for.
-local FAILURES = {
+local failures = {
 	"can't see any", "don't know the word", "noun missing", "verb missing",
 	"not recognized", "which .- do you mean", "used the word",
+	"sentence isn't one I recognize", "nothing special about",
 }
 
-local function new_game(story)
-	local env = runtime.create_game_env()
-	env.PROSE_LINKS = true
-	assert(runtime.init(env, true))
-	env.require("zilscript")
-	assert(runtime.load_modules(env, { story:gsub("/", ".") .. "." .. story:match("([^/]+)$") }, { silent = true }))
-	local game = runtime.create_game(env, true)
-	game:start()
-	return env, game
-end
-
-local function rooms(env)
-	local list = {}
-	-- Object numbers are bytes in the story's tables.
-	for id = 1, 255 do
-		local ok, location = pcall(env.LOC, id)
-		-- Unused numbers can read as ROOMS too; real rooms are land.
-		local land, isLand = pcall(env.FSETQ, id, env.RLANDBIT)
-		if ok and location == env.ROOMS and land and isLand then table.insert(list, id) end
-	end
-	return list
-end
-
-local function enter(env, room)
-	env.MOVE(env.WINNER, room)
-	env.HERE = room
-	env.FSET(room, env.ONBIT)
-end
-
-local problems, checked = 0, 0
-for _, story in ipairs({ ... }) do
-	local env, game = new_game(story)
-	for _, room in ipairs(rooms(env)) do
-		enter(env, room)
-		local look = tostring(game:resume("look") or "")
-		local seen = {}
-		for inner in look:gmatch("%[%[(.-)%]%]") do
-			local label, target = inner:match("^(.-)%->(.*)$")
-			target = (target or inner):lower()
-			if not DIRECTIONS[target] and not seen[target] then
-				seen[target] = true
-				checked = checked + 1
-				local probe_env, probe = new_game(story)
-				enter(probe_env, room)
-				probe:resume("look")
-				local reply = tostring(probe:resume("examine " .. target) or ""):lower()
-				for _, failure in ipairs(FAILURES) do
-					if reply:find(failure) then
-						problems = problems + 1
-						print(string.format("%s: room %d: [[%s]] -> examine %s: %s", story, room,
-							label or inner, target, reply:gsub("%s+$", "")))
-						break
-					end
+local problems, checked, discoveries = 0, 0, 0
+local function checkLinks(story, walk, text, snapshot, parent, nextSnapshot)
+	local env, seen = walk.env, {}
+	walk.session.entries = {}
+	walk:record(text)
+	assert(env.SAVE(snapshot))
+	for link in text:gmatch("%[%[(.-)%]%]") do
+		local label, target = link:match("^(.-)%->(.*)$")
+		target, label = (target or link):lower(), (label or link):lower()
+		if not directions[target] and not seen[link] then
+			seen[link] = true
+			if parent then discoveries = discoveries + 1 else checked = checked + 1 end
+			-- A previous link may have revealed an item or changed the reader's menus.
+			assert(env.RESTORE(snapshot))
+			walk.session.entries = {}
+			walk:record(text)
+			local function report(reason)
+				problems = problems + 1
+				print(string.format("%s / %s / %s[[%s]]: %s", story, env.GETP(env.HERE, env.PQDESC),
+					parent and (parent .. " / ") or "", link, reason))
+			end
+			local commands = { ["examine " .. label] = true, ["examine " .. target] = true }
+			local menu
+			for _, action in ipairs(walk.session:linkActions(target)) do
+				if action.command:match("^examine ") then menu = action.command; break end
+			end
+			if menu then commands[menu] = true else report("no EXAMINE action in the reader menu") end
+			local object
+			for command in pairs(commands) do
+				assert(env.RESTORE(snapshot))
+				local reply = tostring(walk.game:resume(command) or "")
+				if not reply:match("%S") then report(command .. " gave an empty reply") end
+				for _, pattern in ipairs(failures) do
+					if reply:lower():find(pattern) then report(command .. ": " .. reply); break end
+				end
+				if object and env.PRSO ~= object then report(command .. " resolved to a different object") end
+				object = env.PRSO
+				-- Follow each first reply once, starting immediately after its side effects.
+				if nextSnapshot and command == menu and reply:find("[[", 1, true) then
+					checkLinks(story, walk, reply, nextSnapshot, command)
 				end
 			end
 		end
 	end
 end
 
-print(string.format("%d link targets examined", checked))
-if problems > 0 then
-	print(string.format("%d broken link(s)", problems))
-	os.exit(1)
+for _, story in ipairs(arg) do
+	local walk = Walk.new(story:gsub("/", ".") .. "." .. story:match("([^/]+)$"))
+	local env = walk.env
+	local initial, snapshot, followup = os.tmpname(), os.tmpname(), os.tmpname()
+	assert(env.SAVE(initial))
+	for room = 1, 255 do
+		assert(env.RESTORE(initial))
+		if env.LOC(room) == env.ROOMS and env.FSETQ(room, env.RLANDBIT) then
+			env.MOVE(env.WINNER, room)
+			env.HERE, env.LIT = room, true
+			env.FSET(room, env.ONBIT)
+			env.V_LOOK()
+			checkLinks(story, walk, env.TAKE_OUTPUT(), snapshot, nil, followup)
+		end
+	end
+	os.remove(initial)
+	os.remove(snapshot)
+	os.remove(followup)
 end
+
+print(string.format("%d room links and %d follow-up links examined, %d failures", checked, discoveries, problems))
+if problems > 0 then os.exit(1) end

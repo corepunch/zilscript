@@ -154,7 +154,8 @@
 	<ASSERT "Take ancient silver relic from box" <CO-RESUME ,CO "take relic" T> <==? <LOC ,ANCIENT-RELIC> ,ADVENTURER>>
 	<ASSERT-TEXT "electrode" <CO-RESUME ,CO "tell patient about serum">> ;"A carried thing names its topic"
 	<ASSERT-TEXT "figure" <CO-RESUME ,CO "look">> ;"The chapel tells where the patient stands"
-	<ASSERT-TEXT "symbols" <CO-RESUME ,CO "examine relic">> ;"Cross with writhing symbols, keep it"
+	<ASSERT-TEXT "silver etching" <CO-RESUME ,CO "examine relic">>
+	<ASSERT-TEXT "one line shines" <CO-RESUME ,CO "examine silver etching">> ;"Cross with writhing symbols, keep it"
 	<ASSERT-TEXT "189" <CO-RESUME ,CO "examine patient">> ;"Patient 189 - Dr. Mordecai's achievement"
 	<ASSERT-TEXT "glowing" <CO-RESUME ,CO "examine serum">> ;"Confirm serum still accessible"
 	<ASSERT-TEXT "needle" <CO-RESUME ,CO "examine syringe">> ;"Confirm syringe still accessible"

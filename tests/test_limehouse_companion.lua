@@ -73,7 +73,7 @@ end)
 -- Test 5: Entering manor from gate
 test("enter manor works", function()
     local output = run_companion({"1", "3"})
-    assert_contains(output, "Beneath a dusty chandelier")
+    assert_contains(output, "hall table gleams under the chandelier")
 end)
 
 -- Test 6: Library accessible from hall

@@ -54,6 +54,10 @@ do
 	check(has(text, "ledger") and has(text, "patient file"), "the open drawer shows the ledger and the file")
 	check(not has(text, "contains:"), "untouched drawer contents read as prose, not a list")
 	check(env.FSETQ(env.BOTTOM_DRAWER, env.NDESCBIT), "the drawer stays part of the desk's description")
+	walk:play({ "take patient file", "east", "west" })
+	text = walk:choose("look")
+	check(has(text, "bottom drawer stands open") and has(text, "ledger") and not has(text, "patient file"),
+		"Returning to reception shows only the record left in the open drawer")
 end
 
 -- Ward: the opened morgue door.
@@ -225,7 +229,7 @@ do
 	text = typed("inject patient with syringe")
 	check(has(text, "hold it still"), "without the relic the patient cannot be approached")
 	-- The relic counts while it lies in the box the player carries.
-	walk:play({ "look", { "open wooden box", expect = "ancient relic" }, "take wooden box" })
+	walk:play({ "examine wooden pews", { "open wooden box", expect = "ancient relic" }, "take wooden box" })
 	check(env.LOC(env.ANCIENT_RELIC) == env.WOODEN_BOX and env.LOC(env.WOODEN_BOX) == env.WINNER, "relic in the carried box")
 	env.MOVE(env.STRANGE_SERUM, env.MORGUE)
 	text = typed("give relic to patient")
@@ -238,7 +242,7 @@ do
 	text = typed("look")
 	check(has(text, "stands empty") and not has(text, "standing at the altar"), "the chapel does not show an absent patient")
 	text = enter(env.OVERGROWN_GARDEN)
-	check(has(text, "[[Patient 189->patient]] stands among the dead roses") or has(walk.output, "[[Patient 189->patient]] stands among the dead roses"),
+	check(has(text, "[[Patient 189->patient]] stands among the dead [[roses]]") or has(walk.output, "[[Patient 189->patient]] stands among the dead [[roses]]"),
 		"the garden links the patient who followed")
 	check(not has(text, "standing at the altar"), "and does not put the altar in the garden")
 	carry(env.STRANGE_SERUM, env.ANCIENT_RELIC)

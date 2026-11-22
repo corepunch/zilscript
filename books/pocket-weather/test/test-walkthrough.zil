@@ -2,9 +2,14 @@
 <GLOBAL CO <CO-CREATE GO>>
 <ROUTINE RUN-TEST ()
  <CO-RESUME ,CO "look" T>
- <ASSERT-TEXT "A weather card lies here" <CO-RESUME ,CO "look">>
+ <ASSERT-NOT-TEXT "weather card" <CO-RESUME ,CO "look">>
+ <ASSERT-TEXT "blank weather card" <CO-RESUME ,CO "examine bell">>
  <ASSERT-TEXT "write on it once" <CO-RESUME ,CO "examine card">>
  <CO-RESUME ,CO "take card"> <ASSERT "card held" <HELD? ,CARD>>
+ <CO-RESUME ,CO "drop card">
+ <ASSERT-TEXT "weather card" <CO-RESUME ,CO "look">>
+ <ASSERT-NOT-TEXT "card" <CO-RESUME ,CO "examine bell">>
+ <CO-RESUME ,CO "take card">
  <CO-RESUME ,CO "west"> <CO-RESUME ,CO "take spoon"> <CO-RESUME ,CO "west">
  <CO-RESUME ,CO "search apron"> <CO-RESUME ,CO "take button"> <CO-RESUME ,CO "take ribbon">
  <CO-RESUME ,CO "north">
@@ -42,7 +47,10 @@
  <ASSERT-TEXT "chime" <CO-RESUME ,CO "listen to cloud">>
  <ASSERT "noise prevents fake listening" <NOT ,LISTENED>>
  <CO-RESUME ,CO "west">
- <ASSERT-TEXT "CLANG becomes tok" <CO-RESUME ,CO "tie ribbon to chime">>
+ <ASSERT-TEXT "matching bright spot" <CO-RESUME ,CO "examine clapper">>
+ <ASSERT-TEXT "CLANG becomes tok" <CO-RESUME ,CO "tie ribbon to clapper">>
+ <ASSERT-TEXT "only the ribbon touches metal" <CO-RESUME ,CO "examine clapper">>
+ <ASSERT-TEXT "softens each strike" <CO-RESUME ,CO "listen to clapper">>
  <ASSERT "ribbon physically tied" <IN? ,RIBBON ,CHIME>>
  <ASSERT-TEXT "clapper wrapped in the soft ribbon" <CO-RESUME ,CO "look">>
  <ASSERT "room text tells of the tied ribbon, so it is not listed" <FSET? ,RIBBON ,NDESCBIT>>

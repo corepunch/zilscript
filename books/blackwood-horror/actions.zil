@@ -43,7 +43,9 @@ searched, as Zork I hides the grating under the leaves."
 
 <ROUTINE RECEPTION-ROOM-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "Below the open [[filing cabinets->cabinets]],">
+           <COND (<FSET? ,BOTTOM-DRAWER ,OPENBIT>
+                  <TELL "Beside the [[cabinets]] and scattered [[papers]] by the [[east]] exit, the [[oak desk->desk]]'s [[bottom drawer]] stands open." CR> <RTRUE>)>
+           <TELL "Beside the dusty [[oak desk->desk]] and open [[filing cabinets->cabinets]],">
            <COND (<AND <FSET? ,BRASS-KEY ,INVISIBLE> <IN? ,BRASS-KEY ,RECEPTION-ROOM>>
                   <TELL " something glints among the [[papers]] by the exit [[east]].">)
                  (T
@@ -52,7 +54,7 @@ searched, as Zork I hides the grating under the leaves."
 
 <ROUTINE PATIENT-WARD-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "Glass crunches underfoot on the way [[west]] to the hall">
+           <TELL "[[Glass]] crunches underfoot on the way [[west]] to the hall">
            <COND (,CHAINS-CUT-FLAG
                   <TELL ", but the [[heavy door->door]] [[north]] stands open.">)
                  (T
@@ -61,10 +63,10 @@ searched, as Zork I hides the grating under the leaves."
 
 <ROUTINE BASEMENT-CORRIDOR-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "The basement corridor is dim beneath dripping [[pipes]] and a wheel [[valve]].">
            <COND (<AND ,VALVE-TURNED-FLAG ,BOILER-LIT>
-                  <TELL " Steam hisses from the pipes overhead, filling the corridor with an acrid mist.">)>
-           <TELL " Stairs lead [[up]], coal smoke drifts from the [[east]], stores lie [[west]], and water drips in the dark [[north]]." CR>)>>
+                  <TELL "Steam hisses from the [[pipes]] above the open [[valve]].">)
+                 (T <TELL "The basement corridor is dim beneath dripping [[pipes]] and a wheel [[valve]].">)>
+           <TELL " [[Stairs]] lead [[up]], [[coal smoke]] drifts from the [[east]], stores lie [[west]], and [[water]] drips in the dark [[north]]." CR>)>>
 
 <ROUTINE FLOODED-PASSAGE ()
     <COND (<CARRYING-LIGHT?> ,FLOODING-CHAMBER)
@@ -95,26 +97,20 @@ player never stands in the dark."
            <V-IGNITE>
            <RTRUE>)
           (<EQUAL? .RARG ,M-LOOK>
-           <TELL "[[Coal dust->dust]] coats the [[bin]] and [[workbench]] by the doorway [[west]].">
-           <CRLF>)>>
-
-<ROUTINE IRON-BOILER-DESC-F (RARG)
-    <COND (<EQUAL? .RARG ,M-OBJDESC>
-           <COND (,BOILER-LIT
-                  <TELL "The iron [[boiler]] is awake now, fire muttering inside." CR>)
-                 (<IN? ,LUMP-OF-COAL ,IRON-BOILER>
-                  <TELL "Fresh coal waits in the [[boiler]]." CR>)
-                 (T
-                  <TELL "The iron [[boiler]] is stone cold." CR>)>
-           <RTRUE>)>>
+           <COND (,BOILER-LIT <TELL "The iron [[boiler]] is awake now, burning [[coal]]">)
+                 (<IN? ,LUMP-OF-COAL ,IRON-BOILER> <TELL "The fueled [[boiler]] waits for a flame">)
+                 (T <TELL "The iron [[boiler]] sits stone cold">)>
+           <TELL " beside the [[coal bin->bin]] and [[dust]]-covered [[workbench]] by the [[west]] door." CR>)>>
 
 <ROUTINE HYDROTHERAPY-ROOM-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "Rubber hoses hang above the [[tubs]] by the doorway [[west]].">
+           <COND (<FSET? ,MEDICINE-CABINET ,OPENBIT>
+                  <TELL "The thawed [[medicine cabinet->cabinet]] stands open by the [[tubs]] and the doorway [[west]]." CR> <RTRUE>)>
+           <TELL "Rubber [[hoses]] hang above the [[tubs]] by the doorway [[west]].">
            <COND (,CABINET-THAWED
-                  <TELL " Water beads on the [[medicine cabinet->cabinet]] where its coat of frost has melted.">)
+                  <TELL " Water beads on the [[medicine cabinet->cabinet]] where its coat of [[frost]] has melted.">)
                  (T
-                  <TELL " A [[medicine cabinet->cabinet]] on the far wall is sealed beneath thick white frost.">)>
+                  <TELL " A [[medicine cabinet->cabinet]] on the far wall is sealed beneath thick white [[frost]].">)>
            <TELL CR>)>>
 
 <ROUTINE FLOODING-CHAMBER-FCN (RARG)
@@ -128,28 +124,27 @@ player never stands in the dark."
 
 <ROUTINE OVERGROWN-GARDEN-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "From the cafeteria [[south]], broken [[benches]] mark a path through the [[garden]] to the chapel [[north]].">
+           <COND (<IN? ,PATIENT-189 ,OVERGROWN-GARDEN>
+                  <TELL "[[Patient 189->patient]] stands among the dead [[roses]] by the [[garden]] [[benches]], between the cafeteria [[south]] and chapel [[north]].">)
+                 (T <TELL "From the cafeteria [[south]], broken [[benches]] mark a path through the [[garden]] to the chapel [[north]].">)>
            <COND (,CHAPEL-UNLOCKED
                   <TELL " The chapel [[door]] stands open, darkness visible beyond.">)
                  (T
-                  <TELL " The chapel [[door]] is secured with a heavy iron lock.">)>
-           <COND (<IN? ,PATIENT-189 ,OVERGROWN-GARDEN>
-                  <TELL " [[Patient 189->patient]] stands among the dead roses, head tilted toward the chapel.">)>
+                  <TELL " The chapel [[door]] is secured with a heavy iron [[lock]].">)>
            <CRLF>)>>
 
 <ROUTINE OAK-DESK-DESC-F (RARG)
     <COND (<EQUAL? .RARG ,M-OBJDESC>
-           <TELL "Dust coats the [[oak desk->desk]].">
-           <COND (<FSET? ,BOTTOM-DRAWER ,OPENBIT>
-                  <TELL " Its [[bottom drawer]] stands open." CR>
-                  <COND (<FIRST? ,BOTTOM-DRAWER>
-                         <PRINT-CONT ,BOTTOM-DRAWER>)>)
-                 (T <CRLF>)>
+           <COND (<AND <FSET? ,BOTTOM-DRAWER ,OPENBIT> <FIRST? ,BOTTOM-DRAWER>>
+                  <PRINT-CONT ,BOTTOM-DRAWER>)>
            <RTRUE>)>>
 
 <ROUTINE DIRECTORS-OFFICE-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "A [[desk]] faces the corridor [[door]] to the [[west]]." CR>)>>
+           <COND (<FSET? ,WALL-SAFE ,INVISIBLE> <TELL "A [[portrait of Dr. Mordecai->portrait]] hangs over the [[desk]] by the corridor [[door]] to the [[west]]." CR>)
+                 (T <TELL "Above the [[desk]] by the [[west]] [[door]], the [[portrait]] hangs aside, exposing the ">
+                    <COND (<FSET? ,WALL-SAFE ,OPENBIT> <TELL "open ">)>
+                    <TELL "[[wall safe->safe]]." CR>)>)>>
 
 ; === ACTION HANDLERS ===
 
@@ -209,10 +204,13 @@ player never stands in the dark."
 "The cabinet keeps its contents to itself until the player looks: its door is
 ajar, so examining it swings the door wide, as opening it does."
 
+<ROUTINE OPERATING-THEATER-FCN (RARG)
+    <COND (<AND <EQUAL? .RARG ,M-LOOK> <FSET? ,METAL-CABINET ,OPENBIT>>
+           <TELL "From the empty [[tiers]], you can see the open [[cabinet]] beside the [[operating table->table]] and the [[south]] door." CR>)>>
+
 <ROUTINE CABINET-DESC-F (RARG)
     <COND (<EQUAL? .RARG ,M-OBJDESC>
            <COND (<FSET? ,METAL-CABINET ,OPENBIT>
-                  <TELL "A [[metal cabinet->cabinet]] stands in the shadows, its door hanging wide." CR>
                   <COND (<FIRST? ,METAL-CABINET>
                          <PRINT-CONT ,METAL-CABINET>)>)
                  (T
@@ -295,16 +293,18 @@ ajar, so examining it swings the door wide, as opening it does."
                 <REMOVE ,CHAINS>
                 <RTRUE>)>>
 
-<ROUTINE DRAWERS-DESC-F (RARG)
-    <COND (<EQUAL? .RARG ,M-OBJDESC>
-           <COND (<AND <IN? ,STRANGE-SERUM ,REFRIGERATED-DRAWERS>
-                       <NOT <FSET? ,REFRIGERATED-DRAWERS ,OPENBIT>>>
-                  <TELL "A faint glow leaks from the refrigerated [[drawers]]." CR>)
-                 (T
-                  <TELL "Refrigerated [[drawers]] line both walls." CR>
-                  <COND (<FIRST? ,REFRIGERATED-DRAWERS>
-                         <PRINT-CONT ,REFRIGERATED-DRAWERS>)>)>
-           <RTRUE>)>>
+<ROUTINE MORGUE-FCN (RARG)
+    <COND (<EQUAL? .RARG ,M-LOOK>
+           <COND (<FSET? ,REFRIGERATED-DRAWERS ,OPENBIT>
+                  <COND (<IN? ,STRANGE-SERUM ,REFRIGERATED-DRAWERS>
+                         <TELL "A green [[glow]] spills from the open [[drawers]]">)
+                        (T <TELL "The open [[drawers]] are dark">)>
+                  <TELL " beside the [[dissection table->table]] on the way [[south]] to the ward." CR>)
+                 (T <TELL "Your breath clouds over the [[dissection table->table]] on the way to the ward [[south]].">
+                    <COND (<IN? ,STRANGE-SERUM ,REFRIGERATED-DRAWERS>
+                           <TELL " A faint [[glow]] leaks from the refrigerated [[drawers]].">)
+                          (T <TELL " The refrigerated [[drawers]] are dark.">)>
+                    <CRLF>)>)>>
 
 <ROUTINE DRAWERS-F ()
          <COND (<VERB? EXAMINE LOOK-INSIDE OPEN SEARCH>
@@ -322,6 +322,8 @@ ajar, so examining it swings the door wide, as opening it does."
          <COND (<VERB? EXAMINE LOOK-INSIDE>
                 <TELL "The dissection table is made of stainless steel with drainage channels carved into its surface. Dark stains pool in the grooves.">
                 <COND (<IN? ,CANVAS-BUNDLE ,DISSECTION-TABLE> <TELL " A human-shaped [[bundle]] lies under stained canvas.">)>
+                <COND (<AND <IN? ,MORDECAI-JOURNAL ,MORGUE> <NOT <FSET? ,MORDECAI-JOURNAL ,TOUCHBIT>>>
+                       <TELL " A small desk at the foot of the table holds a [[journal]].">)>
                 <CRLF>
                 <RTRUE>)>>
 
@@ -352,7 +354,11 @@ ajar, so examining it swings the door wide, as opening it does."
                 <CRLF>
                 <RTRUE>)
                (<VERB? EXAMINE>
-                <TELL "A large wheel valve covered in rust and grime." CR>
+                <COND (,VALVE-TURNED-FLAG
+                       <TELL "The pointer rests at OPEN. ">
+                       <COND (,BOILER-LIT <TELL "The wheel trembles as steam passes behind it." CR>)
+                             (T <TELL "The wheel is cold and still. No steam has reached it yet." CR>)>)
+                      (T <TELL "A clean arc cuts through the rust under the wheel. An arrow stamped beside it shows which way to turn to let steam through." CR>)>
                 <RTRUE>)>>
 
 <ROUTINE V-TURN-BARE ()
@@ -394,7 +400,7 @@ ajar, so examining it swings the door wide, as opening it does."
                 <COND (<IN? ,LUMP-OF-COAL ,COAL-BIN>
                        <TELL "Most of the coal has collapsed into wet black dust, but one solid [[lump of coal->coal]] could still burn. A shovel would keep the filthy slack off your hands." CR>)
                       (T
-                       <TELL "Only damp coal dust remains in the bin." CR>)>
+                       <TELL "Only damp coal dust remains in the bin. The last lump left a square of bare tin in the bottom." CR>)>
                 <RTRUE>)>>
 
 <ROUTINE COAL-F ()
@@ -429,6 +435,11 @@ ajar, so examining it swings the door wide, as opening it does."
                 <TELL CR>
                 <RTRUE>)>>
 
+<ROUTINE STORAGE-ROOM-FCN (RARG)
+    <COND (<EQUAL? .RARG ,M-LOOK>
+           <COND (<FSET? ,SHELVES ,OPENBIT> <TELL "Damp [[linen]] hangs over the edge of the searched [[shelves]] beside the exit [[east]]." CR>)
+                 (T <TELL "The [[shelves]] sag under damp [[linen]] beside the exit [[east]]." CR>)>)>>
+
 <ROUTINE SHELVES-F ()
          <COND (<VERB? EXAMINE LOOK-INSIDE SEARCH OPEN>
                 <UNCOVER ,SHELVES>
@@ -446,7 +457,7 @@ ajar, so examining it swings the door wide, as opening it does."
 
 <ROUTINE MEDICAL-BAG-F ()
          <COND (<VERB? EXAMINE LOOK-INSIDE>
-                <TELL "An old leather doctor's bag, cracked and worn.">
+                <TELL "The doctor’s bag opens along a hinged metal jaw. Two straps inside are just the right width for small bottles.">
                 <COND (<FSET? ,MEDICAL-BAG ,OPENBIT>
                        <TELL " Looking inside, you can see">
                        <COND (<IN? ,BANDAGES ,MEDICAL-BAG>
@@ -488,7 +499,7 @@ ajar, so examining it swings the door wide, as opening it does."
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      ,STEAM-DOOR-OPEN>
-                <TELL "The " D ,SEALED-DOOR " stands open, steam still wisping from its edges." CR>
+                <TELL "The " D ,SEALED-DOOR " stands open. Rust lies in wet flakes where the steam freed the frame." CR>
                 <RTRUE>)
                (<AND <VERB? OPEN>
                      <NOT ,STEAM-DOOR-OPEN>
@@ -646,12 +657,15 @@ ajar, so examining it swings the door wide, as opening it does."
 
 <ROUTINE SCATTERED-PAPERS-F ()
          <COND (<VERB? EXAMINE READ SEARCH>
-                <TELL "You sort through the papers. Most are mundane: supply orders, staff schedules, building maintenance. One memo catches your eye: 'All staff reminded - Subject 189 is NOT to be released under any circumstances. Chapel is OFF LIMITS.'" CR>
+                <TELL "You sort through the papers. Most are mundane: supply orders, staff schedules, building maintenance. One [[memo]] catches your eye: 'All staff reminded - Subject 189 is NOT to be released under any circumstances. Chapel is OFF LIMITS.'" CR>
                 <RTRUE>)>>
 
 <ROUTINE MASSIVE-DESK-F ()
          <COND (<VERB? EXAMINE LOOK-INSIDE>
-                <TELL "The desk is made of dark wood, highly polished. The drawers contain mostly empty folders and pens." CR>
+                <TELL "The dark wood is polished to a shine. Empty folders and pens fill the drawers.">
+                <COND (<AND <IN? ,HOLLOW-BOOK ,DIRECTORS-OFFICE> <NOT <FSET? ,HOLLOW-BOOK ,TOUCHBIT>>>
+                       <TELL " A row of medical texts lines the back of the desk. One red [[tome->book]] has no title.">)>
+                <CRLF>
                 <RTRUE>)>>
 
 <ROUTINE HOLLOW-BOOK-F ()
@@ -661,7 +675,9 @@ ajar, so examining it swings the door wide, as opening it does."
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      <FSET? ,HOLLOW-BOOK ,OPENBIT>>
-                <TELL "The book is open, its pages glued together to form a hollow cavity. " <COND (<IN? ,SAFE-KEY ,HOLLOW-BOOK> <TELL "Inside rests a small [[key->safe key]].">)(<ELSE> <TELL "The cavity is empty.">)> CR>
+                <TELL "Someone glued the [[pages->cut pages]] together, then cut a hollow through them. ">
+                <COND (<IN? ,SAFE-KEY ,HOLLOW-BOOK> <TELL "The small [[safe key]] fits the hollow exactly." CR>)
+                      (T <TELL "A rusty [[outline->cut pages]] shows where the key lay." CR>)>
                 <RTRUE>)
                (<AND <VERB? OPEN>
                      <NOT <FSET? ,HOLLOW-BOOK ,OPENBIT>>>
@@ -671,14 +687,6 @@ ajar, so examining it swings the door wide, as opening it does."
                (<VERB? READ>
                 <TELL "The pages are glued together. It's a hollow hiding place, not a real book." CR>
                 <RTRUE>)>>
-
-<ROUTINE PORTRAIT-DESC-F (RARG)
-    <COND (<EQUAL? .RARG ,M-OBJDESC>
-           <COND (<FSET? ,WALL-SAFE ,INVISIBLE>
-                  <TELL "A [[portrait of Dr. Mordecai->portrait]] hangs over the desk." CR>)
-                 (T
-                  <TELL "The [[portrait of Dr. Mordecai->portrait]] hangs swung aside on its hinge, his stern eyes still following you." CR>)>
-           <RTRUE>)>>
 
 "The safe is INVISIBLE behind the portrait until the portrait is examined or
 moved: its frame sits proud of the paneling, and it swings on a hinge."
@@ -690,7 +698,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
 
 <ROUTINE PORTRAIT-F ()
          <COND (<VERB? EXAMINE>
-                <TELL "The portrait shows Dr. Mordecai, a gaunt man with piercing eyes and a cruel mouth. The nameplate reads: 'Dr. Heinrich Mordecai - Director 1935-1952'. His eyes seem to follow you around the room.">
+                <TELL "The portrait shows Dr. Mordecai, a gaunt man with piercing eyes and a cruel mouth. The [[nameplate]] reads: 'Dr. Heinrich Mordecai - Director 1935-1952'. His eyes seem to follow you around the room.">
                 <COND (<FSET? ,WALL-SAFE ,INVISIBLE>
                        <REVEAL-SAFE>
                        <TELL " The frame sits proud of the paneling. You tug its edge, and the portrait swings aside on a hinge, revealing a [[wall safe->safe]].">)>
@@ -719,11 +727,11 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      <FSET? ,WALL-SAFE ,OPENBIT>>
-                <TELL "The safe is open. Inside you can see its contents." CR>
+                <TELL "The safe is open. Its green felt lining is worn through around the key hooks." CR>
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      <NOT <FSET? ,WALL-SAFE ,OPENBIT>>>
-                <TELL "The safe is locked. It requires a key." CR>
+                <TELL "The safe is locked. Scratches run down from the keyhole, as though someone kept trying to find it in the dark." CR>
                 <RTRUE>)
                (<AND <VERB? OPEN UNLOCK>
                      <FSET? ,WALL-SAFE ,OPENBIT>>
@@ -743,7 +751,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
 
 <ROUTINE SAFE-KEY-F ()
          <COND (<VERB? EXAMINE>
-                <TELL "A small brass key with a tag reading 'S-001'. It looks like a safe key." CR>
+                <TELL "A small brass key with a [[numbered tag]] reading 'S-001'. It looks like a safe key." CR>
                 <RTRUE>)>>
 
 <ROUTINE MORDECAI-NOTES-F ()
@@ -782,7 +790,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
                 <TELL "You ring the bell. The tinny sound carries through the empty rooms. No one comes." CR>
                 <RTRUE>)
                (<VERB? EXAMINE>
-                <TELL "A small brass bell with a button on top. It still works." CR>
+                <TELL "Years of thumbs have polished the small button bright. A little hammer waits under the [[brass dome]]." CR>
                 <RTRUE>)
                (<VERB? LISTEN>
                 <TELL "The bell makes a clear ringing sound when struck." CR>
@@ -793,7 +801,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
 
 <ROUTINE DEAD-GARDEN-F ()
          <COND (<VERB? EXAMINE SEARCH>
-                <TELL "The garden has been dead for decades. Thorny vines choke what remains of flower beds. Among the weeds, you can see broken stone benches and a crumbling fountain." CR>
+                <TELL "The dead roses still cling to their stems. Fallen petals hang from the thorns like scraps of brown paper. Among the weeds, you can see broken stone benches and a crumbling fountain." CR>
                 <RTRUE>)
                (<AND <VERB? DIG>
                      <IN? ,COAL-SHOVEL ,WINNER>>
@@ -817,7 +825,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      ,CHAPEL-UNLOCKED>
-                <TELL "The door stands open, darkness visible beyond." CR>
+                <TELL "The door stands open. Green candle wax has dripped across the threshold from inside." CR>
                 <RTRUE>)
                (<AND <VERB? OPEN UNLOCK>
                      <NOT ,CHAPEL-UNLOCKED>
@@ -971,6 +979,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
           (T
            <TELL "You hold the lantern flame to the coal. Smoke rolls from the firebox; then orange light catches underneath. The boiler answers with a deep metallic thud as water begins moving through long-dead pipes." CR>
            <SETG BOILER-LIT T>
+           <FSET ,LUMP-OF-COAL ,NDESCBIT>
            <SETG BOILER-HEAT 0>)>
     <RTRUE>>
 
@@ -1029,21 +1038,30 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
 <ROUTINE CHAPEL-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
            <COND (,GAME-WON
-                  <TELL "The [[candles]] are dark and the altar is bare. Beyond the [[pews]], the garden lies [[south]]." CR>)
+                  <TELL "The [[candles]] are dark and the [[altar]] is bare. Beyond the [[pews]], the garden lies [[south]]." CR>)
+                 (<AND <IN? ,WOODEN-BOX ,CHAPEL> <FSET? ,WOODEN-BOX ,OPENBIT> <FSET? ,WOODEN-BOX ,NDESCBIT>>
+                  <TELL "From the [[pews]] by the garden door [[south]], green [[candles]] light the open [[box]]">
+                  <COND (<IN? ,PATIENT-189 ,CHAPEL>
+                         <SETG PATIENT-STATE 1>
+                         <TELL " at the feet of a motionless [[figure->patient]]." CR>)
+                        (T <TELL " at the empty [[altar]]." CR>)>)
                  (T
                   <TELL "Green [[candles]] light the [[pews]] by the garden door [[south]]." CR>
                   <COND (<NOT <IN? ,PATIENT-189 ,CHAPEL>>
-                         <TELL "The place before the altar stands empty." CR>)
+                         <TELL "The place before the [[altar]] stands empty." CR>)
                         (<NOT ,PATIENT-STATE>
                          <SETG PATIENT-STATE 1>
-                         <TELL "[[Something->patient]] is standing at the altar, perfectly still." CR>)
+                         <TELL "[[Something->patient]] is standing at the [[altar]], perfectly still." CR>)
                         (T
-                         <TELL "A [[figure->patient]] stands motionless at the altar, its eyes glowing faintly as they follow you." CR>)>)>
+                         <TELL "A [[figure->patient]] stands motionless at the [[altar]], its eyes glowing faintly as they follow you." CR>)>)>
            <RTRUE>)>>
 
 <ROUTINE PEWS-F ()
          <COND (<VERB? EXAMINE>
-                <TELL "The pews are ancient and rotting. Strange symbols are carved into the wood—symbols that hurt to look at." CR>
+                <TELL "The pews are ancient and rotting. Strange [[symbols->carved symbols]] are carved into the wood—symbols that hurt to look at.">
+                <COND (<AND <IN? ,WOODEN-BOX ,CHAPEL> <NOT <FSET? ,WOODEN-BOX ,TOUCHBIT>>>
+                       <TELL " From the front pew you can just see a wooden [[box]] tucked under the altar.">)>
+                <CRLF>
                 <RTRUE>)
                (<VERB? CLIMB-ON SIT>
                 <TELL "You sit on one of the pews. The wood is cold and uncomfortable. The symbols carved into it seem to pulse beneath your hands, and you quickly stand back up." CR>
@@ -1092,7 +1110,9 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      <FSET? ,WOODEN-BOX ,OPENBIT>>
-                <TELL "The box is now open. " <COND (<IN? ,ANCIENT-RELIC ,WOODEN-BOX> <TELL "Inside is an [[ancient relic]].">)(<ELSE> <TELL "It's empty.">)> CR>
+                <TELL "The clasp has left a rusty print on the lid. ">
+                <COND (<IN? ,ANCIENT-RELIC ,WOODEN-BOX> <TELL "Inside is an [[ancient relic]], a silver cross fitted into the [[lining->box lining]]." CR>)
+                      (T <TELL "A cross-shaped hollow remains in the [[lining->box lining]]." CR>)>
                 <RTRUE>)
                (<AND <VERB? OPEN>
                      <NOT <FSET? ,WOODEN-BOX ,OPENBIT>>
@@ -1108,7 +1128,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
 
 <ROUTINE ANCIENT-RELIC-F ()
          <COND (<VERB? EXAMINE>
-                <TELL "An ancient silver cross, tarnished black with age. Strange symbols are etched into its surface—symbols that seem to writhe when you look directly at them. Despite its age, it radiates a strange warmth." CR>
+                <TELL "An ancient silver cross, tarnished black with age. A [[silver etching]] runs down its surface. The lines seem to writhe when you look directly at them. Despite its age, it radiates a strange warmth." CR>
                 <RTRUE>)
                (<VERB? RUB>
                 <TELL "The cross feels unnaturally warm in your hand. The symbols seem to pulse under your touch." CR>
@@ -1420,7 +1440,7 @@ lost name."
 
 <ROUTINE OFFICE-DOOR-F ()
          <COND (<VERB? EXAMINE>
-                <TELL "A heavy office door leading back to the administrative wing corridor." CR>
+                <TELL "Someone has stuffed felt into the crack around the office door. From the corridor, a visitor could knock without hearing a word spoken inside." CR>
                 <RTRUE>)
                (<VERB? OPEN>
                 <TELL "The door is already open. The corridor lies to the west." CR>
@@ -1635,6 +1655,7 @@ test of whether the points were given; the VALUE, zeroed, is."
 ; === ENTRY POINT ===
 
 <ROUTINE GO ()
+	<SETG COMPACT-ROOM-LISTS T>
 	<SETG HERE ,SANITARIUM-GATE>
 	<SETG VERBOSE T>
 	;"Investigation rewards collecting records; Zork's random hand-limit is not a puzzle here."
@@ -1658,3 +1679,11 @@ test of whether the points were given; the VALUE, zeroed, is."
       <V-LOOK>
       <MAIN-LOOP>
 	<AGAIN>>
+
+<ROUTINE BOOK-HOLLOW-F ()
+    <COND (<VERB? EXAMINE>
+           <COND (<IN? ,SAFE-KEY ,HOLLOW-BOOK> <TELL "The cut edges hug the teeth of the key. A little crescent by the round end leaves room for a fingertip." CR>) (T <TELL "The stain has three little steps along one edge. You could draw the teeth of the missing key from that mark." CR>)>)>>
+
+<ROUTINE CROSS-LINING-F ()
+    <COND (<VERB? EXAMINE>
+           <COND (<IN? ,ANCIENT-RELIC ,WOODEN-BOX> <TELL "A fringe of green velvet curls up over the tips of the cross. It has lain in exactly that position for a long time." CR>) (T <TELL "Deep in the hollow the velvet is still green. All around it, the exposed cloth has faded to grey." CR>)>)>>

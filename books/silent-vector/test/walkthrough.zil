@@ -37,7 +37,9 @@
 	<ASSERT-TEXT "ceramic edges" <CO-RESUME ,CO "cut bus with shears">>
 	<ASSERT-TEXT "receiver" <CO-RESUME ,CO "north">>
 	<ASSERT-TEXT "memory wafer" <CO-RESUME ,CO "open receiver">>
+	<ASSERT-TEXT "blank edges of the wafer" <CO-RESUME ,CO "examine spring clips">>
 	<ASSERT-TEXT "Taken" <CO-RESUME ,CO "take wafer">>
+	<ASSERT-TEXT "pinhead" <CO-RESUME ,CO "examine spring clips">>
 	<ASSERT-TEXT "rescue-compression" <CO-RESUME ,CO "examine wafer">>
 	<ASSERT-TEXT "severed" <CO-RESUME ,CO "south">>
 	<ASSERT-TEXT "draught" <CO-RESUME ,CO "west">>

@@ -4,7 +4,7 @@
 
 <ROUTINE RUN-TEST ()
     ;"INSPECT remains a verb while the exact long noun INSPECTOR resolves to Lestrade."
-    <ASSERT-TEXT "gravel path leads north" <CO-RESUME ,CO "inspect path">>
+    <ASSERT-TEXT "gravel path has been raked" <CO-RESUME ,CO "inspect path">>
     <SETG HERE ,ASHWORTH-ENTRANCE-HALL>
     <MOVE ,WINNER ,ASHWORTH-ENTRANCE-HALL>
     <MOVE ,INSPECTOR ,ASHWORTH-ENTRANCE-HALL>

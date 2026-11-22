@@ -100,7 +100,7 @@
     <ASSERT-TEXT "It has swung open" <CO-RESUME ,CO "wind clock">> ;"Nutmeg reaches the hidden latch"
     <ASSERT "Study access" ,STUDY-ACCESS>
     <ASSERT "Down to the workshop" <CO-RESUME ,CO "walk down" T> <==? ,HERE ,WORKSHOP-FLOOR>>
-    <ASSERT-TEXT "swung away from the wall" <CO-RESUME ,CO "look">> ;"The room shows the open clock"
+    <ASSERT-TEXT "stairs behind the open clock" <CO-RESUME ,CO "look">> ;"The room shows the open clock"
     <ASSERT "Enter study" <CO-RESUME ,CO "enter clock"> <==? ,HERE ,TOLLIVER-STUDY>>
     <ASSERT-TEXT "surround the heart with companions" <CO-RESUME ,CO "read diagram">> ;"How to rewind the heart"
     <ASSERT "Diagram read" ,DIAGRAM-READ>

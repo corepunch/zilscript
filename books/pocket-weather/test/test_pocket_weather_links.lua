@@ -48,8 +48,10 @@ end
 record(game:start())
 local commands = {
  "examine official forecast",
+ "examine dispatch bell",
  "take weather card",
  "west",
+ "examine steaming kettle",
  "take narrow spoon",
  "west",
  "examine laundry apron",

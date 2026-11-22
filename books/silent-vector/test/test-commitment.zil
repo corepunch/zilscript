@@ -9,6 +9,9 @@
 	<SETG ORIGIN <>>
 	<ASSERT-TEXT "examine the recovered wafer" <CO-RESUME ,CO "erase console">>
 	<ASSERT "origin must be learned" <NOT ,RESOLVED>>
+	<ASSERT-TEXT "cuts are equally sharp" <CO-RESUME ,CO "examine engraved index">>
+	<ASSERT "reading the index establishes origin" ,ORIGIN>
+	<SETG ORIGIN <>>
 	<CO-RESUME ,CO "examine wafer" T>
 	<ASSERT "safe index readable in storage" ,ORIGIN>
 	<ASSERT-TEXT "FOUR PULSES" <CO-RESUME ,CO "erase console">>

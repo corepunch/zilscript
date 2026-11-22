@@ -17,10 +17,10 @@
 <GLOBAL LB-RECEIPT-SEEN <>>
 
 <ROOM LB-LANDING (IN ROOMS) (DESC "Saint Bride Landing")
-	(LDESC "Beyond the salt-crusted [[station clock]], a light burns in the [[hall->north]].")
+	(LDESC "Beyond the [[salt->station clock]]-crusted [[station clock]], a [[light]] burns in the [[hall->north]].")
 	(NORTH TO LB-HALL) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-HALL (IN ROOMS) (DESC "Station Hall")
-	(LDESC "From the [[appeal board]] you can see the [[office->north]], [[studio->east]] and [[kitchen->west]]. The [[bunkroom->up]] is up the stairs from the [[landing->south]].")
+	(LDESC "From the [[appeal board]] you can see the [[office->north]], [[studio->east]] and [[kitchen->west]]. The [[bunkroom->up]] is up the [[stairs]] from the [[landing->south]].")
 	(NORTH TO LB-OFFICE) (EAST TO LB-STUDIO) (WEST TO LB-KITCHEN) (UP TO LB-BUNKROOM) (SOUTH TO LB-LANDING) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-OFFICE (IN ROOMS) (DESC "Vane's Office")
 	(ACTION LB-OFFICE-F)
@@ -28,17 +28,17 @@
 <ROOM LB-STUDIO (IN ROOMS) (DESC "Broadcast Studio")
 	(LDESC "[[Ruth]] whispers beside the [[microphone]], between the [[hall to the west->west]] and the [[control room to the east->east]].")
 	(WEST TO LB-HALL) (EAST TO LB-CONTROL) (GLOBAL LB-VANE LB-BROADCAST) (FLAGS RLANDBIT ONBIT)>
-<ROOM LB-CONTROL (IN ROOMS) (DESC "Control Room")
-	(LDESC "A green light pools over the [[gramophone]] and [[routing switch]]. Doors lead west to the [[studio->west]], north to the [[cutting room->north]] and south to the [[workshop->south]].")
+<ROOM LB-CONTROL (IN ROOMS) (ACTION LB-CONTROL-LOOK) (DESC "Control Room")
+	(LDESC "A [[green light]] pools over the [[gramophone]] and [[routing switch]]. Doors lead west to the [[studio->west]], north to the [[cutting room->north]] and south to the [[workshop->south]].")
 	(WEST TO LB-STUDIO) (NORTH TO LB-CUTTING) (SOUTH TO LB-WORKSHOP) (FLAGS RLANDBIT ONBIT)>
-<ROOM LB-CUTTING (IN ROOMS) (DESC "Disc Cutting Room")
-	(LDESC "A curl of lacquer lies beside the [[cutter]] and its [[register]]. Doors open south to the [[control room->south]] and east to the [[archive->east]].")
+<ROOM LB-CUTTING (IN ROOMS) (ACTION LB-CUTTING-LOOK) (DESC "Disc Cutting Room")
+	(LDESC "A [[curl of lacquer->lacquer curl]] lies beside the [[cutter]] and its [[register]]. Doors open south to the [[control room->south]] and east to the [[archive->east]].")
 	(SOUTH TO LB-CONTROL) (EAST TO LB-ARCHIVE) (FLAGS RLANDBIT ONBIT)>
-<ROOM LB-ARCHIVE (IN ROOMS) (DESC "Record Archive")
-	(LDESC "Cold paper gives the archive the smell of a closed church beyond the [[cutting room->west]].")
+<ROOM LB-ARCHIVE (IN ROOMS) (ACTION LB-ARCHIVE-LOOK) (DESC "Record Archive")
+	(LDESC "A [[draught]] from the [[cutting room to the west->west]] stirs the cold [[papers]] beside a [[cardboard sleeve]].")
 	(WEST TO LB-CUTTING) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-WORKSHOP (IN ROOMS) (DESC "Service Workshop")
-	(LDESC "The workshop smells of solder between the [[control room->north]] and the [[generator room below->down]].")
+	(LDESC "[[Solder->workbench]] freckles the [[workbench]] between the [[control room to the north->north]] and the [[generator room below->down]].")
 	(NORTH TO LB-CONTROL) (DOWN TO LB-GENERATOR) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-GENERATOR (IN ROOMS) (DESC "Generator Room")
 	(LDESC "The [[generator]] shakes the floor between the [[workshop above->up]] and the [[cable passage->north]].")
@@ -46,43 +46,46 @@
 <ROOM LB-PASSAGE (IN ROOMS) (DESC "Cable Passage")
 	(ACTION LB-PASSAGE-F)
 	(SOUTH TO LB-GENERATOR) (UP TO LB-OFFICE IF LB-HATCH IS OPEN ELSE "The [[hatch]] is bolted shut; a square spindle faces you.") (GLOBAL LB-HATCH) (FLAGS RLANDBIT ONBIT)>
-<ROOM LB-KITCHEN (IN ROOMS) (DESC "Station Kitchen")
-	(LDESC "[[Edith]] sits at the [[table]] between the [[hall->east]] and the [[telegraph room->west]].")
+<ROOM LB-KITCHEN (IN ROOMS) (ACTION LB-KITCHEN-LOOK) (DESC "Station Kitchen")
+	(LDESC "[[Edith]] sits beside a [[medical bag]] at the [[table]] between the [[hall->east]] and the [[telegraph room->west]].")
 	(EAST TO LB-HALL) (WEST TO LB-TELEGRAPH) (GLOBAL LB-VANE LB-BROADCAST) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-TELEGRAPH (IN ROOMS) (DESC "Telegraph Room")
-	(LDESC "The [[telegraph]] clicks beside its silent [[operator->tomas]], between the [[kitchen->east]] and the stairs to the [[aerial platform->up]].")
+	(LDESC "The [[telegraph]] clicks beside its silent [[operator->tomas]], between the [[kitchen->east]] and the [[stairs]] to the [[aerial platform->up]].")
 	(EAST TO LB-KITCHEN) (UP TO LB-PLATFORM) (GLOBAL LB-VANE LB-BROADCAST) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-PLATFORM (IN ROOMS) (DESC "Aerial Platform")
-	(LDESC "A [[signal lamp]] lights the rain on the [[aerial]]. The [[telegraph room->down]] is below, the [[bunkroom->east]] across the covered walk.")
-	(DOWN TO LB-TELEGRAPH) (EAST TO LB-BUNKROOM) (FLAGS RLANDBIT ONBIT)>
+	(LDESC "A [[signal lamp]] lights the [[rain]] on the [[aerial]]. The [[telegraph room->down]] is below, the [[bunkroom->east]] across the [[covered walk]].")
+	(DOWN TO LB-TELEGRAPH) (EAST TO LB-BUNKROOM) (GLOBAL LB-COVERED-WALK) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-BUNKROOM (IN ROOMS) (DESC "Staff Bunkroom")
-	(LDESC "[[Ada]] sits beneath the [[maintenance roster]], upstairs from the [[hall->down]] and across the walk from the [[aerial platform->west]].")
-	(DOWN TO LB-HALL) (WEST TO LB-PLATFORM) (GLOBAL LB-VANE LB-BROADCAST) (FLAGS RLANDBIT ONBIT)>
+	(LDESC "[[Ada]] sits beneath the [[maintenance roster]], upstairs from the [[hall->down]] and across the [[walk->covered walk]] from the [[aerial platform->west]].")
+	(DOWN TO LB-HALL) (WEST TO LB-PLATFORM) (GLOBAL LB-VANE LB-BROADCAST LB-COVERED-WALK) (FLAGS RLANDBIT ONBIT)>
 
 <OBJECT LB-CASEBOOK (IN ADVENTURER) (DESC "casebook") (SYNONYM CASEBOOK NOTEBOOK CASE BOOK NOTE NOTES COLUMNS)  (FLAGS TAKEBIT) (SIZE 0) (INTERACTIONS "") (ACTION LB-CASEBOOK-F)>
-<OBJECT LB-STATION-CLOCK (IN LB-LANDING) (DESC "station clock") (SYNONYM CLOCK TIME) (ADJECTIVE STATION SPRING RUNNING) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-STATION-CLOCK-F)>
+<OBJECT LB-STATION-CLOCK (IN LB-LANDING) (DESC "station clock") (SYNONYM CLOCK TIME SALT) (ADJECTIVE STATION SPRING RUNNING SALT-CRUSTED) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-STATION-CLOCK-F)>
 
 <OBJECT LB-BOARD (IN LB-HALL) (DESC "appeal board") (SYNONYM BOARD SCHEDULE ENTRY ORDER) (ADJECTIVE APPEAL) (FLAGS NDESCBIT READBIT) (INTERACTIONS "") (ACTION LB-BOARD-F)>
-<OBJECT LB-OFFICE-CLOCK (IN LB-OFFICE) (DESC "office clock") (SYNONYM CLOCK HANDS KNOB) (ADJECTIVE OFFICE ELECTRIC SYNCHRONOUS STOPPED WINDING) (FLAGS NDESCBIT) (INTERACTIONS "COMPARE:LB-CHART") (ACTION LB-OFFICE-CLOCK-F)>
-<OBJECT LB-BODY (IN LB-OFFICE) (DESC "Julian Vane's body") (SYNONYM BODY CORPSE JULIAN WOUND EAR VANE BRUISE DUST CRESCENT) (ADJECTIVE JULIAN VANE DEAD VANES JULIANS STIFF BLUNT HEAD BRASS) (FLAGS NDESCBIT) (INTERACTIONS "COMPARE:LB-WEIGHT") (ACTION LB-BODY-F)>
+<OBJECT LB-OFFICE-CLOCK (IN LB-OFFICE) (DESC "office clock") (SYNONYM CLOCK HANDS) (ADJECTIVE OFFICE ELECTRIC SYNCHRONOUS STOPPED WINDING) (FLAGS NDESCBIT) (INTERACTIONS "COMPARE:LB-CHART") (ACTION LB-OFFICE-CLOCK-F)>
+<OBJECT LB-BODY (IN LB-OFFICE) (DESC "Julian Vane's body") (SYNONYM BODY CORPSE JULIAN WOUND EAR VANE BRUISE) (ADJECTIVE JULIAN VANE DEAD VANES JULIANS STIFF BLUNT HEAD BRASS) (FLAGS NDESCBIT) (INTERACTIONS "COMPARE:LB-WEIGHT") (ACTION LB-BODY-F)>
 <OBJECT LB-HATCH (IN LOCAL-GLOBALS) (DESC "service hatch") (SYNONYM HATCH SPINDLE BOLT SMEAR) (ADJECTIVE SERVICE SQUARE FLUSH OPEN OFFICE) (FLAGS NDESCBIT DOORBIT) (INTERACTIONS "USE-WITH:LB-SPANNER,LB-STYLUS;OPEN:LB-SPANNER;UNLOCK:LB-SPANNER") (ACTION LB-HATCH-F)>
 <OBJECT LB-RUTH (IN LB-STUDIO) (DESC "Ruth Bell") (SYNONYM BELL RUTH ANNOUNCER WOMAN) (ADJECTIVE RUTH BELL) (FLAGS NDESCBIT ACTORBIT ARTICLEBIT) (INTERACTIONS "TELL:LB-MICROPHONE,LB-BROADCAST,LB-VANE,LB-DISC;SHOW:LB-DISC") (ACTION LB-RUTH-F)>
-<OBJECT LB-MICROPHONE (IN LB-STUDIO) (DESC "microphone") (SYNONYM MICROPHONE MIKE LAMP MIC PLATE) (ADJECTIVE RED STUDIO HEATER WARM SUPPLY TINY) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-MICROPHONE-F)>
+<OBJECT LB-MICROPHONE (IN LB-STUDIO) (DESC "microphone") (SYNONYM MICROPHONE MIKE LAMP MIC) (ADJECTIVE RED STUDIO HEATER WARM SUPPLY TINY) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-MICROPHONE-F)>
 <OBJECT LB-PLAYER (IN LB-CONTROL) (DESC "gramophone") (SYNONYM GRAMOPHONE PLAYER TURNTABLE PHONOGRAPH PICKUP PLATTER) (ADJECTIVE SPRING-DRIVEN BROADCAST) (FLAGS NDESCBIT CONTBIT OPENBIT SEARCHBIT) (CAPACITY 50) (INTERACTIONS "USE-WITH:LB-STYLUS,LB-SPANNER") (ACTION LB-PLAYER-F)>
-<OBJECT LB-SWITCH (IN LB-CONTROL) (DESC "routing switch") (SYNONYM SWITCH ROUTING LEVER GUARD WAX DAB MARK) (ADJECTIVE ROUTING MIC DISC WAX WITNESS) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-SWITCH-F)>
+<OBJECT LB-SWITCH (IN LB-CONTROL) (DESC "routing switch") (SYNONYM SWITCH ROUTING LEVER GUARD MARK) (ADJECTIVE ROUTING MIC DISC WAX WITNESS) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-SWITCH-F)>
 <OBJECT LB-CUTTER (IN LB-CUTTING) (DESC "disc cutter") (SYNONYM CUTTER MACHINE LACQUER COVER CRADLE ARM) (ADJECTIVE DISC LACQUER CUTTING) (FLAGS NDESCBIT CONTBIT SEARCHBIT) (CAPACITY 20) (INTERACTIONS "") (ACTION LB-CUTTER-F)>
 <OBJECT LB-REGISTER (IN LB-CUTTING) (DESC "cutter register") (SYNONYM REGISTER LOG LOGBOOK ENTRY ENTRIES) (ADJECTIVE CUTTER CUTTING) (FLAGS NDESCBIT READBIT) (INTERACTIONS "COMPARE:LB-DISC") (ACTION LB-REGISTER-F)>
-<OBJECT LB-SLEEVE (IN LB-ARCHIVE) (DESC "cardboard sleeve") (SYNONYM SLEEVE ENVELOPE CARDBOARD FLAP) (ADJECTIVE CARDBOARD RECORD STIFF REHEARSAL ARCHIVE) (FLAGS CONTBIT SEARCHBIT) (CAPACITY 30) (LDESC "A [[cardboard sleeve]] lies within reach.") (INTERACTIONS "") (ACTION LB-SLEEVE-F)>
+<OBJECT LB-SLEEVE (IN LB-ARCHIVE) (DESC "cardboard sleeve") (SYNONYM SLEEVE ENVELOPE CARDBOARD FLAP) (ADJECTIVE CARDBOARD RECORD STIFF REHEARSAL ARCHIVE) (FLAGS NDESCBIT CONTBIT SEARCHBIT) (CAPACITY 30)  (INTERACTIONS "") (ACTION LB-SLEEVE-F)>
 <OBJECT LB-DISC (IN LB-SLEEVE) (DESC "lacquer disc") (SYNONYM DISC RECORD GROOVE EDGE BAND LABEL) (ADJECTIVE LACQUER RECORDED APPEAL ALUMINIUM-BASED ALUMINIUM CHIPPED SIX-MINUTE ARCHIVE) (FLAGS TAKEBIT READBIT) (SIZE 2) (LDESC "A [[lacquer disc]] lies here.") (INTERACTIONS "PUT:LB-PLAYER,LB-SLEEVE;COMPARE:LB-REGISTER;SHOW:LB-RUTH,LB-ADA") (ACTION LB-DISC-F)>
-<OBJECT LB-LEDGER (IN LB-ARCHIVE) (DESC "wage ledger") (SYNONYM LEDGER WAGES WAGE ACCOUNTS BOOK FIGURES) (ADJECTIVE WAGE) (FLAGS TAKEBIT READBIT) (SIZE 1) (LDESC "A [[wage ledger]] lies here.") (INTERACTIONS "SHOW:LB-ADA") (ACTION LB-LEDGER-F)>
-<OBJECT LB-STYLUS (IN LB-WORKSHOP) (DESC "playback stylus") (SYNONYM STYLUS NEEDLE) (ADJECTIVE PLAYBACK STEEL SAPPHIRE SMALL WORKSHOP) (FLAGS TAKEBIT) (SIZE 0) (LDESC "A [[playback stylus]] lies here.") (INTERACTIONS "USE-ON:LB-PLAYER,LB-HATCH") (ACTION LB-STYLUS-F)>
+<OBJECT LB-LEDGER (IN LB-ARCHIVE) (DESC "wage ledger") (SYNONYM LEDGER WAGES WAGE ACCOUNTS BOOK FIGURES) (ADJECTIVE WAGE) (FLAGS NDESCBIT TAKEBIT READBIT) (SIZE 1) (LDESC "A [[wage ledger]] lies here.") (INTERACTIONS "SHOW:LB-ADA") (ACTION LB-LEDGER-F)>
+<OBJECT LB-WORKBENCH (IN LB-WORKSHOP) (DESC "workbench")
+	(SYNONYM WORKBENCH BENCH) (ADJECTIVE SERVICE SOLDER)
+	(FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-WORKBENCH-F)>
+<OBJECT LB-STYLUS (IN LB-WORKSHOP) (DESC "playback stylus") (SYNONYM STYLUS NEEDLE) (ADJECTIVE PLAYBACK STEEL SAPPHIRE SMALL WORKSHOP) (FLAGS NDESCBIT TAKEBIT) (SIZE 0) (LDESC "A [[playback stylus]] lies here.") (INTERACTIONS "USE-ON:LB-PLAYER,LB-HATCH") (ACTION LB-STYLUS-F)>
 <OBJECT LB-SPANNER (IN LB-WORKSHOP) (DESC "service spanner") (SYNONYM SPANNER WRENCH TOOL SOCKET) (ADJECTIVE SERVICE SQUARE SQUARE-SOCKET LARGE WORKSHOP) (FLAGS TAKEBIT TOOLBIT) (SIZE 1) (LDESC "A [[service spanner]] lies here.") (INTERACTIONS "USE-ON:LB-HATCH,LB-PLAYER") (ACTION LB-SPANNER-F)>
 <OBJECT LB-GENERATOR-MACHINE (IN LB-GENERATOR) (DESC "lighting generator") (SYNONYM GENERATOR DIESEL MOTOR ENGINE ACCUMULATORS) (ADJECTIVE LIGHTING DIESEL MECHANICAL) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-GENERATOR-F)>
 <OBJECT LB-CHART (IN LB-GENERATOR) (DESC "voltage chart") (SYNONYM CHART TRACE VOLTAGE) (ADJECTIVE VOLTAGE GENERATOR MECHANICAL) (FLAGS TAKEBIT READBIT) (SIZE 0) (LDESC "A [[voltage chart]] lies here.") (INTERACTIONS "COMPARE:LB-OFFICE-CLOCK") (ACTION LB-CHART-F)>
 <OBJECT LB-STAIN (IN LB-PASSAGE) (DESC "passage stain") (SYNONYM STAIN BLOOD PRINT FOOTPRINT HEEL DIAMOND) (ADJECTIVE PASSAGE HEEL BLOODY BLOOD DILUTED) (FLAGS NDESCBIT) (INTERACTIONS "COMPARE:LB-BOOTS") (ACTION LB-STAIN-F)>
 <OBJECT LB-EDITH (IN LB-KITCHEN) (DESC "Dr Edith Shaw") (SYNONYM SHAW EDITH DOCTOR PHYSICIAN) (ADJECTIVE EDITH DR SHAW DOCTOR) (FLAGS NDESCBIT ACTORBIT ARTICLEBIT) (INTERACTIONS "TELL:LB-BAG,LB-DRESSING,LB-BROADCAST,LB-VANE;SHOW:LB-DRESSING") (ACTION LB-EDITH-F)>
-<OBJECT LB-TABLE (IN LB-KITCHEN) (DESC "kitchen table") (SYNONYM TABLE KETTLE CUP TEA CUPS GLASS TUMBLER) (ADJECTIVE KITCHEN BROKEN COLD) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-TABLE-F)>
-<OBJECT LB-BAG (IN LB-KITCHEN) (DESC "medical bag") (SYNONYM BAG SATCHEL) (ADJECTIVE MEDICAL LEATHER PRIVATE EDITH) (FLAGS CONTBIT SEARCHBIT) (CAPACITY 20) (LDESC "A [[medical bag]] rests here.") (INTERACTIONS "") (ACTION LB-BAG-F)>
+<OBJECT LB-TABLE (IN LB-KITCHEN) (DESC "kitchen table") (SYNONYM TABLE KETTLE TEA GLASS TUMBLER) (ADJECTIVE KITCHEN BROKEN COLD) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-TABLE-F)>
+<OBJECT LB-BAG (IN LB-KITCHEN) (DESC "medical bag") (SYNONYM BAG SATCHEL) (ADJECTIVE MEDICAL LEATHER PRIVATE EDITH) (FLAGS NDESCBIT CONTBIT SEARCHBIT) (CAPACITY 20)  (INTERACTIONS "") (ACTION LB-BAG-F)>
 <OBJECT LB-DRESSING (IN LB-BAG) (DESC "bloodied dressing") (SYNONYM DRESSING BANDAGE GAUZE FRAGMENTS INITIALS) (ADJECTIVE BLOODIED MEDICAL BLOODY RUTH) (FLAGS TAKEBIT READBIT) (SIZE 0) (LDESC "A [[bloodied dressing]] lies here.") (INTERACTIONS "SHOW:LB-EDITH") (ACTION LB-DRESSING-F)>
 <OBJECT LB-TOMAS (IN LB-TELEGRAPH) (DESC "Tomas Vale") (SYNONYM VALE TOMAS OPERATOR MAN) (ADJECTIVE TOMAS VALE TELEGRAPH) (FLAGS NDESCBIT ACTORBIT ARTICLEBIT) (INTERACTIONS "TELL:LB-RECEIPT,LB-BROADCAST,LB-VANE;SHOW:LB-RECEIPT") (ACTION LB-TOMAS-F)>
 <OBJECT LB-TELEGRAPH-MACHINE (IN LB-TELEGRAPH) (DESC "telegraph") (SYNONYM TELEGRAPH KEY SOUNDER TAPE LANDLINE) (ADJECTIVE TWO-WAY) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-TELEGRAPH-F)>
@@ -96,3 +99,78 @@
 <OBJECT LB-BROADCAST (IN LOCAL-GLOBALS) (DESC "broadcast") (SYNONYM BROADCAST APPEAL ALIBI VOICE SOUND MURDER RECORDING) (ADJECTIVE APPEAL RECORDED SIX-MINUTE) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-BROADCAST-F)>
 
 <OBJECT LB-WEIGHT (IN LB-CUTTER) (DESC "brass counterweight") (SYNONYM COUNTERWEIGHT WEIGHT BRASS RIM DUST NOTCH LUG CRESCENT) (ADJECTIVE BRASS CUTTER LOOSE HEAVY BROKEN NOTCHED RETAINING) (FLAGS TAKEBIT) (SIZE 1) (LDESC "A [[brass counterweight]] rests here.") (INTERACTIONS "COMPARE:LB-BODY;SHOW:LB-ADA") (ACTION LB-WEIGHT-F)>
+
+<OBJECT LB-HALL-LIGHT (IN LB-LANDING) (DESC "hall light")
+    (SYNONYM LIGHT LAMP BULB) (ADJECTIVE HALL YELLOW)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Swinging on its bracket, the bulb sends a slow stripe of light across the landing. It stays lit between swings.")>
+
+<OBJECT LB-HALL-STAIRS (IN LB-HALL) (DESC "station stairs")
+    (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE STATION WOODEN)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The middle of each tread is worn hollow. The stair creaks loudest at the turn below the bunkroom.")>
+
+<OBJECT LB-CONTROL-LIGHT (IN LB-CONTROL) (DESC "green light")
+    (SYNONYM LIGHT LAMP BULB) (ADJECTIVE GREEN CONTROL)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The little lamp is wired to the transmitter. It shines just as green when the microphone is silent.")>
+
+<OBJECT LB-LACQUER-CURL (IN LB-CUTTING) (DESC "curl of lacquer")
+    (SYNONYM CURL SHAVING THREAD) (ADJECTIVE LACQUER THIN)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "It is one long, fine shaving. The [[cutting needle]] lifts a thread like this as it carves a groove.")>
+
+<OBJECT LB-ARCHIVE-PAPERS (IN LB-ARCHIVE) (DESC "archive papers")
+    (SYNONYM PAPERS PAPER DRAUGHT DRAFT) (ADJECTIVE ARCHIVE COLD LOOSE)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The loose sheets lift at one corner whenever air comes under the cutting-room door. Most are blank requisition forms.")>
+
+<OBJECT LB-COVERED-WALK (IN LOCAL-GLOBALS) (DESC "covered walk")
+    (SYNONYM WALK WALKWAY BOARDS) (ADJECTIVE COVERED WOODEN)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "A strip of corrugated tin keeps the middle boards dry. Rain blows in on the aerial side.")>
+
+<OBJECT LB-TELEGRAPH-STAIRS (IN LB-TELEGRAPH) (DESC "platform stairs")
+    (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE PLATFORM IRON)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Clean drops hang from the lowest iron tread. Someone coming in from the platform brings the weather down with them.")>
+
+<OBJECT DETAIL-BRASS-DUST (IN LB-OFFICE) (DESC "brass dust")
+    (SYNONYM GRAINS DUST CRESCENT GAP) (ADJECTIVE BRASS NARROW)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The grains lie thick at both ends of the crescent. Across the little gap the skin is entirely clean.")>
+
+<OBJECT DETAIL-WINDING-KNOB (IN LB-OFFICE) (DESC "winding knob")
+    (SYNONYM KNOB SPINDLE) (ADJECTIVE WINDING CLOCK)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The maker stamped SET beside it. The knob moves the hands, and has no ratchet to wind.")>
+
+<OBJECT DETAIL-HEATER-PLATE (IN LB-STUDIO) (DESC "heater plate")
+    (SYNONYM PLATE LETTERING) (ADJECTIVE HEATER TINY)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The letters are punched straight into the metal. Alongside HEATER someone pencilled a little arrow pointing to the lamp.")>
+
+<OBJECT DETAIL-WAX-DAB (IN LB-CONTROL) (DESC "wax dab")
+    (SYNONYM DAB WAX SEAL) (ADJECTIVE WAX SWITCH)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Half the wax clings to the guard and half to the switch. Their edges meet at DISC like the halves of a torn ticket.")>
+
+<OBJECT DETAIL-CUTTING-NEEDLE (IN LB-CUTTING) (DESC "cutting needle")
+    (SYNONYM NEEDLE POINT) (ADJECTIVE CUTTING)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "A fine amber thread still clings to the point. It curls the same way as the shaving on the bench.")>
+
+<OBJECT DETAIL-SQUARE-REPAIR (IN LB-PASSAGE) (DESC "square repair")
+    (SYNONYM REPAIR PATCH DIAMOND) (ADJECTIVE SQUARE DIAGONAL)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION LB-HEEL-REPAIR-F)>
+
+<OBJECT DETAIL-CUPS (IN LB-KITCHEN) (DESC "cups")
+    (SYNONYM CUPS CUP SAUCER) (ADJECTIVE COLD TEA)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "One cup still has a spoon in it. The other has left three wet rings where its owner kept lifting it and putting it down.")>
+
+<OBJECT DETAIL-BLACK-FELT (IN LB-WORKSHOP) (DESC "black felt")
+    (SYNONYM FELT CLOTH) (ADJECTIVE BLACK)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The nap is worn thin in one short groove. A delicate point laid there would stay put even when the bench shook.")>

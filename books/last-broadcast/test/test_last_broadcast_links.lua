@@ -44,6 +44,7 @@ local function choices()
 	return result
 end
 local names = {
+	{ "service workbench", "workbench" },
 	{ "office clock", "clock" }, { "julian body", "body" }, { "julian vane", "vane" },
 	{ "appeal board", "board" }, { "ruth bell", "ruth" },
 	{ "ada mercer", "ada" }, { "edith shaw", "edith" }, { "tomas vale", "tomas" },
@@ -92,6 +93,7 @@ local route = {
 	"west",
 	"south",
 	"south",
+	"examine workbench",
 	"take stylus",
 	"take spanner",
 	"down",

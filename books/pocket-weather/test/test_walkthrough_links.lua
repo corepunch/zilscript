@@ -8,6 +8,7 @@ walk:play({
 	{ "examine official forecast", expect = "continuous rain over the parade" },
 	{ "examine postmaster mica", expect = "yesterday" },
 	{ "tell postmaster mica about yesterday", expect = "archive south of the dispatch post" },
+	"examine dispatch bell",
 	{ "take weather card", expect = "Taken" },
 	-- Yesterday's report is folded shut in the archive.
 	{ "south", expect = "weatherbox" },
@@ -16,6 +17,7 @@ walk:play({
 	{ "read folded report", expect = "fold resists" },
 	"north",
 	{ "west", expect = "steaming kettle" },
+	"examine steaming kettle",
 	{ "take narrow spoon", expect = "Taken" },
 	-- The kettle names the report in hand, which puts its Steam action on screen.
 	{ "examine steaming kettle", expect = "folded report could be held over it" },
@@ -55,6 +57,9 @@ walk:play({
 	{ "put weather card in broadcast slot", expect = "quiet hum carries" },
 	"west",
 	{ "north", expect = "revised forecast hums" },
+	{ "examine nimbus cloud", expect = "puddle-sized" },
+	{ "examine light drizzle", expect = "drops hang far apart" },
+	{ "examine short shower", expect = "drops crowd together" },
 	{ "drizzle nimbus cloud", expect = "THE END -- A FORECAST YOU CAN KEEP" },
 })
 

@@ -19,7 +19,7 @@ source = (book / 'test/test_last_broadcast_links.lua').read_text()
 pairs = re.findall(r'\{ "([^"]+)", "([^"]+)" \}', source[source.index('local names ='):source.index('local function canonical')])
 
 def canonical(command):
-    command = re.sub(r'^ask ', 'tell ', command)
+    command = re.sub(r'^ask ', 'tell ', command).replace('spring-driven gramophone', 'gramophone').replace('wet aerial', 'aerial')
     for before, after in pairs:
         command = command.replace(before, after)
     return command

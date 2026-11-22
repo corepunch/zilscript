@@ -79,7 +79,7 @@ do
 	end
 	walk:play({
 		{ "align locked box to mr hudson", expect = "does not connect" },
-		{ "examine mr hudson", expect = "one of the three names" },
+		{ "examine mr hudson", expect = "shortest stretch of the dial" },
 		{ "align locked box to dr moriarty", expect = "sealed-letter engraving" },
 	})
 	lacks(walk:choose("open locked box"), "TURN BOX", "no typed command in the hint")
@@ -93,7 +93,7 @@ end
 -- 5. Menus offer a tool only where a tool makes sense.
 do
 	local walk = new()
-	walk:play({ "read creased telegram", "north", "take magnifying glass" })
+	walk:play({ "read creased telegram", "north", "examine hall table", "take magnifying glass" })
 	for _, action in ipairs(walk:menu()) do
 		assert(not action.command:find("study door with", 1, true), "nothing carried fits the study door: " .. action.command)
 	end
@@ -162,6 +162,7 @@ do
 		assert(walk:offers(command), "offered: " .. command)
 	end
 	walk:play({ "south" })
+	walk:choose("examine wooden trunk")
 	for _, command in ipairs({ "take oil lantern", "examine wooden trunk", "examine narrow beds" }) do
 		assert(walk:offers(command), "offered: " .. command)
 	end

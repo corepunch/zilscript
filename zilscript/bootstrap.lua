@@ -132,6 +132,7 @@ local _pending_syntax = {}  -- SYNTAX entries deferred until action functions ar
 local _pending_synonyms = {} -- vocabulary aliases applied after all object words exist
 local action_syntax = {}
 local object_phrases = {}
+local display_names = {}
 local object_aliases = {}
 local restart_snapshot
 local suggestions = {
@@ -1319,6 +1320,27 @@ local function retrace(input)
 	return nil, "You can't retrace your steps from here.\n"
 end
 
+-- Printed object names can contain titles, several adjectives, or a word
+-- the parser also uses as an adjective for another object.
+-- Use the same noun phrase as the reader menu for an exact, in-scope name.
+local function examine_display_name(input)
+	local command = input:lower():match("^%s*(.-)%s*$")
+	local noun = command:match("^examine%s+(.+)") or command:match("^x%s+(.+)")
+		or command:match("^look%s+at%s+(.+)")
+	if not noun then return input end
+	local candidates = display_names[noun:gsub("^the%s+", "")]
+	if not candidates or not ACCESSIBLEQ then return input end
+	local match
+	for _, object in ipairs(candidates) do
+		if LOC(object) ~= GLOBAL_OBJECTS and ACCESSIBLEQ(object) then
+			if match then return input end
+			match = object
+		end
+	end
+	if match then return "examine " .. object_noun(match) end
+	return input
+end
+
 -- Modified READ to yield with output
 function READ(inbuf, parse)
 	remember_room()
@@ -1344,7 +1366,7 @@ function READ(inbuf, parse)
 			s = coroutine.yield(refusal)
 			goto restart_read
 		end
-		s = command
+		s = examine_display_name(command)
 	end
 
 	local p = {}
@@ -1827,6 +1849,11 @@ function OBJECT(object)
 	if object.SYNONYM and object.SYNONYM[1] then
 		local adjective = object.ADJECTIVE and object.ADJECTIVE[1]
 		object_phrases[n] = ((adjective and adjective .. " " or "") .. object.SYNONYM[1]):lower()
+		if object.DESC then
+			local name = object.DESC:lower()
+			display_names[name] = display_names[name] or {}
+			table.insert(display_names[name], n)
+		end
 		local aliases = {}
 		for _, word in ipairs(object.SYNONYM) do table.insert(aliases, word:lower()) end
 		object_aliases[n] = aliases

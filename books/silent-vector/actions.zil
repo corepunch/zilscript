@@ -12,7 +12,12 @@
 <GLOBAL HINT-STAGE -1>
 <GLOBAL HINT-LEVEL 0>
 
+<ROUTINE RECORDS-LOOK (RARG)
+	<COND (<AND <EQUAL? .RARG ,M-LOOK> <FSET? ,RECORDER ,OPENBIT>>
+		<TELL "The open [[recorder]] rings beside its [[mass ledger->ledger]] on the way [[west]] to the galley." CR>)>>
+
 <ROUTINE GO ()
+	<SETG COMPACT-ROOM-LISTS T>
 	<SETG HERE ,CRADLE>
 	<SETG VERBOSE T>
 	<SETG LIT T>
@@ -29,8 +34,8 @@
 		(T <TELL "The pressure interlock holds. The [[breaker]] needs a reset." CR> <RFALSE>)>>
 <ROUTINE BREAKER-F ()
 	<COND (<VERB? EXAMINE READ>
-		<COND (,POWER <TELL "The [[breaker]] is reset and holding. The mechanical pressure telltale in its housing reads one atmosphere; no software drives it." CR>)
-			(T <TELL "The [[breaker]] is tripped, not broken. Its broad face is a push reset. A mechanical telltale in the housing shows the reserves are holding pressure." CR>)>)
+		<COND (,POWER <TELL "The [[breaker]] is reset and holding. The mechanical pressure [[telltale]] in its housing reads one atmosphere; no software drives it." CR>)
+			(T <TELL "The [[breaker]] is tripped, not broken. Its broad face is a push reset. A mechanical [[telltale]] in the housing shows the reserves are holding pressure." CR>)>)
 		(<VERB? PUSH TURN>
 		<COND (,POWER <TELL "Already reset. The mechanical telltale remains at one atmosphere." CR>)
 			(T <SETG POWER T> <TELL "The [[breaker]] catches. Air moves across your face. The mechanical telltale settles at one atmosphere, and the interlock releases [[north]]. A small fact, independent of anything you remember." CR>)>)>>
@@ -43,23 +48,29 @@
 <SYNTAX ERASE OBJECT = V-ERASE>
 <SYNTAX HINT = V-HINT>
 
+<ROUTINE COPPER-STRIP-F ()
+	<COND (<VERB? EXAMINE>
+		<TELL "Your hand finds four worn finger marks in the bare strip.">
+                <COND (,ISOLATED <TELL " You remember a fifth pair of footsteps here, but the passage is quiet now.">)>
+		<COND (,COOLING <TELL " Cool air from below slips between your fingers.">)
+		      (T <TELL " Heat from the spine below has made the metal almost too warm to touch.">)>
+		<CRLF> <RTRUE>)>>
+
 <ROUTINE HUB-F (RARG "AUX" (STAGE 0))
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "The air at the junction tastes of [[copper]] between the torque shop [[west]], galley [[east]], clinic [[north]] and cradle [[south]]. The spine runs [[down]], the cupola [[up]]." CR>
 		<COND (,EVAC <SET STAGE 4>) (,ISOLATED <SET STAGE 3>) (,PROOF <SET STAGE 2>) (,COOLING <SET STAGE 1>)>
-		<COND (<NOT <EQUAL? .STAGE ,HUB-MILESTONE>>
-			<SETG HUB-MILESTONE .STAGE>
-			<COND (,EVAC <TELL "Mara is waiting overhead. Ivo and Senn have agreed to leave; your decision will tell them what they carry." CR>)
-			(,ISOLATED <TELL "The compulsive half-heard syllable is gone. You still remember a fifth pair of footsteps here. You cannot hear them now." CR>)
-			(,PROOF <TELL "You remember somebody calling from behind you. The measured breath-load says four people. You turn anyway." CR>)
-			(,COOLING <TELL "Cool air reaches your ankles; one system has accepted a physical repair." CR>)
-			(T <TELL "Too much warmth rises from below." CR>)>
-		)>
-
+		<COND (<OR <EQUAL? .STAGE ,HUB-MILESTONE> <0? .STAGE>>
+		       <TELL "The air at the junction tastes of the [[copper rail->copper]] under your hand.">)
+		      (,EVAC <TELL "From the [[rail->copper]] you can see Mara is waiting overhead.">)
+		      (,ISOLATED <TELL "At the [[copper rail->copper]], the compulsive half-heard syllable is gone.">)
+		      (,PROOF <TELL "You count four [[marks->copper]] on the [[rail->copper]], just as the measured breath-load said.">)
+		      (T <TELL "Cool air reaches your ankles below the [[copper rail->copper]].">)>
+		<SETG HUB-MILESTONE .STAGE>
+		<TELL " The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]]." CR>
 		<RTRUE>)>>
 <ROUTINE CLINIC-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "The [[examination area->area]] smells of soap, the [[clinical log->log]] open between the junction [[south]] and the lab [[north]]." CR>
+		<TELL "The [[examination area->area]] smells of [[soap]], the [[clinical log->log]] open between the junction [[south]] and the lab [[north]]." CR>
 		<COND (<IN? ,MARA ,CLINIC>
 			<COND (,ISOLATED <TELL "[[Mara]] holds her own wrist, counting without looking at the time." CR>)
 				(T <TELL "[[Mara]] asks whether you have eaten." CR>)>)
@@ -67,12 +78,13 @@
 		<RTRUE>)>>
 <ROUTINE LAB-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "The [[comparator]] vibrates at the edge of hearing. [[South]] returns to the clinic; [[east]] leads to screened quarantine." CR>
-		<COND (,PROOF <TELL "The optical trace still holds steady." CR>)>
+		<COND (,PROOF <TELL "The optical trace holds steady on the [[comparator]].">)
+		      (T <TELL "The [[comparator]] vibrates at the edge of hearing.">)>
+		<TELL " [[South]] returns to the clinic; [[east]] leads to screened quarantine." CR>
 		<RTRUE>)>>
 <ROUTINE COOLANT-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<COND (,COOLING <TELL "Cold mist rises as the [[pump]] turns.">)
+		<COND (,COOLING <TELL "Cold [[mist]] rises as the [[pump]] turns.">)
 			(T <TELL "The [[pump]] makes a patient, unsuccessful sucking sound.">)>
 		<TELL " The service spine is [[east]]." CR> <RTRUE>)>>
 <ROUTINE RELAY-F (RARG)
@@ -83,28 +95,34 @@
 		<TELL " The service spine is [[west]]; the receiver vault is [[north]]." CR> <RTRUE>)>>
 <ROUTINE RECEPTION-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "The [[receiver]] crowds the passage [[south]] to the relay." CR>
+		<COND (<FSET? ,RECEIVER ,OPENBIT>
+                       <TELL "The silent [[receiver]] stands open across the passage [[south]] to the relay." CR> <RTRUE>)>
+                <TELL "The [[receiver]] crowds the passage [[south]] to the relay." CR>
 		<COND (,ISOLATED <TELL "You remember it thanking you, though it makes no sound." CR>)
 			(T <TELL "With each low beat your tongue tries to shape a name." CR>)>
 		<RTRUE>)>>
 <ROUTINE QUARANTINE-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "[[Senn]] sits between the lab [[west]] and the interlock [[north]] to the cold core." CR>
-		<COND (,SENN-DISCLOSED <TELL "His hands are closed now. He looks at you when he speaks." CR>)
-			(,ISOLATED <TELL "He waits for you to finish speaking. Then: 'Ask me about my [[daughter]] again. I can answer now.'" CR>)
-			(,PROOF <TELL "'Four traces,' he says without looking at you. 'When the carrier is quiet, ask me about my [[daughter]] again.'" CR>)
+		<TELL "[[Senn]] sits between the lab [[west]] and the [[interlock]] [[north]] to the cold core." CR>
+		<COND (,SENN-DISCLOSED <TELL "His hands are closed now, and he meets your eyes." CR>)
+			(,ISOLATED <TELL "He lets you finish speaking before he says, 'Ask me about my [[daughter]] again.'" CR>)
+			(,PROOF <TELL "'When the carrier is quiet,' he says, 'ask me about my [[daughter]] again.'" CR>)
 			(T <TELL "His lips shape the last word of your greeting before you say it." CR>)>
 		<RTRUE>)>>
 
 <ROUTINE CORE-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "Your breath hangs white between the [[cold archive->archive]] and the [[decision console->console]]. Quarantine lies [[south]]." CR>
-		<COND (<IN? ,WAFER ,COLD-ARCHIVE> <TELL "The [[wafer]] rests in cold, independent storage. Nothing is playing it." CR>)>
+		<COND (<IN? ,WAFER ,CORE>
+                       <TELL "Your breath hangs white between the [[cold archive->archive]] and the [[decision console->console]] by the [[south]] door." CR> <RTRUE>)>
+                <COND (<IN? ,WAFER ,COLD-ARCHIVE> <TELL "Your breath hangs white as the [[wafer]] rests in cold storage inside the silent [[archive]].">)
+		      (T <TELL "Your breath hangs white over the [[cold archive->archive]].">)>
+		<TELL " The [[decision console->console]] faces the way [[south]] to quarantine." CR>
 		<RTRUE>)>>
 <ROUTINE LAUNCH-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "The [[beacon]] points into the steady [[stars]]. The junction is [[down]]." CR>
-		<COND (,EVAC <TELL "The beacon is armed. [[Mara]] waits beside it with room for four living passengers." CR>)>
+		<COND (,EVAC <TELL "The armed [[beacon]] points at the [[stars]], and [[Mara]] waits beside four empty [[seats]].">)
+		      (T <TELL "The [[beacon]] points into the steady [[stars]].">)>
+		<TELL " The junction is [[down]]." CR>
 		<RTRUE>)>>
 
 <ROUTINE CORE-NORTH ()
@@ -128,10 +146,10 @@
 		<TELL "RECEIVE ISOLATION / COOL STORAGE. Restore coolant with the torque wrench. FIT SPOOL TO BUS, then CUT BUS WITH SHEARS. The spool absorbs discharge; ceramic blades cannot feed it into your nervous system. Only then OPEN RECEIVER. Compare physical witness foil in the laboratory before accepting autobiographical evidence. Store a recovered wafer in the cold archive. A mechanical rendezvous beacon is safe; radio is not." CR>)>>
 <ROUTINE PORTRAIT-F ()
 	<COND (<VERB? EXAMINE READ>
-		<TELL "Surface tension pins a child's face in clear droplets. It is beautiful and technically pointless. [[Ivo]] made it for Senn from a family photograph. A fifth adult sometimes seems to stand behind the child; when you count the actual droplets, no such figure is there. Ask Ivo about the [[daughter]]." CR>)>>
+		<TELL "Surface tension pins a child's face in clear [[droplets]]. It is beautiful and technically pointless. [[Ivo]] made it for Senn from a family photograph. A fifth adult sometimes seems to stand behind the child; when you count the actual droplets, no such figure is there. Ask Ivo about the [[daughter]]." CR>)>>
 <ROUTINE RECORDER-F ()
 	<COND (<VERB? EXAMINE READ>
-		<COND (<NOT <FSET? ,RECORDER ,OPENBIT>> <TELL "A sealed mechanical witness [[recorder]], disconnected from the network before the signal arrived, still recording pressure mechanically. Open it to recover the foil. It weighs actual breath loads; it cannot record names." CR>)
+		<COND (<NOT <FSET? ,RECORDER ,OPENBIT>> <TELL "Each step sets the sealed witness [[recorder]] ringing on its sprung feet. Its drum records pressure mechanically, even with the network disconnected. Open it to recover the foil. It weighs actual breath loads; it cannot record names." CR>)
 				(<IN? ,STRIP ,RECORDER> <TELL "A mechanical witness [[recorder]], disconnected from the network before the signal arrived. Its lid stands open; the [[witness strip->strip]] rests on the exposed drum. It weighs actual breath loads; it cannot record names." CR>)
 				(T <TELL "A mechanical witness [[recorder]], disconnected from the network before the signal arrived. Its lid stands open and the drum is bare; the foil has been removed. It weighs actual breath loads; it cannot record names." CR>)>)
 		(<VERB? OPEN SEARCH LOOK-INSIDE>
@@ -201,7 +219,7 @@
 		<COND (<NOT ,ISOLATED> <TELL "The [[receiver]] remains live. Its mechanical release is interlocked to the incoming bus. Isolate that bus before opening the housing." CR>)
 				(<NOT <FSET? ,RECEIVER ,OPENBIT>> <TELL "The [[receiver]] is electrically dead. Its mechanical release can now open the housing." CR>)
 				(<IN? ,WAFER ,RECEIVER> <TELL "The [[receiver]] is electrically dead and its housing stands open. A single [[memory wafer->wafer]] rests inside." CR>)
-			(T <TELL "The [[receiver]] is electrically dead. Its housing stands open and empty." CR>)>)
+			(T <TELL "The [[receiver]] is electrically dead. Its housing stands open and empty, two [[spring clips]] facing each other across a wafer-sized gap." CR>)>)
 		(<VERB? OPEN SEARCH LOOK-INSIDE>
 		<COND (<NOT ,ISOLATED> <TELL "The live housing cannot be opened. Terminate and sever the incoming bus first." CR>)
 			(T <FSET ,RECEIVER ,OPENBIT>
@@ -210,7 +228,7 @@
 <ROUTINE WAFER-F ()
 	<COND (<VERB? EXAMINE>
 		<SETG ORIGIN T>
-		<TELL "A [[memory wafer->wafer]] on a passive substrate. Its engraved index reads LENA / RESCUE-COMPRESSION / SENN ORLOV. An outer-relay return stamp crosses Asterion's own outbound serial. There is no independent power source." CR CR "You remember Lena reciting that serial while she worked. You do not remember teaching it to her. Senn can account for the name; cold storage will hold the sample without playback." CR>)
+		<TELL "A [[memory wafer->wafer]] on a passive substrate. Its [[engraved index]] reads LENA / RESCUE-COMPRESSION / SENN ORLOV. An outer-relay [[return stamp]] crosses Asterion's own outbound serial. There is no independent power source." CR CR "You remember Lena reciting that serial while she worked. You do not remember teaching it to her. Senn can account for the name; cold storage will hold the sample without playback." CR>)
 		(<VERB? LISTEN> <TELL "The unpowered wafer makes no sound. You remember drawing breath with Lena, waiting through the same pause before each answer. The pause ends only when you breathe." CR>)
 		(<VERB? PUT>
 			<COND (<EQUAL? ,PRSI ,COLD-ARCHIVE> <ARCHIVE-F>)
@@ -285,7 +303,15 @@
 			(T <TELL "Senn looks past the equipment. 'Ask me about the signal, or about Lena. I know which one is harder.'" CR>)>)>>
 
 <ROUTINE TOPIC-F ()
-	<COND (<VERB? EXAMINE> <TELL "Ask the person here about that subject. Test their account against the physical record, rather than against how familiar it feels." CR>)>>
+	<COND (<AND <VERB? EXAMINE> <EQUAL? ,PRSO ,TOPIC-DAUGHTER> <IN? ,SENN ,HERE>>
+		<COND (,SENN-DISCLOSED <TELL "Senn can show you how small her hands were. He has nothing on the station that bears her handwriting." CR>)
+		      (T <TELL "Senn cups his hands as though a small face rested between them. He waits for you to ask about her." CR>)>)
+	      (<VERB? EXAMINE>
+             <COND (<EQUAL? ,PRSO ,TOPIC-CREW> <COND (,PROOF <TELL "The strip counted four bodies, just as the departure list counted four names. The fifth place is the one you keep making room for in your head." CR>)
+                         (T <TELL "You can name Mara, Ivo and Senn without hesitating. Then you count yourself and find you are still waiting for one more name." CR>)>)
+                   (<EQUAL? ,PRSO ,TOPIC-SIGNAL> <COND (,ISOLATED <TELL "Reception has stopped. You can still finish the words in your head." CR>)
+                         (T <TELL "Listen to the rhythm in your head. You know exactly when the next beat is coming, as though you had heard it yesterday." CR>)>)
+                   (T <TELL "Everyone who remembers the girl puts her beside someone else. No two memories give her a place of her own." CR>)>)>>
 <ROUTINE V-SHOW ()
 	<COND (<NOT <AND <HELD? ,PRSO> <ACCESSIBLE? ,PRSO>>>
 		<TELL "Hold the actual item where the other person can inspect it." CR>)
@@ -380,10 +406,10 @@
 <ROUTINE CRADLE-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
 		<COND (,POWER <TELL "The [[padding]] holds the warmth of your back. Beside the quiet [[breaker]], the pressure-balanced way [[north]] stands open.">)
-			(T <TELL "A dry click comes through the [[padding]]. The [[breaker]] is within reach, but the way [[north]] is sealed.">)>
+			(T <TELL "A dry [[click]] comes through the [[padding]]. The [[breaker]] is within reach, but the way [[north]] is sealed.">)>
 		<CRLF> <RTRUE>)>>
 <ROUTINE FRAME-F ()
-	<COND (<VERB? EXAMINE SEARCH> <TELL "The [[restraint frame->frame]] releases by hand. Its padding is worn in four places where you brace your limbs. There is no second person's impression. The doorway's mechanical interlock depends on the habitat [[breaker]]." CR>)
+	<COND (<VERB? EXAMINE SEARCH> <TELL "A [[buckle]] taps the [[restraint frame->frame]] when you shift your weight. The frame releases by hand. Its padding is worn in four places where you brace your limbs. There is no second person's impression. The doorway's mechanical interlock depends on the habitat [[breaker]]." CR>)
 		(<VERB? OPEN CLOSE> <COND (,POWER <TELL "The interlock is released; the way [[north]] is open." CR>)
 			(T <TELL "Reset the [[breaker]] first. The pressure interlock is doing its job." CR>)>)>>
 <ROUTINE RECESSES-F ()
@@ -441,3 +467,26 @@
 	<TELL "Ivo studies the unpowered wafer. 'An inquiry will ask why we won't let them listen. Our answer will be four people saying they remember five.' ">
 	<COND (,CONSENT <TELL "He rubs his knuckle. 'I'll stand watch if we preserve it. I want my refusal on the record before somebody asks twice.'" CR>)
 		(T <TELL "'Bring me the measured foil. I need something better than that before I agree to leave.'" CR>)>>
+
+<ROUTINE CORE-INTERLOCK-F ()
+    <COND (<VERB? EXAMINE>
+           <COND (<AND ,PROOF ,ISOLATED> <TELL "Both [[inspection flags]] show white: trace verified and receiver isolated. The bolt has drawn back into its sleeve." CR>)
+                 (T <TELL "The bolt crosses two [[inspection flags]]. One needs a verified physical trace, the other a disconnected receiver." CR>)>)>>
+
+<ROUTINE FLAGS-DETAIL-F ()
+    <COND (<VERB? EXAMINE>
+           <COND (,PROOF <TELL "The TRACE tab shows white. ">) (T <TELL "A black bar still covers TRACE. ">)>
+           <COND (,ISOLATED <TELL "The receiver tab shows white." CR>) (T <TELL "A red line on the receiver tab means the circuit is still live." CR>)>)>>
+
+<ROUTINE GAUGE-DETAIL-F ()
+    <COND (<VERB? EXAMINE>
+           <COND (,POWER <TELL "The needle sits on the single black line for one atmosphere. You can still feel a faint pulse through the glass." CR>) (T <TELL "A needle quivers behind a little round window. Even with the breaker out, the needle stays inside the painted reserve band." CR>)>)>>
+
+<ROUTINE WAFER-CLIPS-F ()
+    <COND (<VERB? EXAMINE>
+           <COND (<IN? ,WAFER ,RECEIVER> <TELL "The tips bear against the two blank edges of the wafer. They hold it level without touching its face." CR>) (T <TELL "Each tip has a bright contact spot the size of a pinhead. The rest of the jaw is dull." CR>)>)>>
+
+<ROUTINE INDEX-DETAIL-F ()
+    <COND (<VERB? EXAMINE READ>
+           <SETG ORIGIN T>
+           <TELL "Under LENA and SENN ORLOV the cuts are equally sharp. Between them, RESCUE-COMPRESSION is cut in the same small hand." CR>)>>
