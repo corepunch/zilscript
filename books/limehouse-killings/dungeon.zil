@@ -44,17 +44,6 @@
 <GLOBAL CABINET-CLUE-SEEN <>>
 <GLOBAL WRONG-ATTEMPTS 0>
 <GLOBAL BELL-WIRE-PULLED <>>
-<GLOBAL GATE-SEEN <>>
-<GLOBAL HALL-SEEN <>>
-<GLOBAL STUDY-SEEN <>>
-<GLOBAL LIBRARY-SEEN <>>
-<GLOBAL GARDEN-SEEN <>>
-<GLOBAL DINING-SEEN <>>
-<GLOBAL KITCHEN-SEEN <>>
-<GLOBAL GREENHOUSE-SEEN <>>
-<GLOBAL SERVANTS-SEEN <>>
-<GLOBAL PASSAGE-SEEN <>>
-<GLOBAL PANTRY-SEEN <>>
 <GLOBAL SCORE-MAX 65>
 <GLOBAL RANKINGS
     <LTABLE "Bystander"
@@ -176,7 +165,7 @@
 <OBJECT TELEGRAM
       (IN ASHWORTH-MANOR-GATE)
       (DESC "creased telegram")
-      (FDESC "A creased [[telegram]] has been pinned beneath a stone beside the open gate.")
+      (FDESC "A stone holds down a creased [[telegram]].")
       (LDESC "A rain-spotted [[telegram]] lies here.")
       (SYNONYM TELEGRAM MESSAGE WIRE)
       (ADJECTIVE CREASED RAIN-SPOTTED PINNED)
@@ -230,21 +219,19 @@
 <OBJECT POISON-BOTTLE
       (IN STUDY)
       (DESC "poison bottle")
-      (FDESC "A small glass [[bottle]] with a faded label sits on the mantelpiece.")
       (LDESC "A small glass [[bottle]] with a faded label lies here.")
       (SYNONYM BOTTLE VIAL POISON-BOTTLE LABEL)
       (ADJECTIVE POISON SMALL GLASS FADED POISONOUS)
-      (FLAGS TAKEBIT READBIT)
+      (FLAGS NDESCBIT TAKEBIT READBIT)
       (ACTION POISON-BOTTLE-F)>
 
 <OBJECT SECRET-LEDGER
       (IN LIBRARY)
       (DESC "secret ledger")
-      (FDESC "A leather-bound [[ledger]] lies open on the reading [[desk->reading desk]], its pages filled with close entries.")
       (LDESC "A leather-bound [[ledger]] lies here.")
       (SYNONYM LEDGER BOOK ACCOUNT ACCOUNTS)
       (ADJECTIVE SECRET LEATHER LEATHER-BOUND OPEN)
-      (FLAGS TAKEBIT READBIT)
+      (FLAGS NDESCBIT TAKEBIT READBIT)
       (ACTION SECRET-LEDGER-F)>
 
 ; --- Tool Objects ---
@@ -252,7 +239,7 @@
 <OBJECT MAGNIFYING-GLASS
       (IN ASHWORTH-ENTRANCE-HALL)
       (DESC "magnifying glass")
-      (FDESC "A [[magnifying glass->glass]] rests on the hall table, its brass handle worn smooth.")
+      (FDESC "A [[magnifying glass->glass]] rests on the hall table.")
       (LDESC "A brass [[magnifying glass->glass]] lies here.")
       (SYNONYM GLASS LENS MAGNIFIER HANDLE)
       (ADJECTIVE MAGNIFYING BRASS CLEAR)
@@ -303,11 +290,10 @@
 <OBJECT TORN-PAGE
       (IN LIBRARY)
       (DESC "torn page")
-      (FDESC "A torn [[page]] lies on the reading desk, covered in handwritten notes.")
       (LDESC "A torn [[page]], covered in handwritten notes, lies here.")
       (SYNONYM PAGE FRAGMENT TORN-PAGE PAPER NOTES)
       (ADJECTIVE TORN HANDWRITTEN)
-      (FLAGS TAKEBIT READBIT)
+      (FLAGS NDESCBIT TAKEBIT READBIT)
       (ACTION TORN-PAGE-F)>
 
 <OBJECT COLORED-MARKERS
@@ -322,21 +308,19 @@
 <OBJECT FOOTPRINT-CAST
       (IN GARDEN)
       (DESC "footprint cast")
-      (FDESC "A plaster [[cast->footprint cast]] of a footprint sits near the fountain, preserving the evidence.")
       (LDESC "A plaster [[cast->footprint cast]] of a boot print lies here.")
       (SYNONYM CAST FOOTPRINT-CAST MOLD FOOTPRINT IMPRESSION MOULD PRINT)
       (ADJECTIVE PLASTER FOOTPRINT BOOT)
-      (FLAGS TAKEBIT)
+      (FLAGS NDESCBIT TAKEBIT)
       (ACTION FOOTPRINT-CAST-F)>
 
 <OBJECT WAX-SEAL
       (IN DINING-ROOM)
       (DESC "wax seal")
-      (FDESC "A crimson wax [[seal]] rests on the dining table, pressed with a sigil.")
       (LDESC "A broken wax [[seal]] lies here.")
       (SYNONYM SEAL STAMP WAX-SEAL SIGIL)
       (ADJECTIVE WAX BROKEN CRIMSON)
-      (FLAGS TAKEBIT)
+      (FLAGS NDESCBIT TAKEBIT)
       (ACTION WAX-SEAL-F)>
 
 <OBJECT BANK-STATEMENT
@@ -628,21 +612,19 @@
 <OBJECT FOXGLOVE
       (IN PANTRY)
       (DESC "foxglove")
-      (FDESC "A bottle of dried [[foxglove]] leaves stands among the preserves, a skull inked on its label.")
       (LDESC "A bottle of dried [[foxglove]] leaves lies here, a skull inked on its label.")
       (SYNONYM FOXGLOVE DIGITALIS LEAVES SKULL)
       (ADJECTIVE DRIED MEDICINAL)
-      (FLAGS TAKEBIT)
+      (FLAGS NDESCBIT TAKEBIT)
       (ACTION FOXGLOVE-F)>
 
 <OBJECT CHARCOAL
       (IN PANTRY)
       (DESC "charcoal")
-      (FDESC "A tin of powdered [[charcoal]] waits at the end of the shelf.")
       (LDESC "A tin of powdered [[charcoal]] lies here.")
       (SYNONYM CHARCOAL COAL POWDER TIN)
       (ADJECTIVE POWDERED MEDICINAL)
-      (FLAGS TAKEBIT)
+      (FLAGS NDESCBIT TAKEBIT)
       (ACTION CHARCOAL-F)>
 
 ; === GLOBAL OBJECTS ===
@@ -719,10 +701,9 @@
 <OBJECT LADY-ASHWORTH
       (IN DINING-ROOM)
       (DESC "Lady Ashworth")
-      (LDESC "Lady [[Ashworth]] sits at the dining table, her expression cold and calculating. She watches you with sharp eyes.")
       (SYNONYM ASHWORTH WIFE LADY-ASHWORTH WIDOW WOMAN)
       (ADJECTIVE LADY COLD)
-      (FLAGS ACTORBIT)
+      (FLAGS NDESCBIT ACTORBIT)
       (ACTION LADY-ASHWORTH-F)>
 
 <OBJECT DR-MORIARTY

@@ -17,46 +17,46 @@
 <GLOBAL LB-RECEIPT-SEEN <>>
 
 <ROOM LB-LANDING (IN ROOMS) (DESC "Saint Bride Landing")
-	(LDESC "Salt dries white on the [[station clock]]. Beyond it, the [[hall->north]] shines with electric warmth. The sea is making quite enough noise for everyone.")
+	(LDESC "Beyond the salt-crusted [[station clock]], a light burns in the [[hall->north]].")
 	(NORTH TO LB-HALL) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-HALL (IN ROOMS) (DESC "Station Hall")
-	(LDESC "Warm varnish smells faintly of fish. An [[appeal board]] faces the [[office->north]]; [[studio->east]] and [[kitchen->west]] flank the hall. The [[bunkroom->up]] is upstairs; the [[landing->south]] is behind you.")
+	(LDESC "From the [[appeal board]] you can see the [[office->north]], [[studio->east]] and [[kitchen->west]]. The [[bunkroom->up]] is up the stairs from the [[landing->south]].")
 	(NORTH TO LB-OFFICE) (EAST TO LB-STUDIO) (WEST TO LB-KITCHEN) (UP TO LB-BUNKROOM) (SOUTH TO LB-LANDING) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-OFFICE (IN ROOMS) (DESC "Vane's Office")
 	(ACTION LB-OFFICE-F)
 	(SOUTH TO LB-HALL) (DOWN TO LB-PASSAGE IF LB-HATCH IS OPEN ELSE "The [[hatch]] is bolted shut; its square spindle takes a spanner.") (GLOBAL LB-HATCH) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-STUDIO (IN ROOMS) (DESC "Broadcast Studio")
-	(LDESC "The felt smells of old tobacco. [[Ruth]] stands beside a [[microphone]], keeping her voice low for a machine that is no longer listening. The [[hall->west]] is west, the [[control room->east]] east.")
+	(LDESC "[[Ruth]] whispers beside the [[microphone]], between the [[hall to the west->west]] and the [[control room to the east->east]].")
 	(WEST TO LB-HALL) (EAST TO LB-CONTROL) (GLOBAL LB-VANE LB-BROADCAST) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-CONTROL (IN ROOMS) (DESC "Control Room")
-	(LDESC "The [[gramophone]] stands under a green-shaded light. A [[routing switch]] occupies the place of honour. The [[studio->west]] is west, the [[cutting room->north]] north, the [[workshop->south]] south.")
+	(LDESC "A green light pools over the [[gramophone]] and [[routing switch]]. Doors lead west to the [[studio->west]], north to the [[cutting room->north]] and south to the [[workshop->south]].")
 	(WEST TO LB-STUDIO) (NORTH TO LB-CUTTING) (SOUTH TO LB-WORKSHOP) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-CUTTING (IN ROOMS) (DESC "Disc Cutting Room")
-	(LDESC "A curl of lacquer has dried beside the [[cutter]]. Its [[register]] rests on a sloping stand. The [[control room->south]] lies south; the cooler [[archive->east]] is east.")
+	(LDESC "A curl of lacquer lies beside the [[cutter]] and its [[register]]. Doors open south to the [[control room->south]] and east to the [[archive->east]].")
 	(SOUTH TO LB-CONTROL) (EAST TO LB-ARCHIVE) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-ARCHIVE (IN ROOMS) (DESC "Record Archive")
-	(LDESC "Cold paper gives the room the smell of a closed church. Only the [[cutting room->west]] leads out.")
+	(LDESC "Cold paper gives the archive the smell of a closed church beyond the [[cutting room->west]].")
 	(WEST TO LB-CUTTING) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-WORKSHOP (IN ROOMS) (DESC "Service Workshop")
-	(LDESC "The air tastes of solder. The [[control room->north]] is north; the [[generator room->down]] hums below.")
+	(LDESC "The workshop smells of solder between the [[control room->north]] and the [[generator room below->down]].")
 	(NORTH TO LB-CONTROL) (DOWN TO LB-GENERATOR) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-GENERATOR (IN ROOMS) (DESC "Generator Room")
-	(LDESC "The [[generator]] shudders on rubber feet. The [[workshop->up]] is above; a [[cable passage->north]] runs north beneath the office.")
+	(LDESC "The [[generator]] shakes the floor between the [[workshop above->up]] and the [[cable passage->north]].")
 	(UP TO LB-WORKSHOP) (NORTH TO LB-PASSAGE) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-PASSAGE (IN ROOMS) (DESC "Cable Passage")
 	(ACTION LB-PASSAGE-F)
 	(SOUTH TO LB-GENERATOR) (UP TO LB-OFFICE IF LB-HATCH IS OPEN ELSE "The [[hatch]] is bolted shut; a square spindle faces you.") (GLOBAL LB-HATCH) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-KITCHEN (IN ROOMS) (DESC "Station Kitchen")
-	(LDESC "Steam has softened the edges of everything. [[Edith]] sits at the scrubbed end of the [[table]]. The [[hall->east]] lies east; the [[telegraph room->west]] west.")
+	(LDESC "[[Edith]] sits at the [[table]] between the [[hall->east]] and the [[telegraph room->west]].")
 	(EAST TO LB-HALL) (WEST TO LB-TELEGRAPH) (GLOBAL LB-VANE LB-BROADCAST) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-TELEGRAPH (IN ROOMS) (DESC "Telegraph Room")
-	(LDESC "The [[telegraph]] clicks into a silence its [[operator->tomas]] seems unwilling to occupy. The [[kitchen->east]] is east. An iron stair reaches the [[aerial platform->up]].")
+	(LDESC "The [[telegraph]] clicks beside its silent [[operator->tomas]], between the [[kitchen->east]] and the stairs to the [[aerial platform->up]].")
 	(EAST TO LB-KITCHEN) (UP TO LB-PLATFORM) (GLOBAL LB-VANE LB-BROADCAST) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-PLATFORM (IN ROOMS) (DESC "Aerial Platform")
-	(LDESC "Rain beads along the [[aerial]]. A [[signal lamp]] makes a small, brave green circle on the wet iron. The [[telegraph room->down]] is below; a covered walk leads east to the [[bunkroom->east]].")
+	(LDESC "A [[signal lamp]] lights the rain on the [[aerial]]. The [[telegraph room->down]] is below, the [[bunkroom->east]] across the covered walk.")
 	(DOWN TO LB-TELEGRAPH) (EAST TO LB-BUNKROOM) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-BUNKROOM (IN ROOMS) (DESC "Staff Bunkroom")
-	(LDESC "Soap and wet wool. [[Ada]] sits rigid beneath a [[maintenance roster]]. The [[hall->down]] is downstairs; the covered walk goes west to the [[aerial platform->west]].")
+	(LDESC "[[Ada]] sits beneath the [[maintenance roster]], upstairs from the [[hall->down]] and across the walk from the [[aerial platform->west]].")
 	(DOWN TO LB-HALL) (WEST TO LB-PLATFORM) (GLOBAL LB-VANE LB-BROADCAST) (FLAGS RLANDBIT ONBIT)>
 
 <OBJECT LB-CASEBOOK (IN ADVENTURER) (DESC "casebook") (SYNONYM CASEBOOK NOTEBOOK CASE BOOK NOTE NOTES COLUMNS)  (FLAGS TAKEBIT) (SIZE 0) (INTERACTIONS "") (ACTION LB-CASEBOOK-F)>

@@ -43,28 +43,28 @@ searched, as Zork I hides the grating under the leaves."
 
 <ROUTINE RECEPTION-ROOM-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "This cramped room once served as the sanitarium's reception. [[Filing cabinets->cabinets]] line the opposite wall, their drawers hanging open like gaping mouths.">
+           <TELL "Below the open [[filing cabinets->cabinets]],">
            <COND (<AND <FSET? ,BRASS-KEY ,INVISIBLE> <IN? ,BRASS-KEY ,RECEPTION-ROOM>>
-                  <TELL " Something glints among the [[papers]] scattered on the floor.">)
+                  <TELL " something glints among the [[papers]] by the exit [[east]].">)
                  (T
-                  <TELL " [[Papers->papers]] lie scattered across the floor.">)>
-           <TELL " A doorway to the [[east]] opens back to the entrance hall." CR>)>>
+                  <TELL " damp [[papers]] cover the floor by the exit [[east]].">)>
+           <CRLF>)>>
 
 <ROUTINE PATIENT-WARD-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "A long corridor with tattered curtains hanging between areas, offering the ghost of privacy. The floor is littered with patient records and broken glass.">
+           <TELL "Glass crunches underfoot on the way [[west]] to the hall">
            <COND (,CHAINS-CUT-FLAG
-                  <TELL " To the [[north]], the [[heavy door->door]] stands open, revealing darkness beyond.">)
+                  <TELL ", but the [[heavy door->door]] [[north]] stands open.">)
                  (T
-                  <TELL " At the far end, a [[heavy door->door]] sealed with [[chains]] blocks further passage.">)>
-           <TELL CR "A doorway leads [[west]] back to the entrance hall." CR>)>>
+                  <TELL ", and [[chains]] bind the [[heavy door->door]] at the far end.">)>
+           <CRLF>)>>
 
 <ROUTINE BASEMENT-CORRIDOR-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "The basement corridor is dim, stretching into shadow. Stone stairs climb [[upward->up]] toward the entrance hall.">
+           <TELL "The basement corridor is dim beneath dripping [[pipes]] and a wheel [[valve]].">
            <COND (<AND ,VALVE-TURNED-FLAG ,BOILER-LIT>
                   <TELL " Steam hisses from the pipes overhead, filling the corridor with an acrid mist.">)>
-           <TELL " To the [[east]], a passage smells of coal and old smoke. [[West->west]] lies what might have been storage. [[North->north]], another corridor descends into total darkness, toward the sound of dripping water." CR>)>>
+           <TELL " Stairs lead [[up]], coal smoke drifts from the [[east]], stores lie [[west]], and water drips in the dark [[north]]." CR>)>>
 
 <ROUTINE FLOODED-PASSAGE ()
     <COND (<CARRYING-LIGHT?> ,FLOODING-CHAMBER)
@@ -95,22 +95,22 @@ player never stands in the dark."
            <V-IGNITE>
            <RTRUE>)
           (<EQUAL? .RARG ,M-LOOK>
-           <TELL "[[Coal dust->dust]] softens every edge in this low brick chamber.">
-           <TELL " A narrow doorway leads [[west]]." CR>)>>
+           <TELL "[[Coal dust->dust]] coats the [[bin]] and [[workbench]] by the doorway [[west]].">
+           <CRLF>)>>
 
 <ROUTINE IRON-BOILER-DESC-F (RARG)
     <COND (<EQUAL? .RARG ,M-OBJDESC>
            <COND (,BOILER-LIT
-                  <TELL "The massive iron [[boiler]] is awake now: fire mutters behind its door and the pipes knock with gathering heat." CR>)
+                  <TELL "The iron [[boiler]] is awake now, fire muttering inside." CR>)
                  (<IN? ,LUMP-OF-COAL ,IRON-BOILER>
-                  <TELL "The massive iron [[boiler]] crouches in the darkness with fresh coal waiting in its firebox." CR>)
+                  <TELL "Fresh coal waits in the [[boiler]]." CR>)
                  (T
-                  <TELL "The room's centerpiece is a massive iron [[boiler]], cold and silent as a tomb." CR>)>
+                  <TELL "The iron [[boiler]] is stone cold." CR>)>
            <RTRUE>)>>
 
 <ROUTINE HYDROTHERAPY-ROOM-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "Rubber hoses dangle from fixtures above cracked porcelain tubs. A doorway [[west]] opens into the flooded chamber.">
+           <TELL "Rubber hoses hang above the [[tubs]] by the doorway [[west]].">
            <COND (,CABINET-THAWED
                   <TELL " Water beads on the [[medicine cabinet->cabinet]] where its coat of frost has melted.">)
                  (T
@@ -119,27 +119,27 @@ player never stands in the dark."
 
 <ROUTINE FLOODING-CHAMBER-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "The chamber is vast and dark, with arched stone ceilings disappearing into shadow.">
+           <TELL "Black [[water]] fills this vast and dark chamber between the passage [[north]] and the corridor [[south]].">
            <COND (,STEAM-DOOR-OPEN
                   <TELL " To the [[east]], a [[door]] stands open, steam wisping from its edges.">)
                  (T
                   <TELL " A sealed metal [[door]] to the east is corroded shut.">)>
-           <TELL CR "To the [[north]], a narrow passage disappears into darkness. The corridor lies to the [[south]]." CR>)>>
+           <CRLF>)>>
 
 <ROUTINE OVERGROWN-GARDEN-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "Broken [[benches]] lie among the overgrowth. A stone path, barely visible, leads to a small chapel to the [[north]].">
+           <TELL "From the cafeteria [[south]], broken [[benches]] mark a path through the [[garden]] to the chapel [[north]].">
            <COND (,CHAPEL-UNLOCKED
                   <TELL " The chapel [[door]] stands open, darkness visible beyond.">)
                  (T
                   <TELL " The chapel [[door]] is secured with a heavy iron lock.">)>
            <COND (<IN? ,PATIENT-189 ,OVERGROWN-GARDEN>
                   <TELL " [[Patient 189->patient]] stands among the dead roses, head tilted toward the chapel.">)>
-           <TELL CR "[[South->south]] returns to the cafeteria." CR>)>>
+           <CRLF>)>>
 
 <ROUTINE OAK-DESK-DESC-F (RARG)
     <COND (<EQUAL? .RARG ,M-OBJDESC>
-           <TELL "A heavy [[oak desk->desk]] sits against one wall, its surface thick with dust.">
+           <TELL "Dust coats the [[oak desk->desk]].">
            <COND (<FSET? ,BOTTOM-DRAWER ,OPENBIT>
                   <TELL " Its [[bottom drawer]] stands open." CR>
                   <COND (<FIRST? ,BOTTOM-DRAWER>
@@ -149,7 +149,7 @@ player never stands in the dark."
 
 <ROUTINE DIRECTORS-OFFICE-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "A large office with wood paneling. Bookshelves line the walls, filled with medical texts and journals." CR>)>>
+           <TELL "A [[desk]] faces the corridor [[door]] to the [[west]]." CR>)>>
 
 ; === ACTION HANDLERS ===
 
@@ -192,7 +192,7 @@ player never stands in the dark."
 
 <ROUTINE DESK-F ()
          <COND (<VERB? EXAMINE LOOK-INSIDE OPEN>
-                <TELL "The desk has three drawers. The top two are broken and empty. The [[bottom drawer->drawer]] is intact">
+                <TELL "A thick skin of dust coats the oak. The desk has three drawers. The top two are broken and empty. The [[bottom drawer->drawer]] is intact">
                 <COND (<FSET? ,BOTTOM-DRAWER ,OPENBIT> <TELL " and stands open.">)
                       (T <TELL " but locked; a number 3 is engraved beside its keyhole.">)>
                 <CRLF>
@@ -299,7 +299,7 @@ ajar, so examining it swings the door wide, as opening it does."
     <COND (<EQUAL? .RARG ,M-OBJDESC>
            <COND (<AND <IN? ,STRANGE-SERUM ,REFRIGERATED-DRAWERS>
                        <NOT <FSET? ,REFRIGERATED-DRAWERS ,OPENBIT>>>
-                  <TELL "Refrigerated [[drawers]] line both walls. A faint glow leaks from one left slightly ajar." CR>)
+                  <TELL "A faint glow leaks from the refrigerated [[drawers]]." CR>)
                  (T
                   <TELL "Refrigerated [[drawers]] line both walls." CR>
                   <COND (<FIRST? ,REFRIGERATED-DRAWERS>
@@ -321,7 +321,7 @@ ajar, so examining it swings the door wide, as opening it does."
 <ROUTINE DISTABLE-F ()
          <COND (<VERB? EXAMINE LOOK-INSIDE>
                 <TELL "The dissection table is made of stainless steel with drainage channels carved into its surface. Dark stains pool in the grooves.">
-                <COND (<IN? ,CANVAS-BUNDLE ,DISSECTION-TABLE> <TELL " A canvas-wrapped [[bundle]] lies upon it.">)>
+                <COND (<IN? ,CANVAS-BUNDLE ,DISSECTION-TABLE> <TELL " A human-shaped [[bundle]] lies under stained canvas.">)>
                 <CRLF>
                 <RTRUE>)>>
 
@@ -432,7 +432,7 @@ ajar, so examining it swings the door wide, as opening it does."
 <ROUTINE SHELVES-F ()
          <COND (<VERB? EXAMINE LOOK-INSIDE SEARCH OPEN>
                 <UNCOVER ,SHELVES>
-                <TELL "You search through the shelves. Most items are ruined by time and moisture.">
+                <TELL "You search through the shelves. Beneath the sour linen, rust has eaten through most of the equipment.">
                 <COND (<OR <IN? ,OIL-LANTERN ,SHELVES> <IN? ,MEDICAL-BAG ,SHELVES> <IN? ,MEDICAL-RECORDS ,SHELVES>>
                        <TELL " Among the debris, you find">
                        <COND (<IN? ,OIL-LANTERN ,SHELVES> <TELL " a [[lantern]]">)>
@@ -675,7 +675,7 @@ ajar, so examining it swings the door wide, as opening it does."
 <ROUTINE PORTRAIT-DESC-F (RARG)
     <COND (<EQUAL? .RARG ,M-OBJDESC>
            <COND (<FSET? ,WALL-SAFE ,INVISIBLE>
-                  <TELL "A [[portrait of Dr. Mordecai->portrait]] hangs on the wall, his stern eyes seeming to follow you." CR>)
+                  <TELL "A [[portrait of Dr. Mordecai->portrait]] hangs over the desk." CR>)
                  (T
                   <TELL "The [[portrait of Dr. Mordecai->portrait]] hangs swung aside on its hinge, his stern eyes still following you." CR>)>
            <RTRUE>)>>
@@ -1029,17 +1029,16 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
 <ROUTINE CHAPEL-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
            <COND (,GAME-WON
-                  <TELL "The chapel is just a room now. The candles are dark. The altar is bare. Whatever was here is gone -- and so is whatever held you." CR>)
+                  <TELL "The [[candles]] are dark and the altar is bare. Beyond the [[pews]], the garden lies [[south]]." CR>)
                  (T
-                  <TELL "The chapel is small and suffocating. Cold green light from unnatural [[candles]] makes everything look like a corpse." CR>
+                  <TELL "Green [[candles]] light the [[pews]] by the garden door [[south]]." CR>
                   <COND (<NOT <IN? ,PATIENT-189 ,CHAPEL>>
                          <TELL "The place before the altar stands empty." CR>)
                         (<NOT ,PATIENT-STATE>
                          <SETG PATIENT-STATE 1>
-                         <TELL "[[Something->patient]] is standing at the altar. It doesn't move. It doesn't breathe. But somehow, horribly, you know it knows you're here." CR>)
+                         <TELL "[[Something->patient]] is standing at the altar, perfectly still." CR>)
                         (T
                          <TELL "A [[figure->patient]] stands motionless at the altar, its eyes glowing faintly as they follow you." CR>)>)>
-           <TELL "The open doorway leads [[south]] to the garden." CR>
            <RTRUE>)>>
 
 <ROUTINE PEWS-F ()

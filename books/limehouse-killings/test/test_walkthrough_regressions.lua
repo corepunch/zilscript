@@ -68,6 +68,7 @@ do
 	local walk = new()
 	walk.env.CIPHER_SOLVED = true
 	walk:play({ "north", "east", "east", "up", { "examine study door", expect = "bolt shot home on this side" } })
+	walk:choose("examine stone fireplace")
 	has(walk:choose("examine locked box"), "Lady Ashworth, Mr. Hudson, or Dr. Moriarty", "the dial's names are listed")
 	for _, name in ipairs({ "dr moriarty", "lady ashworth", "mr hudson" }) do
 		assert(walk:offers("align locked box to " .. name), "the dial offers " .. name)
@@ -96,7 +97,7 @@ do
 	for _, action in ipairs(walk:menu()) do
 		assert(not action.command:find("study door with", 1, true), "nothing carried fits the study door: " .. action.command)
 	end
-	walk:play({ "east", "read secret ledger", "inventory" })
+	walk:play({ "east", "examine reading desk", "read secret ledger", "inventory" })
 	lacks(walk:choose("read secret ledger with magnifying glass"), "How does one look through", "the lens can be read through")
 	has(walk:choose("use magnifying glass on secret ledger"), "nothing there that your unaided eye had missed")
 	has(say(walk, "examine fireplace"), "library grate", "the library fire is not the study's")
@@ -108,7 +109,7 @@ end
 -- 6. The solved bookcase stays in the fiction.
 do
 	local walk = new()
-	walk:play({ "north", "east", "read torn page", "examine colored ribbons",
+	walk:play({ "north", "east", "examine reading desk", "read torn page", "examine colored ribbons",
 		"push red book", "push yellow book", "push green book", "push blue book" })
 	local text = walk:choose("push floor-to-ceiling bookshelves")
 	lacks(text, "already solved")
@@ -120,13 +121,13 @@ end
 do
 	local walk = new()
 	walk.env.CIPHER_SOLVED = true
-	walk:play({ "north", "east", "east", "up", "examine mahogany desk", "read unsent letter", "read poison bottle",
+	walk:play({ "north", "east", "east", "up", "examine mahogany desk", "read unsent letter", "examine stone fireplace", "read poison bottle",
 		"open study door", "south", "west", "show unsent letter to lady ashworth" })
 	local room = walk:choose("look")
 	lacks(room, "The letter rests", "the letter is still in the player's hands")
 	has(room, "wedding ring")
 	assert(walk.env.LOC(walk.env.DEAD_LETTER) == walk.env.WINNER, "showing the letter does not give it away")
-	walk:play({ "north", "take dried foxglove", "take powdered charcoal" })
+	walk:play({ "north", "examine pantry shelves", "take dried foxglove", "take powdered charcoal" })
 	local shelves = walk:choose("examine pantry shelves")
 	has(shelves, "preserves and spices.")
 	walk:play({ "south", "inventory", { "drop dried foxglove", expect = "drop" } })
@@ -156,8 +157,8 @@ end
 -- 9. The commands a menu sends read like the prose that offered them.
 do
 	local walk = new()
-	walk:play({ "north", "down", "west", "examine overgrown hedges" })
-	for _, command in ipairs({ "take plaster cast", "take blood-stained knife", "examine overgrown hedges" }) do
+	walk:play({ "north", "down", "west", "examine stone fountain", "examine overgrown hedges" })
+	for _, command in ipairs({ "take plaster cast", "take blood-stained knife", "examine stone fountain", "examine overgrown hedges" }) do
 		assert(walk:offers(command), "offered: " .. command)
 	end
 	walk:play({ "south" })

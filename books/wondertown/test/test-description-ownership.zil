@@ -3,11 +3,20 @@
 <GLOBAL CO <CO-CREATE GO>>
 
 <ROUTINE RUN-TEST ()
-    ;"Room-owned scenery and automatic objects compose without repeating the broom/string."
-    <ASSERT-TEXT "brass key hook" <CO-RESUME ,CO "look">>
-    <ASSERT-TEXT "Your tiny broom leans against the workbench" <CO-RESUME ,CO "look">>
-    <ASSERT-NOT-TEXT "Your tiny broom leans against the bench" <CO-RESUME ,CO "look">>
-    <ASSERT-NOT-TEXT "A frayed string dangles from the empty key hook" <CO-RESUME ,CO "look">>
+    ;"Look gives a lead. Following it reveals smaller things a reader can take."
+    <ASSERT-TEXT "key hook is empty" <CO-RESUME ,CO "look">>
+    <ASSERT-NOT-TEXT "string" <CO-RESUME ,CO "look">>
+    <ASSERT-TEXT "frayed string" <CO-RESUME ,CO "examine hook">>
+    <CO-RESUME ,CO "take string">
+    <CO-RESUME ,CO "drop string">
+    <ASSERT-TEXT "string lies here" <CO-RESUME ,CO "look">>
+    <ASSERT-NOT-TEXT "dangles" <CO-RESUME ,CO "examine hook">>
+    <ASSERT-NOT-TEXT "broom" <CO-RESUME ,CO "look">>
+    <ASSERT-TEXT "broom" <CO-RESUME ,CO "examine workbench">>
+    <CO-RESUME ,CO "take broom">
+    <CO-RESUME ,CO "drop broom">
+    <ASSERT-TEXT "broom lies here" <CO-RESUME ,CO "look">>
+    <ASSERT-NOT-TEXT "leans" <CO-RESUME ,CO "examine workbench">>
 
     ;"Stateful focal objects own their current descriptions."
     <SETG HERE ,COUNTERTOP>
@@ -26,8 +35,9 @@
     <SETG HERE ,TOOL-BENCH>
     <MOVE ,WINNER ,TOOL-BENCH>
     <MOVE ,BERTRAND-KEY ,WINNER>
-    <ASSERT-TEXT "low crate" <CO-RESUME ,CO "look">>
-    <ASSERT-TEXT "winding socket in his back is empty" <CO-RESUME ,CO "look">>
+    <ASSERT-NOT-TEXT "packing crate" <CO-RESUME ,CO "look">>
+    <ASSERT-TEXT "packing crate" <CO-RESUME ,CO "examine steps">>
+    <ASSERT-TEXT "winding socket in his back is empty" <CO-RESUME ,CO "examine nutcracker">>
     <ASSERT-NOT-TEXT "spool" <CO-RESUME ,CO "look">>
 
     <SETG HERE ,STORAGE-LOFT>
@@ -45,9 +55,9 @@
     ;"Formerly suppressed FDESC prose is visible where it teaches the goal."
     <SETG HERE ,CLOCK-SQUARE>
     <MOVE ,WINNER ,CLOCK-SQUARE>
-    <ASSERT-TEXT "hours until dawn" <CO-RESUME ,CO "look">>
+    <ASSERT-TEXT "hours until dawn" <CO-RESUME ,CO "examine tower">>
 
     <SETG HERE ,WORKSHOP-HEART>
     <MOVE ,WINNER ,WORKSHOP-HEART>
-    <ASSERT-TEXT "At its core, a keyhole waits" <CO-RESUME ,CO "look">>
+    <ASSERT-TEXT "a keyhole waits" <CO-RESUME ,CO "look">>
 >

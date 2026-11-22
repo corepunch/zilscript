@@ -776,6 +776,13 @@ failing on "You can't see any", "noun missing" and the like.
 
 ### Withholding What Must Be Examined
 
+Read the whole opening up to the first choice, including the introduction and
+every automatic object line. Aim for a sentence or two that places the reader
+and gives them something to investigate. Keep routes easy to find. In a
+children's book, let one small mystery carry the scene: in Wondertown a glint
+under the workbench invites a closer look. Examining the bench finds the oil
+can, and examining the can tells Pip what the oil is for.
+
 A description says what a glance takes in, and nothing more. What lies
 hidden among, under, behind or inside something, what is written on a thing,
 and what a detective would conclude from it, is learned by examining,

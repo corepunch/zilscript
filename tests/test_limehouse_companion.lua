@@ -38,7 +38,7 @@ local function run_companion(choices)
     local handle = io.popen(cmd, "r")
     local output = handle:read("*a")
     handle:close()
-    return output
+    return (output:gsub("\27%[[%d;]*m", ""))
 end
 
 -- Piped input gets the numbered menu (main.lua). A first visit prints a
@@ -48,7 +48,7 @@ end
 -- Test 1: Companion loads without errors
 test("companion loads", function()
     local output = run_companion({})
-    assert_contains(output, "Wet iron bars")
+    assert_contains(output, "Ashworth Manor slips in and out of the fog")
     assert_contains(output, "Choose a number")
 end)
 
@@ -73,14 +73,14 @@ end)
 -- Test 5: Entering manor from gate
 test("enter manor works", function()
     local output = run_companion({"1", "3"})
-    assert_contains(output, "measured hush")
+    assert_contains(output, "Beneath a dusty chandelier")
 end)
 
 -- Test 6: Library accessible from hall
 test("library accessible", function()
     -- Gate: read telegram(1), enter(3), Hall: try study(1), go library(4)
     local output = run_companion({"1", "3", "1", "4"})
-    assert_contains(output, "Floor-to-ceiling bookshelves")
+    assert_contains(output, "gilt titles on the bookshelves")
 end)
 
 -- Test 7: Library shows torn page choice

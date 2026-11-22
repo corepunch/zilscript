@@ -17,25 +17,23 @@
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM WORKSHOP (IN ROOMS) (DESC "Torque Shop")
-	(LDESC "The air smells of warm insulation. A [[protocol card->protocol]] is fastened over the [[tool recesses->recesses]]. [[East]] returns to the junction.")
+	(LDESC "Warm insulation lines the [[tool recesses->recesses]] beneath a [[protocol card->protocol]] by the passage [[east]].")
 	(EAST TO HUB)
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM GALLEY (IN ROOMS) (DESC "Galley")
 	(ACTION GALLEY-F)
-	(LDESC "The [[portrait]] turns slowly in the ventilation. [[Ivo]] is counting on his fingers, stopping at four, starting again. [[West]] returns to the junction; [[east]] leads to the physical archive.")
 	(WEST TO HUB)
 	(EAST TO RECORDS)
 	(GLOBAL TOPIC-SIGNAL TOPIC-CREW TOPIC-DAUGHTER)
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM RECORDS (IN ROOMS) (DESC "Physical Archive")
-	(LDESC "Each footfall makes the [[recorder]] ring softly. A handwritten [[mass ledger->ledger]] is attached beside it. [[West]] returns to the galley.")
+	(LDESC "Each footfall makes the [[recorder]] ring beside its [[mass ledger->ledger]]. The galley lies [[west]].")
 	(WEST TO GALLEY)
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM CLINIC (IN ROOMS) (DESC "Clinic")
-	(LDESC "The room smells of soap, a smell you have almost forgotten. A [[clinical log->log]] rests beside the [[examination area->area]]. [[South]] is the junction; [[north]] leads to the comparison laboratory.")
 	(ACTION CLINIC-F)
 	(SOUTH TO HUB)
 	(NORTH TO LAB)
@@ -43,21 +41,19 @@
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM LAB (IN ROOMS) (DESC "Comparison Laboratory")
-	(LDESC "The [[comparator]] vibrates at the edge of hearing. [[South]] returns to the clinic; [[east]] leads to the screened quarantine room.")
 	(ACTION LAB-F)
 	(SOUTH TO CLINIC)
 	(EAST TO QUARANTINE)
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM SERVICE (IN ROOMS) (DESC "Service Spine")
-	(LDESC "Warm air breathes through this narrow space. [[West]] leads to the coolant system, [[east]] to the receive relay. The junction is [[up]].")
+	(LDESC "A draught rattles the [[grille]] between coolant [[west]] and the relay [[east]], below the junction [[above->up]].")
 	(WEST TO COOLANT)
 	(EAST TO RELAY)
 	(UP TO HUB)
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM COOLANT (IN ROOMS) (DESC "Coolant Well")
-	(LDESC "The [[pump]] makes a patient, unsuccessful sucking sound. The service spine is [[east]].")
 	(ACTION COOLANT-F)
 	(EAST TO SERVICE)
 	(FLAGS RLANDBIT ONBIT)>
@@ -74,7 +70,6 @@
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM QUARANTINE (IN ROOMS) (DESC "Screened Quarantine")
-	(LDESC "[[Senn]] sits very upright, as if posture were a measurement. The comparison lab is [[west]]. The interlocked way [[north]] leads into the cold core.")
 	(ACTION QUARANTINE-F)
 	(WEST TO LAB)
 	(NORTH PER CORE-NORTH)
@@ -82,35 +77,46 @@
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM CORE (IN ROOMS) (DESC "Cold Core")
-	(LDESC "Your breath hangs white above the [[cold archive->archive]]. The [[decision console->console]] has two recessed commitments. Quarantine is [[south]].")
 	(ACTION CORE-F)
 	(SOUTH TO QUARANTINE)
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM LAUNCH (IN ROOMS) (DESC "Launch Cupola")
-	(LDESC "The [[stars]] do not flicker here. The mechanical [[beacon]] points away from the station. The habitat junction is [[down]].")
+	(LDESC "The [[beacon]] points into the steady [[stars]]. The junction is [[down]].")
 	(ACTION LAUNCH-F)
 	(DOWN TO HUB)
 	(GLOBAL TOPIC-SIGNAL TOPIC-CREW TOPIC-DAUGHTER)
 	(FLAGS RLANDBIT ONBIT)>
 
+<OBJECT COPPER-STRIP
+	(IN HUB) (DESC "copper strip")
+	(SYNONYM COPPER STRIP RAIL) (ADJECTIVE COPPER BARE WORN)
+	(INTERACTIONS "") (FLAGS NDESCBIT)
+	(TEXT "A bare strip runs along the wall. Your hand finds four worn finger marks before you have even looked down.")>
+
 <OBJECT WRENCH
 	(INTERACTIONS "PUT:COLD-ARCHIVE") (IN WORKSHOP) (DESC "torque wrench")
 	(SYNONYM WRENCH DRIVER GRIP SPANNER) (ADJECTIVE TORQUE CALIBRATED WORN SQUARE)
-	(FLAGS TAKEBIT TOOLBIT) (ACTION WRENCH-F)
-	(LDESC "A [[torque wrench->wrench]] rests in its recess.")>
+	(FLAGS NDESCBIT TAKEBIT TOOLBIT) (ACTION WRENCH-F)
+	(LDESC "A [[torque wrench->wrench]] lies here.")>
 
 <OBJECT SPOOL
 	(INTERACTIONS "FIT:BUS;PUT:BUS") (IN WORKSHOP) (DESC "null spool")
 	(SYNONYM SPOOL TERMINATOR) (ADJECTIVE NULL PASSIVE MATCHED)
-	(FLAGS TAKEBIT) (ACTION SPOOL-F)
-	(LDESC "A [[null spool->spool]] sits in a shaped recess.")>
+	(FLAGS NDESCBIT TAKEBIT) (ACTION SPOOL-F)
+	(LDESC "A [[null spool->spool]] lies here.")>
+
+<OBJECT SPINE-GRILLE
+	(IN SERVICE) (DESC "ventilation grille")
+	(SYNONYM GRILLE VENT GRATE) (ADJECTIVE VENTILATION METAL)
+	(INTERACTIONS "") (FLAGS NDESCBIT)
+	(TEXT "One screw has shaken loose. A narrow strip of foil tied to the grille lifts in the draught toward the habitat above.")>
 
 <OBJECT SHEARS
 	(INTERACTIONS "") (IN CLINIC) (DESC "pair of ceramic shears")
 	(SYNONYM SHEARS CUTTER BLADES EDGES PAIR SHEAR SCISSORS) (ADJECTIVE CERAMIC NONCONDUCTIVE STERILE)
-	(FLAGS TAKEBIT TOOLBIT WEAPONBIT) (ACTION SHEARS-F)
-	(LDESC "A pair of [[ceramic shears->shears]] lies ready for sterile work.")>
+	(FLAGS NDESCBIT TAKEBIT TOOLBIT WEAPONBIT) (ACTION SHEARS-F)
+	(LDESC "A pair of [[ceramic shears->shears]] lies here.")>
 
 <OBJECT PROTOCOL
 	(INTERACTIONS "") (IN WORKSHOP) (DESC "protocol card")

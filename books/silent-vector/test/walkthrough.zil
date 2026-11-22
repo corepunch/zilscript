@@ -9,10 +9,10 @@
 	<ASSERT-TEXT "Taken" <CO-RESUME ,CO "take spool">>
 	<ASSERT-TEXT "FIT SPOOL TO BUS" <CO-RESUME ,CO "read protocol">>
 	<ASSERT-TEXT "junction tastes" <CO-RESUME ,CO "east">>
-	<ASSERT-TEXT "Warm air" <CO-RESUME ,CO "down">>
+	<ASSERT-TEXT "draught" <CO-RESUME ,CO "down">>
 	<ASSERT-TEXT "pump" <CO-RESUME ,CO "west">>
 	<ASSERT-TEXT "calibrated click" <CO-RESUME ,CO "turn pump with wrench">>
-	<ASSERT-TEXT "Warm air" <CO-RESUME ,CO "east">>
+	<ASSERT-TEXT "draught" <CO-RESUME ,CO "east">>
 	<ASSERT-TEXT "Cool air" <CO-RESUME ,CO "up">>
 	<ASSERT-TEXT "portrait" <CO-RESUME ,CO "east">>
 	<ASSERT-TEXT "recorder" <CO-RESUME ,CO "east">>
@@ -31,7 +31,7 @@
 	<ASSERT-TEXT "portrait" <CO-RESUME ,CO "east">>
 	<ASSERT-TEXT "consent to evacuation" <CO-RESUME ,CO "show strip to ivo">>
 	<ASSERT-TEXT "junction tastes" <CO-RESUME ,CO "west">>
-	<ASSERT-TEXT "Warm air" <CO-RESUME ,CO "down">>
+	<ASSERT-TEXT "draught" <CO-RESUME ,CO "down">>
 	<ASSERT-TEXT "sings" <CO-RESUME ,CO "east">>
 	<ASSERT-TEXT "locks onto" <CO-RESUME ,CO "fit spool to bus">>
 	<ASSERT-TEXT "ceramic edges" <CO-RESUME ,CO "cut bus with shears">>
@@ -40,7 +40,7 @@
 	<ASSERT-TEXT "Taken" <CO-RESUME ,CO "take wafer">>
 	<ASSERT-TEXT "rescue-compression" <CO-RESUME ,CO "examine wafer">>
 	<ASSERT-TEXT "severed" <CO-RESUME ,CO "south">>
-	<ASSERT-TEXT "Warm air" <CO-RESUME ,CO "west">>
+	<ASSERT-TEXT "draught" <CO-RESUME ,CO "west">>
 	<ASSERT-TEXT "syllable is gone" <CO-RESUME ,CO "up">>
 	<ASSERT-TEXT "soap" <CO-RESUME ,CO "north">>
 	<ASSERT-TEXT "comparator" <CO-RESUME ,CO "north">>

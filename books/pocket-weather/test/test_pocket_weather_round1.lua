@@ -23,10 +23,10 @@ local function path(...)
 	for _, text in ipairs({ ... }) do command(text) end
 end
 path("take card", "west", "take spoon", "west")
-check(command("look"):find("pockets bulge", 1, true), "Unsearched apron hints at contents")
+check(command("look"):find("pockets bulging", 1, true), "Unsearched apron hints at contents")
 path("search apron", "take button", "take ribbon")
-check(not command("look"):find("pockets bulge", 1, true), "Emptied apron cannot bulge")
-check(command("look"):find("empty pockets", 1, true), "Emptied apron has honest presence text")
+check(not command("look"):find("pockets bulging", 1, true), "Emptied apron cannot bulge")
+check(command("look"):find("pockets flat", 1, true), "Emptied apron has honest presence text")
 path("north", "give button to rook", "east", "turn vane", "down", "north", "east")
 local loudRain = command("drizzle cloud")
 check(loudRain:lower():find("chime", 1, true), "Premature drizzle respects noise")

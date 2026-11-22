@@ -4,7 +4,7 @@
 
 <ROUTINE RUN-TEST ()
 	<ASSERT-TEXT "east" <CO-RESUME ,CO "look">>
-	<ASSERT-TEXT "clock" <CO-RESUME ,CO "look">>
+	<ASSERT-TEXT "clock" <CO-RESUME ,CO "examine ladder">>
 	<ASSERT-TEXT "ladder" <CO-RESUME ,CO "look">>
 	<CO-RESUME ,CO "take string">
 	<ASSERT "String is carried" <IN? ,KEY-STRING ,WINNER>>

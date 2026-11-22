@@ -16,7 +16,11 @@ local function enter(room)
 	env.HERE = room
 	env.MOVE(env.WINNER, room)
 end
-for _, object in ipairs({env.WRENCH, env.SHEARS, env.WAFER}) do env.MOVE(object, env.WINNER) end
+enter(env.WORKSHOP)
+game:resume("take wrench")
+enter(env.CLINIC)
+game:resume("take shears")
+env.MOVE(env.WAFER, env.WINNER)
 for _, flag in ipairs({"POWER", "COOLING", "PROOF", "ORIGIN", "CONSENT", "ISOLATED", "EVAC"}) do env[flag] = true end
 enter(env.CORE)
 game:resume("put wafer in archive")

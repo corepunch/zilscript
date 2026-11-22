@@ -23,7 +23,7 @@
 	<SETG FUMBLE-PROB 0>
 	<SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER>
 	<MOVE ,WINNER ,HERE>
-	<TELL "THE LAST BROADCAST|Saint Bride Island, 1936. At nine-seventeen a voice asked the mainland to save this station. Four minutes later the station's owner, Julian Vane, was dead.|The appeal began with a gull's double cough, then Ada's voice: 'Even this old island can learn to speak.' You heard those words at 9:17. At 9:21 you heard Ruth call for help. Now the station has fallen quiet.||Your [[casebook]] is dry, which is more than can be said for your profession.||">
+	<TELL "THE LAST BROADCAST|Saint Bride Island, 1936. At 9:17 you heard a gull cough twice, then Ada's appeal to save the station: 'Even this old island can learn to speak.'|Four minutes later Ruth called for help. By then the station's owner, Julian Vane, was dead. Both times are in your [[casebook]].||">
 	<V-LOOK> <MAIN-LOOP>>
 
 <SYNTAX USE OBJECT ON OBJECT = V-USE-ON>
@@ -98,7 +98,7 @@
 
 <ROUTINE LB-BOARD-F ()
 	<COND (<VERB? EXAMINE READ>
-		<TELL "The [[appeal board]] lists tonight's order: 9:12 power test; 9:16 Ruth leaves office; 9:17 Ada speaks; 9:21 Ruth discovers Vane. Ruth wrote the last entry in a hand no longer fit for broadcasting. The two public times agree with your [[casebook]]." CR> <RTRUE>)>>
+		<TELL "The [[appeal board]] smells of fresh varnish. It lists tonight's order: 9:12 power test; 9:16 Ruth leaves office; 9:17 Ada speaks; 9:21 Ruth discovers Vane. Ruth wrote the last entry in a hand no longer fit for broadcasting. The two public times agree with your [[casebook]]." CR> <RTRUE>)>>
 
 <ROUTINE LB-OFFICE-CLOCK-F ()
 	<COND (<VERB? EXAMINE READ>
@@ -120,7 +120,7 @@
 
 <ROUTINE LB-MICROPHONE-F ()
 	<COND (<VERB? EXAMINE LISTEN>
-		<TELL "The [[microphone]] wears a red supply lamp. Its tiny plate says HEATER, not ON AIR. It shows that the microphone is warm, not that its voice reaches the transmitter. [[Ruth]] has been treating the two as synonymous." CR> <RTRUE>)>>
+		<TELL "The felt around the [[microphone]] smells of old tobacco. The microphone wears a red supply lamp. Its tiny plate says HEATER, not ON AIR. It shows that the microphone is warm, not that its voice reaches the transmitter. [[Ruth]] has been treating the two as synonymous." CR> <RTRUE>)>>
 
 <ROUTINE LB-SWITCH-F ()
 	<COND (<VERB? EXAMINE READ>
@@ -135,7 +135,7 @@
 
 <ROUTINE LB-REGISTER-F ()
 	<COND (<VERB? EXAMINE READ>
-		<TELL "The [[register]] has two entries: 8:10, R. Bell, B03, two-minute microphone test, destroyed; 8:40, A. Mercer, A17, six-minute appeal, completed. Both were cut before the gale reached the aerial. ">
+		<TELL "The register sits on a sloping stand beside the cutter. It has two entries: 8:10, R. Bell, B03, two-minute microphone test, destroyed; 8:40, A. Mercer, A17, six-minute appeal, completed. Both were cut before the gale reached the aerial. ">
 		<COND (,LB-PROVENANCE <TELL "The A17 entry has been matched to the disc you heard." CR>)
 			(T <TELL "Compare the actual disc with this register after hearing it." CR>)>
 		<RTRUE>)
@@ -143,7 +143,7 @@
 
 <ROUTINE LB-GENERATOR-F ()
 	<COND (<VERB? EXAMINE LISTEN>
-		<TELL "The [[generator]] supplies lights and clocks. Accumulators buffer the transmitter; a small voltage sag can stop an office clock without silencing the station. Its mechanical recorder stamps the [[voltage chart]] independently of the electric clocks." CR> <RTRUE>)>>
+		<TELL "The [[generator]] shudders on its rubber feet, powering the lights and clocks. Accumulators buffer the transmitter; a small voltage sag can stop an office clock without silencing the station. Its mechanical recorder stamps the [[voltage chart]] independently of the electric clocks." CR> <RTRUE>)>>
 
 <ROUTINE LB-CHART-F ()
 	<COND (<VERB? EXAMINE READ>
@@ -152,7 +152,7 @@
 
 <ROUTINE LB-STAIN-F ()
 	<COND (<VERB? EXAMINE SEARCH>
-		<SETG LB-STAIN-SEEN T> <TELL "The [[stain]] is a heel print in diluted blood, pointing away from the office hatch. One square repair has been fixed diagonally across its edge, making a distinctive diamond interruption. ">
+		<SETG LB-STAIN-SEEN T> <TELL "Up close the damp stone smells of hot rubber. The [[stain]] is a heel print in diluted blood, pointing away from the office hatch. One square repair has been fixed diagonally across its edge, making a distinctive diamond interruption. ">
 		<COND (,LB-TRACE <TELL "The repaired heel of Ada's boots fills it exactly." CR>)
 			(T <TELL "It is precise enough to test against a real heel, not merely imagine a similar shape." CR>)>
 		<RTRUE>)
@@ -160,7 +160,7 @@
 
 <ROUTINE LB-TABLE-F ()
 	<COND (<VERB? EXAMINE SEARCH>
-		<TELL "A broken tumbler has left a little glass dust in the [[table]] grain. Two cups have gone cold. [[Edith]] keeps looking at the cup opposite hers; she and Ruth were here together during the appeal. Her [[medical bag]] is within reach, with permission to inspect it." CR> <RTRUE>)>>
+		<TELL "Glass dust from a broken tumbler clings to the scrubbed grain of the [[table]]. Two cups have gone cold. [[Edith]] keeps looking at the cup opposite hers; she and Ruth were here together during the appeal. Her [[medical bag]] is within reach, with permission to inspect it." CR> <RTRUE>)>>
 
 <ROUTINE LB-BAG-F ()
 	<COND (<VERB? EXAMINE>
@@ -396,16 +396,16 @@
 		(T <TELL "The case is open. Your casebook records observations; optional hints require HINT CASEBOOK." CR>)>>
 <ROUTINE LB-OFFICE-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "The [[body]] sits with its back to the light. An [[office clock]] hangs above the [[hatch]]. ">
-		<COND (<FSET? ,LB-HATCH ,OPENBIT> <TELL "The hatch stands open to the [[passage below->down]]. ">)
-			(T <TELL "The hatch is bolted shut over the [[route below->down]]. ">)>
-		<TELL "The [[hall->south]] lies south." CR> <RTRUE>)>>
+		<TELL "The [[body]] sits beneath the [[office clock]], facing away from the [[hall->south]]. ">
+		<COND (<FSET? ,LB-HATCH ,OPENBIT> <TELL "The [[hatch]] stands open to the [[passage below->down]].">)
+			(T <TELL "The [[hatch]] is bolted shut over the [[route below->down]].">)>
+		<CRLF> <RTRUE>)>>
 <ROUTINE LB-PASSAGE-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "Hot cable rubber cuts through the smell of damp stone. A [[stain]] lies beneath the [[hatch]]. ">
-		<COND (<FSET? ,LB-HATCH ,OPENBIT> <TELL "The open hatch admits light from the [[office above->up]]. ">)
-			(T <TELL "The hatch is shut against the [[office above->up]]. ">)>
-		<TELL "The [[generator room->south]] lies south." CR> <RTRUE>)>>
+		<TELL "A [[stain]] marks the passage from the [[generator room->south]]. ">
+		<COND (<FSET? ,LB-HATCH ,OPENBIT> <TELL "Light falls through the open [[hatch]] from the [[office above->up]].">)
+			(T <TELL "The [[hatch]] is shut against the [[office above->up]].">)>
+		<CRLF> <RTRUE>)>>
 
 <ROUTINE LB-WEIGHT-F ()
 	<COND (<VERB? EXAMINE>

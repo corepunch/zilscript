@@ -140,7 +140,7 @@ do
 	text = walk:choose("drop oil lantern")
 	check(has(text, "only light") and env.LOC(env.OIL_LANTERN) == env.WINNER, "nor set down there")
 	text = walk:choose("look")
-	check(not has(text, "grue") and has(text, "Small cells"), "the ward is still seen")
+	check(not has(text, "grue") and has(text, "barred"), "the ward is still seen")
 	enter(env.OBSERVATION_DECK)
 	walk:choose("inventory")
 	check(has(walk:choose("drop oil lantern"), "Dropped"), "the lantern can be left in a lit room")

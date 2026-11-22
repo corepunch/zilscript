@@ -49,7 +49,7 @@
     <ASSERT-TEXT "yellow book" <CO-RESUME ,CO "examine bookshelf">>
     <ASSERT-TEXT "spine projects" <CO-RESUME ,CO "examine red book">>
     <SETG CIPHER-SOLVED T>
-    <ASSERT-TEXT "west to the entrance hall" <CO-RESUME ,CO "look">>
+    <ASSERT-TEXT "hall west" <CO-RESUME ,CO "look">>
 
     ;"A removed roll never reappears in the drawer's opening response."
     <SETG HERE ,KITCHEN> <MOVE ,WINNER ,KITCHEN>

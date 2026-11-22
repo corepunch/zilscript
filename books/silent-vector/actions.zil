@@ -19,7 +19,7 @@
 	<SETG WINNER ,ADVENTURER>
 	<SETG PLAYER ,WINNER>
 	<MOVE ,WINNER ,HERE>
-	<TELL "THE SILENT VECTOR" CR "You remember your own voice saying: 'Keep holding her hand.' You remember doing it. You also remember fastening both your hands into the restraint cradle. Neither recollection accounts for the skin cooling between your fingers." CR CR "The receive chain has tripped habitat power. Reset it, find the others, establish a physical reference. There is no countdown; the station's mechanical reserves will hold." CR CR>
+	<TELL "THE SILENT VECTOR" CR "'Keep holding her hand.' You remember doing it. You remember strapping both hands into this cradle, too. Your fingers are still cold." CR CR "Habitat power is out. Reset it and find the others." CR CR>
 	<V-LOOK>
 	<MAIN-LOOP>
 	<AGAIN>>
@@ -30,7 +30,7 @@
 <ROUTINE BREAKER-F ()
 	<COND (<VERB? EXAMINE READ>
 		<COND (,POWER <TELL "The [[breaker]] is reset and holding. The mechanical pressure telltale in its housing reads one atmosphere; no software drives it." CR>)
-			(T <TELL "The [[breaker]] is tripped, not broken. Its broad face is a push reset. A mechanical pressure telltale shares its housing; no software drives it." CR>)>)
+			(T <TELL "The [[breaker]] is tripped, not broken. Its broad face is a push reset. A mechanical telltale in the housing shows the reserves are holding pressure." CR>)>)
 		(<VERB? PUSH TURN>
 		<COND (,POWER <TELL "Already reset. The mechanical telltale remains at one atmosphere." CR>)
 			(T <SETG POWER T> <TELL "The [[breaker]] catches. Air moves across your face. The mechanical telltale settles at one atmosphere, and the interlock releases [[north]]. A small fact, independent of anything you remember." CR>)>)>>
@@ -45,7 +45,7 @@
 
 <ROUTINE HUB-F (RARG "AUX" (STAGE 0))
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "The air at the junction tastes faintly of copper. [[West]] is the torque shop, [[east]] the galley, [[north]] the clinic. The service spine runs [[down]]; the launch cupola is [[up]]. The restraint cradle is [[south]]." CR>
+		<TELL "The air at the junction tastes of [[copper]] between the torque shop [[west]], galley [[east]], clinic [[north]] and cradle [[south]]. The spine runs [[down]], the cupola [[up]]." CR>
 		<COND (,EVAC <SET STAGE 4>) (,ISOLATED <SET STAGE 3>) (,PROOF <SET STAGE 2>) (,COOLING <SET STAGE 1>)>
 		<COND (<NOT <EQUAL? .STAGE ,HUB-MILESTONE>>
 			<SETG HUB-MILESTONE .STAGE>
@@ -59,37 +59,37 @@
 		<RTRUE>)>>
 <ROUTINE CLINIC-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "The room smells of soap. A [[clinical log->log]] rests beside the [[examination area->area]]. [[South]] is the junction; [[north]] is the comparison lab." CR>
+		<TELL "The [[examination area->area]] smells of soap, the [[clinical log->log]] open between the junction [[south]] and the lab [[north]]." CR>
 		<COND (<IN? ,MARA ,CLINIC>
 			<COND (,ISOLATED <TELL "[[Mara]] holds her own wrist, counting without looking at the time." CR>)
-				(T <TELL "[[Mara]] asks whether you have eaten. She does not ask you to remember your name." CR>)>)
-			(T <TELL "Mara has gone to the launch cupola. The room is clean and empty of people." CR>)>
+				(T <TELL "[[Mara]] asks whether you have eaten." CR>)>)
+			(T <TELL "Mara has gone to the launch cupola." CR>)>
 		<RTRUE>)>>
 <ROUTINE LAB-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
 		<TELL "The [[comparator]] vibrates at the edge of hearing. [[South]] returns to the clinic; [[east]] leads to screened quarantine." CR>
-		<COND (,PROOF <TELL "Its independent optical trace holds steady. It has not acquired the fifth rhythm you remember." CR>)>
+		<COND (,PROOF <TELL "The optical trace still holds steady." CR>)>
 		<RTRUE>)>>
 <ROUTINE COOLANT-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<COND (,COOLING <TELL "The [[pump]] turns without a bubble. Cold mist settles at your feet.">)
+		<COND (,COOLING <TELL "Cold mist rises as the [[pump]] turns.">)
 			(T <TELL "The [[pump]] makes a patient, unsuccessful sucking sound.">)>
 		<TELL " The service spine is [[east]]." CR> <RTRUE>)>>
 <ROUTINE RELAY-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<COND (,ISOLATED <TELL "The severed [[incoming bus->bus]] rests without vibration. Silence has a mechanical cause here.">)
+		<COND (,ISOLATED <TELL "The severed [[incoming bus->bus]] hangs silent.">)
 			(,TERMINATED <TELL "The [[incoming bus->bus]] hums against its fitted [[null spool->spool]].">)
-			(T <TELL "The [[incoming bus->bus]] sings through your teeth. Its termination socket is empty.">)>
+			(T <TELL "The [[incoming bus->bus]] sings through your teeth.">)>
 		<TELL " The service spine is [[west]]; the receiver vault is [[north]]." CR> <RTRUE>)>>
 <ROUTINE RECEPTION-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "The [[receiver]] occupies almost the whole space. [[South]] returns to the relay." CR>
-		<COND (,ISOLATED <TELL "It is quiet. You remember it thanking you; the memory arrived without a sound." CR>)
-			(T <TELL "A low beat pulses in the housing. Your tongue tries to shape a name." CR>)>
+		<TELL "The [[receiver]] crowds the passage [[south]] to the relay." CR>
+		<COND (,ISOLATED <TELL "You remember it thanking you, though it makes no sound." CR>)
+			(T <TELL "With each low beat your tongue tries to shape a name." CR>)>
 		<RTRUE>)>>
 <ROUTINE QUARANTINE-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "[[Senn]] sits very upright, as if posture were a measurement. The lab is [[west]]. The interlocked way [[north]] leads to the cold core." CR>
+		<TELL "[[Senn]] sits between the lab [[west]] and the interlock [[north]] to the cold core." CR>
 		<COND (,SENN-DISCLOSED <TELL "His hands are closed now. He looks at you when he speaks." CR>)
 			(,ISOLATED <TELL "He waits for you to finish speaking. Then: 'Ask me about my [[daughter]] again. I can answer now.'" CR>)
 			(,PROOF <TELL "'Four traces,' he says without looking at you. 'When the carrier is quiet, ask me about my [[daughter]] again.'" CR>)
@@ -98,12 +98,12 @@
 
 <ROUTINE CORE-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "Your breath hangs white above the [[cold archive->archive]]. The [[decision console->console]] has two recessed commitments. Quarantine is [[south]]." CR>
+		<TELL "Your breath hangs white between the [[cold archive->archive]] and the [[decision console->console]]. Quarantine lies [[south]]." CR>
 		<COND (<IN? ,WAFER ,COLD-ARCHIVE> <TELL "The [[wafer]] rests in cold, independent storage. Nothing is playing it." CR>)>
 		<RTRUE>)>>
 <ROUTINE LAUNCH-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "The [[stars]] do not flicker here. The mechanical [[beacon]] points away from the station. The habitat junction is [[down]]." CR>
+		<TELL "The [[beacon]] points into the steady [[stars]]. The junction is [[down]]." CR>
 		<COND (,EVAC <TELL "The beacon is armed. [[Mara]] waits beside it with room for four living passengers." CR>)>
 		<RTRUE>)>>
 
@@ -366,9 +366,9 @@
 		(T <TELL "Examine the cold-core console. Preserve console or erase console is the explicit final commitment." CR>)>>
 <ROUTINE GALLEY-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "The [[portrait]] turns slowly in the ventilation. ">
-		<COND (,CONSENT <TELL "[[Ivo]] has stopped counting. He taps once for each name he will take to the cupola.">)
-			(T <TELL "[[Ivo]] is counting on his fingers, stopping at four, starting again.">)>
+		<TELL "Beneath the turning [[portrait]], ">
+		<COND (,CONSENT <TELL "[[Ivo]] taps once for each name he will take to the cupola.">)
+			(T <TELL "[[Ivo]] counts to four and starts again.">)>
 		<TELL " [[West]] returns to the junction; [[east]] leads to the physical archive." CR> <RTRUE>)>>
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? T))
 	<COND (,RESOLVED <TELL "The crew has left the station. Your decision is part of the physical record." CR>)
@@ -379,17 +379,25 @@
 		(T <TELL "Restore habitat power." CR>)>>
 <ROUTINE CRADLE-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<COND (,POWER <TELL "The [[padding]] holds the warmth of your back. The reset [[breaker]] is quiet.">)
-			(T <TELL "A dry click repeats through the [[padding]]. The [[breaker]] is within reach.">)>
-		<TELL " The pressure-balanced way [[north]] leads into the habitat." CR> <RTRUE>)>>
+		<COND (,POWER <TELL "The [[padding]] holds the warmth of your back. Beside the quiet [[breaker]], the pressure-balanced way [[north]] stands open.">)
+			(T <TELL "A dry click comes through the [[padding]]. The [[breaker]] is within reach, but the way [[north]] is sealed.">)>
+		<CRLF> <RTRUE>)>>
 <ROUTINE FRAME-F ()
 	<COND (<VERB? EXAMINE SEARCH> <TELL "The [[restraint frame->frame]] releases by hand. Its padding is worn in four places where you brace your limbs. There is no second person's impression. The doorway's mechanical interlock depends on the habitat [[breaker]]." CR>)
 		(<VERB? OPEN CLOSE> <COND (,POWER <TELL "The interlock is released; the way [[north]] is open." CR>)
 			(T <TELL "Reset the [[breaker]] first. The pressure interlock is doing its job." CR>)>)>>
 <ROUTINE RECESSES-F ()
-	<COND (<VERB? EXAMINE SEARCH> <TELL "Shaped [[tool recesses->recesses]], cut into insulation rather than a locked cabinet. Each tool has one place; empty shapes stay empty when tools move. The [[protocol]] is fastened above them." CR>)>>
+	<COND (<VERB? EXAMINE SEARCH>
+		<TELL "Two shapes are cut into the insulation below the [[protocol]].">
+		<COND (<AND <IN? ,WRENCH ,WORKSHOP> <NOT <FSET? ,WRENCH ,TOUCHBIT>>> <TELL " A [[torque wrench->wrench]] fits the long slot.">)
+			(T <TELL " The long slot is empty.">)>
+		<COND (<AND <IN? ,SPOOL ,WORKSHOP> <NOT <FSET? ,SPOOL ,TOUCHBIT>>> <TELL " A [[null spool->spool]] fills the round one.">)
+			(T <TELL " The round slot is empty.">)>
+		<CRLF> <RTRUE>)>>
 <ROUTINE EXAM-AREA-F ()
-	<COND (<VERB? EXAMINE SEARCH SMELL> <TELL "The [[examination area->area]] has been washed with ordinary unscented soap. No concealed equipment, no blood. You remember a fifth patient here; there is no fifth entry in the [[log]]." CR>)>>
+	<COND (<VERB? EXAMINE SEARCH SMELL> <TELL "The [[examination area->area]] has been washed with ordinary unscented soap. You remember a fifth patient here, but there is no fifth entry in the [[log]].">
+		<COND (<AND <IN? ,SHEARS ,CLINIC> <NOT <FSET? ,SHEARS ,TOUCHBIT>>> <TELL " A pair of [[ceramic shears->shears]] lies ready for sterile work.">)>
+		<CRLF> <RTRUE>)>>
 <ROUTINE STARFIELD-F ()
 	<COND (<VERB? EXAMINE> <TELL "The [[stars]] are points without an atmosphere to soften them. The station's slow rotation changes their position predictably. It is a relief to watch something indifferent to you." CR>)>>
 <ROUTINE HARDWARE-F ()

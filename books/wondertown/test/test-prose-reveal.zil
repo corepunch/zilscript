@@ -8,13 +8,13 @@
 
 <ROUTINE RUN-TEST ()
     ;"The oil can shows only as a copper glint until Pip looks under the bench."
-    <ASSERT-TEXT "something small and copper" <CO-RESUME ,CO "look">>
+    <ASSERT-TEXT "Something glints" <CO-RESUME ,CO "look">>
     <ASSERT-NOT-TEXT "oil can" <CO-RESUME ,CO "look">>
     <ASSERT-NOT-TEXT "[[" <CO-RESUME ,CO "look">>
     <ASSERT "The can cannot be taken unseen" <CO-RESUME ,CO "take oil can" T> <==? <LOC ,OIL-CAN> ,WORKSHOP-FLOOR>>
     <ASSERT-TEXT "oil can" <CO-RESUME ,CO "look under workbench">>
     <ASSERT-TEXT "oil can" <CO-RESUME ,CO "look">>
-    <ASSERT-NOT-TEXT "copper catches" <CO-RESUME ,CO "look">>
+    <ASSERT-NOT-TEXT "Something glints" <CO-RESUME ,CO "look">>
 
     ;"The workbench top names the repair book once, whatever its state."
     <MOVE ,WINNER ,WORKBENCH-TOP> <SETG HERE ,WORKBENCH-TOP>
@@ -30,6 +30,7 @@
 
     ;"The study diagram keeps its instructions until it is read."
     <MOVE ,WINNER ,TOLLIVER-STUDY> <SETG HERE ,TOLLIVER-STUDY>
-    <ASSERT-TEXT "diagram" <CO-RESUME ,CO "look">>
+    <ASSERT-NOT-TEXT "diagram" <CO-RESUME ,CO "look">>
+    <ASSERT-TEXT "diagram" <CO-RESUME ,CO "examine desk">>
     <ASSERT-NOT-TEXT "clockwise" <CO-RESUME ,CO "look">>
     <ASSERT-TEXT "clockwise" <CO-RESUME ,CO "read diagram">>>

@@ -34,9 +34,11 @@ local function prepare()
 
 	-- Torque shop: the recesses the room names are a link.
 	step(walk, "west", "tool recesses")
-	assert(walk:offers("examine tool recesses"), "The tool recesses are linked")
+	assert(not walk:offers("take torque wrench"), "The tools are discovered in the recesses")
+	step(walk, "examine tool recesses", "long slot")
 	step(walk, "take torque wrench", "Taken")
 	step(walk, "take null spool", "Taken")
+	step(walk, "examine tool recesses", "round slot is empty", "fills the round one")
 	step(walk, "read protocol card", "FIT SPOOL TO BUS")
 	step(walk, "east")
 
@@ -58,7 +60,7 @@ local function prepare()
 
 	-- Clinic and laboratory.
 	step(walk, "north", "examination area")
-	assert(walk:offers("examine examination area"), "The examination area is linked")
+	step(walk, "examine examination area", "ceramic shears")
 	step(walk, "take ceramic shears", "Taken")
 	step(walk, "north", "comparator")
 	step(walk, "examine optical comparator", "Comparing a witness strip", "COMPARE STRIP")
@@ -72,7 +74,7 @@ local function prepare()
 	step(walk, "west")
 
 	-- Coolant well.
-	step(walk, "down", "Warm air")
+	step(walk, "down", "draught")
 	step(walk, "west", "pump")
 	step(walk, "turn coolant pump with ceramic shears", "calibrated torque wrench", "TURN PUMP")
 	step(walk, "turn coolant pump with torque wrench", "calibrated click")
