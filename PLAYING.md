@@ -14,12 +14,12 @@ Arena and this interface.
 Run from this repository's directory:
 
 ```bash
-lua5.4 llm.lua --new-game --links --game wondertown --save /tmp/play.sav --seed 97
-lua5.4 llm.lua --links --game wondertown --save /tmp/play.sav
-lua5.4 llm.lua --choose 4 --game wondertown --save /tmp/play.sav
+lua llm.lua --new-game --links --game wondertown --save /tmp/play.sav --seed 97
+lua llm.lua --links --game wondertown --save /tmp/play.sav
+lua llm.lua --choose 4 --game wondertown --save /tmp/play.sav
 ```
 
-Output is JSON: `{output, room, running, actions}`. Each action is an array
+Use a compatible Lua executable (`lua5.4` on some machines; `lua` was Lua 5.5 here). Check `lua -v` first. Output is JSON: `{output, room, running, actions}`. Each action is an array
 `[label, command, linkTarget]`; `--choose N` selects its **1-based position in
 the current list**. Read the result before choosing again. `--links` alone
 observes menus without advancing a turn or rewriting the save. Look, inventory
@@ -41,6 +41,16 @@ Start a fresh game after story/format changes; there are no save migrations.
 For each QA round, keep the player blind to source, prior reports, maps and
 walkthroughs until observations and transcript are frozen. Only then inspect
 and fix the book. Label subsequent code-informed verification separately.
+
+Use a separate save and a fixed recorded seed for each book. Each `--choose`
+number belongs only to the immediately preceding menu; read the new menu after
+every action. The inventory control reveals carried-item actions and binary
+combinations; revisit it after changing rooms or taking items. To reproduce a
+missing menu option, record the room, preceding action, visible prose and the
+complete relevant menu. Copy `<save>.transcript` to durable project evidence
+before deleting temporary saves. It records commands and prose, not every menu,
+so include menu evidence in the report. Record ending status and coverage
+limits explicitly; an unfinished session does not establish a softlock.
 
 ## Replaying a Link Route
 
@@ -163,6 +173,9 @@ Pass `--game <name>` to play different games:
 | limehouse-killings | `books.limehouse-killings.limehouse-killings` |
 | blackwood-horror | `books.blackwood-horror.blackwood-horror` |
 | wondertown | `books.wondertown.wondertown` |
+| last-broadcast | `books.last-broadcast.last-broadcast` |
+| pocket-weather | `books.pocket-weather.pocket-weather` |
+| silent-vector | `books.silent-vector.silent-vector` |
 
 ## Command-Line Reference
 
@@ -182,8 +195,7 @@ Exit codes: 0 = success, 1 = error
 
 ## Companion Authoring Status
 
-`llm.lua` currently accepts parser actions only. It does not yet load an
-adventure's companion module or implement `--choices` and `--choose`.
+`llm.lua --choose` selects a numbered **link action** as described above. It does not select a companion card; the CLI does not load an adventure's companion module or implement `--choices`.
 
 For manual card play, use:
 

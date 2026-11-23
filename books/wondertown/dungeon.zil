@@ -383,8 +383,8 @@
 
 <OBJECT OLD-TICK
         (IN STORAGE-LOFT)
-        (SYNONYM CLOCK CUCKOO TICK BIRD)
-        (ADJECTIVE OLD DUSTY CUCKOO WOODEN LOFT FROZEN)
+        (SYNONYM CLOCK CUCKOO TICK BIRD LATCH)
+        (ADJECTIVE OLD DUSTY CUCKOO WOODEN LOFT FROZEN HIDDEN)
         (DESC "old cuckoo clock")
         (INTERACTIONS "TELL:TOLLIVER-JOURNAL,LETTER,TOLLIVER-COAT,STUDY-JOURNAL")
         (LDESC "An old cuckoo clock, dusty and still, its hands frozen at five to midnight.")
@@ -823,12 +823,14 @@
 <OBJECT COUNTER-STEPS (IN COUNTERTOP) (DESC "steps down")
     (SYNONYM STEPS STAIRS CRATE) (ADJECTIVE MAKESHIFT WOODEN)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "From up here Pip can see the three landings: a stack of books, a chair seat, then a crate. The crate looks very small indeed.")>
+    (TEXT "From up here Pip can see the three landings: a stack of books, a chair seat, then a crate. The crate looks very small indeed.")
+    (ACTION COUNTER-STEPS-F)>
 
 <OBJECT LOFT-RUNGS (IN STORAGE-LOFT) (DESC "loft ladder")
     (SYNONYM LADDER RUNGS) (ADJECTIVE LOFT WOODEN)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The top rung is smooth where Tolliver used to hook his thumb to pull himself into the loft.")>
+    (TEXT "The top rung is smooth where Tolliver used to hook his thumb to pull himself into the loft.")
+    (ACTION LOFT-RUNGS-F)>
 
 <OBJECT SQUARE-PATHS (IN CLOCK-SQUARE) (DESC "cobbled paths")
     (SYNONYM PATHS PATH COBBLES) (ADJECTIVE COBBLED WINDING)
@@ -853,12 +855,14 @@
 <OBJECT STUDY-STAIRS (IN TOLLIVER-STUDY) (DESC "study stairs")
     (SYNONYM STAIRS STAIRCASE STEPS) (ADJECTIVE STUDY NARROW)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The treads fit Pip’s boots. At the far end the clock case hides them from anyone looking up from the workshop.")>
+    (TEXT "The treads fit Pip’s boots. At the far end the clock case hides them from anyone looking up from the workshop.")
+    (ACTION STUDY-STAIRS-F)>
 
 <OBJECT DISTANT-TICK (IN TOLLIVER-STUDY) (DESC "distant ticking")
     (SYNONYM TICKING TICK SOUND) (ADJECTIVE DISTANT FAINT)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Pip puts an ear to the floor. This tick comes up through the boards from below the desk.")>
+    (TEXT "Pip puts an ear to the floor. This tick comes up through the boards from below the desk.")
+    (ACTION DISTANT-TICK-F)>
 
 <OBJECT HEART-PASSAGE (IN WORKSHOP-HEART) (DESC "heart passage")
     (SYNONYM PASSAGE TUNNEL) (ADJECTIVE NARROW BRASS HEART)
@@ -868,22 +872,25 @@
 <OBJECT DETAIL-SAILBOAT (IN WORKBENCH-TOP) (DESC "sailboat")
     (SYNONYM SAILBOAT BOAT HULL MAST) (ADJECTIVE WOODEN UNFINISHED)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Pip tips the hull. A round hole goes right through the deck for a mast, and Grandfather has already tied a sail small enough to fit.")>
+    (TEXT "Pip tips the hull. A round hole goes right through the deck for a mast, and Grandfather has already tied a sail small enough to fit.")
+    (ACTION DETAIL-SAILBOAT-F)>
 
 <OBJECT DETAIL-WOODEN-TRAIN (IN WORKBENCH-TOP) (DESC "wooden train")
     (SYNONYM TRAIN ENGINE WHEELS) (ADJECTIVE WOODEN RED)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "All the red wheels turn together except the last one. A pencil cross marks the axle Grandfather still meant to fix.")>
+    (TEXT "All the red wheels turn together except the last one. A pencil cross marks the axle Grandfather still meant to fix.")
+    (ACTION DETAIL-WOODEN-TRAIN-F)>
 
 <OBJECT DETAIL-WOODEN-DUCK (IN WORKBENCH-TOP) (DESC "wooden duck")
     (SYNONYM DUCK AXLE WHEEL) (ADJECTIVE WOODEN MISSING)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Under the tilted wing, a stub of axle pokes out. The duck’s good wheel is painted orange, just like its beak.")>
+    (TEXT "Under the tilted wing, a stub of axle pokes out. The duck’s good wheel is painted orange, just like its beak.")
+    (ACTION DETAIL-WOODEN-DUCK-F)>
 
 <OBJECT DETAIL-HAMMER (IN TOOL-BENCH) (DESC "hammer")
     (SYNONYM HAMMER MALLET HAMMERS) (ADJECTIVE TINY JEWELLER'S)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "One end of the head is round as a bead. The other is flat and small enough to tap a nail into a toy shoe.")>
+    (FLAGS NDESCBIT TAKEBIT) (INTERACTIONS "")
+    (TEXT "One end of the head is round as a bead. The other is flat and small enough to tap a nail into a toy shoe.") (ACTION RACK-TOOL-F)>
 
 <OBJECT DETAIL-BRASS-LATCH (IN COUNTERTOP) (DESC "brass latch")
     (SYNONYM LATCH TONGUE) (ADJECTIVE BRASS SMALL)
@@ -894,7 +901,8 @@
 <OBJECT DETAIL-PAINT-MARK (IN CLOCK-SQUARE) (DESC "paint mark")
     (SYNONYM MARK PAINT ARROW) (ADJECTIVE RED PAINT)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Two brushstrokes make an arrow. The second stroke skids across a crack between the cobbles.")>
+    (TEXT "Two brushstrokes make an arrow. The second stroke skids across a crack between the cobbles.")
+    (ACTION DETAIL-PAINT-MARK-F)>
 
 <OBJECT DETAIL-AXLES (IN SCRAP-YARD) (DESC "axles")
     (SYNONYM AXLES AXLE GREASE) (ADJECTIVE OILED CART)
@@ -904,7 +912,8 @@
 <OBJECT MUSIC-TOOTH (DESC "brass tooth")
     (SYNONYM TOOTH TINE COMB) (ADJECTIVE BRASS LITTLE)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "A pin lifts the tooth and lets go. Pip can feel it trembling for a moment after the note has died away.")>
+    (TEXT "A pin lifts the tooth and lets go. Pip can feel it trembling for a moment after the note has died away.")
+    (ACTION MUSIC-TOOTH-F)>
 
 <OBJECT CART-WHEELS (IN SCRAP-YARD) (DESC "cart wheels")
     (SYNONYM WHEELS WHEEL RIMS RIM) (ADJECTIVE CART IRON RUSTED)
@@ -913,10 +922,10 @@
 
 <OBJECT TOY-CHISELS (IN TOOL-BENCH) (DESC "chisels")
     (SYNONYM CHISELS CHISEL) (ADJECTIVE TINY)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The widest blade is only as wide as Pip’s little fingernail. A curl of wood still clings to the narrowest one.")>
+    (FLAGS NDESCBIT TAKEBIT) (INTERACTIONS "")
+    (TEXT "The widest blade is only as wide as Pip’s little fingernail. A curl of wood still clings to the narrowest one.") (ACTION RACK-TOOL-F)>
 
 <OBJECT TOY-FILES (IN TOOL-BENCH) (DESC "needle-files")
     (SYNONYM NEEDLE-FILES FILES FILE NEEDLE-FILE) (ADJECTIVE FINE)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Pip runs a nail down the handles. One has a round end for smoothing holes, one a flat end for the space between two gear teeth.")>
+    (FLAGS NDESCBIT TAKEBIT) (INTERACTIONS "")
+    (TEXT "Pip runs a nail down the handles. One has a round end for smoothing holes, one a flat end for the space between two gear teeth.") (ACTION RACK-TOOL-F)>

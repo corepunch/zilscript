@@ -1,0 +1,57 @@
+Beyond the iron [[gates]], [[Ashworth Manor]] slips in and out of the [[fog]] at the end of the [[path]] [[north]].
+A [[stone]] holds down a creased [[telegram]].
+
+
+> read creased telegram
+(Taken)
+Lady Ashworth's message reads: 'Begin with what the locked room could not hide. Ashworth marked every private mechanism with the name of the person it concerned.' Beneath it she has added, 'Hudson has put the kettle on; he insists detection is impossible while cold.'
+
+
+> north
+The [[hall table]] gleams under the [[chandelier]] between the library [[east]], dining room [[west]], kitchen [[stairs]] [[down]] and gate [[south]]. The north study [[door]] is closed and locked.
+
+
+> search hall table
+Someone has polished the wood right down to the little key scratches. A brass [[magnifying glass->glass]] lies in a ring of dust at the back.
+
+
+> take magnifying glass
+You take the magnifying glass.
+
+
+> west
+Lady [[Ashworth]] sits alone at a [[table]] set for two. Past the wine [[cabinet]], doors lead [[east]] to the hall and [[north]] to the pantry.
+
+
+> tell lady ashworth about dining table
+'I don't know anything about that,' Lady Ashworth says.
+
+
+> east
+The [[hall table]] gleams under the [[chandelier]] between the library [[east]], dining room [[west]], kitchen [[stairs]] [[down]] and gate [[south]]. The north study [[door]] is closed and locked.
+
+
+> down
+A blue [[kettle]] steams beside the cold [[hearth]], the counter [[drawer]] shut. The hall lies [[up]], the garden [[west]].
+
+
+> open counter drawer
+You open the drawer. Inside is a [[leather roll->roll]].
+
+
+> open leather roll
+You open the [[leather roll->leather roll]].
+The [[leather roll->leather roll]] contains:
+  A [[lockpick set->lockpick set]]
+
+
+> take lockpick set
+You take the lockpick set.
+
+
+> inventory
+You are carrying:
+  [[lockpick set->lockpick set]]
+  [[magnifying glass->magnifying glass]]
+  [[creased telegram->creased telegram]]
+

@@ -88,28 +88,28 @@ CHOOSE 10: archive: Go east [east]
 A draught from the cutting room to the west stirs the cold papers beside a cardboard sleeve.
 
 
-CHOOSE 6: cardboard sleeve: Examine [examine cardboard sleeve]
+CHOOSE 7: cardboard sleeve: Examine [examine cardboard sleeve]
 A stiff sleeve, marked REHEARSAL in pencil. Its flap is folded tight. Open it to inspect the contents. Beneath the sleeve, the corner of a wage ledger pokes out.
 
 
-CHOOSE 7: cardboard sleeve: Open [open cardboard sleeve]
+CHOOSE 8: cardboard sleeve: Open [open cardboard sleeve]
 Opening the cardboard sleeve reveals a lacquer disc.
 
 
-CHOOSE 11: lacquer disc: Examine [examine lacquer disc]
+CHOOSE 12: lacquer disc: Examine [examine lacquer disc]
 An aluminium-based lacquer disc, sixteen inches across. Edge number A17; one continuous band, about six minutes at the marked speed. It requires the control-room gramophone and a playback stylus. The edge is chipped; the groove is sound.
 
 
-CHOOSE 12: lacquer disc: Take [take lacquer disc]
+CHOOSE 13: lacquer disc: Take [take lacquer disc]
 Taken.
 
 
-CHOOSE 10: wage ledger: Read [read wage ledger]
+CHOOSE 11: wage ledger: Read [read wage ledger]
 (Taken)
 The wage ledger records eleven years of deductions for transmitter shares that were never issued. Mercer, H.: deceased; balance carried forward. Ada's father died still paying for a station he did not own. Vane has marked the accounts for destruction after tomorrow's sale. Ada is the surviving Mercer. These figures have left her something to answer for her father.
 
 
-CHOOSE 5: cutting room to the west: Go west [west]
+CHOOSE 6: cutting room to the west: Go west [west]
 The cutter stands open beside its register, between the control room south and the archive east.
 
 
@@ -177,11 +177,11 @@ Ada sits beneath the maintenance roster, upstairs from the hall and across the w
 A pair of leather boots stands here.
 
 
-CHOOSE 22: leather boots: Examine [examine leather boots]
+CHOOSE 23: leather boots: Examine [examine leather boots]
 Ada's leather boots, offered without grace. The left heel has a square leather repair set diagonally across the edge. Rust-red moisture remains in its stitching. A deliberate repair, not the shape of an ordinary heel. Ada permits you to carry them; her permission sounds like a challenge.
 
 
-CHOOSE 23: leather boots: Take [take leather boots]
+CHOOSE 24: leather boots: Take [take leather boots]
 Taken.
 
 
@@ -303,7 +303,7 @@ The telegraph clicks beside its silent operator, between the kitchen and the sta
 A telegraph receipt lies here.
 
 
-CHOOSE 17: telegraph receipt: Read [read telegraph receipt]
+CHOOSE 19: telegraph receipt: Read [read telegraph receipt]
 (Taken)
 The telegraph receipt carries mainland challenges and Tomas's correct returns at every minute from 9:16 through 9:22. The far-end stamps are intact. Between them, an outgoing message asks a bookmaker for another week. Show it to Tomas; the shame and the alibi are on the same strip.
 
@@ -317,7 +317,7 @@ CHOOSE 8: operator: Accuse [accuse tomas vale]
 The mainland challenged Tomas's telegraph hand throughout 9:16-9:22. Your theory requires him both at the key and in the office. The accusation fails without costing you evidence; continue the investigation.
 
 
-CHOOSE 15: aerial platform: Go up [up]
+CHOOSE 17: aerial platform: Go up [up]
 A signal lamp lights the rain on the aerial. The telegraph room is below, the bunkroom across the covered walk.
 
 
@@ -358,7 +358,7 @@ You are carrying:
   A casebook
 
 
-CHOOSE 50: casebook: Reconstruct [reconstruct casebook]
+CHOOSE 51: casebook: Reconstruct [reconstruct casebook]
 You draw two lines in the casebook: SOUND and PERSON.
 Fixed points: the office hands stopped at 9:12 for an electrical reason. Vane was alive at 9:16 and found at 9:21. A six-minute appeal began at 9:17; the sound existed before that interval.
 Physical facts: the notched brass rim matches the wound. Blood crossed the service route, away from the office, inside the stitching of a distinctive repaired heel. The route never enters the studio.

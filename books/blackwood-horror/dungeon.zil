@@ -765,7 +765,7 @@
 
 <OBJECT SCATTERED-PAPERS
         (IN ADMINISTRATIVE-WING)
-        (SYNONYM PAPERS FILES DOCUMENTS PAPER FILE DOCUMENT MEMO ORDERS SCHEDULES)
+        (SYNONYM PAPERS FILES DOCUMENTS PAPER FILE DOCUMENT ORDERS SCHEDULES)
         (ADJECTIVE SCATTERED MUNDANE)
         (DESC "scattered papers")
         (ACTION SCATTERED-PAPERS-F)
@@ -781,8 +781,8 @@
 
 <OBJECT HOLLOW-BOOK
         (IN DIRECTORS-OFFICE)
-        (SYNONYM BOOK TOME VOLUME)
-        (ADJECTIVE RED LEATHER HOLLOW BLANK)
+        (SYNONYM BOOK TOME VOLUME LATCH)
+        (ADJECTIVE RED LEATHER HOLLOW BLANK BRASS)
         (DESC "red leather book")
         (INTERACTIONS "")
         (LDESC "A red leather [[book]] with a blank spine lies here.")
@@ -887,13 +887,13 @@
 
 <OBJECT BELL
         (IN SERVING-COUNTER)
-        (SYNONYM BELL CHIME)
+        (SYNONYM BELL CHIME BUTTON)
         (ADJECTIVE SERVICE COUNTER SMALL BRASS)
         (DESC "service bell")
         (INTERACTIONS "")
         (FDESC "A small brass service [[bell]] sits on the counter.")
         (LDESC "A small brass service [[bell]] sits here.")
-        (FLAGS TAKEBIT)
+        (FLAGS TAKEBIT OPENBIT SEARCHBIT)
         (SIZE 2)
         (ACTION BELL-F)>
 
@@ -917,8 +917,8 @@
 
 <OBJECT CHAPEL-DOOR
         (IN OVERGROWN-GARDEN)
-        (SYNONYM DOOR LOCK)
-        (ADJECTIVE CHAPEL HEAVY LOCKED OAK WOODEN IRON)
+        (SYNONYM DOOR LOCK INSCRIPTION WORDS)
+        (ADJECTIVE CHAPEL HEAVY LOCKED OAK WOODEN IRON CARVED)
       (DESC "chapel door")
       (INTERACTIONS "OPEN:BRASS-KEY,SAFE-KEY,CHAPEL-KEY;UNLOCK:BRASS-KEY,SAFE-KEY,CHAPEL-KEY")
       (FLAGS NDESCBIT)
@@ -944,8 +944,8 @@
 
 <OBJECT WOODEN-BOX
         (IN CHAPEL)
-        (SYNONYM BOX CASE CASKET)
-        (ADJECTIVE WOODEN LOCKED SMALL CARVED)
+        (SYNONYM BOX CASE CASKET CLASP)
+        (ADJECTIVE WOODEN LOCKED SMALL CARVED IRON RUSTED)
         (DESC "wooden box")
         (INTERACTIONS "OPEN:SCALPEL,COAL-SHOVEL,BRASS-KEY,SAFE-KEY,CHAPEL-KEY")
         (LDESC "A small wooden [[box]] carved with disturbing symbols sits here.")
@@ -1181,17 +1181,20 @@
 <OBJECT CORRIDOR-STEPS (IN BASEMENT-CORRIDOR) (DESC "stone stairs")
     (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE STONE WORN)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The lowest step has two worn grooves, a stretcher wheel’s width apart.")>
+    (TEXT "The lowest step has two worn grooves, a stretcher wheel’s width apart.")
+    (ACTION CORRIDOR-STEPS-F)>
 
 <OBJECT THEATER-STEPS (IN ELECTROSHOCK-THEATER) (DESC "stone stairs")
     (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE STONE WORN)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The first few steps climb beside the chair. Higher up they turn behind the observation glass.")>
+    (TEXT "The first few steps climb beside the chair. Higher up they turn behind the observation glass.")
+    (ACTION THEATER-STEPS-F)>
 
 <OBJECT DECK-STEPS (IN OBSERVATION-DECK) (DESC "stone stairs")
     (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE STONE WORN)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The stairs take a sharp turn behind the mirror. From below, a patient could hear footsteps without seeing who was coming.")>
+    (TEXT "The stairs take a sharp turn behind the mirror. From below, a patient could hear footsteps without seeing who was coming.")
+    (ACTION DECK-STEPS-F)>
 
 <OBJECT DETAIL-WHEEL-RUTS (IN SANITARIUM-GATE) (DESC "wheel ruts")
     (SYNONYM RUTS RUT TRACKS) (ADJECTIVE WHEEL BROAD)
@@ -1215,23 +1218,27 @@
 
 <OBJECT DETAIL-MEMO (IN ADMINISTRATIVE-WING) (DESC "memo")
     (SYNONYM MEMO MEMORANDUM) (ADJECTIVE STAFF TYPED)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The typist went back over the word NOT. The O has punched a little hole right through the paper.")>
+    (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
+    (TEXT "The typist went back over the word NOT. The O has punched a little hole right through the paper.")
+    (ACTION DETAIL-MEMO-F)>
 
 <OBJECT DETAIL-NAMEPLATE (IN DIRECTORS-OFFICE) (DESC "nameplate")
     (SYNONYM NAMEPLATE PLATE) (ADJECTIVE BRASS PORTRAIT)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The closing date is cut deeper than the rest. It was added after the plate had already been screwed to the frame.")>
+    (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
+    (TEXT "The closing date is cut deeper than the rest. It was added after the plate had already been screwed to the frame.")
+    (ACTION DETAIL-NAMEPLATE-F)>
 
-<OBJECT DETAIL-BRASS-DOME (IN CAFETERIA) (DESC "brass dome")
+<OBJECT DETAIL-BRASS-DOME (IN BELL) (DESC "brass dome")
     (SYNONYM DOME RIM) (ADJECTIVE BRASS BELL)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "A bright nick on the inside rim shows where the hammer hits. The rest of the brass has gone green.")>
+    (SIZE 0) (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "A bright nick on the inside rim shows where the hammer hits. The rest of the brass has gone green.")
+    (ACTION DETAIL-BRASS-DOME-F)>
 
 <OBJECT DETAIL-CARVED-SYMBOLS (IN CHAPEL) (DESC "carved symbols")
     (SYNONYM SYMBOLS CUTS MARKS SYMBOL) (ADJECTIVE CARVED STRANGE)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The same hooked stroke begins each mark. On the pews you can see it clearly where a sleeve has rubbed the wood smooth.")>
+    (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
+    (TEXT "The same hooked stroke begins each mark. On the pews you can see it clearly where a sleeve has rubbed the wood smooth.")
+    (ACTION DETAIL-CARVED-SYMBOLS-F)>
 
 <OBJECT BOOK-HOLLOW (IN HOLLOW-BOOK) (DESC "cut pages")
     (SYNONYM PAGES HOLLOW OUTLINE) (ADJECTIVE CUT GLUED RUSTY)
@@ -1245,10 +1252,12 @@
 
 <OBJECT KEY-TAG (IN SAFE-KEY) (DESC "numbered tag")
     (SYNONYM TAG NUMBER LABEL) (ADJECTIVE NUMBERED STAMPED)
-    (SIZE 0) (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The number is stamped straight through the thin tin. On the back you can feel the little raised curves of the two zeroes.")>
+    (SIZE 0) (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
+    (TEXT "The number is stamped straight through the thin tin. On the back you can feel the little raised curves of the two zeroes.")
+    (ACTION KEY-TAG-F)>
 
 <OBJECT CROSS-ETCHING (IN ANCIENT-RELIC) (DESC "silver etching")
     (SYNONYM ETCHING LINES) (ADJECTIVE SILVER ETCHED)
-    (SIZE 0) (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Tilt the cross and one line shines while its neighbour turns black. The pattern seems to move even when your hand is steady.")>
+    (SIZE 0) (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
+    (TEXT "Tilt the cross and one line shines while its neighbour turns black. The pattern seems to move even when your hand is steady.")
+    (ACTION CROSS-ETCHING-F)>

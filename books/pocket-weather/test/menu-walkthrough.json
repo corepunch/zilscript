@@ -12,13 +12,13 @@
     "output": "The small, solid bell smells of wet brass. Its note cannot order anyone about. One corner of a blank weather card sticks out from under its base.\n\n"
   },
   {
-    "number": 15,
+    "number": 16,
     "command": "take weather card",
     "room": "Dispatch Post",
     "output": "Taken.\n\n"
   },
   {
-    "number": 13,
+    "number": 14,
     "command": "west",
     "room": "Steam Kitchen",
     "output": "Beside the steaming kettle, Baker Pip hums very badly, with excellent rhythm. The laundry is west; the post is east.\n\n"
@@ -30,7 +30,7 @@
     "output": "The kettle breathes a steady, gentle plume. Warm damp air relaxes a stubborn fold without tearing paper. Pip keeps the hot metal safely out of reach. A narrow spoon hangs by its handle beside the kettle.\n\n"
   },
   {
-    "number": 13,
+    "number": 14,
     "command": "take narrow spoon",
     "room": "Steam Kitchen",
     "output": "Taken.\n\n"
@@ -78,19 +78,19 @@
     "output": "The weather vane hangs over the warm tiles below. Aster the rook watches it from this side of the rookery west.\n\n"
   },
   {
-    "number": 5,
+    "number": 6,
     "command": "spin weather vane",
     "room": "Weathercock Perch",
     "output": "You turn the vane gently, then let it find its own answer. The breeze runs from the hollow toward the rain garden, away from the parade. You have measured a safe route.\n\n"
   },
   {
-    "number": 7,
+    "number": 8,
     "command": "down",
     "room": "Warm Tile Terrace",
     "output": "The tiles tick underfoot in a steady breeze from the hollow. The post is south, the garden east, the whisper arch north, and the vane perch up.\n\n"
   },
   {
-    "number": 7,
+    "number": 8,
     "command": "east",
     "room": "Thimble Rain Garden",
     "output": "Beside the thirsty seedlings, a crust of soil blocks the gutter. Warm tiles lie west; the seed shed is east.\n\n"
@@ -126,13 +126,13 @@
     "output": "The tiles tick underfoot in a steady breeze from the hollow. The post is south, the garden east, the whisper arch north, and the vane perch up.\n\n"
   },
   {
-    "number": 6,
+    "number": 7,
     "command": "south",
     "room": "Dispatch Post",
     "output": "Beside the dispatch bell, Postmaster Mica holds an unfinished forecast. The terrace is north, the kitchen west, the archive south, and the balcony east.\n\n"
   },
   {
-    "number": 14,
+    "number": 15,
     "command": "south",
     "room": "Folded Yesterday Archive",
     "output": "Cool air strokes the brass corners of the weatherbox. The post is north.\n\n"
@@ -156,7 +156,7 @@
     "output": "Beside the dispatch bell, Postmaster Mica holds an unfinished forecast. The terrace is north, the kitchen west, the archive south, and the balcony east.\n\n"
   },
   {
-    "number": 14,
+    "number": 15,
     "command": "west",
     "room": "Steam Kitchen",
     "output": "Beside the steaming kettle, Baker Pip hums very badly, with excellent rhythm. The laundry is west; the post is east.\n\n"
@@ -186,49 +186,49 @@
     "output": "Beside the dispatch bell, Postmaster Mica holds an unfinished forecast. The terrace is north, the kitchen west, the archive south, and the balcony east.\n\n"
   },
   {
-    "number": 13,
+    "number": 14,
     "command": "north",
     "room": "Warm Tile Terrace",
     "output": "The tiles tick underfoot in a steady breeze from the hollow. The post is south, the garden east, the whisper arch north, and the vane perch up.\n\n"
   },
   {
-    "number": 8,
+    "number": 9,
     "command": "north",
     "room": "Whisper Arch",
     "output": "The wind chime clangs so hard that words break against it. Cloud Hollow lies east; the terrace is south.\n\n"
   },
   {
-    "number": 8,
+    "number": 9,
     "command": "tie wind chime to soft ribbon",
     "room": "Whisper Arch",
     "output": "You tie the soft ribbon around the chime's clapper. CLANG becomes tok. From east, a small voice says, 'Oh. There you are.'\n\n"
   },
   {
-    "number": 10,
+    "number": 11,
     "command": "east",
     "room": "Cloud Hollow",
     "output": "Rain trembles inside Nimbus the cloud, just above your knees. The whisper arch is west.\n\n"
   },
   {
-    "number": 7,
+    "number": 8,
     "command": "listen to nimbus cloud",
     "room": "Cloud Hollow",
     "output": "You let Nimbus finish. 'I didn't stop yesterday. They told me not to stop. Then everyone was unhappy. If I stay here, I can't do it wrong again.' The cloud waits. You do not fill the quiet with instructions.\n\n"
   },
   {
-    "number": 10,
+    "number": 11,
     "command": "show folded report to nimbus cloud",
     "room": "Cloud Hollow",
     "output": "Nimbus reads the report. 'Ludo wasn't cross with me?' The rain inside loosens. You say the Bureau should have listened when Ludo asked. For the first time, Nimbus stops apologizing. 'Then we need a different promise. One with a pause.'\n\n"
   },
   {
-    "number": 14,
+    "number": 15,
     "command": "tell nimbus cloud about pause rule",
     "room": "Cloud Hollow",
     "output": "'If anyone says pause, I stop,' Nimbus says. 'Including me. We listen, then decide together whether to continue. Could that be part of the promise?'\n\n"
   },
   {
-    "number": 13,
+    "number": 14,
     "command": "tell nimbus cloud about promise",
     "room": "Cloud Hollow",
     "output": "You promise rain for the garden, a clear gutter for the roots, and a pause whenever anyone asks. Including Nimbus. The cloud unfolds. 'Then I would like to come back.' It slips west and south to the warm terrace, keeping pace with no one but itself.\n\n"
@@ -240,13 +240,13 @@
     "output": "The wind chime, its clapper wrapped in the soft ribbon, makes a soft wooden chuckle. Cloud Hollow lies east; the terrace is south.\n\n"
   },
   {
-    "number": 19,
+    "number": 22,
     "command": "south",
     "room": "Warm Tile Terrace",
     "output": "Nimbus the cloud hovers above the tiles, ready to choose the rain together. The post is south, the garden east, the whisper arch north, and the vane perch up.\n\n"
   },
   {
-    "number": 16,
+    "number": 18,
     "command": "south",
     "room": "Dispatch Post",
     "output": "By the dispatch bell, Mica waits for your revised forecast. The terrace is north, the kitchen west, the archive south, and the balcony east.\n\n"
@@ -258,7 +258,7 @@
     "output": "You are carrying:\n  A folded report\n  The folded report contains:\n    A pressed flower\n  A narrow spoon\n  A weather card\n\n"
   },
   {
-    "number": 31,
+    "number": 32,
     "command": "write weather card",
     "room": "Dispatch Post",
     "output": "You write the wind route you measured and the gutter you cleared, then the part in the largest letters: PAUSE WHEN ANYONE ASKS. INCLUDING THE CLOUD. Mica should read this card before it goes out.\n\n"
@@ -270,7 +270,7 @@
     "output": "Mica reads every line, approves the card, and hands it back. 'I am sorry about yesterday. An instruction should never be louder than someone asking to stop. Put this in the broadcast slot east of the post.'\n\n"
   },
   {
-    "number": 18,
+    "number": 19,
     "command": "east",
     "room": "Forecast Balcony",
     "output": "Your card grows warm beside the humming broadcast slot. The dispatch post is west.\n\n"
@@ -294,7 +294,7 @@
     "output": "Nimbus the cloud hovers above the tiles as the revised forecast hums overhead. The post is south, the garden east, the whisper arch north, and the vane perch up.\n\n"
   },
   {
-    "number": 8,
+    "number": 9,
     "command": "drizzle nimbus cloud",
     "room": "Warm Tile Terrace",
     "output": "You and Nimbus choose a soft drizzle. Rain whispers down the clear gutter to every waiting root. Ludo's old flower would hardly bend under it. From the garden, Ludo calls 'Pause.' Nimbus stops at once. This time, the small voice reaches everyone.\n\nMica returns to the post and rings the dispatch bell once. Tomorrow's forecast has room for an apprentice's observations, a child's voice, and a cloud that can say no. Nimbus folds itself small enough to rest beside you, and leaves the pocket of air over your shoulder dry.\n\nTHE END -- A FORECAST YOU CAN KEEP\nBureau record: a promise published. No deadline. Good weather work takes listening.\n"

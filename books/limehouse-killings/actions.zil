@@ -1,3 +1,5 @@
+<SYNTAX TURN OBJECT = V-SPIN>
+
 ; === ACTION ROUTINES ===
 
 ; --- Evidence Object Actions ---
@@ -39,7 +41,10 @@
            <RTRUE>)>>
 
 <ROUTINE LOCKED-BOX-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? SPIN>
+           <COND (,LOCKED-BOX-OPENED <TELL "The dial already rests at MORIARTY. The box stands open." CR>)
+                 (T <TELL "The dial clicks from name to name. Which will you turn it to: [[Lady Ashworth->ashworth]], [[Mr. Hudson->hudson]], or [[Dr. Moriarty->moriarty]]?" CR>)>)
+          (<VERB? EXAMINE READ>
            <COND (,LOCKED-BOX-OPENED
                   <TELL "The box stands open, its dial resting at MORIARTY between the engraved letter, flower, and columns of debt.">
                   <COND (<IN? ,BANK-STATEMENT ,LOCKED-BOX> <TELL " A [[bank statement->statement]] lies inside.">)>
@@ -207,7 +212,10 @@
            <RTRUE>)>>
 
 <ROUTINE CIPHER-BOOK-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? MOVE>
+           <COND (,CIPHER-SOLVED <TELL "The book stays on its runners. The passage is already open." CR>)
+                 (T <TELL "The book catches against a stop. Its spine gives a little when you press it inward." CR>)>)
+          (<VERB? EXAMINE>
 		   <TELL "A colored ribbon marks this book. Its spine projects just far enough to press.">
 		   <COND (,CIPHER-SOLVED <TELL " The mechanism behind it has already released.">)>
 		   <CRLF>
@@ -251,7 +259,7 @@
            <RTRUE>)>>
 
 <ROUTINE WAX-SEAL-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? EXAMINE READ>
            <TELL "A narrow M is pressed into the wax. A broken thread crosses the back: this sealed a small parcel, not an envelope." CR>
            <RTRUE>)
           (<VERB? TAKE>
@@ -525,7 +533,7 @@ hides the grating under the leaves; the garden shows only a glint."
            <RTRUE>)>>
 
 <ROUTINE LABELS-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? EXAMINE READ>
            <TELL "The curled labels on the [[purple flowers->flowers]] read 'Aconitum - Wolfsbane.' A watering date in Hudson's handwriting is underlined twice." CR>
            ;"Reading the label with the bottle in hand is the comparison."
            <COND (<AND <NOT ,POISON-IDENTIFIED> <IN? ,POISON-BOTTLE ,WINNER>>
@@ -748,8 +756,9 @@ player has had the lid up, a closed trunk stays closed to a glance."
            <RTRUE>)>>
 
 <ROUTINE GATES-F ()
-    <COND (<VERB? EXAMINE>
-           <TELL "The iron gates bear the [[Ashworth crest->Ashworth crest]]. Their latch has rusted in the raised position." CR>
+    <COND (<VERB? OPEN RAISE> <TELL "The latch is rusted fast in its raised position. You can walk straight through the gates to the [[north]]." CR>)
+          (<VERB? EXAMINE>
+           <TELL "The iron gates bear the [[Ashworth crest->Ashworth crest]]. Their [[latch->iron gates]] has rusted in the raised position." CR>
            <RTRUE>)>>
 
 <ROUTINE PATH-F ()
@@ -1461,7 +1470,8 @@ player has had the lid up, a closed trunk stays closed to a glance."
 		<RTRUE>)>>
 
 <ROUTINE STONE-WALLS-F ()
-	<COND (<VERB? EXAMINE>
+	<COND (<VERB? CLIMB-FOO CLIMB-UP> <DO-WALK ,P?UP>)
+          (<VERB? EXAMINE>
 		<TELL "Water has bleached the mortar in long vertical runs. The stair rises inside the chimney breast; from the library, a person could reach the study without entering the hall." CR>
 		<RTRUE>)>>
 
@@ -1518,3 +1528,29 @@ player has had the lid up, a closed trunk stays closed to a glance."
     <COND (<VERB? EXAMINE>
            <COND (,LADY-CONFRONTED <TELL "A pale band circles Lady Ashworth’s finger. The ring leaves a little arc in the dust each time she nudges it." CR>)
                  (T <TELL "Her thumb keeps turning the gold band round her finger, even when she folds her hands." CR>)>)>>
+
+<ROUTINE DETAIL-INVENTORY-ENTRY-F ()
+    <COND (<VERB? READ> <SETG CABINET-CLUE-SEEN T> <TELL "In pencil beside the missing bottle: ‘tincture, private laboratory.’" CR>)>>
+
+<ROUTINE DETAIL-TEA-CARD-F ()
+    <COND (<VERB? READ> <TELL "TEA FIRST. THEORIES AFTER." CR>)>>
+
+<ROUTINE OUTSIDE-WINDOW-F ()
+    <COND (<VERB? OPEN>
+           <COND (<FSET? ,WINDOW ,OPENBIT> <TELL "The window is already open. You can step over the sill into the study." CR>)
+                 (T <TELL "You press the sash. The rusty catch holds it shut on the study side." CR>)>)>>
+
+<ROUTINE KITCHEN-STAIRS-F ()
+    <COND (<VERB? CLIMB-FOO CLIMB-DOWN> <DO-WALK ,P?DOWN>)>>
+
+<ROUTINE HUDSON-BAG-F ()
+    <COND (<VERB? OPEN>
+           <COND (<FSET? ,PRSO ,OPENBIT> <TELL "The carpetbag is already open." CR>)
+                 (T <FSET ,PRSO ,OPENBIT> <TELL "You undo the fastenings. Hudson has rolled the shirt around a pair of clean socks." CR>)>)
+          (<VERB? CLOSE>
+           <COND (<FSET? ,PRSO ,OPENBIT> <FCLEAR ,PRSO ,OPENBIT>
+                  <TELL "You fold the bag shut. The shirt cuff catches between the fastenings again." CR>)
+                 (T <TELL "Both fastenings are already shut." CR>)>)
+          (<VERB? EXAMINE>
+           <COND (<FSET? ,PRSO ,OPENBIT> <TELL "A clean shirt and rolled socks fill the open bag." CR>)
+                 (T <TELL "A clean shirt cuff pokes between the fastenings. Hudson has packed in a hurry." CR>)>)>>

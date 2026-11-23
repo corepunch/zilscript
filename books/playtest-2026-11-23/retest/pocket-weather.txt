@@ -1,0 +1,21 @@
+THE POCKET WEATHER BUREAU
+A little cloud has refused its forecast. Your first job at the weather post is to bring it back.
+
+Beside the [[dispatch bell->bell]], [[Postmaster Mica->mica]] holds an unfinished [[forecast]]. The terrace is [[north]], the kitchen [[west]], the archive [[south]], and the balcony [[east]].
+
+
+> north
+The [[tiles]] tick underfoot, but the [[vane]] overhead is still. The post is [[south]], the garden [[east]], the whisper arch [[north]], and the [[vane]] perch [[up]].
+
+
+> north
+The [[wind chime->chime]] clangs so hard that words break against it. Cloud Hollow lies [[east]]; the terrace is [[south]].
+
+
+> east
+Rain trembles inside [[Nimbus the cloud->cloud]], just above your knees. The whisper arch is [[west]].
+
+
+> tell nimbus cloud
+The chime breaks every sentence. Soften it before a conversation.
+

@@ -74,7 +74,7 @@
 	 <TELL " Cloud Hollow lies [[east]]; the terrace is [[south]]." CR>)>>
 <ROUTINE HOLLOW-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-	 <COND (<IN? ,CLOUD ,HOLLOW> <TELL "[[Rain->cloud]] trembles inside [[Nimbus the cloud->cloud]], just above your knees.">)
+	 <COND (<IN? ,CLOUD ,HOLLOW> <TELL "Rain trembles inside [[Nimbus the cloud->cloud]], just above your knees.">)
 	 (T <TELL "The hollow smells of [[rain->scent]] that has decided where to go.">)>
 	 <TELL " The whisper arch is [[west]]." CR>)>>
 <ROUTINE ARCHIVE-F (RARG)
@@ -122,7 +122,7 @@
 	 (T <COND (<IN? ,BUTTON ,ROOK> <TELL "'A fair trade lets things move,' Aster says. 'The [[forecast]] is yours to check now. [[Promise]] kept. Want a [[joke]]?'" CR>) (T <TELL "'The [[forecast]] says downwind. The vane can't show you downwind while I'm holding it. A [[promise]] of a shiny trade might help. Or ask for a [[joke]].'" CR>)>)>)
 	 (<AND <VERB? SHOW> <EQUAL? ,PRSO ,BUTTON>> <TELL "Aster leans forward. 'Yes. Give it to me, and the wind is yours.'" CR>)>>
 <ROUTINE VANE-F ()
-	<COND (<VERB? EXAMINE>
+	<COND (<VERB? EXAMINE READ>
 	 <COND (,WIND-KNOWN <TELL "The vane shows a steady breeze toward the garden below. A cloud can travel that way without crossing the parade." CR>)
 	 (<IN? ,ROOK ,ROOKERY> <TELL "The metal stings your fingers. The counterweight is gripped from the rookery [[west]]. Once free, the vane can be turned to test the wind." CR>)
 	 (T <TELL "The counterweight is free. Turn the [[vane]] gently and let the breeze find its own direction." CR>)>)
@@ -150,7 +150,10 @@
 	 <MOVE ,RIBBON ,WINNER> <FCLEAR ,RIBBON ,NDESCBIT> <TELL "You untie the [[ribbon]] and take it back. The [[chime]] clangs again. You can pad it again whenever you like." CR>)
 	 (T <TELL "There is no padded clapper here to untie." CR>)> <RTRUE>>
 <ROUTINE CHIME-F ()
-	<COND (<VERB? EXAMINE LISTEN>
+	<COND (<VERB? RING>
+           <COND (<IN? ,RIBBON ,CHIME> <TELL "You swing the padded clapper. Tok. You can still hear Nimbus." CR>)
+                 (T <TELL "You swing the bare clapper. CLANG! The voice beyond the arch vanishes under the ringing." CR>)>)
+          (<VERB? EXAMINE LISTEN>
 	 <COND (<IN? ,RIBBON ,CHIME> <TELL "The [[ribbon]] softens each strike to tok. The [[clapper]] swings inside its wool wrap. Nimbus can be heard from [[east]]." CR>)
 	 (T <TELL "The hard [[clapper]] strikes with a CLANG. Something soft tied around it would let you hear the voice beyond, to the [[east]]." CR>)>)
 	 (<VERB? TIE> <PAD-CHIME>)
@@ -246,7 +249,8 @@
 	 (T <TELL "The tune keeps tripping over two words that sound alike: 'whether' and 'weather'. Aster is saving the last line. Ask him for it." CR>)>)>>
 
 <ROUTINE CLOUD-F ()
-	<COND (<VERB? EXAMINE>
+	<COND (<VERB? SMELL> <TELL "The air beside Nimbus smells of rain on dry earth." CR>)
+          (<VERB? EXAMINE>
 	 <COND (,PUBLISHED <TELL "Nimbus is light around the edges. 'Shall we [[drizzle]] or make a puddle-sized [[shower]]? Either way, anyone may ask for a [[pause]].'" CR>)
 	 (,AGREED <TELL "Nimbus floats without curling away. 'We have a [[promise]]. Now let the whole town hear it through your [[forecast]].'" CR>)
 	 (,APOLOGY <TELL "Nimbus no longer hides its face. It wants to hear how tomorrow can be different. Ask about a [[pause]], then talk about a [[promise]]." CR>)
@@ -400,7 +404,8 @@
 <ROUTINE V-SHOW () <TELL "That does not answer the question here. Try showing evidence to someone who needs it." CR>>
 
 <ROUTINE OVERHEAD-VANE-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? READ SPIN> <TELL "The arrow is too high overhead. Climb [[up]] to the perch to reach it and read the wind." CR>)
+          (<VERB? EXAMINE>
            <COND (<IN? ,ROOK ,ROOKERY> <TELL "The arrow stays put even when a feather blows past. You could see what holds it from the perch above." CR>)
                  (T <TELL "The tip of the arrow swings freely. From the perch you could read exactly where it points." CR>)>)>>
 
@@ -410,7 +415,8 @@
                  (T <TELL "The [[brass pear]] swings clear of the perch now. It balances the arrow at the other end." CR>)>)>>
 
 <ROUTINE CLAPPER-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? RING PUSH> <PERFORM ,V?RING ,CHIME>)
+          (<VERB? EXAMINE>
            <COND (<IN? ,RIBBON ,CHIME> <TELL "A dent has formed in the wool where it meets the rim. Even at the end of a swing, only the ribbon touches metal." CR>)
                  (T <TELL "The tip is as shiny as a newly polished spoon. It has worn a matching bright spot inside the rim." CR>)>)
           (<VERB? LISTEN> <PERFORM ,PRSA ,CHIME>)
@@ -420,3 +426,34 @@
 
 <ROUTINE PICTURE-F ()
     <COND (<VERB? READ> <PERFORM ,PRSA ,CHART>)>>
+
+<ROUTINE FORECAST-F ()
+    <COND (<VERB? READ> <PERFORM ,V?EXAMINE ,FORECAST>)
+          (T <TOPIC-F>)>>
+
+<ROUTINE DETAIL-BRASS-PEAR-F ()
+    <COND (<VERB? TAKE MOVE SPIN>
+           <COND (<IN? ,ROOK ,ROOKERY> <TELL "Aster tightens his toes over the brass pear. The arm stays put." CR>)
+                 (T <TELL "The pear swings back on its arm when you let go. Its stalk is screwed in tight." CR>)>)>>
+
+<ROUTINE DETAIL-BRASS-LIP-F ()
+    <COND (<VERB? OPEN RAISE> <PERFORM ,V?OPEN ,WEATHERBOX>)>>
+
+<ROUTINE DETAIL-WOOL-THREAD-F ()
+    <COND (<VERB? MOVE> <TELL "The seam puckers under your tug. You smooth it flat again before a stitch comes loose." CR>)>>
+
+<ROUTINE DETAIL-BUBBLES-F ()
+    <COND (<VERB? SMELL> <TELL "Lemon peel! The warm air carries the scent up from the laundry." CR>)
+          (<VERB? RUB> <TELL "Pop! A wet circle is all that is left of the bubble on your finger." CR>)>>
+
+<ROUTINE DETAIL-PLUME-F ()
+    <COND (<VERB? RUB> <TELL "At the cool edge of the white plume, a bead of water settles on your hand." CR>)>>
+
+<ROUTINE HOLLOW-SCENT-F ()
+    <COND (<VERB? SMELL> <TELL "The first breath smells of wet earth. The next carries the sharp green smell of a crushed leaf." CR>)>>
+
+<ROUTINE ROOKERY-SOAP-F ()
+    <COND (<VERB? SMELL> <TELL "A clean lemon smell rises from the perch with each warm puff of air." CR>)>>
+
+<ROUTINE TERRACE-TILES-F ()
+    <COND (<VERB? LISTEN> <TELL "You shift your heel. Click. A softer click answers from the next tile." CR>)>>

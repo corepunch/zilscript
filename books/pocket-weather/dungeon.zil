@@ -25,7 +25,8 @@
 <OBJECT TERRACE-TILES (IN TERRACE) (DESC "warm tiles")
  (SYNONYM TILE TILES ROOF) (ADJECTIVE WARM RED)
  (INTERACTIONS "") (FLAGS NDESCBIT)
- (TEXT "One red tile clicks under your heel. Lift your foot and the next tile answers. From up here, the whole post sounds like a kettle cooling.")>
+ (TEXT "One red tile clicks under your heel. Lift your foot and the next tile answers. From up here, the whole post sounds like a kettle cooling.")
+    (ACTION TERRACE-TILES-F)>
 
 <ROOM VANE-DECK (DESC "Weathercock Perch") (IN ROOMS) (FLAGS RLANDBIT ONBIT)
  (DOWN TO TERRACE) (WEST TO ROOKERY)
@@ -142,7 +143,7 @@
 
 <OBJECT FORECAST (IN LOCAL-GLOBALS) (DESC "forecast") (SYNONYM FORECAST INSTRUCTIONS INSTRUCTION) (ADJECTIVE OFFICIAL NEW)
  (INTERACTIONS "")
- (FLAGS NDESCBIT) (ACTION TOPIC-F)>
+ (FLAGS NDESCBIT READBIT) (ACTION FORECAST-F)>
 
 <OBJECT PROMISE (IN LOCAL-GLOBALS) (DESC "promise") (SYNONYM PROMISE AGREEMENT PACT)
  (INTERACTIONS "")
@@ -168,7 +169,8 @@
 <OBJECT ROOKERY-SOAP (IN ROOKERY) (DESC "laundry soap")
     (SYNONYM SOAP SUDS) (ADJECTIVE LAUNDRY LEMON)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Little [[bubbles]] catch on the perch when a warm puff comes up from the laundry. They smell of lemon peel.")>
+    (TEXT "Little [[bubbles]] catch on the perch when a warm puff comes up from the laundry. They smell of lemon peel.")
+    (ACTION ROOKERY-SOAP-F)>
 
 <OBJECT HOLLOW-BREEZE (IN TERRACE) (DESC "hollow breeze")
     (SYNONYM BREEZE WIND) (ADJECTIVE STEADY HOLLOW)
@@ -183,7 +185,8 @@
 <OBJECT HOLLOW-SCENT (IN HOLLOW) (DESC "scent of rain")
     (SYNONYM SCENT SMELL RAIN) (ADJECTIVE DAMP EARTHY)
     (FLAGS NDESCBIT INVISIBLE) (INTERACTIONS "")
-    (TEXT "The hollow smells like a flowerpot just after watering. The scent lingers even after the cloud moves on.")>
+    (TEXT "The hollow smells like a flowerpot just after watering. The scent lingers even after the cloud moves on.")
+    (ACTION HOLLOW-SCENT-F)>
 
 <OBJECT VANE-ABOVE (IN TERRACE) (DESC "overhead vane")
     (SYNONYM VANE WEATHERCOCK ARROW) (ADJECTIVE OVERHEAD WEATHER)
@@ -203,12 +206,14 @@
 <OBJECT DETAIL-BRASS-PEAR (IN ROOKERY) (DESC "brass pear")
     (SYNONYM PEAR WEIGHT) (ADJECTIVE BRASS)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "It even has a little brass stalk. The stalk is screwed into the arm so the pear can hang upside down without falling.")>
+    (TEXT "It even has a little brass stalk. The stalk is screwed into the arm so the pear can hang upside down without falling.")
+    (ACTION DETAIL-BRASS-PEAR-F)>
 
 <OBJECT DETAIL-BUBBLES (IN ROOKERY) (DESC "bubbles")
     (SYNONYM BUBBLES BUBBLE) (ADJECTIVE SOAP LITTLE)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "One bubble settles over a claw mark in the wood. For a moment the tiny scratch looks as big as a ditch.")>
+    (TEXT "One bubble settles over a claw mark in the wood. For a moment the tiny scratch looks as big as a ditch.")
+    (ACTION DETAIL-BUBBLES-F)>
 
 <OBJECT DETAIL-PICTURE (IN SHED) (DESC "picture")
     (SYNONYM PICTURE HAND DRAWING) (ADJECTIVE RAISED SMALL)
@@ -219,17 +224,20 @@
 <OBJECT DETAIL-PLUME (IN KITCHEN) (DESC "plume")
     (SYNONYM PLUME STEAM VAPOUR) (ADJECTIVE GENTLE WARM)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Just above the spout the steam is nearly invisible. Higher up it blooms white and leaves the air damp against your cheek.")>
+    (TEXT "Just above the spout the steam is nearly invisible. Higher up it blooms white and leaves the air damp against your cheek.")
+    (ACTION DETAIL-PLUME-F)>
 
 <OBJECT DETAIL-BRASS-LIP (IN ARCHIVE) (DESC "brass lip")
     (SYNONYM LIP RIM BRIM) (ADJECTIVE BRASS LITTLE)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "A bead of water follows the rim all the way to a low corner and drips off outside the box.")>
+    (TEXT "A bead of water follows the rim all the way to a low corner and drips off outside the box.")
+    (ACTION DETAIL-BRASS-LIP-F)>
 
 <OBJECT DETAIL-WOOL-THREAD (DESC "wool thread")
     (SYNONYM THREAD SEAM) (ADJECTIVE LOOSE WOOL)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The thread is the colour of the pocket. It runs back into a row of tiny stitches that has held through many wash days.")>
+    (TEXT "The thread is the colour of the pocket. It runs back into a row of tiny stitches that has held through many wash days.")
+    (ACTION DETAIL-WOOL-THREAD-F)>
 
 <OBJECT LIGHT-DRIZZLE (DESC "drizzle")
     (SYNONYM DRIZZLE) (ADJECTIVE LIGHT)

@@ -1,3 +1,5 @@
+<SYNTAX TURN OBJECT = V-SPIN>
+
 <GLOBAL POWER <>>
 <GLOBAL COOLING <>>
 <GLOBAL PROOF <>>
@@ -173,7 +175,10 @@
 	<COND (<VERB? EXAMINE READ>
 		<TELL "Mara recorded four independent pulses before reception. Afterwards she added a fifth name, Lena Orlov, then crossed out its empty vital-sign fields. No fifth pulse is recorded. In the margin: 'Requested pediatric analgesia. I remember treating an adult.' No dose was dispensed." CR>)>>
 <ROUTINE PUMP-F ()
-	<COND (<VERB? EXAMINE READ>
+	<COND (<VERB? SPIN>
+           <COND (,COOLING <TELL "The seal holds. You leave the fitting seated." CR>)
+                 (T <TELL "Your fingers slip on the square fitting. It needs the calibrated [[torque wrench->wrench]]." CR>)>)
+          (<VERB? EXAMINE READ>
 		<COND (,COOLING <TELL "The [[pump]] is sealed and delivering coolant to the cold archive. The square torque fitting holds." CR>)
 			(T <TELL "The [[pump]] draws air through a loose square torque fitting. A calibrated wrench can repair the seal without replacing any parts." CR>)>)
 		(<VERB? TURN>
@@ -263,7 +268,7 @@
 					(,CONSENT <TELL "'Ivo agreed after reading the foil,' Mara says. 'I heard him. Keep that consent with the reference; none of us should have to give it twice.'" CR>)
 					(,PROOF <TELL "'Four bodies,' Mara says. 'Show Ivo the foil. He deserves to decide with evidence.'" CR>)
 					(T <TELL "'Read my clinical log,' Mara says. 'Then take the witness foil to the comparator. Do not let my certainty replace a measurement.'" CR>)>)
-			(T <TELL "Mara glances at the equipment. 'The protocol covers the engineering. Ask me about the signal, the crew, or Senn's daughter.'" CR>)>)>>
+			(T <TELL "Mara glances at the equipment. 'The protocol covers the engineering. Ask me about the [[signal]], the [[crew]], or Senn's [[daughter]].'" CR>)>)>>
 
 <ROUTINE IVO-F ()
 	<COND (<VERB? EXAMINE>
@@ -300,7 +305,7 @@
 			(<EQUAL? ,PRSI ,TOPIC-CREW>
 				<COND (,PROOF <TELL "'Four bodies,' Senn says. 'I won't dispute the trace. I will leave with you, whichever decision you record.'" CR>)
 					(T <TELL "'I remember her in this room,' Senn says. 'There is no fifth thermal load.' His open hands do not move." CR>)>)
-			(T <TELL "Senn looks past the equipment. 'Ask me about the signal, or about Lena. I know which one is harder.'" CR>)>)>>
+			(T <TELL "Senn looks past the equipment. 'Ask me about the [[signal]], or about [[Lena->daughter]]. I know which one is harder.'" CR>)>)>>
 
 <ROUTINE TOPIC-F ()
 	<COND (<AND <VERB? EXAMINE> <EQUAL? ,PRSO ,TOPIC-DAUGHTER> <IN? ,SENN ,HERE>>
@@ -409,7 +414,10 @@
 			(T <TELL "A dry [[click]] comes through the [[padding]]. The [[breaker]] is within reach, but the way [[north]] is sealed.">)>
 		<CRLF> <RTRUE>)>>
 <ROUTINE FRAME-F ()
-	<COND (<VERB? EXAMINE SEARCH> <TELL "A [[buckle]] taps the [[restraint frame->frame]] when you shift your weight. The frame releases by hand. Its padding is worn in four places where you brace your limbs. There is no second person's impression. The doorway's mechanical interlock depends on the habitat [[breaker]]." CR>)
+	<COND (<VERB? EXAMINE SEARCH>
+           <COND (<FSET? ,DETAIL-BUCKLE ,OPENBIT> <TELL "The open [[buckle]] hangs loose against the [[restraint frame->frame]].">)
+              (T <TELL "A [[buckle]] taps the [[restraint frame->frame]] when you shift your weight.">)>
+        <TELL " The frame releases by hand. Its padding is worn in four places where you brace your limbs. There is no second person's impression. The doorway's mechanical interlock depends on the habitat [[breaker]]." CR>)
 		(<VERB? OPEN CLOSE> <COND (,POWER <TELL "The interlock is released; the way [[north]] is open." CR>)
 			(T <TELL "Reset the [[breaker]] first. The pressure interlock is doing its job." CR>)>)>>
 <ROUTINE RECESSES-F ()
@@ -427,7 +435,8 @@
 <ROUTINE STARFIELD-F ()
 	<COND (<VERB? EXAMINE> <TELL "The [[stars]] are points without an atmosphere to soften them. The station's slow rotation changes their position predictably. It is a relief to watch something indifferent to you." CR>)>>
 <ROUTINE HARDWARE-F ()
-	<COND (<VERB? EXAMINE SEARCH> <TELL "Four physical [[evacuation restraints->restraints]], and a passive reflector served by the [[beacon]]. A rescue ship can find the reflector without decoding a message. Four places, no fifth." CR>)>>
+	<COND (<VERB? CLIMB-ON> <TELL "You try one of the four seats. Your shoulders fit between the restraints. You get up again." CR>)
+          (<VERB? EXAMINE SEARCH> <TELL "Four physical [[evacuation restraints->restraints]], and a passive reflector served by the [[beacon]]. A rescue ship can find the reflector without decoding a message. Four places, no fifth." CR>)>>
 <ROUTINE V-HINT ("AUX" (STAGE 0))
 	<COND (<NOT ,POWER> <SET STAGE 0>)
 		(<NOT ,COOLING> <SET STAGE 1>)
@@ -469,17 +478,20 @@
 		(T <TELL "'Bring me the measured foil. I need something better than that before I agree to leave.'" CR>)>>
 
 <ROUTINE CORE-INTERLOCK-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? OPEN>
+           <COND (<AND ,PROOF ,ISOLATED> <TELL "The bolt is back. The way into the core is open." CR>)
+                 (T <TELL "The bolt holds. You check the flags. "> <PERFORM ,V?READ ,DETAIL-INSPECTION-FLAGS>)>)
+          (<VERB? EXAMINE>
            <COND (<AND ,PROOF ,ISOLATED> <TELL "Both [[inspection flags]] show white: trace verified and receiver isolated. The bolt has drawn back into its sleeve." CR>)
                  (T <TELL "The bolt crosses two [[inspection flags]]. One needs a verified physical trace, the other a disconnected receiver." CR>)>)>>
 
 <ROUTINE FLAGS-DETAIL-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? EXAMINE READ>
            <COND (,PROOF <TELL "The TRACE tab shows white. ">) (T <TELL "A black bar still covers TRACE. ">)>
            <COND (,ISOLATED <TELL "The receiver tab shows white." CR>) (T <TELL "A red line on the receiver tab means the circuit is still live." CR>)>)>>
 
 <ROUTINE GAUGE-DETAIL-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? EXAMINE READ>
            <COND (,POWER <TELL "The needle sits on the single black line for one atmosphere. You can still feel a faint pulse through the glass." CR>) (T <TELL "A needle quivers behind a little round window. Even with the breaker out, the needle stays inside the painted reserve band." CR>)>)>>
 
 <ROUTINE WAFER-CLIPS-F ()
@@ -490,3 +502,19 @@
     <COND (<VERB? EXAMINE READ>
            <SETG ORIGIN T>
            <TELL "Under LENA and SENN ORLOV the cuts are equally sharp. Between them, RESCUE-COMPRESSION is cut in the same small hand." CR>)>>
+
+<ROUTINE RETURN-STAMP-F ()
+    <COND (<VERB? READ> <TELL "The return stamp crosses the raised serial. The outer relay stamped the wafer after the serial was struck." CR>)>>
+
+<ROUTINE DETAIL-BUCKLE-F ()
+    <COND (<VERB? OPEN PUSH UNTIE>
+           <COND (<FSET? ,PRSO ,OPENBIT> <TELL "The buckle is already open. The two ends hang loose." CR>)
+                 (T <FSET ,PRSO ,OPENBIT>
+                  <TELL "You press the lip with your thumb. The tongue slips free and the strap falls loose." CR>)>)
+          (<VERB? CLOSE>
+           <COND (<FSET? ,PRSO ,OPENBIT> <FCLEAR ,PRSO ,OPENBIT>
+                  <TELL "You slide the tongue back into the buckle. It catches with a click." CR>)
+                 (T <TELL "The tongue is already fastened." CR>)>)
+          (<VERB? EXAMINE>
+           <COND (<FSET? ,PRSO ,OPENBIT> <TELL "The tongue hangs free of its slot. You can slide it back in." CR>)
+                 (T <TELL "The lip is polished on the side nearest your thumb. You can find the release with your eyes shut." CR>)>)>>

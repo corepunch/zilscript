@@ -227,10 +227,20 @@ function Session:interactionTargets(includePast)
 		seen[target] = true
 		table.insert(targets, { target = target, label = label })
 	end
-	local active = includePast == true
+	-- Prefer the current scene's labels when a remembered target also resolves
+	-- to a different local object (for example, two rooms' tables).
+	local active = false
 	for _, entry in ipairs(self.entries) do
 		if entry == self.scene then active = true end
 		if active then
+			for _, links in ipairs(entry.links or {}) do
+				for _, link in ipairs(links) do add(link.target, link.label) end
+			end
+		end
+	end
+	if includePast then
+		for _, entry in ipairs(self.entries) do
+			if entry == self.scene then break end
 			for _, links in ipairs(entry.links or {}) do
 				for _, link in ipairs(links) do add(link.target, link.label) end
 			end

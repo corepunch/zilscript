@@ -1,3 +1,5 @@
+<SYNTAX TURN OBJECT = V-SPIN>
+
 ; === CUSTOM SYNTAX ===
 
 <SYNTAX WIND OBJECT = V-WIND>
@@ -247,17 +249,7 @@
                  (T
                   <TELL "Old Tick chimes again, its wooden bird peering at Pip. 'You have wound me twice, small one. Few show such patience. The latch behind me opens my brother downstairs -- but it needs a small paw to reach it. Have you made a fox-friend?'" CR>
                   <SETG OLD-TICK-RIDDLES <+ ,OLD-TICK-RIDDLES 1>>)>
-           <COND (<AND <G? ,NUTMEG-TRUST 0>
-                       <NOT ,STUDY-ACCESS>>
-                  <TELL "Suddenly, Nutmeg pads forward from the shadows. 'I can reach it,' she says quietly. 'I know the way. I followed him once -- the old man -- when he went upstairs.' She slips behind Old Tick and reaches for a hidden latch. A soft click answers from below. 'The other clock,' she whispers. 'On the workshop floor. It has swung open. The study stairs are behind it. That is where he went.'" CR>
-                  <SETG STUDY-ACCESS T>
-                  <SCORE-UPD 5>)
-                 (<AND <EQUAL? ,NUTMEG-TRUST -1>
-                       <IN? ,TIN-SOLDIER ,WINNER>
-                       <NOT ,STUDY-ACCESS>>
-                  <TELL "Without Nutmeg's help, Pip improvises. The tin soldier's bayonet hooks the latch behind Old Tick. A click answers from the workshop floor below: the other clock has swung open, revealing the study stairs." CR>
-                  <SETG STUDY-ACCESS T>
-                  <SCORE-UPD 5>)>
+           <RELEASE-STUDY-LATCH>
            <RTRUE>)
           (<AND <EQUAL? ,PRSO ,MUSIC-BOX>
                 <IN? ,MUSIC-BOX ,DISPLAY-CASE>
@@ -452,7 +444,7 @@
            <TELL "Pip's tiny broom has worn bristles and a handle smooth from use. It was one of the first things Tolliver ever made for his apprentice." CR>)>>
 
 <ROUTINE CLOCK-FACE-F ()
-    <COND (<VERB? THROUGH>
+    <COND (<VERB? THROUGH CLIMB-FOO CLIMB-UP>
            <COND (,STUDY-ACCESS
                   <TELL "Pip slips behind the open clock and climbs the narrow staircase." CR>
                   <GOTO ,TOLLIVER-STUDY>)
@@ -543,7 +535,10 @@ coat, and the pages in his handwriting."
                    <TELL "His painted mouth stays clamped shut. He looks like he has plenty to say, if only someone would wind him up." CR>)>)>>
 
 <ROUTINE BERTRAND-KEY-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? SPIN>
+           <COND (<AND <EQUAL? ,HERE ,TOOL-BENCH> <IN? ,BERTRAND ,TOOL-BENCH>> <PERFORM ,V?WIND ,BERTRAND>)
+                 (T <TELL "Pip rolls the key between two fingers. Its square tip fits the socket in Bertrand’s back." CR>)>)
+          (<VERB? EXAMINE>
            <COND (<IN? ,BERTRAND-KEY ,TOOL-BENCH>
                   <TELL "A tiny brass winding key protrudes from the nutcracker's back. Its little wings are made for Pip's fingers; one good winding would wake the captain." CR>)
                   (T
@@ -558,7 +553,11 @@ coat, and the pages in his handwriting."
 
 <ROUTINE TOOL-RACK-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "A wooden rack of tools hangs on the wall: tiny [[chisels]], [[needle-files]], and a jeweller's [[hammer]]. Beneath it stands an open [[varnish pot->pot]], sweet-smelling and sticky." CR>)>>
+           <TELL "Grandfather cut a notch for each tool.">
+           <COND (<AND <IN? ,TOY-CHISELS ,TOOL-BENCH> <FSET? ,TOY-CHISELS ,NDESCBIT>> <TELL " Tiny [[chisels]] hang in a row.">)>
+           <COND (<AND <IN? ,TOY-FILES ,TOOL-BENCH> <FSET? ,TOY-FILES ,NDESCBIT>> <TELL " The [[needle-files]] share one notch.">)>
+           <COND (<AND <IN? ,DETAIL-HAMMER ,TOOL-BENCH> <FSET? ,DETAIL-HAMMER ,NDESCBIT>> <TELL " A jeweller's [[hammer]] hangs by its head.">)>
+           <TELL " An open [[varnish pot->pot]] stands beneath the rack." CR>)>>
 
 <ROUTINE MAKESHIFT-STEPS-F ()
     <COND (<VERB? EXAMINE>
@@ -670,7 +669,8 @@ coat, and the pages in his handwriting."
            <TELL "A brave tin soldier, painted in bright red and blue. There is a spot of rust on his bayonet, but his painted eyes are steady. He stands at attention, as if waiting for orders." CR>)>>
 
 <ROUTINE MUSIC-BOX-F ()
-    <COND (<VERB? WIND> <V-WIND>)
+    <COND (<VERB? SPIN> <V-WIND>)
+          (<VERB? WIND> <V-WIND>)
           (<VERB? PLACE-HEART> <V-PLACE-HEART>)
           (<VERB? EXAMINE>
            <COND (<AND <IN? ,MUSIC-BOX ,WORKSHOP-HEART> <NOT <FSET? ,MUSIC-BOX ,TAKEBIT>>>
@@ -695,8 +695,25 @@ coat, and the pages in his handwriting."
 
 ; === STORAGE-LOFT OBJECT HANDLERS ===
 
+<ROUTINE RELEASE-STUDY-LATCH ()
+    <COND (,STUDY-ACCESS <RFALSE>)
+          (<G? ,NUTMEG-TRUST 0>
+           <TELL "Suddenly, Nutmeg pads forward from the shadows. 'I can reach it,' she says quietly. 'I know the way. I followed him once -- the old man -- when he went upstairs.' She slips behind Old Tick and reaches for a hidden latch. A soft click answers from below. 'The other clock,' she whispers. 'On the workshop floor. It has swung open. The study stairs are behind it. That is where he went.'" CR>
+           <SETG STUDY-ACCESS T>
+           <SCORE-UPD 5> <RTRUE>)
+          (<AND <EQUAL? ,NUTMEG-TRUST -1>
+                <IN? ,TIN-SOLDIER ,WINNER>>
+           <TELL "Without Nutmeg's help, Pip improvises. The tin soldier's bayonet hooks the latch behind Old Tick. A click answers from the workshop floor below: the other clock has swung open, revealing the study stairs." CR>
+           <SETG STUDY-ACCESS T>
+           <SCORE-UPD 5> <RTRUE>)>>
+
 <ROUTINE OLD-TICK-F ()
-    <COND (<VERB? WIND> <V-WIND>)
+    <COND (<VERB? OPEN PUSH>
+           <COND (,STUDY-ACCESS <TELL "The latch is up. The study stairs are open behind the other clock downstairs." CR>)
+                 (<AND ,OLD-TICK-HEARD <RELEASE-STUDY-LATCH>> <RTRUE>)
+                 (<NOT ,OLD-TICK-HEARD> <TELL "The bird is asleep behind its door. Wind Old Tick to wake it." CR>)
+                 (T <TELL "Pip slips a hand behind the clock. The gap is too narrow to reach the latch. A little fox paw might fit." CR>)>)
+          (<VERB? WIND SPIN> <V-WIND>)
           (<VERB? EXAMINE>
            <COND (,OLD-TICK-HEARD
                   <TELL "The old cuckoo clock is awake now. Its hands move steadily, and the little wooden bird peers out from its door with bright painted eyes. It has the air of something very old and very patient." CR>)
@@ -757,7 +774,10 @@ coat, and the pages in his handwriting."
 ; === SNOWY-ALLEY OBJECT HANDLERS ===
 
 <ROUTINE FOOTPRINTS-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? FOLLOW>
+           <COND (<EQUAL? ,HERE ,MAILBOX-CORNER> <DO-WALK ,P?WEST>)
+                 (T <DO-WALK ,P?EAST>)>)
+          (<VERB? EXAMINE>
            <COND (<EQUAL? ,HERE ,MAILBOX-CORNER>
                   <TELL "Two tracks overlap here. The little fox came to the post, turned, and put a paw almost exactly in her own print going back [[west]]. From there, they lead south toward the scrap-yard." CR>)
                  (T
@@ -793,7 +813,8 @@ coat, and the pages in his handwriting."
            <RTRUE>)>>
 
 <ROUTINE CLOCK-WINDING-F ()
-    <COND (<VERB? WIND> <V-WIND>)
+    <COND (<VERB? SPIN> <V-WIND>)
+          (<VERB? WIND> <V-WIND>)
           (<VERB? EXAMINE>
            <COND (,TOWER-WOUND
                   <TELL "A small wheel catches a tooth, lifts it, and lets it drop. That little drop makes the tick Pip hears from the square." CR>)
@@ -967,7 +988,10 @@ coat, and the pages in his handwriting."
                   <TELL "'Nutmeg,' she says at last. 'That is my name. Please do not take the ticking away. It is cold enough here already.'" CR>)>)>>
 
 <ROUTINE WORKSHOP-KEY-F ()
-    <COND (<AND <VERB? TAKE> ,KEY-WOUND>
+    <COND (<VERB? SPIN>
+           <COND (<EQUAL? ,HERE ,WORKSHOP-HEART> <PERFORM ,V?WIND ,HEART-MECH>)
+                 (T <TELL "The key turns between Pip’s fingers. It needs the winding hole in the workshop heart." CR>)>)
+          (<AND <VERB? TAKE> ,KEY-WOUND>
            <TELL "The winding teeth hold it fast. Pip leaves the key turning with the heart." CR>)
           (<VERB? EXAMINE>
            <COND (,KEY-WOUND <TELL "The little grooves in the brass key mesh with the heart’s teeth. Every tick turns the key one notch." CR>)
@@ -1078,7 +1102,7 @@ coat, and the pages in his handwriting."
            <RTRUE>)>>
 
 <ROUTINE HEART-MECH-F ()
-    <COND (<VERB? WIND> <V-WIND>)
+    <COND (<VERB? WIND SPIN> <V-WIND>)
           (<VERB? EXAMINE>
            <COND (,KEY-WOUND
                   <TELL "The workshop heart is turning now -- slowly, but steadily. Its brass gears catch the candlelight. A deep, resonant ticking fills the chamber. It sounds like hope.">
@@ -1096,9 +1120,9 @@ coat, and the pages in his handwriting."
 <ROUTINE KEY-SLOT-F ()
     <COND (<VERB? EXAMINE>
            <COND (,KEY-WOUND
-                  <TELL "The workshop key is in the keyhole, turning steadily. The brass gleams with renewed warmth." CR>)
+                  <TELL "The [[workshop key]] is in the keyhole, turning steadily. The brass gleams with renewed warmth." CR>)
                   (T
-                   <TELL "A brass keyhole at the heart's centre. It is exactly the right size and shape for the workshop key. This is where the magic begins." CR>)>)>>
+                   <TELL "An empty brass keyhole sits at the heart’s centre. Four square corners wait for a winding key." CR>)>)>>
 
 <ROUTINE SILENT-TOYS-F ()
     <COND (<VERB? EXAMINE>
@@ -1289,8 +1313,49 @@ coat, and the pages in his handwriting."
     <FINISH>>
 
 <ROUTINE LATCH-F ()
-    <COND (<VERB? OPEN CLOSE> <PERFORM ,PRSA ,DISPLAY-CASE>)>>
+    <COND (<AND <VERB? EXAMINE> <FSET? ,DISPLAY-CASE ,OPENBIT>>
+           <TELL "The brass tongue is clear of the glass. It will hook over the rim again when Pip shuts the case." CR>)
+          (<VERB? MOVE RAISE> <PERFORM ,V?OPEN ,DISPLAY-CASE>)
+          (<VERB? OPEN CLOSE> <PERFORM ,PRSA ,DISPLAY-CASE>)>>
 
 <ROUTINE CART-WHEELS-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? PUSH> <PERFORM ,V?PUSH ,SCRAP-CART>)
+          (<VERB? SPIN>
+           <COND (,CART-MOVED <TELL "The front wheel rocks on its axle. The cart is clear of the gate." CR>)
+                 (T <TELL "The front rim grinds against the gatepost. The whole cart needs a push." CR>)>)
+          (<VERB? EXAMINE>
            <COND (,CART-MOVED <TELL "Four rusty lines end just past the gate. The rims stand clear of the post now." CR>) (T <TELL "The front rim has rubbed a bright stripe on the gatepost. The back wheels still sit squarely on the rails." CR>)>)>>
+
+<ROUTINE DETAIL-SAILBOAT-F ()
+    <COND (<VERB? PUSH> <TELL "The hull rocks twice and settles on its keel." CR>)>>
+
+<ROUTINE DETAIL-WOODEN-TRAIN-F ()
+    <COND (<VERB? PUSH> <TELL "The train rolls a finger’s length. Its last wheel drags a red streak across the bench." CR>)>>
+
+<ROUTINE DETAIL-WOODEN-DUCK-F ()
+    <COND (<VERB? PUSH> <TELL "The duck rolls round in a circle on its one good wheel and bumps Pip’s thumb." CR>)>>
+
+<ROUTINE MUSIC-TOOTH-F ()
+    <COND (<VERB? RUB> <TELL "A tiny buzz tickles Pip’s fingertip as the note dies away." CR>)>>
+
+<ROUTINE DISTANT-TICK-F ()
+    <COND (<VERB? LISTEN> <TELL "Tick … tick. It is loudest under the desk, where the boards lead [[down]]." CR>)>>
+
+<ROUTINE DETAIL-PAINT-MARK-F ()
+    <COND (<VERB? READ> <TELL "The red arrow points [[east]], toward the mailbox." CR>)
+          (<VERB? FOLLOW> <DO-WALK ,P?EAST>)>>
+
+<ROUTINE COUNTER-STEPS-F ()
+    <COND (<VERB? CLIMB-FOO CLIMB-DOWN> <DO-WALK ,P?DOWN>)>>
+
+<ROUTINE LOFT-RUNGS-F ()
+    <COND (<VERB? CLIMB-FOO CLIMB-DOWN> <DO-WALK ,P?DOWN>)>>
+
+<ROUTINE STUDY-STAIRS-F ()
+    <COND (<VERB? CLIMB-FOO CLIMB-DOWN> <DO-WALK ,P?OUT>)>>
+
+<ROUTINE RACK-TOOL-F ()
+    <COND (<VERB? TAKE>
+           <V-TAKE>
+           <COND (<IN? ,PRSO ,WINNER> <FCLEAR ,PRSO ,NDESCBIT>)>
+           <RTRUE>)>>

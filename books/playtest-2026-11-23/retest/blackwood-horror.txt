@@ -1,0 +1,155 @@
+Black [[windows]] face the open [[iron gates->gate]] across the [[gravel path]] [[north]].
+A [[brass plaque->plaque]] hangs askew.
+
+
+> north
+From the broken [[grand staircase->staircase]], reception lies [[west]], the ward [[east]] and the basement [[down]], while the gates lie [[south]].
+A theater [[door]] stands ajar to the [[north]].
+
+
+> east
+[[Glass]] crunches underfoot on the way [[west]] to the hall, and [[chains and restraint strap->chains]] bind the [[heavy door->door]] at the far end.
+A child's [[crayon drawing]] hangs from one of the bare [[bed frames->beds]].
+
+
+> open heavy door
+The chain is slack, but a [[leather restraint strap->chains]] binds the handles. You need to cut that fastening.
+
+
+> west
+From the broken [[grand staircase->staircase]], reception lies [[west]], the ward [[east]] and the basement [[down]], while the gates lie [[south]].
+A theater [[door]] stands ajar to the [[north]].
+
+
+> north
+Empty [[tiers]] overlook the [[operating table->table]] beside the doorway [[south]].
+A [[metal cabinet->cabinet]] stands in the shadows, its door slightly ajar.
+
+
+> search metal cabinet
+You ease the cabinet door wide on its stiff hinges. The shelves hold rusted [[medical instruments->instruments]], and among them a [[scalpel]] and a [[bottle->ether bottle]].
+
+
+> take surgical scalpel
+Taken.
+
+
+> south
+From the broken [[grand staircase->staircase]], reception lies [[west]], the ward [[east]] and the basement [[down]], while the gates lie [[south]].
+A theater [[door]] stands ajar to the [[north]].
+A voice, barely audible, rasps: 'help... me...'
+
+
+> east
+[[Glass]] crunches underfoot on the way [[west]] to the hall, and [[chains and restraint strap->chains]] bind the [[heavy door->door]] at the far end.
+A child's [[crayon drawing]] hangs from one of the bare [[bed frames->beds]].
+The building settles with a deep structural groan, as if exhaling.
+
+
+> cut thick chains with surgical scalpel
+You slip the [[rusty scalpel->surgical scalpel]] beneath the leather strap and slice through it. The strap parts; the slack chains fall away with a crash. The heavy door creaks open, revealing a passage [[north]] into darkness.
+
+
+> north
+Your breath clouds over the [[dissection table->table]] on the way to the ward [[south]]. A faint glow leaks from the refrigerated [[drawers]].
+
+
+> open refrigerated drawers
+The refrigeration units line both walls. Most drawers are empty or hold only bones. You pull out the one left ajar: inside, a vial of [[glowing serum->serum]] gives off an eerie luminescence.
+
+
+> south
+[[Glass]] crunches underfoot on the way [[west]] to the hall, but the [[heavy door->door]] [[north]] stands open.
+A child's [[crayon drawing]] hangs from one of the bare [[bed frames->beds]].
+
+
+> west
+From the broken [[grand staircase->staircase]], reception lies [[west]], the ward [[east]] and the basement [[down]], while the gates lie [[south]].
+A theater [[door]] stands ajar to the [[north]].
+
+
+> down
+Each step on this narrow stone [[staircase->stairs]] feels colder going [[down]] to the basement than [[up]] to the hall.
+
+
+> down
+The basement corridor is dim beneath dripping [[pipes]] and a wheel [[valve]]. [[Stairs]] lead [[up]], [[coal smoke]] drifts from the [[east]], stores lie [[west]], and [[water]] drips in the dark [[north]].
+
+
+> east
+The iron [[boiler]] sits stone cold beside the [[coal bin->bin]] and [[dust]]-covered [[workbench]] by the [[west]] door.
+
+
+> look in iron boiler
+The boiler is a hulking iron beast. Its open firebox is black with soot and empty of usable fuel. A [[coal shovel->shovel]] leans inside its mouth.
+
+
+> take coal shovel
+Taken.
+
+
+> west
+The basement corridor is dim beneath dripping [[pipes]] and a wheel [[valve]]. [[Stairs]] lead [[up]], [[coal smoke]] drifts from the [[east]], stores lie [[west]], and [[water]] drips in the dark [[north]].
+
+
+> north
+Beyond the last light, water laps against unseen steps. You stop at the threshold: you need a working light before entering the flooded chamber.
+
+
+> west
+The [[shelves]] sag under damp [[linen]] beside the exit [[east]].
+
+
+> search sagging shelves
+You search through the shelves. Beneath the sour linen, rust has eaten through most of the equipment. Among the debris, you find a [[lantern]] and a [[medical bag->bag]] and some old [[medical records]].
+
+
+> take oil lantern
+Taken.
+
+
+> turn on oil lantern
+You turn the lantern's built-in striker. The wick catches; a warm glow pushes back the darkness.
+
+
+> east
+The basement corridor is dim beneath dripping [[pipes]] and a wheel [[valve]]. [[Stairs]] lead [[up]], [[coal smoke]] drifts from the [[east]], stores lie [[west]], and [[water]] drips in the dark [[north]].
+
+
+> north
+Black [[water]] fills this vast and dark chamber between the passage [[north]] and the corridor [[south]]. A sealed metal [[door]] to the east is corroded shut.
+
+
+> north
+[[Scratches]] run from one of the barred [[doors]] to the next. The theater lies [[north]], the flooded chamber [[south]].
+
+
+> north
+The [[machine]] faces a single [[chair]] in a room of scorched [[concrete]]. [[Stairs]] climb [[east]], the ward lies [[south]], and a padded-cell [[door]] stands ajar to the [[west]].
+
+
+> east
+From the [[stairs]] [[west]], a one-way [[mirror]] runs the length of the wall to the office [[door]] [[north]].
+A [[logbook]] rests on a [[desk]].
+
+
+> north
+Loose [[papers]] spill from overturned [[filing cabinets->cabinets]]. The director’s office lies [[east]], staff quarters [[north]] and the observation deck [[south]].
+
+
+> north
+Crooked [[lockers]] face rows of narrow [[beds]] between the cafeteria [[west]] and the offices [[south]].
+
+
+> west
+[[Dust]] lies thick on the serving [[counter]] between the staff quarters [[east]] and the garden [[door]] [[north]].
+A small brass service [[bell]] sits on the counter.
+
+
+> north
+From the cafeteria [[south]], broken [[benches]] mark a path through the [[garden]] to the chapel [[north]]. The chapel [[door]] is secured with a heavy iron [[lock]].
+
+
+> dig dead garden with coal shovel
+You dig into the dead earth with the shovel. The soil is dry and lifeless. After a few moments, you give up—nothing but rocks and roots here.
+

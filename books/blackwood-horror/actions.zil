@@ -58,7 +58,7 @@ searched, as Zork I hides the grating under the leaves."
            <COND (,CHAINS-CUT-FLAG
                   <TELL ", but the [[heavy door->door]] [[north]] stands open.">)
                  (T
-                  <TELL ", and [[chains]] bind the [[heavy door->door]] at the far end.">)>
+                  <TELL ", and the [[chains and restraint strap->chains]] bind the [[heavy door->door]] at the far end.">)>
            <CRLF>)>>
 
 <ROUTINE BASEMENT-CORRIDOR-FCN (RARG)
@@ -245,7 +245,7 @@ ajar, so examining it swings the door wide, as opening it does."
 <ROUTINE HEAVYDOOR-F ()
          <COND (<AND <VERB? EXAMINE>
                      <NOT ,CHAINS-CUT-FLAG>>
-                <TELL "A chain hangs slack around one handle. Its padlock has rusted through; an old leather restraint strap has been knotted around both handles to keep the door shut. Deep fingernail scratches score the wood. A tarnished plaque reads 'MORGUE'." CR>
+                <TELL "A chain hangs slack around one handle. Its padlock has rusted through; an old [[leather restraint strap->chains]] has been knotted around both handles to keep the door shut. Deep fingernail scratches score the wood. A tarnished plaque reads 'MORGUE'." CR>
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      ,CHAINS-CUT-FLAG>
@@ -253,7 +253,7 @@ ajar, so examining it swings the door wide, as opening it does."
                 <RTRUE>)
                (<AND <VERB? OPEN>
                      <NOT ,CHAINS-CUT-FLAG>>
-                <TELL "The chain is slack, but a leather restraint strap binds the handles. You need to cut that fastening." CR>
+                <TELL "The chain is slack, but a [[leather restraint strap->chains]] binds the handles. You need to cut that fastening." CR>
                 <RTRUE>)
                (<VERB? OPEN>
                 <TELL "The door already stands open. The morgue lies to the [[north]]." CR>
@@ -297,12 +297,12 @@ ajar, so examining it swings the door wide, as opening it does."
     <COND (<EQUAL? .RARG ,M-LOOK>
            <COND (<FSET? ,REFRIGERATED-DRAWERS ,OPENBIT>
                   <COND (<IN? ,STRANGE-SERUM ,REFRIGERATED-DRAWERS>
-                         <TELL "A green [[glow]] spills from the open [[drawers]]">)
+                         <TELL "A green glow spills from the open [[drawers]]">)
                         (T <TELL "The open [[drawers]] are dark">)>
                   <TELL " beside the [[dissection table->table]] on the way [[south]] to the ward." CR>)
                  (T <TELL "Your breath clouds over the [[dissection table->table]] on the way to the ward [[south]].">
                     <COND (<IN? ,STRANGE-SERUM ,REFRIGERATED-DRAWERS>
-                           <TELL " A faint [[glow]] leaks from the refrigerated [[drawers]].">)
+                           <TELL " A faint glow leaks from the refrigerated [[drawers]].">)
                           (T <TELL " The refrigerated [[drawers]] are dark.">)>
                     <CRLF>)>)>>
 
@@ -671,7 +671,7 @@ ajar, so examining it swings the door wide, as opening it does."
 <ROUTINE HOLLOW-BOOK-F ()
          <COND (<AND <VERB? EXAMINE>
                      <NOT <FSET? ,HOLLOW-BOOK ,OPENBIT>>>
-                <TELL "A red leather tome with a blank spine where all others are labeled. It has a small brass latch on the edge, not a proper binding." CR>
+                <TELL "A red leather tome with a blank spine where all others are labeled. It has a small [[brass latch->red book]] on the edge, not a proper binding." CR>
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      <FSET? ,HOLLOW-BOOK ,OPENBIT>>
@@ -786,11 +786,11 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
                 <RTRUE>)>>
 
 <ROUTINE BELL-F ()
-         <COND (<VERB? RING>
+         <COND (<VERB? RING PUSH>
                 <TELL "You ring the bell. The tinny sound carries through the empty rooms. No one comes." CR>
                 <RTRUE>)
                (<VERB? EXAMINE>
-                <TELL "Years of thumbs have polished the small button bright. A little hammer waits under the [[brass dome]]." CR>
+                <TELL "Years of thumbs have polished the [[small button->service bell]] bright. A little hammer waits under the [[brass dome]]." CR>
                 <RTRUE>)
                (<VERB? LISTEN>
                 <TELL "The bell makes a clear ringing sound when struck." CR>
@@ -816,12 +816,13 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
                 <RTRUE>)>>
 
 <ROUTINE CHAPEL-DOOR-F ()
-         <COND (<AND <VERB? OPEN UNLOCK> ,PRSI <NOT <EQUAL? ,PRSI ,CHAPEL-KEY>>>
+         <COND (<VERB? READ> <TELL "HE WHO ENTERS ABANDONS HOPE." CR>)
+          (<AND <VERB? OPEN UNLOCK> ,PRSI <NOT <EQUAL? ,PRSI ,CHAPEL-KEY>>>
                 <TELL "That does not fit the chapel lock." CR>
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      <NOT ,CHAPEL-UNLOCKED>>
-                <TELL "The door is made of thick oak bound with iron straps. A large iron lock secures it. Above the door, carved words read: 'HE WHO ENTERS ABANDONS HOPE'." CR>
+                <TELL "The door is made of thick oak bound with iron straps. A large iron lock secures it. Above the door, [[carved words->chapel door]] read: 'HE WHO ENTERS ABANDONS HOPE'." CR>
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      ,CHAPEL-UNLOCKED>
@@ -1106,7 +1107,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      <NOT <FSET? ,WOODEN-BOX ,OPENBIT>>>
-                <TELL "A small wooden box sits beneath the altar. It's locked tight with an iron clasp." CR>
+                <TELL "A small wooden box sits beneath the altar. It's locked tight with an [[iron clasp->wooden box]]." CR>
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      <FSET? ,WOODEN-BOX ,OPENBIT>>
@@ -1340,7 +1341,7 @@ lost name."
                (<VERB? SWING>
                 <TELL "You swing the shovel experimentally. It's heavy but well-balanced—could work as a weapon if needed." CR>
                 <RTRUE>)
-               (<VERB? DIG>
+               (<AND <VERB? DIG> <EQUAL? ,PRSO ,COAL-SHOVEL>>
                 <TELL "You'd need to specify what you want to dig. The shovel is ready." CR>
                 <RTRUE>)>>
 
@@ -1687,3 +1688,33 @@ test of whether the points were given; the VALUE, zeroed, is."
 <ROUTINE CROSS-LINING-F ()
     <COND (<VERB? EXAMINE>
            <COND (<IN? ,ANCIENT-RELIC ,WOODEN-BOX> <TELL "A fringe of green velvet curls up over the tips of the cross. It has lain in exactly that position for a long time." CR>) (T <TELL "Deep in the hollow the velvet is still green. All around it, the exposed cloth has faded to grey." CR>)>)>>
+
+<ROUTINE DETAIL-MEMO-F ()
+    <COND (<VERB? READ> <TELL "All staff reminded - Subject 189 is NOT to be released under any circumstances. Chapel is OFF LIMITS." CR>)>>
+
+<ROUTINE DETAIL-NAMEPLATE-F ()
+    <COND (<VERB? READ> <TELL "Dr. Heinrich Mordecai - Director 1935-1952." CR>)>>
+
+<ROUTINE KEY-TAG-F ()
+    <COND (<VERB? READ> <TELL "S-001." CR>)
+          (<VERB? RUB> <TELL "Your thumb catches on two raised zeroes and the straight back of the one." CR>)>>
+
+<ROUTINE DETAIL-CARVED-SYMBOLS-F ()
+    <COND (<VERB? READ> <TELL "Each row starts with the same hook. You can follow the rows, though you cannot put them into words." CR>)
+          (<VERB? RUB> <TELL "Your fingertip catches in the first deep cut and slides over the worn ends." CR>)>>
+
+<ROUTINE CROSS-ETCHING-F ()
+    <COND (<VERB? READ> <TELL "Starting at the foot of the cross, you can follow a single engraved line all the way round to its beginning." CR>)
+          (<VERB? RUB> <TELL "The line feels like a fine groove even where the silver makes it look raised." CR>)>>
+
+<ROUTINE DETAIL-BRASS-DOME-F ()
+    <COND (<VERB? RING> <PERFORM ,V?RING ,BELL>)>>
+
+<ROUTINE CORRIDOR-STEPS-F ()
+    <COND (<VERB? CLIMB-FOO CLIMB-UP> <DO-WALK ,P?UP>)>>
+
+<ROUTINE THEATER-STEPS-F ()
+    <COND (<VERB? CLIMB-FOO CLIMB-UP> <DO-WALK ,P?EAST>)>>
+
+<ROUTINE DECK-STEPS-F ()
+    <COND (<VERB? CLIMB-FOO CLIMB-DOWN> <DO-WALK ,P?WEST>)>>

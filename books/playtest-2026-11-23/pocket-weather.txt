@@ -1,0 +1,449 @@
+THE POCKET WEATHER BUREAU
+A little cloud has refused its forecast. Your first job at the weather post is to bring it back.
+
+Beside the [[dispatch bell->bell]], [[Postmaster Mica->mica]] holds an unfinished [[forecast]]. The terrace is [[north]], the kitchen [[west]], the archive [[south]], and the balcony [[east]].
+
+
+> tell postmaster mica about official forecast
+'The [[forecast]] says continuous rain over the parade,' Mica begins. Then: 'But observations come first. If the forecast is wrong, we change the forecast.'
+
+
+> north
+The [[tiles]] tick underfoot, but the [[vane]] overhead is still. The post is [[south]], the garden [[east]], the whisper arch [[north]], and the [[vane]] perch [[up]].
+
+
+> east
+Beside the thirsty [[seedlings]], a crust of [[soil]] blocks the [[gutter]]. Warm tiles lie [[west]]; the seed shed is [[east]].
+
+
+> dig in garden gutter
+That will not make the narrow, gentle scoop you need. A narrow baking spoon would work. Bring it into reach and hold it before digging.
+
+
+> east
+A [[rain chart->chart]] curls in the dry air. The garden is [[west]].
+
+
+> take rain chart
+The chart is fixed here for everyone. Its pictures are easy to remember.
+
+
+> read rain chart
+The [[chart]] shows rain passing downwind into a winding garden channel. One [[picture]] has no words at all: a small hand raised, and rain stopping. You will need to measure today's wind, not just trust a picture.
+
+
+> west
+Beside the thirsty [[seedlings]], a crust of [[soil]] blocks the [[gutter]]. Warm tiles lie [[west]]; the seed shed is [[east]].
+
+
+> west
+The [[tiles]] tick underfoot, but the [[vane]] overhead is still. The post is [[south]], the garden [[east]], the whisper arch [[north]], and the [[vane]] perch [[up]].
+
+
+> south
+Beside the [[dispatch bell->bell]], [[Postmaster Mica->mica]] holds an unfinished [[forecast]]. The terrace is [[north]], the kitchen [[west]], the archive [[south]], and the balcony [[east]].
+
+
+> west
+Beside the [[steaming kettle->kettle]], [[Baker Pip->pip]] hums very badly, with excellent rhythm. The laundry is [[west]]; the post is [[east]].
+
+
+> examine steaming kettle
+The kettle breathes a steady, gentle [[plume]]. Warm damp air relaxes a stubborn fold without tearing paper. Pip keeps the hot metal safely out of reach. A [[narrow spoon->spoon]] hangs by its handle beside the kettle.
+
+
+> take narrow spoon
+Taken.
+
+
+> west
+A [[laundry apron->apron]] hangs here, its [[pockets->apron]] bulging. The kitchen is [[east]]; a rookery rustles [[north]].
+
+
+> search laundry apron
+The cloth is stiff with dried soap. You turn out the pockets. A [[brass button->button]] and a [[soft ribbon->ribbon]] tumble free. Neither has an owner now. Pip believes in useful pockets.
+
+
+> take soft ribbon
+Taken.
+
+
+> take brass button
+Taken.
+
+
+> north
+[[Aster the rook->rook]] hums a [[weather joke->joke]], one foot on the [[counterweight]]. The perch is [[east]]; the laundry smells of [[soap]] [[south]].
+
+
+> give brass button to aster rook
+Aster accepts the brass button. He releases the counterweight and hops [[east]] to the perch. 'A fair exchange! You may turn the vane now.'
+
+
+> east
+The [[weather vane->vane]] hangs over the warm [[tiles]] [[below->down]]. [[Aster the rook->rook]] watches it from this side of the rookery [[west]].
+
+
+> spin weather vane
+You turn the [[vane]] gently, then let it find its own answer. The breeze runs from the hollow toward the rain garden, away from the parade. You have measured a safe route.
+
+
+> down
+The [[tiles]] tick underfoot in a steady [[breeze]] from the hollow. The post is [[south]], the garden [[east]], the whisper arch [[north]], and the [[vane]] perch [[up]].
+
+
+> east
+Beside the thirsty [[seedlings]], a crust of [[soil]] blocks the [[gutter]]. Warm tiles lie [[west]]; the seed shed is [[east]].
+
+
+> dig garden gutter with narrow spoon
+You scoop the dry soil with the [[spoon]], making a winding [[gutter]] around the [[seedlings]]. No roots break. A very small amount of rain will now reach them all.
+
+
+> dig garden gutter with soft ribbon
+The gutter is already clear. The roots need no more disturbance.
+
+
+> west
+The [[tiles]] tick underfoot in a steady [[breeze]] from the hollow. The post is [[south]], the garden [[east]], the whisper arch [[north]], and the [[vane]] perch [[up]].
+
+
+> north
+The [[wind chime->chime]] clangs so hard that words break against it. Cloud Hollow lies [[east]]; the terrace is [[south]].
+
+
+> tie wind chime to soft ribbon
+You tie the [[soft ribbon->ribbon]] around the [[chime]]'s clapper. CLANG becomes tok. From [[east]], a small voice says, 'Oh. There you are.'
+
+
+> east
+[[Rain->cloud]] trembles inside [[Nimbus the cloud->cloud]], just above your knees. The whisper arch is [[west]].
+
+
+> tell nimbus cloud
+'The [[forecast]] tells me where to go, but never when to listen. Could you listen to me? Then we can talk about [[yesterday]], a [[pause]], and a [[promise]].'
+
+
+> listen to nimbus cloud
+You let Nimbus finish. 'I didn't stop yesterday. They told me not to stop. Then everyone was unhappy. If I stay here, I can't do it wrong again.' The cloud waits. You do not fill the quiet with instructions.
+
+
+> tell nimbus cloud about pause rule
+'If anyone says pause, I stop,' Nimbus says. 'Including me. We listen, then decide together whether to continue. Could that be part of the [[promise]]?'
+
+
+> tell nimbus cloud about promise
+Nimbus needs to see that you understand yesterday. Read the old report, then show it to the cloud.
+
+
+> west
+The [[wind chime->chime]], its [[clapper]] wrapped in the [[soft ribbon->ribbon]], makes a soft wooden chuckle. Cloud Hollow lies [[east]]; the terrace is [[south]].
+
+
+> south
+The [[tiles]] tick underfoot in a steady [[breeze]] from the hollow. The post is [[south]], the garden [[east]], the whisper arch [[north]], and the [[vane]] perch [[up]].
+
+
+> south
+Beside the [[dispatch bell->bell]], [[Postmaster Mica->mica]] holds an unfinished [[forecast]]. The terrace is [[north]], the kitchen [[west]], the archive [[south]], and the balcony [[east]].
+
+
+> east
+A [[broadcast slot->slot]] hums against your fingertips. The dispatch post is [[west]].
+
+
+> west
+Beside the [[dispatch bell->bell]], [[Postmaster Mica->mica]] holds an unfinished [[forecast]]. The terrace is [[north]], the kitchen [[west]], the archive [[south]], and the balcony [[east]].
+
+
+> south
+Cool air strokes the brass corners of the [[weatherbox]]. The post is [[north]].
+
+
+> open brass weatherbox
+Opening the [[weatherbox->brass weatherbox]] reveals a [[folded report->folded report]].
+
+
+> read folded report
+(Taken)
+The fold resists. Warm steam would relax it; dry pulling would tear the old paper.
+
+
+> north
+Beside the [[dispatch bell->bell]], [[Postmaster Mica->mica]] holds an unfinished [[forecast]]. The terrace is [[north]], the kitchen [[west]], the archive [[south]], and the balcony [[east]].
+
+
+> west
+Beside the [[steaming kettle->kettle]], [[Baker Pip->pip]] hums very badly, with excellent rhythm. The laundry is [[west]]; the post is [[east]].
+
+
+> inventory
+You are carrying:
+  A [[folded report->folded report]]
+  A [[narrow spoon->narrow spoon]]
+
+
+> steam folded report over steaming kettle
+You hold the [[report]] in the [[kettle]]'s gentle steam, safely above the hot metal. The fold uncurls like a waking leaf. Now you can read it.
+
+
+> read folded report
+The [[report]] says: 'Yesterday: continuous rain, as ordered. Ludo asked Nimbus to stop. Nimbus said stopping would mean failing the Bureau. The parade went home. Ludo left this to say he wasn't cross with the cloud.'
+A [[pressed flower->flower]] slips free inside the opened report. Someone has flattened each blue petal with care.
+
+
+> east
+Beside the [[dispatch bell->bell]], [[Postmaster Mica->mica]] holds an unfinished [[forecast]]. The terrace is [[north]], the kitchen [[west]], the archive [[south]], and the balcony [[east]].
+
+
+> north
+The [[tiles]] tick underfoot in a steady [[breeze]] from the hollow. The post is [[south]], the garden [[east]], the whisper arch [[north]], and the [[vane]] perch [[up]].
+
+
+> north
+The [[wind chime->chime]], its [[clapper]] wrapped in the [[soft ribbon->ribbon]], makes a soft wooden chuckle. Cloud Hollow lies [[east]]; the terrace is [[south]].
+
+
+> east
+[[Rain->cloud]] trembles inside [[Nimbus the cloud->cloud]], just above your knees. The whisper arch is [[west]].
+
+
+> show folded report to nimbus cloud
+Nimbus reads the [[report]]. 'Ludo wasn't cross with me?' The rain inside loosens. You say the Bureau should have listened when Ludo asked. For the first time, Nimbus stops apologizing. 'Then we need a different [[promise]]. One with a [[pause]].'
+
+
+> tell nimbus cloud about promise
+You promise rain for the garden, a clear gutter for the roots, and a pause whenever anyone asks. Including Nimbus. The cloud unfolds. 'Then I would like to come back.' It slips [[west]] and south to the warm terrace, keeping pace with no one but itself.
+
+
+> west
+The [[wind chime->chime]], its [[clapper]] wrapped in the [[soft ribbon->ribbon]], makes a soft wooden chuckle. Cloud Hollow lies [[east]]; the terrace is [[south]].
+
+
+> south
+[[Nimbus the cloud->cloud]] hovers above the [[tiles]], ready to choose the rain together. The post is [[south]], the garden [[east]], the whisper arch [[north]], and the [[vane]] perch [[up]].
+
+
+> drizzle nimbus cloud
+Nimbus waits. 'Our promise needs to reach the town first. Write your card, let Mica approve it, and put it in the broadcast slot.'
+
+
+> south
+By the [[dispatch bell->bell]], [[Mica]] waits for your revised [[forecast]]. The terrace is [[north]], the kitchen [[west]], the archive [[south]], and the balcony [[east]].
+
+
+> examine official forecast
+The official forecast still orders continuous rain over the parade. The promise you made with Nimbus must replace it: written on your card, approved by Mica, and broadcast.
+
+
+> tell postmaster mica
+'The [[forecast]] says continuous rain over the parade,' Mica begins. Then: 'But observations come first. If the forecast is wrong, we change the forecast.'
+
+
+> inventory
+You are carrying:
+  A [[folded report->folded report]]
+  The [[folded report->folded report]] contains:
+    A [[pressed flower->pressed flower]]
+  A [[narrow spoon->narrow spoon]]
+
+
+> ring dispatch bell
+Ting! Mica bows. 'Apprentice present. Cloud back by choice. A better sort of [[forecast]].'
+
+
+> west
+Beside the [[steaming kettle->kettle]], [[Baker Pip->pip]] is planning [[biscuits]] shaped like commas: a pause you can eat. The laundry is [[west]]; the post is [[east]].
+
+
+> tell baker pip
+'The rain garden needs a little rain. Not all rain, everywhere.' Pip nods at the spoon's work. 'Small tools. Careful work.'
+
+
+> east
+By the [[dispatch bell->bell]], [[Mica]] waits for your revised [[forecast]]. The terrace is [[north]], the kitchen [[west]], the archive [[south]], and the balcony [[east]].
+
+
+> east
+A [[broadcast slot->slot]] hums against your fingertips. The dispatch post is [[west]].
+
+
+> examine broadcast slot
+The slot sends an approved written weather card to everyone. It will not publish a blank or unapproved card.
+
+
+> look in broadcast slot
+The slot sends an approved written weather card to everyone. It will not publish a blank or unapproved card.
+
+
+> west
+By the [[dispatch bell->bell]], [[Mica]] waits for your revised [[forecast]]. The terrace is [[north]], the kitchen [[west]], the archive [[south]], and the balcony [[east]].
+
+
+> tell postmaster mica
+'The [[forecast]] says continuous rain over the parade,' Mica begins. Then: 'But observations come first. If the forecast is wrong, we change the forecast.'
+
+
+> south
+The brass [[weatherbox]] stands open beside the way [[north]] to the post.
+
+
+> search brass weatherbox
+You open the [[weatherbox]]. You already removed its report.
+
+
+> north
+By the [[dispatch bell->bell]], [[Mica]] waits for your revised [[forecast]]. The terrace is [[north]], the kitchen [[west]], the archive [[south]], and the balcony [[east]].
+
+
+> tell postmaster mica about promise
+'If we can ask a cloud to work, it can ask us to stop,' Mica says slowly. 'Bring me the written card when you have agreed.'
+
+
+> examine postmaster mica
+Mica listens without interrupting. 'Write the card. I should learn to sign a [[promise]] I did not invent.'
+
+
+> north
+[[Nimbus the cloud->cloud]] hovers above the [[tiles]], ready to choose the rain together. The post is [[south]], the garden [[east]], the whisper arch [[north]], and the [[vane]] perch [[up]].
+
+
+> examine warm tile
+One red tile clicks under your heel. Lift your foot and the next tile answers. From up here, the whole post sounds like a kettle cooling.
+
+
+> up
+The [[weather vane->vane]] hangs over the warm [[tiles]] [[below->down]]. [[Aster the rook->rook]] watches it from this side of the rookery [[west]].
+
+
+> tell aster rook
+'A fair trade lets things move,' Aster says. 'The [[forecast]] is yours to check now. [[Promise]] kept. Want a [[joke]]?'
+
+
+> west
+Wind slips through the empty rookery. The perch is [[east]]; the laundry smells of [[soap]] [[south]].
+
+
+> south
+A [[laundry apron->apron]] hangs here, its [[pockets->apron]] flat. The kitchen is [[east]]; a rookery rustles [[north]].
+
+
+> examine laundry apron
+The pockets are empty. One has a round sun-faded patch where the button lay, and the other has a loose [[wool thread]] caught in its seam.
+
+
+> east
+Beside the [[steaming kettle->kettle]], [[Baker Pip->pip]] is planning [[biscuits]] shaped like commas: a pause you can eat. The laundry is [[west]]; the post is [[east]].
+
+
+> examine baker pip
+Pip's hands are already making tomorrow's celebration. He never waits for perfect weather to be kind.
+
+
+> examine steaming kettle
+The kettle breathes a steady, gentle [[plume]]. Warm damp air relaxes a stubborn fold without tearing paper. Pip keeps the hot metal safely out of reach.
+
+
+> east
+By the [[dispatch bell->bell]], [[Mica]] waits for your revised [[forecast]]. The terrace is [[north]], the kitchen [[west]], the archive [[south]], and the balcony [[east]].
+
+
+> north
+[[Nimbus the cloud->cloud]] hovers above the [[tiles]], ready to choose the rain together. The post is [[south]], the garden [[east]], the whisper arch [[north]], and the [[vane]] perch [[up]].
+
+
+> tell nimbus cloud about promise
+You have already made the promise. 'We have agreed,' Nimbus says. 'Write our forecast on your weather card so the town can hear it too.'
+
+
+> east
+Beside the thirsty [[seedlings]], the cleared [[gutter]] curls around their [[roots]]. Warm tiles lie [[west]]; the seed shed is [[east]].
+
+
+> east
+A [[rain chart->chart]] curls in the dry air. The garden is [[west]].
+
+
+> examine rain chart
+The [[chart]] shows rain passing downwind into a winding garden channel. One [[picture]] has no words at all: a small hand raised, and rain stopping. The vane agrees with the picture: today's wind runs toward the garden.
+
+
+> west
+Beside the thirsty [[seedlings]], the cleared [[gutter]] curls around their [[roots]]. Warm tiles lie [[west]]; the seed shed is [[east]].
+
+
+> west
+[[Nimbus the cloud->cloud]] hovers above the [[tiles]], ready to choose the rain together. The post is [[south]], the garden [[east]], the whisper arch [[north]], and the [[vane]] perch [[up]].
+
+
+> south
+By the [[dispatch bell->bell]], [[Mica]] waits for your revised [[forecast]]. The terrace is [[north]], the kitchen [[west]], the archive [[south]], and the balcony [[east]].
+
+
+> examine official forecast
+The official forecast still orders continuous rain over the parade. The promise you made with Nimbus must replace it: written on your card, approved by Mica, and broadcast.
+
+
+> show folded report to postmaster mica
+Mica looks carefully. 'Thank you. For publication, I need your written weather card.'
+
+
+> east
+A [[broadcast slot->slot]] hums against your fingertips. The dispatch post is [[west]].
+
+
+> close broadcast slot
+The slot has no door. It is always open to an approved weather card.
+
+
+> west
+By the [[dispatch bell->bell]], [[Mica]] waits for your revised [[forecast]]. The terrace is [[north]], the kitchen [[west]], the archive [[south]], and the balcony [[east]].
+
+
+> tell postmaster mica about yesterday
+'I filed the report without asking how Nimbus felt,' Mica admits. 'It is in the archive south of the dispatch post. I should have opened yesterday before writing tomorrow.'
+
+
+> examine dispatch bell
+The small, solid bell smells of wet brass. Its note cannot order anyone about. One corner of a blank [[weather card->card]] sticks out from under its base.
+
+
+> write weather card
+Hold the card before writing on it.
+
+
+> take weather card
+Taken.
+
+
+> write weather card
+You write the wind route you measured and the gutter you cleared, then the part in the largest letters: PAUSE WHEN ANYONE ASKS. INCLUDING THE CLOUD. Mica should read this [[card]] before it goes out.
+
+
+> show weather card to postmaster mica
+Mica reads every line, approves the [[card]], and hands it back. 'I am sorry about yesterday. An instruction should never be louder than someone asking to stop. Put this in the broadcast slot east of the post.'
+
+
+> east
+Your [[card]] grows warm beside the humming [[broadcast slot->slot]]. The dispatch post is [[west]].
+
+
+> put weather card in broadcast slot
+You place the [[card]] in the [[slot]]. Its quiet hum carries the garden route and the pause rule through town. [[Mica]] comes to listen beside you. 'Now,' she says, 'let the weather have the last word.' Nimbus waits on the terrace north of the post.
+
+
+> west
+[[Rain]] beads on the [[dispatch bell->bell]]. The terrace is [[north]], the kitchen [[west]], the archive [[south]], and the balcony [[east]].
+
+
+> north
+[[Nimbus the cloud->cloud]] hovers above the [[tiles]] as the revised [[forecast]] hums overhead. The post is [[south]], the garden [[east]], the whisper arch [[north]], and the [[vane]] perch [[up]].
+
+
+> drizzle nimbus cloud
+You and Nimbus choose a soft drizzle. Rain whispers down the clear gutter to every waiting root. Ludo's old flower would hardly bend under it. From the garden, Ludo calls 'Pause.' Nimbus stops at once. This time, the small voice reaches everyone.
+
+Mica returns to the post and rings the dispatch bell once. Tomorrow's forecast has room for an apprentice's observations, a child's voice, and a cloud that can say no. Nimbus folds itself small enough to rest beside you, and leaves the pocket of air over your shoulder dry.
+
+THE END -- A FORECAST YOU CAN KEEP
+Bureau record: a promise published. No deadline. Good weather work takes listening.

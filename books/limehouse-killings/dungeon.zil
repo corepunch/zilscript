@@ -163,6 +163,7 @@
 ; === OBJECTS ===
 
 <OBJECT TELEGRAM
+      (INTERACTIONS "READ:MAGNIFYING-GLASS;PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN ASHWORTH-MANOR-GATE)
       (DESC "creased telegram")
       (FDESC "A [[stone]] holds down a creased [[telegram]].")
@@ -186,6 +187,7 @@
 ; --- Evidence Objects ---
 
 <OBJECT DEAD-LETTER
+      (INTERACTIONS "READ:MAGNIFYING-GLASS;PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN STUDY)
       (DESC "unsent letter")
       (LDESC "An unsent [[letter]], its paper yellowed with age, lies here.")
@@ -195,6 +197,7 @@
       (ACTION DEAD-LETTER-F)>
 
 <OBJECT BLOOD-STAINED-KNIFE
+      (INTERACTIONS "PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN GARDEN)
       (DESC "blood-stained knife")
       (LDESC "A blood-stained [[knife]] lies here.")
@@ -214,6 +217,7 @@
       (ACTION LOCKED-BOX-F)>
 
 <OBJECT POISON-BOTTLE
+      (INTERACTIONS "USE-ON:PLANTS;READ:MAGNIFYING-GLASS;PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN STUDY)
       (DESC "poison bottle")
       (LDESC "A small glass [[bottle]] with a faded label lies here.")
@@ -223,6 +227,7 @@
       (ACTION POISON-BOTTLE-F)>
 
 <OBJECT SECRET-LEDGER
+      (INTERACTIONS "READ:MAGNIFYING-GLASS;PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN LIBRARY)
       (DESC "secret ledger")
       (LDESC "A leather-bound [[ledger]] lies here.")
@@ -234,6 +239,7 @@
 ; --- Tool Objects ---
 
 <OBJECT MAGNIFYING-GLASS
+      (INTERACTIONS "USE-ON:FOOTPRINT-CAST,SECRET-LEDGER,DEAD-LETTER,POISON-BOTTLE,BLOOD-STAINED-KNIFE;PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN ASHWORTH-ENTRANCE-HALL)
       (DESC "magnifying glass")
       (LDESC "A brass [[magnifying glass->glass]] lies here.")
@@ -243,6 +249,7 @@
       (ACTION MAGNIFYING-GLASS-F)>
 
 <OBJECT LEATHER-ROLL
+      (INTERACTIONS "PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN DRAWER)
       (DESC "leather roll")
       (FDESC "A [[leather roll->roll]] lies in the open drawer.")
@@ -254,6 +261,7 @@
       (SIZE 3)>
 
 <OBJECT LOCKPICK-SET
+      (INTERACTIONS "USE-ON:WINDOW,STUDY-DOOR;PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN LEATHER-ROLL)
       (DESC "lockpick set")
       (LDESC "A set of metal [[picks]], their tips worn from use, lies here.")
@@ -263,6 +271,7 @@
       (ACTION LOCKPICK-SET-F)>
 
 <OBJECT LANTERN
+      (INTERACTIONS "PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN SERVANTS-QUARTERS)
       (DESC "lantern")
       (LDESC "A brass [[lantern]] lies here.")
@@ -272,6 +281,7 @@
       (ACTION LANTERN-F)>
 
 <OBJECT KEYRING
+      (INTERACTIONS "PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN MR-HUDSON)
       (DESC "keyring")
       (LDESC "A [[ring of keys->keyring]] lies here.")
@@ -283,6 +293,7 @@
 ; --- Clue Objects ---
 
 <OBJECT TORN-PAGE
+      (INTERACTIONS "READ:MAGNIFYING-GLASS;PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN LIBRARY)
       (DESC "torn page")
       (LDESC "A torn [[page]], covered in handwritten notes, lies here.")
@@ -292,6 +303,7 @@
       (ACTION TORN-PAGE-F)>
 
 <OBJECT COLORED-MARKERS
+      (INTERACTIONS "")
       (IN LIBRARY)
       (DESC "colored markers")
       (LDESC "Small ribbons of color, tied to the bookshelves. Red, blue, green, and yellow markers suggest an organizational system.")
@@ -301,6 +313,7 @@
       (ACTION COLORED-MARKERS-F)>
 
 <OBJECT FOOTPRINT-CAST
+      (INTERACTIONS "PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN GARDEN)
       (DESC "footprint cast")
       (LDESC "A plaster [[cast->footprint cast]] of a boot print lies here.")
@@ -310,6 +323,7 @@
       (ACTION FOOTPRINT-CAST-F)>
 
 <OBJECT WAX-SEAL
+      (INTERACTIONS "PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN DINING-ROOM)
       (DESC "wax seal")
       (LDESC "A broken wax [[seal]] lies here.")
@@ -319,6 +333,7 @@
       (ACTION WAX-SEAL-F)>
 
 <OBJECT BANK-STATEMENT
+      (INTERACTIONS "READ:MAGNIFYING-GLASS;PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN LOCKED-BOX)
       (DESC "bank statement")
       (FDESC "A [[bank statement->statement]] rests inside the opened box.")
@@ -331,6 +346,7 @@
 ; --- Furniture/Scenery Objects ---
 
 <OBJECT DESK
+      (INTERACTIONS "")
       (IN STUDY)
       (DESC "mahogany desk")
       (LDESC "A mahogany desk, its surface scarred with use. Three drawers, one locked, contain the remnants of Lord Ashworth's work.")
@@ -340,6 +356,7 @@
       (ACTION DESK-F)>
 
 <OBJECT FIREPLACE
+      (INTERACTIONS "")
       (IN STUDY)
       (DESC "fireplace")
       (LDESC "A stone fireplace, its hearth cold. Ashes and a locked box remain from the last fire.")
@@ -359,6 +376,7 @@
       (ACTION WINDOW-F)>
 
 <OBJECT BOOKSHELF
+      (INTERACTIONS "")
       (IN LIBRARY)
       (DESC "bookshelf")
       (LDESC "Floor-to-ceiling shelves, filled with books of every description. Colored markers dot the spines, suggesting a hidden pattern.")
@@ -368,6 +386,7 @@
       (ACTION BOOKSHELF-F)>
 
 <OBJECT READING-DESK
+      (INTERACTIONS "")
       (IN LIBRARY)
       (DESC "reading desk")
       (LDESC "A wooden desk, its surface scattered with papers. A torn page lies among them, its message waiting to be read.")
@@ -378,6 +397,7 @@
 
 ; Distinct marked books let the parser track the documented color sequence.
 <OBJECT RED-BOOK
+      (INTERACTIONS "")
       (IN LIBRARY)
       (DESC "red-marked book")
       (SYNONYM BOOK)
@@ -386,6 +406,7 @@
       (ACTION CIPHER-BOOK-F)>
 
 <OBJECT BLUE-BOOK
+      (INTERACTIONS "")
       (IN LIBRARY)
       (DESC "blue-marked book")
       (SYNONYM BOOK)
@@ -394,6 +415,7 @@
       (ACTION CIPHER-BOOK-F)>
 
 <OBJECT GREEN-BOOK
+      (INTERACTIONS "")
       (IN LIBRARY)
       (DESC "green-marked book")
       (SYNONYM BOOK)
@@ -402,6 +424,7 @@
       (ACTION CIPHER-BOOK-F)>
 
 <OBJECT YELLOW-BOOK
+      (INTERACTIONS "")
       (IN LIBRARY)
       (DESC "yellow-marked book")
       (SYNONYM BOOK)
@@ -410,6 +433,7 @@
       (ACTION CIPHER-BOOK-F)>
 
 <OBJECT TABLE
+      (INTERACTIONS "")
       (IN DINING-ROOM)
       (DESC "dining table")
       (LDESC "A long dining table, set for two but used by only one. Wax seals and place settings tell a story of interrupted meals.")
@@ -429,6 +453,7 @@
       (ACTION WINE-CABINET-F)>
 
 <OBJECT POTS
+      (INTERACTIONS "")
       (IN KITCHEN)
       (DESC "copper pots")
       (LDESC "Copper pots, tarnished with age, hang from the kitchen ceiling. They have cooked many meals, but none recently.")
@@ -438,6 +463,7 @@
       (ACTION POTS-F)>
 
 <OBJECT HEARTH
+      (INTERACTIONS "")
       (IN KITCHEN)
       (DESC "cold hearth")
       (LDESC "A stone hearth, cold and empty. The last fire burned long ago.")
@@ -447,6 +473,7 @@
       (ACTION HEARTH-F)>
 
 <OBJECT SERVANT-BELL
+      (INTERACTIONS "")
       (IN KITCHEN)
       (DESC "servant bell")
       (LDESC "A servant bell, its rope leading up to the servant's quarters. A pull summons the staff.")
@@ -456,6 +483,7 @@
       (ACTION SERVANT-BELL-F)>
 
 <OBJECT KETTLE
+      (INTERACTIONS "READ:MAGNIFYING-GLASS")
       (IN LOCAL-GLOBALS)
       (DESC "blue kettle")
       (LDESC "A blue enamel kettle waits on the range, warm enough to mist its spout.")
@@ -465,6 +493,7 @@
       (ACTION KETTLE-F)>
 
 <OBJECT BELL-WIRE
+      (INTERACTIONS "")
       (IN ASHWORTH-ENTRANCE-HALL)
       (DESC "bell wire")
       (LDESC "A thin servant-bell wire runs beside the study door.")
@@ -474,6 +503,7 @@
       (ACTION BELL-WIRE-F)>
 
 <OBJECT DRAWER
+      (INTERACTIONS "")
       (IN KITCHEN)
       (DESC "drawer")
       (LDESC "A drawer in the counter.")
@@ -484,6 +514,7 @@
       (ACTION DRAWER-F)>
 
 <OBJECT FOUNTAIN
+      (INTERACTIONS "")
       (IN GARDEN)
       (DESC "fountain")
       (LDESC "A stone fountain, dry and silent. Coins lie at the bottom, wishes unfulfilled.")
@@ -493,6 +524,7 @@
       (ACTION FOUNTAIN-F)>
 
 <OBJECT HEDGES
+      (INTERACTIONS "")
       (IN GARDEN)
       (DESC "overgrown hedges")
       (LDESC "Tall hedges, their branches thick and tangled. They hide secrets in their shadows.")
@@ -512,6 +544,7 @@
       (ACTION PLANTS-F)>
 
 <OBJECT LABELS
+      (INTERACTIONS "")
       (IN GREENHOUSE)
       (DESC "plant labels")
       (LDESC "Small labels marking the plants. They identify species and their properties.")
@@ -521,6 +554,7 @@
       (ACTION LABELS-F)>
 
 <OBJECT BENCH
+      (INTERACTIONS "")
       (IN GREENHOUSE)
       (DESC "potting bench")
       (LDESC "A wooden potting bench, its surface covered in soil and tools. Labels identify the plants it tends.")
@@ -530,6 +564,7 @@
       (ACTION BENCH-F)>
 
 <OBJECT BEDS
+      (INTERACTIONS "")
       (IN SERVANTS-QUARTERS)
       (DESC "servant beds")
       (LDESC "Simple beds for the household staff, their sheets worn but clean.")
@@ -539,6 +574,7 @@
       (ACTION BEDS-F)>
 
 <OBJECT TRUNK
+      (INTERACTIONS "OPEN:KEYRING,LOCKPICK-SET")
       (IN SERVANTS-QUARTERS)
       (DESC "trunk")
       (LDESC "A large wooden trunk, its lid heavy.")
@@ -549,6 +585,7 @@
       (CAPACITY 20)>
 
 <OBJECT TRUNK-LETTER
+      (INTERACTIONS "READ:MAGNIFYING-GLASS;PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN TRUNK)
       (DESC "folded note")
       (LDESC "A [[folded note->note]], its edges worn, lies here.")
@@ -559,6 +596,7 @@
       (ACTION TRUNK-LETTER-F)>
 
 <OBJECT UNIFORMS
+      (INTERACTIONS "")
       (IN TRUNK)
       (DESC "servant uniforms")
       (LDESC "Servant uniforms, their fabric worn from use. They hang on hooks, waiting for their next wearer.")
@@ -568,6 +606,7 @@
       (ACTION UNIFORMS-F)>
 
 <OBJECT STONE-WALLS
+      (INTERACTIONS "")
       (IN SECRET-PASSAGE)
       (DESC "stone walls")
       (LDESC "Wet stone walls, slick with moisture. They have stood for centuries.")
@@ -577,6 +616,7 @@
 	  (ACTION STONE-WALLS-F)>
 
 <OBJECT COBWEBS
+      (INTERACTIONS "")
       (IN SECRET-PASSAGE)
       (DESC "cobwebs")
       (LDESC "Dusty cobwebs fill the air, undisturbed for years.")
@@ -596,6 +636,7 @@
 	  (ACTION DUST-F)>
 
 <OBJECT SHELVES
+      (INTERACTIONS "")
       (IN PANTRY)
       (DESC "pantry shelves")
       (LDESC "Shelves filled with food and wine. Some items are old, others relatively fresh.")
@@ -605,6 +646,7 @@
       (ACTION SHELVES-F)>
 
 <OBJECT FOXGLOVE
+      (INTERACTIONS "PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN PANTRY)
       (DESC "foxglove")
       (LDESC "A bottle of dried [[foxglove]] leaves lies here, a skull inked on its label.")
@@ -614,6 +656,7 @@
       (ACTION FOXGLOVE-F)>
 
 <OBJECT CHARCOAL
+      (INTERACTIONS "PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
       (IN PANTRY)
       (DESC "charcoal")
       (LDESC "A tin of powdered [[charcoal]] lies here.")
@@ -625,6 +668,7 @@
 ; === GLOBAL OBJECTS ===
 
 <OBJECT FOG
+      (INTERACTIONS "")
       (IN LOCAL-GLOBALS)
       (DESC "fog")
       (LDESC "Cold river fog curls through the manor gates.")
@@ -634,14 +678,16 @@
       (ACTION FOG-F)>
 
 <OBJECT GATES
+      (INTERACTIONS "")
       (DESC "iron gates")
       (LDESC "The iron gates stand open, their bars red with rust.")
-      (SYNONYM GATES GATE BARS)
+      (SYNONYM GATES GATE BARS LATCH)
       (ADJECTIVE IRON RUSTED RUSTY STURDY WET OPEN)
       (FLAGS NDESCBIT)
       (ACTION GATES-F)>
 
 <OBJECT PATH
+      (INTERACTIONS "")
       (DESC "gravel path")
       (LDESC "A gravel path leads north through the fog to Ashworth Manor.")
       (SYNONYM PATH WALKWAY DRIVE)
@@ -650,6 +696,7 @@
       (ACTION PATH-F)>
 
 <OBJECT HALL-TABLE
+      (INTERACTIONS "")
       (IN ASHWORTH-ENTRANCE-HALL)
       (DESC "hall table")
       (SYNONYM TABLE)
@@ -658,6 +705,7 @@
       (ACTION HALL-TABLE-F)>
 
 <OBJECT CHANDELIER
+      (INTERACTIONS "")
       (DESC "chandelier")
       (LDESC "A dusty crystal chandelier hangs above the entrance hall.")
       (SYNONYM CHANDELIER LIGHT CRYSTAL CRYSTALS EDGES)
@@ -666,6 +714,7 @@
       (ACTION CHANDELIER-F)>
 
 <OBJECT PORTRAITS
+      (INTERACTIONS "")
       (DESC "family portraits")
       (LDESC "Portraits of the Ashworth family line the walls.")
       (SYNONYM PORTRAITS PAINTINGS PICTURES PORTRAIT PAINTING PICTURE)
@@ -674,6 +723,7 @@
       (ACTION PORTRAITS-F)>
 
 <OBJECT RUG
+      (INTERACTIONS "")
       (DESC "Persian rug")
       (LDESC "A faded Persian rug covers the entrance-hall floor.")
       (SYNONYM RUG CARPET MAT)
@@ -682,6 +732,7 @@
       (ACTION RUG-F)>
 
 <OBJECT CHALK-OUTLINE
+      (INTERACTIONS "")
       (DESC "chalk outline")
       (LDESC "A chalk outline marks the place where Lord Ashworth's body was found.")
       (SYNONYM OUTLINE CHALK-OUTLINE BODY DROPS CARPET FURROW)
@@ -793,6 +844,7 @@
 <GLOBAL HERE ASHWORTH-MANOR-GATE>
 
 <OBJECT PLACE-SETTINGS
+      (INTERACTIONS "")
 	(IN DINING-ROOM)
 	(DESC "dinner cutlery")
 	(SYNONYM CUTLERY SETTINGS PLATE SOUP SPOON FORK KNIFE KNIVES)
@@ -801,6 +853,7 @@
 	(ACTION PLACE-SETTINGS-F)>
 
 <OBJECT WHITE-ROSE
+      (INTERACTIONS "")
 	(IN GARDEN)
 	(DESC "white rose")
 	(SYNONYM ROSE BLOOM PETALS FLOWER STEM)
@@ -816,7 +869,8 @@
 <OBJECT KITCHEN-STAIRS (IN ASHWORTH-ENTRANCE-HALL) (DESC "kitchen stairs")
     (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE KITCHEN SERVICE)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The narrow treads dip in the middle. Servants carrying trays have taken this way down for years.")>
+    (TEXT "The narrow treads dip in the middle. Servants carrying trays have taken this way down for years.")
+    (ACTION KITCHEN-STAIRS-F)>
 
 <OBJECT HUDSON-SPOON (IN SERVANTS-QUARTERS) (DESC "silver spoon")
     (SYNONYM SPOON SILVERWARE) (ADJECTIVE SILVER POLISHED)
@@ -836,7 +890,8 @@
 <OBJECT OUTSIDE-WINDOW (IN GARDEN) (DESC "study window")
     (SYNONYM WINDOW SILL) (ADJECTIVE STUDY GARDEN OPEN)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The sill is low enough to step over from the flower bed. A rusty crescent shows where the catch scraped across the frame.")>
+    (TEXT "The sill is low enough to step over from the flower bed. A rusty crescent shows where the catch scraped across the frame.")
+    (ACTION OUTSIDE-WINDOW-F)>
 
 <OBJECT WEDDING-RING (IN DINING-ROOM) (DESC "wedding ring")
     (SYNONYM RING BAND) (ADJECTIVE WEDDING GOLD)
@@ -849,9 +904,9 @@
     (TEXT "A crease marks the place where someone unpicked the bow. Lady Ashworth has smoothed it flat with her palm.")>
 
 <OBJECT HUDSON-BAG (IN SERVANTS-QUARTERS) (DESC "packed carpetbag")
-    (SYNONYM CARPETBAG BAG) (ADJECTIVE PACKED CARPET)
+    (SYNONYM CARPETBAG BAG FASTENINGS CLASPS) (ADJECTIVE PACKED CARPET)
     (FLAGS NDESCBIT INVISIBLE) (INTERACTIONS "")
-    (TEXT "A clean shirt cuff pokes between the fastenings. Hudson has packed in a hurry.")>
+    (ACTION HUDSON-BAG-F)>
 
 <OBJECT MANOR-FACADE (IN ASHWORTH-MANOR-GATE) (DESC "manor house")
     (SYNONYM MANOR HOUSE FACADE) (ADJECTIVE ASHWORTH BRICK)
@@ -880,8 +935,9 @@
 
 <OBJECT DETAIL-INVENTORY-ENTRY (IN DINING-ROOM) (DESC "inventory entry")
     (SYNONYM ENTRY INVENTORY HANDWRITING) (ADJECTIVE HANDWRITTEN WINE)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The usual wines are entered in ink. Someone squeezed the tincture into the margin in pencil, leaving no room for a quantity.")>
+    (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
+    (TEXT "The usual wines are entered in ink. Someone squeezed the tincture into the margin in pencil, leaving no room for a quantity.")
+    (ACTION DETAIL-INVENTORY-ENTRY-F)>
 
 <OBJECT DETAIL-COINS (IN GARDEN) (DESC "coins")
     (SYNONYM COINS COIN COPPER) (ADJECTIVE TARNISHED)
@@ -890,8 +946,9 @@
 
 <OBJECT DETAIL-TEA-CARD (IN KITCHEN) (DESC "tea card")
     (SYNONYM CARD STRING) (ADJECTIVE TEA TIED)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Hudson used the clean side of an old order slip. A brown thumbprint has smudged the full stop after TEA FIRST.")>
+    (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
+    (TEXT "Hudson used the clean side of an old order slip. A brown thumbprint has smudged the full stop after TEA FIRST.")
+    (ACTION DETAIL-TEA-CARD-F)>
 
 <OBJECT RAKE-MARKS (IN ASHWORTH-MANOR-GATE) (DESC "rake marks")
     (SYNONYM MARKS FAN FANS RAKING) (ADJECTIVE RAKE GRAVEL)

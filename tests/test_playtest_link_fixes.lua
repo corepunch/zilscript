@@ -1,0 +1,53 @@
+-- Regression checks for the reader-visible defects in the six-book playtest.
+-- Every game command goes through the same link menu as a reader.
+package.path = './?.lua;./?/init.lua;' .. package.path
+local Walk = require('tests.link_walk')
+local function game(name) return Walk.new('books.' .. name .. '.' .. name, 97) end
+local function has(w, label, command)
+  for _, a in ipairs(w:menu()) do
+    if a.label == label and (not command or a.command == command) then return true end
+  end
+  return false
+end
+local w = game('silent-vector')
+w:play({'push habitat breaker','north','north','tell doctor mara'})
+assert(has(w, 'Mara: Ask about signal') and has(w, 'Mara: Ask about crew') and has(w, 'Mara: Ask about daughter'))
+w:choose('tell doctor mara about physical crew')
+assert(w.output:find('clinical log', 1, true))
+w:play({'north','east','tell researcher senn'})
+assert(has(w, 'Senn: Ask about Lena') and has(w, 'Senn: Ask about signal'))
+w:choose('tell researcher senn about missing daughter')
+assert(w.output:find('thirty-one', 1, true))
+local rail = game('silent-vector')
+rail:play({'push habitat breaker','north'})
+assert(has(rail, 'copper rail: Examine', 'examine copper rail'))
+rail:play({'down'})
+assert(has(rail, 'grille: Examine') and not has(rail, 'draught: Examine'))
+rail:play({'up','east','east'})
+assert(has(rail, 'recorder: Open') and not has(rail, 'footfall: Open'))
+local lb = game('last-broadcast')
+assert(has(lb, 'station clock: Examine') and not has(lb, 'salt: Examine'))
+lb:play({'north','east','east','south'})
+assert(has(lb, 'workbench: Search') and not has(lb, 'Solder: Search'))
+lb:play({'north','north','east'})
+assert(has(lb, 'papers: Read') and not has(lb, 'draught: Read'))
+local pw = game('pocket-weather')
+pw:play({'north','north','east'})
+assert(has(pw, 'Nimbus the cloud: Tell') and not has(pw, 'Rain: Tell'))
+local bh = game('blackwood-horror')
+bh:play({'north','north','examine metal cabinet','take surgical scalpel','south','east'})
+assert(has(bh, 'chains and restraint strap: Cut with rusty scalpel'))
+bh:play({{'cut thick chains with surgical scalpel', expect='strap parts'}, 'north'})
+assert(has(bh, 'drawers: Open') and not has(bh, 'glow: Open'))
+bh:play({'south','west','down','down','east','examine iron boiler','take coal shovel','west','west','examine sagging shelves','take oil lantern','turn on oil lantern','east','north','north','north','east','north','north','west','north'})
+bh:play({{'dig dead garden with coal shovel', expect='dig into the dead earth'}})
+local lh = game('limehouse-killings')
+lh:play({'read creased telegram','north','search hall table','take magnifying glass','west'})
+assert(has(lh, 'Ashworth: Ask about table', 'tell lady ashworth about dining table'))
+assert(not has(lh, 'Ashworth: Ask about hall table'))
+lh:play({'east','down','open counter drawer','open leather roll','take lockpick set','inventory'})
+assert(not lh:offers('read blue kettle with lockpick set'))
+assert(not lh:offers('read blue kettle with creased telegram'))
+lh:play({'up'})
+assert(lh:offers('open study door with lockpick set'), 'keep meaningful lock experiment')
+print('ok - reported playtest link defects')

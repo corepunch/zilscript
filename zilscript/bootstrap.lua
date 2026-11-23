@@ -1323,10 +1323,15 @@ end
 -- Printed object names can contain titles, several adjectives, or a word
 -- the parser also uses as an adjective for another object.
 -- Use the same noun phrase as the reader menu for an exact, in-scope name.
-local function examine_display_name(input)
+local function resolve_display_name(input)
 	local command = input:lower():match("^%s*(.-)%s*$")
 	local noun = command:match("^examine%s+(.+)") or command:match("^x%s+(.+)")
 		or command:match("^look%s+at%s+(.+)")
+	local verb = "examine"
+	if not noun then
+		noun = command:match("^read%s+(.+)")
+		verb = "read"
+	end
 	if not noun then return input end
 	local candidates = display_names[noun:gsub("^the%s+", "")]
 	if not candidates or not ACCESSIBLEQ then return input end
@@ -1337,7 +1342,7 @@ local function examine_display_name(input)
 			match = object
 		end
 	end
-	if match then return "examine " .. object_noun(match) end
+	if match then return verb .. " " .. object_noun(match) end
 	return input
 end
 
@@ -1366,7 +1371,7 @@ function READ(inbuf, parse)
 			s = coroutine.yield(refusal)
 			goto restart_read
 		end
-		s = examine_display_name(command)
+		s = resolve_display_name(command)
 	end
 
 	local p = {}

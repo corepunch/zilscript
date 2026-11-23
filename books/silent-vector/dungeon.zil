@@ -29,7 +29,7 @@
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM RECORDS (IN ROOMS) (ACTION RECORDS-LOOK) (DESC "Physical Archive")
-	(LDESC "Each [[footfall]] makes the [[recorder]] ring beside its [[mass ledger->ledger]]. The galley lies [[west]].")
+	(LDESC "Each footfall makes the [[recorder]] ring beside its [[mass ledger->ledger]]. The galley lies [[west]].")
 	(WEST TO GALLEY)
 	(FLAGS RLANDBIT ONBIT)>
 
@@ -47,7 +47,7 @@
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM SERVICE (IN ROOMS) (DESC "Service Spine")
-	(LDESC "A [[draught]] rattles the [[grille]] between coolant [[west]] and the relay [[east]], below the junction [[above->up]].")
+	(LDESC "A draught rattles the [[grille]] between coolant [[west]] and the relay [[east]], below the junction [[above->up]].")
 	(WEST TO COOLANT)
 	(EAST TO RELAY)
 	(UP TO HUB)
@@ -90,7 +90,7 @@
 
 <OBJECT COPPER-STRIP
 	(IN HUB) (DESC "copper strip")
-	(SYNONYM COPPER STRIP RAIL MARK MARKS) (ADJECTIVE COPPER BARE WORN FOUR FINGER)
+	(SYNONYM RAIL COPPER STRIP MARK MARKS) (ADJECTIVE COPPER BARE WORN FOUR FINGER)
 	(INTERACTIONS "") (FLAGS NDESCBIT)
 	(ACTION COPPER-STRIP-F)>
 
@@ -249,9 +249,9 @@
     (ACTION CORE-INTERLOCK-F)>
 
 <OBJECT DETAIL-BUCKLE (IN CRADLE) (DESC "buckle")
-    (SYNONYM BUCKLE CLASP) (ADJECTIVE RESTRAINT METAL)
+    (SYNONYM BUCKLE CLASP RELEASE TONGUE) (ADJECTIVE RESTRAINT METAL POLISHED)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The lip is polished on the side nearest your thumb. You can find the release with your eyes shut.")>
+    (ACTION DETAIL-BUCKLE-F)>
 
 <OBJECT DETAIL-STRIP-OF-FOIL (IN SERVICE) (DESC "foil streamer")
     (SYNONYM FOIL STREAMER) (ADJECTIVE NARROW FOIL)
@@ -285,5 +285,6 @@
 
 <OBJECT RETURN-STAMP (IN WAFER) (DESC "return stamp")
     (SYNONYM STAMP SERIAL OVERPRINT) (ADJECTIVE RETURN OUTER-RELAY)
-    (SIZE 0) (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "At the crossing, the raised edge of the serial is flattened. The relay stamp was put on second.")>
+    (SIZE 0) (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
+    (TEXT "At the crossing, the raised edge of the serial is flattened. The relay stamp was put on second.")
+    (ACTION RETURN-STAMP-F)>

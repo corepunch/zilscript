@@ -17,7 +17,7 @@
 <GLOBAL LB-RECEIPT-SEEN <>>
 
 <ROOM LB-LANDING (IN ROOMS) (DESC "Saint Bride Landing")
-	(LDESC "Beyond the [[salt->station clock]]-crusted [[station clock]], a [[light]] burns in the [[hall->north]].")
+	(LDESC "Beyond the salt-crusted [[station clock]], a [[light]] burns in the [[hall->north]].")
 	(NORTH TO LB-HALL) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-HALL (IN ROOMS) (DESC "Station Hall")
 	(LDESC "From the [[appeal board]] you can see the [[office->north]], [[studio->east]] and [[kitchen->west]]. The [[bunkroom->up]] is up the [[stairs]] from the [[landing->south]].")
@@ -35,10 +35,10 @@
 	(LDESC "A [[curl of lacquer->lacquer curl]] lies beside the [[cutter]] and its [[register]]. Doors open south to the [[control room->south]] and east to the [[archive->east]].")
 	(SOUTH TO LB-CONTROL) (EAST TO LB-ARCHIVE) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-ARCHIVE (IN ROOMS) (ACTION LB-ARCHIVE-LOOK) (DESC "Record Archive")
-	(LDESC "A [[draught]] from the [[cutting room to the west->west]] stirs the cold [[papers]] beside a [[cardboard sleeve]].")
+	(LDESC "A draught from the [[cutting room to the west->west]] stirs the cold [[papers]] beside a [[cardboard sleeve]].")
 	(WEST TO LB-CUTTING) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-WORKSHOP (IN ROOMS) (DESC "Service Workshop")
-	(LDESC "[[Solder->workbench]] freckles the [[workbench]] between the [[control room to the north->north]] and the [[generator room below->down]].")
+	(LDESC "Solder freckles the [[workbench]] between the [[control room to the north->north]] and the [[generator room below->down]].")
 	(NORTH TO LB-CONTROL) (DOWN TO LB-GENERATOR) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-GENERATOR (IN ROOMS) (DESC "Generator Room")
 	(LDESC "The [[generator]] shakes the floor between the [[workshop above->up]] and the [[cable passage->north]].")
@@ -108,7 +108,8 @@
 <OBJECT LB-HALL-STAIRS (IN LB-HALL) (DESC "station stairs")
     (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE STATION WOODEN)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The middle of each tread is worn hollow. The stair creaks loudest at the turn below the bunkroom.")>
+    (TEXT "The middle of each tread is worn hollow. The stair creaks loudest at the turn below the bunkroom.")
+    (ACTION LB-HALL-STAIRS-F)>
 
 <OBJECT LB-CONTROL-LIGHT (IN LB-CONTROL) (DESC "green light")
     (SYNONYM LIGHT LAMP BULB) (ADJECTIVE GREEN CONTROL)
@@ -122,18 +123,21 @@
 
 <OBJECT LB-ARCHIVE-PAPERS (IN LB-ARCHIVE) (DESC "archive papers")
     (SYNONYM PAPERS PAPER DRAUGHT DRAFT) (ADJECTIVE ARCHIVE COLD LOOSE)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The loose sheets lift at one corner whenever air comes under the cutting-room door. Most are blank requisition forms.")>
+    (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
+    (TEXT "The loose sheets lift at one corner whenever air comes under the cutting-room door. Most are blank requisition forms.")
+    (ACTION LB-ARCHIVE-PAPERS-F)>
 
 <OBJECT LB-COVERED-WALK (IN LOCAL-GLOBALS) (DESC "covered walk")
     (SYNONYM WALK WALKWAY BOARDS) (ADJECTIVE COVERED WOODEN)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "A strip of corrugated tin keeps the middle boards dry. Rain blows in on the aerial side.")>
+    (TEXT "A strip of corrugated tin keeps the middle boards dry. Rain blows in on the aerial side.")
+    (ACTION LB-COVERED-WALK-F)>
 
 <OBJECT LB-TELEGRAPH-STAIRS (IN LB-TELEGRAPH) (DESC "platform stairs")
     (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE PLATFORM IRON)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Clean drops hang from the lowest iron tread. Someone coming in from the platform brings the weather down with them.")>
+    (TEXT "Clean drops hang from the lowest iron tread. Someone coming in from the platform brings the weather down with them.")
+    (ACTION LB-TELEGRAPH-STAIRS-F)>
 
 <OBJECT DETAIL-BRASS-DUST (IN LB-OFFICE) (DESC "brass dust")
     (SYNONYM GRAINS DUST CRESCENT GAP) (ADJECTIVE BRASS NARROW)
@@ -143,17 +147,20 @@
 <OBJECT DETAIL-WINDING-KNOB (IN LB-OFFICE) (DESC "winding knob")
     (SYNONYM KNOB SPINDLE) (ADJECTIVE WINDING CLOCK)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The maker stamped SET beside it. The knob moves the hands, and has no ratchet to wind.")>
+    (TEXT "The maker stamped SET beside it. The knob moves the hands, and has no ratchet to wind.")
+    (ACTION DETAIL-WINDING-KNOB-F)>
 
 <OBJECT DETAIL-HEATER-PLATE (IN LB-STUDIO) (DESC "heater plate")
     (SYNONYM PLATE LETTERING) (ADJECTIVE HEATER TINY)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The letters are punched straight into the metal. Alongside HEATER someone pencilled a little arrow pointing to the lamp.")>
+    (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
+    (TEXT "The letters are punched straight into the metal. Alongside HEATER someone pencilled a little arrow pointing to the lamp.")
+    (ACTION DETAIL-HEATER-PLATE-F)>
 
 <OBJECT DETAIL-WAX-DAB (IN LB-CONTROL) (DESC "wax dab")
     (SYNONYM DAB WAX SEAL) (ADJECTIVE WAX SWITCH)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Half the wax clings to the guard and half to the switch. Their edges meet at DISC like the halves of a torn ticket.")>
+    (TEXT "Half the wax clings to the guard and half to the switch. Their edges meet at DISC like the halves of a torn ticket.")
+    (ACTION DETAIL-WAX-DAB-F)>
 
 <OBJECT DETAIL-CUTTING-NEEDLE (IN LB-CUTTING) (DESC "cutting needle")
     (SYNONYM NEEDLE POINT) (ADJECTIVE CUTTING)

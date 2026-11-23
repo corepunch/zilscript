@@ -50,12 +50,12 @@
     "west"
   ],
   [
-    6,
+    7,
     "turn pump with wrench",
     "turn coolant pump with torque wrench"
   ],
   [
-    7,
+    8,
     "east",
     "east"
   ],
@@ -240,7 +240,7 @@
     "tell researcher senn about missing daughter"
   ],
   [
-    14,
+    15,
     "north",
     "north"
   ],
@@ -310,7 +310,7 @@
     "east"
   ],
   [
-    12,
+    13,
     "north",
     "north"
   ],

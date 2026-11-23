@@ -1,0 +1,17 @@
+THE POCKET WEATHER BUREAU
+A little cloud has refused its forecast. Your first job at the weather post is to bring it back.
+
+Beside the [[dispatch bell->bell]], [[Postmaster Mica->mica]] holds an unfinished [[forecast]]. The terrace is [[north]], the kitchen [[west]], the archive [[south]], and the balcony [[east]].
+
+
+> inventory
+You are empty-handed.
+
+
+> examine postmaster mica
+Mica's fingers tap an impatient rhythm, then stop when you look. Ask about the [[forecast]], [[yesterday]], or a [[promise]].
+
+
+> examine official forecast
+The official forecast orders continuous rain over the parade. Mica wants it delivered. Nimbus does not. You may need a revised forecast, not a captured cloud.
+

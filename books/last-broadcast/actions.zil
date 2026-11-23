@@ -1,10 +1,12 @@
+<SYNTAX TURN OBJECT = V-SPIN>
+
 <ROUTINE LB-KITCHEN-LOOK (RARG)
 	<COND (<AND <EQUAL? .RARG ,M-LOOK> <FSET? ,LB-BAG ,OPENBIT>>
 		<TELL "[[Edith]] sits by her open [[medical bag]] at the [[table]] between the [[hall->east]] and the [[telegraph room->west]]." CR>)>>
 
 <ROUTINE LB-ARCHIVE-LOOK (RARG)
 	<COND (<AND <EQUAL? .RARG ,M-LOOK> <FSET? ,LB-SLEEVE ,OPENBIT>>
-		<TELL "A [[draught]] from the [[cutting room to the west->west]] ruffles the [[papers]] beside an open [[cardboard sleeve]]." CR>)>>
+		<TELL "A draught from the [[cutting room to the west->west]] ruffles the [[papers]] beside an open [[cardboard sleeve]]." CR>)>>
 
 <ROUTINE LB-CUTTING-LOOK (RARG)
 	<COND (<AND <EQUAL? .RARG ,M-LOOK> <FSET? ,LB-CUTTER ,OPENBIT>>
@@ -460,3 +462,27 @@
     <COND (<VERB? EXAMINE>
            <SETG LB-STAIN-SEEN T>
            <TELL "One corner of the diamond sits right on the curve of the heel. Along its opposite edge the stitches left a row of tiny dots." CR>)>>
+
+<ROUTINE DETAIL-WINDING-KNOB-F ()
+    <COND (<VERB? READ> <TELL "SET. There is no winding mark." CR>)
+          (<VERB? SPIN> <TELL "The minute hand trembles under your thumb. You let go before you change the reading. This knob sets the hands." CR>)>>
+
+<ROUTINE DETAIL-HEATER-PLATE-F ()
+    <COND (<VERB? READ> <TELL "HEATER. The pencilled arrow points to the lamp that shows when the microphone is warm." CR>)>>
+
+<ROUTINE LB-ARCHIVE-PAPERS-F ()
+    <COND (<VERB? READ> <TELL "REQUISITION. Below it are spaces for a date, an item and a signature. The lines are blank." CR>)>>
+
+<ROUTINE DETAIL-WAX-DAB-F ()
+    <COND (<VERB? RUB> <TELL "You touch the wax on the guard. Its broken edge fits the piece on the switch at DISC." CR>)>>
+
+<ROUTINE LB-COVERED-WALK-F ()
+    <COND (<VERB? CROSS>
+           <COND (<EQUAL? ,HERE ,LB-PLATFORM> <DO-WALK ,P?EAST>)
+                 (T <DO-WALK ,P?WEST>)>)>>
+
+<ROUTINE LB-HALL-STAIRS-F ()
+    <COND (<VERB? CLIMB-FOO CLIMB-UP> <DO-WALK ,P?UP>)>>
+
+<ROUTINE LB-TELEGRAPH-STAIRS-F ()
+    <COND (<VERB? CLIMB-FOO CLIMB-UP> <DO-WALK ,P?UP>)>>

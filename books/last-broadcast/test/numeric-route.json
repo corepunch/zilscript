@@ -140,42 +140,42 @@
     "running": true
   },
   {
-    "number": 6,
+    "number": 7,
     "label": "cardboard sleeve: Examine",
     "command": "examine cardboard sleeve",
     "room": "Record Archive",
     "running": true
   },
   {
-    "number": 7,
+    "number": 8,
     "label": "cardboard sleeve: Open",
     "command": "open cardboard sleeve",
     "room": "Record Archive",
     "running": true
   },
   {
-    "number": 11,
+    "number": 12,
     "label": "lacquer disc: Examine",
     "command": "examine lacquer disc",
     "room": "Record Archive",
     "running": true
   },
   {
-    "number": 12,
+    "number": 13,
     "label": "lacquer disc: Take",
     "command": "take lacquer disc",
     "room": "Record Archive",
     "running": true
   },
   {
-    "number": 10,
+    "number": 11,
     "label": "wage ledger: Read",
     "command": "read wage ledger",
     "room": "Record Archive",
     "running": true
   },
   {
-    "number": 5,
+    "number": 6,
     "label": "cutting room to the west: Go west",
     "command": "west",
     "room": "Disc Cutting Room",
@@ -287,14 +287,14 @@
     "running": true
   },
   {
-    "number": 22,
+    "number": 23,
     "label": "leather boots: Examine",
     "command": "examine leather boots",
     "room": "Staff Bunkroom",
     "running": true
   },
   {
-    "number": 23,
+    "number": 24,
     "label": "leather boots: Take",
     "command": "take leather boots",
     "room": "Staff Bunkroom",
@@ -483,7 +483,7 @@
     "running": true
   },
   {
-    "number": 17,
+    "number": 19,
     "label": "telegraph receipt: Read",
     "command": "read telegraph receipt",
     "room": "Telegraph Room",
@@ -504,7 +504,7 @@
     "running": true
   },
   {
-    "number": 15,
+    "number": 17,
     "label": "aerial platform: Go up",
     "command": "up",
     "room": "Aerial Platform",
@@ -560,7 +560,7 @@
     "running": true
   },
   {
-    "number": 50,
+    "number": 51,
     "label": "casebook: Reconstruct",
     "command": "reconstruct casebook",
     "room": "Staff Bunkroom",
