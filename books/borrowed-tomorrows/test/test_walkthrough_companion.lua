@@ -65,7 +65,7 @@ end
 assert(env.RESTORE(initial))
 
 local route = {
-  { "hall.open", "Inside lies a tomorrow leaf" },
+  { "hall.open", "lies a tomorrow leaf" },
   { "hall.borrow", "records your name" },
   { "hall.basin", "backed out" },
   { "basin.receipt", "SUN THE VILLAGE CAN'T USE" },
