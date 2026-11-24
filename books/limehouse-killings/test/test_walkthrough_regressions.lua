@@ -32,7 +32,7 @@ do
 	assert(walk:offers("tell dr moriarty about poison"), "poison is offered")
 	walk:play({
 		{ "examine poison", expect = "question to put to Dr. Moriarty" },
-		{ "tell dr moriarty about reading desk", expect = "'I don't know anything about that,' says Moriarty" },
+		{ "tell dr moriarty about reading desk", expect = "I don't know anything about that,” says Moriarty" },
 		{ "tell dr moriarty about poison", expect = "walks out to the entrance hall" },
 	})
 	lacks(walk:choose("look"), "Moriarty", "he has left the library")

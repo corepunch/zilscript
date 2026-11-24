@@ -258,7 +258,8 @@
       (ADJECTIVE LEATHER OPEN)
       (FLAGS CONTBIT TAKEBIT)
       (CAPACITY 5)
-      (SIZE 3)>
+      (SIZE 3)
+      (ACTION LEATHER-ROLL-F)>
 
 <OBJECT LOCKPICK-SET
       (INTERACTIONS "USE-ON:WINDOW,STUDY-DOOR;PUT:LOCKED-BOX,LEATHER-ROLL,DRAWER,TRUNK;SHOW:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY,INSPECTOR;GIVE:MR-HUDSON,LADY-ASHWORTH,DR-MORIARTY")
@@ -864,7 +865,8 @@
 <OBJECT TELEGRAM-STONE (IN ASHWORTH-MANOR-GATE) (DESC "smooth stone")
     (SYNONYM STONE PEBBLE) (ADJECTIVE SMOOTH FLAT)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "It fits in a palm. Its underside is dry and white against the wet gravel.")>
+    (TEXT "It fits in a palm. Its underside is dry and white against the wet gravel.")
+    (ACTION TELEGRAM-STONE-F)>
 
 <OBJECT KITCHEN-STAIRS (IN ASHWORTH-ENTRANCE-HALL) (DESC "kitchen stairs")
     (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE KITCHEN SERVICE)
@@ -875,17 +877,20 @@
 <OBJECT HUDSON-SPOON (IN SERVANTS-QUARTERS) (DESC "silver spoon")
     (SYNONYM SPOON SILVERWARE) (ADJECTIVE SILVER POLISHED)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Hudson has rubbed the maker’s stamp almost flat. His cloth goes over the same spot each time footsteps pass outside.")>
+    (TEXT "Hudson has rubbed the maker’s stamp almost flat. His cloth goes over the same spot each time footsteps pass outside.")
+    (ACTION HUDSON-SPOON-F)>
 
 <OBJECT PANTRY-APPLES (IN PANTRY) (DESC "stored apples")
     (SYNONYM APPLES APPLE FRUIT) (ADJECTIVE STORED WRINKLED)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The winter apples sit apart on straw so a bad one cannot spoil its neighbours. One has shrivelled around its stalk.")>
+    (TEXT "The winter apples sit apart on straw so a bad one cannot spoil its neighbours. One has shrivelled around its stalk.")
+    (ACTION PANTRY-APPLES-F)>
 
 <OBJECT PANTRY-DUST (IN PANTRY) (DESC "charcoal dust")
     (SYNONYM DUST POWDER) (ADJECTIVE CHARCOAL BLACK)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "A black crescent on the shelf matches the base of the charcoal jar. Even the cook’s fingerprints have left pale gaps in it.")>
+    (TEXT "A black crescent on the shelf matches the base of the charcoal jar. Even the cook’s fingerprints have left pale gaps in it.")
+    (ACTION PANTRY-DUST-F)>
 
 <OBJECT OUTSIDE-WINDOW (IN GARDEN) (DESC "study window")
     (SYNONYM WINDOW SILL) (ADJECTIVE STUDY GARDEN OPEN)
@@ -901,7 +906,8 @@
 <OBJECT MOURNING-RIBBON (IN DINING-ROOM) (DESC "mourning ribbon")
     (SYNONYM RIBBON BOW) (ADJECTIVE BLACK MOURNING)
     (FLAGS NDESCBIT INVISIBLE) (INTERACTIONS "")
-    (TEXT "A crease marks the place where someone unpicked the bow. Lady Ashworth has smoothed it flat with her palm.")>
+    (TEXT "A crease marks the place where someone unpicked the bow. Lady Ashworth has smoothed it flat with her palm.")
+    (ACTION MOURNING-RIBBON-F)>
 
 <OBJECT HUDSON-BAG (IN SERVANTS-QUARTERS) (DESC "packed carpetbag")
     (SYNONYM CARPETBAG BAG FASTENINGS CLASPS) (ADJECTIVE PACKED CARPET)
@@ -911,27 +917,32 @@
 <OBJECT MANOR-FACADE (IN ASHWORTH-MANOR-GATE) (DESC "manor house")
     (SYNONYM MANOR HOUSE FACADE) (ADJECTIVE ASHWORTH BRICK)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The fog parts first around the chimneys. Downstairs, a single [[lit window]] turns the gravel yellow beneath it.")>
+    (TEXT "The fog parts first around the chimneys. Downstairs, a single [[lit window]] turns the gravel yellow beneath it.")
+    (ACTION MANOR-FACADE-F)>
 
 <OBJECT DETAIL-ASHWORTH-CREST (IN ASHWORTH-MANOR-GATE) (DESC "Ashworth crest")
     (SYNONYM CREST ARMS SHIELD) (ADJECTIVE ASHWORTH IRON)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Two iron hounds face each other across a shield. Rain has polished their muzzles bright.")>
+    (TEXT "Two iron hounds face each other across a shield. Rain has polished their muzzles bright.")
+    (ACTION DETAIL-ASHWORTH-CREST-F)>
 
 <OBJECT DETAIL-LIT-WINDOW (IN ASHWORTH-MANOR-GATE) (DESC "lit window")
     (SYNONYM WINDOW PANE) (ADJECTIVE LIT DOWNSTAIRS)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "A bar of shadow divides the light. From the gate you can make out the window frame, but the curtains hide the room.")>
+    (TEXT "A bar of shadow divides the light. From the gate you can make out the window frame, but the curtains hide the room.")
+    (ACTION DETAIL-LIT-WINDOW-F)>
 
 <OBJECT DETAIL-CLEAN-CRYSTAL (IN ASHWORTH-ENTRANCE-HALL) (DESC "clean crystal")
     (SYNONYM CRYSTAL PRISM) (ADJECTIVE CLEAN SINGLE)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "It hangs lower than its neighbours. The dust stops at the height where a raised dusting cloth could reach.")>
+    (TEXT "It hangs lower than its neighbours. The dust stops at the height where a raised dusting cloth could reach.")
+    (ACTION DETAIL-CLEAN-CRYSTAL-F)>
 
 <OBJECT DETAIL-FURROW (IN STUDY) (DESC "furrow")
     (SYNONYM FURROW GROOVE) (ADJECTIVE SHORT CARPET)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The nap lies flat in one direction. At the hearth it bunches up in a ridge, where the chair leg stopped.")>
+    (TEXT "The nap lies flat in one direction. At the hearth it bunches up in a ridge, where the chair leg stopped.")
+    (ACTION DETAIL-FURROW-F)>
 
 <OBJECT DETAIL-INVENTORY-ENTRY (IN DINING-ROOM) (DESC "inventory entry")
     (SYNONYM ENTRY INVENTORY HANDWRITING) (ADJECTIVE HANDWRITTEN WINE)
@@ -942,7 +953,8 @@
 <OBJECT DETAIL-COINS (IN GARDEN) (DESC "coins")
     (SYNONYM COINS COIN COPPER) (ADJECTIVE TARNISHED)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The coins have left green circles on the stone. One landed on its edge and stayed wedged in a crack.")>
+    (TEXT "The coins have left green circles on the stone. One landed on its edge and stayed wedged in a crack.")
+    (ACTION DETAIL-COINS-F)>
 
 <OBJECT DETAIL-TEA-CARD (IN KITCHEN) (DESC "tea card")
     (SYNONYM CARD STRING) (ADJECTIVE TEA TIED)
@@ -953,4 +965,6 @@
 <OBJECT RAKE-MARKS (IN ASHWORTH-MANOR-GATE) (DESC "rake marks")
     (SYNONYM MARKS FAN FANS RAKING) (ADJECTIVE RAKE GRAVEL)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The other fans have five neat ridges apiece. Here loose gravel has been pushed up against the doorstep.")>
+    (TEXT "The other fans have five neat ridges apiece. Here loose gravel has been pushed up against the doorstep.")
+    (ACTION RAKE-MARKS-F)>
+
