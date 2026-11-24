@@ -26,6 +26,9 @@ jobs:
 
     - name: Run new book regressions and numeric reader routes
       run: make test-new-books
+
+    - name: Validate all books and their reader walkthroughs
+      run: make test-book-walkthroughs lint-zil
     
     - name: Run Zork1 walkthrough tests
       run: lua5.4 run-zil-test.lua infocom/zork1/test/zork1-walkthrough

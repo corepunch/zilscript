@@ -1,0 +1,66 @@
+{
+  "book": "station-minus-one",
+  "runner": "test/test_walkthrough_companion.lua",
+  "states": [
+    {
+      "room": "Ticket Hall",
+      "state": "Opening empty-handed",
+      "authored": true
+    },
+    {
+      "room": "Staff Room",
+      "state": "Calibration weight still on table",
+      "authored": true
+    },
+    {
+      "room": "Gauge Room",
+      "state": "Empty receiver and hands",
+      "authored": true
+    },
+    {
+      "room": "Lower Platform",
+      "state": "Before comparison; no ending cards",
+      "authored": true
+    },
+    {
+      "room": "Gauge Room",
+      "state": "Weight carried",
+      "authored": true
+    },
+    {
+      "room": "Gauge Room",
+      "state": "Weight seated; test or recover",
+      "authored": true
+    },
+    {
+      "room": "Lower Platform",
+      "state": "Comparison observed; both endings",
+      "authored": true
+    }
+  ],
+  "card_executions": 25,
+  "numbered_cli_routes": {
+    "The Extra Stop": [
+      2,
+      1,
+      2,
+      2,
+      1,
+      1,
+      4,
+      2,
+      1
+    ],
+    "Outside the Timetable": [
+      2,
+      1,
+      2,
+      2,
+      1,
+      1,
+      4,
+      2,
+      2
+    ]
+  }
+}

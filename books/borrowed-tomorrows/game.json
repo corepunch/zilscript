@@ -1,0 +1,15 @@
+{
+  "id": "books.borrowed-tomorrows",
+  "title": "The Library of Borrowed Tomorrows",
+  "shortDescription": "They lend sunshine by the day. Today they’re one day short.",
+  "description": "The village has borrowed tomorrow’s sunshine, but there is only one page left. Follow the cost of an ordinary checkout through a tiny library, unfold a loan no one remembered they could share, and save a market that needs tomorrow to arrive for everyone.\n\nAn original fantasy adventure for ages 8 and up, with no countdown or permanent mistakes. Play with typed commands or numbered choices.",
+  "author": "Studio Null",
+  "year": 2026,
+  "rating": 0,
+  "reviewCount": 0,
+  "startFile": "borrowed-tomorrows.zil",
+  "base": "infocom/zork1",
+  "reviews": [],
+  "genre": "Children's Adventure",
+  "statusLine": "moves"
+}

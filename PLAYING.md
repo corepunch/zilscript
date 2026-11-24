@@ -176,6 +176,12 @@ Pass `--game <name>` to play different games:
 | last-broadcast | `books.last-broadcast.last-broadcast` |
 | pocket-weather | `books.pocket-weather.pocket-weather` |
 | silent-vector | `books.silent-vector.silent-vector` |
+| house-of-the-ebb | `books.house-of-the-ebb.house-of-the-ebb` |
+| the-midnight-ledger | `books.the-midnight-ledger.the-midnight-ledger` |
+| borrowed-tomorrows | `books.borrowed-tomorrows.borrowed-tomorrows` |
+| bell-grew-leaves | `books.bell-grew-leaves.bell-grew-leaves` |
+| station-minus-one | `books.station-minus-one.station-minus-one` |
+| museum-unsent-signals | `books.museum-unsent-signals.museum-unsent-signals` |
 
 ## Command-Line Reference
 

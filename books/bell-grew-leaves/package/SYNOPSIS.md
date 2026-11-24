@@ -1,0 +1,1 @@
+A neighboring village has rung across the fog. Your own bell gives a sound no bigger than a pebble. Trace an old trick through the reed store and the spring, then help a very stubborn bell find a voice that can travel without sound.
