@@ -19,3 +19,7 @@ The fresh second reader used seed 1928, chose 121 actual numbered actions, reque
 The remaining findings were state-description and action-wording polish. `test_blind2_links.lua` first reproduced all of them RED: archive examination requested insertion after actual containment; a sole missing sample or beacon still produced the full seven-part checklist; inventory printed the shears as a singular unpaired item; pump menus exposed obsolete Plug and generic To/For instrument duplicates. Book fixes make archive examination follow the sample's actual location, report only the first missing final prerequisite, name a pair of ceramic shears, and remove the old book-owned PLUG repair path completely. Current walkthroughs and hint commands use TURN PUMP WITH WRENCH. The correct tool and informative wrong ceramic tool remain; the parent owns the shared preferred-WITH syntax selection. These are narrow author-confirmed fixes after the independent completion, not a claim that the reader tested unreleased edits.
 
 Final shared confirmation: preferred WITH selection is fixed in the common runtime; `test_blind2_links.lua` is fully GREEN. The final source-informed CLI proof regenerated against that runtime reaches a persistent terminal ending in 62 numeric choices, with a maximum observed menu of 27. All concrete blind findings are resolved.
+
+The original parser regression was subsequently migrated to `test-blind1-parser.zil`.
+
+The round 2 state and parser checks now live in `test-blind2-state.zil`; `test_blind2_links.lua` retains the host reader-menu checks.

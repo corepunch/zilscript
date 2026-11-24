@@ -68,6 +68,49 @@ function ASSERT_NOT_TEXT(unexpected, ok, actual)
 	end
 end
 
+-- These accept CO-RESUME's success and output values directly, like ASSERT-TEXT.
+function ASSERT_TEXT_MINIMUM(minimum, ok, actual)
+	if ok and type(actual) == "string" and #actual >= minimum then
+		print(GREEN .. "[PASS] " .. format_assertion("response length >= " .. minimum) .. RESET)
+		return true
+	end
+	print(RED .. "[FAIL] " .. format_assertion("response length >= " .. minimum) .. RESET)
+	fail_fast("Response too short or command failed")
+end
+
+function ASSERT_PARSER_RESPONSE(ok, actual)
+	local failure = not ok or type(actual) ~= "string" or actual == ""
+	if not failure then
+		local response = actual:lower()
+		for _, pattern in ipairs({ "can't see any", "don't know the word", "which .- do you mean", "noun missing" }) do
+			if response:find(pattern) then failure = true break end
+		end
+	end
+	if failure then
+		print(RED .. "[FAIL] " .. format_assertion("parser response") .. "\n" .. tostring(actual) .. RESET)
+		fail_fast("Parser response was empty or unresolved")
+	end
+	print(GREEN .. "[PASS] " .. format_assertion("parser response") .. RESET)
+	return true
+end
+
+function ASSERT_TEXT_OCCURRENCES(needle, expected, ok, actual)
+	local count, position = 0, 1
+	if ok and type(actual) == "string" and needle ~= "" then
+		while true do
+			local found = actual:find(needle, position, true)
+			if not found then break end
+			count, position = count + 1, found + #needle
+		end
+	end
+	if not ok or type(actual) ~= "string" or needle == "" or count ~= expected then
+		print(RED .. "[FAIL] " .. format_assertion("occurrences of " .. needle .. ": " .. count) .. RESET)
+		fail_fast("Unexpected text occurrence count")
+	end
+	print(GREEN .. "[PASS] " .. format_assertion("occurrences of " .. needle .. ": " .. count) .. RESET)
+	return true
+end
+
 local zil = require "zilscript"
 require "zilscript.bootstrap"
 

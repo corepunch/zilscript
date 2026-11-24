@@ -2434,7 +2434,10 @@ function OPENABLEQ(OBJ)
 		return FSETQ(OBJ, DOORBIT) or FSETQ(OBJ, CONTBIT)
 end
 
-function CO_CREATE(func)
+-- By default begin the game immediately, as existing tests expect. An
+-- optional true argument leaves it unstarted so a test can capture the
+-- opening output with its first CO-RESUME.
+function CO_CREATE(func, defer_start)
 	local co = coroutine.create(function(...)
 		while true do
 			local ok, result = pcall(func, ...)
@@ -2450,7 +2453,7 @@ function CO_CREATE(func)
 			end
 		end
 	end)
-	coroutine.resume(co)  -- Start the coroutine
+	if not defer_start then coroutine.resume(co) end
 	return co
 end
 
