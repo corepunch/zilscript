@@ -58,10 +58,15 @@
           <FINISH>)>
         <RTRUE>)>>
 
+<ROUTINE V-VERSION ()
+ <TELL "The Station at Minus One|AdventureArena, 2026|Release " N ,RELEASEID CR>>
+
 <ROUTINE GO ()
+ <V-VERSION> <CRLF>
  <SETG HERE ,TICKET-HALL> <SETG VERBOSE T> <SETG LIT T>
  <SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
- <TELL "The last lift left an hour ago. Then a train rang for entry from the wrong side of midnight." CR>
+ <TELL "The last lift left an hour ago. Then a train rang for entry from the wrong side of midnight." CR CR>
+ <TELL D ,HERE CR>
  <V-LOOK> <MAIN-LOOP> <AGAIN>>
 
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? T))

@@ -1655,7 +1655,11 @@ test of whether the points were given; the VALUE, zeroed, is."
 
 ; === ENTRY POINT ===
 
+<ROUTINE V-VERSION ()
+	<TELL "Sanitarium|Studio Null, 2024|Release " N ,RELEASEID CR>>
+
 <ROUTINE GO ()
+	<V-VERSION> <CRLF>
 	<SETG COMPACT-ROOM-LISTS T>
 	<SETG HERE ,SANITARIUM-GATE>
 	<SETG VERBOSE T>
@@ -1677,6 +1681,7 @@ test of whether the points were given; the VALUE, zeroed, is."
 	<ENABLE <QUEUE I-BOILER-HEAT 1>>
 	<ENABLE <QUEUE I-COLD-EXPOSURE 1>>
 	<ENABLE <QUEUE I-PATIENT-AUTONOMY 4>>
+      <TELL D ,HERE CR>
       <V-LOOK>
       <MAIN-LOOP>
 	<AGAIN>>

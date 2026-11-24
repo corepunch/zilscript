@@ -33,7 +33,11 @@
 
 ; === ENTRY POINT ===
 
+<ROUTINE V-VERSION ()
+	<TELL "The Last Toymaker's Apprentice|Studio Null, 2024|Release " N ,RELEASEID CR>>
+
 <ROUTINE GO ()
+	<V-VERSION> <CRLF>
 	<SETG COMPACT-ROOM-LISTS T>
     <SETG HERE ,WORKSHOP-FLOOR>
     <SETG VERBOSE T>
@@ -50,6 +54,7 @@
            <ENABLE <QUEUE I-TICK 1>>)>
     <ENABLE <QUEUE I-DAWN-WARNING 25>>
     <ENABLE <QUEUE I-NUTMEG-AUTONOMY 8>>
+    <TELL D ,HERE CR>
     <V-LOOK>
     <MAIN-LOOP>
     <AGAIN>>

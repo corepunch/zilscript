@@ -1,10 +1,13 @@
-<ROUTINE V-VERSION () <TELL "The Midnight Ledger, release 1. An original story by Studio Null." CR>>
+<ROUTINE V-VERSION ()
+ <TELL "The Midnight Ledger|Studio Null, 2026|Release " N ,RELEASEID CR>>
 
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? T)) <TELL "There is no score and no deadline." CR>>
 
 <ROUTINE GO ()
+ <V-VERSION> <CRLF>
  <SETG COMPACT-ROOM-LISTS T> <SETG HERE ,VESTIBULE> <SETG VERBOSE T> <SETG LIT T>
  <SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
+ <TELL D ,HERE CR>
  <V-LOOK> <MAIN-LOOP> <AGAIN>>
 
 <SYNTAX HINT = V-BOOK-HINT>

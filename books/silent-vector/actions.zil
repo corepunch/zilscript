@@ -18,7 +18,11 @@
 	<COND (<AND <EQUAL? .RARG ,M-LOOK> <FSET? ,RECORDER ,OPENBIT>>
 		<TELL "The open [[recorder]] rings beside its [[mass ledger->ledger]] on the way [[west]] to the galley." CR>)>>
 
+<ROUTINE V-VERSION ()
+	<TELL "The Silent Vector|Studio Null, 2026|Release " N ,RELEASEID CR>>
+
 <ROUTINE GO ()
+	<V-VERSION> <CRLF>
 	<SETG COMPACT-ROOM-LISTS T>
 	<SETG HERE ,CRADLE>
 	<SETG VERBOSE T>
@@ -27,6 +31,7 @@
 	<SETG PLAYER ,WINNER>
 	<MOVE ,WINNER ,HERE>
 	<TELL "“Keep holding her hand.” You remember doing it. You remember strapping both hands into this cradle, too. Your fingers are still cold." CR CR>
+	<TELL D ,HERE CR>
 	<V-LOOK>
 	<MAIN-LOOP>
 	<AGAIN>>

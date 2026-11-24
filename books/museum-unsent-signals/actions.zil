@@ -77,10 +77,15 @@
           <FINISH>)>
         <RTRUE>)>>
 
+<ROUTINE V-VERSION ()
+ <TELL "The Museum of Unsent Signals|AdventureArena, 2026|Release " N ,RELEASEID CR>>
+
 <ROUTINE GO ()
+ <V-VERSION> <CRLF>
  <SETG HERE ,ADMISSIONS> <SETG VERBOSE T> <SETG LIT T>
  <SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
- <TELL "The museum is closing for good. The caretaker left you a key to the building and said, “You don't have to make everything speak.”" CR>
+ <TELL "The museum is closing for good. The caretaker left you a key to the building and said, “You don't have to make everything speak.”" CR CR>
+ <TELL D ,HERE CR>
  <V-LOOK> <MAIN-LOOP> <AGAIN>>
 
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? T))

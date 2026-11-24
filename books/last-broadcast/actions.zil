@@ -39,13 +39,18 @@
 		<TELL "Notes record observations, not verdicts. Reconstructing the casebook organizes established facts. Its hint gives optional, explicit next-step guidance." CR> <RTRUE>)
 		(<VERB? HINT> <LB-NEXT> <RTRUE>)
 		(<VERB? RECONSTRUCT> <LB-RECONSTRUCT>)>>
+<ROUTINE V-VERSION ()
+	<TELL "The Last Broadcast|Studio Null, 2026|Release " N ,RELEASEID CR>>
+
 <ROUTINE GO ()
+	<V-VERSION> <CRLF>
 	<SETG COMPACT-ROOM-LISTS T>
 	<SETG HERE ,LB-LANDING> <SETG VERBOSE T> <SETG LIT T>
 	<SETG FUMBLE-PROB 0>
 	<SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER>
 	<MOVE ,WINNER ,HERE>
 	<TELL "At 9:17 you heard a gull cough twice, then Ada's appeal to save the station: “Even this old island can learn to speak.”|Four minutes later Ruth called for help. By then the station's owner, Julian Vane, was dead. Both times are in your [[casebook]].||">
+	<TELL D ,HERE CR>
 	<V-LOOK> <MAIN-LOOP>>
 
 <SYNTAX USE OBJECT ON OBJECT = V-USE-ON>

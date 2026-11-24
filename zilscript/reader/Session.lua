@@ -115,8 +115,8 @@ local function paragraphsOf(text)
 end
 
 local function isBanner(paragraph)
-	return paragraph:find("Copyright", 1, true) ~= nil
-		or paragraph:match("Release %d+ / Serial") ~= nil
+	local release = paragraph:match("\n(Release [^\n]+)$")
+	return release and (release:match("^Release %d+$") or release:match("^Release %d+ / Serial"))
 end
 
 local SMALL_WORDS = {
@@ -503,13 +503,6 @@ function Session:presentation()
 	local entries, earlier = self:transcript()
 	local scene = self.scene
 	return {
-		gameId = game.id,
-		gameTitle = game.title or "",
-		gameDescription = game.shortDescription or game.description or "",
-		gameAuthor = game.author or "",
-		gameYear = game.year and tostring(game.year) or "",
-		gameGenre = game.genre or "",
-		cover = game.cover,
 		roomTitle = self.roomTitle or (scene and scene.title) or game.title or "",
 		entries = entries,
 		earlierEntries = earlier,

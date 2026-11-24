@@ -1,11 +1,14 @@
-<ROUTINE V-VERSION () <TELL "House of the Ebb, release 1. An original story by Studio Null." CR>>
+<ROUTINE V-VERSION ()
+ <TELL "House of the Ebb|Studio Null, 2026|Release " N ,RELEASEID CR>>
 
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? T)) <TELL "There is no score and no deadline." CR>>
 
 <ROUTINE GO ()
+ <V-VERSION> <CRLF>
  <SETG COMPACT-ROOM-LISTS T> <SETG HERE ,CAUSEWAY> <SETG VERBOSE T> <SETG LIT T>
  <SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
- <TELL "Kit said he would wait on the causeway. That was nine winters ago. Tonight his boots sound just the same as yours on the stones." CR CR> <V-LOOK> <MAIN-LOOP> <AGAIN>>
+ <TELL "Kit said he would wait on the causeway. That was nine winters ago. Tonight his boots sound just the same as yours on the stones." CR CR> <TELL D ,HERE CR>
+ <V-LOOK> <MAIN-LOOP> <AGAIN>>
 
 <SYNTAX HINT = V-BOOK-HINT>
 <SYNTAX TURN OBJECT = V-SPIN>

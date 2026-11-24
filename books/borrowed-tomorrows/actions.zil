@@ -1,8 +1,13 @@
+<ROUTINE V-VERSION ()
+ <TELL "The Library of Borrowed Tomorrows|Studio Null, 2026|Release " N ,RELEASEID CR>>
+
 <ROUTINE GO ()
+ <V-VERSION> <CRLF>
  <SETG COMPACT-ROOM-LISTS T>
  <SETG HERE ,LENDING> <SETG VERBOSE T> <SETG LIT T>
  <SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
  <TELL "You promised to bring tomorrow to the market. It was an easy promise when you thought tomorrow came by itself." CR CR>
+ <TELL D ,HERE CR>
  <V-LOOK> <MAIN-LOOP> <AGAIN>>
 
 <ROUTINE LENDING-F (R)

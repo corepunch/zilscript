@@ -726,7 +726,7 @@ Indicators:
 - `N ,var` — print a number
 - `A ,obj` — print with article ("a"/"an")
 
-### Prose Links (Tappable Words)
+### Prose Links
 
 Mark the words a reader may act on with double brackets, as Twine does:
 
@@ -742,10 +742,11 @@ Mark the words a reader may act on with double brackets, as Twine does:
   for the object (`[[iron gates->gate]]`, `[[key->chapel key]]`) or a
   direction (`[[into the basement->down]]`).
 
-A host that renders links (AdventureArena underlines them with a dotted
-rule and offers the object's verbs on tap) sets `PROSE_LINKS` before the
-bootstrap runs and receives the markup. Every other host, and every
-transcript test, reads the plain label, so `ASSERT-TEXT` needs no change.
+A host can set `PROSE_LINKS` before bootstrap to receive the markup.
+Adventure Arena uses the targets to track what the prose has introduced
+for command suggestions and displays the labels in regular type. Hosts
+without `PROSE_LINKS` and transcript tests receive only the plain labels,
+so `ASSERT-TEXT` needs no change.
 
 Every story links its prose; a description without links is unfinished:
 
@@ -892,10 +893,17 @@ The number is how many turns between firings. After it fires, it requeues automa
 
 ### The GO Routine (Game Entry Point)
 
-Every game must have a `GO` routine:
+Every game must have a `GO` routine. Define its credits in `V-VERSION` so
+startup and the VERSION command print the same text. End the credits with the
+release line and separate them from the story with a blank line. The synopsis
+belongs on the game’s info page.
 
 ```zil
+<ROUTINE V-VERSION ()
+    <TELL "Story Title|Studio Null, 2026|Release " N ,RELEASEID CR>>
+
 <ROUTINE GO ()
+    <V-VERSION> <CRLF>
     <SETG HERE ,STARTING-ROOM>
     <SETG VERBOSE T>
     <SETG LIT T>
@@ -906,6 +914,7 @@ Every game must have a `GO` routine:
     <QUEUE I-WIND 6>
     <QUEUE I-CREAK 10>
     ; Show the initial room
+    <TELL D ,HERE CR>
     <V-LOOK>
     <MAIN-LOOP>
     <AGAIN>>

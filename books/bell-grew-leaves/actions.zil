@@ -1,9 +1,14 @@
 <SYNTAX TURN OBJECT = V-SPIN>
+<ROUTINE V-VERSION ()
+ <TELL "The Bell That Grew Leaves|Studio Null, 2026|Release " N ,RELEASEID CR>>
+
 <ROUTINE GO ()
+ <V-VERSION> <CRLF>
  <SETG COMPACT-ROOM-LISTS T>
  <SETG HERE ,COURT> <SETG VERBOSE T> <SETG LIT T>
  <SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
  <TELL "Three taps come up through the fog. That's the village across the hollow asking if your village is still there. For the first time, you're the one who gets to answer." CR CR>
+ <TELL D ,HERE CR>
  <V-LOOK> <MAIN-LOOP> <AGAIN>>
 
 <ROUTINE COURT-F (R)

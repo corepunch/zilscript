@@ -1443,7 +1443,11 @@ player has had the lid up, a closed trunk stays closed to a glance."
            <TELL "Beeswax, old oak, and damp wool: a lived-in house holding its breath." CR>)>
     <RTRUE>>
 
+<ROUTINE V-VERSION ()
+	<TELL "The Limehouse Killings|Studio Null, 2024|Release " N ,RELEASEID CR>>
+
 <ROUTINE GO ()
+	<V-VERSION> <CRLF>
 	<SETG COMPACT-ROOM-LISTS T>
 	<SETG HERE ,ASHWORTH-MANOR-GATE>
 	<SETG VERBOSE T>
@@ -1456,6 +1460,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
 	<VOC-EXACT "MURDER" "CASE">
 	<VOC-EXACT "INVESTIGATION" "CASE">
 	<MOVE ,WINNER ,HERE>
+	<TELL D ,HERE CR>
 	<V-LOOK>
 	<MAIN-LOOP>>
 
