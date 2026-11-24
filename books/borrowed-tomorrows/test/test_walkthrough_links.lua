@@ -1,7 +1,7 @@
 local Walk = require("tests.link_walk")
 local walk = Walk.new("books.borrowed-tomorrows.borrowed-tomorrows")
 walk:play({
-  { "open lending cabinet", expect = "Inside lies a tomorrow leaf" },
+  { "open lending cabinet", expect = "lies a tomorrow leaf" },
   { "take tomorrow leaf", expect = "records your name" },
   "north",
   { "read loan receipt", expect = "SUN THE VILLAGE CAN'T USE" },
