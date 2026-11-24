@@ -5,7 +5,7 @@
 "
 
 "Parser global variable convention:  All parser globals will 
-  begin with 'P-'.  Local variables are not restricted in any
+  begin with “P-”.  Local variables are not restricted in any
   way.
 " 
  

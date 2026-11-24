@@ -273,7 +273,7 @@ some reason."
 		       ;<RTRUE>)	
 		      (ELSE
 		       <RFALSE>)>)>
-	 ;"Here is the default 'cant see any' printer"
+	 ;"Here is the default “cant see any” printer"
 	 <CANT-SEE-ANY-HERE .PRSO?>>
 
 <ROUTINE CANT-SEE-ANY-HERE (PRSO?)

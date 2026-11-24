@@ -436,7 +436,13 @@ function Session:snapshot()
 end
 
 function Session:suggestions(input)
-	if not self.running or not input or not input:find("%S") then return {} end
+	if not self.running then return {} end
+	if not input or not input:find("%S") then
+		return {
+			{ title = "Look around", command = "look" },
+			{ title = "Inventory", command = "inventory" },
+		}
+	end
 	local partners = partnersFor(self)
 	return Suggestions.forInput(input, self.items, function(offer)
 		for _, verb in ipairs({ "look", "inventory", "wait" }) do offer(verb) end

@@ -56,7 +56,7 @@
 		       <TELL 
 "Eine charmante Idee, aber mit " EIN-DAT ,PRSI "?" CR>)>)>>
 
-;"JOKE OF 'TAKE NOTHING FOR GRANITE' WON'T WORK IN GERMAN"
+;"JOKE OF “TAKE NOTHING FOR GRANITE” WON'T WORK IN GERMAN"
 ;<ROUTINE GRANITE-WALL-F ()
 	 <COND (<EQUAL? ,HERE ,NORTH-TEMPLE>
 		<COND (<VERB? FIND>
@@ -1470,7 +1470,7 @@ Aber, mit dem geminderten Wasserstand, gibt es hier nur noch einen breiten Bach,
 		      <COND (<NOT <L? .COUNT 0>>
 			     <REMOVE-CAREFULLY ,LUNCH>
 			     <TELL
-"Der Zyklop sagt: %>Ei, ei. Ich liebe scharfe Pepperoni! Aber, oooh, ich k%onnte erst mal was zu Trinken brauchen. Vielleicht k%onnte ich das Blut von 'diesem Ding' trinken%<. Aus dem listigen Aufleuchten seiner Augen kannst du schlie%sen, da%s du gemeint bist." CR>
+"Der Zyklop sagt: %>Ei, ei. Ich liebe scharfe Pepperoni! Aber, oooh, ich k%onnte erst mal was zu Trinken brauchen. Vielleicht k%onnte ich das Blut von “diesem Ding” trinken%<. Aus dem listigen Aufleuchten seiner Augen kannst du schlie%sen, da%s du gemeint bist." CR>
 			     <SETG CYCLOWRATH <MIN -1 <- .COUNT>>>)>
 		      <ENABLE <QUEUE I-CYCLOPS -1>>)
 		     (<OR <EQUAL? ,PRSO ,WATER>
@@ -3492,7 +3492,7 @@ carcass has disappeared." CR>
 ;<CONSTANT F-WEP 0>	;"means print weapon name"
 ;<CONSTANT F-DEF 1>	;"means print defender name (villain, e.g.)"
 
-;"ALL WEAPONS NEED A 'your' PRONOUN BEFORE THEM, EXCEPT FOR DER-WEP-ACC" 
+;"ALL WEAPONS NEED A “your” PRONOUN BEFORE THEM, EXCEPT FOR DER-WEP-ACC"
 <CONSTANT WEP-ACC 2>
 <CONSTANT WEP-ACC-CAP 3>
 <CONSTANT WEP-NOM 4>

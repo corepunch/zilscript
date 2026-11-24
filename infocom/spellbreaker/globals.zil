@@ -152,7 +152,7 @@
 			    <NOT <VERB? LEARN CAST>>>
 		       <TELL ,MORE-SPECIFIC ", I'm afraid." CR>
 		       <RTRUE>)>)>
-	 ;"Here is the default 'cant see any' printer"
+	 ;"Here is the default “cant see any” printer"
 	 <COND (<EQUAL? ,WINNER ,PLAYER>
 		<TELL "You">)
 	       (ELSE
@@ -1039,7 +1039,7 @@ time, though it takes years and you are mad long since, you starve.">>
 
 <GLOBAL QUESTIONS
 	<PLTABLE
-"Which mage had the motto, 'The hardest trick is making it look easy.'"
+"Which mage had the motto, “The hardest trick is making it look easy.”"
 "Who invented the golmac spell"
 "Who wrote of the Coconut of Quendor"
 "In Borphee, who was famed for his skill with fireworks displays"

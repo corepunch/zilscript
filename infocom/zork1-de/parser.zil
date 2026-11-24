@@ -331,7 +331,7 @@
 				  <WT? .WRD ,PS?ADJECTIVE>
 				  <WT? .WRD ,PS?OBJECT>>
 			      <COND (<AND <G? ,P-LEN 1>
-					  ;"JEFF 'VOLL' FOR BAG OF COINS"
+					  ;"JEFF “VOLL” FOR BAG OF COINS"
 					  <EQUAL? .NW ;,W?OF ,W?VOLL ;,W?VON>
 					  <ZERO? .VAL>
 					  <NOT <EQUAL? .WRD
@@ -1011,7 +1011,7 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 	       
 ;"it seems most direct objects are in the acc. case and all indirect objects
  are in the dative case; ie, for GWIMing just look at PRSO or PRSI to determine
- case - except for 'talk with troll', listen for bird, listen to bird"
+ case - except for “talk with troll”, listen for bird, listen to bird"
 <ROUTINE GWIM (GBIT LBIT PREP "AUX" OBJ VERB THE-PREP ;ACT?FOO)
 	<COND (<EQUAL? .GBIT ,KLUDGEBIT>
 	       <RETURN ,ROOMS>)>
@@ -1203,7 +1203,7 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 		<COND (<WT? ,P-ADJ ;N ,PS?OBJECT ,P1?OBJECT>
 		       <SETG P-NAM ,P-ADJ ;N>
 		       <SETG P-ADJ <>>)
-		      ;"added by JEFF or Z3 to make 'go to dir' work"
+		      ;"added by JEFF or Z3 to make “go to dir” work"
 		      (<SET BITS <WT? ,P-ADJ ;N ,PS?DIRECTION ,P1?DIRECTION>>
 		       <SETG P-ADJ <>>
 		       <PUT .TBL ,P-MATCHLEN 1>
@@ -1299,7 +1299,7 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 
 ;"If the possible matching syns for an object are all the same gender,
 then you could just check gender of the first object found to determine
-'Welcher, Welches, or Welche'" 
+“Welcher, Welches, or Welche”"
 <ROUTINE WHICH-PRINT (TLEN LEN TBL "AUX" OBJ RLEN)
 	 <SET RLEN .LEN>
 	 <TELL "Welche">

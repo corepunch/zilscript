@@ -16,7 +16,7 @@
 "Laser printed on creamy bond paper, the assignment is due tomorrow.
 It's from your freshman course in \"The Classics in the Modern Idiom,\"
 better known as \"21.014.\" It reads, in part: \"Twenty pages on modern
-analogues of Xenophon's 'Anabasis.'\" You're not sure whether this refers
+analogues of Xenophon's “Anabasis.”\" You're not sure whether this refers
 to the movie \"The Warriors\" or \"Alien,\" but this is the last
 assignment you need to complete in this course this term. You wonder,
 yet again, why a technical school requires you to endure this sort of

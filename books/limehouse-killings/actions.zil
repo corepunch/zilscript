@@ -6,12 +6,12 @@
 
 <ROUTINE TELEGRAM-F ()
     <COND (<VERB? EXAMINE READ>
-           <TELL "Lady Ashworth's message reads: 'Begin with what the locked room could not hide. Ashworth marked every private mechanism with the name of the person it concerned.' Beneath it she has added, 'Hudson has put the kettle on; he insists detection is impossible while cold.'" CR>
+           <TELL "Lady Ashworth's message reads: “Begin with what the locked room could not hide. Ashworth marked every private mechanism with the name of the person it concerned.” Beneath it she has added, “Hudson has put the kettle on; he insists detection is impossible while cold.”" CR>
            <RTRUE>)>>
 
 <ROUTINE DEAD-LETTER-F ()
     <COND (<VERB? EXAMINE READ>
-           <TELL "The letter reads: 'My dear [[Dr. Moriarty->moriarty]], I know what you did. If you do not confess by Friday, I will expose you to Scotland Yard. - Lord Ashworth'" CR>
+           <TELL "The letter reads: “My dear [[Dr. Moriarty->moriarty]], I know what you did. If you do not confess by Friday, I will expose you to Scotland Yard. - Lord Ashworth”" CR>
            <COND (<NOT ,DEAD-LETTER-FOUND>
                   <SETG DEAD-LETTER-FOUND T>
                   <SETG EVIDENCE-FOUND <+ ,EVIDENCE-FOUND 1>>
@@ -90,7 +90,7 @@
 		<IDENTIFY-POISON>
 		<RTRUE>)
 	(<VERB? EXAMINE READ>
-           <TELL "The bottle is labeled: 'Aconitum - Wolfsbane. Highly poisonous.'" CR>
+           <TELL "The bottle is labeled: “Aconitum - Wolfsbane. Highly poisonous.”" CR>
             <COND (<NOT ,POISON-BOTTLE-FOUND>
                    <SETG POISON-BOTTLE-FOUND T>
                    <SETG EVIDENCE-FOUND <+ ,EVIDENCE-FOUND 1>>
@@ -197,7 +197,7 @@
 
 <ROUTINE TORN-PAGE-F ()
     <COND (<VERB? EXAMINE READ>
-           <TELL "The page reads: 'Among the marked books, follow the rainbow order: red, yellow, green, blue. Only then will the way open.'" CR>
+           <TELL "The page reads: “Among the marked books, follow the rainbow order: red, yellow, green, blue. Only then will the way open.”" CR>
            <RTRUE>)
           (<VERB? TAKE>
            <TELL "You take the torn page." CR>
@@ -271,7 +271,7 @@
 
 <ROUTINE BANK-STATEMENT-F ()
     <COND (<VERB? EXAMINE READ>
-           <TELL "The statement shows Dr. Moriarty's account is overdrawn. He recently withdrew £500 for 'experimental supplies.'" CR>
+           <TELL "The statement shows Dr. Moriarty's account is overdrawn. He recently withdrew £500 for “experimental supplies.”" CR>
             <COND (<NOT ,BANK-STATEMENT-FOUND>
                    <SETG BANK-STATEMENT-FOUND T>
                    <SETG EVIDENCE-FOUND <+ ,EVIDENCE-FOUND 1>>
@@ -410,12 +410,12 @@ examined or searched."
 <ROUTINE WINE-CABINET-F ()
     <COND (<VERB? EXAMINE>
            <SETG CABINET-CLUE-SEEN T>
-           <TELL "The cabinet is unlatched. Dust outlines a missing squat bottle on the medicinal-wine shelf; beside the gap, a handwritten [[inventory entry]] reads 'tincture, private laboratory.' Someone removed the delivery bottle without disturbing the dinner wines." CR>
+           <TELL "The cabinet is unlatched. Dust outlines a missing squat bottle on the medicinal-wine shelf; beside the gap, a handwritten [[inventory entry]] reads “tincture, private laboratory.” Someone removed the delivery bottle without disturbing the dinner wines." CR>
            <RTRUE>)
           (<VERB? OPEN>
            <FSET ,WINE-CABINET ,OPENBIT>
            <SETG CABINET-CLUE-SEEN T>
-           <TELL "The glass door opens freely. The missing medicinal bottle's clean dust-shadow and the words 'private laboratory' are easier to see, but the shelf holds nothing else relevant." CR>
+           <TELL "The glass door opens freely. The missing medicinal bottle's clean dust-shadow and the words “private laboratory” are easier to see, but the shelf holds nothing else relevant." CR>
            <RTRUE>)
           (<VERB? CLOSE>
            <COND (<FSET? ,WINE-CABINET ,OPENBIT>
@@ -471,7 +471,7 @@ examined or searched."
            <RTRUE>)
           (<VERB? MOVE USE PULL>
            <SETG BELL-WIRE-PULLED T>
-           <TELL "You tug the wire. From below comes one bright kitchen bell, followed by Hudson's dry voice: 'The kettle remains where I left it.'" CR>
+           <TELL "You tug the wire. From below comes one bright kitchen bell, followed by Hudson's dry voice: “The kettle remains where I left it.”" CR>
            <RTRUE>)>>
 
 <ROUTINE DRAWER-F ()
@@ -534,7 +534,7 @@ hides the grating under the leaves; the garden shows only a glint."
 
 <ROUTINE LABELS-F ()
     <COND (<VERB? EXAMINE READ>
-           <TELL "The curled labels on the [[purple flowers->flowers]] read 'Aconitum - Wolfsbane.' A watering date in Hudson's handwriting is underlined twice." CR>
+           <TELL "The curled labels on the [[purple flowers->flowers]] read “Aconitum - Wolfsbane.” A watering date in Hudson's handwriting is underlined twice." CR>
            ;"Reading the label with the bottle in hand is the comparison."
            <COND (<AND <NOT ,POISON-IDENTIFIED> <IN? ,POISON-BOTTLE ,WINNER>>
                   <IDENTIFY-POISON>)>
@@ -811,7 +811,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
            <RTRUE>)
           (<VERB? TELL>
            <COND (<NOT ,PRSI>
-                  <TELL "Hudson folds his polishing cloth. 'The [[master]], my [[alibi]], the study [[key]], or Dr. [[Moriarty]]? Ask what you need, sir.'" CR>
+                  <TELL "Hudson folds his polishing cloth. “The [[master]], my [[alibi]], the study [[key]], or Dr. [[Moriarty]]? Ask what you need, sir.”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSI ,MASTER-TOPIC>
                   <TELL "Lord Ashworth had enemies, sir. Dr. Moriarty visited often, and their arguments grew worse." CR>
@@ -826,9 +826,9 @@ player has had the lid up, a closed trunk stays closed to a glance."
                    <RTRUE>)
                  (<EQUAL? ,PRSI ,KEY-TOPIC>
                   <COND (,HUDSON-KEY-GIVEN
-				  <TELL "'The study key is on the [[keyring]] I gave you, sir.'" CR>)
+				  <TELL "“The study key is on the [[keyring]] I gave you, sir.”" CR>)
 				 (T
-				  <TELL "'You'll need the study key, sir.' He hands you the [[keyring]]." CR>
+				  <TELL "“You'll need the study key, sir.” He hands you the [[keyring]]." CR>
 				  <SETG HUDSON-KEY-GIVEN T>
 				  <MOVE ,KEYRING ,WINNER>
 				  <FSET ,KEYRING ,TOUCHBIT>)>
@@ -837,7 +837,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
                   <TELL "Dr. Moriarty visited often. He and the master had serious disagreements." CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSI ,CASE-TOPIC>
-                  <TELL "'His lordship called it a private quarrel,' Hudson says. 'Private quarrels do not usually leave poison bottles and policemen in the hall.'" CR>
+                  <TELL "“His lordship called it a private quarrel,” Hudson says. “Private quarrels do not usually leave poison bottles and policemen in the hall.”" CR>
                   <RTRUE>)
                  (<OR <IN? ,PRSI ,INTQUOTE> <IN? ,PRSI ,QUOTE>>
                   <TELL "I'm not sure what you mean." CR>
@@ -865,35 +865,35 @@ player has had the lid up, a closed trunk stays closed to a glance."
                   <RTRUE>)
                  (<EQUAL? ,PRSI ,KEYRING>
                   <COND (,HUDSON-KEY-GIVEN
-                         <TELL "'The study key is the long one on that ring, sir. It is yours for as long as the inquiry needs it.'" CR>)
+                         <TELL "“The study key is the long one on that ring, sir. It is yours for as long as the inquiry needs it.”" CR>)
                         (T
                          <SETG HUDSON-KEY-GIVEN T>
                          <MOVE ,KEYRING ,WINNER>
                          <FSET ,KEYRING ,TOUCHBIT>
-                         <TELL "'The keyring? I suppose you'll need this, sir.' He hands you the [[keyring]]." CR>)>
+                         <TELL "“The keyring? I suppose you'll need this, sir.” He hands you the [[keyring]]." CR>)>
                   <RTRUE>)
                  (T
-                  <TELL "'I don't know anything about that, sir,' says Hudson." CR>
+                  <TELL "“I don't know anything about that, sir,” says Hudson." CR>
                   <RTRUE>)>)
           (<VERB? SHOW GIVE>
            <COND (<EQUAL? ,PRSO ,DEAD-LETTER>
                   <COND (,HUDSON-CONFRONTED
-                         <TELL "Hudson does not touch the letter again. 'I remember the hour, sir. Nine twenty. And Moriarty on the stair behind me.'" CR>)
+                         <TELL "Hudson does not touch the letter again. “I remember the hour, sir. Nine twenty. And Moriarty on the stair behind me.”" CR>)
                         (T
                          <SETG HUDSON-CONFRONTED T>
-                         <TELL "Mr. Hudson's polishing cloth goes still. 'I carried that letter to the study,' he says. 'Moriarty followed me upstairs. I kept silent because I feared I had delivered Lord Ashworth's death.'" CR>)>
+                         <TELL "Mr. Hudson's polishing cloth goes still. “I carried that letter to the study,” he says. “Moriarty followed me upstairs. I kept silent because I feared I had delivered Lord Ashworth's death.”" CR>)>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,BLOOD-STAINED-KNIFE>
-                  <TELL "Mr. Hudson recoils. 'I've never seen that before.'" CR>
+                  <TELL "Mr. Hudson recoils. “I've never seen that before.”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,POISON-BOTTLE>
-                  <TELL "Mr. Hudson's eyes widen. 'Poison? I know nothing of poison.'" CR>
+                  <TELL "Mr. Hudson's eyes widen. “Poison? I know nothing of poison.”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,FOOTPRINT-CAST>
-                  <TELL "Hudson sets his broad work boot beside the cast without being asked. 'Not mine, sir. And the doctor's right heel always catches on the stair carpet.'" CR>
+                  <TELL "Hudson sets his broad work boot beside the cast without being asked. “Not mine, sir. And the doctor's right heel always catches on the stair carpet.”" CR>
                   <RTRUE>)
                  (T
-                  <TELL "Mr. Hudson examines the item. 'I don't see how that's relevant.'" CR>
+                  <TELL "Mr. Hudson examines the item. “I don't see how that's relevant.”" CR>
                   <RTRUE>)>)>>
 
 <ROUTINE LADY-ASHWORTH-F ()
@@ -908,7 +908,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
            <RTRUE>)
           (<VERB? TELL>
            <COND (<NOT ,PRSI>
-                  <TELL "Lady Ashworth looks up. 'My [[marriage]], my [[alibi]], or the [[murder->case]]? You may ask. I cannot promise you will like the answers.'" CR>
+                  <TELL "Lady Ashworth looks up. “My [[marriage]], my [[alibi]], or the [[murder->case]]? You may ask. I cannot promise you will like the answers.”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSI ,MARRIAGE-TOPIC>
                   <TELL "Our marriage was difficult, but I did not kill my husband." CR>
@@ -923,7 +923,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
                           <CHECK-CASE-PROGRESS>)>
                    <RTRUE>)
                  (<EQUAL? ,PRSI ,CASE-TOPIC>
-                  <TELL "'Call it a case if that helps you keep your distance,' Lady Ashworth says. 'To me it is my husband's murder. Find who crossed that locked door.'" CR>
+                  <TELL "“Call it a case if that helps you keep your distance,” Lady Ashworth says. “To me it is my husband's murder. Find who crossed that locked door.”" CR>
                   <RTRUE>)
                  (<OR <IN? ,PRSI ,INTQUOTE> <IN? ,PRSI ,QUOTE>>
                   <TELL "I'm not sure what you mean." CR>
@@ -950,27 +950,27 @@ player has had the lid up, a closed trunk stays closed to a glance."
                   <TELL "Poison? I know nothing of such things." CR>
                   <RTRUE>)
                  (T
-                  <TELL "'I don't know anything about that,' Lady Ashworth says." CR>
+                  <TELL "“I don't know anything about that,” Lady Ashworth says." CR>
                   <RTRUE>)>)
           (<VERB? SHOW GIVE>
            <COND (<EQUAL? ,PRSO ,DEAD-LETTER>
                   <COND (,LADY-CONFRONTED
-                         <TELL "Lady Ashworth presses one finger to the old fold. 'The first draft named the laboratory account as well. I remember the sum: five hundred pounds.'" CR>)
+                         <TELL "Lady Ashworth presses one finger to the old fold. “The first draft named the laboratory account as well. I remember the sum: five hundred pounds.”" CR>)
                         (T
                          <SETG LADY-CONFRONTED T>
-                         <TELL "Lady Ashworth reads the threat twice. The paper rattles against her ring. 'My husband meant to expose Moriarty tonight,' she says. 'I burned the first draft. I could not burn this one.'" CR>)>
+                         <TELL "Lady Ashworth reads the threat twice. The paper rattles against her ring. “My husband meant to expose Moriarty tonight,” she says. “I burned the first draft. I could not burn this one.”" CR>)>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,BLOOD-STAINED-KNIFE>
-                  <TELL "Lady Ashworth recoils. 'I've never seen that before.'" CR>
+                  <TELL "Lady Ashworth recoils. “I've never seen that before.”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,POISON-BOTTLE>
-                  <TELL "Lady Ashworth's eyes widen. 'Poison? I know nothing of poison.'" CR>
+                  <TELL "Lady Ashworth's eyes widen. “Poison? I know nothing of poison.”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,WAX-SEAL>
-                  <TELL "Lady Ashworth turns the seal toward the light. 'Moriarty sealed every private delivery with that mark. My husband hated the theatricality of it.'" CR>
+                  <TELL "Lady Ashworth turns the seal toward the light. “Moriarty sealed every private delivery with that mark. My husband hated the theatricality of it.”" CR>
                   <RTRUE>)
                  (T
-                  <TELL "Lady Ashworth examines the item. 'I don't see how that's relevant.'" CR>
+                  <TELL "Lady Ashworth examines the item. “I don't see how that's relevant.”" CR>
                   <RTRUE>)>)>>
 
 <ROUTINE DR-MORIARTY-F ()
@@ -988,7 +988,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
            <RTRUE>)
           (<VERB? TELL>
            <COND (<NOT ,PRSI>
-                  <TELL "Moriarty closes the folio. 'My [[experiments]]? Or have you come to ask about [[poison]]?' The second word comes rather more sharply." CR>
+                  <TELL "Moriarty closes the folio. “My [[experiments]]? Or have you come to ask about [[poison]]?” The second word comes rather more sharply." CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSI ,EXPERIMENTS-TOPIC>
                   <TELL "My experiments concern medicinal plants. Lord Ashworth financed some of the work." CR>
@@ -1039,36 +1039,36 @@ player has had the lid up, a closed trunk stays closed to a glance."
                   <TELL "A bank statement? That's private information." CR>
                   <RTRUE>)
                  (T
-                  <TELL "'I don't know anything about that,' says Moriarty, with thin patience." CR>
+                  <TELL "“I don't know anything about that,” says Moriarty, with thin patience." CR>
                   <RTRUE>)>)
           (<VERB? SHOW GIVE>
            <COND (<EQUAL? ,PRSO ,DEAD-LETTER>
                   <COND (,MORIARTY-CONFRONTED
-                         <TELL "Moriarty refuses the letter. 'You have already performed that trick.' His eyes still return to the signature." CR>)
+                         <TELL "Moriarty refuses the letter. “You have already performed that trick.” His eyes still return to the signature." CR>)
                         (T
                          <SETG MORIARTY-CONFRONTED T>
-                         <TELL "Dr. Moriarty reads only the first line before folding the letter along its old crease. 'Blackmail,' he says too quickly, before asking where you found it." CR>)>
+                         <TELL "Dr. Moriarty reads only the first line before folding the letter along its old crease. “Blackmail,” he says too quickly, before asking where you found it." CR>)>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,BLOOD-STAINED-KNIFE>
-                  <TELL "Dr. Moriarty recoils. 'I've never seen that before.'" CR>
+                  <TELL "Dr. Moriarty recoils. “I've never seen that before.”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,POISON-BOTTLE>
-                  <TELL "Dr. Moriarty's eyes widen. 'That's my research. How did you get it?'" CR>
+                  <TELL "Dr. Moriarty's eyes widen. “That's my research. How did you get it?”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,SECRET-LEDGER>
-                  <TELL "Dr. Moriarty reads the ledger. 'Where did you find that?'" CR>
+                  <TELL "Dr. Moriarty reads the ledger. “Where did you find that?”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,BANK-STATEMENT>
-                  <TELL "Dr. Moriarty reads the statement. 'That's private information!'" CR>
+                  <TELL "Dr. Moriarty reads the statement. “That's private information!”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,FOOTPRINT-CAST>
                   <COND (,FOOTPRINT-DETAIL-FOUND
-                         <TELL "Moriarty glances at the crescent nick in the cast, then slides his right boot behind the left. 'Plaster shrinks,' he says. You had not mentioned the defect." CR>)
+                         <TELL "Moriarty glances at the crescent nick in the cast, then slides his right boot behind the left. “Plaster shrinks,” he says. You had not mentioned the defect." CR>)
                         (T
-                         <TELL "Moriarty looks from the size-ten cast to his own polished boots. 'A common size,' he says, keeping his right heel flat to the floor." CR>)>
+                         <TELL "Moriarty looks from the size-ten cast to his own polished boots. “A common size,” he says, keeping his right heel flat to the floor." CR>)>
                   <RTRUE>)
                  (T
-                  <TELL "Dr. Moriarty examines the item. 'I don't see how that's relevant.'" CR>
+                  <TELL "Dr. Moriarty examines the item. “I don't see how that's relevant.”" CR>
                   <RTRUE>)>)>>
 
 <ROUTINE INSPECTOR-F ()
@@ -1082,7 +1082,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
            <RTRUE>)
           (<VERB? TELL>
            <COND (<NOT ,PRSI>
-                  <TELL "'Ask me about the [[case]],' says Lestrade. 'Then show me what you can prove.'" CR>
+                  <TELL "“Ask me about the [[case]],” says Lestrade. “Then show me what you can prove.”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSI ,CASE-TOPIC>
                   <TELL "Give me the case as a chain, not a sack of objects: show me the threat, the method, and the motive. Then accuse your suspect and choose which proof leads the charge." CR>
@@ -1121,35 +1121,35 @@ player has had the lid up, a closed trunk stays closed to a glance."
                   <TELL "A bank statement? Let me see it." CR>
                   <RTRUE>)
                  (T
-                  <TELL "'I don't know anything about that,' says Lestrade. 'Show me what you can prove.'" CR>
+                  <TELL "“I don't know anything about that,” says Lestrade. “Show me what you can prove.”" CR>
                   <RTRUE>)>)
           (<VERB? SHOW GIVE>
            <COND (<EQUAL? ,PRSO ,DEAD-LETTER>
                   <SETG LETTER-PRESENTED T>
-                  <TELL "The inspector reads Ashworth's threat and underlines Moriarty's name. 'Intent and opportunity to silence him. That is the first link.'" CR>
+                  <TELL "The inspector reads Ashworth's threat and underlines Moriarty's name. “Intent and opportunity to silence him. That is the first link.”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,BLOOD-STAINED-KNIFE>
-                  <TELL "The inspector examines the knife. 'The surgeon's blade fits the wound. The engraved M is a lead, but a monogram alone will not secure a conviction.'" CR>
+                  <TELL "The inspector examines the knife. “The surgeon's blade fits the wound. The engraved M is a lead, but a monogram alone will not secure a conviction.”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,POISON-BOTTLE>
                   <SETG POISON-PRESENTED T>
-                  <TELL "The inspector compares the wolfsbane label with your greenhouse notes. 'Wolfsbane, which he admits keeping. It could have weakened Ashworth before the blade struck; the secret stair explains access without the hall door. The second link.'" CR>
+                  <TELL "The inspector compares the wolfsbane label with your greenhouse notes. “Wolfsbane, which he admits keeping. It could have weakened Ashworth before the blade struck; the secret stair explains access without the hall door. The second link.”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,SECRET-LEDGER>
-                  <TELL "The inspector reads the ledger. 'The ledger establishes the debt. Now connect it to the threat and the poison.'" CR>
+                  <TELL "The inspector reads the ledger. “The ledger establishes the debt. Now connect it to the threat and the poison.”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,BANK-STATEMENT>
                   <SETG MOTIVE-PRESENTED T>
-                  <TELL "The inspector lays the statement beside the secret ledger. 'The same five hundred pounds in both records. Debt and blackmail: motive. The chain is complete.'" CR>
+                  <TELL "The inspector lays the statement beside the secret ledger. “The same five hundred pounds in both records. Debt and blackmail: motive. The chain is complete.”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,FOOTPRINT-CAST>
                   <COND (,FOOTPRINT-DETAIL-FOUND
-                         <TELL "Lestrade compares the cast with Moriarty's right boot. The two crescent nicks meet edge for edge. 'Route evidence,' he says, drawing a line from GARDEN to STUDY." CR>)
+                         <TELL "Lestrade compares the cast with Moriarty's right boot. The two crescent nicks meet edge for edge. “Route evidence,” he says, drawing a line from GARDEN to STUDY." CR>)
                         (T
-                         <TELL "Lestrade measures the cast. 'Size ten narrows matters, but inspect the wear before you call it individual evidence.'" CR>)>
+                         <TELL "Lestrade measures the cast. “Size ten narrows matters, but inspect the wear before you call it individual evidence.”" CR>)>
                   <RTRUE>)
                  (T
-                  <TELL "The inspector examines the item. 'I don't see how that's relevant.'" CR>
+                  <TELL "The inspector examines the item. “I don't see how that's relevant.”" CR>
                   <RTRUE>)>)>>
 
 ; === VERB ACTIONS ===
@@ -1234,10 +1234,10 @@ player has had the lid up, a closed trunk stays closed to a glance."
                   <TELL "An accusation with no officer to hear it is only theatre. Finish the interviews and gather a coherent case; Lestrade will come." CR>
                   <RTRUE>)
                  (<NOT <AND ,LETTER-PRESENTED ,POISON-PRESENTED ,MOTIVE-PRESENTED>>
-                  <TELL "Lestrade closes his notebook. 'You have discoveries, but not yet an argument. Show me the threat, the poison, and the financial motive.'" CR>
+                  <TELL "Lestrade closes his notebook. “You have discoveries, but not yet an argument. Show me the threat, the poison, and the financial motive.”" CR>
                   <RTRUE>)
                  (<NOT ,PRSI>
-                  <TELL "Lestrade nods toward your evidence. 'Which proof leads the charge? Accuse him with the unsent letter for Ashworth's own voice, or with the poison bottle for the physical case.'" CR>
+                  <TELL "Lestrade nods toward your evidence. “Which proof leads the charge? Accuse him with the unsent letter for Ashworth's own voice, or with the poison bottle for the physical case.”" CR>
                   <RTRUE>)
                  (<OR <EQUAL? ,PRSI ,DEAD-LETTER>
                       <EQUAL? ,PRSI ,POISON-BOTTLE>>
@@ -1257,7 +1257,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
                   <COND (<AND <IN? ,FOXGLOVE ,WINNER> <IN? ,CHARCOAL ,WINNER>>
                          <TELL " Your pantry finds distinguish dangerous medicine from the specific wolfsbane method.">)>
                   <CRLF>
-                  <TELL CR "'Dr. Moriarty,' Lestrade says, closing one cuff around the gloved wrist, 'you are under arrest for the murder of Lord Ashworth.'" CR>
+                  <TELL CR "“Dr. Moriarty,” Lestrade says, closing one cuff around the gloved wrist, “you are under arrest for the murder of Lord Ashworth.”" CR>
                   <SETG KILLER-ACCUSED T>
                   <SETG CORRECT-ACCUSATION T>
                   <SETG GAME-WON T>

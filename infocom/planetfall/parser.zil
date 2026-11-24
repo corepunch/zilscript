@@ -3,7 +3,7 @@
 	(c) Copyright 1983 Infocom, Inc.  All Rights Reserved."
 
 "Parser global variable convention:  All parser globals will 
-begin with 'P-'.  Local variables are not restricted in any way." 
+begin with “P-”.  Local variables are not restricted in any way."
 
 <SETG SIBREAKS ".,\"">   
 

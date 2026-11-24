@@ -3,7 +3,7 @@
 	 (c) Copyright 1985 Infocom, Inc. All Rights Reserved"
 
 ;"Parser global variable convention: All parser globals will begin
-with 'P-'. Local variables are not restricted in any way."
+with “P-”. Local variables are not restricted in any way."
 
 <SETG SIBREAKS ".,\"">
 
@@ -292,7 +292,7 @@ with 'P-'. Local variables are not restricted in any way."
 		       <COND (<EQUAL? .WRD ,W?THEN ,W?PERIOD ,W?QUOTE>
 			      <COND (<EQUAL? .WRD ,W?QUOTE>
 				     <COND ;"Following clause added for
-					     WRITE 'FOO' ON CUBE"
+					     WRITE “FOO” ON CUBE"
 				           (<AND <EQUAL? <GET ,P-LEXV .PTR>
 							 ,W?QUOTE>
 						 <OR <NOT <EQUAL?
@@ -544,12 +544,12 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 			      <SETG P-LEN <+ ,P-LEN 2>>)
 			     (<NOT <ZERO? <WT? .WRD ,PS?OBJECT>>>
 			      <COND ;"First clause added 1/10/84 to fix
-				      'verb AT synonym OF synonym' bug"
+				      “verb AT synonym OF synonym” bug"
 			            (<AND <G? ,P-LEN 0>
 					  <EQUAL? .NW ,W?OF>
 					  <NOT <EQUAL? .WRD ,W?ALL ,W?ONE>>>
 				     T)
-				    ;"next clause makes 'give troll red book'
+				    ;"next clause makes “give troll red book”
 				      have only one noun clause. careful!"
 				    (<AND <NOT <ZERO? <WT? .WRD
 							   ,PS?ADJECTIVE
@@ -1277,7 +1277,7 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 					  <WT? .WRD
 					       ,PS?ADJECTIVE ,P1?ADJECTIVE>>>>
 			      <NOT ,P-ADJ>>
-			 ;"make 'learn <spell>' work (pdl 5/7/85)"
+			 ;"make “learn <spell>” work (pdl 5/7/85)"
 			 <SETG P-ADJ .WV>
 			 <SETG P-ADJN .WRD>)
 			(<WT? .WRD ,PS?OBJECT ,P1?OBJECT>

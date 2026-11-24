@@ -171,7 +171,7 @@ player never stands in the dark."
 
 <ROUTINE CHILD-DRAWING-F ()
          <COND (<VERB? EXAMINE READ>
-                <TELL "A child's crayon drawing is pinned to the bedframe: a yellow sun above a stick figure with outstretched arms, and the word 'HOME' pressed so hard into the paper that the crayon tore through in places." CR>
+                <TELL "A child's crayon drawing is pinned to the bedframe: a yellow sun above a stick figure with outstretched arms, and the word “HOME” pressed so hard into the paper that the crayon tore through in places." CR>
                 <RTRUE>)
                (<VERB? TAKE MOVE>
                 <TELL "The brittle paper would crumble if you tried to remove it from the rusted pin." CR>
@@ -198,7 +198,7 @@ player never stands in the dark."
                 <COND (<NOT ,PATIENT-FILE-LORE>
                        <SETG PATIENT-FILE-LORE T>
                        <SETG PATIENT-LORE <+ ,PATIENT-LORE 1>>)>
-                <TELL "A file folder labeled 'Patient 189 - CONFIDENTIAL'. Inside are medical records and notes. 'Subject shows extraordinary resistance to pain. Mental state deteriorating. Recommending transfer to isolation wing. Dr. Mordecai has expressed personal interest in this case. Update: Patient transferred to chapel for experimental treatment. Nov 1, 1952.'" CR>
+                <TELL "A file folder labeled “Patient 189 - CONFIDENTIAL”. Inside are medical records and notes. “Subject shows extraordinary resistance to pain. Mental state deteriorating. Recommending transfer to isolation wing. Dr. Mordecai has expressed personal interest in this case. Update: Patient transferred to chapel for experimental treatment. Nov 1, 1952.”" CR>
                 <RTRUE>)>>
 
 "The cabinet keeps its contents to itself until the player looks: its door is
@@ -245,7 +245,7 @@ ajar, so examining it swings the door wide, as opening it does."
 <ROUTINE HEAVYDOOR-F ()
          <COND (<AND <VERB? EXAMINE>
                      <NOT ,CHAINS-CUT-FLAG>>
-                <TELL "A chain hangs slack around one handle. Its padlock has rusted through; an old [[leather restraint strap->chains]] has been knotted around both handles to keep the door shut. Deep fingernail scratches score the wood. A tarnished plaque reads 'MORGUE'." CR>
+                <TELL "A chain hangs slack around one handle. Its padlock has rusted through; an old [[leather restraint strap->chains]] has been knotted around both handles to keep the door shut. Deep fingernail scratches score the wood. A tarnished plaque reads “MORGUE”." CR>
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      ,CHAINS-CUT-FLAG>
@@ -329,7 +329,7 @@ ajar, so examining it swings the door wide, as opening it does."
 
 <ROUTINE JOURNAL-F ()
          <COND (<VERB? READ EXAMINE>
-                <TELL "Dr. Mordecai's personal journal. The final entry is dated October 31, 1952. The handwriting becomes increasingly erratic: 'The subject showed remarkable resilience. But the serum... it changed something fundamental. Patient 237 died on the table, yet I swear I saw movement hours later. The eyes... the eyes opened. I have made a terrible mistake. God forgive me, I must seal this place.'" CR>
+                <TELL "Dr. Mordecai's personal journal. The final entry is dated October 31, 1952. The handwriting becomes increasingly erratic: “The subject showed remarkable resilience. But the serum... it changed something fundamental. Patient 237 died on the table, yet I swear I saw movement hours later. The eyes... the eyes opened. I have made a terrible mistake. God forgive me, I must seal this place.”" CR>
                 <RTRUE>)>>
 
 <ROUTINE PIPES-F ()
@@ -478,7 +478,7 @@ ajar, so examining it swings the door wide, as opening it does."
 
 <ROUTINE MORPHINE-VIAL-F ()
          <COND (<VERB? EXAMINE>
-                <TELL "A small glass vial labeled 'Morphine Sulfate - 10mg'. The seal is intact." CR>
+                <TELL "A small glass vial labeled “Morphine Sulfate - 10mg”. The seal is intact." CR>
                 <RTRUE>)
                (<VERB? DRINK>
                 <TELL "You're not desperate enough to start taking random drugs from an abandoned sanitarium." CR>
@@ -564,14 +564,14 @@ ajar, so examining it swings the door wide, as opening it does."
 
 <ROUTINE WALL-SCRATCHES-F ()
          <COND (<VERB? EXAMINE COUNT>
-                <TELL "The scratches are too numerous to count. They cover every inch of the cell walls. Some form words: 'HELP ME' 'NO MORE' 'PLEASE'. One message is larger than the rest: 'PATIENT 189 STILL ALIVE IN THE CHAPEL'." CR>
+                <TELL "The scratches are too numerous to count. They cover every inch of the cell walls. Some form words: “HELP ME” “NO MORE” “PLEASE”. One message is larger than the rest: “PATIENT 189 STILL ALIVE IN THE CHAPEL”." CR>
                 <RTRUE>)
                (<VERB? RUB>
                 <TELL "You run your fingers over the scratches. They're deep—gouged by fingernails over years of desperation." CR>
                 <RTRUE>)
                (<VERB? READ>
-                <TELL "Among the chaos of scratches, you can make out words: 'HELP ME' 'NO MORE' 'PLEASE'. The largest message reads: 'PATIENT 189 STILL ALIVE IN THE CHAPEL'.">
-                <TELL " And then, in a corner, smaller and more recent: the date '1947' and a single word—'remember'—carved with unusual precision." CR>
+                <TELL "Among the chaos of scratches, you can make out words: “HELP ME” “NO MORE” “PLEASE”. The largest message reads: “PATIENT 189 STILL ALIVE IN THE CHAPEL”.">
+                <TELL " And then, in a corner, smaller and more recent: the date “1947” and a single word—“remember”—carved with unusual precision." CR>
                 <SCORE-OBJ ,WALL-SCRATCHES>
                 <COND (<NOT ,WALL-SCRATCHES-LORE>
                        <SETG WALL-SCRATCHES-LORE T>
@@ -605,7 +605,7 @@ ajar, so examining it swings the door wide, as opening it does."
 
 <ROUTINE PADDING-F ()
          <COND (<VERB? EXAMINE READ>
-                <TELL "The padding is torn and moldering. On one wall, written in what appears to be dried blood, are the words: 'THE CHAPEL BEYOND THE GARDEN. HE WAITS THERE. PATIENT 189.'" CR>
+                <TELL "The padding is torn and moldering. On one wall, written in what appears to be dried blood, are the words: “THE CHAPEL BEYOND THE GARDEN. HE WAITS THERE. PATIENT 189.”" CR>
                 <RTRUE>)
                (<VERB? RUB>
                 <TELL "You touch the rotting padding. It's damp and spongy, falling apart at the slightest pressure." CR>
@@ -652,12 +652,12 @@ ajar, so examining it swings the door wide, as opening it does."
 
 <ROUTINE OBSERVATION-LOGBOOK-F ()
          <COND (<VERB? READ EXAMINE>
-                <TELL "The logbook contains clinical observations of treatments. One entry stands out: 'Session 47 - Patient 189. Subject required maximum voltage. Seizure lasted 4 minutes. Memory loss total. Subject claims to be someone else now. Dr. Mordecai pleased with results. Proceeding to next phase.'" CR>
+                <TELL "The logbook contains clinical observations of treatments. One entry stands out: “Session 47 - Patient 189. Subject required maximum voltage. Seizure lasted 4 minutes. Memory loss total. Subject claims to be someone else now. Dr. Mordecai pleased with results. Proceeding to next phase.”" CR>
                 <RTRUE>)>>
 
 <ROUTINE SCATTERED-PAPERS-F ()
          <COND (<VERB? EXAMINE READ SEARCH>
-                <TELL "You sort through the papers. Most are mundane: supply orders, staff schedules, building maintenance. One [[memo]] catches your eye: 'All staff reminded - Subject 189 is NOT to be released under any circumstances. Chapel is OFF LIMITS.'" CR>
+                <TELL "You sort through the papers. Most are mundane: supply orders, staff schedules, building maintenance. One [[memo]] catches your eye: “All staff reminded - Subject 189 is NOT to be released under any circumstances. Chapel is OFF LIMITS.”" CR>
                 <RTRUE>)>>
 
 <ROUTINE MASSIVE-DESK-F ()
@@ -698,7 +698,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
 
 <ROUTINE PORTRAIT-F ()
          <COND (<VERB? EXAMINE>
-                <TELL "The portrait shows Dr. Mordecai, a gaunt man with piercing eyes and a cruel mouth. The [[nameplate]] reads: 'Dr. Heinrich Mordecai - Director 1935-1952'. His eyes seem to follow you around the room.">
+                <TELL "The portrait shows Dr. Mordecai, a gaunt man with piercing eyes and a cruel mouth. The [[nameplate]] reads: “Dr. Heinrich Mordecai - Director 1935-1952”. His eyes seem to follow you around the room.">
                 <COND (<FSET? ,WALL-SAFE ,INVISIBLE>
                        <REVEAL-SAFE>
                        <TELL " The frame sits proud of the paneling. You tug its edge, and the portrait swings aside on a hinge, revealing a [[wall safe->safe]].">)>
@@ -751,12 +751,12 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
 
 <ROUTINE SAFE-KEY-F ()
          <COND (<VERB? EXAMINE>
-                <TELL "A small brass key with a [[numbered tag]] reading 'S-001'. It looks like a safe key." CR>
+                <TELL "A small brass key with a [[numbered tag]] reading “S-001”. It looks like a safe key." CR>
                 <RTRUE>)>>
 
 <ROUTINE MORDECAI-NOTES-F ()
          <COND (<VERB? READ EXAMINE>
-                <TELL "The notes are written in a shaking hand: 'October 30, 1952 - Patient 189 has transcended death itself. The screaming never stops. When I uncovered the silver cross, he became still enough for me to approach with the syringe. A second dose of Compound 237 made the green light falter. I withdrew the needle. After everything I have done, I could not make myself finish. The chapel must remain locked.' Beneath this, pressed almost through the paper: 'What I've created must never escape.'" CR>
+                <TELL "The notes are written in a shaking hand: “October 30, 1952 - Patient 189 has transcended death itself. The screaming never stops. When I uncovered the silver cross, he became still enough for me to approach with the syringe. A second dose of Compound 237 made the green light falter. I withdrew the needle. After everything I have done, I could not make myself finish. The chapel must remain locked.” Beneath this, pressed almost through the paper: “What I've created must never escape.”" CR>
                 <RTRUE>)>>
 
 <ROUTINE CHAPEL-KEY-F ()
@@ -775,12 +775,12 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
 
 <ROUTINE PHOTOGRAPH-F ()
          <COND (<VERB? EXAMINE>
-                <TELL "The photograph shows the sanitarium staff posed outside the building. Dr. Mordecai stands in the center, unsmiling. Written on the back: 'Staff photo 1950. Two years before they closed us down. Two years before everything went wrong.'" CR>
+                <TELL "The photograph shows the sanitarium staff posed outside the building. Dr. Mordecai stands in the center, unsmiling. Written on the back: “Staff photo 1950. Two years before they closed us down. Two years before everything went wrong.”" CR>
                 <RTRUE>)>>
 
 <ROUTINE COUNTER-F ()
          <COND (<VERB? EXAMINE LOOK-INSIDE>
-                <TELL "The serving counter is thick with dust. Old menus are still posted on the wall: 'Monday - Mystery Meat'.">
+                <TELL "The serving counter is thick with dust. Old menus are still posted on the wall: “Monday - Mystery Meat”.">
                 <COND (<IN? ,BELL ,SERVING-COUNTER> <TELL " A [[bell]] for summoning kitchen staff sits on the counter.">)>
                 <CRLF>
                 <RTRUE>)>>
@@ -822,7 +822,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      <NOT ,CHAPEL-UNLOCKED>>
-                <TELL "The door is made of thick oak bound with iron straps. A large iron lock secures it. Above the door, [[carved words->chapel door]] read: 'HE WHO ENTERS ABANDONS HOPE'." CR>
+                <TELL "The door is made of thick oak bound with iron straps. A large iron lock secures it. Above the door, [[carved words->chapel door]] read: “HE WHO ENTERS ABANDONS HOPE”." CR>
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      ,CHAPEL-UNLOCKED>
@@ -840,7 +840,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
                 <SETG CHAPEL-UNLOCKED T>
                 <RTRUE>)
                (<VERB? READ>
-                <TELL "The words carved above the door read: 'HE WHO ENTERS ABANDONS HOPE'." CR>
+                <TELL "The words carved above the door read: “HE WHO ENTERS ABANDONS HOPE”." CR>
                 <RTRUE>)
                (<VERB? KNOCK>
                 <TELL "You knock on the heavy oak door. The sound echoes dully, and you think you hear something shift on the other side." CR>
@@ -858,7 +858,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
                 <HELD? ,SYRINGE>>
            <TELL "You hold out the relic. Patient 189 stills completely. You draw the serum into the syringe and step forward—every instinct screaming—and inject it." CR>
            <TELL "The green light in its eyes gutters. Patient 189 shudders, mouth opening in a soundless cry. The green flames around the chapel gutter and die." CR>
-           <TELL "Then it speaks, in a voice like someone remembering how: 'I remember... who I was.'" CR>
+           <TELL "Then it speaks, in a voice like someone remembering how: “I remember... who I was.”" CR>
            <COND (<G? ,PATIENT-LORE 4>
                   <TELL "It looks into you, and the missing years return—not as a story you learned, but as your own memory: the straps, Mordecai's voice, the name Patient 189 replacing yours. The figure is not your double. It is the pain they cut away from you and locked here. When you take its hand, it folds into your shadow, and for the first time since 1947 you are whole." CR>)
                  (<G? ,PATIENT-LORE 2>
@@ -1198,7 +1198,7 @@ lost name."
                      <EQUAL? .TOPIC ,TOPIC-IDENTITY>>
                 <COND (<NOT <FSET? ,TOPIC-IDENTITY ,TOUCHBIT>>
                        <FSET ,TOPIC-IDENTITY ,TOUCHBIT>
-                       <TELL "You ask what name it had before the number. Patient 189 stills completely. Its lips part. A sound emerges—not a word, but a tone, a single note held impossibly long like a tuning fork. It fades. Then, almost inaudibly: '...remember...'" CR>
+                       <TELL "You ask what name it had before the number. Patient 189 stills completely. Its lips part. A sound emerges—not a word, but a tone, a single note held impossibly long like a tuning fork. It fades. Then, almost inaudibly: “...remember...”" CR>
                        <SETG PATIENT-LORE <+ ,PATIENT-LORE 1>>)
                       (T
                        <TELL "Patient 189 watches you silently. Whatever it might have said is gone now, lost in years of isolation." CR>)>
@@ -1251,7 +1251,7 @@ lost name."
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      <NOT <FSET? ,BOTTOM-DRAWER ,OPENBIT>>>
-                <TELL "The bottom drawer of the desk is locked. The keyhole has the number '3' engraved beside it." CR>
+                <TELL "The bottom drawer of the desk is locked. The keyhole has the number “3” engraved beside it." CR>
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      <FSET? ,BOTTOM-DRAWER ,OPENBIT>>
@@ -1277,7 +1277,7 @@ lost name."
 
 <ROUTINE LEDGER-F ()
          <COND (<VERB? READ EXAMINE>
-                <TELL "The ledger contains patient records spanning decades. The entries become more disturbing toward the end. The final entry reads: 'Patient 237 - Treatment discontinued. Subject expired during procedure. Dr. Mordecai. May God have mercy on us all.'" CR>
+                <TELL "The ledger contains patient records spanning decades. The entries become more disturbing toward the end. The final entry reads: “Patient 237 - Treatment discontinued. Subject expired during procedure. Dr. Mordecai. May God have mercy on us all.”" CR>
                 <RTRUE>)>>
 
 <ROUTINE SCALPEL-F ()
@@ -1294,7 +1294,7 @@ lost name."
 <ROUTINE ETHER-F ()
          <COND (<NOT <EQUAL? ,PRSO ,ETHER-BOTTLE>> <RFALSE>)
                (<VERB? EXAMINE>
-                <TELL "A glass bottle with a faded label reading 'Ether - Handle with Care'. About a quarter of the liquid remains." CR>
+                <TELL "A glass bottle with a faded label reading “Ether - Handle with Care”. About a quarter of the liquid remains." CR>
                 <RTRUE>)
                (<VERB? DRINK>
                 <TELL "That would be an extremely bad idea." CR>
@@ -1328,7 +1328,7 @@ lost name."
 
 <ROUTINE SERUM-F ()
          <COND (<VERB? EXAMINE>
-                <TELL "A glass vial containing a faintly glowing liquid. The label reads 'Compound 237 - DO NOT USE'. The serum pulses with an unnatural light." CR>
+                <TELL "A glass vial containing a faintly glowing liquid. The label reads “Compound 237 - DO NOT USE”. The serum pulses with an unnatural light." CR>
                 <RTRUE>)
                (<VERB? DRINK>
                 <TELL "You bring the vial to your lips but your survival instinct stops you. This substance killed Patient 237. You lower the vial, hands trembling." CR>
@@ -1391,12 +1391,12 @@ lost name."
 
 <ROUTINE RECORDS-F ()
          <COND (<VERB? READ EXAMINE>
-                <TELL "You flip through the water-damaged records. A dosage sheet remains legible: 'Patient 189 - unusual resistance to sedation. Morphine suppresses movement, not awareness.' A storage instruction is underlined twice: 'Keep Compound 237 in the refrigerated morgue drawers. Return the reusable syringe to the hydrotherapy cabinet after each session.'" CR>
+                <TELL "You flip through the water-damaged records. A dosage sheet remains legible: “Patient 189 - unusual resistance to sedation. Morphine suppresses movement, not awareness.” A storage instruction is underlined twice: “Keep Compound 237 in the refrigerated morgue drawers. Return the reusable syringe to the hydrotherapy cabinet after each session.”" CR>
                 <RTRUE>)>>
 
 <ROUTINE SOGGY-NOTEBOOK-F ()
          <COND (<VERB? READ EXAMINE>
-                <TELL "The notebook is badly water-damaged. You can make out fragments: '...water treatment...patients submerged for hours...screaming finally stopped...Dr. M approved extended sessions...'" CR>
+                <TELL "The notebook is badly water-damaged. You can make out fragments: “...water treatment...patients submerged for hours...screaming finally stopped...Dr. M approved extended sessions...”" CR>
                 <RTRUE>)>>
 
 <ROUTINE SYRINGE-F ()

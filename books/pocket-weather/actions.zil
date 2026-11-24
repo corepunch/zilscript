@@ -94,8 +94,8 @@
 	 <CRLF>)
 	 (<VERB? RING>
 	 <COND (<NOT <IN? ,MICA ,DISPATCH>> <TELL "Ting! The note hangs in the empty post. Mica is listening at the forecast balcony [[east]]." CR>)
-	 (,AGREED <TELL "Ting! Mica bows. 'Apprentice present. Cloud back by choice. A better sort of [[forecast]].'" CR>)
-	 (T <TELL "Ting! Mica bows. 'Apprentice present. Cloud absent. See the [[forecast]], then follow your observations.'" CR>)>)>>
+	 (,AGREED <TELL "Ting! Mica bows. “Apprentice present. Cloud back by choice. A better sort of [[forecast]].”" CR>)
+	 (T <TELL "Ting! Mica bows. “Apprentice present. Cloud absent. See the [[forecast]], then follow your observations.”" CR>)>)>>
 <ROUTINE APRON-F ()
 	<COND (<VERB? EXAMINE SEARCH LOOK-INSIDE LOOK-UNDER>
 	 <COND (<FSET? ,BUTTON ,INVISIBLE>
@@ -106,19 +106,19 @@
 	<COND (<VERB? EXAMINE> <TELL "A brass sun small enough for a rook to carry. Its old stitches have been carefully removed." CR>)>>
 <ROUTINE ROOK-F ()
 	<COND (<VERB? EXAMINE> <COND (<IN? ,BUTTON ,ROOK> <TELL "Aster turns the brass button until its tiny sunrise catches his eye. His foot is off the counterweight." CR>)
-	 (T <TELL "Aster's foot keeps the vane still. 'Wind steals everything. Something shiny that stays mine would be fair exchange.'" CR>)>)
+	 (T <TELL "Aster's foot keeps the vane still. “Wind steals everything. Something shiny that stays mine would be fair exchange.”" CR>)>)
 	 (<AND <VERB? GIVE> <EQUAL? ,PRSI ,ROOK>>
 	 <COND (<EQUAL? ,PRSO ,BUTTON>
 	 <COND (<AND <HELD? ,BUTTON> <ACCESSIBLE? ,BUTTON>>
 	 <MOVE ,BUTTON ,ROOK> <MOVE ,ROOK ,VANE-DECK>
-	 <TELL "Aster accepts the brass button. He releases the counterweight and hops [[east]] to the perch. 'A fair exchange! You may turn the vane now.'" CR>)
+	 <TELL "Aster accepts the brass button. He releases the counterweight and hops [[east]] to the perch. “A fair exchange! You may turn the vane now.”" CR>)
 	 (T <TELL "You must be holding the button to make the trade." CR>)>)
 	 (T <TELL "Aster wants something bright, small, and his to keep. He refuses politely." CR>)>)
 	 (<VERB? TELL>
-	 <COND (<EQUAL? ,PRSI ,JOKE> <TELL "'I wondered whether the weather would weather the weather,' Aster says. 'It did. I didn't.' He laughs at the correct volume for seven birds." CR>)
-	 (<EQUAL? ,PRSI ,PROMISE> <TELL "'A trade is a promise with two ends,' says Aster. 'No grabbing.'" CR>)
-	 (T <COND (<IN? ,BUTTON ,ROOK> <TELL "'A fair trade lets things move,' Aster says. 'The [[forecast]] is yours to check now. [[Promise]] kept. Want a [[joke]]?'" CR>) (T <TELL "'The [[forecast]] says downwind. The vane can't show you downwind while I'm holding it. A [[promise]] of a shiny trade might help. Or ask for a [[joke]].'" CR>)>)>)
-	 (<AND <VERB? SHOW> <EQUAL? ,PRSO ,BUTTON>> <TELL "Aster leans forward. 'Yes. Give it to me, and the wind is yours.'" CR>)>>
+	 <COND (<EQUAL? ,PRSI ,JOKE> <TELL "“I wondered whether the weather would weather the weather,” Aster says. “It did. I didn't.” He laughs at the correct volume for seven birds." CR>)
+	 (<EQUAL? ,PRSI ,PROMISE> <TELL "“A trade is a promise with two ends,” says Aster. “No grabbing.”" CR>)
+	 (T <COND (<IN? ,BUTTON ,ROOK> <TELL "“A fair trade lets things move,” Aster says. “The [[forecast]] is yours to check now. [[Promise]] kept. Want a [[joke]]?”" CR>) (T <TELL "“The [[forecast]] says downwind. The vane can't show you downwind while I'm holding it. A [[promise]] of a shiny trade might help. Or ask for a [[joke]].”" CR>)>)>)
+	 (<AND <VERB? SHOW> <EQUAL? ,PRSO ,BUTTON>> <TELL "Aster leans forward. “Yes. Give it to me, and the wind is yours.”" CR>)>>
 <ROUTINE VANE-F ()
 	<COND (<VERB? EXAMINE READ>
 	 <COND (,WIND-KNOWN <TELL "The vane shows a steady breeze toward the garden below. A cloud can travel that way without crossing the parade." CR>)
@@ -141,7 +141,7 @@
 	 (<NOT <EQUAL? ,HERE ,ARCH>> <TELL "You need to be beside the chime." CR>)
 	 (<IN? ,RIBBON ,CHIME> <TELL "The clapper is already padded. Its soft chuckle leaves room for words." CR>)
 	 (<NOT <AND <HELD? ,RIBBON> <ACCESSIBLE? ,RIBBON>>> <TELL "You need the ribbon in your hands." CR>)
-	 (T <MOVE ,RIBBON ,CHIME> <FSET ,RIBBON ,NDESCBIT> <TELL "You tie the [[soft ribbon->ribbon]] around the [[chime]]'s clapper. CLANG becomes tok. From [[east]], a small voice says, 'Oh. There you are.'" CR>)>
+	 (T <MOVE ,RIBBON ,CHIME> <FSET ,RIBBON ,NDESCBIT> <TELL "You tie the [[soft ribbon->ribbon]] around the [[chime]]“s clapper. CLANG becomes tok. From [[east]], a small voice says, 'Oh. There you are.”" CR>)>
 	<RTRUE>>
 <ROUTINE UNPAD-CHIME ()
 	<COND (<AND <EQUAL? ,HERE ,ARCH> <IN? ,RIBBON ,CHIME>>
@@ -202,7 +202,7 @@
 	 (<VERB? READ OPEN LOOK-INSIDE>
 	 <COND (<NOT ,REPORT-SOFT> <TELL "The fold resists. Warm steam would relax it; dry pulling would tear the old paper." CR>)
 	 (T <SETG REPORT-READ T> <FSET ,REPORT ,OPENBIT>
-	 <TELL "The [[report]] says: 'Yesterday: continuous rain, as ordered. Ludo asked Nimbus to stop. Nimbus said stopping would mean failing the Bureau. The parade went home. Ludo left this to say he wasn't cross with the cloud.'" CR>
+	 <TELL "The [[report]] says: “Yesterday: continuous rain, as ordered. Ludo asked Nimbus to stop. Nimbus said stopping would mean failing the Bureau. The parade went home. Ludo left this to say he wasn't cross with the cloud.”" CR>
 	 <COND (<FSET? ,FLOWER ,INVISIBLE> <FCLEAR ,FLOWER ,INVISIBLE> <THIS-IS-IT ,FLOWER>
 	 <TELL "A [[pressed flower->flower]] slips free inside the opened report. Someone has flattened each blue petal with care." CR>)
 	 (T <TELL "The report still remembers a small voice asking for a pause." CR>)>)>)>>
@@ -213,22 +213,22 @@
 	 (,REPORT-SOFT <TELL "The report is already soft enough to read." CR>)
 	 (T <SETG REPORT-SOFT T> <TELL "You hold the [[report]] in the [[kettle]]'s gentle steam, safely above the hot metal. The fold uncurls like a waking leaf. Now you can read it." CR>)> <RTRUE>>
 <ROUTINE FLOWER-F ()
-	<COND (<VERB? EXAMINE> <TELL "A blue flower, pressed flat but carefully kept. A gift can say 'I am not cross' long after its voice has gone home." CR>)>>
+	<COND (<VERB? EXAMINE> <TELL "A blue flower, pressed flat but carefully kept. A gift can say “I am not cross” long after its voice has gone home." CR>)>>
 <ROUTINE PIP-F ()
 	<COND (<VERB? EXAMINE>
 	 <COND (,AGREED <TELL "Pip's hands are already making tomorrow's celebration. He never waits for perfect weather to be kind." CR>)
-	 (,REPORT-READ <TELL "Pip has set his work aside. 'We thought obeying was enough. We should have listened.'" CR>)
+	 (,REPORT-READ <TELL "Pip has set his work aside. “We thought obeying was enough. We should have listened.”" CR>)
 	 (T <TELL "Pip measures very small things with great care.">
 	 <COND (<IN? ,SPOON ,KITCHEN> <TELL " You may borrow the [[spoon]].">)>
 	 <TELL " Ask him about the [[forecast]], [[yesterday]], or a [[promise]]." CR>)>)
 	 (<VERB? TELL>
-	 <COND (<EQUAL? ,PRSI ,YESTERDAY> <TELL "'Emergency biscuit policy,' Pip says. 'Everyone gets one. Especially if they think a mistake means they don't deserve one.'" CR>)
-	 (<OR <EQUAL? ,PRSI ,PROMISE> <EQUAL? ,PRSI ,PAUSE>> <TELL "'Soft things still need boundaries,' Pip says. 'A [[pause]] isn't a broken promise. It can be part of the promise.'" CR>)
-	 (,GUTTER-READY <TELL "'The rain garden needs a little rain. Not all rain, everywhere.' Pip nods at the spoon's work. 'Small tools. Careful work.'" CR>)
-	 (T <TELL "'The rain garden needs a little rain. Not all rain, everywhere.' Pip nods at the [[spoon]]. 'Small tools. Careful work.'" CR>)>)
+	 <COND (<EQUAL? ,PRSI ,YESTERDAY> <TELL "“Emergency biscuit policy,” Pip says. “Everyone gets one. Especially if they think a mistake means they don't deserve one.”" CR>)
+	 (<OR <EQUAL? ,PRSI ,PROMISE> <EQUAL? ,PRSI ,PAUSE>> <TELL "“Soft things still need boundaries,” Pip says. “A [[pause]] isn't a broken promise. It can be part of the promise.”" CR>)
+	 (,GUTTER-READY <TELL "“The rain garden needs a little rain. Not all rain, everywhere.” Pip nods at the spoon's work. “Small tools. Careful work.”" CR>)
+	 (T <TELL "“The rain garden needs a little rain. Not all rain, everywhere.” Pip nods at the [[spoon]]. “Small tools. Careful work.”" CR>)>)
 	 (<AND <VERB? SHOW> <EQUAL? ,PRSO ,REPORT>>
-	 <COND (,REPORT-READ <TELL "Pip reads it quietly. 'Show Nimbus. Evidence is kinder than telling someone they shouldn't feel that way.'" CR>)
-	 (T <TELL "'A fold remembers pressure,' Pip says. 'The [[kettle]]'s steam might persuade it to open. Hold your [[report]] over it.'" CR>)>)>>
+	 <COND (,REPORT-READ <TELL "Pip reads it quietly. “Show Nimbus. Evidence is kinder than telling someone they shouldn't feel that way.”" CR>)
+	 (T <TELL "“A fold remembers pressure,” Pip says. “The [[kettle]]'s steam might persuade it to open. Hold your [[report]] over it.”" CR>)>)>>
 <ROUTINE TOPIC-F ()
 	<COND (<VERB? EXAMINE>
 	 <COND (<EQUAL? ,PRSO ,FORECAST> <COND (,PUBLISHED <TELL "The new forecast gives the garden rain and everybody permission to pause." CR>)
@@ -244,35 +244,35 @@
 	 <COND (,REPORT-READ <TELL "Yesterday, Ludo asked for a pause and nobody stopped. The report says he was not cross with the cloud." CR>)
 	 (<NOT <IN? ,REPORT ,WEATHERBOX>> <TELL "Yesterday is folded tightly into the report from the archive." CR>)
 	 (T <TELL "Yesterday left something folded away in the archive, south of the post." CR>)>)
-	 (T <TELL "The tune keeps tripping over two words that sound alike: 'whether' and 'weather'. Aster is saving the last line. Ask him for it." CR>)>)>>
+	 (T <TELL "The tune keeps tripping over two words that sound alike: “whether” and “weather”. Aster is saving the last line. Ask him for it." CR>)>)>>
 
 <ROUTINE CLOUD-F ()
 	<COND (<VERB? SMELL> <TELL "The air beside Nimbus smells of rain on dry earth." CR>)
           (<VERB? EXAMINE>
-	 <COND (,PUBLISHED <TELL "Nimbus is light around the edges. 'Shall we [[drizzle]] or make a puddle-sized [[shower]]? Either way, anyone may ask for a [[pause]].'" CR>)
-	 (,AGREED <TELL "Nimbus floats without curling away. 'We have a [[promise]]. Now let the whole town hear it through your [[forecast]].'" CR>)
+	 <COND (,PUBLISHED <TELL "Nimbus is light around the edges. “Shall we [[drizzle]] or make a puddle-sized [[shower]]? Either way, anyone may ask for a [[pause]].”" CR>)
+	 (,AGREED <TELL "Nimbus floats without curling away. “We have a [[promise]]. Now let the whole town hear it through your [[forecast]].”" CR>)
 	 (,APOLOGY <TELL "Nimbus no longer hides its face. It wants to hear how tomorrow can be different. Ask about a [[pause]], then talk about a [[promise]]." CR>)
 	 (T <TELL "Rain hangs inside Nimbus like held breath. It is not a fierce cloud. It is a very full one. Listen before giving it another [[forecast]]." CR>)>)
 	 (<VERB? LISTEN>
 	 <COND (<AND <EQUAL? ,HERE ,HOLLOW> <NOT <IN? ,RIBBON ,CHIME>>> <TELL "The chime beyond the hollow shatters Nimbus's words. Soften it before trying to listen." CR>)
-	 (,AGREED <TELL "'I can stop,' Nimbus whispers, trying the words without making them smaller. 'I can stop, and still be good at rain.'" CR>)
-	 (T <SETG LISTENED T> <TELL "You let Nimbus finish. 'I didn't stop yesterday. They told me not to stop. Then everyone was unhappy. If I stay here, I can't do it wrong again.' The cloud waits. You do not fill the quiet with instructions." CR>)>)
+	 (,AGREED <TELL "“I can stop,” Nimbus whispers, trying the words without making them smaller. “I can stop, and still be good at rain.”" CR>)
+	 (T <SETG LISTENED T> <TELL "You let Nimbus finish. “I didn't stop yesterday. They told me not to stop. Then everyone was unhappy. If I stay here, I can't do it wrong again.” The cloud waits. You do not fill the quiet with instructions." CR>)>)
 	 (<AND <VERB? SHOW> <EQUAL? ,PRSI ,CLOUD>>
 	 <COND (<AND <EQUAL? ,HERE ,HOLLOW> <NOT <IN? ,RIBBON ,CHIME>>> <TELL "Nimbus looks at what you hold, but the chime breaks every word. Make room for words first." CR>)
 	 (<EQUAL? ,PRSO ,REPORT>
 	 <COND (<NOT ,REPORT-READ> <TELL "Read the report first. Nimbus needs you to understand it, not merely hold it up." CR>)
 	 (<NOT ,LISTENED> <TELL "Nimbus draws back. Listen before asking it to look at yesterday." CR>)
-	 (T <SETG APOLOGY T> <TELL "Nimbus reads the [[report]]. 'Ludo wasn't cross with me?' The rain inside loosens. You say the Bureau should have listened when Ludo asked. For the first time, Nimbus stops apologizing. 'Then we need a different [[promise]]. One with a [[pause]].'" CR>)>)
-	 (<EQUAL? ,PRSO ,FLOWER> <TELL "Nimbus touches the [[flower]] with a cool edge. 'Ludo kept the blue one for me.' A little of yesterday becomes something worth keeping." CR>)
+	 (T <SETG APOLOGY T> <TELL "Nimbus reads the [[report]]. “Ludo wasn't cross with me?” The rain inside loosens. You say the Bureau should have listened when Ludo asked. For the first time, Nimbus stops apologizing. “Then we need a different [[promise]]. One with a [[pause]].”" CR>)>)
+	 (<EQUAL? ,PRSO ,FLOWER> <TELL "Nimbus touches the [[flower]] with a cool edge. “Ludo kept the blue one for me.” A little of yesterday becomes something worth keeping." CR>)
 	 (T <TELL "Nimbus looks, but it needs understanding rather than equipment. The old report might explain [[yesterday]]." CR>)>)
 	 (<VERB? TELL>
 	 <COND (<AND <EQUAL? ,HERE ,HOLLOW> <NOT <IN? ,RIBBON ,CHIME>>> <TELL "The chime breaks every sentence. Soften it before a conversation." CR>)
 	 (<EQUAL? ,PRSI ,PAUSE> <SETG PAUSE-KNOWN T>
-	 <TELL "'If anyone says pause, I stop,' Nimbus says. 'Including me. We listen, then decide together whether to continue.">
+	 <TELL "“If anyone says pause, I stop,” Nimbus says. 'Including me. We listen, then decide together whether to continue.">
 	 <COND (,AGREED <TELL " That is our [[promise]] now.'" CR>)
 	 (T <TELL " Could that be part of the [[promise]]?'" CR>)>)
 	 (<EQUAL? ,PRSI ,PROMISE> <MAKE-PROMISE>)
-	 (<EQUAL? ,PRSI ,YESTERDAY> <TELL "'I was good at following the [[forecast]],' Nimbus says. 'I wasn't good at listening.'">
+	 (<EQUAL? ,PRSI ,YESTERDAY> <TELL "“I was good at following the [[forecast]],” Nimbus says. “I wasn't good at listening.”">
 	 <COND (,APOLOGY <TELL " The cloud says it without shrinking now." CR>)
 	 (T <TELL " The old report may help you understand." CR>)>)
 	 (T <CLOUD-FORECAST>)>)
@@ -280,19 +280,19 @@
 	 (<VERB? SHOWER> <RAIN-ENDING T>)
 	 (<VERB? TAKE> <TELL "Nimbus is someone to ask, not something to carry." CR>)>>
 <ROUTINE CLOUD-FORECAST ()
-	<COND (<NOT ,LISTENED> <TELL "'The [[forecast]] tells me where to go, but never when to listen. Could you listen to me? Then we can talk about [[yesterday]], a [[pause]], and a [[promise]].'" CR>)
-	 (<NOT ,APOLOGY> <TELL "'You heard me,' Nimbus says. 'But yesterday is still between us. Find out what happened, so we can understand it together.'" CR>)
-	 (<NOT ,PAUSE-KNOWN> <TELL "'You understand yesterday now. What would a pause mean for tomorrow? Let's talk about that first.'" CR>)
-	 (<NOT ,WIND-KNOWN> <TELL "'Where can the rain go safely? Measure the wind before we promise a route.'" CR>)
-	 (<NOT ,GUTTER-READY> <TELL "'How will the roots receive it? Prepare the little gutter before we promise rain.'" CR>)
-	 (<NOT ,AGREED> <TELL "'The route and roots are ready. Now we can talk about a promise we both want to keep.'" CR>)
+	<COND (<NOT ,LISTENED> <TELL "“The [[forecast]] tells me where to go, but never when to listen. Could you listen to me? Then we can talk about [[yesterday]], a [[pause]], and a [[promise]].”" CR>)
+	 (<NOT ,APOLOGY> <TELL "“You heard me,” Nimbus says. “But yesterday is still between us. Find out what happened, so we can understand it together.”" CR>)
+	 (<NOT ,PAUSE-KNOWN> <TELL "“You understand yesterday now. What would a pause mean for tomorrow? Let's talk about that first.”" CR>)
+	 (<NOT ,WIND-KNOWN> <TELL "“Where can the rain go safely? Measure the wind before we promise a route.”" CR>)
+	 (<NOT ,GUTTER-READY> <TELL "“How will the roots receive it? Prepare the little gutter before we promise rain.”" CR>)
+	 (<NOT ,AGREED> <TELL "“The route and roots are ready. Now we can talk about a promise we both want to keep.”" CR>)
 	 (<NOT ,CARD-WRITTEN>
-	 <TELL "'We have agreed,' Nimbus says. 'Write our forecast on your ">
+	 <TELL "“We have agreed,” Nimbus says. 'Write our forecast on your ">
 	 <COND (<HELD? ,CARD> <TELL "[[weather card->card]]">) (T <TELL "weather card">)>
 	 <TELL " so the town can hear it too.'" CR>)
-	 (<NOT ,CARD-APPROVED> <TELL "'Our forecast is written. Let Mica read the card before it goes out.'" CR>)
-	 (<NOT ,PUBLISHED> <TELL "'Mica has approved our forecast. Put the card in the broadcast slot so everyone hears the pause rule.'" CR>)
-	 (T <TELL "'The town has heard us. We can choose a drizzle or a shower, and pause whenever either of us needs.'" CR>)>>
+	 (<NOT ,CARD-APPROVED> <TELL "“Our forecast is written. Let Mica read the card before it goes out.”" CR>)
+	 (<NOT ,PUBLISHED> <TELL "“Mica has approved our forecast. Put the card in the broadcast slot so everyone hears the pause rule.”" CR>)
+	 (T <TELL "“The town has heard us. We can choose a drizzle or a shower, and pause whenever either of us needs.”" CR>)>>
 <ROUTINE MAKE-PROMISE ()
 	<COND (,AGREED <TELL "You have already made the promise. "> <CLOUD-FORECAST>)
 	 (<NOT ,LISTENED> <TELL "Listen to Nimbus first. A promise cannot begin with another instruction." CR>)
@@ -301,7 +301,7 @@
 	 (<NOT ,WIND-KNOWN> <TELL "Where will the rain go? Free and turn the vane above the terrace to measure a safe route." CR>)
 	 (<NOT ,GUTTER-READY> <TELL "How will the roots receive it? Clear the garden's tiny gutter before promising rain." CR>)
 	 (T <SETG AGREED T> <FCLEAR ,COMMA-BISCUITS ,INVISIBLE> <MOVE ,CLOUD ,TERRACE> <FCLEAR ,HOLLOW-SCENT ,INVISIBLE>
-	 <TELL "You promise rain for the garden, a clear gutter for the roots, and a pause whenever anyone asks. Including Nimbus. The cloud unfolds. 'Then I would like to come back.' It slips [[west]] and south to the warm terrace, keeping pace with no one but itself." CR>)> <RTRUE>>
+	 <TELL "You promise rain for the garden, a clear gutter for the roots, and a pause whenever anyone asks. Including Nimbus. The cloud unfolds. “Then I would like to come back.” It slips [[west]] and south to the warm terrace, keeping pace with no one but itself." CR>)> <RTRUE>>
 <ROUTINE CARD-F ()
 	<COND (<VERB? EXAMINE READ>
 	 <COND (,CARD-APPROVED <TELL "Mica has approved your [[card]]: rain in the garden, measured by need; pause on request; Nimbus may pause too. It belongs in the broadcast slot east of the post." CR>)
@@ -315,29 +315,29 @@
 	 (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,SLOT>> <PUBLISH-CARD>)>>
 <ROUTINE MICA-F ()
 	<COND (<VERB? EXAMINE>
-	 <COND (,PUBLISHED <TELL "Mica looks smaller without a fixed answer, and rather more useful. 'You listened all the way to a better forecast.'" CR>)
-	 (,CARD-APPROVED <TELL "Mica's fingers are still for once. 'Approved. The broadcast slot is east of the post.'" CR>)
-	 (,CARD-WRITTEN <TELL "Mica listens without interrupting. 'Show me the card. I should learn to sign a [[promise]] I did not invent.'" CR>)
-	 (,AGREED <TELL "Mica listens without interrupting. 'Write the card. I should learn to sign a [[promise]] I did not invent.'" CR>)
+	 <COND (,PUBLISHED <TELL "Mica looks smaller without a fixed answer, and rather more useful. “You listened all the way to a better forecast.”" CR>)
+	 (,CARD-APPROVED <TELL "Mica's fingers are still for once. “Approved. The broadcast slot is east of the post.”" CR>)
+	 (,CARD-WRITTEN <TELL "Mica listens without interrupting. “Show me the card. I should learn to sign a [[promise]] I did not invent.”" CR>)
+	 (,AGREED <TELL "Mica listens without interrupting. “Write the card. I should learn to sign a [[promise]] I did not invent.”" CR>)
 	 (T <TELL "Mica's fingers tap an impatient rhythm, then stop when you look. Ask about the [[forecast]], [[yesterday]], or a [[promise]]." CR>)>)
 	 (<VERB? TELL>
-	 <COND (<EQUAL? ,PRSI ,YESTERDAY> <TELL "'I filed the report without asking how Nimbus felt,' Mica admits. 'It is in the archive south of the dispatch post. I should have opened yesterday before writing tomorrow.'" CR>)
+	 <COND (<EQUAL? ,PRSI ,YESTERDAY> <TELL "“I filed the report without asking how Nimbus felt,” Mica admits. “It is in the archive south of the dispatch post. I should have opened yesterday before writing tomorrow.”" CR>)
 	 (<OR <EQUAL? ,PRSI ,PROMISE> <EQUAL? ,PRSI ,PAUSE>>
-	 <TELL "'If we can ask a cloud to work, it can ask us to stop,' Mica says slowly.">
-	 <COND (,PUBLISHED <TELL " 'The whole town has heard that now.'" CR>)
-	 (,CARD-APPROVED <TELL " 'I have signed it. The broadcast slot is east of the post.'" CR>)
-	 (T <TELL " 'Bring me the written card when you have agreed.'" CR>)>)
-	 (,PUBLISHED <TELL "'The old [[forecast]] ordered rain over the parade,' Mica says. 'The new one asks first. Nimbus is waiting for you on the terrace.'" CR>)
-	 (,CARD-APPROVED <TELL "'The old [[forecast]] ordered rain over the parade,' Mica says. 'Yours is approved. Put the card in the broadcast slot east of the post.'" CR>)
-	 (T <TELL "'The [[forecast]] says continuous rain over the parade,' Mica begins. Then: 'But observations come first. If the forecast is wrong, we change the forecast.'" CR>)>)
+	 <TELL "“If we can ask a cloud to work, it can ask us to stop,” Mica says slowly.">
+	 <COND (,PUBLISHED <TELL " “The whole town has heard that now.”" CR>)
+	 (,CARD-APPROVED <TELL " “I have signed it. The broadcast slot is east of the post.”" CR>)
+	 (T <TELL " “Bring me the written card when you have agreed.”" CR>)>)
+	 (,PUBLISHED <TELL "“The old [[forecast]] ordered rain over the parade,” Mica says. “The new one asks first. Nimbus is waiting for you on the terrace.”" CR>)
+	 (,CARD-APPROVED <TELL "“The old [[forecast]] ordered rain over the parade,” Mica says. “Yours is approved. Put the card in the broadcast slot east of the post.”" CR>)
+	 (T <TELL "“The [[forecast]] says continuous rain over the parade,” Mica begins. Then: “But observations come first. If the forecast is wrong, we change the forecast.”" CR>)>)
 	 (<AND <VERB? GIVE SHOW> <EQUAL? ,PRSI ,MICA>>
-	 <COND (<AND <NOT <EQUAL? ,PRSO ,CARD>> ,CARD-APPROVED> <TELL "Mica looks carefully. 'Thank you. I should have looked this carefully yesterday.'" CR>)
-	 (<NOT <EQUAL? ,PRSO ,CARD>> <TELL "Mica looks carefully. 'Thank you. For publication, I need your written weather card.'" CR>)
+	 <COND (<AND <NOT <EQUAL? ,PRSO ,CARD>> ,CARD-APPROVED> <TELL "Mica looks carefully. “Thank you. I should have looked this carefully yesterday.”" CR>)
+	 (<NOT <EQUAL? ,PRSO ,CARD>> <TELL "Mica looks carefully. “Thank you. For publication, I need your written weather card.”" CR>)
 	 (<NOT <AND <HELD? ,CARD> <ACCESSIBLE? ,CARD>>> <TELL "Bring the card where you can hand it to Mica." CR>)
-	 (<NOT ,CARD-WRITTEN> <TELL "'It is still blank,' says Mica. 'Make the promise with Nimbus, then write it on the card.'" CR>)
-	 (,CARD-APPROVED <TELL "'Already approved,' says Mica. 'The broadcast slot is east of the post.'" CR>)
+	 (<NOT ,CARD-WRITTEN> <TELL "“It is still blank,” says Mica. “Make the promise with Nimbus, then write it on the card.”" CR>)
+	 (,CARD-APPROVED <TELL "“Already approved,” says Mica. “The broadcast slot is east of the post.”" CR>)
 	 (T <MOVE ,CARD ,MICA> <SETG CARD-APPROVED T> <MOVE ,CARD ,WINNER>
-	 <TELL "Mica reads every line, approves the [[card]], and hands it back. 'I am sorry about yesterday. An instruction should never be louder than someone asking to stop. Put this in the broadcast slot east of the post.'" CR>)>)>>
+	 <TELL "Mica reads every line, approves the [[card]], and hands it back. “I am sorry about yesterday. An instruction should never be louder than someone asking to stop. Put this in the broadcast slot east of the post.”" CR>)>)>>
 <ROUTINE SLOT-F ()
 	<COND (<VERB? EXAMINE LOOK-INSIDE>
 	 <COND (,PUBLISHED
@@ -353,7 +353,7 @@
 	 (<NOT ,CARD-APPROVED> <TELL "The slot gives the card back untouched. Mica must approve the written promise first." CR>)
 	 (T <MOVE ,CARD ,SLOT> <FSET ,CARD ,NDESCBIT> <SETG PUBLISHED T> <MOVE ,MICA ,BROADCAST>
           <MOVE ,LIGHT-DRIZZLE ,TERRACE> <MOVE ,PUDDLE-SHOWER ,TERRACE>
-	 <TELL "You place the [[card]] in the [[slot]]. Its quiet hum carries the garden route and the pause rule through town. [[Mica]] comes to listen beside you. 'Now,' she says, 'let the weather have the last word.' Nimbus waits on the terrace north of the post." CR>)> <RTRUE>>
+	 <TELL "You place the [[card]] in the [[slot]]. Its quiet hum carries the garden route and the pause rule through town. [[Mica]] comes to listen beside you. “Now,” she says, “let the weather have the last word.” Nimbus waits on the terrace north of the post." CR>)> <RTRUE>>
 <ROUTINE RAIN-NEXT-STEP ()
 	<COND (,CARD-APPROVED <TELL "Mica has approved the card. Put it in the broadcast slot east of the post.'" CR>)
 	 (,CARD-WRITTEN <TELL "Let Mica approve the card, then put it in the broadcast slot.'" CR>)
@@ -365,8 +365,8 @@
 	 (<NOT ,APOLOGY> <TELL "Nimbus holds its rain. You have heard its fear, but yesterday is still between you. Find out what happened and show that you understand." CR> <RTRUE>)
 	 (<NOT ,AGREED> <TELL "Nimbus is ready to talk, but you have not agreed on a forecast together. Talk about a [[pause]] and a [[promise]] before choosing rain." CR> <RTRUE>)
 	 (<NOT ,PUBLISHED> <TELL "Nimbus waits. 'Our promise needs to reach the town first. "> <RAIN-NEXT-STEP> <RTRUE>)>
-	<COND (.BIG? <TELL "You and Nimbus choose a small shower. Round drops drum the clear gutter; the seedlings drink, and one excellent puddle grows. Halfway through, Nimbus says, 'Pause.' The rain stops at once. You both listen. Then, together, you choose one last splash." CR>)
-	 (T <TELL "You and Nimbus choose a soft drizzle. Rain whispers down the clear gutter to every waiting root. Ludo's old flower would hardly bend under it. From the garden, Ludo calls 'Pause.' Nimbus stops at once. This time, the small voice reaches everyone." CR>)>
+	<COND (.BIG? <TELL "You and Nimbus choose a small shower. Round drops drum the clear gutter; the seedlings drink, and one excellent puddle grows. Halfway through, Nimbus says, “Pause.” The rain stops at once. You both listen. Then, together, you choose one last splash." CR>)
+	 (T <TELL "You and Nimbus choose a soft drizzle. Rain whispers down the clear gutter to every waiting root. Ludo's old flower would hardly bend under it. From the garden, Ludo calls “Pause.” Nimbus stops at once. This time, the small voice reaches everyone." CR>)>
 	<MOVE ,MICA ,DISPATCH>
 	<TELL CR "Mica returns to the post and rings the dispatch bell once. Tomorrow's forecast has room for an apprentice's observations, a child's voice, and a cloud that can say no. Nimbus folds itself small enough to rest beside you, and leaves the pocket of air over your shoulder dry." CR CR "THE END -- A FORECAST YOU CAN KEEP" CR>
 	<FINISH> <RTRUE>>

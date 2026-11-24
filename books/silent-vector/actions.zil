@@ -26,7 +26,7 @@
 	<SETG WINNER ,ADVENTURER>
 	<SETG PLAYER ,WINNER>
 	<MOVE ,WINNER ,HERE>
-	<TELL "'Keep holding her hand.' You remember doing it. You remember strapping both hands into this cradle, too. Your fingers are still cold." CR CR>
+	<TELL "“Keep holding her hand.” You remember doing it. You remember strapping both hands into this cradle, too. Your fingers are still cold." CR CR>
 	<V-LOOK>
 	<MAIN-LOOP>
 	<AGAIN>>
@@ -107,8 +107,8 @@
 	<COND (<EQUAL? .RARG ,M-LOOK>
 		<TELL "[[Senn]] sits between the lab [[west]] and the [[interlock]] [[north]] to the cold core." CR>
 		<COND (,SENN-DISCLOSED <TELL "His hands are closed now, and he meets your eyes." CR>)
-			(,ISOLATED <TELL "He lets you finish speaking before he says, 'Ask me about my [[daughter]] again.'" CR>)
-			(,PROOF <TELL "'When the carrier is quiet,' he says, 'ask me about my [[daughter]] again.'" CR>)
+			(,ISOLATED <TELL "He lets you finish speaking before he says, “Ask me about my [[daughter]] again.”" CR>)
+			(,PROOF <TELL "“When the carrier is quiet,” he says, “ask me about my [[daughter]] again.”" CR>)
 			(T <TELL "His lips shape the last word of your greeting before you say it." CR>)>
 		<RTRUE>)>>
 
@@ -173,7 +173,7 @@
 		<TELL "Departure mass: four adults. Your name, Mara Vale, Ivo Chen, Senn Orlov. Four ration allocations. Four return restraints. No mass allowance exists for the fifth biography now shared by the crew. The ledger is indented through to the backing, written before first reception." CR>)>>
 <ROUTINE LOG-F ()
 	<COND (<VERB? EXAMINE READ>
-		<TELL "Mara recorded four independent pulses before reception. Afterwards she added a fifth name, Lena Orlov, then crossed out its empty vital-sign fields. No fifth pulse is recorded. In the margin: 'Requested pediatric analgesia. I remember treating an adult.' No dose was dispensed." CR>)>>
+		<TELL "Mara recorded four independent pulses before reception. Afterwards she added a fifth name, Lena Orlov, then crossed out its empty vital-sign fields. No fifth pulse is recorded. In the margin: “Requested pediatric analgesia. I remember treating an adult.” No dose was dispensed." CR>)>>
 <ROUTINE PUMP-F ()
 	<COND (<VERB? SPIN>
            <COND (,COOLING <TELL "The seal holds. You leave the fitting seated." CR>)
@@ -258,17 +258,17 @@
 		(<VERB? TELL>
 		<COND (<EQUAL? ,PRSI ,WAFER> <MARA-SAMPLE>)
 			(<EQUAL? ,PRSI ,TOPIC-SIGNAL>
-				<COND (,ISOLATED <TELL "Mara says, 'Ordinary neurons now. Severing the carrier stops new instructions, not the memories already laid down. Don't promise anyone an instant cure.'" CR>)
-					(T <TELL "'It uses the brain's error correction,' Mara says. 'You supply most of the experience yourself. A vivid memory is not a high-resolution recording.'" CR>)>)
+				<COND (,ISOLATED <TELL "Mara says, “Ordinary neurons now. Severing the carrier stops new instructions, not the memories already laid down. Don't promise anyone an instant cure.”" CR>)
+					(T <TELL "“It uses the brain's error correction,” Mara says. “You supply most of the experience yourself. A vivid memory is not a high-resolution recording.”" CR>)>)
 			(<EQUAL? ,PRSI ,TOPIC-DAUGHTER>
-				<COND (,PROOF <TELL "'Senn lost Lena before we launched,' Mara says. 'I knew that when I wrote her name in my clinical log. I had to read my own handwriting three times.'" CR>)
-					(T <TELL "'Ask Senn when he can bear it. I can tell you she never received a physical examination aboard this station.'" CR>)>)
+				<COND (,PROOF <TELL "“Senn lost Lena before we launched,” Mara says. “I knew that when I wrote her name in my clinical log. I had to read my own handwriting three times.”" CR>)
+					(T <TELL "“Ask Senn when he can bear it. I can tell you she never received a physical examination aboard this station.”" CR>)>)
 			(<EQUAL? ,PRSI ,TOPIC-CREW>
-				<COND (,EVAC <TELL "'Four living passengers,' Mara says. 'I will count them by pulse until we reach the rescue ship.'" CR>)
-					(,CONSENT <TELL "'Ivo agreed after reading the foil,' Mara says. 'I heard him. Keep that consent with the reference; none of us should have to give it twice.'" CR>)
-					(,PROOF <TELL "'Four bodies,' Mara says. 'Show Ivo the foil. He deserves to decide with evidence.'" CR>)
-					(T <TELL "'Read my clinical log,' Mara says. 'Then take the witness foil to the comparator. Do not let my certainty replace a measurement.'" CR>)>)
-			(T <TELL "Mara glances at the equipment. 'The protocol covers the engineering. Ask me about the [[signal]], the [[crew]], or Senn's [[daughter]].'" CR>)>)>>
+				<COND (,EVAC <TELL "“Four living passengers,” Mara says. “I will count them by pulse until we reach the rescue ship.”" CR>)
+					(,CONSENT <TELL "“Ivo agreed after reading the foil,” Mara says. “I heard him. Keep that consent with the reference; none of us should have to give it twice.”" CR>)
+					(,PROOF <TELL "“Four bodies,” Mara says. “Show Ivo the foil. He deserves to decide with evidence.”" CR>)
+					(T <TELL "“Read my clinical log,” Mara says. “Then take the witness foil to the comparator. Do not let my certainty replace a measurement.”" CR>)>)
+			(T <TELL "Mara glances at the equipment. “The protocol covers the engineering. Ask me about the [[signal]], the [[crew]], or Senn's [[daughter]].”" CR>)>)>>
 
 <ROUTINE IVO-F ()
 	<COND (<VERB? EXAMINE>
@@ -278,34 +278,34 @@
 		(<VERB? TELL>
 		<COND (<EQUAL? ,PRSI ,WAFER> <IVO-SAMPLE>)
 			(<EQUAL? ,PRSI ,TOPIC-SIGNAL>
-			<COND (,ISOLATED <TELL "'I wanted the silence,' Ivo says. 'Now I keep checking it isn't waiting for me to ask it back.'" CR>)
-				(T <TELL "'Regulations prohibit emotional support from equipment still under warranty,' Ivo says. He waits for you to laugh, then says, 'I decoded the first rescue header. That's how it got a listener.'" CR>)>)
+			<COND (,ISOLATED <TELL "“I wanted the silence,” Ivo says. “Now I keep checking it isn't waiting for me to ask it back.”" CR>)
+				(T <TELL "“Regulations prohibit emotional support from equipment still under warranty,” Ivo says. He waits for you to laugh, then says, “I decoded the first rescue header. That's how it got a listener.”" CR>)>)
 			(<EQUAL? ,PRSI ,TOPIC-DAUGHTER>
-				<COND (,PROOF <TELL "'I remember teaching Lena to solder,' Ivo says. 'Senn says she died twelve years before he hired me. I can give up the claim. I can't yet give up the afternoon.'" CR>)
-					(T <TELL "'Lena. I remember her as an adult. The portrait is of a child. Senn never brought photographs of her grown up.'" CR>)>)
-			(T <COND (,CONSENT <TELL "'I agreed to leave because of the trace, not because the grief stopped,' Ivo says. 'Prepare the cold archive and the mechanical beacon. Then make your decision openly.'" CR>)
-				(,PROOF <TELL "'You compared the foil?' Ivo asks. 'Show me the actual strip. I won't abandon someone on a verbal report, not even yours.'" CR>)
-				(T <TELL "'I remember five,' Ivo says. 'The ledger says four. Show me a reference made before the reception, measured without decoding the signal.'" CR>)>)>)>>
+				<COND (,PROOF <TELL "“I remember teaching Lena to solder,” Ivo says. “Senn says she died twelve years before he hired me. I can give up the claim. I can't yet give up the afternoon.”" CR>)
+					(T <TELL "“Lena. I remember her as an adult. The portrait is of a child. Senn never brought photographs of her grown up.”" CR>)>)
+			(T <COND (,CONSENT <TELL "“I agreed to leave because of the trace, not because the grief stopped,” Ivo says. “Prepare the cold archive and the mechanical beacon. Then make your decision openly.”" CR>)
+				(,PROOF <TELL "“You compared the foil?” Ivo asks. “Show me the actual strip. I won't abandon someone on a verbal report, not even yours.”" CR>)
+				(T <TELL "“I remember five,” Ivo says. “The ledger says four. Show me a reference made before the reception, measured without decoding the signal.”" CR>)>)>)>>
 <ROUTINE SENN-F ()
 	<COND (<VERB? EXAMINE>
 		<COND (,SENN-DISCLOSED <TELL "[[Senn]] keeps his hands closed on his knees. He follows your gaze instead of supplying your next word. ">)
 			(T <TELL "[[Senn]] holds his palms apart, the spacing of hands around a face. There is nothing physically between them. ">)>
 		<TELL "Ask about the [[signal]], the [[crew]], or his [[daughter]]." CR>
-			<COND (<AND ,ISOLATED <NOT ,SENN-DISCLOSED>> <TELL "'My daughter,' he repeats. 'You should ask me again now.'" CR>)>
+			<COND (<AND ,ISOLATED <NOT ,SENN-DISCLOSED>> <TELL "“My daughter,” he repeats. “You should ask me again now.”" CR>)>
 			<RTRUE>)
 		(<VERB? SHOW> <V-SHOW>)
 		(<VERB? TELL>
 		<COND (<EQUAL? ,PRSI ,WAFER> <SENN-CONFESSION>)
 			(<EQUAL? ,PRSI ,TOPIC-DAUGHTER>
 				<COND (,ISOLATED <SENN-CONFESSION>)
-					(T <TELL "'She would have been thirty-one,' Senn says. After a while: 'That is a different sentence from saying she is.'" CR>)>)
+					(T <TELL "“She would have been thirty-one,” Senn says. After a while: “That is a different sentence from saying she is.”" CR>)>)
 			(<EQUAL? ,PRSI ,TOPIC-SIGNAL>
-				<COND (,ISOLATED <TELL "'The relay returned our own rescue-compression experiment,' Senn says. 'Its success criterion was continued decoding. A dying person makes you keep listening. We optimized for that without asking what it would feel like from this end.' He looks toward the cold core. 'An inquiry will want to play the only specimen. Preservation means staying there when they ask, and saying no. Even to people who believe they are helping.'" CR>)
-					(T <TELL "'We sent a low-bandwidth rescue model through the outer relay,' Senn says. 'It was meant to rebuild damaged messages from a listener's existing knowledge. The return was more complete than the transmission.'" CR>)>)
+				<COND (,ISOLATED <TELL "“The relay returned our own rescue-compression experiment,” Senn says. “Its success criterion was continued decoding. A dying person makes you keep listening. We optimized for that without asking what it would feel like from this end.” He looks toward the cold core. “An inquiry will want to play the only specimen. Preservation means staying there when they ask, and saying no. Even to people who believe they are helping.”" CR>)
+					(T <TELL "“We sent a low-bandwidth rescue model through the outer relay,” Senn says. “It was meant to rebuild damaged messages from a listener's existing knowledge. The return was more complete than the transmission.”" CR>)>)
 			(<EQUAL? ,PRSI ,TOPIC-CREW>
-				<COND (,PROOF <TELL "'Four bodies,' Senn says. 'I won't dispute the trace. I will leave with you, whichever decision you record.'" CR>)
-					(T <TELL "'I remember her in this room,' Senn says. 'There is no fifth thermal load.' His open hands do not move." CR>)>)
-			(T <TELL "Senn looks past the equipment. 'Ask me about the [[signal]], or about [[Lena->daughter]]. I know which one is harder.'" CR>)>)>>
+				<COND (,PROOF <TELL "“Four bodies,” Senn says. “I won't dispute the trace. I will leave with you, whichever decision you record.”" CR>)
+					(T <TELL "“I remember her in this room,” Senn says. “There is no fifth thermal load.” His open hands do not move." CR>)>)
+			(T <TELL "Senn looks past the equipment. “Ask me about the [[signal]], or about [[Lena->daughter]]. I know which one is harder.”" CR>)>)>>
 
 <ROUTINE TOPIC-F ()
 	<COND (<AND <VERB? EXAMINE> <EQUAL? ,PRSO ,TOPIC-DAUGHTER> <IN? ,SENN ,HERE>>
@@ -321,23 +321,23 @@
 	<COND (<NOT <AND <HELD? ,PRSO> <ACCESSIBLE? ,PRSO>>>
 		<TELL "Hold the actual item where the other person can inspect it." CR>)
 		(<AND <EQUAL? ,PRSO ,STRIP> <EQUAL? ,PRSI ,IVO>>
-			<COND (<NOT ,PROOF> <TELL "Ivo holds the foil to the light. 'Neither of us can resolve this by eye. Compare it in the laboratory first.'" CR>)
-				(,CONSENT <TELL "Ivo nods. 'I've seen it. My consent stands. Get us out safely.'" CR>)
-				(T <SETG CONSENT T> <TELL "Ivo follows the comparison marks with his finger. Four, four, four. 'I consent to evacuation,' he says. 'I don't consent to pretending we won't miss her.' He sets the [[strip]] back in your hand. 'Cold storage, mechanical beacon. No radio.'" CR>)>)
+			<COND (<NOT ,PROOF> <TELL "Ivo holds the foil to the light. “Neither of us can resolve this by eye. Compare it in the laboratory first.”" CR>)
+				(,CONSENT <TELL "Ivo nods. “I've seen it. My consent stands. Get us out safely.”" CR>)
+				(T <SETG CONSENT T> <TELL "Ivo follows the comparison marks with his finger. Four, four, four. “I consent to evacuation,” he says. “I don't consent to pretending we won't miss her.” He sets the [[strip]] back in your hand. “Cold storage, mechanical beacon. No radio.”" CR>)>)
 		(<AND <EQUAL? ,PRSO ,STRIP> <EQUAL? ,PRSI ,MARA>>
-			<COND (,PROOF <TELL "Mara aligns the comparison marks with her clinical count. 'Four. I kept taking pulses because I thought I was missing someone.' She gives the foil back. 'Keep this where we can all check it.'" CR>)
-				(T <TELL "Mara cannot resolve the fine trace by eye. 'Use the comparator. Then we can compare it with my pulse count.'" CR>)>)
+			<COND (,PROOF <TELL "Mara aligns the comparison marks with her clinical count. “Four. I kept taking pulses because I thought I was missing someone.” She gives the foil back. “Keep this where we can all check it.”" CR>)
+				(T <TELL "Mara cannot resolve the fine trace by eye. “Use the comparator. Then we can compare it with my pulse count.”" CR>)>)
 		(<AND <EQUAL? ,PRSO ,STRIP> <EQUAL? ,PRSI ,SENN>>
-			<COND (,SENN-DISCLOSED <TELL "Senn checks the foil again. 'Keep all four traces. I won't put her name over one of yours.' He gives it back." CR>)
-				(<AND ,PROOF ,ISOLATED> <TELL "Senn follows the four resolved traces. 'Mine is there. Hers isn't. Ask me about my [[daughter]] now.'" CR>)
-				(,PROOF <TELL "Senn follows the four resolved traces. 'Mine is there. Hers isn't.' He returns the foil. 'When the carrier is quiet, ask me about my [[daughter]] again.'" CR>)
-				(T <TELL "Senn turns the foil without reading it. 'The comparator will resolve this. I shouldn't be the one to tell you what it says.'" CR>)>)
+			<COND (,SENN-DISCLOSED <TELL "Senn checks the foil again. “Keep all four traces. I won't put her name over one of yours.” He gives it back." CR>)
+				(<AND ,PROOF ,ISOLATED> <TELL "Senn follows the four resolved traces. “Mine is there. Hers isn't. Ask me about my [[daughter]] now.”" CR>)
+				(,PROOF <TELL "Senn follows the four resolved traces. “Mine is there. Hers isn't.” He returns the foil. “When the carrier is quiet, ask me about my [[daughter]] again.”" CR>)
+				(T <TELL "Senn turns the foil without reading it. “The comparator will resolve this. I shouldn't be the one to tell you what it says.”" CR>)>)
 		(<AND <EQUAL? ,PRSO ,WAFER> <EQUAL? ,PRSI ,MARA>> <MARA-SAMPLE>)
 		(<AND <EQUAL? ,PRSO ,WAFER> <EQUAL? ,PRSI ,SENN>> <SETG ORIGIN T> <SENN-CONFESSION>)
 		(<AND <EQUAL? ,PRSO ,WAFER> <EQUAL? ,PRSI ,IVO>> <IVO-SAMPLE>)
-		(<EQUAL? ,PRSI ,MARA> <TELL "Mara checks the item and hands it back. 'You know the tools. I know what happened to our pulse counts.'" CR>)
-		(<EQUAL? ,PRSI ,SENN> <TELL "Senn does not take it. 'Keep the engineering equipment. I'll answer for the experiment.'" CR>)
-		(<EQUAL? ,PRSI ,IVO> <TELL "Ivo checks it out of habit. 'Still the right tool. At least that hasn't changed.'" CR>)
+		(<EQUAL? ,PRSI ,MARA> <TELL "Mara checks the item and hands it back. “You know the tools. I know what happened to our pulse counts.”" CR>)
+		(<EQUAL? ,PRSI ,SENN> <TELL "Senn does not take it. “Keep the engineering equipment. I'll answer for the experiment.”" CR>)
+		(<EQUAL? ,PRSI ,IVO> <TELL "Ivo checks it out of habit. “Still the right tool. At least that hasn't changed.”" CR>)
 		(T <TELL "Show the physical evidence to a colleague who can examine it." CR>)>>
 
 <ROUTINE BEACON-F ()
@@ -352,7 +352,7 @@
 			(<NOT <IN? ,WAFER ,COLD-ARCHIVE>> <TELL "Departure is not prepared: put the actual memory wafer in the cold archive." CR>)
 			(,EVAC <TELL "The [[beacon]] remains armed. Return to the cold-core console when you are ready." CR>)
 			(T <SETG EVAC T> <MOVE ,MARA ,LAUNCH>
-			<TELL "The [[beacon]] arms with a heavy clunk. [[Mara]] comes up from the clinic, carrying the evacuation count in her head and checking it against four physical restraints. 'Ivo and Senn are coming,' she says. 'You have time. Go back to the cold-core console. Decide with all of us knowing what you did.'" CR>)>)>>
+			<TELL "The [[beacon]] arms with a heavy clunk. [[Mara]] comes up from the clinic, carrying the evacuation count in her head and checking it against four physical restraints. “Ivo and Senn are coming,” she says. “You have time. Go back to the cold-core console. Decide with all of us knowing what you did.”" CR>)>)>>
 <ROUTINE CONSOLE-F ()
 	<COND (<VERB? EXAMINE READ>
 		<TELL "Two final commitments. PRESERVE seals the sample in a blind, unpowered capsule and evacuates the living crew with a prohibition on playback. ERASE degausses the sample, removes the station's powered decoding chain, and evacuates the living crew without it. Preservation commits you to guarded custody: rescuers and investigators will want to play their only specimen, and you will have to keep refusing. Erasure destroys that specimen and the possibility of studying what it became. Both leave a physical warning. Neither erases your implanted memories." CR CR "Before either commitment: independent comparison, examination of the wafer's origin index, Ivo's consent, receive isolation, cooling, the wafer physically in the archive, and the rendezvous beacon armed. Preparation can still be changed. The next successful PRESERVE or ERASE ends the story." CR>)
@@ -465,17 +465,17 @@
 		(T <TELL "Look at the protocol card, the relevant fitting, or the decision console. Their descriptions identify the required physical operation. Ask for HINT once more for an exact next command." CR>)>>
 
 <ROUTINE SENN-CONFESSION ()
-	<COND (,SENN-DISCLOSED <TELL "Senn closes his hands. 'The years between nine and thirty-one came from us. I can't tell you which details I supplied. I can tell you who allowed the model to keep running.'" CR>)
+	<COND (,SENN-DISCLOSED <TELL "Senn closes his hands. “The years between nine and thirty-one came from us. I can't tell you which details I supplied. I can tell you who allowed the model to keep running.”" CR>)
 		(T <SETG SENN-DISCLOSED T>
-			<TELL "'Lena died at nine,' Senn says. 'I gave the reconstruction my memories as training material. Not to resurrect her. To test whether a rescue call could rebuild missing information from a listener. Then I heard her grown voice. The experiment supplied the years I never got.' He closes his hands. 'I did not stop it.'" CR>)>>
+			<TELL "“Lena died at nine,” Senn says. “I gave the reconstruction my memories as training material. Not to resurrect her. To test whether a rescue call could rebuild missing information from a listener. Then I heard her grown voice. The experiment supplied the years I never got.” He closes his hands. “I did not stop it.”" CR>)>>
 <ROUTINE MARA-SAMPLE ()
-	<TELL "Mara keeps her hands away from the wafer. 'Storage without playback is safe for us. Custody is a longer promise. At rescue they will want to hear the evidence, and they'll have more authority than we do.' ">
-	<COND (,CONSENT <TELL "She nods toward the galley. 'Ivo has agreed to leave. Don't confuse that with agreeing to hear it again.'" CR>)
-		(T <TELL "'Show Ivo the measured foil before you ask him to leave.'" CR>)>>
+	<TELL "Mara keeps her hands away from the wafer. “Storage without playback is safe for us. Custody is a longer promise. At rescue they will want to hear the evidence, and they'll have more authority than we do.” ">
+	<COND (,CONSENT <TELL "She nods toward the galley. “Ivo has agreed to leave. Don't confuse that with agreeing to hear it again.”" CR>)
+		(T <TELL "“Show Ivo the measured foil before you ask him to leave.”" CR>)>>
 <ROUTINE IVO-SAMPLE ()
-	<TELL "Ivo studies the unpowered wafer. 'An inquiry will ask why we won't let them listen. Our answer will be four people saying they remember five.' ">
-	<COND (,CONSENT <TELL "He rubs his knuckle. 'I'll stand watch if we preserve it. I want my refusal on the record before somebody asks twice.'" CR>)
-		(T <TELL "'Bring me the measured foil. I need something better than that before I agree to leave.'" CR>)>>
+	<TELL "Ivo studies the unpowered wafer. “An inquiry will ask why we won't let them listen. Our answer will be four people saying they remember five.” ">
+	<COND (,CONSENT <TELL "He rubs his knuckle. “I'll stand watch if we preserve it. I want my refusal on the record before somebody asks twice.”" CR>)
+		(T <TELL "“Bring me the measured foil. I need something better than that before I agree to leave.”" CR>)>>
 
 <ROUTINE CORE-INTERLOCK-F ()
     <COND (<VERB? OPEN>

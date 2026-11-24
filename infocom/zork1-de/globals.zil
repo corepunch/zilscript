@@ -43,7 +43,7 @@ DERBIT	    INVISIBLE	RLANDBIT    TAKEBIT	VEHBIT      KLUDGEBIT)>
 	(FLAGS TOOLBIT DIEBIT)
 	(DESC "Nummer")>
 
-;"adjs. make ps?direction work for 'walk to east'"
+;"adjs. make ps?direction work for “walk to east”"
 <OBJECT INTDIR
 	(LOC GLOBAL-OBJECTS)
 	(SYNONYM WEG ;DIRECTION)
@@ -91,7 +91,7 @@ DERBIT	    INVISIBLE	RLANDBIT    TAKEBIT	VEHBIT      KLUDGEBIT)>
 	       (T
 		<SET TBL ,P-PRSI>
 		<SET PRSO? <>>)>
-	 ;"Here is the default 'cant see any' printer"
+	 ;"Here is the default “cant see any” printer"
 	 <SETG P-CONT <>>
 	 <SETG QUOTE-FLAG <>>
 	 <COND (<EQUAL? ,WINNER ,PLAYER>

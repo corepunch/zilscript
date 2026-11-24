@@ -1475,7 +1475,7 @@ and then speaks gravely. \"I have been waiting a long time for you, ">
 		       <TELL <GET ,DM-REASONS <DMISH>>>
 		       <TELL "
 I will remain here. When you feel you are ready, go to the
-secret door and 'SAY \"FROTZ OZMOO\"'! Go, now!\" He wags his finger
+secret door and “SAY \"FROTZ OZMOO\"”! Go, now!\" He wags his finger
 in warning. \"Do not forget the double
 quotes!\" A moment later, you find yourself in the Button Room." CR>
 		       <GOTO ,MR-ANTE <>>
@@ -1525,7 +1525,7 @@ quotes!\" A moment later, you find yourself in the Button Room." CR>
 \
 
 ;"SUBTITLE
- 'The end had come, and this was it; he dropped her in the Flaming Pit.'"
+ “The end had come, and this was it; he dropped her in the Flaming Pit.”"
 
 <GLOBAL LCELL 1> ;"cell in slot"
 

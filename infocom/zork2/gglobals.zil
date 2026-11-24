@@ -60,7 +60,7 @@
 	       (T
 		<SET TBL ,P-PRSI>
 		<SET PRSO? <>>)>
-	 ;"Here is the default 'cant see any' printer"
+	 ;"Here is the default “cant see any” printer"
 	 <SETG P-CONT <>>
 	 <SETG QUOTE-FLAG <>>
 	 <COND (<EQUAL? ,WINNER ,PLAYER>

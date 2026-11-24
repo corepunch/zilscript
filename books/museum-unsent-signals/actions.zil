@@ -6,7 +6,7 @@
 
 <ROUTINE MUSEUM-PLAQUE-F ()
  <COND (<VERB? EXAMINE READ>
-  <TELL "The caretaker has added a strip of paper: 'The wooden spool in Dead Letters was filed as blank. Someone handled it every day for forty years. Please check before we switch the relay off.'" CR>)>>
+  <TELL "The caretaker has added a strip of paper: “The wooden spool in Dead Letters was filed as blank. Someone handled it every day for forty years. Please check before we switch the relay off.”" CR>)>>
 
 <ROUTINE RETURN-LENS-F ()
  <COND (<VERB? EXAMINE LOOK-INSIDE>
@@ -47,11 +47,11 @@
         <COND (<NOT <IN? ,MESSAGE-SPOOL ,READING-BASIN>>
                <TELL "The speaker clicks once. Load the wooden spool into the [[basin]] first." CR>)
               (<NOT ,LENS-READ>
-               <TELL "A woman says 'I made it.' Then a long interval. The counter asks for the kind of address; tilt the lens in Dead Letters toward the light before you route anything." CR>)
+               <TELL "A woman says “I made it.” Then a long interval. The counter asks for the kind of address; tilt the lens in Dead Letters toward the light before you route anything." CR>)
               (,SIGNAL-HEARD
-               <TELL "The woman says 'I made it.' You now know how much of the message is the minute after she stops." CR>)
+               <TELL "The woman says “I made it.” You now know how much of the message is the minute after she stops." CR>)
               (T <SETG SIGNAL-HEARD T>
-                 <TELL "A woman says 'I made it.' For a whole minute you hear only her breathing. The three cuts align with the private return register: this wasn't a public announcement. She was talking to whoever used to wait up for her." CR>)>)>>
+                 <TELL "A woman says “I made it.” For a whole minute you hear only her breathing. The three cuts align with the private return register: this wasn't a public announcement. She was talking to whoever used to wait up for her." CR>)>)>>
 
 <ROUTINE ROUTING-READY ()
  <COND (,SIGNAL-HEARD <RTRUE>)
@@ -63,7 +63,7 @@
        (<VERB? PUSH>
         <COND (<ROUTING-READY>
           <SETG MUSEUM-END 1>
-          <TELL "You send four words: 'Nobody had to wait.' The indicator takes an unreasonably long time to answer. Then it prints RECEIVED, and a second line that must have been added by hand: I STILL LEFT THE LIGHT ON." CR CR "ENDING: PRIVATE RETURN" CR>
+          <TELL "You send four words: “Nobody had to wait.” The indicator takes an unreasonably long time to answer. Then it prints RECEIVED, and a second line that must have been added by hand: I STILL LEFT THE LIGHT ON." CR CR "ENDING: PRIVATE RETURN" CR>
           <FINISH>)>
         <RTRUE>)>>
 
@@ -73,14 +73,14 @@
        (<VERB? PUSH>
         <COND (<ROUTING-READY>
           <SETG MUSEUM-END 2>
-          <TELL "You send the minute without the voice. Across the dome, speakers announce nothing at all. You had expected notices asking what went wrong. Instead, the night dispatcher sends a short message: 'Please wait to reset. Someone is still listening.'" CR CR "ENDING: A MINUTE FOR THE LIVING" CR>
+          <TELL "You send the minute without the voice. Across the dome, speakers announce nothing at all. You had expected notices asking what went wrong. Instead, the night dispatcher sends a short message: “Please wait to reset. Someone is still listening.”" CR CR "ENDING: A MINUTE FOR THE LIVING" CR>
           <FINISH>)>
         <RTRUE>)>>
 
 <ROUTINE GO ()
  <SETG HERE ,ADMISSIONS> <SETG VERBOSE T> <SETG LIT T>
  <SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
- <TELL "The museum is closing for good. The caretaker left you a key to the building and said, 'You don't have to make everything speak.'" CR>
+ <TELL "The museum is closing for good. The caretaker left you a key to the building and said, “You don't have to make everything speak.”" CR>
  <V-LOOK> <MAIN-LOOP> <AGAIN>>
 
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? T))

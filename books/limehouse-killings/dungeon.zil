@@ -592,7 +592,7 @@
       (SYNONYM NOTE LETTER MESSAGE)
       (ADJECTIVE FOLDED WORN)
       (FLAGS TAKEBIT READBIT)
-      (TEXT "The letter is addressed to Mr. Hudson from an unknown sender. It reads: 'The master's experiments have gone too far. If anything happens to me, the evidence is in the study. Burn this after reading.' The signature is illegible.")
+      (TEXT "The letter is addressed to Mr. Hudson from an unknown sender. It reads: “The master's experiments have gone too far. If anything happens to me, the evidence is in the study. Burn this after reading.” The signature is illegible.")
       (ACTION TRUNK-LETTER-F)>
 
 <OBJECT UNIFORMS

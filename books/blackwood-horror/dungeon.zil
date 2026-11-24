@@ -29,10 +29,10 @@
          "Sanitarium Survivor">>
 <GLOBAL WHISPER-TABLE
     <LTABLE 0
-        "A voice, barely audible, rasps: 'help... me...'"
+        "A voice, barely audible, rasps: “help... me...”"
         "You hear your name whispered -- impossible, you never told anyone you were coming."
         "A child's voice whispers something in a language you don't recognize."
-        "The walls seem to breathe a single word: 'run.'">>
+        "The walls seem to breathe a single word: “run.”">>
 
 ; === ROOMS ===
 
@@ -249,7 +249,7 @@
         (INTERACTIONS "")
         (LDESC "A [[brass plaque->plaque]] hangs askew.")
         (FLAGS READBIT)
-        (TEXT "Beneath the corrosion you can read: 'Blackwood Sanitarium - Est. 1898 - Closed by Order 1952'")
+        (TEXT "Beneath the corrosion you can read: “Blackwood Sanitarium - Est. 1898 - Closed by Order 1952”")
         (SIZE 5)
         (ACTION BRASS-PLAQUE-F)>
 
@@ -280,7 +280,7 @@
         (DESC "patient file")
         (INTERACTIONS "")
         (FDESC "A confidential [[patient file->file]] lies open in the drawer, its contents disturbing.")
-        (LDESC "A [[file folder->file]] marked 'Patient 189 - CONFIDENTIAL' lies here.")
+        (LDESC "A [[file folder->file]] marked “Patient 189 - CONFIDENTIAL” lies here.")
         (FLAGS TAKEBIT READBIT)
         (SIZE 3)
         (VALUE 2)
@@ -296,7 +296,7 @@
         (LDESC "A small [[brass key->reception key]] lies here.")
         (FLAGS TAKEBIT INVISIBLE)
         (SIZE 2)
-        (TEXT "A small brass key with the number '3' engraved on its head. It's ice cold despite being indoors.")>
+        (TEXT "A small brass key with the number “3” engraved on its head. It's ice cold despite being indoors.")>
 
 <OBJECT RECEPTION-PAPERS
         (IN RECEPTION-ROOM)
@@ -343,7 +343,7 @@
         (ADJECTIVE ETHER GLASS FADED)
         (DESC "bottle of ether")
         (INTERACTIONS "")
-        (LDESC "A glass [[bottle]] labeled 'Ether - Handle with Care' stands here.")
+        (LDESC "A glass [[bottle]] labeled “Ether - Handle with Care” stands here.")
         (FLAGS TAKEBIT)
         (SIZE 5)
         (ACTION ETHER-F)>
@@ -750,7 +750,7 @@
         (FDESC "A [[logbook]] rests on a [[desk]].")
         (LDESC "The observation [[logbook]] lies here.")
         (FLAGS TAKEBIT READBIT)
-        (TEXT "Session 47 - Patient 189. Subject required maximum voltage. Seizure lasted 4 minutes. Memory loss total. Subject claims to be 'someone else' now. Dr. Mordecai pleased with results.")
+        (TEXT "Session 47 - Patient 189. Subject required maximum voltage. Seizure lasted 4 minutes. Memory loss total. Subject claims to be “someone else” now. Dr. Mordecai pleased with results.")
         (SIZE 7)
         (ACTION OBSERVATION-LOGBOOK-F)>
 

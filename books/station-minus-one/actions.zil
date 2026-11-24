@@ -7,7 +7,7 @@
 
 <ROUTINE SHIFT-LOG-F ()
  <COND (<VERB? EXAMINE READ>
-  <TELL "The night operator wrote in pencil: 'Yesterday's empty train left a reflection. Seat the ceramic puck in the gauge cradle and push the calibration stud. A reflection weighs nothing. I didn't build this station to wave at ghosts.'" CR>)>>
+  <TELL "The night operator wrote in pencil: “Yesterday's empty train left a reflection. Seat the ceramic puck in the gauge cradle and push the calibration stud. A reflection weighs nothing. I didn't build this station to wave at ghosts.”" CR>)>>
 
 <ROUTINE TEST-PUCK-F ()
  <COND (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,RECEIVER-CRADLE> <HELD? ,TEST-PUCK>>

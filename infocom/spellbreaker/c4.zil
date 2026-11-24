@@ -1841,7 +1841,7 @@ a similar gap." CR>)
 	 <COND (<SET ADJ <CUBE-ADJ .OBJ>>
 		<COND (<ZERO? <SET PTR <GETP .OBJ ,P?NAME>>>
 		       <SET F <GETPT .OBJ ,P?ADJECTIVE>>
-		       <PUTB .F 1 <GETB .F 2>> ;"REMOVE 'FEATURELESS' AS ADJ."
+		       <PUTB .F 1 <GETB .F 2>> ;"REMOVE “FEATURELESS” AS ADJ."
 		       <SET PTR ,P-QNEXT>
 		       <SETG P-QNEXT <REST ,P-QNEXT 10>>
 		       <PUT ,P-QNEXT 0 <>>)>

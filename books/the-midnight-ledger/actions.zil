@@ -42,21 +42,21 @@
 
 <ROUTINE MIVES-F ()
  <COND
-  (<VERB? EXAMINE TELL> <COND (,CASE-READY <TELL "'Make them say whose hand was on the latch,' Ives says. 'I can endure a lot, but not another sentence about my character.'" CR>)
-  (,CLOCK-SEEN <TELL "'I said twelve by the clock in the weighing room. If it says twelve twice that is the clock's fault, not mine.'" CR>)
-  (T <TELL "'The chalk in my pocket is for the dispatch marks,' he says. 'I did my turn at the scale, then I never took a key.' He offers you an angry silence to cross-examine." CR>)>)>>
+  (<VERB? EXAMINE TELL> <COND (,CASE-READY <TELL "“Make them say whose hand was on the latch,” Ives says. “I can endure a lot, but not another sentence about my character.”" CR>)
+  (,CLOCK-SEEN <TELL "“I said twelve by the clock in the weighing room. If it says twelve twice that is the clock's fault, not mine.”" CR>)
+  (T <TELL "“The chalk in my pocket is for the dispatch marks,” he says. “I did my turn at the scale, then I never took a key.” He offers you an angry silence to cross-examine." CR>)>)>>
 
 <ROUTINE MVENN-F ()
  <COND
-  (<VERB? EXAMINE TELL> <COND (,CASE-READY <TELL "'The finding is your name on paper, not mine. Mark the appropriate tab.'" CR>)
-  (,SEAL-SEEN <TELL "'A copied impression can make one of us look guilty. Work out who could actually reach the crate when it changed weight.'" CR>)
-  (T <TELL "'The papers are out for you. Turn the [[panel]] only when a liar could not tell the same story with them.'" CR>)>)>>
+  (<VERB? EXAMINE TELL> <COND (,CASE-READY <TELL "“The finding is your name on paper, not mine. Mark the appropriate tab.”" CR>)
+  (,SEAL-SEEN <TELL "“A copied impression can make one of us look guilty. Work out who could actually reach the crate when it changed weight.”" CR>)
+  (T <TELL "“The papers are out for you. Turn the [[panel]] only when a liar could not tell the same story with them.”" CR>)>)>>
 
 <ROUTINE MORR-F ()
  <COND
-  (<VERB? EXAMINE TELL> <COND (,CASE-READY <TELL "'I thought you were going to take his word against mine,' Orr says. He has stopped buttoning the cuff." CR>)
-  (,REG-READ <TELL "'You will notice I was at the registry at eleven fifty-five. Afterwards? The register is not a diary.'" CR>)
-  (T <TELL "'The porter had his chalk all over the crate,' he says. 'That should be enough for a reasonable person.'" CR>)>)>>
+  (<VERB? EXAMINE TELL> <COND (,CASE-READY <TELL "“I thought you were going to take his word against mine,” Orr says. He has stopped buttoning the cuff." CR>)
+  (,REG-READ <TELL "“You will notice I was at the registry at eleven fifty-five. Afterwards? The register is not a diary.”" CR>)
+  (T <TELL "“The porter had his chalk all over the crate,” he says. “That should be enough for a reasonable person.”" CR>)>)>>
 
 <ROUTINE MSCALE-F ()
  <COND

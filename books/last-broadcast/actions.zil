@@ -25,7 +25,7 @@
 		<RTRUE>)>>
 <ROUTINE LB-CASEBOOK-F ()
 	<COND (<VERB? EXAMINE READ>
-		<TELL "The [[casebook]] has two columns: heard and seen. At 9:17 the appeal began; at 9:21 Vane was found. Your auditory note reads: two coughs, then 'Even this old island can learn to speak.'" CR>
+		<TELL "The [[casebook]] has two columns: heard and seen. At 9:17 the appeal began; at 9:21 Vane was found. Your auditory note reads: two coughs, then “Even this old island can learn to speak.”" CR>
 		<COND (,LB-CLOCK <TELL "Measured: the office hands date a voltage fault, not a death." CR>)>
 		<COND (,LB-SOUND <TELL "Heard again: the appeal survives in a groove." CR>)>
 		<COND (,LB-PROVENANCE <TELL "Authenticated: edge number, duration and cutting entry identify the recording." CR>)>
@@ -45,7 +45,7 @@
 	<SETG FUMBLE-PROB 0>
 	<SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER>
 	<MOVE ,WINNER ,HERE>
-	<TELL "At 9:17 you heard a gull cough twice, then Ada's appeal to save the station: 'Even this old island can learn to speak.'|Four minutes later Ruth called for help. By then the station's owner, Julian Vane, was dead. Both times are in your [[casebook]].||">
+	<TELL "At 9:17 you heard a gull cough twice, then Ada's appeal to save the station: “Even this old island can learn to speak.”|Four minutes later Ruth called for help. By then the station's owner, Julian Vane, was dead. Both times are in your [[casebook]].||">
 	<V-LOOK> <MAIN-LOOP>>
 
 <SYNTAX USE OBJECT ON OBJECT = V-USE-ON>
@@ -123,7 +123,7 @@
 		(<NOT <IN? ,LB-DISC ,LB-PLAYER>> <TELL "Put the archive disc in the gramophone first." CR>)
 		(<NOT <IN? ,LB-STYLUS ,LB-PLAYER>> <TELL "The pickup is bare. Bring the stylus from the workshop and fit it to the gramophone." CR>)
 		(T <SETG LB-SOUND T>
-		<TELL "The [[disc]] turns. Ada's voice asks the mainland for help. A gull coughs twice; she says, 'Even this old island can learn to speak.'|Two coughs, then that sentence: the sequence in your opening note, now turning beneath a needle. A later stutter repeats the first syllable with mechanical patience. This appeal existed in a groove before it was supposedly spoken live.|At the centre, a pencilled timing mark sets the start at 9:17. Six minutes would carry the voice past 9:22. Ruth in the studio may recognise the rehearsal; the cutting register can authenticate its origin." CR>)>
+		<TELL "The [[disc]] turns. Ada's voice asks the mainland for help. A gull coughs twice; she says, “Even this old island can learn to speak.”|Two coughs, then that sentence: the sequence in your opening note, now turning beneath a needle. A later stutter repeats the first syllable with mechanical patience. This appeal existed in a groove before it was supposedly spoken live.|At the centre, a pencilled timing mark sets the start at 9:17. Six minutes would carry the voice past 9:22. Ruth in the studio may recognise the rehearsal; the cutting register can authenticate its origin." CR>)>
 	<RTRUE>>
 
 <ROUTINE LB-BOARD-F ()
@@ -300,12 +300,12 @@
 		<COND (,LB-RUTH-CLEARED <TELL "She has stopped watching the red lamp. When you are ready, she will make the station's first honest announcement tonight." CR>)> <RTRUE>)
 		(<VERB? TELL>
 			<COND (<EQUAL? ,PRSI ,LB-MICROPHONE>
-				<TELL "'Ada asked me to leave the lamp on for her appeal. I did, then fetched Vane; he refused to come. At 9:16 I left him alive, and cut my hand on a glass in the kitchen. Edith dressed it at once. I thought the red meant live.' [[Ruth]] looks at the plate below the [[microphone]]. 'How thoroughly one can read the wrong word.'" CR>)
+				<TELL "“Ada asked me to leave the lamp on for her appeal. I did, then fetched Vane; he refused to come. At 9:16 I left him alive, and cut my hand on a glass in the kitchen. Edith dressed it at once. I thought the red meant live.” [[Ruth]] looks at the plate below the [[microphone]]. “How thoroughly one can read the wrong word.”" CR>)
 				(<EQUAL? ,PRSI ,LB-DISC ,LB-BROADCAST>
-					<COND (,LB-RUTH-CLEARED <TELL "'Six minutes of her voice. She had enough time to go below and come back. I never saw her at the microphone during the appeal; I only heard her.'" CR>)
-						(T <TELL "'I heard Ada all through the appeal. Surely that places her?' [[Ruth]] folds her injured hand. 'If you have the actual recording, let me hear your evidence rather than your conclusion.'" CR>)>)
-				(<EQUAL? ,PRSI ,LB-VANE> <TELL "'At 9:16 I left him alive in the office. Edith saw me enter the kitchen straight away. At 9:21 I left her there and found him dead. He owed us wages. That doesn't make what happened a pay rise.'" CR>)
-				(T <TELL "'Ask me about the [[microphone]], the [[broadcast]], or [[Vane]]. I can tell you what I saw. What I heard appears more troublesome.'" CR>)> <RTRUE>)
+					<COND (,LB-RUTH-CLEARED <TELL "“Six minutes of her voice. She had enough time to go below and come back. I never saw her at the microphone during the appeal; I only heard her.”" CR>)
+						(T <TELL "“I heard Ada all through the appeal. Surely that places her?” [[Ruth]] folds her injured hand. “If you have the actual recording, let me hear your evidence rather than your conclusion.”" CR>)>)
+				(<EQUAL? ,PRSI ,LB-VANE> <TELL "“At 9:16 I left him alive in the office. Edith saw me enter the kitchen straight away. At 9:21 I left her there and found him dead. He owed us wages. That doesn't make what happened a pay rise.”" CR>)
+				(T <TELL "“Ask me about the [[microphone]], the [[broadcast]], or [[Vane]]. I can tell you what I saw. What I heard appears more troublesome.”" CR>)> <RTRUE>)
 		(<VERB? SHOW> <LB-SHOW>)
 		(<VERB? ACCUSE> <LB-ACCUSE>)>>
 <ROUTINE LB-EDITH-F ()
@@ -314,11 +314,11 @@
 		<COND (,LB-EDITH-CLEARED <TELL "Now that the patient is named, she has the plain impatience of a doctor kept from useful work." CR>)> <RTRUE>)
 		(<VERB? TELL>
 			<COND (<EQUAL? ,PRSI ,LB-BAG ,LB-DRESSING>
-				<COND (,LB-EDITH-CLEARED <TELL "'Ruth's cut hand, from 9:16 to 9:21. She was beside me throughout the appeal until she went to fetch Vane. We were both afraid he would dismiss her for breaking the glass. A splendid standard for an employer.'" CR>)
-					(T <TELL "'The blood in my bag belongs to a patient. You may inspect it. I will not make medical privacy look less suspicious merely to suit you.'" CR>)>)
-				(<EQUAL? ,PRSI ,LB-BROADCAST> <TELL "'I heard the appeal from the kitchen. Ruth came in at 9:16, before it started, and stayed until 9:21. A voice through a wall is not a medical observation of its owner.'" CR>)
-				(<EQUAL? ,PRSI ,LB-VANE> <TELL "'He threatened to expose my treatment of union men who could not pay. There was nothing unlawful in treating them; he only needed their next employers to know. He was alive when Ruth left him at 9:16. The clock is irrelevant to the wound.'" CR>)
-				(T <TELL "'Ask about the [[medical bag]], the [[broadcast]], or [[Vane]]. You may examine the bag. I would prefer a fact to an insinuation.'" CR>)> <RTRUE>)
+				<COND (,LB-EDITH-CLEARED <TELL "“Ruth's cut hand, from 9:16 to 9:21. She was beside me throughout the appeal until she went to fetch Vane. We were both afraid he would dismiss her for breaking the glass. A splendid standard for an employer.”" CR>)
+					(T <TELL "“The blood in my bag belongs to a patient. You may inspect it. I will not make medical privacy look less suspicious merely to suit you.”" CR>)>)
+				(<EQUAL? ,PRSI ,LB-BROADCAST> <TELL "“I heard the appeal from the kitchen. Ruth came in at 9:16, before it started, and stayed until 9:21. A voice through a wall is not a medical observation of its owner.”" CR>)
+				(<EQUAL? ,PRSI ,LB-VANE> <TELL "“He threatened to expose my treatment of union men who could not pay. There was nothing unlawful in treating them; he only needed their next employers to know. He was alive when Ruth left him at 9:16. The clock is irrelevant to the wound.”" CR>)
+				(T <TELL "“Ask about the [[medical bag]], the [[broadcast]], or [[Vane]]. You may examine the bag. I would prefer a fact to an insinuation.”" CR>)> <RTRUE>)
 		(<VERB? SHOW> <LB-SHOW>)
 		(<VERB? ACCUSE> <LB-ACCUSE>)>>
 <ROUTINE LB-TOMAS-F ()
@@ -327,11 +327,11 @@
 		<COND (,LB-TOMAS-CLEARED <TELL "He has stopped hiding the outgoing side of the receipt. It is a small, sensible revolution." CR>)> <RTRUE>)
 		(<VERB? TELL>
 			<COND (<EQUAL? ,PRSI ,LB-RECEIPT>
-				<COND (,LB-TOMAS-CLEARED <TELL "'The bookmaker knows. You know. Vane knew. Oddly, the third is no longer the worst of it. I shall leave the island owing an ordinary sum to an ordinary brute.'" CR>)
-					(T <TELL "'The mainland can verify my times. Please read the [[receipt]] yourself. I would rather be suspected of murder than discuss the message on the other side.' He pauses. 'That came out badly.'" CR>)>)
-				(<EQUAL? ,PRSI ,LB-BROADCAST> <TELL "'I heard Ada from 9:17. I was answering challenge groups on this [[telegraph]] from 9:16 until 9:22. A recording cannot know which numbers the mainland will choose next.'" CR>)
-				(<EQUAL? ,PRSI ,LB-VANE> <TELL "'He bought my gambling debt. Then he charged me for the favour every payday. I wanted to leave, not become a murderer permanently resident here.'" CR>)
-				(T <TELL "'Ask about the [[receipt]], the [[broadcast]], or [[Vane]]. I have no talent for looking innocent. The telegraph is better at it.'" CR>)> <RTRUE>)
+				<COND (,LB-TOMAS-CLEARED <TELL "“The bookmaker knows. You know. Vane knew. Oddly, the third is no longer the worst of it. I shall leave the island owing an ordinary sum to an ordinary brute.”" CR>)
+					(T <TELL "“The mainland can verify my times. Please read the [[receipt]] yourself. I would rather be suspected of murder than discuss the message on the other side.” He pauses. “That came out badly.”" CR>)>)
+				(<EQUAL? ,PRSI ,LB-BROADCAST> <TELL "“I heard Ada from 9:17. I was answering challenge groups on this [[telegraph]] from 9:16 until 9:22. A recording cannot know which numbers the mainland will choose next.”" CR>)
+				(<EQUAL? ,PRSI ,LB-VANE> <TELL "“He bought my gambling debt. Then he charged me for the favour every payday. I wanted to leave, not become a murderer permanently resident here.”" CR>)
+				(T <TELL "“Ask about the [[receipt]], the [[broadcast]], or [[Vane]]. I have no talent for looking innocent. The telegraph is better at it.”" CR>)> <RTRUE>)
 		(<VERB? SHOW> <LB-SHOW>)
 		(<VERB? ACCUSE> <LB-ACCUSE>)>>
 <ROUTINE LB-ADA-F ()
@@ -341,20 +341,20 @@
 			(,LB-MOTIVE <TELL "She no longer speaks of the owner, only of Vane." CR>)> <RTRUE>)
 		(<VERB? TELL>
 			<COND (<EQUAL? ,PRSI ,LB-BOOTS ,LB-ROSTER>
-				<COND (,LB-TRACE <TELL "'I should have burned them.' Ada catches the words too late. 'Because they are worn out. You can take down whichever version you prefer.'" CR>)
-					(T <TELL "'I repaired the heel myself. I inspect the cable passage every evening; it is my route on the [[roster]]. Take the [[boots]] if you must. I have had enough of standing.'" CR>)>)
+				<COND (,LB-TRACE <TELL "“I should have burned them.” Ada catches the words too late. “Because they are worn out. You can take down whichever version you prefer.”" CR>)
+					(T <TELL "“I repaired the heel myself. I inspect the cable passage every evening; it is my route on the [[roster]]. Take the [[boots]] if you must. I have had enough of standing.”" CR>)>)
 				(<EQUAL? ,PRSI ,LB-DISC> <LB-ADA-EXHIBIT ,LB-DISC>)
 				(<EQUAL? ,PRSI ,LB-WEIGHT> <LB-ADA-EXHIBIT ,LB-WEIGHT>)
 				(<EQUAL? ,PRSI ,LB-BROADCAST>
 					<COND (,LB-PROVENANCE <LB-ADA-EXHIBIT ,LB-DISC>)
-						(T <TELL "'Everyone heard me speaking. Ask Ruth. The recording equipment exists for emergencies; an island is a series of emergencies with water between them.'" CR>)>)
+						(T <TELL "“Everyone heard me speaking. Ask Ruth. The recording equipment exists for emergencies; an island is a series of emergencies with water between them.”" CR>)>)
 				(<EQUAL? ,PRSI ,LB-STAIN>
 					<COND (,LB-TRACE <LB-ADA-EXHIBIT ,LB-BOOTS>)
-						(T <TELL "'It is a service passage. You must distinguish a trace of routine work from something that happened tonight.'" CR>)>)
+						(T <TELL "“It is a service passage. You must distinguish a trace of routine work from something that happened tonight.”" CR>)>)
 				(<EQUAL? ,PRSI ,LB-VANE ,LB-LEDGER>
-					<COND (,LB-MOTIVE <TELL "'My father thought the shares would keep me here safely after he died. Instead they kept us both paying. I wanted the proof to live longer than Vane's ownership.'" CR>)
-						(T <TELL "'The accounts are in the archive. If you want to understand this station, read them. People are noisier than figures and generally less exact.'" CR>)>)
-				(T <TELL "'Ask about my [[boots]], the [[roster]], the [[broadcast]], or [[Vane]]. Please make it a question whose answer you intend to hear.'" CR>)> <RTRUE>)
+					<COND (,LB-MOTIVE <TELL "“My father thought the shares would keep me here safely after he died. Instead they kept us both paying. I wanted the proof to live longer than Vane's ownership.”" CR>)
+						(T <TELL "“The accounts are in the archive. If you want to understand this station, read them. People are noisier than figures and generally less exact.”" CR>)>)
+				(T <TELL "“Ask about my [[boots]], the [[roster]], the [[broadcast]], or [[Vane]]. Please make it a question whose answer you intend to hear.”" CR>)> <RTRUE>)
 		(<VERB? SHOW> <LB-SHOW>)
 		(<VERB? ACCUSE> <LB-ACCUSE>)>>
 
@@ -364,17 +364,17 @@
 		(<AND <EQUAL? ,PRSI ,LB-ADA> <OR <EQUAL? ,PRSO ,LB-DISC ,LB-BOOTS> <EQUAL? ,PRSO ,LB-WEIGHT>>>
 			<LB-ADA-EXHIBIT ,PRSO>)
 		(<AND <EQUAL? ,PRSO ,LB-DISC> <EQUAL? ,PRSI ,LB-RUTH>>
-		<COND (<NOT ,LB-SOUND> <TELL "'It is a disc,' says [[Ruth]]. 'We have dozens. Hear it first; tell me whether it is the one you heard tonight.'" CR>)
-			(T <SETG LB-RUTH-CLEARED T> <TELL "Ruth repeats the gull cough from memory, then laughs once without pleasure. 'The rehearsal. I was in the cutting room at 8:40. Ada recorded all six minutes. She told me to leave the microphone heater on tonight, and I thought that meant she was live. At 9:16 I reached the kitchen, cut my hand on a glass, and stayed with Edith until 9:21. Ada did not need me to lie. She needed me to misunderstand.'|The tiny glass cut is still visible. You have both a recording witness and a medical witness to test." CR>)>)
+		<COND (<NOT ,LB-SOUND> <TELL "“It is a disc,” says [[Ruth]]. “We have dozens. Hear it first; tell me whether it is the one you heard tonight.”" CR>)
+			(T <SETG LB-RUTH-CLEARED T> <TELL "Ruth repeats the gull cough from memory, then laughs once without pleasure. “The rehearsal. I was in the cutting room at 8:40. Ada recorded all six minutes. She told me to leave the microphone heater on tonight, and I thought that meant she was live. At 9:16 I reached the kitchen, cut my hand on a glass, and stayed with Edith until 9:21. Ada did not need me to lie. She needed me to misunderstand.”|The tiny glass cut is still visible. You have both a recording witness and a medical witness to test." CR>)>)
 		(<AND <EQUAL? ,PRSO ,LB-DRESSING> <EQUAL? ,PRSI ,LB-EDITH>>
 		<COND (<NOT ,LB-DRESSING-SEEN> <TELL "Read the [[dressing]] before asking Edith to identify the evidence." CR>)
-			(T <SETG LB-EDITH-CLEARED T> <TELL "'Ruth Bell. Three fragments of glass, here, here and here.' [[Edith]] points without touching. 'She entered at 9:16; I dated the dressing 9:17 while the appeal began. She sat with me until 9:21. We can account for one another throughout the interval. I concealed a patient's name, not Vane's death.'|The matching little cut on Ruth's hand explains the blood. It does not match the blunt head wound." CR>)>)
+			(T <SETG LB-EDITH-CLEARED T> <TELL "“Ruth Bell. Three fragments of glass, here, here and here.” [[Edith]] points without touching. “She entered at 9:16; I dated the dressing 9:17 while the appeal began. She sat with me until 9:21. We can account for one another throughout the interval. I concealed a patient's name, not Vane's death.”|The matching little cut on Ruth's hand explains the blood. It does not match the blunt head wound." CR>)>)
 		(<AND <EQUAL? ,PRSO ,LB-RECEIPT> <EQUAL? ,PRSI ,LB-TOMAS>>
 		<COND (<NOT ,LB-RECEIPT-SEEN> <TELL "Read the mainland stamps on the [[receipt]] before presenting it." CR>)
-			(T <SETG LB-TOMAS-CLEARED T> <TELL "Tomas turns the [[receipt]] over. 'A bookmaker. Forty-seven pounds. Vane was going to tell my mother; you may think that funny if you have not met her.'|The mainland's unpredictable challenges required his hand at the key every minute, 9:16 to 9:22. No interval remains for the office journey. He has hidden a debt, not a departure." CR>)>)
+			(T <SETG LB-TOMAS-CLEARED T> <TELL "Tomas turns the [[receipt]] over. “A bookmaker. Forty-seven pounds. Vane was going to tell my mother; you may think that funny if you have not met her.”|The mainland's unpredictable challenges required his hand at the key every minute, 9:16 to 9:22. No interval remains for the office journey. He has hidden a debt, not a departure." CR>)>)
 		(<AND <EQUAL? ,PRSO ,LB-LEDGER> <EQUAL? ,PRSI ,LB-ADA>>
 		<COND (<NOT ,LB-LEDGER-SEEN> <TELL "Read the [[ledger]] before asking Ada to explain it." CR>)
-			(T <SETG LB-MOTIVE T> <TELL "Ada touches her father's name. 'He promised shares instead of wages. Then sold the station as though none of us had paid for it. Tomorrow he meant to burn the accounts. He told me so at nine-fifteen.'|Her anger is unmistakable; its existence proves no murder. But the [[ledger]] explains why a prepared recording might become more than insurance against a failed microphone. 'Do not let them call him a generous man,' she says." CR>)>)
+			(T <SETG LB-MOTIVE T> <TELL "Ada touches her father's name. “He promised shares instead of wages. Then sold the station as though none of us had paid for it. Tomorrow he meant to burn the accounts. He told me so at nine-fifteen.”|Her anger is unmistakable; its existence proves no murder. But the [[ledger]] explains why a prepared recording might become more than insurance against a failed microphone. “Do not let them call him a generous man,” she says." CR>)>)
 		(T <TELL "That exhibit does not resolve this witness's contradiction. Each survivor has something specific to explain." CR>)>
 	<RTRUE>>
 
@@ -416,7 +416,7 @@
 		(<EQUAL? ,PRSO ,LB-ADA>
 			<COND (<NOT ,LB-RECONSTRUCTED> <TELL "Ada waits. A theory needs a reconstructed sequence, not a collection of suspicions. Consult your [[casebook]] and reconstruct it before making this charge." CR>)
 				(T <SETG LB-WON T>
-				<TELL "'The voice stayed here,' you say. 'You did not.'|Ada looks once at the heel repair. 'I recorded an appeal to save the place. Then he said he would burn my father's name with the accounts. I started the disc because I knew what I was going to do. Not because the machine failed. Because it worked.'|She describes the counterweight, the hatch, and the spanner returned at nine-twenty. You write the admission beneath the facts which earned it. The ledger will go to the workers; the rest goes to the police. Neither fact cancels the other.|Ruth makes one last announcement. No music, no rehearsal: Julian Vane is dead; the station will remain silent until morning. Outside, the gulls have returned. They have nothing prepared.||THE LAST BROADCAST -- CASE SOLVED.||" >
+				<TELL "“The voice stayed here,” you say. “You did not.”|Ada looks once at the heel repair. “I recorded an appeal to save the place. Then he said he would burn my father's name with the accounts. I started the disc because I knew what I was going to do. Not because the machine failed. Because it worked.”|She describes the counterweight, the hatch, and the spanner returned at nine-twenty. You write the admission beneath the facts which earned it. The ledger will go to the workers; the rest goes to the police. Neither fact cancels the other.|Ruth makes one last announcement. No music, no rehearsal: Julian Vane is dead; the station will remain silent until morning. Outside, the gulls have returned. They have nothing prepared.||THE LAST BROADCAST -- CASE SOLVED.||" >
 				<FINISH>)>)
 		(T <TELL "Accuse a person, with evidence sufficient to withstand an answer." CR>)>
 	<RTRUE>>
@@ -445,17 +445,17 @@
 <ROUTINE LB-ADA-EXHIBIT (EXHIBIT)
 	<COND (<EQUAL? .EXHIBIT ,LB-DISC>
 		<COND (,LB-PROVENANCE
-			<TELL "'A reserve,' Ada says. 'I cut the appeal in case the live feed failed. Preparing for a fault is my job.' She keeps looking at the label, not at you. 'You have proved when that voice was made. You have not proved where I stood when it was played.'" CR>)
-			(,LB-SOUND <TELL "'My voice, yes. A reserve recording. You can hear what is on it; its edge and the cutting entry can tell you the rest.' Ada draws her hands away from the disc." CR>)
-			(T <TELL "'A disc is not yet an accusation. Have you listened to it?' Ada does not reach for it." CR>)>)
+			<TELL "“A reserve,” Ada says. “I cut the appeal in case the live feed failed. Preparing for a fault is my job.” She keeps looking at the label, not at you. “You have proved when that voice was made. You have not proved where I stood when it was played.”" CR>)
+			(,LB-SOUND <TELL "“My voice, yes. A reserve recording. You can hear what is on it; its edge and the cutting entry can tell you the rest.” Ada draws her hands away from the disc." CR>)
+			(T <TELL "“A disc is not yet an accusation. Have you listened to it?” Ada does not reach for it." CR>)>)
 		(<EQUAL? .EXHIBIT ,LB-BOOTS>
 		<COND (,LB-TRACE
-			<TELL "'Inside the stitching?' Ada repeats. She begins to say 'routine inspection', then stops. The repair is her own work; now she will not look at it. 'You have measured it. I cannot improve a measurement by speaking.'" CR>)
-			(T <TELL "'I repair my own soles. That square patch is mine. If you think the boots tell you where I went, measure them against something. Don't ask me to supply the ground.'" CR>)>)
+			<TELL "“Inside the stitching?” Ada repeats. She begins to say “routine inspection”, then stops. The repair is her own work; now she will not look at it. “You have measured it. I cannot improve a measurement by speaking.”" CR>)
+			(T <TELL "“I repair my own soles. That square patch is mine. If you think the boots tell you where I went, measure them against something. Don't ask me to supply the ground.”" CR>)>)
 		(<EQUAL? .EXHIBIT ,LB-WEIGHT>
 		<COND (,LB-WEAPON
-			<TELL "Ada starts to turn the counterweight, then stops before her thumb reaches the dark retaining lug. 'I cleaned that machine every morning. Not this evening.' Her voice has lost its broadcast precision. 'Anyone could lift it. That is all I can say about it.'" CR>)
-			(T <TELL "'The cutter's counterweight. Loose, by design. It is meant to balance an arm, not prove a theory. What have you matched its edge to?'" CR>)>)>
+			<TELL "Ada starts to turn the counterweight, then stops before her thumb reaches the dark retaining lug. “I cleaned that machine every morning. Not this evening.” Her voice has lost its broadcast precision. “Anyone could lift it. That is all I can say about it.”" CR>)
+			(T <TELL "“The cutter's counterweight. Loose, by design. It is meant to balance an arm, not prove a theory. What have you matched its edge to?”" CR>)>)>
 	<RTRUE>>
 
 <ROUTINE LB-HEEL-REPAIR-F ()

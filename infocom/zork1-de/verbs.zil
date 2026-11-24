@@ -3,7 +3,7 @@
 		       started on 7/25/83 by SEM
 		       -- GERMAN EDITION"
 
-;"*** General note: Most of this file consists of dull 'verb defaults',
+;"*** General note: Most of this file consists of dull “verb defaults”,
 that is, responses you get if there's nothing interesting to respond
 to what was typed. Most sentences are of a very general nature, which
 must be maintained since you can plug in any (THING) into the sentence. ***"
@@ -241,7 +241,7 @@ hast." CR>)>)
 	 <COND (<NOT <FSET? ,PRSO ,ACTORBIT>>
 		<TELL
 "Nur ein Verr%uckter w%urde " EIN-ACC ,PRSO " angreifen." CR>)
-	       ;"for 'greif troll an'"
+	       ;"for “greif troll an”"
 	       (<AND <NOT ,PRSI>
 		     <SET X <FIND-IN ,ADVENTURER ,WEAPONBIT>>>
 		<TELL "(mit " DER-DAT .X ")" CR CR>
@@ -1509,7 +1509,7 @@ erdolchen." CR>)>>
 <ROUTINE V-STAY ()
 	 <TELL "Du r%uhrst dich nicht." CR>>
 
-;"WAS USED FOR 'SCHLAG OBJECT'"
+;"WAS USED FOR “SCHLAG OBJECT”"
 ;<ROUTINE V-STRIKE ()
 	 <COND (<FSET? ,PRSO ,ACTORBIT>
 		;<TELL
@@ -2345,7 +2345,7 @@ takes TWO bytes to represent their values"
 	       "AUX" (LB <>) WLOC 
 	             (AV <>) OLIT OHERE)
 	 <SET OLIT ,LIT>
-	 <SET OHERE ,HERE> ;"next three lines used to be 'aux' defaults"
+	 <SET OHERE ,HERE> ;"next three lines used to be “aux” defaults"
 	 <SET WLOC <LOC ,WINNER>>
 	 <COND (<FSET? .RM ,RLANDBIT>
 		<SET LB T>)>

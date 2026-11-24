@@ -329,7 +329,7 @@ file system. Your directory has gone seriously west. I fixed it.\" He
 checks the screen. \"It was mixed up on the file server with some files
 from the Department of
 Alchemy.\" He grunts. \"People's names for their nodes are getting
-weird. This one is called 'Lovecraft.'\" He pauses. \"Your paper is gone,
+weird. This one is called “Lovecraft.”\" He pauses. \"Your paper is gone,
 though. Sorry. Maybe they could help you down there.\"" CR>)
 		      (ELSE
 		       <MOVE ,HACKER ,TERMINAL-ROOM>
@@ -2776,8 +2776,8 @@ CTHE ,PADLOCK " can't lock onto " THE .OBJ ,PERIOD>>
 		  "Kilroy was here."
 		  "Tech is hell."
 		  "I.H.T.F.P."
-		  "'God is dead' --Nietzsche|
-'Nietzsche is dead' --God">>
+		  "“God is dead” --Nietzsche|
+“Nietzsche is dead” --God">>
 
 <ROUTINE STEAM-EXIT ()
 	 <COND (<FSET? ,PRESSURE-VALVE ,OPENBIT>

@@ -50,9 +50,9 @@
 
 <ROUTINE EKIT-F ()
  <COND
-  (<VERB? EXAMINE TELL> <COND (,LENS-READY <TELL "'You don't have to make it pretty,' he says. 'You only have to say what happened.' You cannot remember when he came up the stair." CR>)
-    (,TALLY-READ <TELL "'They don't erase everyone's name,' he says. 'Just the ones they think nobody will ask for.'" CR>)
-    (T <TELL "'You promised you wouldn't disappear on me again,' he says. You had remembered the promise as something he said." CR>)>)>>
+  (<VERB? EXAMINE TELL> <COND (,LENS-READY <TELL "“You don't have to make it pretty,” he says. “You only have to say what happened.” You cannot remember when he came up the stair." CR>)
+    (,TALLY-READ <TELL "“They don't erase everyone's name,” he says. “Just the ones they think nobody will ask for.”" CR>)
+    (T <TELL "“You promised you wouldn't disappear on me again,” he says. You had remembered the promise as something he said." CR>)>)>>
 
 <ROUTINE EMUG-F ()
  <COND
@@ -60,7 +60,7 @@
 
 <ROUTINE ETALLY-F ()
  <COND
-  (<VERB? EXAMINE READ SEARCH> <SETG TALLY-READ T> <TELL "Three names went out on the ferry. Two were brought back. The keeper struck the third line out rather than count it. In the margin is your own hand: 'I said the third was never there.' The initials beneath it are K. R." CR>)>>
+  (<VERB? EXAMINE READ SEARCH> <SETG TALLY-READ T> <TELL "Three names went out on the ferry. Two were brought back. The keeper struck the third line out rather than count it. In the margin is your own hand: “I said the third was never there.” The initials beneath it are K. R." CR>)>>
 
 <ROUTINE EPLATE-F ()
  <COND
@@ -91,7 +91,7 @@
   (<VERB? EXAMINE> <TELL "The [[bell]] is bolted through its handle. The clapper is worn where a person could reach it. This is how the keeper summoned witnesses from ashore." CR>)
   (<VERB? TAKE> <TELL "It belongs to the house. You could sound it here." CR>)
   (<VERB? RING> <COND (<NOT ,LENS-READY> <TELL "Not into a dark sea. Go [[west]] and light the missing berth first." CR>)
-    (T <SETG EBB-ENDING T> <TELL "The first note is ugly. The second knocks a light on across the water. Between the second note and the third you shout, 'Kit Rook was aboard. I let you write him out.' You stay on the gallery until the first lantern turns this way." CR CR "THE END: THE SHORE HEARS" CR> <FINISH>)>)>>
+    (T <SETG EBB-ENDING T> <TELL "The first note is ugly. The second knocks a light on across the water. Between the second note and the third you shout, “Kit Rook was aboard. I let you write him out.” You stay on the gallery until the first lantern turns this way." CR CR "THE END: THE SHORE HEARS" CR> <FINISH>)>)>>
 
 <ROUTINE EBRAKE-F ()
  <COND

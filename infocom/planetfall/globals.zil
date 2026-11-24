@@ -424,7 +424,7 @@ gotten 300 demerits." CR>)
 				     <RTRUE>)>)
 			     (T
 			      <RFALSE>)>)>)>
-	 ;"Here is the default 'cant see any' printer"
+	 ;"Here is the default “cant see any” printer"
 	 <COND (<EQUAL? ,WINNER ,ADVENTURER>
 		<TELL "You can't see any">
 		<NOT-HERE-PRINT .PRSO?>
@@ -441,7 +441,7 @@ gotten 300 demerits." CR>)
 
 <ROUTINE FIND-NOT-HERE (TBL PRSO? "AUX" M-F OBJ)
 	;"Protocol: return T if case was handled and msg TELLed,
-	    ,NOT-HERE-OBJECT if 'can't see' msg TELLed,
+	    ,NOT-HERE-OBJECT if “can't see” msg TELLed,
 			  <> if PRSO/PRSI ready to use"
 	;"Here is where special-case code goes. <MOBY-FIND .TBL> returns
 	   number of matches. If 1, then P-MOBY-FOUND is it. One may treat
@@ -1562,7 +1562,7 @@ nothing. He scratches his head and looks confused." CR>)>)>>
 					 ,BETTY-CONTROL-WEST>>
 		       <TELL "You ARE in the shuttle car." CR>)
 		      (T
-		       <TELL "Use 'north' or 'south'." CR>)>)
+		       <TELL "Use “north” or “south”." CR>)>)
 	       (<VERB? EXIT DISEMBARK DROP>
 		<COND (<EQUAL? ,HERE ,SHUTTLE-CAR-ALFIE>
 		       <DO-WALK ,P?NORTH>)

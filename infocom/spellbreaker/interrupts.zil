@@ -68,8 +68,8 @@
 		<TELL
 'SNEFFLE " of the Guild of Bakers is addressing the gathering. \"Do you know what this is doing
 to our business? Do you know how difficult it is to make those yummy butter
-pastries by hand? When a simple 'gloth' spell would fold the dough 83 times
-it was possible to make a profit, but now 'gloth' hardly works, and when it
+pastries by hand? When a simple “gloth” spell would fold the dough 83 times
+it was possible to make a profit, but now “gloth” hardly works, and when it
 does, it usually folds the dough too often and the butter melts, or it
 doesn't come out the right size, or...\" He stops, apparently overwhelmed by
 the prospect of a world where the pastries have to be hand-made. \"Can't you do
@@ -94,7 +94,7 @@ Guild of Huntsmen. \"I'm a simple man, and I don't know much about
 magic. But I do know that the wild beasts are kept out of the towns and
 villages not just by the huntsmen, but by spells as well. Just
 yesterday, one of my men was attacked and badly wounded by a troop of
-rat-ants. They'd slipped the bounds set down by a 'fripple' spell
+rat-ants. They'd slipped the bounds set down by a “fripple” spell
 somehow. Are we going to let the sorcerers loose rat-ants on us, and
 worse?\" He sits, glaring significantly at the now-angry clump of mages
 around you.">)
