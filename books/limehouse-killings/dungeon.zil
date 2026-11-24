@@ -361,8 +361,8 @@
       (IN STUDY)
       (DESC "fireplace")
       (LDESC "A stone fireplace, its hearth cold. Ashes and a locked box remain from the last fire.")
-      (SYNONYM FIREPLACE HEARTH ASHES ASH FIRE GRATE MANTELPIECE MANTEL PANEL)
-      (ADJECTIVE STONE COLD)
+      (SYNONYM FIREPLACE HEARTH ASHES ASH FIRE GRATE MANTELPIECE MANTEL PANEL CHIMNEY BREAST STAIR)
+      (ADJECTIVE STONE COLD CHIMNEY)
       (FLAGS NDESCBIT)
       (ACTION FIREPLACE-F)>
 
@@ -447,7 +447,7 @@
       (IN DINING-ROOM)
       (DESC "wine cabinet")
       (LDESC "A glass-fronted cabinet stands unlatched. One bottle-shaped gap interrupts the dust on its medicinal-wine shelf.")
-      (SYNONYM CABINET WINE-CABINET)
+      (SYNONYM CABINET WINE-CABINET SHELF)
       (ADJECTIVE WINE GLASS GLASS-FRONTED UNLATCHED MEDICINAL)
       (FLAGS NDESCBIT CONTBIT SEARCHBIT)
       (INTERACTIONS "")
@@ -458,7 +458,7 @@
       (IN KITCHEN)
       (DESC "copper pots")
       (LDESC "Copper pots, tarnished with age, hang from the kitchen ceiling. They have cooked many meals, but none recently.")
-      (SYNONYM POTS POT PAN PANS)
+      (SYNONYM POTS POT PAN PANS RACK)
       (ADJECTIVE COPPER TARNISHED)
       (FLAGS NDESCBIT)
       (ACTION POTS-F)>
@@ -559,7 +559,7 @@
       (IN GREENHOUSE)
       (DESC "potting bench")
       (LDESC "A wooden potting bench, its surface covered in soil and tools. Labels identify the plants it tends.")
-      (SYNONYM BENCH STEMS GROOVE)
+      (SYNONYM BENCH STEMS GROOVE STAGING POTS POT)
       (ADJECTIVE POTTING WOODEN CUT)
       (FLAGS NDESCBIT)
       (ACTION BENCH-F)>
@@ -569,7 +569,7 @@
       (IN SERVANTS-QUARTERS)
       (DESC "servant beds")
       (LDESC "Simple beds for the household staff, their sheets worn but clean.")
-      (SYNONYM BEDS BED LINEN)
+      (SYNONYM BEDS BED LINEN BLANKETS BLANKET)
       (ADJECTIVE NARROW SERVANT SIMPLE EMPTY)
       (FLAGS NDESCBIT)
       (ACTION BEDS-F)>
@@ -611,8 +611,8 @@
       (IN SECRET-PASSAGE)
       (DESC "stone walls")
       (LDESC "Wet stone walls, slick with moisture. They have stood for centuries.")
-      (SYNONYM WALLS WALL MORTAR STEPS STAIRS STAIR)
-      (ADJECTIVE STONE WET SLICK STUDY)
+      (SYNONYM WALLS WALL MORTAR STEPS STAIRS STAIR CHIMNEY BREAST)
+      (ADJECTIVE STONE WET SLICK STUDY CHIMNEY)
       (FLAGS NDESCBIT)
 	  (ACTION STONE-WALLS-F)>
 
@@ -641,7 +641,7 @@
       (IN PANTRY)
       (DESC "pantry shelves")
       (LDESC "Shelves filled with food and wine. Some items are old, others relatively fresh.")
-      (SYNONYM SHELVES SHELF PRESERVES SPICES)
+      (SYNONYM SHELVES SHELF PRESERVES SPICES SPICE JARS JAR PACKETS PACKET)
       (ADJECTIVE PANTRY OLD FRESH)
       (FLAGS NDESCBIT)
       (ACTION SHELVES-F)>
@@ -848,7 +848,7 @@
       (INTERACTIONS "")
 	(IN DINING-ROOM)
 	(DESC "dinner cutlery")
-	(SYNONYM CUTLERY SETTINGS PLATE SOUP SPOON FORK KNIFE KNIVES)
+	(SYNONYM CUTLERY SETTINGS PLATE SOUP SPOON FORK KNIFE KNIVES BOWL PLACES)
 	(ADJECTIVE DINNER BLUNT HEAVY TABLE UNTOUCHED)
 	(FLAGS NDESCBIT)
 	(ACTION PLACE-SETTINGS-F)>
@@ -881,7 +881,7 @@
     (ACTION HUDSON-SPOON-F)>
 
 <OBJECT PANTRY-APPLES (IN PANTRY) (DESC "stored apples")
-    (SYNONYM APPLES APPLE FRUIT) (ADJECTIVE STORED WRINKLED)
+    (SYNONYM APPLES APPLE FRUIT STRAW) (ADJECTIVE STORED WRINKLED)
     (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "The winter apples sit apart on straw so a bad one cannot spoil its neighbours. One has shrivelled around its stalk.")
     (ACTION PANTRY-APPLES-F)>
@@ -968,3 +968,15 @@
     (TEXT "The other fans have five neat ridges apiece. Here loose gravel has been pushed up against the doorstep.")
     (ACTION RAKE-MARKS-F)>
 
+
+<OBJECT KITCHEN-RANGE (IN KITCHEN) (DESC "kitchen range")
+    (SYNONYM RANGE STOVE OVEN) (ADJECTIVE KITCHEN IRON BLACK)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "A black iron range fills the old chimney place. Its fire is banked low, and the kettle sits on the hot plate where Hudson left it.")
+    (ACTION KITCHEN-RANGE-F)>
+
+<OBJECT GARDEN-GREENHOUSE (IN GARDEN) (DESC "greenhouse")
+    (SYNONYM GREENHOUSE GLASSHOUSE PANES PANE) (ADJECTIVE GLASS MISTED)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "A small greenhouse stands at the north end of the garden. Its panes are misted from the warmth inside.")
+    (ACTION GARDEN-GREENHOUSE-F)>

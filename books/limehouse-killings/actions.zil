@@ -930,7 +930,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
 
 <ROUTINE GATE-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "You are standing at the iron [[gates]] of Ashworth Manor, a short walk from the Limehouse docks. Cold river [[fog]] drifts between the bars and beads on everything it touches. Beyond the gates a raked gravel [[path]] runs up to the [[house->manor house]] itself, dark brick in the fog, with a single [[lit window]] showing downstairs. The gates stand open, and the path leads [[north]] to the front door." CR>)>>
+           <TELL "You are standing at the iron [[gates]] of Ashworth Manor, on the edge of Limehouse. Cold river [[fog]] drifts between the bars and beads on everything it touches. Beyond the gates a raked gravel [[path]] runs up to the [[house->manor house]] itself, dark brick in the fog, with a single [[lit window]] showing downstairs. The gates stand open, and the path leads [[north]] to the house." CR>)>>
 
 <ROUTINE STUDY-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
@@ -961,13 +961,13 @@ player has had the lid up, a closed trunk stays closed to a glance."
 
 <ROUTINE LIBRARY-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "You are in the library, a long room lined from floor to ceiling with [[bookshelves->bookshelf]]. Lamplight catches the gilt [[titles]] on the spines, and small coloured [[ribbons]] hang from a few of the shelves. A [[reading desk]] under the lamp is strewn with loose papers.">
+           <TELL "You are in the library, a long room lined from floor to ceiling with [[bookshelves->bookshelf]]. Lamplight catches the gilt [[titles]] on the spines, and small coloured [[ribbons]] hang from a few of the shelves. A [[reading desk]] in the middle of the room is strewn with loose papers.">
            <COND (<IN? ,DR-MORIARTY ,LIBRARY>
-                  <TELL " [[Dr. Moriarty->moriarty]] stands by the shelves in a good black coat, tapping one [[spine]] with a fingernail.">)>
+                  <TELL " [[Dr. Moriarty->moriarty]] stands by the shelves, tapping one [[spine]] with a fingernail.">)>
            <COND (,CIPHER-SOLVED
-                  <TELL " A section of shelving has swung aside on a stone passage to the [[east]], and the doorway back to the entrance hall is to the [[west]].">)
+                  <TELL " A section of shelving has swung aside, and a dark way leads [[east]] into the wall. The entrance hall is back to the [[west]].">)
                  (T
-                  <TELL " The only way out is the doorway back to the entrance hall, to the [[west]].">)>
+                  <TELL " The only way out is back to the entrance hall, to the [[west]].">)>
            <CRLF>)>>
 
 <ROUTINE KITCHEN-FCN (RARG)
@@ -975,11 +975,11 @@ player has had the lid up, a closed trunk stays closed to a glance."
            <TELL "You are in the manor kitchen, below the entrance hall. It is the one warm room in the house: a blue enamel [[kettle]] simmers on the range beside the cold [[hearth]], and tarnished copper [[pots]] hang from a rack overhead. A [[servant bell]] hangs on the wall by its rope, and the counter [[drawer]] is">
            <COND (<FSET? ,DRAWER ,OPENBIT> <TELL " pulled open.">)
                  (T <TELL " shut.">)>
-           <TELL " Stairs lead [[up]] to the entrance hall, and the back door opens [[west]] onto the garden." CR>)>>
+           <TELL " Stairs lead [[up]] to the entrance hall, and the garden lies outside to the [[west]]." CR>)>>
 
 <ROUTINE GARDEN-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "You are in the walled garden behind the manor. Rain drips from the overgrown [[hedges]] along the walls, and a dry stone [[fountain]] stands at the centre with a few [[coins]] in its basin.">
+           <TELL "You are in the walled garden behind the manor. Rain drips from the overgrown [[hedges]], and a dry stone [[fountain]] stands at the centre with a few [[coins]] in its basin.">
            <COND (<AND <FSET? ,BLOOD-STAINED-KNIFE ,INVISIBLE> <IN? ,BLOOD-STAINED-KNIFE ,GARDEN>>
                   <TELL " Something glints deep in the hedges, low down near the fountain.">)
                  (<AND <IN? ,BLOOD-STAINED-KNIFE ,GARDEN> <FSET? ,BLOOD-STAINED-KNIFE ,NDESCBIT>>
@@ -988,11 +988,11 @@ player has had the lid up, a closed trunk stays closed to a glance."
                   <TELL " The tall [[study window]] stands open to the [[northeast]], its sill low enough to step over.">)
                  (T
                   <TELL " To the northeast, the tall [[study window]] is shut.">)>
-           <TELL " A path leads [[north]] to a glass greenhouse and another [[south]] to the servants' quarters, and the kitchen door is to the [[east]]." CR>)>>
+           <TELL " A path leads [[north]] to a glass [[greenhouse]] and another [[south]] to the servants' quarters, and the kitchen is to the [[east]]." CR>)>>
 
 <ROUTINE DINING-ROOM-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "You are in the dining room. A long [[table]] is laid for two under an unlit gasolier, though only one of the places has been used.">
+           <TELL "You are in the dining room. A long [[table]] is laid for two, though only one of the places has been used.">
            <COND (<EQUAL? ,CASE-ACT 3>
                   <TELL " Lady [[Ashworth]] sits listening toward the hall, her [[black ribbon]] laid beside her [[plate]].">)
                  (,LADY-CONFRONTED
@@ -1005,7 +1005,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
 
 <ROUTINE GREENHOUSE-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "You are in a small glass greenhouse built against the garden wall. Rain ticks on the panes, and the air is warm and heavy with wet earth. Exotic [[plants]] crowd the staging, among them a clump of tall purple flowers beside a wooden potting [[bench]].">
+           <TELL "You are in a small glass greenhouse at the end of the garden. Rain ticks overhead, and the air is warm and heavy with wet earth. Exotic [[plants]] crowd the wooden staging, among them a clump of tall purple flowers beside a wooden potting [[bench]].">
            <COND (,POISON-IDENTIFIED
                   <TELL " You have already matched the bottle from the study against their curled paper [[labels]].">)
                  (T
@@ -1016,12 +1016,12 @@ player has had the lid up, a closed trunk stays closed to a glance."
     <COND (<EQUAL? .RARG ,M-LOOK>
            <TELL "You are in the servants' quarters, a low whitewashed room at the bottom of the garden. Three narrow [[beds]] stand in a row with their blankets tucked tight, and a heavy wooden [[trunk]] sits at the foot of the last. The room smells of boot blacking and coal smoke.">
            <COND (<==? ,CASE-ACT 3>
-                  <TELL " Mr. [[Hudson]], the butler, stands by the door with his coat on and a packed [[carpetbag]] at his feet.">)
+                  <TELL " Mr. [[Hudson]], the butler, stands ready to leave, a packed [[carpetbag]] at his feet.">)
                  (,HUDSON-CONFRONTED
-                  <TELL " Mr. [[Hudson]], the butler, has set his polishing cloth aside and sits with his hands on his knees.">)
+                  <TELL " Mr. [[Hudson]], the butler, has stopped polishing at last and sits with his hands on his knees.">)
                  (T
                   <TELL " Mr. [[Hudson]], the butler, sits on the end of a bed polishing the same silver [[spoon]] over and over.">)>
-           <TELL " The door leads back [[north]] to the garden." CR>)>>
+           <TELL " The garden is back to the [[north]]." CR>)>>
 
 <ROUTINE SECRET-PASSAGE-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
@@ -1029,15 +1029,15 @@ player has had the lid up, a closed trunk stays closed to a glance."
            <COND (<AND <IN? ,LANTERN ,WINNER> <FSET? ,LANTERN ,ONBIT>>
                   <TELL " Your lantern picks out fresh heel marks in the [[dust]] on the floor.">)
                  (T <TELL " A trail of scuffs runs through the [[dust]] on the floor.">)>
-           <TELL " The opening into the library is to the [[west]], and steep [[study steps]] climb [[up]] inside the chimney breast." CR>)>>
+           <TELL " The library is back to the [[west]], and steep [[study steps]] climb [[up]] inside the chimney breast." CR>)>>
 
 <ROUTINE PANTRY-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "You are in a narrow pantry off the dining room. Wooden [[shelves]] climb to the ceiling, crowded with jars of preserves, tins and paper packets of spice. Winter [[apples]] laid out on straw sweeten the air, and a smear of black [[charcoal dust]] marks one shelf. The door back to the dining room is to the [[south]]." CR>)>>
+           <TELL "You are in a narrow pantry off the dining room. Wooden [[shelves]] climb to the ceiling, crowded with jars of preserves and paper packets of spice. Winter [[apples]] laid out on straw sweeten the air, and a smear of black [[charcoal dust]] marks one shelf. The door back to the dining room is to the [[south]]." CR>)>>
 
 <ROUTINE ENTRANCE-HALL-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "You are in the entrance hall of Ashworth Manor. A dusty [[chandelier]] hangs over a faded Persian [[rug]], stern family [[portraits]] line the walls, and a polished [[hall table]] stands beneath the light.">
+           <TELL "You are in the entrance hall of Ashworth Manor. A dusty [[chandelier]] hangs over a faded Persian [[rug]], stern family [[portraits]] hang all around, and a polished [[hall table]] stands beneath the light.">
            <COND (<EQUAL? ,CASE-ACT 2>
                   <TELL " Beside the study door, a thin [[bell wire]] is still quivering.">)
                  (T
@@ -1048,14 +1048,14 @@ player has had the lid up, a closed trunk stays closed to a glance."
                   <TELL " The oak study [[door]] to the north is closed but unlocked.">)
                  (T
                   <TELL " The oak study [[door]] to the north is closed and locked.">)>
-           <TELL " The library is through a doorway to the [[east]] and the dining room to the [[west]]; service [[stairs]] go [[down]] to the kitchen, and the front door leads [[south]] to the gate.">
+           <TELL " The library is to the [[east]] and the dining room to the [[west]]; service [[stairs]] go [[down]] to the kitchen, and the way out leads [[south]] to the gate.">
            <COND (<AND ,INSPECTOR-PRESENT <IN? ,INSPECTOR ,ASHWORTH-ENTRANCE-HALL>>
                   <TELL " [[Inspector Lestrade->lestrade]] has arrived from Scotland Yard and waits under the chandelier with his notebook open">
                   <COND (<IN? ,DR-MORIARTY ,ASHWORTH-ENTRANCE-HALL>
                          <TELL ", and [[Dr. Moriarty->moriarty]] stands beside him, hat in hand">)>
                   <TELL ".">)
                  (<IN? ,DR-MORIARTY ,ASHWORTH-ENTRANCE-HALL>
-                  <TELL " [[Dr. Moriarty->moriarty]] waits by the front door with his hat in his hand.">)>
+                  <TELL " [[Dr. Moriarty->moriarty]] waits near the way out with his hat in his hand.">)>
            <CRLF>)>>
 
 ; --- Global Object Actions ---
@@ -2169,4 +2169,24 @@ player has had the lid up, a closed trunk stays closed to a glance."
            <RTRUE>)
           (<VERB? RUB>
            <TELL "The leather is supple and well oiled, and soft at the folds." CR>
+           <RTRUE>)>>
+
+<ROUTINE KITCHEN-RANGE-F ()
+    <COND (<VERB? RUB>
+           <TELL "You hold a palm near the iron and take it back quickly. The range is hot." CR>
+           <RTRUE>)
+          (<VERB? SMELL>
+           <TELL "Hot iron, coal and the black tea in the kettle." CR>
+           <RTRUE>)
+          (<VERB? OPEN>
+           <TELL "The firebox is full of glowing coal. Hudson has banked it to last the night." CR>
+           <RTRUE>)>>
+
+<ROUTINE GARDEN-GREENHOUSE-F ()
+    <COND (<VERB? ENTER> <DO-WALK ,P?NORTH>)
+          (<VERB? KNOCK>
+           <TELL "You tap a pane. Water runs down the glass and nobody answers." CR>
+           <RTRUE>)
+          (<VERB? LOOK-INSIDE>
+           <TELL "Through the misted glass you can make out green leaves and a splash of purple." CR>
            <RTRUE>)>>

@@ -175,7 +175,7 @@ test.describe("LLM Mode", function(t)
 		assert.assert_equal(inventory_code, 0)
 		assert.assert_match(inventory_output, "magnifying glass")
 		assert.assert_equal(examine_code, 0)
-		assert.assert_match(examine_output, "lens clear and strong")
+		assert.assert_match(examine_output, "clear and strong")
 
 		cleanup(savefile)
 	end)

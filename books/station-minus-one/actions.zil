@@ -126,6 +126,64 @@
        (<VERB? THROUGH CLIMB-ON CLIMB-FOO>
   <TELL "You stay on the platform. Whatever is on that track, you don't want to be standing on it when it arrives." CR>)>>
 
+<ROUTINE HALL-LIGHTS-F ()
+ <COND (<VERB? EXAMINE>
+  <TELL "The ceiling lamps are dark for the night. Pale green glow strips run along the floor instead, marking the way to the platform steps." CR>)
+       (<VERB? RUB>
+  <TELL "The strips are faintly warm, and they hum when you press them." CR>)
+       (<VERB? KICK>
+  <TELL "Your boot scuffs the plastic. The strip flickers, then steadies." CR>)>>
+
+<ROUTINE STATION-STEPS-F ()
+ <COND (<VERB? EXAMINE>
+  <TELL "Worn concrete steps between the ticket hall and the lower platform, with a steel rail down the middle." CR>)
+       (<VERB? LISTEN>
+  <TELL "Warm air breathes up and down them, as if the station itself were breathing." CR>)
+       (<VERB? CLIMB-FOO CLIMB-ON>
+  <TELL "To use them, just go that way." CR>)>>
+
+<ROUTINE STAFF-SINK-F ()
+ <COND (<VERB? EXAMINE>
+  <TELL "A little steel sink with a dripping tap and a wire drainer. The two rinsed [[cups]] stand upside down on the drainer." CR>)
+       (<VERB? LISTEN>
+  <TELL "The tap drips, slowly, about once a second. Then twice, quickly, as though it has lost count." CR>)
+       (<VERB? TURN OPEN CLOSE>
+  <TELL "You turn the tap tight. A moment later it starts dripping again." CR>)>>
+
+<ROUTINE GAUGE-DIALS-F ()
+ <COND (<VERB? EXAMINE READ>
+  <TELL "Old dials and pressure pipes cover the walls, all furred white with frost. Nobody reads these any more. The cradle and the stud on the console do the real work now." CR>)
+       (<VERB? RUB>
+  <TELL "You scrape a dial clear with your thumb. Its needle is pinned at zero, and the frost begins to close over it again at once." CR>)
+       (<VERB? KNOCK>
+  <TELL "The pipe rings like a tuning fork, and the note runs off under the floor toward the track." CR>)>>
+
+<ROUTINE GAUGE-CONSOLE-F ()
+ <COND (<VERB? EXAMINE>
+  <TELL "A long steel console under the frosted dials. Set into it are the round [[receiver cradle->cradle]] and the square [[calibration stud->stud]], both clear of frost." CR>)
+       (<VERB? RUB>
+  <TELL "The metal is cold everywhere except around the cradle and the stud." CR>)
+       (<VERB? LOOK-UNDER>
+  <TELL "Bundles of wire run from underneath it into the floor, toward the track." CR>)>>
+
+<ROUTINE PLATFORM-TUNNEL-F ()
+ <COND (<VERB? EXAMINE>
+  <TELL "Two round black tunnel mouths, one at each end of the platform. You can see a few metres of rail into each, and then nothing." CR>)
+       (<VERB? LISTEN>
+  <TELL "From the left-hand tunnel comes a long, low note, like a train a very long way off, or the memory of one." CR>)
+       (<VERB? SMELL>
+  <TELL "Cold stone, and a breath of hot brakes." CR>)
+       (<VERB? THROUGH WALK>
+  <TELL "Not on foot. Whatever is in there is better met from the platform." CR>)>>
+
+<ROUTINE PLATFORM-POST-F ()
+ <COND (<VERB? EXAMINE>
+  <TELL "A squat steel post at the platform edge, bearing two controls: the red [[rescue switch->switch]] and the grey [[quarantine latch->latch]]. Only one of them can be used tonight." CR>)
+       (<VERB? RUB>
+  <TELL "The post trembles faintly under your hand, in time with the rails." CR>)
+       (<VERB? KICK MOVE>
+  <TELL "It is set deep in the concrete and doesn't budge." CR>)>>
+
 <ROUTINE STATION-END-POSSIBLE ()
  <COND (,LOOP-OBSERVED <RTRUE>)
        (T <TELL "Your hand stops short. An empty reflection on the rail would look exactly like a train arriving. Run the comparison in the gauge room before you decide what to do with this train." CR> <RFALSE>)>>
