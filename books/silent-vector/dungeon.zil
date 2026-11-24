@@ -1,6 +1,5 @@
 <DIRECTIONS NORTH EAST WEST SOUTH NE NW SE SW UP DOWN IN OUT LAND>
 <ROOM CRADLE (IN ROOMS) (DESC "Restraint Cradle") (ACTION CRADLE-F)
-	(LDESC "A dry click repeats through the padding. The [[breaker]] is within reach. The pressure-balanced way [[north]] leads into the habitat.")
 	(NORTH PER CRADLE-NORTH) (FLAGS RLANDBIT ONBIT)>
 <OBJECT BREAKER
 	(INTERACTIONS "") (IN CRADLE) (DESC "habitat breaker") (SYNONYM BREAKER SWITCH RESET HOUSING PRESSURE) (ADJECTIVE HABITAT PRESSURE MECHANICAL TRIPPED BROAD PUSH)
@@ -8,6 +7,7 @@
 
 <ROOM HUB (IN ROOMS) (DESC "Habitat Junction")
 	(ACTION HUB-F)
+	(GLOBAL LADDER)
 	(SOUTH TO CRADLE)
 	(WEST TO WORKSHOP)
 	(EAST TO GALLEY)
@@ -17,7 +17,7 @@
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM WORKSHOP (IN ROOMS) (DESC "Torque Shop")
-	(LDESC "Warm [[insulation]] lines the [[tool recesses->recesses]] beneath a [[protocol card->protocol]] by the passage [[east]].")
+	(LDESC "You are in the Torque Shop, where the station's hand tools are kept. The walls are covered in warm [[insulation]], and shaped [[tool recesses->recesses]] are cut into it below a laminated [[protocol card->protocol]]. Everything smells faintly of machine oil. The only way out is [[east]], back to the junction.")
 	(EAST TO HUB)
 	(FLAGS RLANDBIT ONBIT)>
 
@@ -29,7 +29,6 @@
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM RECORDS (IN ROOMS) (ACTION RECORDS-LOOK) (DESC "Physical Archive")
-	(LDESC "Each footfall makes the [[recorder]] ring beside its [[mass ledger->ledger]]. The galley lies [[west]].")
 	(WEST TO GALLEY)
 	(FLAGS RLANDBIT ONBIT)>
 
@@ -47,15 +46,17 @@
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM SERVICE (IN ROOMS) (DESC "Service Spine")
-	(LDESC "A draught rattles the [[grille]] between coolant [[west]] and the relay [[east]], below the junction [[above->up]].")
+	(LDESC "You are in the Service Spine, a cramped crawlway of pipes and cable trays beneath the habitat. A steady draught rattles a ventilation [[grille]], and the [[pipes]] tick softly overhead. To the [[west]] lies the coolant well, and the receive relay is to the [[east]]. A [[ladder]] climbs [[up]] to the junction.")
 	(WEST TO COOLANT)
 	(EAST TO RELAY)
 	(UP TO HUB)
+	(GLOBAL LADDER SPINE-PIPES)
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM COOLANT (IN ROOMS) (DESC "Coolant Well")
 	(ACTION COOLANT-F)
 	(EAST TO SERVICE)
+	(GLOBAL SPINE-PIPES)
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM RELAY (IN ROOMS) (DESC "Receive Relay")
@@ -82,10 +83,9 @@
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM LAUNCH (IN ROOMS) (DESC "Launch Cupola")
-	(LDESC "The [[beacon]] points into the steady [[stars]]. The junction is [[down]].")
 	(ACTION LAUNCH-F)
 	(DOWN TO HUB)
-	(GLOBAL TOPIC-SIGNAL TOPIC-CREW TOPIC-DAUGHTER)
+	(GLOBAL TOPIC-SIGNAL TOPIC-CREW TOPIC-DAUGHTER LADDER)
 	(FLAGS RLANDBIT ONBIT)>
 
 <OBJECT COPPER-STRIP
@@ -110,7 +110,8 @@
 	(IN SERVICE) (DESC "ventilation grille")
 	(SYNONYM GRILLE VENT GRATE DRAUGHT DRAFT) (ADJECTIVE VENTILATION METAL)
 	(INTERACTIONS "") (FLAGS NDESCBIT)
-	(TEXT "One screw has shaken loose. A narrow [[strip of foil->foil streamer]] tied to the grille lifts in the draught toward the habitat above.")>
+	(TEXT "One screw has shaken loose. A narrow [[strip of foil->foil streamer]] tied to the grille lifts in the draught toward the habitat above.")
+	(ACTION GRILLE-F)>
 
 <OBJECT SHEARS
 	(INTERACTIONS "") (IN CLINIC) (DESC "pair of ceramic shears")
@@ -126,12 +127,12 @@
 
 <OBJECT PORTRAIT
 	(INTERACTIONS "") (IN GALLEY) (DESC "droplet portrait")
-	(SYNONYM PORTRAIT PICTURE PHOTOGRAPH PHOTO) (ADJECTIVE DROPLET FAMILY CLEAR CHILD)
+	(SYNONYM PORTRAIT PICTURE PHOTOGRAPH PHOTO FIELD) (ADJECTIVE DROPLET FAMILY CLEAR CHILD)
 	(FLAGS NDESCBIT) (ACTION PORTRAIT-F)>
 
 <OBJECT RECORDER
 	(INTERACTIONS "") (IN RECORDS) (DESC "witness recorder")
-	(SYNONYM RECORDER DRUM LID FOOTFALL FOOTSTEPS) (ADJECTIVE WITNESS PHYSICAL SEALED MECHANICAL DISCONNECTED EXPOSED)
+	(SYNONYM RECORDER DRUM LID FOOTFALL FOOTSTEPS FEET) (ADJECTIVE WITNESS PHYSICAL SEALED MECHANICAL DISCONNECTED EXPOSED)
 	(FLAGS NDESCBIT CONTBIT SEARCHBIT) (ACTION RECORDER-F)
 	(CAPACITY 30)>
 
@@ -153,7 +154,7 @@
 
 <OBJECT COMPARATOR
 	(INTERACTIONS "COMPARE:STRIP,WRENCH") (IN LAB) (DESC "optical comparator")
-	(SYNONYM COMPARATOR READER INSTRUMENT) (ADJECTIVE OPTICAL INDEPENDENT PHYSICAL LABORATORY)
+	(SYNONYM COMPARATOR READER INSTRUMENT READOUT DISPLAY) (ADJECTIVE OPTICAL INDEPENDENT PHYSICAL LABORATORY)
 	(FLAGS NDESCBIT) (ACTION COMPARATOR-F)>
 
 <OBJECT PUMP
@@ -169,7 +170,7 @@
 
 <OBJECT RECEIVER
 	(INTERACTIONS "") (IN RECEPTION) (DESC "signal receiver")
-	(SYNONYM RECEIVER HOUSING) (ADJECTIVE SIGNAL LIVE DEAD MECHANICAL ISOLATED)
+	(SYNONYM RECEIVER HOUSING VAULT) (ADJECTIVE SIGNAL LIVE DEAD MECHANICAL ISOLATED)
 	(FLAGS NDESCBIT CONTBIT SEARCHBIT) (ACTION RECEIVER-F)
 	(CAPACITY 30)>
 
@@ -227,17 +228,17 @@
 
 <OBJECT CRADLE-FRAME
 	(INTERACTIONS "") (IN CRADLE) (DESC "restraint frame")
-	(SYNONYM FRAME CRADLE RESTRAINT GRIPS PADDING DOOR INTERLOCK DOORWAY CLICK)
+	(SYNONYM FRAME CRADLE RESTRAINT GRIPS PADDING DOOR INTERLOCK DOORWAY CLICK NICHE)
 	(ADJECTIVE RESTRAINT PRESSURE MECHANICAL WORN DRY) (FLAGS NDESCBIT DOORBIT) (ACTION FRAME-F)>
 <OBJECT RECESSES
 	(INTERACTIONS "") (IN WORKSHOP) (DESC "tool recesses")
-	(SYNONYM RECESSES RECESS INSULATION SLOTS SLOT) (ADJECTIVE TOOL SHAPED EMPTY) (FLAGS NDESCBIT) (ACTION RECESSES-F)>
+	(SYNONYM RECESSES RECESS INSULATION SLOTS SLOT TOOLS WALLS WALL) (ADJECTIVE TOOL SHAPED EMPTY) (FLAGS NDESCBIT) (ACTION RECESSES-F)>
 <OBJECT EXAM-AREA
 	(INTERACTIONS "") (IN CLINIC) (DESC "examination area")
-	(SYNONYM AREA BED SOAP) (ADJECTIVE EXAMINATION CLINIC MEDICAL CLEAN) (FLAGS NDESCBIT) (ACTION EXAM-AREA-F)>
+	(SYNONYM AREA BED SOAP LAMP SHEET) (ADJECTIVE EXAMINATION CLINIC MEDICAL CLEAN) (FLAGS NDESCBIT) (ACTION EXAM-AREA-F)>
 <OBJECT STARFIELD
 	(INTERACTIONS "") (IN LAUNCH) (DESC "distant stars")
-	(SYNONYM STARS STARFIELD SPACE STAR) (ADJECTIVE DISTANT) (FLAGS NDESCBIT) (ACTION STARFIELD-F)>
+	(SYNONYM STARS STARFIELD SPACE STAR DOME GLASS) (ADJECTIVE DISTANT) (FLAGS NDESCBIT) (ACTION STARFIELD-F)>
 <OBJECT LAUNCH-HARDWARE
 	(INTERACTIONS "") (IN LAUNCH) (DESC "evacuation restraints")
 	(SYNONYM RESTRAINTS RESTRAINT CUPOLA PLACES SEATS SEAT) (ADJECTIVE EVACUATION PHYSICAL PASSIVE FOUR EMPTY)
@@ -261,7 +262,8 @@
 <OBJECT DETAIL-DROPLETS (IN GALLEY) (DESC "droplets")
     (SYNONYM DROPLETS DROPS) (ADJECTIVE CLEAR)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Shift your head a little. A cheek breaks up into separate beads and then comes together again when you lean back.")>
+    (TEXT "Shift your head a little. A cheek breaks up into separate beads and then comes together again when you lean back.")
+	(ACTION DROPLETS-F)>
 
 <OBJECT DETAIL-INSPECTION-FLAGS (IN QUARANTINE) (DESC "inspection flags")
     (SYNONYM FLAGS FLAG TABS) (ADJECTIVE INSPECTION)
@@ -288,3 +290,51 @@
     (SIZE 0) (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
     (TEXT "At the crossing, the raised edge of the serial is flattened. The relay stamp was put on second.")
     (ACTION RETURN-STAMP-F)>
+
+<OBJECT JUNCTION (IN HUB) (DESC "junction")
+	(SYNONYM JUNCTION HUB WALL WALLS STATION HATCHES) (ADJECTIVE HABITAT SIX-WAY PADDED)
+	(FLAGS NDESCBIT) (INTERACTIONS "")
+	(TEXT "Six hatches open off the round junction, each stencilled with a name worn soft by hands: shop, galley, clinic, cradle, spine, cupola. The walls between them are padded.")
+	(ACTION JUNCTION-F)>
+
+<OBJECT LADDER (IN LOCAL-GLOBALS) (DESC "ladder")
+	(SYNONYM LADDER RUNGS RUNG) (ADJECTIVE STEEL)
+	(FLAGS NDESCBIT) (INTERACTIONS "")
+	(TEXT "A steel ladder runs through the junction, from the service spine below to the launch cupola above.")
+	(ACTION LADDER-F)>
+
+<OBJECT GALLEY-TABLE (IN GALLEY) (DESC "galley table")
+	(SYNONYM TABLE RICE COFFEE MUGS MUG TRAYS) (ADJECTIVE GALLEY BOLTED SINGLE COLD)
+	(FLAGS NDESCBIT) (INTERACTIONS "")
+	(TEXT "A single table bolted to the deck, with four mugs clipped to its rim and the remains of a meal nobody finished.")
+	(ACTION GALLEY-TABLE-F)>
+
+<OBJECT SHELVES (IN RECORDS) (DESC "paper shelves")
+	(SYNONYM SHELVES SHELF STOREROOM CASES) (ADJECTIVE PAPER SEALED)
+	(FLAGS NDESCBIT) (INTERACTIONS "")
+	(TEXT "Sealed cases of paper records line the shelves, each labelled by year. They are the station's memory, written down where nothing can rewrite it.")
+	(ACTION SHELVES-F)>
+
+<OBJECT BENCHES (IN LAB) (DESC "steel benches")
+	(SYNONYM BENCHES BENCH) (ADJECTIVE STEEL LABORATORY)
+	(FLAGS NDESCBIT) (INTERACTIONS "")
+	(TEXT "Long steel benches, bare except for the instruments bolted to them. Everything here is built to measure, not to listen.")
+	(ACTION BENCHES-F)>
+
+<OBJECT SPINE-PIPES (IN LOCAL-GLOBALS) (DESC "pipes")
+	(SYNONYM PIPES PIPE TRAYS CRAWLWAY SHAFT LOOP DECK) (ADJECTIVE COOLANT COOLING CABLE)
+	(FLAGS NDESCBIT) (INTERACTIONS "")
+	(TEXT "Insulated coolant pipes and cable trays run the length of the station's underside, close enough to touch.")
+	(ACTION PIPES-F)>
+
+<OBJECT RELAY-BAY (IN RELAY) (DESC "relay bay")
+	(SYNONYM BAY CONDUIT ANTENNAS) (ADJECTIVE RELAY NARROW)
+	(FLAGS NDESCBIT) (INTERACTIONS "")
+	(TEXT "A narrow bay of grey panels. The only thing in it that matters is the cable coming out of its conduit.")
+	(ACTION BAY-F)>
+
+<OBJECT SHIELDING (IN QUARANTINE) (DESC "shielding")
+	(SYNONYM SHIELDING CELL WALLS WALL BENCH) (ADJECTIVE GREY DULL HEAVY)
+	(FLAGS NDESCBIT) (INTERACTIONS "")
+	(TEXT "Heavy grey shielding hangs on every wall, seamed like quilting. The only furniture is a single steel bench.")
+	(ACTION SHIELDING-F)>

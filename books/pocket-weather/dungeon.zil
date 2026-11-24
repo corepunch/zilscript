@@ -20,7 +20,7 @@
 
 <ROOM TERRACE (DESC "Warm Tile Terrace") (IN ROOMS) (FLAGS RLANDBIT ONBIT)
  (SOUTH TO DISPATCH) (UP TO VANE-DECK) (EAST TO GARDEN) (NORTH TO ARCH)
- (GLOBAL FORECAST PROMISE PAUSE YESTERDAY JOKE) (ACTION TERRACE-F)>
+ (GLOBAL FORECAST PROMISE PAUSE YESTERDAY JOKE LADDER) (ACTION TERRACE-F)>
 
 <OBJECT TERRACE-TILES (IN TERRACE) (DESC "warm tiles")
  (SYNONYM TILE TILES ROOF) (ADJECTIVE WARM RED)
@@ -30,7 +30,7 @@
 
 <ROOM VANE-DECK (DESC "Weathercock Perch") (IN ROOMS) (FLAGS RLANDBIT ONBIT)
  (DOWN TO TERRACE) (WEST TO ROOKERY)
- (GLOBAL FORECAST PROMISE PAUSE YESTERDAY JOKE) (ACTION VANE-DECK-F)>
+ (GLOBAL FORECAST PROMISE PAUSE YESTERDAY JOKE LADDER) (ACTION VANE-DECK-F)>
 
 <ROOM ROOKERY (DESC "Button Rookery") (IN ROOMS) (FLAGS RLANDBIT ONBIT)
  (EAST TO VANE-DECK) (SOUTH TO LAUNDRY)
@@ -73,7 +73,7 @@
  (INTERACTIONS "TELL:FORECAST,PROMISE,PAUSE,YESTERDAY;GIVE:CARD;SHOW:CARD,REPORT")
  (FLAGS ACTORBIT NDESCBIT) (ACTION MICA-F)>
 
-<OBJECT VANE (IN VANE-DECK) (DESC "weather vane") (SYNONYM VANE WEATHERCOCK COUNTERWEIGHT) (ADJECTIVE WEATHER)
+<OBJECT VANE (IN VANE-DECK) (DESC "weather vane") (SYNONYM VANE WEATHERCOCK COUNTERWEIGHT ROOSTER ARROW POLE) (ADJECTIVE WEATHER BRASS LONG)
  (INTERACTIONS "")
  (FLAGS NDESCBIT TURNBIT) (ACTION VANE-F)>
 
@@ -117,11 +117,11 @@
  (INTERACTIONS "SHOW:CLOUD")
  (FLAGS TAKEBIT INVISIBLE) (ACTION FLOWER-F)>
 
-<OBJECT GUTTER (IN GARDEN) (DESC "garden gutter") (SYNONYM GUTTER CHANNEL) (ADJECTIVE GARDEN DRY SHALLOW LITTLE NARROW WINDING CLEAR)
+<OBJECT GUTTER (IN GARDEN) (DESC "garden gutter") (SYNONYM GUTTER CHANNEL CRUST) (ADJECTIVE GARDEN DRY SHALLOW LITTLE NARROW WINDING CLEAR)
  (INTERACTIONS "DIG:SPOON,RIBBON")
  (FLAGS NDESCBIT) (ACTION GUTTER-F)>
 
-<OBJECT SEEDLINGS (IN GARDEN) (DESC "seedlings") (SYNONYM SEEDLINGS PLANTS ROOTS SOIL SEEDLING PLANT ROOT) (ADJECTIVE SMALL GROWING)
+<OBJECT SEEDLINGS (IN GARDEN) (DESC "seedlings") (SYNONYM SEEDLINGS PLANTS ROOTS SOIL SEEDLING PLANT ROOT LEAVES LEAF EARTH) (ADJECTIVE SMALL GROWING)
  (INTERACTIONS "")
  (FLAGS NDESCBIT) (ACTION SEEDLINGS-F)>
 
@@ -129,7 +129,7 @@
  (INTERACTIONS "")
  (FLAGS NDESCBIT READBIT) (ACTION CHART-F)>
 
-<OBJECT CHIME (IN ARCH) (DESC "wind chime") (SYNONYM CHIME BELL) (ADJECTIVE WIND HARD LOUD)
+<OBJECT CHIME (IN ARCH) (DESC "wind chime") (SYNONYM CHIME BELL TUBES TUBE) (ADJECTIVE WIND HARD LOUD METAL)
  (INTERACTIONS "TIE:RIBBON;UNTIE:RIBBON")
  (FLAGS NDESCBIT OPENBIT) (ACTION CHIME-F)>
 
@@ -162,7 +162,7 @@
  (FLAGS NDESCBIT) (ACTION TOPIC-F)>
 
 <OBJECT TILES-BELOW (IN VANE-DECK) (DESC "tiles below")
-    (SYNONYM TILES TILE ROOF) (ADJECTIVE WARM RED)
+    (SYNONYM TILES TILE ROOF SCALES) (ADJECTIVE WARM RED FISH)
     (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "From above, the tiles look like overlapping fish scales. Rain can slip from one to the next all the way to the garden.")>
 
@@ -175,12 +175,14 @@
 <OBJECT HOLLOW-BREEZE (IN TERRACE) (DESC "hollow breeze")
     (SYNONYM BREEZE WIND) (ADJECTIVE STEADY HOLLOW)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The air brushes one cheek on its way from the hollow to the garden. That is the way a drop would drift.")>
+    (TEXT "The air brushes one cheek on its way from the hollow to the garden. That is the way a drop would drift.")
+    (ACTION HOLLOW-BREEZE-F)>
 
 <OBJECT POST-RAIN (IN DISPATCH) (DESC "rain beads")
     (SYNONYM RAIN BEADS DROPS) (ADJECTIVE COLD BRASS)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Each bead shivers when the bell rings. Two small ones run together and make a fat one at the rim.")>
+    (TEXT "Each bead shivers when the bell rings. Two small ones run together and make a fat one at the rim.")
+    (ACTION POST-RAIN-F)>
 
 <OBJECT HOLLOW-SCENT (IN HOLLOW) (DESC "scent of rain")
     (SYNONYM SCENT SMELL RAIN) (ADJECTIVE DAMP EARTHY)
@@ -201,7 +203,8 @@
 <OBJECT COMMA-BISCUITS (IN KITCHEN) (DESC "comma biscuits")
     (SYNONYM BISCUITS BISCUIT COMMAS) (ADJECTIVE PLANNED COMMA)
     (FLAGS NDESCBIT INVISIBLE) (INTERACTIONS "")
-    (TEXT "Pip traces a little hooked shape in the flour. One end will be just right for dunking in tea.")>
+    (TEXT "Pip traces a little hooked shape in the flour. One end will be just right for dunking in tea.")
+    (ACTION COMMA-BISCUITS-F)>
 
 <OBJECT DETAIL-BRASS-PEAR (IN ROOKERY) (DESC "brass pear")
     (SYNONYM PEAR WEIGHT) (ADJECTIVE BRASS)
@@ -253,3 +256,69 @@
     (SYNONYM CLAPPER TONGUE) (ADJECTIVE HARD METAL)
     (FLAGS NDESCBIT) (INTERACTIONS "")
     (ACTION CLAPPER-F)>
+
+<OBJECT PIGEONHOLES (IN DISPATCH) (DESC "pigeonholes")
+    (SYNONYM PIGEONHOLES OFFICE WALLS WALL COUNTER SLOTS) (ADJECTIVE LETTER ROUND SNUG)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Rows of little wooden slots, one for every street in town, fill the walls above the counter. Folded forecasts wait in most of them.")
+    (ACTION PIGEONHOLES-F)>
+
+<OBJECT LADDER (IN LOCAL-GLOBALS) (DESC "ladder")
+    (SYNONYM LADDER RUNGS RUNG) (ADJECTIVE SHORT IRON)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "A short iron ladder bolted to the wall of the post, joining the terrace to the vane perch.")
+    (ACTION LADDER-F)>
+
+<OBJECT PERCH-RAIL (IN VANE-DECK) (DESC "railed ledge")
+    (SYNONYM RAIL RAILING LEDGE PERCH) (ADJECTIVE RAILED LITTLE)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The ledge is just wide enough for an apprentice and a rook. Its rail comes up to your chest, safely high.")
+    (ACTION PERCH-RAIL-F)>
+
+<OBJECT NESTS (IN ROOKERY) (DESC "nests")
+    (SYNONYM NESTS NEST LOFT TOPS THIMBLES TREASURES TWIGS HAIRPIN) (ADJECTIVE UNTIDY BOTTLE)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Twigs and string, woven tight, with every rook's treasures pressed into the sides: bottle tops, thimbles, a bent hairpin.")
+    (ACTION NESTS-F)>
+
+<OBJECT LAUNDRY-LINES (IN LAUNDRY) (DESC "drying lines")
+    (SYNONYM LINES LINE PEGS PEG WASHING TUB SUDS HOOK SOCKS TOWELS) (ADJECTIVE DRYING CLOTHES LEMON)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Tea towels and socks hang in rows, held by wooden pegs. Underneath, a tub of lemon suds slowly settles.")
+    (ACTION LINES-F)>
+
+<OBJECT FLOUR (IN KITCHEN) (DESC "flour")
+    (SYNONYM FLOUR DUST STOVE OVEN) (ADJECTIVE FINE)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Flour dusts the table, the stove and the tips of Pip's eyebrows. Somebody has drawn a smiling sun in it with one finger.")
+    (ACTION FLOUR-F)>
+
+<OBJECT SEED-SACKS (IN SHED) (DESC "seed sacks")
+    (SYNONYM SACKS SACK SACKING SEEDS HUT WALL WALLS EARTH) (ADJECTIVE SEED WOODEN)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Fat sacks of seed lean against the walls, each one tied at the neck with garden string.")
+    (ACTION SACKS-F)>
+
+<OBJECT ARCH-STONE (IN ARCH) (DESC "stone arch")
+    (SYNONYM IVY ARCH GATEWAY STONES KEYSTONE) (ADJECTIVE STONE CURVED WHISPER)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Old grey stones curve overhead, and ivy fills every crack. Sounds seem to run round the inside of the arch and come back to you.")
+    (ACTION ARCH-STONE-F)>
+
+<OBJECT MOSS (IN HOLLOW) (DESC "moss")
+    (SYNONYM MOSS HILLSIDE HILL DIP) (ADJECTIVE SOFT GREEN)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Thick green moss covers the hollow like a cushion. It is beaded with tiny drops, as if the hollow had been crying a little.")
+    (ACTION MOSS-F)>
+
+<OBJECT DRIP (IN ARCHIVE) (DESC "drip")
+    (SYNONYM DRIP CELLAR STRING STONE PUDDLE) (ADJECTIVE DAMP OLD COOL)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "High in a corner, water gathers on the stone and falls into a small puddle, regular as a clock.")
+    (ACTION DRIP-F)>
+
+<OBJECT BUNTING (IN BROADCAST) (DESC "bunting")
+    (SYNONYM BUNTING SQUARE STREET PARADE ROOFTOPS TOWN FLAGS LEDGE RAILING) (ADJECTIVE PAPER TOWN)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Paper flags in every colour zigzag across the street, and people below are setting out chairs for the parade. From up here the whole town looks small enough to carry.")
+    (ACTION BUNTING-F)>

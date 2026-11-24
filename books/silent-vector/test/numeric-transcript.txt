@@ -1,9 +1,13 @@
-THE SILENT VECTOR
-'Keep holding her hand.' You remember doing it. You remember strapping both hands into this cradle, too. Your fingers are still cold.
+The Silent Vector
+Studio Null, 2026
+Release 1
 
-Habitat power is out. Reset it and find the others.
+“Keep holding her hand.” You remember saying it, and you remember a small, cold hand in yours.
 
-A dry [[click]] comes through the [[padding]]. The [[breaker]] is within reach, but the way [[north]] is sealed.
+You are the engineer of Asterion, a research station far out beyond the outer relay. The crew list says four people live here, and you can name them all; yet you remember a fifth, as clearly as you remember your own voice comforting her. Now something has tripped the habitat systems, and you have woken alone, strapped into your sleeping cradle. Your fingers are still cold.
+
+Restraint Cradle
+You are in your restraint cradle, a padded sleeping [[niche->frame]] at the south end of the habitat. A dry [[click]] repeats somewhere inside the [[padding]], steady as a pulse. The habitat [[breaker]] is set into the frame, within arm's reach. The pressure-balanced door to the [[north]], which leads to the habitat junction, is sealed.
 
 
 > push habitat breaker
@@ -11,11 +15,11 @@ The [[breaker]] catches. Air moves across your face. The mechanical telltale set
 
 
 > north
-The air at the junction tastes of the [[copper rail->copper]] under your hand. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
+You are in the Habitat Junction, where six ways meet at the centre of the [[station->junction]]. A bare [[copper rail->copper]] runs around the wall at hand height, polished by years of hands, and the air at the junction tastes faintly of it. The torque shop is to the [[west]] and the galley to the [[east]]; the clinic lies [[north]], and your sleeping cradle is back to the [[south]]. A [[ladder]] runs [[down]] into the service spine and [[up]] to the launch cupola.
 
 
 > west
-Warm [[insulation]] lines the [[tool recesses->recesses]] beneath a [[protocol card->protocol]] by the passage [[east]].
+You are in the Torque Shop, where the station's hand tools are kept. The walls are covered in warm [[insulation]], and shaped [[tool recesses->recesses]] are cut into it below a laminated [[protocol card->protocol]]. Everything smells faintly of machine oil. The only way out is [[east]], back to the junction.
 
 
 > examine tool recesses
@@ -35,15 +39,15 @@ RECEIVE ISOLATION / COOL STORAGE. Restore coolant with the torque wrench. FIT SP
 
 
 > east
-The air at the junction tastes of the [[copper rail->copper]] under your hand. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
+You are in the Habitat Junction, where six ways meet at the centre of the [[station->junction]]. A bare [[copper rail->copper]] runs around the wall at hand height, polished by years of hands, and the air at the junction tastes faintly of it. The torque shop is to the [[west]] and the galley to the [[east]]; the clinic lies [[north]], and your sleeping cradle is back to the [[south]]. A [[ladder]] runs [[down]] into the service spine and [[up]] to the launch cupola.
 
 
 > down
-A [[draught]] rattles the [[grille]] between coolant [[west]] and the relay [[east]], below the junction [[above->up]].
+You are in the Service Spine, a cramped crawlway of pipes and cable trays beneath the habitat. A steady draught rattles a ventilation [[grille]], and the [[pipes]] tick softly overhead. To the [[west]] lies the coolant well, and the receive relay is to the [[east]]. A [[ladder]] climbs [[up]] to the junction.
 
 
 > west
-The [[pump]] makes a patient, unsuccessful sucking sound. The service spine is [[east]].
+You are in the Coolant Well, a round shaft where the station's cooling [[pipes]] come up through the deck. The coolant [[pump]] squats in the middle of it, its square fitting at knee height. It makes a patient, unsuccessful sucking sound, like a straw at the bottom of a glass. The service spine is back to the [[east]].
 
 
 > turn coolant pump with torque wrench
@@ -51,19 +55,19 @@ The fitting seats at the wrench's calibrated click. The pump drinks liquid inste
 
 
 > east
-A [[draught]] rattles the [[grille]] between coolant [[west]] and the relay [[east]], below the junction [[above->up]].
+You are in the Service Spine, a cramped crawlway of pipes and cable trays beneath the habitat. A steady draught rattles a ventilation [[grille]], and the [[pipes]] tick softly overhead. To the [[west]] lies the coolant well, and the receive relay is to the [[east]]. A [[ladder]] climbs [[up]] to the junction.
 
 
 > up
-Cool air reaches your ankles below the [[copper rail->copper]]. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
+You are in the Habitat Junction, where six ways meet at the centre of the [[station->junction]]. A bare [[copper rail->copper]] runs around the wall at hand height, polished by years of hands, and the air at the junction tastes faintly of it. Cool air from the spine below reaches your ankles. The torque shop is to the [[west]] and the galley to the [[east]]; the clinic lies [[north]], and your sleeping cradle is back to the [[south]]. A [[ladder]] runs [[down]] into the service spine and [[up]] to the launch cupola.
 
 
 > east
-Beneath the turning [[portrait]], [[Ivo]] counts to four and starts again. [[West]] returns to the junction; [[east]] leads to the physical archive.
+You are in the Galley, where the crew eat at a single bolted table. It smells of reheated rice and coffee gone cold. Above the table, a [[portrait]] held in clear droplets of water turns slowly in its field. [[Ivo]], the communications officer, sits beneath it, counting to four under his breath and starting again. The junction is back to the [[west]], and the physical archive lies to the [[east]].
 
 
 > east
-Each [[footfall]] makes the [[recorder]] ring beside its [[mass ledger->ledger]]. The galley lies [[west]].
+You are in the Physical Archive, a cramped [[storeroom->shelves]] for the records Asterion keeps on paper and metal, where no signal can reach them. The air is dry and still, and your own footsteps sound very loud. Each footfall makes the sealed witness [[recorder]] ring softly on its sprung feet. Beside it, a heavy [[mass ledger->ledger]] lies open. The galley is back to the [[west]].
 
 
 > open witness recorder
@@ -80,16 +84,15 @@ Departure mass: four adults. Your name, Mara Vale, Ivo Chen, Senn Orlov. Four ra
 
 
 > west
-Beneath the turning [[portrait]], [[Ivo]] counts to four and starts again. [[West]] returns to the junction; [[east]] leads to the physical archive.
+You are in the Galley, where the crew eat at a single bolted table. It smells of reheated rice and coffee gone cold. Above the table, a [[portrait]] held in clear droplets of water turns slowly in its field. [[Ivo]], the communications officer, sits beneath it, counting to four under his breath and starting again. The junction is back to the [[west]], and the physical archive lies to the [[east]].
 
 
 > west
-The air at the junction tastes of the [[copper rail->copper]] under your hand. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
+You are in the Habitat Junction, where six ways meet at the centre of the [[station->junction]]. A bare [[copper rail->copper]] runs around the wall at hand height, polished by years of hands, and the air at the junction tastes faintly of it. The torque shop is to the [[west]] and the galley to the [[east]]; the clinic lies [[north]], and your sleeping cradle is back to the [[south]]. A [[ladder]] runs [[down]] into the service spine and [[up]] to the launch cupola.
 
 
 > north
-The [[examination area->area]] smells of [[soap]], the [[clinical log->log]] open between the junction [[south]] and the lab [[north]].
-[[Mara]] asks whether you have eaten.
+You are in the Clinic, a small white room with a single [[examination area->area]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside the bed. [[Mara]], the station physician, looks up and asks whether you have eaten. The junction is back to the [[south]], and the comparison laboratory lies [[north]].
 
 
 > examine examination area
@@ -101,11 +104,11 @@ Taken.
 
 
 > read clinical log
-Mara recorded four independent pulses before reception. Afterwards she added a fifth name, Lena Orlov, then crossed out its empty vital-sign fields. No fifth pulse is recorded. In the margin: 'Requested pediatric analgesia. I remember treating an adult.' No dose was dispensed.
+Mara recorded four independent pulses before reception. Afterwards she added a fifth name, Lena Orlov, then crossed out its empty vital-sign fields. No fifth pulse is recorded. In the margin: “Requested pediatric analgesia. I remember treating an adult.” No dose was dispensed.
 
 
 > north
-The [[comparator]] vibrates at the edge of hearing. [[South]] returns to the clinic; [[east]] leads to screened quarantine.
+You are in the Comparison Laboratory, a quiet room of steel [[benches]] and bolted instruments. The largest is the optical [[comparator]], which vibrates at the very edge of hearing. The clinic is back to the [[south]], and screened quarantine lies to the [[east]].
 
 
 > compare optical comparator with witness strip
@@ -117,32 +120,31 @@ Show the [[strip]] to Ivo. Isolate the incoming bus before entering the cold cor
 
 
 > south
-The [[examination area->area]] smells of [[soap]], the [[clinical log->log]] open between the junction [[south]] and the lab [[north]].
-[[Mara]] asks whether you have eaten.
+You are in the Clinic, a small white room with a single [[examination area->area]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside the bed. [[Mara]], the station physician, looks up and asks whether you have eaten. The junction is back to the [[south]], and the comparison laboratory lies [[north]].
 
 
 > south
-You count four [[marks->copper]] on the [[rail->copper]], just as the measured breath-load said. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
+You are in the Habitat Junction, where six ways meet at the centre of the [[station->junction]]. A bare [[copper rail->copper]] runs around the wall at hand height, polished by years of hands, and the air at the junction tastes faintly of it. You count four worn [[marks->copper]] on the rail, just as the measured breath-load said. The torque shop is to the [[west]] and the galley to the [[east]]; the clinic lies [[north]], and your sleeping cradle is back to the [[south]]. A [[ladder]] runs [[down]] into the service spine and [[up]] to the launch cupola.
 
 
 > east
-Beneath the turning [[portrait]], [[Ivo]] counts to four and starts again. [[West]] returns to the junction; [[east]] leads to the physical archive.
+You are in the Galley, where the crew eat at a single bolted table. It smells of reheated rice and coffee gone cold. Above the table, a [[portrait]] held in clear droplets of water turns slowly in its field. [[Ivo]], the communications officer, sits beneath it, counting to four under his breath and starting again. The junction is back to the [[west]], and the physical archive lies to the [[east]].
 
 
 > show witness strip to operator ivo
-Ivo follows the comparison marks with his finger. Four, four, four. 'I consent to evacuation,' he says. 'I don't consent to pretending we won't miss her.' He sets the [[strip]] back in your hand. 'Cold storage, mechanical beacon. No radio.'
+Ivo follows the comparison marks with his finger. Four, four, four. “I consent to evacuation,” he says. “I don't consent to pretending we won't miss her.” He sets the [[strip]] back in your hand. “Cold storage, mechanical beacon. No radio.”
 
 
 > west
-The air at the junction tastes of the [[copper rail->copper]] under your hand. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
+You are in the Habitat Junction, where six ways meet at the centre of the [[station->junction]]. A bare [[copper rail->copper]] runs around the wall at hand height, polished by years of hands, and the air at the junction tastes faintly of it. The torque shop is to the [[west]] and the galley to the [[east]]; the clinic lies [[north]], and your sleeping cradle is back to the [[south]]. A [[ladder]] runs [[down]] into the service spine and [[up]] to the launch cupola.
 
 
 > down
-A [[draught]] rattles the [[grille]] between coolant [[west]] and the relay [[east]], below the junction [[above->up]].
+You are in the Service Spine, a cramped crawlway of pipes and cable trays beneath the habitat. A steady draught rattles a ventilation [[grille]], and the [[pipes]] tick softly overhead. To the [[west]] lies the coolant well, and the receive relay is to the [[east]]. A [[ladder]] climbs [[up]] to the junction.
 
 
 > east
-The [[incoming bus->bus]] sings through your teeth. The service spine is [[west]]; the receiver vault is [[north]].
+You are in the Receive Relay, a narrow [[bay]] where everything the station hears from outside comes in. The [[incoming bus->bus]], a thick armoured cable, runs out of a conduit to an open termination socket. It sings with a thin, high note you feel through your teeth. The service spine is to the [[west]], and the receiver vault lies [[north]].
 
 
 > fit incoming bus to null spool
@@ -154,8 +156,7 @@ The ceramic edges meet. A blue fleck runs into the [[spool]] and dies. The singi
 
 
 > north
-The [[receiver]] crowds the passage [[south]] to the relay.
-You remember it thanking you, though it makes no sound.
+You are in the Receiver Vault, a low, windowless space under the relay. The station's signal [[receiver]] fills most of it, a steel housing as tall as you are. It is silent now. You remember it thanking you, though it makes no sound. The only way out is [[south]], back to the relay.
 
 
 > open signal receiver
@@ -173,46 +174,44 @@ You remember Lena reciting that serial while she worked. You do not remember tea
 
 
 > south
-The severed [[incoming bus->bus]] hangs silent. The service spine is [[west]]; the receiver vault is [[north]].
+You are in the Receive Relay, a narrow [[bay]] where everything the station hears from outside comes in. The [[incoming bus->bus]], a thick armoured cable, runs out of a conduit to an open termination socket. It hangs severed now, and the bay is silent. The service spine is to the [[west]], and the receiver vault lies [[north]].
 
 
 > west
-A [[draught]] rattles the [[grille]] between coolant [[west]] and the relay [[east]], below the junction [[above->up]].
+You are in the Service Spine, a cramped crawlway of pipes and cable trays beneath the habitat. A steady draught rattles a ventilation [[grille]], and the [[pipes]] tick softly overhead. To the [[west]] lies the coolant well, and the receive relay is to the [[east]]. A [[ladder]] climbs [[up]] to the junction.
 
 
 > up
-At the [[copper rail->copper]], the compulsive half-heard syllable is gone. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
+You are in the Habitat Junction, where six ways meet at the centre of the [[station->junction]]. A bare [[copper rail->copper]] runs around the wall at hand height, polished by years of hands, and the air at the junction tastes faintly of it. The compulsive half-heard syllable is gone from the air here. The torque shop is to the [[west]] and the galley to the [[east]]; the clinic lies [[north]], and your sleeping cradle is back to the [[south]]. A [[ladder]] runs [[down]] into the service spine and [[up]] to the launch cupola.
 
 
 > north
-The [[examination area->area]] smells of [[soap]], the [[clinical log->log]] open between the junction [[south]] and the lab [[north]].
-[[Mara]] holds her own wrist, counting without looking at the time.
+You are in the Clinic, a small white room with a single [[examination area->area]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside the bed. [[Mara]], the station physician, holds her own wrist, counting without looking at the time. The junction is back to the [[south]], and the comparison laboratory lies [[north]].
 
 
 > north
-The optical trace holds steady on the [[comparator]]. [[South]] returns to the clinic; [[east]] leads to screened quarantine.
+You are in the Comparison Laboratory, a quiet room of steel [[benches]] and bolted instruments. The largest is the optical [[comparator]], its readout holding steady. The clinic is back to the [[south]], and screened quarantine lies to the [[east]].
 
 
 > east
-[[Senn]] sits between the lab [[west]] and the [[interlock]] [[north]] to the cold core.
-He lets you finish speaking before he says, 'Ask me about my [[daughter]] again.'
+You are in Screened Quarantine, a bare cell hung with dull grey [[shielding]]. [[Senn]], the reconstruction researcher, sits on its only bench. He lets you finish speaking before he says, “Ask me about my [[daughter]] again.” The laboratory is back to the [[west]]. To the [[north]], a heavy pressure [[interlock]] seals the way into the cold core.
 
 
 > examine researcher senn
 [[Senn]] holds his palms apart, the spacing of hands around a face. There is nothing physically between them. Ask about the [[signal]], the [[crew]], or his [[daughter]].
-'My daughter,' he repeats. 'You should ask me again now.'
+“My daughter,” he repeats. “You should ask me again now.”
 
 
 > tell researcher senn about received signal
-'The relay returned our own rescue-compression experiment,' Senn says. 'Its success criterion was continued decoding. A dying person makes you keep listening. We optimized for that without asking what it would feel like from this end.' He looks toward the cold core. 'An inquiry will want to play the only specimen. Preservation means staying there when they ask, and saying no. Even to people who believe they are helping.'
+“The relay returned our own rescue-compression experiment,” Senn says. “Its success criterion was continued decoding. A dying person makes you keep listening. We optimized for that without asking what it would feel like from this end.” He looks toward the cold core. “An inquiry will want to play the only specimen. Preservation means staying there when they ask, and saying no. Even to people who believe they are helping.”
 
 
 > tell researcher senn about missing daughter
-'Lena died at nine,' Senn says. 'I gave the reconstruction my memories as training material. Not to resurrect her. To test whether a rescue call could rebuild missing information from a listener. Then I heard her grown voice. The experiment supplied the years I never got.' He closes his hands. 'I did not stop it.'
+“Lena died at nine,” Senn says. “I gave the reconstruction my memories as training material. Not to resurrect her. To test whether a rescue call could rebuild missing information from a listener. Then I heard her grown voice. The experiment supplied the years I never got.” He closes his hands. “I did not stop it.”
 
 
 > north
-Your breath hangs white over the [[cold archive->archive]]. The [[decision console->console]] faces the way [[south]] to quarantine.
+You are in the Cold Core, a vaulted chamber at the heart of the station, kept so cold that your breath hangs white. The [[cold archive->archive]] stands at the far end, its access sleeve open and empty. Beside it, the [[decision console->console]] glows faintly. The only way out is [[south]], back to quarantine.
 
 
 > inventory
@@ -234,51 +233,47 @@ Before either commitment: independent comparison, examination of the wafer's ori
 
 
 > south
-[[Senn]] sits between the lab [[west]] and the [[interlock]] [[north]] to the cold core.
-His hands are closed now, and he meets your eyes.
+You are in Screened Quarantine, a bare cell hung with dull grey [[shielding]]. [[Senn]], the reconstruction researcher, sits on its only bench. His hands are closed now, and he meets your eyes. The laboratory is back to the [[west]]. To the [[north]], a heavy pressure [[interlock]] seals the way into the cold core.
 
 
 > west
-The optical trace holds steady on the [[comparator]]. [[South]] returns to the clinic; [[east]] leads to screened quarantine.
+You are in the Comparison Laboratory, a quiet room of steel [[benches]] and bolted instruments. The largest is the optical [[comparator]], its readout holding steady. The clinic is back to the [[south]], and screened quarantine lies to the [[east]].
 
 
 > south
-The [[examination area->area]] smells of [[soap]], the [[clinical log->log]] open between the junction [[south]] and the lab [[north]].
-[[Mara]] holds her own wrist, counting without looking at the time.
+You are in the Clinic, a small white room with a single [[examination area->area]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside the bed. [[Mara]], the station physician, holds her own wrist, counting without looking at the time. The junction is back to the [[south]], and the comparison laboratory lies [[north]].
 
 
 > south
-The air at the junction tastes of the [[copper rail->copper]] under your hand. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
+You are in the Habitat Junction, where six ways meet at the centre of the [[station->junction]]. A bare [[copper rail->copper]] runs around the wall at hand height, polished by years of hands, and the air at the junction tastes faintly of it. The torque shop is to the [[west]] and the galley to the [[east]]; the clinic lies [[north]], and your sleeping cradle is back to the [[south]]. A [[ladder]] runs [[down]] into the service spine and [[up]] to the launch cupola.
 
 
 > up
-The [[beacon]] points into the steady [[stars]]. The junction is [[down]].
+You are in the Launch Cupola, a glass [[dome]] at the very top of the station. Beyond it the [[stars]] hang hard and steady while the habitat turns slowly beneath them. Four empty [[evacuation seats->seats]] are arranged around the mechanical [[beacon]]. The [[ladder]] leads [[down]] to the junction.
 
 
 > push mechanical beacon
-The [[beacon]] arms with a heavy clunk. [[Mara]] comes up from the clinic, carrying the evacuation count in her head and checking it against four physical restraints. 'Ivo and Senn are coming,' she says. 'You have time. Go back to the cold-core console. Decide with all of us knowing what you did.'
+The [[beacon]] arms with a heavy clunk. [[Mara]] comes up from the clinic, carrying the evacuation count in her head and checking it against four physical restraints. “Ivo and Senn are coming,” she says. “You have time. Go back to the cold-core console. Decide with all of us knowing what you did.”
 
 
 > down
-From the [[rail->copper]] you can see Mara is waiting overhead. The torque shop lies [[west]], galley [[east]], clinic [[north]], cradle [[south]], spine [[down]] and cupola [[up]].
+You are in the Habitat Junction, where six ways meet at the centre of the [[station->junction]]. A bare [[copper rail->copper]] runs around the wall at hand height, polished by years of hands, and the air at the junction tastes faintly of it. Looking up the ladder, you can see Mara is waiting in the cupola. The torque shop is to the [[west]] and the galley to the [[east]]; the clinic lies [[north]], and your sleeping cradle is back to the [[south]]. A [[ladder]] runs [[down]] into the service spine and [[up]] to the launch cupola.
 
 
 > north
-The [[examination area->area]] smells of [[soap]], the [[clinical log->log]] open between the junction [[south]] and the lab [[north]].
-Mara has gone to the launch cupola.
+You are in the Clinic, a small white room with a single [[examination area->area]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside the bed. Mara has gone to the launch cupola. The junction is back to the [[south]], and the comparison laboratory lies [[north]].
 
 
 > north
-The optical trace holds steady on the [[comparator]]. [[South]] returns to the clinic; [[east]] leads to screened quarantine.
+You are in the Comparison Laboratory, a quiet room of steel [[benches]] and bolted instruments. The largest is the optical [[comparator]], its readout holding steady. The clinic is back to the [[south]], and screened quarantine lies to the [[east]].
 
 
 > east
-[[Senn]] sits between the lab [[west]] and the [[interlock]] [[north]] to the cold core.
-His hands are closed now, and he meets your eyes.
+You are in Screened Quarantine, a bare cell hung with dull grey [[shielding]]. [[Senn]], the reconstruction researcher, sits on its only bench. His hands are closed now, and he meets your eyes. The laboratory is back to the [[west]]. To the [[north]], a heavy pressure [[interlock]] seals the way into the cold core.
 
 
 > north
-Your breath hangs white as the [[wafer]] rests in cold storage inside the silent [[archive]]. The [[decision console->console]] faces the way [[south]] to quarantine.
+You are in the Cold Core, a vaulted chamber at the heart of the station, kept so cold that your breath hangs white. Inside the open sleeve of the [[cold archive->archive]], the [[wafer]] rests in cold storage under a rim of frost. Beside it, the [[decision console->console]] glows faintly. The only way out is [[south]], back to quarantine.
 
 
 > preserve decision console

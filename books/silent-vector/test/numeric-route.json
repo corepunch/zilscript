@@ -1,16 +1,16 @@
 [
   [
-    9,
+    12,
     "push breaker",
     "push habitat breaker"
   ],
   [
-    10,
+    17,
     "north",
     "north"
   ],
   [
-    5,
+    11,
     "west",
     "west"
   ],
@@ -20,74 +20,29 @@
     "examine tool recesses"
   ],
   [
-    10,
+    15,
     "take wrench",
     "take torque wrench"
   ],
   [
-    12,
+    19,
     "take spool",
     "take null spool"
   ],
   [
-    7,
+    10,
     "read protocol",
     "read protocol card"
   ],
   [
-    8,
+    13,
     "east",
     "east"
   ],
   [
-    9,
+    20,
     "down",
     "down"
-  ],
-  [
-    5,
-    "west",
-    "west"
-  ],
-  [
-    7,
-    "turn pump with wrench",
-    "turn coolant pump with torque wrench"
-  ],
-  [
-    8,
-    "east",
-    "east"
-  ],
-  [
-    7,
-    "up",
-    "up"
-  ],
-  [
-    6,
-    "east",
-    "east"
-  ],
-  [
-    9,
-    "east",
-    "east"
-  ],
-  [
-    5,
-    "open recorder",
-    "open witness recorder"
-  ],
-  [
-    12,
-    "take strip",
-    "take witness strip"
-  ],
-  [
-    9,
-    "read ledger",
-    "read mass ledger"
   ],
   [
     10,
@@ -95,12 +50,57 @@
     "west"
   ],
   [
+    14,
+    "turn pump with wrench",
+    "turn coolant pump with torque wrench"
+  ],
+  [
+    15,
+    "east",
+    "east"
+  ],
+  [
+    17,
+    "up",
+    "up"
+  ],
+  [
+    12,
+    "east",
+    "east"
+  ],
+  [
+    13,
+    "east",
+    "east"
+  ],
+  [
     9,
+    "open recorder",
+    "open witness recorder"
+  ],
+  [
+    21,
+    "take strip",
+    "take witness strip"
+  ],
+  [
+    16,
+    "read ledger",
+    "read mass ledger"
+  ],
+  [
+    19,
     "west",
     "west"
   ],
   [
-    7,
+    13,
+    "west",
+    "west"
+  ],
+  [
+    13,
     "north",
     "north"
   ],
@@ -110,72 +110,72 @@
     "examine examination area"
   ],
   [
-    15,
+    20,
     "take shears",
     "take ceramic shears"
   ],
   [
-    8,
+    10,
     "read log",
     "read clinical log"
   ],
   [
-    10,
+    18,
     "north",
     "north"
   ],
   [
-    6,
+    9,
     "compare strip with comparator",
     "compare optical comparator with witness strip"
   ],
   [
-    8,
+    11,
     "south",
     "south"
   ],
   [
-    9,
+    17,
     "south",
     "south"
   ],
   [
-    6,
+    12,
     "east",
     "east"
   ],
   [
-    8,
+    12,
     "show strip to ivo",
     "show witness strip to operator ivo"
   ],
   [
-    9,
+    13,
     "west",
     "west"
   ],
   [
-    9,
+    20,
     "down",
     "down"
   ],
   [
-    6,
+    11,
     "east",
     "east"
   ],
   [
-    7,
+    13,
     "fit spool to bus",
     "fit incoming bus to null spool"
   ],
   [
-    9,
+    15,
     "cut bus with shears",
     "cut incoming bus with ceramic shears"
   ],
   [
-    12,
+    18,
     "north",
     "north"
   ],
@@ -185,62 +185,62 @@
     "open signal receiver"
   ],
   [
-    10,
+    13,
     "take wafer",
     "take memory wafer"
   ],
   [
-    9,
+    12,
     "examine wafer",
     "examine memory wafer"
   ],
   [
-    8,
+    11,
     "south",
     "south"
   ],
   [
-    10,
+    16,
     "west",
     "west"
   ],
   [
-    7,
+    17,
     "up",
     "up"
   ],
   [
-    7,
+    13,
     "north",
     "north"
   ],
   [
-    10,
+    20,
     "north",
     "north"
   ],
   [
-    9,
+    12,
     "east",
     "east"
   ],
   [
-    4,
+    7,
     "examine senn",
     "examine researcher senn"
   ],
   [
-    10,
+    14,
     "ask senn about signal",
     "tell researcher senn about received signal"
   ],
   [
-    9,
+    13,
     "ask senn about daughter",
     "tell researcher senn about missing daughter"
   ],
   [
-    15,
+    19,
     "north",
     "north"
   ],
@@ -250,72 +250,72 @@
     "inventory"
   ],
   [
-    16,
+    22,
     "put wafer in archive",
     "put memory wafer in cold archive"
   ],
   [
-    7,
+    9,
     "examine console",
     "examine decision console"
   ],
   [
-    12,
+    16,
     "south",
     "south"
   ],
   [
-    10,
+    15,
     "west",
     "west"
   ],
   [
-    8,
+    11,
     "south",
     "south"
   ],
   [
-    9,
+    20,
     "south",
     "south"
   ],
   [
-    10,
+    21,
     "up",
     "up"
   ],
   [
-    6,
+    13,
     "push beacon",
     "push mechanical beacon"
   ],
   [
-    8,
+    21,
     "down",
     "down"
   ],
   [
-    7,
+    13,
     "north",
     "north"
   ],
   [
-    10,
+    13,
     "north",
     "north"
   ],
   [
-    9,
+    12,
     "east",
     "east"
   ],
   [
-    13,
+    16,
     "north",
     "north"
   ],
   [
-    13,
+    17,
     "preserve console",
     "preserve decision console"
   ]
