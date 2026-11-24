@@ -1,0 +1,15 @@
+{
+  "id": "books.the-midnight-ledger",
+  "title": "The Midnight Ledger",
+  "shortDescription": "An empty crate, an honest clock, and an expertly dishonest signature.",
+  "description": "An auction lot disappears in a locked transit cage. The porter has left his mark on the crate and the assessor has signed an alibi. Follow weights, access, and time through seven rooms to defend a person on evidence rather than sympathy. An original fair-play historical detective adventure with recoverable mistakes.",
+  "author": "Studio Null",
+  "year": 2026,
+  "rating": 0,
+  "reviewCount": 0,
+  "startFile": "the-midnight-ledger.zil",
+  "base": "infocom/zork1",
+  "reviews": [],
+  "genre": "Historical Detective Mystery",
+  "statusLine": "moves"
+}

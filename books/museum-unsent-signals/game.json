@@ -1,0 +1,15 @@
+{
+  "id": "books.museum-unsent-signals",
+  "title": "The Museum of Unsent Signals",
+  "shortDescription": "On the last night of a museum, find out why one letter was never sent.",
+  "description": "On its final night, a museum of forgotten transmissions has one last entry for you to review. It has been filed as blank for forty years. The worn edge on its spool suggests otherwise.",
+  "author": "AdventureArena",
+  "year": 2026,
+  "rating": 0,
+  "reviewCount": 0,
+  "reviews": [],
+  "startFile": "museum-unsent-signals.zil",
+  "base": "infocom/zork1",
+  "genre": "Science Fiction",
+  "statusLine": "moves"
+}

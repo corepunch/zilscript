@@ -82,6 +82,24 @@ end
 
 -- Game configurations
 local GAMES = {
+    ["borrowed-tomorrows"] = {
+        modules = {"books.borrowed-tomorrows.borrowed-tomorrows"}
+    },
+    ["bell-grew-leaves"] = {
+        modules = {"books.bell-grew-leaves.bell-grew-leaves"}
+    },
+    ["house-of-the-ebb"] = {
+        modules = {"books.house-of-the-ebb.house-of-the-ebb"}
+    },
+    ["the-midnight-ledger"] = {
+        modules = {"books.the-midnight-ledger.the-midnight-ledger"}
+    },
+    ["station-minus-one"] = {
+        modules = {"books.station-minus-one.station-minus-one"}
+    },
+    ["museum-unsent-signals"] = {
+        modules = {"books.museum-unsent-signals.museum-unsent-signals"}
+    },
     ["pocket-weather"] = {
         modules = {"books.pocket-weather.pocket-weather"}
     },

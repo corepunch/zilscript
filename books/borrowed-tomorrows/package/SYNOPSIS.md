@@ -1,0 +1,1 @@
+The village has borrowed tomorrow’s sunshine, but there is only one page left. Follow the cost of an ordinary checkout through a tiny library, unfold a loan no one remembered they could share, and save a market that needs tomorrow to arrive for everyone.
