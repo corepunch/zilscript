@@ -37,3 +37,5 @@ The remaining two mechanical findings are now fixed:
 - Bare Dig and wrong explicit tools acknowledge a held, accessible spoon and request its explicit use. Neither action silently borrows it or changes the gutter.
 
 `test_pocket_weather_round2.lua` had 10 failing expectations against the frozen pre-fix build; all 69 checks now pass, including the actual shower ending after repeated forecast questions across publication states. The full drizzle walkthrough, recovery/shower walkthrough, 96 round-1 regressions and 48-choice real-Session numeric route remain GREEN; largest menu remains 33. No noun, metadata, property, exit, link target or menu order changed in this final repair. No unresolved reported book-owned blocker remains. The player observations about equivalent native actions and inventory discovery are documented, intentionally retained affordances rather than further story changes.
+
+The round 1 and round 2 parser suites were subsequently migrated to `test-round-1.zil` and `test-round-2.zil`; the counts above describe the original Lua runs.

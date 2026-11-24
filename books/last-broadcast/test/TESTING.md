@@ -24,7 +24,7 @@ Blind-round-1 regressions (each observed RED before the source fix, GREEN after)
 - `lua5.4 run-zil-test.lua books.last-broadcast.test.test-blind1-confrontation`
 - `lua5.4 run-zil-test.lua books.last-broadcast.test.test-blind1-reconstruction`
 - `lua5.4 run-zil-test.lua books.last-broadcast.test.test-blind1-comparison`
-- `lua5.4 books/last-broadcast/test/test_blind1_audio.lua`
+- `lua5.4 run-zil-test.lua books.last-broadcast.test.test-blind1-audio`
 
 The first notebook read is a factual observation log. Explicit `HINT CASEBOOK` is the optional next-step walkthrough interface. Reconstruction organizes evidence without naming a culprit; player accusation supplies the final inference. Shared reader/menu findings are tracked by the parent, separately from these book regressions.
 

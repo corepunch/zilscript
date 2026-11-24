@@ -8,7 +8,7 @@ lua5.4 run-zil-test.lua books.pocket-weather.test.test-opening
 lua5.4 run-zil-test.lua books.pocket-weather.test.test-walkthrough
 lua5.4 run-zil-test.lua books.pocket-weather.test.test-recovery
 lua5.4 books/pocket-weather/test/test_pocket_weather_links.lua
-lua5.4 books/pocket-weather/test/test_pocket_weather_world.lua
+lua5.4 run-zil-test.lua books.pocket-weather.test.test-world
 python3 books/pocket-weather/test/menu-walkthrough.py
 lua5.4 scripts/check-vocab.lua books/pocket-weather/dungeon.zil
 lua5.4 scripts/check-links.lua books/pocket-weather
@@ -39,7 +39,7 @@ No known unresolved author mechanical defects at freeze. Independent findings re
 Independent evidence and status are in `BLIND1.md` and `QUALITY.md`. The regression suite is:
 
 ```
-lua5.4 books/pocket-weather/test/test_pocket_weather_round1.lua
+lua5.4 run-zil-test.lua books.pocket-weather.test.test-round-1
 ```
 
 It runs 96 checks through the real parser. Fourteen expectations failed before the source fix; all pass afterward. It also reaches the revised drizzle ending after actual preparation, negotiation, approval, transmission, card retrieval, and a check that the absent postmaster does not answer the bell. Both rain verbs are tested before the quiet/listen/understanding/agreement milestones. Showing a flower through the loud chime cannot invent intelligible speech. The current prose count is 140 links; other audit counts above are unchanged.
@@ -52,7 +52,7 @@ Every object's binary action partners are declared by ordinary `INTERACTIONS` da
 # Final blind-round-2 regressions
 
 ```
-lua5.4 books/pocket-weather/test/test_pocket_weather_round2.lua
+lua5.4 run-zil-test.lua books.pocket-weather.test.test-round-2
 ```
 
 Ten expectations were RED against the frozen round-2 source, then all 69 checks GREEN. The test asks about the forecast after listening, agreement, writing, review and publication; verifies accurate bare-Dig/explicit-wrong-tool inventory feedback without changing the gutter; and reaches the actual shower ending. Existing complete drizzle and recovery/shower walkthroughs, 96 round-1 regressions and the 48-selection real-Session route also pass. No links or metadata changed, so the numeric route and menu size are unchanged. Independent evidence for both endings is recorded separately in `BLIND1.md` and `qa/BLIND2.md`.

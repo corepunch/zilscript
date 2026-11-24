@@ -1,4 +1,5 @@
--- Focused RED/GREEN regression from the second independent blind completion.
+-- Reader-menu regression from the second blind completion. Parser and state
+-- checks live in test-blind2-state.zil.
 local runtime = require("zilscript.runtime")
 local Session = require("zilscript.reader.Session")
 local env = runtime.create_game_env()
@@ -20,32 +21,6 @@ enter(env.WORKSHOP)
 game:resume("take wrench")
 enter(env.CLINIC)
 game:resume("take shears")
-env.MOVE(env.WAFER, env.WINNER)
-for _, flag in ipairs({"POWER", "COOLING", "PROOF", "ORIGIN", "CONSENT", "ISOLATED", "EVAC"}) do env[flag] = true end
-enter(env.CORE)
-game:resume("put wafer in archive")
-check(env.LOC(env.WAFER) == env.COLD_ARCHIVE, "Fixture insertion moves the actual wafer")
-local output = game:resume("examine archive")
-check(output:find("physically contained", 1, true) and not output:find("Put the recovered", 1, true),
-	"Archive examination confirms actual containment rather than requesting insertion again")
-game:resume("take wafer")
-output = game:resume("erase console")
-check(output:find("actual wafer", 1, true) and not output:find("Compare the foil", 1, true)
-	and not output:find("beacon", 1, true) and not env.RESOLVED,
-	"Removing the sample produces only the missing-containment refusal")
-game:resume("put wafer in archive")
-env.EVAC = false
-output = game:resume("preserve console")
-check(output:find("beacon", 1, true) and not output:find("Compare the foil", 1, true)
-	and not output:find("actual wafer", 1, true) and not env.RESOLVED,
-	"Unarmed departure produces only the beacon requirement")
-env.CONSENT = false
-output = game:resume("erase console")
-check(output:find("Ivo", 1, true) and not output:find("beacon", 1, true) and not env.RESOLVED,
-	"With two prerequisites missing, refusal identifies the earlier consent step")
-output = game:resume("inventory")
-check(output:find("pair of ceramic shears", 1, true) and not output:find("A ceramic shears", 1, true),
-	"Inventory gives the shears their proper singular pair noun")
 enter(env.COOLANT)
 local session = Session.new()
 session.engine = { items = function()
@@ -69,14 +44,14 @@ end
 check(count == 2 and correct and wrong, "Exactly the correct and informative wrong torque tools remain")
 env.COOLING = false
 if wrong then
-	output = game:resume(wrong)
+	local output = game:resume(wrong)
 	check(output:find("calibrated torque wrench", 1, true) and not env.COOLING,
 		"The actual wrong-tool menu command preserves the seal state")
 end
 if correct then
-	output = game:resume(correct)
+	local output = game:resume(correct)
 	check(output:find("calibrated click", 1, true) and env.COOLING,
 		"The actual correct menu command repairs the seal")
 end
 assert(#failures == 0, table.concat(failures, "\n"))
-print("Silent Vector blind round 2 state and menu regressions: ok")
+print("Silent Vector blind round 2 menu regressions: ok")

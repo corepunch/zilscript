@@ -31,3 +31,5 @@ Independent blind round 2: [frozen report](qa/BLIND2.md), with full 117-choice n
 | Some repeated exact instructions reduce deduction freedom (optional preference) | Removed redundant mounting command from stylus and imperative SHOW instruction from ledger; retained apparatus directions and optional hints; full ending routes re-passed |
 
 Final corrections are small presentation changes after the independent blind2 completion, confirmed by focused regressions, the complete parser route, the numbered reader route, persisted CLI ending proof and affected link lints. No additional blind round is claimed for these author confirmations. All concrete book-owned blind2 findings are resolved; no new puzzle or framework behavior was introduced.
+
+The original opening-audio regression was subsequently migrated to `test/test-blind1-audio.zil`; it still captures the actual opening before the first player command.
