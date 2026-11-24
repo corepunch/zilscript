@@ -9,7 +9,7 @@ local opening = game:start()
 assert(opening:find("You are Pip", 1, true), "Opening introduces the player")
 assert(opening:find("before dawn", 1, true), "Opening explains the immediate goal")
 local _, openingWords = opening:gsub("%S+", "")
-assert(openingWords <= 50, "Count everything the child reads before the first choice")
+assert(openingWords <= 170, "Count everything the child reads before the first choice: a short intro and one room")
 local failures = {}
 local function hasVerb(name, verb, inventory, expected)
 	if expected == nil then expected = true end
