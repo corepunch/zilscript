@@ -36,8 +36,8 @@ function Session:reset()
 	self.entries, self.history = {}, {}
 	self.moves, self.score, self.maxScore, self.scoreChange = 0, 0, 0, 0
 	self.availableDirections, self.exitList = {}, {}
-	self.items, self.knownItems, self.knownByIdentity = {}, {}, {}
-	self.roomTitle, self.roomIcon, self.scene, self.openEntry = nil, nil, nil, nil
+	self.items = {}
+	self.roomTitle, self.scene, self.openEntry = nil, nil, nil
 	self.running = true
 end
 
@@ -80,27 +80,10 @@ function Session:refreshEngineState()
 			self.roomTitle = name
 		end
 	end
-	if type(self.engine.roomIcon) == "function" then
-		local ok, icon = pcall(self.engine.roomIcon, self.engine)
-		self.roomIcon = ok and type(icon) == "string" and icon or nil
-	end
 	if type(self.engine.items) == "function" then
 		local ok, raw = pcall(self.engine.items, self.engine)
 		if ok and type(raw) == "table" then
 			self.items = Suggestions.items(raw)
-			-- Remember vocabulary for typed completion, while link actions use
-			-- only the engine's current scope (including the actual inventory).
-			for _, item in ipairs(self.items) do
-				local identity = item.identity or item.target or item.name
-				if not self.knownByIdentity[identity] then
-					self.knownByIdentity[identity] = item
-					table.insert(self.knownItems, item)
-				else
-					local known = self.knownByIdentity[identity]
-					for key in pairs(known) do known[key] = nil end
-					for key, value in pairs(item) do known[key] = value end
-				end
-			end
 		end
 	end
 end
@@ -188,9 +171,8 @@ function Session.parseLinks(text)
 	return table.concat(plain), links
 end
 
--- A scene carries its room's picture, which its first paragraph wraps.
 function Session:beginScene(title)
-	local scene = { kind = "scene", title = title, icon = self.roomIcon, paragraphs = {}, links = {} }
+	local scene = { kind = "scene", title = title, paragraphs = {}, links = {} }
 	table.insert(self.entries, scene)
 	self.scene, self.openEntry = scene, scene
 	return scene
@@ -279,38 +261,19 @@ local function linkedItem(items, target)
 	return best
 end
 
-function Session:linkActions(target)
-	if not self.running then return {} end
-	target = trim(target):lower()
-	if target == "" then return {} end
-	local direction = DIRECTIONS[target]
-	if direction then
-		return { { title = "Go " .. direction, command = direction } }
+-- Both link-play tools and typed completion consume the same parser actions.
+-- Keep the operands separate so completing a noun never has to parse a label.
+local function visitItemActions(item, partners, visit)
+	visit("examine", item)
+	for _, verb in ipairs(Suggestions.oneTapVerbs(item)) do
+		if verb ~= "look" and verb ~= "examine" then visit(verb, item) end
 	end
-	local item = linkedItem(self.items, target)
-	if not item then return {} end
-	local commandTarget = item and item.target or target
-	local verbs, seen = { "examine" }, { examine = true, look = true }
-	local offered = item and Suggestions.oneTapVerbs(item) or {}
-	for _, verb in ipairs(offered) do
-		if not seen[verb] then
-			seen[verb] = true
-			table.insert(verbs, verb)
-		end
-	end
-	local actions = {}
-	for index = 1, #verbs do
-		local command = verbs[index] .. " " .. commandTarget
-		table.insert(actions, { title = capitalized(verbs[index]), command = command })
-	end
-	local commands = {}
-	for _, action in ipairs(actions) do commands[action.command] = true end
-	for _, pattern in ipairs(item and item.patterns or {}) do
+	for _, pattern in ipairs(item.patterns or {}) do
 		if pattern.join ~= nil then
 			local prefix = pattern.verb .. (pattern.prefix ~= "" and " " .. pattern.prefix or "")
 			local paired = {}
-			for _, other in ipairs(self:interactionTargets(pattern.join == "about")) do
-				local second = linkedItem(self.items, other.target)
+			for _, other in ipairs(partners(pattern.join == "about")) do
+				local second = other.item
 				local tool = pattern.join == "with"
 				local traits = second and second.traits or {}
 				local standardGift = pattern.action == nil or pattern.action == "GIVE" or pattern.action == "SHOW"
@@ -323,29 +286,58 @@ function Session:linkActions(target)
 				local identity = second and (second.identity or second.target or second.noun)
 				if second and identity and not paired[identity]
 						and (not pattern.partners or pattern.partners[identity])
-						and other.target ~= target and second.target ~= commandTarget
+						and second ~= item
 						and (not recipient or traits.actor)
 						and (not container or traits.container or traits.surface)
 						and (not handed or item.carried)
 						and (not (pattern.held or tool or pattern.reverse) or (second and second.carried)) then
-					local join = pattern.join ~= "" and " " .. pattern.join or ""
 					paired[identity] = true
-					local otherTarget = second.target or second.noun
-					local command = pattern.reverse and (prefix .. " " .. otherTarget .. join .. " " .. commandTarget)
-						or (prefix .. " " .. commandTarget .. join .. " " .. otherTarget)
-					if not commands[command] then
-						commands[command] = true
-						local titlePrefix = pattern.join == "about" and "Ask" or capitalized(prefix)
-						table.insert(actions, {
-							title = pattern.reverse and (titlePrefix .. " " .. other.label)
-								or (titlePrefix .. join .. " " .. other.label),
-							command = command,
-						})
+					if pattern.reverse then
+						visit(prefix, second, pattern.join, item, pattern, other.label)
+					else
+						visit(prefix, item, pattern.join, second, pattern, other.label)
 					end
 				end
 			end
 		end
 	end
+end
+
+-- Resolve discovered partners once per query, even if several actions use them.
+local function partnersFor(session)
+	local lists = {}
+	return function(includePast)
+		if not lists[includePast] then
+			local list = session:interactionTargets(includePast)
+			for _, other in ipairs(list) do other.item = linkedItem(session.items, other.target) end
+			lists[includePast] = list
+		end
+		return lists[includePast]
+	end
+end
+
+function Session:linkActions(target)
+	if not self.running then return {} end
+	target = trim(target):lower()
+	if target == "" then return {} end
+	local direction = DIRECTIONS[target]
+	if direction then return { { title = "Go " .. direction, command = direction } } end
+	local item = linkedItem(self.items, target)
+	if not item then return {} end
+	local actions, seen = {}, {}
+	visitItemActions(item, partnersFor(self), function(verb, first, join, second, pattern, label)
+		local title = capitalized(verb)
+		local command = verb .. " " .. (first.target or (first == item and target) or first.noun)
+		if second then
+			local glue = join ~= "" and " " .. join or ""
+			command = command .. glue .. " " .. (second.target or (second == item and target) or second.noun)
+			title = (join == "about" and "Ask" or title) .. (pattern.reverse and "" or glue) .. " " .. label
+		end
+		if not seen[command] then
+			seen[command] = true
+			table.insert(actions, { title = title, command = command })
+		end
+	end)
 	return actions
 end
 
@@ -444,9 +436,17 @@ function Session:snapshot()
 end
 
 function Session:suggestions(input)
-	return Suggestions.forInput(input, {
-		items = self.items, knownItems = self.knownItems, exits = self.exitList,
-	})
+	if not self.running or not input or not input:find("%S") then return {} end
+	local partners = partnersFor(self)
+	return Suggestions.forInput(input, self.items, function(offer)
+		for _, verb in ipairs({ "look", "inventory", "wait" }) do offer(verb) end
+		for _, exit in ipairs(self.exitList) do offer("go", exit) end
+		for _, item in ipairs(self.items) do
+			if not item.patterns or #item.patterns > 0 then
+				visitItemActions(item, partners, offer)
+			end
+		end
+	end)
 end
 
 function Session:entryCount()
@@ -502,9 +502,6 @@ function Session:presentation()
 		gameYear = game.year and tostring(game.year) or "",
 		gameGenre = game.genre or "",
 		cover = game.cover,
-		tint = game.tint or "accent",
-		ink = game.ink or game.tint or "accent",
-		titleFont = game.titleFont,
 		roomTitle = self.roomTitle or (scene and scene.title) or game.title or "",
 		entries = entries,
 		earlierEntries = earlier,

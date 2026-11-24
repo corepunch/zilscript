@@ -5,7 +5,6 @@
 <ROUTINE GO ()
  <SETG COMPACT-ROOM-LISTS T> <SETG HERE ,CAUSEWAY> <SETG VERBOSE T> <SETG LIT T>
  <SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
- <TELL "HOUSE OF THE EBB" CR>
  <TELL "Kit said he would wait on the causeway. That was nine winters ago. Tonight his boots sound just the same as yours on the stones." CR CR> <V-LOOK> <MAIN-LOOP> <AGAIN>>
 
 <SYNTAX HINT = V-BOOK-HINT>

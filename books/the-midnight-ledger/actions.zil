@@ -5,8 +5,7 @@
 <ROUTINE GO ()
  <SETG COMPACT-ROOM-LISTS T> <SETG HERE ,VESTIBULE> <SETG VERBOSE T> <SETG LIT T>
  <SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
- <TELL "THE MIDNIGHT LEDGER" CR>
- <TELL "The harbour auction has made you its last impartial observer. An astrolabe has vanished between weighings, and a clerk has opened a hearing before anybody can write the arrest in ink." CR CR> <V-LOOK> <MAIN-LOOP> <AGAIN>>
+ <V-LOOK> <MAIN-LOOP> <AGAIN>>
 
 <SYNTAX HINT = V-BOOK-HINT>
 <SYNTAX TURN OBJECT = V-SPIN>

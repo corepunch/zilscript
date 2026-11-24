@@ -47,12 +47,9 @@
     <SETG PLAYER ,WINNER>
     <MOVE ,WINNER ,HERE>
     <COND (,TIMER-ACTIVE
-           <ENABLE <QUEUE I-TICK 1>>)
-          (T
-           <TELL "The countdown to dawn has been disabled. Take your time, little apprentice." CR>)>
+           <ENABLE <QUEUE I-TICK 1>>)>
     <ENABLE <QUEUE I-DAWN-WARNING 25>>
     <ENABLE <QUEUE I-NUTMEG-AUTONOMY 8>>
-    <TELL "You are Pip, the toymaker's apprentice. Find the missing key before dawn or the toys will stop ticking." CR CR>
     <V-LOOK>
     <MAIN-LOOP>
     <AGAIN>>

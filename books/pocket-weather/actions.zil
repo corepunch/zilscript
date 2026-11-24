@@ -11,8 +11,6 @@
 	<SETG COMPACT-ROOM-LISTS T>
 	<SETG HERE ,DISPATCH> <SETG VERBOSE T> <SETG LIT T>
 	<SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
-	<TELL "THE POCKET WEATHER BUREAU" CR
-	 "A little cloud has refused its forecast. Your first job at the weather post is to bring it back." CR CR>
 	<V-LOOK> <MAIN-LOOP> <AGAIN>>
 <ROUTINE DISPATCH-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>

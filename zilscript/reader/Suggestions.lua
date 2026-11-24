@@ -1,11 +1,7 @@
--- Type-ahead for the command line. Prior art: iOS Frotz completes words from
--- the story file's dictionary, and inkle's games show only verbs that make
--- sense right now. This model does both: verbs come from a ranked common set
--- plus the verbs the engine reports for visible objects, nouns come from the
--- objects in the room (then ones seen earlier), and directions from exits.
+-- Command completion and vocabulary from the running story.
 local Suggestions = {}
 
-local LIMIT = 6
+local LIMIT = 3
 
 -- Ordered by how often players type them, so "l" offers "look" first.
 local VERBS = {
@@ -21,13 +17,6 @@ for index, verb in ipairs(VERBS) do VERB_RANK[verb] = index end
 local DIRECTIONS = {
 	"north", "south", "east", "west", "northeast", "northwest",
 	"southeast", "southwest", "up", "down", "in", "out",
-}
-
--- Verbs whose object is usually followed by a second one ("put coin in slot").
-local PREPOSITIONS = {
-	put = { "in", "on", "under" }, give = { "to" }, unlock = { "with" },
-	lock = { "with" }, attack = { "with" }, tie = { "to" }, throw = { "at", "in" },
-	open = { "with" }, light = { "with" }, show = { "to" },
 }
 
 -- Verbs whose object needs a second one make poor one-tap commands.
@@ -80,26 +69,6 @@ function Suggestions.items(raw)
 	return items
 end
 
-local function itemSupports(item, verb)
-	for _, candidate in ipairs(item.verbs or {}) do
-		if candidate == verb then return true end
-	end
-	return false
-end
-
--- The verb a player most likely wants for an item: the best-ranked common
--- verb the engine lists for it, else "examine".
-local function primaryVerb(item)
-	local best, bestRank
-	for _, verb in ipairs(item.verbs or {}) do
-		local rank = VERB_RANK[verb]
-		if rank and verb ~= "look" and not NEEDS_SECOND[verb] and (not bestRank or rank < bestRank) then
-			best, bestRank = verb, rank
-		end
-	end
-	return best or "examine"
-end
-
 -- The verbs the story accepts for an item that make whole commands on
 -- their own, best known first; verbs outside the common set keep the
 -- story's order after them.
@@ -132,114 +101,70 @@ function Suggestions.oneTapVerbs(item)
 	return names
 end
 
-local function tokenize(input)
-	local words = {}
-	for word in input:lower():gmatch("%S+") do table.insert(words, word) end
-	local trailing = input:match("%s$") ~= nil
-	local current = ""
-	if not trailing and #words > 0 then current = table.remove(words) end
-	return words, current
+-- Use a short parser noun when it identifies just one object. Two keys
+-- stay "brass key" and "iron key", including when the player starts with k.
+local function nounCounts(items)
+	local counts = {}
+	for _, item in ipairs(items) do
+		if not item.patterns or #item.patterns > 0 then
+			local seen = {}
+			for _, alias in ipairs(item.aliases or {}) do seen[alias] = true end
+			seen[Suggestions.noun(item.target or item.noun)] = true
+			for word in pairs(seen) do counts[word] = (counts[word] or 0) + 1 end
+		end
+	end
+	return counts
 end
 
-local function collector()
-	local list, seen = {}, {}
-	return list, function(title, text, submit)
-		if #list >= LIMIT or seen[text] then return end
-		seen[text] = true
-		table.insert(list, { title = title, text = text, submit = submit == true })
-	end
-end
-
--- context = { items = {...}, knownItems = {...}, exits = {...} }
--- Returns up to six { title, text, submit } chips, none for empty input. A chip with submit=true
--- is a whole command; otherwise its text replaces the composer contents.
-function Suggestions.forInput(input, context)
-	input = tostring(input or "")
-	context = context or {}
-	local items, exits = context.items or {}, context.exits or {}
-	local nouns = {}
-	for _, item in ipairs(items) do table.insert(nouns, item) end
-	local present = {}
-	for _, item in ipairs(items) do present[item.noun] = true end
-	for _, item in ipairs(context.knownItems or {}) do
-		if not present[item.noun] then table.insert(nouns, item) present[item.noun] = true end
-	end
-
-	local list, add = collector()
-	local words, current = tokenize(input)
-	local head = table.concat(words, " ")
-	local prefix = head == "" and "" or head .. " "
-
-	-- An empty composer offers nothing: chips before typing pull the eye off
-	-- the page, and once the reader types their attention is on the field.
-	if #words == 0 and current == "" then return list end
-
-	if #words == 0 then
-		-- First word: the likeliest verbs, then exits and objects ("t" offers
-		-- "take" and also "examine table"), then the rarer verbs.
-		local verbs = {}
-		for _, verb in ipairs(VERBS) do
-			if startsWith(verb, current) then table.insert(verbs, verb) end
-		end
-		for index = 1, math.min(3, #verbs) do add(verbs[index], verbs[index] .. " ") end
-		for _, direction in ipairs(exits) do
-			if startsWith(direction, current) then add(direction, direction, true) end
-		end
-		for _, item in ipairs(nouns) do
-			if startsWith(item.noun, current) then
-				local command = primaryVerb(item) .. " " .. item.noun
-				add(command, command .. " ")
+-- Walk the grammatical slots of a single available command against the
+-- draft. A slot may be an entire noun phrase, such as "brass key".
+function Suggestions.forInput(input, items, visit)
+	local draft = input:lower():gsub("^%s+", ""):gsub("%s+", " ")
+	local choices, seen, counts = {}, {}, nounCounts(items)
+	local function offer(verb, first, join, second)
+		if verb == "take" and first and first.traits and first.traits.takeable == false then return end
+		local rest = draft
+		local function match(slot)
+			local name, short
+			if type(slot) == "table" then
+				name = slot.target or slot.noun
+				short = Suggestions.noun(name)
+			else
+				name = slot
 			end
-		end
-		for index = 4, #verbs do add(verbs[index], verbs[index] .. " ") end
-		return list
-	end
-
-	local verb = words[1]
-	if #words >= 2 and VERB_RANK[words[1] .. " " .. words[2]] then verb = words[1] .. " " .. words[2] end
-	if verb == "go" or verb == "walk" or verb == "run" then
-		for _, direction in ipairs(exits) do
-			if startsWith(direction, current) then add(direction, prefix .. direction, true) end
-		end
-		for _, direction in ipairs(DIRECTIONS) do
-			if startsWith(direction, current) then add(direction, prefix .. direction, true) end
-		end
-		return list
-	end
-
-	-- "turn o" completes the particle of a two-word verb.
-	if #words == 1 then
-		for _, candidate in ipairs(VERBS) do
-			if candidate:sub(1, #head + 1) == head .. " " then
-				local particle = candidate:sub(#head + 2)
-				if startsWith(particle, current) then add(particle, prefix .. particle .. " ") end
+			if not name or name == "" then return true end
+			local preferred = short and counts[short] == 1 and short or name
+			for _, spelling in ipairs({ name, preferred }) do
+				if startsWith(rest, spelling .. " ") then
+					rest = rest:sub(#spelling + 2)
+					return true
+				end
 			end
+			local title
+			if startsWith(preferred, rest) then title = preferred
+			elseif startsWith(name, rest) or (short and startsWith(short, rest)) then title = name end
+			if title and not seen[title] then
+				seen[title] = true
+				table.insert(choices, { title = title, text = draft:sub(1, #draft - #rest) .. title .. " ",
+					rank = rest == draft and VERB_RANK[verb] or nil, order = #choices + 1 })
+			end
+			return false
 		end
+		if match(verb) and match(first) and match(join) then match(second) end
 	end
-
-	-- After "verb noun " offer the joining word, after a joining word a noun.
-	local last = words[#words]
-	local joins = PREPOSITIONS[verb]
-	local lastIsNoun = present[last] and last ~= verb
-	if joins and lastIsNoun then
-		for _, join in ipairs(joins) do
-			if startsWith(join, current) then add(join, prefix .. join .. " ") end
-		end
+	visit(offer)
+	table.sort(choices, function(a, b)
+		local ar, br = a.rank or math.huge, b.rank or math.huge
+		if ar ~= br then return ar < br end
+		return a.order < b.order
+	end)
+	local result = {}
+	for i = 1, math.min(LIMIT, #choices) do
+		table.insert(result, { title = choices[i].title, text = choices[i].text })
 	end
-	-- When the story says which objects answer this verb, offer only those;
-	-- otherwise ("examine", "take" of scenery) every object is fair game.
-	local anyFits = false
-	for _, item in ipairs(nouns) do
-		if itemSupports(item, verb) then anyFits = true break end
-	end
-	for _, item in ipairs(nouns) do
-		if (not anyFits or itemSupports(item, verb)) and startsWith(item.noun, current) and item.noun ~= last then
-			add(item.noun, prefix .. item.noun .. " ")
-		end
-	end
-	return list
+	return result
 end
 
-Suggestions.VERBS, Suggestions.DIRECTIONS = VERBS, DIRECTIONS
+Suggestions.DIRECTIONS = DIRECTIONS
 
 return Suggestions

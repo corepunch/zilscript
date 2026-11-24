@@ -368,7 +368,7 @@ local function add_items(room, carried, sealed)
 				end
 			end
 		end
-		local traits = { actor = FSETQ(obj, ACTORBIT), container = FSETQ(obj, CONTBIT), surface = FSETQ(obj, SURFACEBIT) }
+		local traits = { takeable = FSETQ(obj, TAKEBIT), actor = FSETQ(obj, ACTORBIT), container = FSETQ(obj, CONTBIT), surface = FSETQ(obj, SURFACEBIT) }
 		if FSETQ(obj, ACTORBIT) then
 			for index, pattern in ipairs(patterns) do
 				if pattern.verb == "give" or pattern.verb == "show" then

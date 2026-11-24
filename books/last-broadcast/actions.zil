@@ -45,7 +45,7 @@
 	<SETG FUMBLE-PROB 0>
 	<SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER>
 	<MOVE ,WINNER ,HERE>
-	<TELL "THE LAST BROADCAST|Saint Bride Island, 1936. At 9:17 you heard a gull cough twice, then Ada's appeal to save the station: 'Even this old island can learn to speak.'|Four minutes later Ruth called for help. By then the station's owner, Julian Vane, was dead. Both times are in your [[casebook]].||">
+	<TELL "At 9:17 you heard a gull cough twice, then Ada's appeal to save the station: 'Even this old island can learn to speak.'|Four minutes later Ruth called for help. By then the station's owner, Julian Vane, was dead. Both times are in your [[casebook]].||">
 	<V-LOOK> <MAIN-LOOP>>
 
 <SYNTAX USE OBJECT ON OBJECT = V-USE-ON>

@@ -853,14 +853,6 @@ gets a regression test that `LOOK` does not name it, that `TAKE` fails
 before discovery, that the reveal names it, and that `LOOK` then does (see
 each book's `test/test-prose-reveal.zil`).
 
-### Room Icons
-
-A room may carry a picture, as Zork Zero set one beside each room
-description: `(ICON "icons/hall.png")`, a path relative to the story's
-folder. Hosts that show pictures (AdventureArena sets it as a square three
-lines tall that the room's first paragraph wraps around) read it; others
-ignore it. Rooms without art simply omit the property.
-
 ### Going Back
 
 `GO BACK` (also `WALK BACK`, `BACK`) retraces the player's last step. The

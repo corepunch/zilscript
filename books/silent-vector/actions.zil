@@ -26,7 +26,7 @@
 	<SETG WINNER ,ADVENTURER>
 	<SETG PLAYER ,WINNER>
 	<MOVE ,WINNER ,HERE>
-	<TELL "THE SILENT VECTOR" CR "'Keep holding her hand.' You remember doing it. You remember strapping both hands into this cradle, too. Your fingers are still cold." CR CR "Habitat power is out. Reset it and find the others." CR CR>
+	<TELL "'Keep holding her hand.' You remember doing it. You remember strapping both hands into this cradle, too. Your fingers are still cold." CR CR>
 	<V-LOOK>
 	<MAIN-LOOP>
 	<AGAIN>>
