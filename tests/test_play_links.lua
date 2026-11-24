@@ -11,5 +11,5 @@ os.remove(routePath)
 
 assert(ok, "Sanitarium route should reach the patient ward after !north and east:\n" .. output)
 assert(output:find("PARSER> north\n", 1, true), "North should run as a parser diagnostic")
-assert(output:find("> east\n[[Glass]] crunches", 1, true), "East should use the entrance hall's link menu")
+assert(output:find("> east\nThis is the patient ward", 1, true), "East should use the entrance hall's link menu")
 print("ok - play-links refreshes Sanitarium's menu after !north")
