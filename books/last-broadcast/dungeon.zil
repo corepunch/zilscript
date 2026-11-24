@@ -17,46 +17,42 @@
 <GLOBAL LB-RECEIPT-SEEN <>>
 
 <ROOM LB-LANDING (IN ROOMS) (DESC "Saint Bride Landing")
-	(LDESC "Beyond the salt-crusted [[station clock]], a [[light]] burns in the [[hall->north]].")
+	(LDESC "You are on the landing stage below the station, where the mail boat ties up in better weather. Rain drives across the planks, and every few seconds a wave bursts over the breakwater and runs back hissing between the boards. A salt-crusted [[station clock]] is bolted to a post at the head of the steps. Ahead, through the station's open door, a [[hall light]] swings on its bracket. The station hall lies to the [[north]], and there is nowhere else to go on a night like this.")
 	(NORTH TO LB-HALL) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-HALL (IN ROOMS) (DESC "Station Hall")
-	(LDESC "From the [[appeal board]] you can see the [[office->north]], [[studio->east]] and [[kitchen->west]]. The [[bunkroom->up]] is up the [[stairs]] from the [[landing->south]].")
+	(LDESC "This is the hall of the station, a narrow room of varnished pine that smells of paraffin and wet oilskins. Water from the coats on their pegs has made a dark pool by the door, and a freshly lettered [[appeal board]] hangs on the wall above it. Vane's office is to the [[north]], the studio to the [[east]] and the kitchen to the [[west]]. Wooden [[stairs]] climb [[up]] to the bunkroom, and the landing stage is back to the [[south]].")
 	(NORTH TO LB-OFFICE) (EAST TO LB-STUDIO) (WEST TO LB-KITCHEN) (UP TO LB-BUNKROOM) (SOUTH TO LB-LANDING) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-OFFICE (IN ROOMS) (DESC "Vane's Office")
 	(ACTION LB-OFFICE-F)
 	(SOUTH TO LB-HALL) (DOWN TO LB-PASSAGE IF LB-HATCH IS OPEN ELSE "The [[hatch]] is bolted shut; its square spindle takes a spanner.") (GLOBAL LB-HATCH) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-STUDIO (IN ROOMS) (DESC "Broadcast Studio")
-	(LDESC "[[Ruth]] whispers beside the [[microphone]], between the [[hall to the west->west]] and the [[control room to the east->east]].")
+	(LDESC "This is the broadcast studio, a small square room hung all round with brown felt to deaden the sound. In here the storm is only a pressure against the walls, and your own breathing seems loud. A [[microphone]] stands on its stand in the middle of the floor, a small red lamp glowing at its collar. [[Ruth]] Bell waits beside it, murmuring to herself in the trained voice of an announcer. The hall is back to the [[west]], and a door with a glass panel leads [[east]] into the control room.")
 	(WEST TO LB-HALL) (EAST TO LB-CONTROL) (GLOBAL LB-VANE LB-BROADCAST) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-CONTROL (IN ROOMS) (ACTION LB-CONTROL-LOOK) (DESC "Control Room")
-	(LDESC "A [[green light]] pools over the [[gramophone]] and [[routing switch]]. Doors lead west to the [[studio->west]], north to the [[cutting room->north]] and south to the [[workshop->south]].")
 	(WEST TO LB-STUDIO) (NORTH TO LB-CUTTING) (SOUTH TO LB-WORKSHOP) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-CUTTING (IN ROOMS) (ACTION LB-CUTTING-LOOK) (DESC "Disc Cutting Room")
-	(LDESC "A [[curl of lacquer->lacquer curl]] lies beside the [[cutter]] and its [[register]]. Doors open south to the [[control room->south]] and east to the [[archive->east]].")
 	(SOUTH TO LB-CONTROL) (EAST TO LB-ARCHIVE) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-ARCHIVE (IN ROOMS) (ACTION LB-ARCHIVE-LOOK) (DESC "Record Archive")
-	(LDESC "A draught from the [[cutting room to the west->west]] stirs the cold [[papers]] beside a [[cardboard sleeve]].")
 	(WEST TO LB-CUTTING) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-WORKSHOP (IN ROOMS) (DESC "Service Workshop")
-	(LDESC "Solder freckles the [[workbench]] between the [[control room to the north->north]] and the [[generator room below->down]].")
+	(LDESC "This is the service workshop, a low room that smells of solder and machine oil. Coils of wire and the gutted cases of old receivers crowd the shelves, and burn marks freckle the long [[workbench]] beneath a hanging bulb. The control room is up a step to the [[north]]. An iron ladder goes [[down]] to the generator room, and the floor trembles faintly with its engine.")
 	(NORTH TO LB-CONTROL) (DOWN TO LB-GENERATOR) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-GENERATOR (IN ROOMS) (DESC "Generator Room")
-	(LDESC "The [[generator]] shakes the floor between the [[workshop above->up]] and the [[cable passage->north]].")
+	(LDESC "You are in the generator room, under the workshop. A diesel [[generator]] fills most of the space, thumping steadily on its rubber feet, and the smell of hot oil is thick enough to taste. Beside it a small recording instrument ticks over a drum of paper. An iron ladder leads [[up]] to the workshop. A low opening to the [[north]] gives onto the cable passage.")
 	(UP TO LB-WORKSHOP) (NORTH TO LB-PASSAGE) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-PASSAGE (IN ROOMS) (DESC "Cable Passage")
 	(ACTION LB-PASSAGE-F)
 	(SOUTH TO LB-GENERATOR) (UP TO LB-OFFICE IF LB-HATCH IS OPEN ELSE "The [[hatch]] is bolted shut; a square spindle faces you.") (GLOBAL LB-HATCH) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-KITCHEN (IN ROOMS) (ACTION LB-KITCHEN-LOOK) (DESC "Station Kitchen")
-	(LDESC "[[Edith]] sits beside a [[medical bag]] at the [[table]] between the [[hall->east]] and the [[telegraph room->west]].")
 	(EAST TO LB-HALL) (WEST TO LB-TELEGRAPH) (GLOBAL LB-VANE LB-BROADCAST) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-TELEGRAPH (IN ROOMS) (DESC "Telegraph Room")
-	(LDESC "The [[telegraph]] clicks beside its silent [[operator->tomas]], between the [[kitchen->east]] and the [[stairs]] to the [[aerial platform->up]].")
+	(LDESC "This is the telegraph room, hardly bigger than a cupboard and crowded with glass batteries and coils of wire. On the desk the brass sounder of the [[telegraph]] clicks to itself, and [[Tomas->tomas]] Vale, the operator, sits hunched at the key without a word. The kitchen is back to the [[east]]. Iron [[stairs]] climb [[up]] through a trapdoor to the aerial platform, and cold air comes down them.")
 	(EAST TO LB-KITCHEN) (UP TO LB-PLATFORM) (GLOBAL LB-VANE LB-BROADCAST) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-PLATFORM (IN ROOMS) (DESC "Aerial Platform")
-	(LDESC "A [[signal lamp]] lights the [[rain]] on the [[aerial]]. The [[telegraph room->down]] is below, the [[bunkroom->east]] across the [[covered walk]].")
+	(LDESC "You are on the aerial platform, on the roof of the station and open to the full force of the gale. The [[aerial]] wires climb from here into the dark, humming in the wind, and a green [[signal lamp]] shines on the wet iron. Cold [[rain]] drives across the platform in sheets. Iron stairs lead [[down]] to the telegraph room. A [[covered walk]] runs across the roof to the [[bunkroom->east]].")
 	(DOWN TO LB-TELEGRAPH) (EAST TO LB-BUNKROOM) (GLOBAL LB-COVERED-WALK) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-BUNKROOM (IN ROOMS) (DESC "Staff Bunkroom")
-	(LDESC "[[Ada]] sits beneath the [[maintenance roster]], upstairs from the [[hall->down]] and across the [[walk->covered walk]] from the [[aerial platform->west]].")
+	(LDESC "This is the staff bunkroom, under the eaves at the top of the house. Four iron bunks stand against the walls, and the rain is loud on the slates just overhead. [[Ada]] Mercer, the station engineer, sits very straight on a hard chair beneath a [[maintenance roster]] pinned to the wall. The stairs lead [[down]] to the hall. A door opens onto the [[covered walk]], which crosses the roof to the [[aerial platform->west]].")
 	(DOWN TO LB-HALL) (WEST TO LB-PLATFORM) (GLOBAL LB-VANE LB-BROADCAST LB-COVERED-WALK) (FLAGS RLANDBIT ONBIT)>
 
 <OBJECT LB-CASEBOOK (IN ADVENTURER) (DESC "casebook") (SYNONYM CASEBOOK NOTEBOOK CASE BOOK NOTE NOTES COLUMNS)  (FLAGS TAKEBIT) (SIZE 0) (INTERACTIONS "") (ACTION LB-CASEBOOK-F)>
@@ -103,7 +99,8 @@
 <OBJECT LB-HALL-LIGHT (IN LB-LANDING) (DESC "hall light")
     (SYNONYM LIGHT LAMP BULB) (ADJECTIVE HALL YELLOW)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Swinging on its bracket, the bulb sends a slow stripe of light across the landing. It stays lit between swings.")>
+    (TEXT "Swinging on its bracket, the bulb sends a slow stripe of light across the landing. It stays lit between swings.")
+    (ACTION LB-HALL-LIGHT-F)>
 
 <OBJECT LB-HALL-STAIRS (IN LB-HALL) (DESC "station stairs")
     (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE STATION WOODEN)
@@ -114,12 +111,14 @@
 <OBJECT LB-CONTROL-LIGHT (IN LB-CONTROL) (DESC "green light")
     (SYNONYM LIGHT LAMP BULB) (ADJECTIVE GREEN CONTROL)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The little lamp is wired to the transmitter. It shines just as green when the microphone is silent.")>
+    (TEXT "The little lamp is wired to the transmitter. It shines just as green when the microphone is silent.")
+    (ACTION LB-CONTROL-LIGHT-F)>
 
 <OBJECT LB-LACQUER-CURL (IN LB-CUTTING) (DESC "curl of lacquer")
     (SYNONYM CURL SHAVING THREAD) (ADJECTIVE LACQUER THIN)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "It is one long, fine shaving. The [[cutting needle]] lifts a thread like this as it carves a groove.")>
+    (TEXT "It is one long, fine shaving. The [[cutting needle]] lifts a thread like this as it carves a groove.")
+    (ACTION LB-LACQUER-CURL-F)>
 
 <OBJECT LB-ARCHIVE-PAPERS (IN LB-ARCHIVE) (DESC "archive papers")
     (SYNONYM PAPERS PAPER DRAUGHT DRAFT) (ADJECTIVE ARCHIVE COLD LOOSE)
@@ -142,7 +141,8 @@
 <OBJECT DETAIL-BRASS-DUST (IN LB-OFFICE) (DESC "brass dust")
     (SYNONYM GRAINS DUST CRESCENT GAP) (ADJECTIVE BRASS NARROW)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The grains lie thick at both ends of the crescent. Across the little gap the skin is entirely clean.")>
+    (TEXT "The grains lie thick at both ends of the crescent. Across the little gap the skin is entirely clean.")
+    (ACTION DETAIL-BRASS-DUST-F)>
 
 <OBJECT DETAIL-WINDING-KNOB (IN LB-OFFICE) (DESC "winding knob")
     (SYNONYM KNOB SPINDLE) (ADJECTIVE WINDING CLOCK)
@@ -165,7 +165,8 @@
 <OBJECT DETAIL-CUTTING-NEEDLE (IN LB-CUTTING) (DESC "cutting needle")
     (SYNONYM NEEDLE POINT) (ADJECTIVE CUTTING)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "A fine amber thread still clings to the point. It curls the same way as the shaving on the bench.")>
+    (TEXT "A fine amber thread still clings to the point. It curls the same way as the shaving on the bench.")
+    (ACTION DETAIL-CUTTING-NEEDLE-F)>
 
 <OBJECT DETAIL-SQUARE-REPAIR (IN LB-PASSAGE) (DESC "square repair")
     (SYNONYM REPAIR PATCH DIAMOND) (ADJECTIVE SQUARE DIAGONAL)
@@ -175,9 +176,11 @@
 <OBJECT DETAIL-CUPS (IN LB-KITCHEN) (DESC "cups")
     (SYNONYM CUPS CUP SAUCER) (ADJECTIVE COLD TEA)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "One cup still has a spoon in it. The other has left three wet rings where its owner kept lifting it and putting it down.")>
+    (TEXT "One cup still has a spoon in it. The other has left three wet rings where its owner kept lifting it and putting it down.")
+    (ACTION DETAIL-CUPS-F)>
 
 <OBJECT DETAIL-BLACK-FELT (IN LB-WORKSHOP) (DESC "black felt")
     (SYNONYM FELT CLOTH) (ADJECTIVE BLACK)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The nap is worn thin in one short groove. A delicate point laid there would stay put even when the bench shook.")>
+    (TEXT "The nap is worn thin in one short groove. A delicate point laid there would stay put even when the bench shook.")
+    (ACTION DETAIL-BLACK-FELT-F)>
