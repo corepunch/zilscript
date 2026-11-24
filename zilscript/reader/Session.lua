@@ -398,6 +398,16 @@ function Session:start(game, saved)
 	self.engine, self.currentGame, self.seed = engine, game, seed
 	self:refreshEngineState()
 	self:appendOutput(opening, game.title)
+	-- Some stories print a cold open. The reader starts with the title page.
+	for index, entry in ipairs(self.entries) do
+		if entry.kind == "banner" then
+			if index > 1 then
+				table.remove(self.entries, index)
+				table.insert(self.entries, 1, entry)
+			end
+			break
+		end
+	end
 	for _, command in ipairs(saved and saved.commands or {}) do
 		self:submit(command)
 	end
