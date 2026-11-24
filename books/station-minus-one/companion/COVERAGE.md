@@ -14,4 +14,4 @@ For an ending action it replays the same numbered path into a fresh game, since 
 | Gauge Room | Weight seated; test or recover |
 | Lower Platform | Comparison observed; both endings |
 
-25 authored card executions across 7 coverage states. The walkthrough also checks no early endings, a stable read-only menu, and both numeric-only outcomes.
+28 authored card executions across 7 coverage states. The walkthrough also checks no early endings, a stable read-only menu, and both numeric-only outcomes.

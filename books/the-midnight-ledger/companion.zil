@@ -2,6 +2,7 @@
  <COND
   (<EQUAL? ,HERE ,VESTIBULE>
    <CHOICE "vestibule.1" "Read why the hearing was called" "read auction notice" ,CHOICE-INVESTIGATE 99>
+   <CHOICE "vestibule.urn" "Look into the coffee urn" "look in coffee urn" ,CHOICE-INVESTIGATE 98>
    <CHOICE "vestibule.2" "Enter the hearing" "north" ,CHOICE-INVESTIGATE 98>
    <CHOICE "vestibule.3" "Find the porter" "east" ,CHOICE-INVESTIGATE 97>)
   (<EQUAL? ,HERE ,CHAMBER>
@@ -18,6 +19,7 @@
    <CHOICE "chamber.11" "Return to the vestibule" "south" ,CHOICE-INVESTIGATE 89>)
   (<EQUAL? ,HERE ,CLOAKROOM>
    <CHOICE "cloakroom.1" "Hear how Ives accounted for himself" "examine porter ives" ,CHOICE-INVESTIGATE 99>
+   <CHOICE "cloakroom.coat" "Go through the pockets of Ives's coat" "search wet coat" ,CHOICE-INVESTIGATE 98>
    <CHOICE "cloakroom.2" "Go back to the vestibule" "west" ,CHOICE-INVESTIGATE 98>)
   (<EQUAL? ,HERE ,SCALEHOUSE>
    <CHOICE "scalehouse.1" "Study the scale" "examine weigh scale" ,CHOICE-INVESTIGATE 99>
@@ -31,9 +33,11 @@
   (<EQUAL? ,HERE ,CAGE>
    <CHOICE "cage.1" "Study the seal" "examine syndicate seal" ,CHOICE-INVESTIGATE 99>
    <CHOICE "cage.2" "Inspect the crate" "examine transit crate" ,CHOICE-INVESTIGATE 98>
+   <CHOICE "cage.lid" "Lift the crate's lid" "open transit crate" ,CHOICE-INVESTIGATE 97>
    <CHOICE "cage.3" "Return to the records" "south" ,CHOICE-INVESTIGATE 97>)
   (<EQUAL? ,HERE ,REGISTRY>
    <CHOICE "registry.1" "Check the signed register" "read shift register" ,CHOICE-INVESTIGATE 99>
    <CHOICE "registry.2" "Hear the assessor" "examine assessor orr" ,CHOICE-INVESTIGATE 98>
+   <CHOICE "registry.smell" "Step close enough to catch Orr's scent" "smell assessor orr" ,CHOICE-INVESTIGATE 97>
    <CHOICE "registry.3" "Return to the hearing" "south" ,CHOICE-INVESTIGATE 97>)
  >>
