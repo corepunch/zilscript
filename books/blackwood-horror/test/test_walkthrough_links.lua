@@ -51,7 +51,7 @@ walk:play({
 	{ "burn iron boiler with oil lantern", expect = "deep metallic thud" },
 	"drop coal shovel",
 	"west",
-	{ "north", expect = "vast and dark" },
+	{ "north", expect = "vast, flooded chamber" },
 	-- Steam frees the door; the boiler's heat has thawed the cabinet beyond.
 	{ "open sealed door", expect = "wrench the sealed door open" },
 	"east",

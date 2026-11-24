@@ -39,7 +39,7 @@
 <ROOM SANITARIUM-GATE
       (IN ROOMS)
       (DESC "Sanitarium Gate")
-      (LDESC "Black [[windows]] face the open [[iron gates->gate]] across the [[gravel path]] [[north]].")
+      (LDESC "You are standing at the gates of Blackwood Sanitarium, where the [[gravel path]] ends. The rusted [[iron gates->gate]] hang open, and a [[brass plaque->plaque]] is bolted askew to the bars. Beside them leans a [[dead oak->tree]], its branches full of crows that make no sound. Ahead, rows of black [[windows]] look down from the building, and the way in lies open to the [[north]].")
       (NORTH TO SANITARIUM-ENTRANCE)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL SANITARIUM-BUILDING DEAD-OAK-TREE)>
@@ -47,7 +47,7 @@
 <ROOM SANITARIUM-ENTRANCE
       (IN ROOMS)
       (DESC "Sanitarium Entrance Hall")
-      (LDESC "From the broken [[grand staircase->staircase]], reception lies [[west]], the ward [[east]] and the basement [[down]], while the gates lie [[south]].")
+      (LDESC "You are in the entrance hall of the sanitarium. Half of the [[grand staircase->staircase]] has fallen in, and the plaster dust on the floor shows no footprints but yours. Black mould has crept up the peeling [[wallpaper]]. Reception is to the [[west]], and the patient ward lies to the [[east]]. A sagging [[door]] stands half-open to the [[north]], narrow stairs go [[down]] to the basement, and the gates are back to the [[south]].")
       (SOUTH TO SANITARIUM-GATE)
       (WEST TO RECEPTION-ROOM)
       (NORTH TO OPERATING-THEATER)
@@ -61,7 +61,6 @@
       (IN ROOMS)
       (DESC "Reception Room")
       (ACTION RECEPTION-ROOM-FCN)
-      (LDESC "This cramped room once served as the sanitarium's reception. Filing cabinets line the opposite wall, their drawers hanging open like gaping mouths. A doorway to the east opens back to the entrance hall.")
       (EAST TO SANITARIUM-ENTRANCE)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL FILING-CABINETS)>
@@ -70,7 +69,6 @@
       (IN ROOMS)
       (DESC "Operating Theater")
       (ACTION OPERATING-THEATER-FCN)
-      (LDESC "Empty [[tiers]] overlook the [[operating table->table]] beside the doorway [[south]].")
       (SOUTH TO SANITARIUM-ENTRANCE)
       (FLAGS RLANDBIT ONBIT)>
 
@@ -78,7 +76,6 @@
       (IN ROOMS)
       (DESC "Patient Ward")
       (ACTION PATIENT-WARD-FCN)
-      (LDESC "A long corridor with tattered curtains hanging between areas, offering the ghost of privacy. The floor is littered with patient records and broken glass.")
       (WEST TO SANITARIUM-ENTRANCE)
       (NORTH TO MORGUE IF CHAINS-CUT-FLAG ELSE "The heavy door at the far end is still bound shut.")
       (FLAGS RLANDBIT ONBIT)>
@@ -94,7 +91,7 @@
 <ROOM BASEMENT-STAIRS
       (IN ROOMS)
       (DESC "Basement Stairs")
-      (LDESC "Each step on this narrow stone [[staircase->stairs]] feels colder going [[down]] to the basement than [[up]] to the hall.")
+      (LDESC "You are on a narrow stone [[staircase->stairs]] that runs from the hall down into the basement. Every step is wet, and each one is colder than the last. From somewhere below comes a slow, steady dripping. The stairs climb [[up]] to the entrance hall and go on [[down]] to the basement corridor.")
       (UP TO SANITARIUM-ENTRANCE)
       (DOWN TO BASEMENT-CORRIDOR)
       (FLAGS RLANDBIT ONBIT)>
@@ -103,7 +100,6 @@
       (IN ROOMS)
       (DESC "Basement Corridor")
       (ACTION BASEMENT-CORRIDOR-FCN)
-      (LDESC "The basement corridor is dim, stretching into shadow. Stone stairs climb upward toward the entrance hall. To the east, a passage smells of coal and old smoke. West lies what might have been storage. North, another corridor descends into total darkness, toward the sound of dripping water.")
       (UP TO BASEMENT-STAIRS)
       (EAST TO BOILER-ROOM)
       (WEST TO STORAGE-ROOM)
@@ -128,7 +124,6 @@
       (IN ROOMS)
       (DESC "Flooded Chamber")
       (ACTION FLOODING-CHAMBER-FCN)
-      (LDESC "Black [[water]] fills this vast and dark chamber between the passage [[north]] and the corridor [[south]]. To the north, a narrow passage disappears into darkness. The corridor lies to the south.")
       (SOUTH TO BASEMENT-CORRIDOR)
       (NORTH TO ISOLATION-WARD)
       (EAST TO HYDROTHERAPY-ROOM IF STEAM-DOOR-OPEN ELSE "The metal door to the east is corroded shut.")
@@ -144,7 +139,7 @@
 <ROOM ISOLATION-WARD
       (IN ROOMS)
       (DESC "Isolation Ward")
-      (LDESC "[[Scratches]] run from one of the barred [[doors]] to the next. The theater lies [[north]], the flooded chamber [[south]].")
+      (LDESC "This is the isolation ward, a narrow hall lined with heavy cell [[doors]], each with a small barred window. Between the doors, thousands of [[scratches]] have been cut by fingernails, row upon row. Your lantern light shakes on them, and nothing else moves. To the [[north]] lies a room of scorched concrete, and the flooded chamber is back to the [[south]].")
       (SOUTH TO FLOODING-CHAMBER)
       (NORTH TO ELECTROSHOCK-THEATER)
       (FLAGS RLANDBIT)
@@ -153,7 +148,7 @@
 <ROOM ELECTROSHOCK-THEATER
       (IN ROOMS)
       (DESC "Electroshock Theater")
-      (LDESC "The [[machine]] faces a single [[chair]] in a room of scorched [[concrete]]. [[Stairs]] climb [[east]], the ward lies [[south]], and a padded-cell [[door]] stands ajar to the [[west]].")
+      (LDESC "You are in the electroshock theater, a bare room of scorched [[concrete]] that still smells faintly of burning. In the middle, a metal [[chair]] is bolted to the floor, facing a [[machine]] of dials and electrodes. Stone [[stairs]] climb [[east]] toward an observation deck, and a heavy [[door]] stands ajar to the [[west]], on a padded cell. The isolation ward is back to the [[south]].")
       (SOUTH TO ISOLATION-WARD)
       (EAST TO OBSERVATION-DECK)
       (WEST TO PADDED-CELL)
@@ -163,7 +158,7 @@
 <ROOM PADDED-CELL
       (IN ROOMS)
       (DESC "Padded Cell")
-      (LDESC "[[Writing->padding]] shows through the torn [[padding]] on the [[walls]] beside the [[door]] [[east]].")
+      (LDESC "This is a padded cell, hardly wider than your outstretched arms. The [[padding]] on the [[walls]] is torn and rotting, and in places dark [[writing->padding]] shows through the splits. The air is damp and sour. The heavy [[door]] to the [[east]] is the only way out, back to the electroshock theater.")
       (EAST TO ELECTROSHOCK-THEATER)
       (FLAGS RLANDBIT)
       (VALUE 5)>
@@ -171,7 +166,7 @@
 <ROOM OBSERVATION-DECK
       (IN ROOMS)
       (DESC "Observation Deck")
-      (LDESC "From the [[stairs]] [[west]], a one-way [[mirror]] runs the length of the wall to the office [[door]] [[north]].")
+      (LDESC "You are on the observation deck, a long, narrow room where the doctors once watched their treatments. A one-way [[mirror]] fills one side of it, and a narrow [[desk]] runs beneath it, worn smooth along its edge. Stone [[stairs]] lead down to the [[west]], and a [[door]] to the [[north]] opens into the administrative wing.")
       (WEST PER UNLIT-STAIRWAY)
       (NORTH TO ADMINISTRATIVE-WING)
       (FLAGS RLANDBIT ONBIT)>
@@ -179,7 +174,7 @@
 <ROOM ADMINISTRATIVE-WING
       (IN ROOMS)
       (DESC "Administrative Wing")
-      (LDESC "Loose [[papers]] spill from overturned [[filing cabinets->cabinets]]. The director’s office lies [[east]], staff quarters [[north]] and the observation deck [[south]].")
+      (LDESC "This is the administrative wing, and it smells of damp paper and old ink. [[Filing cabinets->cabinets]] lie overturned on their sides, and loose [[papers]] have spilled from them across the floor like dirty snow. The director’s office is to the [[east]] and the staff quarters to the [[north]]. The observation deck is back to the [[south]].")
       (SOUTH TO OBSERVATION-DECK)
       (EAST TO DIRECTORS-OFFICE)
       (NORTH TO STAFF-QUARTERS)
@@ -190,14 +185,13 @@
       (IN ROOMS)
       (DESC "Director's Office")
       (ACTION DIRECTORS-OFFICE-FCN)
-      (LDESC "A [[desk]] faces the corridor [[door]] to the [[west]].")
       (WEST TO ADMINISTRATIVE-WING)
       (FLAGS RLANDBIT ONBIT)>
 
 <ROOM STAFF-QUARTERS
       (IN ROOMS)
       (DESC "Staff Quarters")
-      (LDESC "Crooked [[lockers]] face rows of narrow [[beds]] between the cafeteria [[west]] and the offices [[south]].")
+      (LDESC "These are the staff quarters, where the night nurses slept between their rounds. Narrow iron [[beds]] stand in two rows, stripped down to their springs, and a bank of dented [[lockers]] leans crookedly at the far end. The cafeteria is to the [[west]], and the administrative wing is back to the [[south]].")
       (SOUTH TO ADMINISTRATIVE-WING)
       (WEST TO CAFETERIA)
       (FLAGS RLANDBIT ONBIT)>
@@ -205,7 +199,7 @@
 <ROOM CAFETERIA
       (IN ROOMS)
       (DESC "Cafeteria")
-      (LDESC "[[Dust]] lies thick on the serving [[counter]] between the staff quarters [[east]] and the garden [[door]] [[north]].")
+      (LDESC "This is the staff cafeteria. A long serving [[counter]] runs down one side under a grey skin of [[dust]], and the chairs are stacked upside down on the tables, as if someone meant to come back and mop. A wooden [[door]] with a cracked pane leads [[north]] into the garden, and the staff quarters are back to the [[east]].")
       (EAST TO STAFF-QUARTERS)
       (NORTH TO OVERGROWN-GARDEN)
       (FLAGS RLANDBIT ONBIT)>
@@ -214,7 +208,6 @@
       (IN ROOMS)
       (DESC "Overgrown Garden")
       (ACTION OVERGROWN-GARDEN-FCN)
-      (LDESC "Broken benches lie among the overgrowth. A stone path, barely visible, leads to a small chapel to the north. South returns to the cafeteria.")
       (SOUTH TO CAFETERIA)
       (NORTH TO CHAPEL IF CHAPEL-UNLOCKED ELSE "The chapel door is locked.")
       (FLAGS RLANDBIT ONBIT)
@@ -248,7 +241,7 @@
         (DESC "brass plaque")
         (INTERACTIONS "")
         (LDESC "A [[brass plaque->plaque]] hangs askew.")
-        (FLAGS READBIT)
+        (FLAGS READBIT NDESCBIT) ;"The gate's description tells of it."
         (TEXT "Beneath the corrosion you can read: “Blackwood Sanitarium - Est. 1898 - Closed by Order 1952”")
         (SIZE 5)
         (ACTION BRASS-PLAQUE-F)>
@@ -260,6 +253,7 @@
         (DESC "door to the operating theater")
         (INTERACTIONS "")
         (ACTION THEATER-DOOR-F)
+        (FLAGS NDESCBIT) ;"The hall's description tells of it."
         (LDESC "A theater [[door]] stands ajar to the [[north]].")>
 
 <OBJECT OAK-DESK
@@ -296,7 +290,8 @@
         (LDESC "A small [[brass key->reception key]] lies here.")
         (FLAGS TAKEBIT INVISIBLE)
         (SIZE 2)
-        (TEXT "A small brass key with the number “3” engraved on its head. It's ice cold despite being indoors.")>
+        (TEXT "A small brass key with the number “3” engraved on its head. It's ice cold despite being indoors.")
+        (ACTION BRASS-KEY-F)>
 
 <OBJECT RECEPTION-PAPERS
         (IN RECEPTION-ROOM)
@@ -312,6 +307,7 @@
         (SYNONYM TABLE)
         (ADJECTIVE OPERATING STAINED METAL BROWN CENTRAL)
         (DESC "operating table")
+        (ACTION OPERATING-TABLE-F)
         (FLAGS NDESCBIT SURFACEBIT CONTBIT OPENBIT)
         (TEXT "A [[dead lamp]] hangs above the [[metal trays->trays]]. The table itself is stained dark brown. Leather restraints dangle from all four corners. Deep gouges mar the metal surface, as if someone struggled violently against the bindings.")>
 
@@ -353,8 +349,9 @@
         (SYNONYM BEDS FRAMES BED FRAME BEDFRAME BEDFRAMES)
         (ADJECTIVE RUSTED BED METAL RUSTY)
         (DESC "bed frames")
-        (FDESC "A child's [[crayon drawing]] hangs from one of the bare [[bed frames->beds]].")
         (LDESC "Rusted [[bed frames->beds]] line the corridor.")
+        (FLAGS NDESCBIT) ;"The ward's description tells of them and the drawing."
+        (ACTION BED-FRAMES-F)
         (TEXT "Dozens of bed frames line the walls. The mattresses have rotted away, leaving only rusted springs and metal frames. Some still have restraint straps attached.")>
 
 <OBJECT CHILD-DRAWING
@@ -407,7 +404,7 @@
 <OBJECT STONE-STEPS
 	(IN BASEMENT-STAIRS) (DESC "stone staircase")
 	(SYNONYM STAIRCASE STAIRS STEP STEPS STONE) (ADJECTIVE NARROW STONE WET COLD)
-	(INTERACTIONS "") (FLAGS NDESCBIT)
+	(INTERACTIONS "") (FLAGS NDESCBIT) (ACTION STONE-STEPS-F)
 	(TEXT "Water beads on every step. At the bottom it runs in two thin tracks where the wheels of a stretcher wore the stone away.")>
 
 <OBJECT CANVAS-BUNDLE
@@ -716,7 +713,7 @@
         (ADJECTIVE STRAIT NAME COLLAR HEAVY CANVAS STAINED ROUGH STIFF)
         (DESC "straitjacket")
         (INTERACTIONS "")
-        (FDESC "A [[straitjacket]] lies unbuckled in one corner.")
+        (FDESC "A [[straitjacket]] lies unbuckled on the floor, as if someone had only just slipped out of it.")
         (LDESC "A [[straitjacket]] lies here.")
         (FLAGS TAKEBIT READBIT)
         (TEXT "The tag reads a name you know. Your name. Dated 1947. Five years before the sanitarium closed.")
@@ -747,7 +744,7 @@
         (ADJECTIVE OBSERVATION CLINICAL)
         (DESC "observation logbook")
         (INTERACTIONS "")
-        (FDESC "A [[logbook]] rests on a [[desk]].")
+        (FDESC "A clinical [[logbook]] lies open on the desk, as if the last observer had only stepped out.")
         (LDESC "The observation [[logbook]] lies here.")
         (FLAGS TAKEBIT READBIT)
         (TEXT "Session 47 - Patient 189. Subject required maximum voltage. Seizure lasted 4 minutes. Memory loss total. Subject claims to be “someone else” now. Dr. Mordecai pleased with results.")
@@ -899,8 +896,8 @@
 
 <OBJECT GARDEN-DOOR
         (IN CAFETERIA)
-        (SYNONYM DOOR)
-        (ADJECTIVE NORTH WOODEN GARDEN WARPED)
+        (SYNONYM DOOR PANE)
+        (ADJECTIVE NORTH WOODEN GARDEN WARPED CRACKED)
         (DESC "door to the garden")
         (INTERACTIONS "")
         (ACTION GARDEN-DOOR-F)
@@ -1037,15 +1034,15 @@
 
 <OBJECT GRAND-STAIRCASE
         (IN SANITARIUM-ENTRANCE)
-        (SYNONYM STAIRCASE STAIRS STAIRWAY STEPS)
-        (ADJECTIVE GRAND)
+        (SYNONYM STAIRCASE STAIRS STAIRWAY STEPS LANDING BANISTER)
+        (ADJECTIVE GRAND BROKEN COLLAPSED)
         (DESC "grand staircase")
         (FLAGS NDESCBIT)
         (ACTION GRAND-STAIRCASE-F)>
 
 <OBJECT WALLPAPER
         (IN SANITARIUM-ENTRANCE)
-        (SYNONYM WALLPAPER PAPER PLASTER)
+        (SYNONYM WALLPAPER PAPER PLASTER MOULD MOLD)
         (ADJECTIVE VICTORIAN PEELING VICTORIAN-ERA WARPED MOLDY)
         (DESC "wallpaper")
         (INTERACTIONS "")
@@ -1140,42 +1137,42 @@
 
 <OBJECT GRAVEL-PATH (IN SANITARIUM-GATE) (DESC "gravel path")
     (SYNONYM PATH GRAVEL TRACK) (ADJECTIVE GRAVEL NARROW)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION GRAVEL-PATH-F) (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "Two broad [[wheel ruts]] run between the gates. A strip of grass grows down the middle.")>
 
 <OBJECT BROKEN-GLASS (IN PATIENT-WARD) (DESC "broken glass")
     (SYNONYM GLASS SHARDS SPLINTERS) (ADJECTIVE BROKEN WINDOW)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION BROKEN-GLASS-F) (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "The pieces are green at the edges. Under one bed a whole pane still holds the [[wire mesh]] that kept it from falling apart.")>
 
 <OBJECT BASEMENT-SMOKE (IN BASEMENT-CORRIDOR) (DESC "coal smoke")
     (SYNONYM SMOKE SOOT) (ADJECTIVE COAL BLACK)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION BASEMENT-SMOKE-F) (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "A black streak on the ceiling leads back to the boiler room. The air smells strongest at that doorway.")>
 
 <OBJECT PIPE-DRIP (IN BASEMENT-CORRIDOR) (DESC "dripping water")
     (SYNONYM WATER DRIPS DRIP PUDDLE) (ADJECTIVE DRIPPING COLD)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION PIPE-DRIP-F) (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "Each drop runs north along a shallow groove in the floor. You can hear it fall into deeper water.")>
 
 <OBJECT RUBBER-HOSES (IN HYDROTHERAPY-ROOM) (DESC "rubber hoses")
     (SYNONYM HOSES HOSE) (ADJECTIVE RUBBER CRACKED)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION RUBBER-HOSES-F) (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "A [[nozzle]] hangs just above each tub. The rubber cracks into little squares where it bends over the rim.")>
 
 <OBJECT SCORCHED-CONCRETE (IN ELECTROSHOCK-THEATER) (DESC "scorched concrete")
     (SYNONYM CONCRETE SCORCH MARKS) (ADJECTIVE SCORCHED BLACK)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION SCORCHED-CONCRETE-F) (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "A black fan spreads across the concrete behind the machine. Its narrow end is just below the cable socket.")>
 
 <OBJECT OBSERVATION-DESK (IN OBSERVATION-DECK) (DESC "observation desk")
     (SYNONYM DESK) (ADJECTIVE OBSERVATION NARROW)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION OBSERVATION-DESK-F) (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "The front edge is worn smooth just where an observer could lean on it and write without taking their eyes off the glass.")>
 
 <OBJECT STAFF-BEDS (IN STAFF-QUARTERS) (DESC "staff beds")
-    (SYNONYM BEDS BED COTS) (ADJECTIVE STAFF NARROW)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (SYNONYM BEDS BED COTS SPRINGS) (ADJECTIVE STAFF NARROW IRON)
+    (ACTION STAFF-BEDS-F) (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "Each bed has a hook for a uniform at its foot. The hooks face the door, ready for a call in the night.")>
 
 <OBJECT CORRIDOR-STEPS (IN BASEMENT-CORRIDOR) (DESC "stone stairs")
@@ -1208,7 +1205,7 @@
 
 <OBJECT DETAIL-DEAD-LAMP (IN OPERATING-THEATER) (DESC "dead lamp")
     (SYNONYM LAMP BULB REFLECTOR) (ADJECTIVE DEAD OVERHEAD)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION DEAD-LAMP-F) (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "The silvering has peeled off the reflector in scales. Even a good bulb would throw a patchy light.")>
 
 <OBJECT DETAIL-NOZZLE (IN HYDROTHERAPY-ROOM) (DESC "nozzle")
@@ -1261,3 +1258,41 @@
     (SIZE 0) (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
     (TEXT "Tilt the cross and one line shines while its neighbour turns black. The pattern seems to move even when your hand is steady.")
     (ACTION CROSS-ETCHING-F)>
+
+; === SCENERY NAMED BY THE ROOM DESCRIPTIONS ===
+
+<OBJECT HALL-DUST (IN SANITARIUM-ENTRANCE) (DESC "plaster dust")
+    (SYNONYM DUST FOOTPRINTS FOOTPRINT PRINTS) (ADJECTIVE PLASTER WHITE)
+    (FLAGS NDESCBIT) (ACTION HALL-DUST-F)>
+
+<OBJECT RECEPTION-FIREPLACE (IN RECEPTION-ROOM) (DESC "fireplace")
+    (SYNONYM FIREPLACE GRATE HEARTH CHIMNEY) (ADJECTIVE COLD IRON)
+    (FLAGS NDESCBIT) (ACTION RECEPTION-FIREPLACE-F)>
+
+<OBJECT THEATER-EXIT (IN OPERATING-THEATER) (DESC "sagging door")
+    (SYNONYM DOOR) (ADJECTIVE SAGGING SOUTH JAMMED)
+    (FLAGS NDESCBIT) (ACTION THEATER-EXIT-F)>
+
+<OBJECT WARD-CURTAINS (IN PATIENT-WARD) (DESC "tattered curtains")
+    (SYNONYM CURTAINS CURTAIN SCREENS) (ADJECTIVE TATTERED GREY)
+    (FLAGS NDESCBIT) (ACTION WARD-CURTAINS-F)>
+
+<OBJECT HYDRO-TILES (IN HYDROTHERAPY-ROOM) (DESC "white tiles")
+    (SYNONYM TILES TILE) (ADJECTIVE WHITE CRACKED)
+    (FLAGS NDESCBIT) (ACTION HYDRO-TILES-F)>
+
+<OBJECT OFFICE-RUG (IN DIRECTORS-OFFICE) (DESC "worn rug")
+    (SYNONYM RUG CARPET) (ADJECTIVE WORN PERSIAN)
+    (FLAGS NDESCBIT) (ACTION OFFICE-RUG-F)>
+
+<OBJECT CAFETERIA-FURNITURE (IN CAFETERIA) (DESC "stacked chairs")
+    (SYNONYM CHAIRS CHAIR TABLES TABLE) (ADJECTIVE STACKED CAFETERIA)
+    (FLAGS NDESCBIT) (ACTION CAFETERIA-FURNITURE-F)>
+
+<OBJECT GARDEN-PATH (IN OVERGROWN-GARDEN) (DESC "stone path")
+    (SYNONYM PATH PATHS FLAGSTONES) (ADJECTIVE STONE GARDEN)
+    (FLAGS NDESCBIT) (ACTION GARDEN-PATH-F)>
+
+<OBJECT CHAPEL-EXTERIOR (IN OVERGROWN-GARDEN) (DESC "stone chapel")
+    (SYNONYM CHAPEL) (ADJECTIVE SMALL STONE)
+    (FLAGS NDESCBIT) (ACTION CHAPEL-EXTERIOR-F)>
