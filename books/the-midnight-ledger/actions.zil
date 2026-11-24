@@ -18,27 +18,27 @@
  <COND (<OR <NOT ,SCALE-SEEN> <NOT ,LEDGER-READ>> <TELL "Compare the scale and the midnight ledger. One clock is untrustworthy." CR>) (<OR <NOT ,SEAL-SEEN> <NOT ,CAB-SEEN>> <TELL "The seal and cabinet explain how the crate can change without a dispatch mark breaking." CR>) (<NOT ,REG-READ> <TELL "Read the public shift register and compare who left with the interval of the loss." CR>) (<NOT ,CASE-READY> <TELL "Turn the evidence panel when all three columns are established." CR>) (T <TELL "Choose the named tab that matches the access and time evidence." CR>)>>
 
 <ROUTINE VESTIBULE-F (RARG)
- <COND (<EQUAL? .RARG ,M-LOOK> <TELL "You are in the vestibule of the auction house, a draughty entrance hall with wet footprints all over the tiles. On a side table, a [[coffee urn->urn]] has cooked down to mud, and nobody here has the authority to empty it. A damp [[notice]] is pinned to the wall. Through the double doors to the [[north]] is the hearing chamber, where a chair scrapes. The cloakroom, where the porter is waiting, is to the [[east]]." CR>)>>
+ <COND (<EQUAL? .RARG ,M-LOOK> <TELL "You are in the vestibule of the auction house, a draughty entrance hall with wet [[footprints]] all over the tiles. In the corner, a [[coffee urn->urn]] has cooked down to mud, and nobody here has the authority to empty it. A damp [[notice]] is pinned to the wall. The hearing chamber is to the [[north]], and from it comes a low murmur of voices. The cloakroom, where the porter is waiting, is to the [[east]]." CR>)>>
 
 <ROUTINE CHAMBER-F (RARG)
- <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the hearing chamber, a panelled room with a long table and a ring of empty chairs. [[Clerk Venn->venn]] sits at the end of the table with the calm of someone paid by the hour. In the middle of the table stands the [[evidence panel->panel]], a hinged board on which the finding will be set out.">
+ <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the hearing chamber, a panelled room with a long [[table]] and a ring of empty chairs. [[Clerk Venn->venn]] sits at the end of the table with the calm of someone paid by the hour. In the middle of the table stands the [[evidence panel->panel]], a hinged board on which the finding will be set out.">
  <COND (,CASE-READY <TELL " Two paper tabs now hang from it, one for an [[Ives verdict->ives tab]] and one for an [[Orr verdict->orr tab]].">)>
  <TELL " The weigh room is to the [[west]] and the records room to the [[east]]. The public registry is to the [[north]], and the vestibule is back to the [[south]]." CR>)>>
 
 <ROUTINE CLOAKROOM-F (RARG)
- <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the cloakroom, a narrow room lined with coat pegs, every one of them empty. Steam rises from the radiator beneath them. [[Porter Ives->ives]], a broad, tired man in a porter's jacket, has hooked his own wet [[coat]] through a ring in the wall so that his hands will stop searching its pockets. The swing door back to the vestibule is to the [[west]]." CR>)>>
+ <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the cloakroom, a narrow room lined with coat [[pegs]], every one of them empty, above a hissing radiator. [[Porter Ives->ives]], a broad, tired man, has hung his own wet [[coat]] on the wall so that his hands will stop searching its pockets. The vestibule is back to the [[west]]." CR>)>>
 
 <ROUTINE SCALEHOUSE-F (RARG)
- <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the weigh room, where every crate is weighed into the auction and out again. Dust lies over the floor, except in clean squares where crates were standing. The big platform [[weigh scale->scale]] has stopped swinging, and a paper strip hangs from its printer. A [[clock]] ticks on the wall above it. The hearing chamber is just across the threshold to the [[east]]." CR>)>>
+ <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the weigh room, where every crate is weighed into the auction and out again. [[Dust]] lies over the floor, except in clean squares where crates were standing. The big platform [[weigh scale->scale]] has stopped swinging, and a paper strip hangs from its printer. A [[clock]] ticks on the wall above it. The hearing chamber is back to the [[east]]." CR>)>>
 
 <ROUTINE RECORDS-F (RARG)
- <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the records room, shelf after shelf of ledgers under a leaking ceiling. Tonight's book, the [[midnight ledger->ledger]], lies face up under the one dry square of ceiling. A [[key cabinet->cabinet]] hangs on the wall, and it smells very faintly of oranges. Beyond an open grille to the [[north]], the transit cage is unlit. The hearing chamber is back to the [[west]]." CR>)>>
+ <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the records room, [[shelves]] of old record books under a leaking [[ceiling]]. Tonight's book, the [[midnight ledger->ledger]], lies face up under the one dry square of ceiling. A [[key cabinet->cabinet]] hangs on the wall, and it smells very faintly of oranges. Beyond an open [[grille]] to the [[north]], the transit cage is unlit. The hearing chamber is back to the [[west]]." CR>)>>
 
 <ROUTINE CAGE-F (RARG)
- <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the transit cage, a wire-walled room where sold lots wait to be shipped. It is dim in here, and the boards shift a little underfoot. A [[syndicate seal->seal]] dangles crooked from an empty hook, and beside it a [[transit crate->crate]] gives a soft rattle whenever the floor moves. The lit records room is back to the [[south]]." CR>)>>
+ <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the transit cage, a wire-walled room where sold lots wait to be shipped. It is dim in here, and the floor shifts a little underfoot. A [[syndicate seal->seal]] dangles crooked from an empty hook, and beside it a [[transit crate->crate]] gives a soft rattle whenever the floor moves. The lit records room is back to the [[south]]." CR>)>>
 
 <ROUTINE REGISTRY-F (RARG)
- <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the public registry, where everyone who comes or goes on the night shift signs the book. Wet sleeves have softened the pages of the [[shift register->register]] where people leaned over to sign it. At the other desk, [[Assessor Orr->orr]], a neat, narrow man in a grey suit, keeps unbuttoning and rebuttoning one cuff. The hearing chamber is back to the [[south]]." CR>)>>
+ <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the public registry, where everyone who comes or goes on the night shift signs the book. Rain dripping from the people who leaned over to sign has softened the pages of the [[shift register->register]]. Across the room, [[Assessor Orr->orr]], a neat, narrow man in a grey suit, keeps unbuttoning and rebuttoning one cuff. The hearing chamber is back to the [[south]]." CR>)>>
 
 <ROUTINE MNOTICE-F ()
  <COND
@@ -163,3 +163,42 @@
   (<VERB? TURN SPIN> <COND (,CASE-READY <SETG CASE-DONE T>
     <TELL "Orr signing out of the registry proved nothing on its own. The key, the unbroken dispatch mark and the missing eleven pounds prove enough. Without a word, Orr draws the long brass instrument out of his document sleeve and lays it on the table, as neatly as if he were entering it in a column. Ives takes his coat down from the wall at last. He does not thank you until you are both out under the same rain." CR CR "THE END: THE WEIGHT OF THE RECORD" CR> <FINISH>)
     (T <TELL "No finding is available yet." CR>)>)>>
+
+<ROUTINE MFOOT-F ()
+ <COND
+  (<VERB? EXAMINE> <TELL "Dozens of wet footprints criss-cross the tiles: heavy boots, neat shoes, one set of bare feet that turns out to be a dog's. Most of them lead north, into the hearing." CR>)
+  (<VERB? FOLLOW> <TELL "They lead everywhere at once, which is no help at all." CR>)>>
+
+<ROUTINE MTABLE-F ()
+ <COND
+  (<VERB? EXAMINE> <TELL "A long oak table ringed with empty chairs. The [[evidence panel->panel]] stands in the middle, and Venn's papers are squared neatly at one end." CR>)
+  (<VERB? KNOCK> <TELL "Venn looks up. “Order,” she says mildly, and goes back to writing." CR>)
+  (<VERB? CLIMB-ON CLIMB-FOO> <TELL "You pull out a chair and sit for a moment. It is the first time you have sat down all night." CR>)>>
+
+<ROUTINE MPEGS-F ()
+ <COND
+  (<VERB? EXAMINE> <TELL "A row of brass coat pegs, all empty. Everyone else at the auction kept their coats on. Beneath them, the radiator hisses and steams." CR>)
+  (<VERB? RUB> <TELL "The radiator is too hot to touch for long." CR>)
+  (<VERB? LISTEN> <TELL "The radiator ticks and hisses like an impatient clerk." CR>)>>
+
+<ROUTINE MDUST-F ()
+ <COND
+  (<VERB? EXAMINE> <TELL "Grey dust everywhere, except in clean squares where crates stood until they were moved. One square, nearest the scale, is still sharp at the edges." CR>)
+  (<VERB? RUB> <TELL "It comes away on your fingertip, fine and grey. Under it, the boards are scored by crate corners." CR>)>>
+
+<ROUTINE MSHELVES-F ()
+ <COND
+  (<VERB? EXAMINE SEARCH> <TELL "Shelf after shelf of old record books, years of auctions in faded cloth bindings. Only tonight's book matters, and it lies apart from them, under the one dry square of ceiling." CR>)
+  (<VERB? SMELL> <TELL "Mildew and old glue." CR>)
+  (<VERB? TAKE> <TELL "None of them covers tonight. The midnight ledger does." CR>)>>
+
+<ROUTINE MCEILING-F ()
+ <COND
+  (<VERB? EXAMINE> <TELL "The ceiling leaks in a dozen places. There is a single dry square of plaster, and the midnight ledger has been laid exactly under it." CR>)
+  (<VERB? LISTEN> <TELL "Drip. Drip. Drip, into a bucket somewhere behind the shelves." CR>)>>
+
+<ROUTINE MGRILLE-F ()
+ <COND
+  (<VERB? EXAMINE> <TELL "A folding iron grille that closes off the transit cage. It stands open now, and the cage beyond it is dark." CR>)
+  (<VERB? CLOSE> <TELL "You leave it open. The cage is part of the evidence." CR>)
+  (<VERB? RUB> <TELL "Its hinges are freshly oiled, and the oil smells of oranges." CR>)>>

@@ -17,56 +17,56 @@
 <GLOBAL LB-RECEIPT-SEEN <>>
 
 <ROOM LB-LANDING (IN ROOMS) (DESC "Saint Bride Landing")
-	(LDESC "You are on the landing stage below the station, where the mail boat ties up in better weather. Rain drives across the planks, and every few seconds a wave bursts over the breakwater and runs back hissing between the boards. A salt-crusted [[station clock]] is bolted to a post at the head of the steps. Ahead, through the station's open door, a [[hall light]] swings on its bracket. The station hall lies to the [[north]], and there is nowhere else to go on a night like this.")
-	(NORTH TO LB-HALL) (FLAGS RLANDBIT ONBIT)>
+	(LDESC "You are on the landing stage below the station, where the mail boat ties up in better weather. Rain drives across the planks, and every few seconds a wave bursts over the [[breakwater]] and runs back hissing between them. A salt-crusted [[station clock]] is bolted to an iron post at the head of the landing. Ahead, through the station's open door, a [[hall light]] swings on its bracket. The station hall lies to the [[north]], and there is nowhere else to go on a night like this.")
+	(NORTH TO LB-HALL) (GLOBAL LB-DOORS) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-HALL (IN ROOMS) (DESC "Station Hall")
-	(LDESC "This is the hall of the station, a narrow room of varnished pine that smells of paraffin and wet oilskins. Water from the coats on their pegs has made a dark pool by the door, and a freshly lettered [[appeal board]] hangs on the wall above it. Vane's office is to the [[north]], the studio to the [[east]] and the kitchen to the [[west]]. Wooden [[stairs]] climb [[up]] to the bunkroom, and the landing stage is back to the [[south]].")
-	(NORTH TO LB-OFFICE) (EAST TO LB-STUDIO) (WEST TO LB-KITCHEN) (UP TO LB-BUNKROOM) (SOUTH TO LB-LANDING) (FLAGS RLANDBIT ONBIT)>
+	(LDESC "This is the hall of the station, a narrow room of varnished pine that smells of paraffin and wet oilskins. Water from the [[coats]] on their pegs has made a dark pool on the floor, and a freshly lettered [[appeal board]] hangs beside the door. Vane's office is to the [[north]], the studio to the [[east]] and the kitchen to the [[west]]. Wooden [[stairs]] climb [[up]] to the bunkroom, and the landing stage is back to the [[south]].")
+	(NORTH TO LB-OFFICE) (EAST TO LB-STUDIO) (WEST TO LB-KITCHEN) (UP TO LB-BUNKROOM) (SOUTH TO LB-LANDING) (GLOBAL LB-DOORS) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-OFFICE (IN ROOMS) (DESC "Vane's Office")
 	(ACTION LB-OFFICE-F)
-	(SOUTH TO LB-HALL) (DOWN TO LB-PASSAGE IF LB-HATCH IS OPEN ELSE "The [[hatch]] is bolted shut; its square spindle takes a spanner.") (GLOBAL LB-HATCH) (FLAGS RLANDBIT ONBIT)>
+	(SOUTH TO LB-HALL) (DOWN TO LB-PASSAGE IF LB-HATCH IS OPEN ELSE "The [[hatch]] is bolted shut; its square spindle takes a spanner.") (GLOBAL LB-HATCH LB-DOORS) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-STUDIO (IN ROOMS) (DESC "Broadcast Studio")
-	(LDESC "This is the broadcast studio, a small square room hung all round with brown felt to deaden the sound. In here the storm is only a pressure against the walls, and your own breathing seems loud. A [[microphone]] stands on its stand in the middle of the floor, a small red lamp glowing at its collar. [[Ruth]] Bell waits beside it, murmuring to herself in the trained voice of an announcer. The hall is back to the [[west]], and a door with a glass panel leads [[east]] into the control room.")
-	(WEST TO LB-HALL) (EAST TO LB-CONTROL) (GLOBAL LB-VANE LB-BROADCAST) (FLAGS RLANDBIT ONBIT)>
+	(LDESC "This is the broadcast studio, a small square room hung all round with brown [[felt->studio felt]] to deaden the sound. In here the storm is only a pressure against the walls, and your own breathing seems loud. A [[microphone]] stands in the middle of the floor, a small red lamp glowing at its collar. [[Ruth]] Bell waits beside it, murmuring to herself in the trained voice of an announcer. The hall is back to the [[west]], and a door with a glass panel leads [[east]] into the control room.")
+	(WEST TO LB-HALL) (EAST TO LB-CONTROL) (GLOBAL LB-VANE LB-BROADCAST LB-DOORS) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-CONTROL (IN ROOMS) (ACTION LB-CONTROL-LOOK) (DESC "Control Room")
-	(WEST TO LB-STUDIO) (NORTH TO LB-CUTTING) (SOUTH TO LB-WORKSHOP) (FLAGS RLANDBIT ONBIT)>
+	(WEST TO LB-STUDIO) (NORTH TO LB-CUTTING) (SOUTH TO LB-WORKSHOP) (GLOBAL LB-DOORS) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-CUTTING (IN ROOMS) (ACTION LB-CUTTING-LOOK) (DESC "Disc Cutting Room")
-	(SOUTH TO LB-CONTROL) (EAST TO LB-ARCHIVE) (FLAGS RLANDBIT ONBIT)>
+	(SOUTH TO LB-CONTROL) (EAST TO LB-ARCHIVE) (GLOBAL LB-DOORS) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-ARCHIVE (IN ROOMS) (ACTION LB-ARCHIVE-LOOK) (DESC "Record Archive")
-	(WEST TO LB-CUTTING) (FLAGS RLANDBIT ONBIT)>
+	(WEST TO LB-CUTTING) (GLOBAL LB-DOORS) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-WORKSHOP (IN ROOMS) (DESC "Service Workshop")
-	(LDESC "This is the service workshop, a low room that smells of solder and machine oil. Coils of wire and the gutted cases of old receivers crowd the shelves, and burn marks freckle the long [[workbench]] beneath a hanging bulb. The control room is up a step to the [[north]]. An iron ladder goes [[down]] to the generator room, and the floor trembles faintly with its engine.")
-	(NORTH TO LB-CONTROL) (DOWN TO LB-GENERATOR) (FLAGS RLANDBIT ONBIT)>
+	(LDESC "This is the service workshop, a low room that smells of solder and machine oil. Coils of wire and the gutted cases of old receivers crowd the [[shelves]], and burn marks freckle the long [[workbench]]. The control room is up a step to the [[north]]. An iron [[ladder]] goes [[down]] to the generator room, and the floor trembles faintly with its engine.")
+	(NORTH TO LB-CONTROL) (DOWN TO LB-GENERATOR) (GLOBAL LB-LADDER) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-GENERATOR (IN ROOMS) (DESC "Generator Room")
-	(LDESC "You are in the generator room, under the workshop. A diesel [[generator]] fills most of the space, thumping steadily on its rubber feet, and the smell of hot oil is thick enough to taste. Beside it a small recording instrument ticks over a drum of paper. An iron ladder leads [[up]] to the workshop. A low opening to the [[north]] gives onto the cable passage.")
-	(UP TO LB-WORKSHOP) (NORTH TO LB-PASSAGE) (FLAGS RLANDBIT ONBIT)>
+	(LDESC "You are in the generator room, under the workshop. A diesel [[generator]] fills most of the space, thumping steadily, and the smell of hot oil is thick enough to taste. Beside it a small recording instrument ticks over a drum of paper. An iron [[ladder]] leads [[up]] to the workshop, and the cable passage begins to the [[north]].")
+	(UP TO LB-WORKSHOP) (NORTH TO LB-PASSAGE) (GLOBAL LB-LADDER) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-PASSAGE (IN ROOMS) (DESC "Cable Passage")
 	(ACTION LB-PASSAGE-F)
 	(SOUTH TO LB-GENERATOR) (UP TO LB-OFFICE IF LB-HATCH IS OPEN ELSE "The [[hatch]] is bolted shut; a square spindle faces you.") (GLOBAL LB-HATCH) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-KITCHEN (IN ROOMS) (ACTION LB-KITCHEN-LOOK) (DESC "Station Kitchen")
-	(EAST TO LB-HALL) (WEST TO LB-TELEGRAPH) (GLOBAL LB-VANE LB-BROADCAST) (FLAGS RLANDBIT ONBIT)>
+	(EAST TO LB-HALL) (WEST TO LB-TELEGRAPH) (GLOBAL LB-VANE LB-BROADCAST LB-DOORS) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-TELEGRAPH (IN ROOMS) (DESC "Telegraph Room")
-	(LDESC "This is the telegraph room, hardly bigger than a cupboard and crowded with glass batteries and coils of wire. On the desk the brass sounder of the [[telegraph]] clicks to itself, and [[Tomas->tomas]] Vale, the operator, sits hunched at the key without a word. The kitchen is back to the [[east]]. Iron [[stairs]] climb [[up]] through a trapdoor to the aerial platform, and cold air comes down them.")
+	(LDESC "This is the telegraph room, hardly bigger than a cupboard and crowded with glass [[batteries]] and coils of wire. The brass sounder of the [[telegraph]] clicks to itself, and [[Tomas->tomas]] Vale, the operator, sits hunched at the key without a word. The kitchen is back to the [[east]]. Iron [[stairs]] climb [[up]] through a trapdoor to the aerial platform, and cold air comes down them.")
 	(EAST TO LB-KITCHEN) (UP TO LB-PLATFORM) (GLOBAL LB-VANE LB-BROADCAST) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-PLATFORM (IN ROOMS) (DESC "Aerial Platform")
 	(LDESC "You are on the aerial platform, on the roof of the station and open to the full force of the gale. The [[aerial]] wires climb from here into the dark, humming in the wind, and a green [[signal lamp]] shines on the wet iron. Cold [[rain]] drives across the platform in sheets. Iron stairs lead [[down]] to the telegraph room. A [[covered walk]] runs across the roof to the [[bunkroom->east]].")
 	(DOWN TO LB-TELEGRAPH) (EAST TO LB-BUNKROOM) (GLOBAL LB-COVERED-WALK) (FLAGS RLANDBIT ONBIT)>
 <ROOM LB-BUNKROOM (IN ROOMS) (DESC "Staff Bunkroom")
-	(LDESC "This is the staff bunkroom, under the eaves at the top of the house. Four iron bunks stand against the walls, and the rain is loud on the slates just overhead. [[Ada]] Mercer, the station engineer, sits very straight on a hard chair beneath a [[maintenance roster]] pinned to the wall. The stairs lead [[down]] to the hall. A door opens onto the [[covered walk]], which crosses the roof to the [[aerial platform->west]].")
-	(DOWN TO LB-HALL) (WEST TO LB-PLATFORM) (GLOBAL LB-VANE LB-BROADCAST LB-COVERED-WALK) (FLAGS RLANDBIT ONBIT)>
+	(LDESC "This is the staff bunkroom, under the eaves at the top of the house. Four iron [[bunks]] stand against the walls, and the rain is loud just overhead. [[Ada]] Mercer, the station engineer, sits very straight on a hard chair beneath a [[maintenance roster]] pinned to the wall. The stairs lead [[down]] to the hall. A door opens onto the [[covered walk]], which crosses the roof to the [[aerial platform->west]].")
+	(DOWN TO LB-HALL) (WEST TO LB-PLATFORM) (GLOBAL LB-VANE LB-BROADCAST LB-COVERED-WALK LB-DOORS) (FLAGS RLANDBIT ONBIT)>
 
 <OBJECT LB-CASEBOOK (IN ADVENTURER) (DESC "casebook") (SYNONYM CASEBOOK NOTEBOOK CASE BOOK NOTE NOTES COLUMNS)  (FLAGS TAKEBIT) (SIZE 0) (INTERACTIONS "") (ACTION LB-CASEBOOK-F)>
-<OBJECT LB-STATION-CLOCK (IN LB-LANDING) (DESC "station clock") (SYNONYM CLOCK TIME SALT) (ADJECTIVE STATION SPRING RUNNING SALT-CRUSTED) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-STATION-CLOCK-F)>
+<OBJECT LB-STATION-CLOCK (IN LB-LANDING) (DESC "station clock") (SYNONYM CLOCK TIME SALT POST) (ADJECTIVE STATION SPRING RUNNING SALT-CRUSTED) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-STATION-CLOCK-F)>
 
 <OBJECT LB-BOARD (IN LB-HALL) (DESC "appeal board") (SYNONYM BOARD SCHEDULE ENTRY ORDER) (ADJECTIVE APPEAL) (FLAGS NDESCBIT READBIT) (INTERACTIONS "") (ACTION LB-BOARD-F)>
 <OBJECT LB-OFFICE-CLOCK (IN LB-OFFICE) (DESC "office clock") (SYNONYM CLOCK HANDS) (ADJECTIVE OFFICE ELECTRIC SYNCHRONOUS STOPPED WINDING) (FLAGS NDESCBIT) (INTERACTIONS "COMPARE:LB-CHART") (ACTION LB-OFFICE-CLOCK-F)>
-<OBJECT LB-BODY (IN LB-OFFICE) (DESC "Julian Vane's body") (SYNONYM BODY CORPSE JULIAN WOUND EAR VANE BRUISE) (ADJECTIVE JULIAN VANE DEAD VANES JULIANS STIFF BLUNT HEAD BRASS) (FLAGS NDESCBIT) (INTERACTIONS "COMPARE:LB-WEIGHT") (ACTION LB-BODY-F)>
+<OBJECT LB-BODY (IN LB-OFFICE) (DESC "Julian Vane's body") (SYNONYM BODY CORPSE JULIAN WOUND EAR VANE BRUISE CHAIR) (ADJECTIVE JULIAN VANE DEAD VANES JULIANS STIFF BLUNT HEAD BRASS) (FLAGS NDESCBIT) (INTERACTIONS "COMPARE:LB-WEIGHT") (ACTION LB-BODY-F)>
 <OBJECT LB-HATCH (IN LOCAL-GLOBALS) (DESC "service hatch") (SYNONYM HATCH SPINDLE BOLT SMEAR) (ADJECTIVE SERVICE SQUARE FLUSH OPEN OFFICE) (FLAGS NDESCBIT DOORBIT) (INTERACTIONS "USE-WITH:LB-SPANNER,LB-STYLUS;OPEN:LB-SPANNER;UNLOCK:LB-SPANNER") (ACTION LB-HATCH-F)>
 <OBJECT LB-RUTH (IN LB-STUDIO) (DESC "Ruth Bell") (SYNONYM BELL RUTH ANNOUNCER WOMAN) (ADJECTIVE RUTH BELL) (FLAGS NDESCBIT ACTORBIT ARTICLEBIT) (INTERACTIONS "TELL:LB-MICROPHONE,LB-BROADCAST,LB-VANE,LB-DISC;SHOW:LB-DISC") (ACTION LB-RUTH-F)>
 <OBJECT LB-MICROPHONE (IN LB-STUDIO) (DESC "microphone") (SYNONYM MICROPHONE MIKE LAMP MIC) (ADJECTIVE RED STUDIO HEATER WARM SUPPLY TINY) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-MICROPHONE-F)>
 <OBJECT LB-PLAYER (IN LB-CONTROL) (DESC "gramophone") (SYNONYM GRAMOPHONE PLAYER TURNTABLE PHONOGRAPH PICKUP PLATTER) (ADJECTIVE SPRING-DRIVEN BROADCAST) (FLAGS NDESCBIT CONTBIT OPENBIT SEARCHBIT) (CAPACITY 50) (INTERACTIONS "USE-WITH:LB-STYLUS,LB-SPANNER") (ACTION LB-PLAYER-F)>
 <OBJECT LB-SWITCH (IN LB-CONTROL) (DESC "routing switch") (SYNONYM SWITCH ROUTING LEVER GUARD MARK) (ADJECTIVE ROUTING MIC DISC WAX WITNESS) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-SWITCH-F)>
-<OBJECT LB-CUTTER (IN LB-CUTTING) (DESC "disc cutter") (SYNONYM CUTTER MACHINE LACQUER COVER CRADLE ARM) (ADJECTIVE DISC LACQUER CUTTING) (FLAGS NDESCBIT CONTBIT SEARCHBIT) (CAPACITY 20) (INTERACTIONS "") (ACTION LB-CUTTER-F)>
+<OBJECT LB-CUTTER (IN LB-CUTTING) (DESC "disc cutter") (SYNONYM CUTTER MACHINE LACQUER COVER CRADLE ARM TURNTABLE) (ADJECTIVE DISC LACQUER CUTTING) (FLAGS NDESCBIT CONTBIT SEARCHBIT) (CAPACITY 20) (INTERACTIONS "") (ACTION LB-CUTTER-F)>
 <OBJECT LB-REGISTER (IN LB-CUTTING) (DESC "cutter register") (SYNONYM REGISTER LOG LOGBOOK ENTRY ENTRIES) (ADJECTIVE CUTTER CUTTING) (FLAGS NDESCBIT READBIT) (INTERACTIONS "COMPARE:LB-DISC") (ACTION LB-REGISTER-F)>
 <OBJECT LB-SLEEVE (IN LB-ARCHIVE) (DESC "cardboard sleeve") (SYNONYM SLEEVE ENVELOPE CARDBOARD FLAP) (ADJECTIVE CARDBOARD RECORD STIFF REHEARSAL ARCHIVE) (FLAGS NDESCBIT CONTBIT SEARCHBIT) (CAPACITY 30)  (INTERACTIONS "") (ACTION LB-SLEEVE-F)>
 <OBJECT LB-DISC (IN LB-SLEEVE) (DESC "lacquer disc") (SYNONYM DISC RECORD GROOVE EDGE BAND LABEL) (ADJECTIVE LACQUER RECORDED APPEAL ALUMINIUM-BASED ALUMINIUM CHIPPED SIX-MINUTE ARCHIVE) (FLAGS TAKEBIT READBIT) (SIZE 2) (LDESC "A [[lacquer disc]] lies here.") (INTERACTIONS "PUT:LB-PLAYER,LB-SLEEVE;COMPARE:LB-REGISTER;SHOW:LB-RUTH,LB-ADA") (ACTION LB-DISC-F)>
@@ -76,12 +76,12 @@
 	(FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-WORKBENCH-F)>
 <OBJECT LB-STYLUS (IN LB-WORKSHOP) (DESC "playback stylus") (SYNONYM STYLUS NEEDLE) (ADJECTIVE PLAYBACK STEEL SAPPHIRE SMALL WORKSHOP) (FLAGS NDESCBIT TAKEBIT) (SIZE 0) (LDESC "A [[playback stylus]] lies here.") (INTERACTIONS "USE-ON:LB-PLAYER,LB-HATCH") (ACTION LB-STYLUS-F)>
 <OBJECT LB-SPANNER (IN LB-WORKSHOP) (DESC "service spanner") (SYNONYM SPANNER WRENCH TOOL SOCKET) (ADJECTIVE SERVICE SQUARE SQUARE-SOCKET LARGE WORKSHOP) (FLAGS TAKEBIT TOOLBIT) (SIZE 1) (LDESC "A [[service spanner]] lies here.") (INTERACTIONS "USE-ON:LB-HATCH,LB-PLAYER") (ACTION LB-SPANNER-F)>
-<OBJECT LB-GENERATOR-MACHINE (IN LB-GENERATOR) (DESC "lighting generator") (SYNONYM GENERATOR DIESEL MOTOR ENGINE ACCUMULATORS) (ADJECTIVE LIGHTING DIESEL MECHANICAL) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-GENERATOR-F)>
+<OBJECT LB-GENERATOR-MACHINE (IN LB-GENERATOR) (DESC "lighting generator") (SYNONYM GENERATOR DIESEL MOTOR ENGINE ACCUMULATORS INSTRUMENT RECORDER DRUM) (ADJECTIVE LIGHTING DIESEL MECHANICAL) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-GENERATOR-F)>
 <OBJECT LB-CHART (IN LB-GENERATOR) (DESC "voltage chart") (SYNONYM CHART TRACE VOLTAGE) (ADJECTIVE VOLTAGE GENERATOR MECHANICAL) (FLAGS TAKEBIT READBIT) (SIZE 0) (LDESC "A [[voltage chart]] lies here.") (INTERACTIONS "COMPARE:LB-OFFICE-CLOCK") (ACTION LB-CHART-F)>
 <OBJECT LB-STAIN (IN LB-PASSAGE) (DESC "passage stain") (SYNONYM STAIN BLOOD PRINT FOOTPRINT HEEL DIAMOND) (ADJECTIVE PASSAGE HEEL BLOODY BLOOD DILUTED) (FLAGS NDESCBIT) (INTERACTIONS "COMPARE:LB-BOOTS") (ACTION LB-STAIN-F)>
 <OBJECT LB-EDITH (IN LB-KITCHEN) (DESC "Dr Edith Shaw") (SYNONYM SHAW EDITH DOCTOR PHYSICIAN) (ADJECTIVE EDITH DR SHAW DOCTOR) (FLAGS NDESCBIT ACTORBIT ARTICLEBIT) (INTERACTIONS "TELL:LB-BAG,LB-DRESSING,LB-BROADCAST,LB-VANE;SHOW:LB-DRESSING") (ACTION LB-EDITH-F)>
-<OBJECT LB-TABLE (IN LB-KITCHEN) (DESC "kitchen table") (SYNONYM TABLE KETTLE TEA GLASS TUMBLER) (ADJECTIVE KITCHEN BROKEN COLD) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-TABLE-F)>
-<OBJECT LB-BAG (IN LB-KITCHEN) (DESC "medical bag") (SYNONYM BAG SATCHEL) (ADJECTIVE MEDICAL LEATHER PRIVATE EDITH) (FLAGS NDESCBIT CONTBIT SEARCHBIT) (CAPACITY 20)  (INTERACTIONS "") (ACTION LB-BAG-F)>
+<OBJECT LB-TABLE (IN LB-KITCHEN) (DESC "kitchen table") (SYNONYM TABLE TEA GLASS TUMBLER) (ADJECTIVE KITCHEN BROKEN COLD) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-TABLE-F)>
+<OBJECT LB-BAG (IN LB-KITCHEN) (DESC "medical bag") (SYNONYM BAG SATCHEL CLASP) (ADJECTIVE MEDICAL LEATHER PRIVATE EDITH) (FLAGS NDESCBIT CONTBIT SEARCHBIT) (CAPACITY 20)  (INTERACTIONS "") (ACTION LB-BAG-F)>
 <OBJECT LB-DRESSING (IN LB-BAG) (DESC "bloodied dressing") (SYNONYM DRESSING BANDAGE GAUZE FRAGMENTS INITIALS) (ADJECTIVE BLOODIED MEDICAL BLOODY RUTH) (FLAGS TAKEBIT READBIT) (SIZE 0) (LDESC "A [[bloodied dressing]] lies here.") (INTERACTIONS "SHOW:LB-EDITH") (ACTION LB-DRESSING-F)>
 <OBJECT LB-TOMAS (IN LB-TELEGRAPH) (DESC "Tomas Vale") (SYNONYM VALE TOMAS OPERATOR MAN) (ADJECTIVE TOMAS VALE TELEGRAPH) (FLAGS NDESCBIT ACTORBIT ARTICLEBIT) (INTERACTIONS "TELL:LB-RECEIPT,LB-BROADCAST,LB-VANE;SHOW:LB-RECEIPT") (ACTION LB-TOMAS-F)>
 <OBJECT LB-TELEGRAPH-MACHINE (IN LB-TELEGRAPH) (DESC "telegraph") (SYNONYM TELEGRAPH KEY SOUNDER TAPE LANDLINE) (ADJECTIVE TWO-WAY) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION LB-TELEGRAPH-F)>
@@ -133,7 +133,7 @@
     (ACTION LB-COVERED-WALK-F)>
 
 <OBJECT LB-TELEGRAPH-STAIRS (IN LB-TELEGRAPH) (DESC "platform stairs")
-    (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE PLATFORM IRON)
+    (SYNONYM STAIRS STEPS STAIRCASE TRAPDOOR) (ADJECTIVE PLATFORM IRON)
     (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "Clean drops hang from the lowest iron tread. Someone coming in from the platform brings the weather down with them.")
     (ACTION LB-TELEGRAPH-STAIRS-F)>
@@ -184,3 +184,93 @@
     (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "The nap is worn thin in one short groove. A delicate point laid there would stay put even when the bench shook.")
     (ACTION DETAIL-BLACK-FELT-F)>
+
+<OBJECT LB-DOORS (IN LOCAL-GLOBALS) (DESC "door")
+    (SYNONYM DOOR DOORS DOORWAY PANEL) (ADJECTIVE PAINTED GLASS)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "An ordinary painted door, swollen with the damp. Like every door in the station it stands open, and none of them has a lock worth the name.")
+    (ACTION LB-DOORS-F)>
+
+<OBJECT LB-SEA (IN LB-LANDING) (DESC "breakwater")
+    (SYNONYM BREAKWATER WAVE WAVES SEA SPRAY PLANKS) (ADJECTIVE GREY STONE)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "A long arm of piled grey stone shelters the landing. Every few waves one comes clean over the top and runs back across the planks.")
+    (ACTION LB-SEA-F)>
+
+<OBJECT LB-COATS (IN LB-HALL) (DESC "coats")
+    (SYNONYM COATS COAT PEGS PEG OILSKINS POOL) (ADJECTIVE WET WOOL)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "A row of oilskins and one good wool overcoat hang from iron pegs, dripping onto the floor.")
+    (ACTION LB-COATS-F)>
+
+<OBJECT LB-CABINETS (IN LB-OFFICE) (DESC "filing cabinets")
+    (SYNONYM CABINETS CABINET BOXES BOX FILES DRAWERS) (ADJECTIVE FILING DEED GREEN)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Green steel cabinets and black japanned deed boxes, every one of them locked. Vane kept his papers where his staff could not reach them.")
+    (ACTION LB-CABINETS-F)>
+
+<OBJECT LB-FELT (IN LB-STUDIO) (DESC "studio felt")
+    (SYNONYM FELT WALLS WALL) (ADJECTIVE BROWN STUDIO)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Brown felt, tacked over every inch of wall to swallow echoes. It is grey with dust along the top.")
+    (ACTION LB-FELT-F)>
+
+<OBJECT LB-VALVES (IN LB-CONTROL) (DESC "valves")
+    (SYNONYM VALVES VALVE RACKS RACK TRANSMITTER) (ADJECTIVE ORANGE STEEL)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Tall steel racks of valves glow orange behind wire mesh. They warm the room like a small fire.")
+    (ACTION LB-VALVES-F)>
+
+<OBJECT LB-SHELVES (IN LB-ARCHIVE) (DESC "archive shelves")
+    (SYNONYM SHELVES SHELF DISCS) (ADJECTIVE ARCHIVE NUMBERED)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Hundreds of discs in brown card sleeves, each numbered on the spine in the same neat hand. Dust lies evenly along every shelf.")
+    (ACTION LB-SHELVES-F)>
+
+<OBJECT LB-READING-TABLE (IN LB-ARCHIVE) (DESC "reading table")
+    (SYNONYM TABLE) (ADJECTIVE READING DEAL)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "A plain deal table, scarred by years of sleeves slid across it.")
+    (ACTION LB-READING-TABLE-F)>
+
+<OBJECT LB-WORKSHOP-SHELVES (IN LB-WORKSHOP) (DESC "workshop shelves")
+    (SYNONYM SHELVES SHELF RECEIVERS RECEIVER COILS WIRE) (ADJECTIVE WORKSHOP GUTTED)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Coils of wire, boxes of spare valves and the gutted cases of old receivers, kept for parts. It is all in better order than it looks.")
+    (ACTION LB-WORKSHOP-SHELVES-F)>
+
+<OBJECT LB-LADDER (IN LOCAL-GLOBALS) (DESC "iron ladder")
+    (SYNONYM LADDER RUNGS) (ADJECTIVE IRON)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "An iron ladder, its rungs worn bright, bolted to the wall of the shaft between the workshop and the generator room.")
+    (ACTION LB-LADDER-F)>
+
+<OBJECT LB-PIPES (IN LB-PASSAGE) (DESC "pipes")
+    (SYNONYM PIPES PIPE CABLES CABLE WIRING TUNNEL) (ADJECTIVE LEAD COLD BRICK)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Lead pipes and cloth-wrapped cables run along the brickwork in iron brackets, sweating with condensation.")
+    (ACTION LB-PIPES-F)>
+
+<OBJECT LB-RANGE (IN LB-KITCHEN) (DESC "kitchen range")
+    (SYNONYM RANGE STOVE KETTLE OVEN) (ADJECTIVE KITCHEN IRON)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "A black iron range, banked low for the night. The kettle on it ticks as it cools.")
+    (ACTION LB-RANGE-F)>
+
+<OBJECT LB-KITCHEN-WINDOW (IN LB-KITCHEN) (DESC "kitchen window")
+    (SYNONYM WINDOW SINK) (ADJECTIVE KITCHEN)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Black glass with rain sheeting down it. You can see nothing outside, only lamplight and your own tired face.")
+    (ACTION LB-KITCHEN-WINDOW-F)>
+
+<OBJECT LB-BATTERIES (IN LB-TELEGRAPH) (DESC "glass batteries")
+    (SYNONYM BATTERIES BATTERY JARS COILS WIRE) (ADJECTIVE GLASS)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Rows of glass jars of acid, each holding a pair of plates, wired together to drive the landline.")
+    (ACTION LB-BATTERIES-F)>
+
+<OBJECT LB-BUNKS (IN LB-BUNKROOM) (DESC "iron bunks")
+    (SYNONYM BUNKS BUNK BEDS BED CHAIR) (ADJECTIVE IRON HARD)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Four iron bunks, the blankets folded square in the naval way. A hard chair stands between two of them.")
+    (ACTION LB-BUNKS-F)>

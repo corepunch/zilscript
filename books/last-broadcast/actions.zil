@@ -2,14 +2,14 @@
 
 <ROUTINE LB-KITCHEN-LOOK (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "You are in the station kitchen, the only warm room in the building. A kettle ticks on the range, and the window over the sink is black with rain. [[Edith]] Shaw, the island's doctor, sits at the scrubbed [[table]], where two [[cups]] of tea have gone cold. ">
+		<TELL "You are in the station kitchen, the only warm room in the building. A kettle ticks on the [[range]], and the [[window]] over the sink is black with rain. [[Edith]] Shaw, the island's doctor, sits at the scrubbed [[table]], where two [[cups]] of tea have gone cold. ">
 		<COND (<FSET? ,LB-BAG ,OPENBIT> <TELL "Her [[medical bag]] stands open at her elbow.">)
-			(T <TELL "Her [[medical bag]] rests on the bench at her elbow, its clasp shut.">)>
+			(T <TELL "Her [[medical bag]] rests at her elbow, its clasp shut.">)>
 		<TELL " The hall is back to the [[east]], and a door to the west leads to the [[telegraph room->west]]." CR> <RTRUE>)>>
 
 <ROUTINE LB-ARCHIVE-LOOK (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "This is the record archive, a cold, narrow room that smells of damp cardboard. Shelves of numbered discs run from floor to ceiling on three sides. A draught from under the door stirs a drift of loose [[papers]] on the reading table, where ">
+		<TELL "This is the record archive, a cold, narrow room that smells of damp cardboard. [[Shelves->shelves]] of numbered discs run from floor to ceiling on three sides. A draught from under the door stirs a drift of loose [[papers]] on the [[reading table]], where ">
 		<COND (<FSET? ,LB-SLEEVE ,OPENBIT> <TELL "an open [[cardboard sleeve]] lies apart from the rest.">)
 			(T <TELL "a single [[cardboard sleeve]] lies apart from the rest.">)>
 		<TELL " The only way out is back west into the [[cutting room->west]]." CR> <RTRUE>)>>
@@ -19,14 +19,14 @@
 		<TELL "This is the disc cutting room, where the station makes its own recordings. It is warm in here, and the air has the sharp, sweet smell of lacquer. ">
 		<COND (<FSET? ,LB-CUTTER ,OPENBIT> <TELL "The [[cutter]] stands against the wall with its inspection cover lifted, its heavy arm folded over the turntable.">)
 			(T <TELL "The [[cutter]] stands against the wall under its inspection cover, its heavy arm folded over the turntable.">)>
-		<TELL " A fine [[curl of lacquer->lacquer curl]] lies on the bench beside it, and the [[register]] sits on a sloping stand. The control room is to the [[south]], and a door to the east opens into the [[archive->east]]." CR> <RTRUE>)>>
+		<TELL " A fine [[curl of lacquer->lacquer curl]] lies beside it, and the [[register]] sits on a sloping stand. The control room is to the [[south]], and a door to the east opens into the [[archive->east]]." CR> <RTRUE>)>>
 
 <ROUTINE LB-CONTROL-LOOK (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "You are in the control room, behind the studio glass. Valves glow orange in their racks, and the air smells of warm dust. A small [[green light]] burns above the desk. ">
+		<TELL "You are in the control room, next to the studio. [[Valves]] glow orange in their racks, and the air smells of warm dust. A small [[green light]] burns above them. ">
 		<COND (<AND <IN? ,LB-STYLUS ,LB-PLAYER> <IN? ,LB-DISC ,LB-PLAYER>>
-			<TELL "On its own table the [[gramophone]] is ready to play, beside the [[routing switch]].">)
-			(T <TELL "On its own table stands a spring-driven [[gramophone]], beside the [[routing switch]] that chooses what goes out on the air.">)>
+			<TELL "Nearby, the [[gramophone]] is ready to play, beside the [[routing switch]].">)
+			(T <TELL "Nearby stands a spring-driven [[gramophone]], beside the [[routing switch]] that chooses what goes out on the air.">)>
 		<TELL " The studio is back to the [[west]]. Doors lead north to the [[cutting room->north]] and south to the [[workshop->south]]." CR> <RTRUE>)>>
 
 <ROUTINE LB-STATION-CLOCK-F ()
@@ -533,13 +533,13 @@
 		(T <TELL "The case is open. Your casebook records observations; optional hints require HINT CASEBOOK." CR>)>>
 <ROUTINE LB-OFFICE-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "This is Julian Vane's office, a cramped room of filing cabinets, deed boxes and cigar smoke. The air is too warm, and under the smoke there is a smell like old pennies. Vane's [[body]] sits slumped in the desk chair beneath an electric [[office clock]], his back to the door. ">
+		<TELL "This is Julian Vane's office, a cramped room of [[filing cabinets]], deed boxes and cigar smoke. The air is too warm, and under the smoke there is a smell like old pennies. Vane's [[body]] sits slumped in his chair beneath an electric [[office clock]], his back to the door. ">
 		<COND (<FSET? ,LB-HATCH ,OPENBIT> <TELL "A square service [[hatch]] in the floor stands open, and warm air rises from the [[passage below->down]].">)
-			(T <TELL "A square service [[hatch]] is set flush in the floorboards, bolted shut over whatever lies [[below->down]].">)>
+			(T <TELL "A square service [[hatch]] is set flush in the floor, bolted shut over whatever lies [[below->down]].">)>
 		<TELL " The hall is back to the [[south]]." CR> <RTRUE>)>>
 <ROUTINE LB-PASSAGE-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "This is the cable passage, a low brick tunnel that carries the station's wiring beneath the floors. It is damp and close, and your shoulders brush cold pipes sweating with condensation. A dark [[stain]] marks the wet stone underfoot. ">
+		<TELL "This is the cable passage, a low brick tunnel that carries the station's wiring beneath the floors. It is damp and close, and your shoulders brush cold [[pipes]] sweating with condensation. A dark [[stain]] marks the wet stone underfoot. ">
 		<COND (<FSET? ,LB-HATCH ,OPENBIT> <TELL "Overhead, lamplight falls through the open [[hatch]] from Vane's [[office above->up]].">)
 			(T <TELL "Overhead, a square [[hatch]] is shut against the [[office above->up]].">)>
 		<TELL " The tunnel runs back south to the [[generator room->south]]." CR> <RTRUE>)>>
@@ -642,3 +642,78 @@
 <ROUTINE DETAIL-BRASS-DUST-F ()
 	<COND
 		(<VERB? RUB> <TELL "You do not touch it. The pattern is the only witness the wound has." CR> <RTRUE>)>>
+
+<ROUTINE LB-DOORS-F ()
+	<COND
+		(<VERB? KNOCK> <TELL "You rap on the frame. Nobody answers; everyone in the station is already where they mean to be." CR> <RTRUE>)
+		(<VERB? OPEN CLOSE> <TELL "You leave it as it is. In this weather a shut door only bangs." CR> <RTRUE>)>>
+
+<ROUTINE LB-SEA-F ()
+	<COND
+		(<VERB? LISTEN> <TELL "The sea booms against the stone, and the planks shudder under your feet." CR> <RTRUE>)
+		(<VERB? SMELL> <TELL "Salt, weed and cold." CR> <RTRUE>)>>
+
+<ROUTINE LB-COATS-F ()
+	<COND
+		(<VERB? SEARCH LOOK-INSIDE> <TELL "You go through the pockets: matches, a pipe, a tide table, a mainland bus ticket. Nothing that belongs to tonight." CR> <RTRUE>)
+		(<VERB? SMELL> <TELL "Wet rubberised cotton and sheep's wool." CR> <RTRUE>)>>
+
+<ROUTINE LB-CABINETS-F ()
+	<COND
+		(<VERB? OPEN SEARCH> <TELL "Every drawer is locked. The police can have the keys; tonight's evidence is in plainer sight." CR> <RTRUE>)
+		(<VERB? KNOCK> <TELL "The steel gives back a dull, full sound. Nothing in these is empty." CR> <RTRUE>)>>
+
+<ROUTINE LB-FELT-F ()
+	<COND
+		(<VERB? RUB> <TELL "Soft and dusty. It swallows the sound of your hand completely." CR> <RTRUE>)
+		(<VERB? KNOCK> <TELL "Your knock makes no sound at all, which is the point of it." CR> <RTRUE>)>>
+
+<ROUTINE LB-VALVES-F ()
+	<COND
+		(<VERB? LISTEN> <TELL "A low, even hum, and now and then the tick of hot metal." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "Warm through the mesh. You take your hand away before it becomes hot." CR> <RTRUE>)>>
+
+<ROUTINE LB-SHELVES-F ()
+	<COND
+		(<VERB? SEARCH> <TELL "You run a finger along the numbers. Nothing on the shelves is out of order." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "Your fingertip comes away grey with dust." CR> <RTRUE>)>>
+
+<ROUTINE LB-READING-TABLE-F ()
+	<COND
+		(<VERB? LOOK-UNDER> <TELL "Nothing under it but dust and a dropped pencil stub." CR> <RTRUE>)
+		(<VERB? KNOCK> <TELL "The table rocks on one short leg and settles." CR> <RTRUE>)>>
+
+<ROUTINE LB-WORKSHOP-SHELVES-F ()
+	<COND
+		(<VERB? SEARCH> <TELL "Spare parts, every one of them, sorted by size. Nothing here belongs to tonight." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "Your hand comes away smelling of rubber insulation." CR> <RTRUE>)>>
+
+<ROUTINE LB-LADDER-F ()
+	<COND
+		(<VERB? CLIMB-FOO CLIMB-UP CLIMB-DOWN> <COND (<EQUAL? ,HERE ,LB-WORKSHOP> <DO-WALK ,P?DOWN>) (T <DO-WALK ,P?UP>)>)
+		(<VERB? RUB> <TELL "The rungs are warm and faintly greasy from the engine below." CR> <RTRUE>)>>
+
+<ROUTINE LB-PIPES-F ()
+	<COND
+		(<VERB? RUB> <TELL "Cold and wet. A drop runs down your wrist." CR> <RTRUE>)
+		(<VERB? LISTEN> <TELL "Water ticks somewhere inside the pipes." CR> <RTRUE>)>>
+
+<ROUTINE LB-RANGE-F ()
+	<COND
+		(<VERB? RUB> <TELL "Warm as a sleeping cat. You keep your hand there longer than you meant to." CR> <RTRUE>)
+		(<VERB? LISTEN> <TELL "The kettle ticks and settles, and the fire shifts in the grate." CR> <RTRUE>)>>
+
+<ROUTINE LB-KITCHEN-WINDOW-F ()
+	<COND
+		(<VERB? OPEN> <TELL "You would let the gale into the only warm room on the island." CR> <RTRUE>)
+		(<VERB? KNOCK> <TELL "The glass shivers in its frame. Edith glances up, then away." CR> <RTRUE>)>>
+
+<ROUTINE LB-BATTERIES-F ()
+	<COND
+		(<VERB? SMELL> <TELL "A sharp, sour whiff of acid." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "You think better of it. Battery acid eats through tweed." CR> <RTRUE>)>>
+
+<ROUTINE LB-BUNKS-F ()
+	<COND
+		(<VERB? LOOK-UNDER SEARCH> <TELL "Only swept boards and a strapped kitbag." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The blankets are coarse grey wool, and cold." CR> <RTRUE>)>>

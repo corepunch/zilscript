@@ -2,16 +2,16 @@
 
 <ROOM TICKET-HALL (IN ROOMS) (DESC "Ticket Hall") (FLAGS RLANDBIT ONBIT)
  (WEST TO STAFF-ROOM) (EAST TO GAUGE-ROOM) (NORTH TO LOWER-PLATFORM)
- (LDESC "You are in the ticket hall of the station, a low concrete room far under the ice where the colony's trains stop. The ceiling lamps are off for the night, so the only light comes from glow strips set in the floor, and your breath hangs in the air. Above the row of ticket [[wickets]], the [[station clock->clock]] keeps creeping toward midnight. The staff room is through a door to the [[west]], and the gauge room, where the track instruments are kept, is to the [[east]]. Steps lead [[north]] down to the platform.")>
+ (LDESC "You are in the ticket hall of the station, a low concrete room far under the ice where the colony's trains stop. The ceiling lamps are off for the night, so the only light comes from [[glow strips]] set in the floor, and your breath hangs in the air. Above a row of ticket [[wickets]], the [[station clock->clock]] keeps creeping toward midnight. The staff room is to the [[west]], and the gauge room, where the track instruments are kept, is to the [[east]]. [[Steps]] lead [[north]] down to the platform.")>
 <ROOM STAFF-ROOM (IN ROOMS) (DESC "Staff Room") (FLAGS RLANDBIT ONBIT)
  (EAST TO TICKET-HALL)
- (LDESC "This is the staff room, a narrow, warm room that smells of stewed tea. There is a sink in one corner and a scuffed [[table]] under a hanging lamp. Two [[cups]] stand upside down on the drainer, both rinsed, though tonight was a one-person shift. The night operator's [[logbook]] lies open on the table. The door back to the ticket hall is to the [[east]].")>
+ (LDESC "This is the staff room, a narrow, warm room that smells of stewed tea. There is a scuffed [[table]], and beside it a little [[sink]], where two [[cups]] stand upside down on the drainer, both rinsed, though tonight was a one-person shift. The night operator's [[logbook]] lies open on the table. The ticket hall is back to the [[east]].")>
 <ROOM GAUGE-ROOM (IN ROOMS) (DESC "Gauge Room") (FLAGS RLANDBIT ONBIT)
  (WEST TO TICKET-HALL)
- (LDESC "This is the gauge room, where the station weighs whatever stands on its track. It is bitterly cold, and the floor hums at the edge of hearing. [[Frost]] furs the dials and pipes on every wall. Only two things on the console are clear of it: a round [[receiver cradle->cradle]], and a square [[calibration stud->stud]] beside it. The ticket hall is back through the door to the [[west]].")>
+ (LDESC "This is the gauge room, where the station weighs whatever stands on its track. It is bitterly cold, and the floor hums at the edge of hearing. [[Frost]] furs the old [[dials]] and pipes. Only two things on the [[console]] are clear of it: a round [[receiver cradle->cradle]], and a square [[calibration stud->stud]] beside it. The ticket hall is back to the [[west]].")>
 <ROOM LOWER-PLATFORM (IN ROOMS) (DESC "Lower Platform") (FLAGS RLANDBIT ONBIT)
  (SOUTH TO TICKET-HALL)
- (LDESC "You are on the lower platform. The [[track]] comes out of one black tunnel and runs into another, and there is no train in sight. Even so, a little warmth rises off the rails, like breath on your wrist. Two controls stand on a post at the platform edge: a red [[rescue switch->switch]] and a grey [[quarantine latch->latch]]. The steps back up to the ticket hall are to the [[south]].")>
+ (LDESC "You are on the lower platform. The [[track]] comes out of one black [[tunnel]] and runs into another, and there is no train in sight. Even so, a little warmth rises off the rails, like breath on your wrist. Two controls stand on a [[post]] at the platform edge: a red [[rescue switch->switch]] and a grey [[quarantine latch->latch]]. The [[steps->stone steps]] back up to the ticket hall are to the [[south]].")>
 
 <OBJECT STATION-CLOCK (IN TICKET-HALL) (DESC "station clock") (SYNONYM CLOCK) (ADJECTIVE STATION)
  (FLAGS NDESCBIT) (ACTION STATION-CLOCK-F)>
@@ -49,5 +49,29 @@
 
 <OBJECT PLATFORM-TRACK (IN LOWER-PLATFORM) (DESC "track") (SYNONYM TRACK RAILS RAIL) (ADJECTIVE WARM EMPTY)
  (FLAGS NDESCBIT) (ACTION PLATFORM-TRACK-F)>
+
+<OBJECT HALL-LIGHTS (IN TICKET-HALL) (DESC "glow strips") (SYNONYM STRIPS LAMPS LIGHTS) (ADJECTIVE GLOW CEILING)
+ (FLAGS NDESCBIT) (ACTION HALL-LIGHTS-F)>
+
+<OBJECT HALL-STEPS (IN TICKET-HALL) (DESC "steps") (SYNONYM STEPS STAIRS) (ADJECTIVE PLATFORM)
+ (FLAGS NDESCBIT) (ACTION STATION-STEPS-F)>
+
+<OBJECT STAFF-SINK (IN STAFF-ROOM) (DESC "sink") (SYNONYM SINK DRAINER TAP) (ADJECTIVE LITTLE)
+ (FLAGS NDESCBIT) (ACTION STAFF-SINK-F)>
+
+<OBJECT GAUGE-DIALS (IN GAUGE-ROOM) (DESC "dials") (SYNONYM DIALS DIAL PIPES GAUGES) (ADJECTIVE OLD)
+ (FLAGS NDESCBIT) (ACTION GAUGE-DIALS-F)>
+
+<OBJECT GAUGE-CONSOLE (IN GAUGE-ROOM) (DESC "console") (SYNONYM CONSOLE DESK) (ADJECTIVE GAUGE)
+ (FLAGS NDESCBIT) (ACTION GAUGE-CONSOLE-F)>
+
+<OBJECT PLATFORM-TUNNEL (IN LOWER-PLATFORM) (DESC "tunnel") (SYNONYM TUNNEL TUNNELS DARK) (ADJECTIVE BLACK)
+ (FLAGS NDESCBIT) (ACTION PLATFORM-TUNNEL-F)>
+
+<OBJECT PLATFORM-POST (IN LOWER-PLATFORM) (DESC "post") (SYNONYM POST CONTROLS) (ADJECTIVE CONTROL)
+ (FLAGS NDESCBIT) (ACTION PLATFORM-POST-F)>
+
+<OBJECT PLATFORM-STEPS (IN LOWER-PLATFORM) (DESC "stone steps") (SYNONYM STEPS STAIRS) (ADJECTIVE STONE)
+ (FLAGS NDESCBIT) (ACTION STATION-STEPS-F)>
 
 ;"End of world inventory."
