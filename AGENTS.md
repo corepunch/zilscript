@@ -22,6 +22,7 @@ Start with [ARCHITECTURE.md](ARCHITECTURE.md). It is the canonical high-level su
 6. Validate with the smallest relevant target from [Makefile](Makefile); for broad gameplay regressions, use `make test-pure-zil`.
 7. Story prose withholds what must be examined and links what can be acted on. Follow "Prose Links" and "Withholding What Must Be Examined" in [docs/WRITING_ADVENTURES.md](docs/WRITING_ADVENTURES.md), and run `make lint-zil`, which checks vocabulary, link words, and every link target through the parser, and plays common verbs on every object to catch commands that print nothing.
 8. Books start VERBOSE, so a revisited room never prints only its name, and every death ends the story through `FINISH`. See "The GO Routine" in [docs/WRITING_ADVENTURES.md](docs/WRITING_ADVENTURES.md).
+9. Room text follows "Room Descriptions" in [docs/WRITING_ADVENTURES.md](docs/WRITING_ADVENTURES.md): say where the reader is in plain words, give a concrete detail or two, and name each exit with what lies there. Give every important object several verbs beyond EXAMINE ("Rich Interaction").
 
 ## Playing Games
 

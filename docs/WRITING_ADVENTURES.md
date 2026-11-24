@@ -775,11 +775,73 @@ balanced; `scripts/check-link-targets.lua` looks at every room with links on
 and runs `EXAMINE <target>` for each object link through the real parser,
 failing on "You can't see any", "noun missing" and the like.
 
+### Room Descriptions
+
+Write rooms the way Infocom did outside Zork's terse caves: *Planetfall*,
+*The Lurking Horror*, *Spellbreaker* (see [infocom](../infocom)). A reader
+who has never seen the place must be able to picture it and know where to go
+after one reading. Neither sparse nor lush: **three to five plain sentences**,
+usually 40–90 words.
+
+1. **Say where the reader is.** Open with the place itself, in plain words:
+   "You are in the staff room of a closed station." / "This is the
+   ward, a long room of iron beds." Never open with a subordinate clause
+   ("From the broken staircase, ...") or a list of links.
+2. **Give one or two concrete details a glance takes in** — what the place
+   looks like, sounds or smells like, and one detail of mood. Horror is made
+   of specific, physical things (a smell, a stain, a sound), not adjectives.
+3. **Name the notable things** (still following "Withholding What Must Be
+   Examined").
+4. **Give the exits in their own sentence or two, with a hint of what lies
+   there**: "A doorway leads west into reception, and the ward opens to the
+   east. Stone stairs go down to the basement." Every exit gets a
+   destination word; never a bare direction list.
+
+Do not cram every link into one sentence. A link is a word in a normal
+sentence; a sentence that exists only to hold links is unfinished. Compare:
+
+> *Too sparse:* From the broken [[grand staircase->staircase]], reception lies
+> [[west]], the ward [[east]] and the basement [[down]].
+>
+> *Right:* You are in the entrance hall of Blackwood Sanitarium. Half of the
+> [[grand staircase->staircase]] has fallen in, and the plaster dust on the
+> floor shows no footprints but yours. Reception is through a doorway to the
+> [[west]] and the ward lies [[east]]. A narrow flight of stairs goes
+> [[down]] to the basement, and the gates are back [[south]].
+
+Openings and event messages follow the same rule: tell the reader who they
+are, where they are and what is wrong in two to four sentences before the
+first room.
+
+### Rich Interaction
+
+A world feels alive when ordinary verbs get real answers, not when it has
+more objects. For every object the reader can see, ask which of these a
+curious person would try and write an answer for those that make sense:
+`EXAMINE`, `SMELL`, `LISTEN`, `RUB` (touch/feel), `KNOCK`, `SHAKE`, `MOVE`,
+`PUSH`/`PULL`, `TURN`, `OPEN`/`CLOSE`, `LOOK-UNDER`/`LOOK-BEHIND`/
+`LOOK-INSIDE`, `SEARCH`, `READ`, `CLIMB-ON`/`ENTER`, `KICK`, `EAT`/
+`DRINK`, `WEAR`, `RING`, `WIND`, `PLAY`, `TALK`/`ASK`/`TELL` for people.
+
+- Aim for **at least three verbs beyond `EXAMINE`** on each important or
+  linked object, and two on simple scenery. Each verb an `ACTION` tests with
+  `VERB?` appears in the reader's menu for that object, so a response is
+  also an invitation.
+- An answer should **show something new**: a sensory detail, a small
+  reaction, a memory, a hint at the puzzle, sometimes a tiny state change
+  (a drawer that stays open, a bell that keeps humming, a dog that remembers
+  being petted). Never repeat the `EXAMINE` text.
+- Keep them **safe**: flavour verbs must not consume puzzle items, open
+  paths early, reveal withheld objects out of order, or end the story.
+  Destructive verbs (`ATTACK`, `KICK`, `BURN`) on important objects get an
+  in-character refusal.
+- Keep responses to one to three sentences, in the story's voice.
+
 ### Withholding What Must Be Examined
 
 Read the whole opening up to the first choice, including the introduction and
-every automatic object line. Aim for a sentence or two that places the reader
-and gives them something to investigate. Keep routes easy to find. In a
+every automatic object line. Aim for a short paragraph that places the reader
+and gives them something to investigate (see "Room Descriptions" above). Keep routes easy to find. In a
 children's book, let one small mystery carry the scene: in Wondertown a glint
 under the workbench invites a closer look. Examining the bench finds the oil
 can, and examining the can tells Pip what the oil is for.
