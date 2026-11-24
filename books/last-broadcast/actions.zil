@@ -1,28 +1,42 @@
 <SYNTAX TURN OBJECT = V-SPIN>
 
 <ROUTINE LB-KITCHEN-LOOK (RARG)
-	<COND (<AND <EQUAL? .RARG ,M-LOOK> <FSET? ,LB-BAG ,OPENBIT>>
-		<TELL "[[Edith]] sits by her open [[medical bag]] at the [[table]] between the [[hall->east]] and the [[telegraph room->west]]." CR>)>>
+	<COND (<EQUAL? .RARG ,M-LOOK>
+		<TELL "You are in the station kitchen, the only warm room in the building. A kettle ticks on the range, and the window over the sink is black with rain. [[Edith]] Shaw, the island's doctor, sits at the scrubbed [[table]], where two [[cups]] of tea have gone cold. ">
+		<COND (<FSET? ,LB-BAG ,OPENBIT> <TELL "Her [[medical bag]] stands open at her elbow.">)
+			(T <TELL "Her [[medical bag]] rests on the bench at her elbow, its clasp shut.">)>
+		<TELL " The hall is back to the [[east]], and a door to the west leads to the [[telegraph room->west]]." CR> <RTRUE>)>>
 
 <ROUTINE LB-ARCHIVE-LOOK (RARG)
-	<COND (<AND <EQUAL? .RARG ,M-LOOK> <FSET? ,LB-SLEEVE ,OPENBIT>>
-		<TELL "A draught from the [[cutting room to the west->west]] ruffles the [[papers]] beside an open [[cardboard sleeve]]." CR>)>>
+	<COND (<EQUAL? .RARG ,M-LOOK>
+		<TELL "This is the record archive, a cold, narrow room that smells of damp cardboard. Shelves of numbered discs run from floor to ceiling on three sides. A draught from under the door stirs a drift of loose [[papers]] on the reading table, where ">
+		<COND (<FSET? ,LB-SLEEVE ,OPENBIT> <TELL "an open [[cardboard sleeve]] lies apart from the rest.">)
+			(T <TELL "a single [[cardboard sleeve]] lies apart from the rest.">)>
+		<TELL " The only way out is back west into the [[cutting room->west]]." CR> <RTRUE>)>>
 
 <ROUTINE LB-CUTTING-LOOK (RARG)
-	<COND (<AND <EQUAL? .RARG ,M-LOOK> <FSET? ,LB-CUTTER ,OPENBIT>>
-		<TELL "The [[cutter]] stands open beside its [[register]], between the control room [[south]] and the archive [[east]]." CR>)>>
+	<COND (<EQUAL? .RARG ,M-LOOK>
+		<TELL "This is the disc cutting room, where the station makes its own recordings. It is warm in here, and the air has the sharp, sweet smell of lacquer. ">
+		<COND (<FSET? ,LB-CUTTER ,OPENBIT> <TELL "The [[cutter]] stands against the wall with its inspection cover lifted, its heavy arm folded over the turntable.">)
+			(T <TELL "The [[cutter]] stands against the wall under its inspection cover, its heavy arm folded over the turntable.">)>
+		<TELL " A fine [[curl of lacquer->lacquer curl]] lies on the bench beside it, and the [[register]] sits on a sloping stand. The control room is to the [[south]], and a door to the east opens into the [[archive->east]]." CR> <RTRUE>)>>
 
 <ROUTINE LB-CONTROL-LOOK (RARG)
-	<COND (<AND <EQUAL? .RARG ,M-LOOK> <FIRST? ,LB-PLAYER>>
-		<TELL "The [[gramophone]] ">
-                <COND (<AND <IN? ,LB-STYLUS ,LB-PLAYER> <IN? ,LB-DISC ,LB-PLAYER>> <TELL "is ready to play">)
-                      (T <TELL "stands">)>
-                <TELL " beside the [[routing switch]], between the studio [[west]], cutting room [[north]] and workshop [[south]]." CR>)>>
+	<COND (<EQUAL? .RARG ,M-LOOK>
+		<TELL "You are in the control room, behind the studio glass. Valves glow orange in their racks, and the air smells of warm dust. A small [[green light]] burns above the desk. ">
+		<COND (<AND <IN? ,LB-STYLUS ,LB-PLAYER> <IN? ,LB-DISC ,LB-PLAYER>>
+			<TELL "On its own table the [[gramophone]] is ready to play, beside the [[routing switch]].">)
+			(T <TELL "On its own table stands a spring-driven [[gramophone]], beside the [[routing switch]] that chooses what goes out on the air.">)>
+		<TELL " The studio is back to the [[west]]. Doors lead north to the [[cutting room->north]] and south to the [[workshop->south]]." CR> <RTRUE>)>>
 
 <ROUTINE LB-STATION-CLOCK-F ()
 	<COND (<VERB? EXAMINE READ>
 		<TELL "Salt has whitened the rim, but the glass still seals the face. The [[station clock]] is running: 9:35. Its spring movement does not depend on the generator. At 9:17 you heard the appeal begin; at 9:21 Ruth found Vane. You wrote both times in your [[casebook]]." CR>
-		<RTRUE>)>>
+		<RTRUE>)
+		(<VERB? LISTEN> <TELL "Under the wind you can just hear it ticking, steady as a pulse. Whoever keeps it wound has kept it going through worse nights than this." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The salt crust is gritty under your fingers and flakes away from the rim. The glass beneath is cold, and perfectly dry inside." CR> <RTRUE>)
+		(<VERB? KNOCK> <TELL "The glass gives back a dull tap. The second hand does not so much as falter." CR> <RTRUE>)
+		(<VERB? SPIN WIND> <TELL "There is no key in the case, and the clock needs no help from you. It is running perfectly well." CR> <RTRUE>)>>
 <ROUTINE LB-CASEBOOK-F ()
 	<COND (<VERB? EXAMINE READ>
 		<TELL "The [[casebook]] has two columns: heard and seen. At 9:17 the appeal began; at 9:21 Vane was found. Your auditory note reads: two coughs, then “Even this old island can learn to speak.”" CR>
@@ -49,7 +63,7 @@
 	<SETG FUMBLE-PROB 0>
 	<SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER>
 	<MOVE ,WINNER ,HERE>
-	<TELL "At 9:17 you heard a gull cough twice, then Ada's appeal to save the station: “Even this old island can learn to speak.”|Four minutes later Ruth called for help. By then the station's owner, Julian Vane, was dead. Both times are in your [[casebook]].||">
+	<TELL "November 1936. You are an insurance investigator, sent out to Saint Bride, a wireless station on a rock off the coast, to value its transmitter before the owner sells it. Tonight a gale has cut the island off from the mainland, with five people in the station besides yourself.|At 9:17, from the loudspeaker in the hall, you heard a gull cough twice, then Ada's appeal to save the station: “Even this old island can learn to speak.” Four minutes later Ruth called for help. By then the station's owner, Julian Vane, was dead in his office. You stepped out onto the landing to think, and wrote both times in your [[casebook]].||">
 	<TELL D ,HERE CR>
 	<V-LOOK> <MAIN-LOOP>>
 
@@ -78,26 +92,39 @@
 			(T <TELL "Its flap is folded tight. Open it to inspect the contents.">)>
 		<COND (<AND <IN? ,LB-LEDGER ,LB-ARCHIVE> <NOT <FSET? ,LB-LEDGER ,TOUCHBIT>>>
 		       <TELL " Beneath the sleeve, the corner of a [[wage ledger]] pokes out.">)>
-		<CRLF> <RTRUE>)>>
+		<CRLF> <RTRUE>)
+		(<VERB? SMELL> <TELL "Damp cardboard and pencil shavings." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "Stiff card, softened at the corners by handling." CR> <RTRUE>)
+		(<VERB? LOOK-UNDER> <COND (<AND <IN? ,LB-LEDGER ,LB-ARCHIVE> <NOT <FSET? ,LB-LEDGER ,TOUCHBIT>>> <TELL "Under the sleeve, the corner of a [[wage ledger]] pokes out." CR>) (T <TELL "Nothing but the scarred top of the reading table." CR>)> <RTRUE>)>>
 <ROUTINE LB-DISC-F ()
 	<COND (<VERB? EXAMINE READ>
 		<TELL "An aluminium-based lacquer [[disc]], sixteen inches across. Edge number A17; one continuous band, about six minutes at the marked speed. It requires the control-room gramophone and a playback stylus. The edge is chipped; the groove is sound." CR>
 		<RTRUE>)
 		(<VERB? PLAY> <LB-PLAY>)
 		(<VERB? COMPARE> <LB-COMPARE>)
-		(<VERB? SHOW> <LB-SHOW>)>>
+		(<VERB? SHOW> <LB-SHOW>)
+		(<VERB? SMELL> <TELL "Faintly of lacquer, and of the cardboard of its sleeve." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "You hold it by the edge, as any engineer would. A thumb on the groove would leave a print for the needle to play." CR> <RTRUE>)
+		(<VERB? LISTEN> <TELL "Held to your ear, the groove is silent. It needs a needle and a turntable." CR> <RTRUE>)
+		(<VERB? SHAKE> <TELL "You do not shake sixteen inches of lacquer. It would crack like ice on a pond." CR> <RTRUE>)>>
 <ROUTINE LB-WORKBENCH-F ()
 	<COND (<VERB? EXAMINE SEARCH>
 		<TELL "A scrap of [[black felt]] covers one corner, well away from the solder burns.">
 		<COND (<AND <IN? ,LB-STYLUS ,LB-WORKSHOP> <NOT <FSET? ,LB-STYLUS ,TOUCHBIT>>>
 		       <TELL " A sapphire [[playback stylus]] glints against the felt.">)>
-		<CRLF> <RTRUE>)>>
+		<CRLF> <RTRUE>)
+		(<VERB? SMELL> <TELL "Rosin flux and scorched varnish." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The wood is pitted with little craters where hot solder has dropped." CR> <RTRUE>)
+		(<VERB? KNOCK> <TELL "Tools jump and rattle along the bench. The felt in the corner hardly stirs." CR> <RTRUE>)
+		(<VERB? LOOK-UNDER> <TELL "Under the bench are crates of spare valves, packed in straw." CR> <RTRUE>)>>
 <ROUTINE LB-STYLUS-F ()
 	<COND (<VERB? EXAMINE>
 		<TELL "A sapphire playback [[stylus]], kept apart from the cutter to prevent a costly confusion. Its sapphire fits the control-room gramophone pickup. It is small enough to lose a fortune." CR> <RTRUE>)
 		(<VERB? USE-ON>
 			<COND (<EQUAL? ,PRSI ,LB-PLAYER> <LB-MOUNT>)
-				(T <TELL "The stylus belongs on the control-room gramophone, not there." CR> <RTRUE>)>)>>
+				(T <TELL "The stylus belongs on the control-room gramophone, not there." CR> <RTRUE>)>)
+		(<VERB? RUB> <TELL "You keep your thumb off the sapphire tip. The steel shank is cool and finely made." CR> <RTRUE>)
+		(<VERB? SHAKE> <TELL "It is so light you can hardly feel it move." CR> <RTRUE>)>>
 <ROUTINE LB-PLAYER-F ()
 	<COND (<VERB? EXAMINE SEARCH LOOK-INSIDE>
 		<TELL "A spring-driven broadcast [[gramophone]]. The transmitter feed is disconnected, so any experiment will stay in this room." CR>
@@ -114,7 +141,11 @@
 		(<VERB? PUT>
 			<COND (<EQUAL? ,PRSI ,LB-PLAYER>
 				<COND (<NOT <EQUAL? ,PRSO ,LB-DISC>> <TELL "Only the [[disc]] belongs on this platter." CR> <RTRUE>)>)>)
-		(<VERB? OPEN CLOSE> <TELL "The platter stays open; the [[disc]] must lie flat on it." CR> <RTRUE>)>>
+		(<VERB? OPEN CLOSE> <TELL "The platter stays open; the [[disc]] must lie flat on it." CR> <RTRUE>)
+		(<VERB? SPIN> <TELL "You give the platter a push. It turns freely on its spindle and slowly comes to rest." CR> <RTRUE>)
+		(<VERB? WIND> <TELL "You give the crank a few turns until the spring is firm. The motor is ready whenever a record is." CR> <RTRUE>)
+		(<VERB? SMELL> <TELL "Machine oil and the faint, dusty sweetness of shellac." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The turntable felt is soft and clean. Someone looks after this machine." CR> <RTRUE>)>>
 <ROUTINE LB-MOUNT ()
 	<COND (<IN? ,LB-STYLUS ,LB-PLAYER> <TELL "The pickup is already fitted." CR>)
 		(<NOT <AND <HELD? ,LB-STYLUS> <ACCESSIBLE? ,LB-STYLUS> <ACCESSIBLE? ,LB-PLAYER>>>
@@ -133,7 +164,11 @@
 
 <ROUTINE LB-BOARD-F ()
 	<COND (<VERB? EXAMINE READ>
-		<TELL "The [[appeal board]] smells of fresh varnish. It lists tonight's order: 9:12 power test; 9:16 Ruth leaves office; 9:17 Ada speaks; 9:21 Ruth discovers Vane. Ruth wrote the last entry in a hand no longer fit for broadcasting. The two public times agree with your [[casebook]]." CR> <RTRUE>)>>
+		<TELL "The [[appeal board]] smells of fresh varnish. It lists tonight's order: 9:12 power test; 9:16 Ruth leaves office; 9:17 Ada speaks; 9:21 Ruth discovers Vane. Ruth wrote the last entry in a hand no longer fit for broadcasting. The two public times agree with your [[casebook]]." CR> <RTRUE>)
+		(<VERB? SMELL> <TELL "Turpentine and new varnish. The board was lettered today." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The varnish is still faintly tacky. Your fingertip leaves a print beside the 9:17 line, and you wipe it away with your handkerchief." CR> <RTRUE>)
+		(<VERB? KNOCK> <TELL "Thin plywood, hollow as a drum. It rattles on its nail." CR> <RTRUE>)
+		(<VERB? LOOK-BEHIND> <TELL "You tilt the board on its nail. Behind it is only a paler oblong of wall where an older notice used to hang." CR> <RTRUE>)>>
 
 <ROUTINE LB-OFFICE-CLOCK-F ()
 	<COND (<VERB? EXAMINE READ>
@@ -141,7 +176,11 @@
 		<COND (,LB-CLOCK <TELL "The voltage chart has explained it: the hands date the 9:12 power fault, not the death." CR>)
 			(T <TELL "Its time needs an independent witness." CR>)>
 		<RTRUE>)
-		(<VERB? COMPARE> <LB-COMPARE>)>>
+		(<VERB? COMPARE> <LB-COMPARE>)
+		(<VERB? LISTEN> <TELL "You put your ear close. An electric clock like this should hum faintly while it runs; this one is silent." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The bakelite case is cool and smooth under your hand." CR> <RTRUE>)
+		(<VERB? KNOCK> <TELL "You tap the glass. The hands do not stir." CR> <RTRUE>)
+		(<VERB? SPIN> <TELL "You leave the hands exactly where they are. Until something explains them, they are evidence." CR> <RTRUE>)>>
 
 <ROUTINE LB-BODY-F ()
 	<COND (<VERB? EXAMINE SEARCH>
@@ -151,22 +190,37 @@
 		<COND (,LB-CLOCK <TELL "The [[office clock]] records the electrical fault; the wound belongs to the later interval." CR>)
 			(T <TELL "The [[office clock]] has yet to account for its stopped hands." CR>)>
 		<RTRUE>)
-		(<VERB? COMPARE> <LB-COMPARE>)>>
+		(<VERB? COMPARE> <LB-COMPARE>)
+		(<VERB? SMELL> <TELL "Bay rum and cigar smoke, and beneath them the flat, coppery smell you noticed from the door." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "His hand is cold, and the fingers have begun to stiffen. You let it rest where it was." CR> <RTRUE>)
+		(<VERB? MOVE PUSH> <TELL "You will not move him. The police will want him as he was found, and so do you." CR> <RTRUE>)
+		(<VERB? LOOK-UNDER> <TELL "Under the chair there is only a dropped fountain pen, its cap still on." CR> <RTRUE>)
+		(<VERB? KICK> <TELL "Whatever you think of Julian Vane, he is past answering for it." CR> <RTRUE>)>>
 
 <ROUTINE LB-MICROPHONE-F ()
-	<COND (<VERB? EXAMINE LISTEN>
-		<TELL "The felt around the [[microphone]] smells of old tobacco. The microphone wears a red supply lamp. Its tiny [[plate->heater plate]] says HEATER, not ON AIR. It shows that the microphone is warm, not that its voice reaches the transmitter. [[Ruth]] has been treating the two as synonymous." CR> <RTRUE>)>>
+	<COND (<VERB? EXAMINE>
+		<TELL "The felt around the [[microphone]] smells of old tobacco. The microphone wears a red supply lamp. Its tiny [[plate->heater plate]] says HEATER, not ON AIR. It shows that the microphone is warm, not that its voice reaches the transmitter. [[Ruth]] has been treating the two as synonymous." CR> <RTRUE>)
+		(<VERB? LISTEN> <TELL "You lean close. The microphone gives you nothing back but a faint tick from its warm casing." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The casing is warm under your fingers, warmer than anything else in the studio." CR> <RTRUE>)
+		(<VERB? SMELL> <TELL "Hot dust and singed felt, the smell of a small element left on for hours." CR> <RTRUE>)
+		(<VERB? KNOCK> <TELL "You tap the grille. Ruth gives you the look an organist gives a cough during the sermon." CR> <RTRUE>)>>
 
 <ROUTINE LB-SWITCH-F ()
 	<COND (<VERB? EXAMINE READ>
 		<TELL "The [[routing switch]] selects MIC or DISC independently of the microphone's red heater lamp. It was found at DISC. A [[wax dab]] under its guard records that position; turning it now would tell you nothing about then. The [[gramophone]] supplies the second feed." CR> <RTRUE>)
-		(<VERB? TURN PUSH MOVE> <TELL "The transmitter is isolated. You test the routing lever without disturbing the wax witness mark: MIC and DISC are independent of the studio heater lamp." CR> <RTRUE>)>>
+		(<VERB? TURN PUSH MOVE> <TELL "The transmitter is isolated. You test the routing lever without disturbing the wax witness mark: MIC and DISC are independent of the studio heater lamp." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The bakelite lever is smooth and cool. Under the guard the wax feels brittle; one careless shove would crumble it." CR> <RTRUE>)
+		(<VERB? LISTEN> <TELL "Somewhere in the rack behind it a relay ticks once, then is quiet." CR> <RTRUE>)>>
 
 <ROUTINE LB-CUTTER-F ()
 	<COND (<VERB? EXAMINE SEARCH>
 		<FSET ,LB-CUTTER ,OPENBIT>
 		<COND (<IN? ,LB-WEIGHT ,LB-CUTTER> <TELL "Inside its open cover, a loose [[brass counterweight]] rests in a cradle." CR>)>
-		<TELL "The [[cutter]] engraves lacquer on an aluminium base. Its inspection cover lifts without a tool. The [[register]] records every cut by edge number and duration." CR> <RTRUE>)>>
+		<TELL "The [[cutter]] engraves lacquer on an aluminium base. Its inspection cover lifts without a tool. The [[register]] records every cut by edge number and duration." CR> <RTRUE>)
+		(<VERB? SMELL> <TELL "Warm machine oil and lacquer, strongest around the turntable." CR> <RTRUE>)
+		(<VERB? LISTEN> <TELL "Silent. The motor is switched off at the wall." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The steel bed of the turntable is cold and polished smooth." CR> <RTRUE>)
+		(<VERB? SPIN> <TELL "The heavy turntable moves a quarter of the way round under your hand and stops." CR> <RTRUE>)>>
 
 <ROUTINE LB-REGISTER-F ()
 	<COND (<VERB? EXAMINE READ>
@@ -174,16 +228,24 @@
 		<COND (,LB-PROVENANCE <TELL "The A17 entry has been matched to the disc you heard." CR>)
 			(T <TELL "Compare the actual disc with this register after hearing it." CR>)>
 		<RTRUE>)
-		(<VERB? COMPARE> <LB-COMPARE>)>>
+		(<VERB? COMPARE> <LB-COMPARE>)
+		(<VERB? RUB> <TELL "Good heavy paper, ruled in red. The pencil entries have not smudged." CR> <RTRUE>)
+		(<VERB? LOOK-UNDER> <TELL "Under the stand is only a box of blank aluminium discs, still in their wrapping." CR> <RTRUE>)>>
 
 <ROUTINE LB-GENERATOR-F ()
-	<COND (<VERB? EXAMINE LISTEN>
-		<TELL "The [[generator]] shudders on its rubber feet, powering the lights and clocks. Accumulators buffer the transmitter; a small voltage sag can stop an office clock without silencing the station. Its mechanical recorder stamps the [[voltage chart]] independently of the electric clocks." CR> <RTRUE>)>>
+	<COND (<VERB? EXAMINE>
+		<TELL "The [[generator]] shudders on its rubber feet, powering the lights and clocks. Accumulators buffer the transmitter; a small voltage sag can stop an office clock without silencing the station. Its mechanical recorder stamps the [[voltage chart]] independently of the electric clocks." CR> <RTRUE>)
+		(<VERB? LISTEN> <TELL "A deep, steady thump, so regular you stop hearing it until you listen. Beneath it the recording instrument ticks off the minutes." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The casing is hot and shivering. Your hand comes away grey with oily soot." CR> <RTRUE>)
+		(<VERB? SMELL> <TELL "Diesel, hot oil and scorched rubber." CR> <RTRUE>)
+		(<VERB? KICK> <TELL "You would only hurt your foot, and every light in the station hangs on this engine." CR> <RTRUE>)>>
 
 <ROUTINE LB-CHART-F ()
 	<COND (<VERB? EXAMINE READ>
 		<TELL "The [[voltage chart]] records a brief fall below clock-running voltage at 9:12 and normal supply at 9:13. Every later minute is steady. The mechanical recorder and the station clock agree on the minute. The office hands have a different story to tell." CR> <RTRUE>)
-		(<VERB? COMPARE> <LB-COMPARE>)>>
+		(<VERB? COMPARE> <LB-COMPARE>)
+		(<VERB? SMELL> <TELL "Violet recorder ink and warm machine oil." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The paper is glazed, so the ink lies on the surface. The trace is quite dry." CR> <RTRUE>)>>
 
 <ROUTINE LB-STAIN-F ()
 	<COND (<VERB? EXAMINE SEARCH>
@@ -191,11 +253,17 @@
 		<COND (,LB-TRACE <TELL "The repaired heel of Ada's boots fills it exactly." CR>)
 			(T <TELL "It is precise enough to test against a real heel, not merely imagine a similar shape." CR>)>
 		<RTRUE>)
-		(<VERB? COMPARE> <LB-COMPARE>)>>
+		(<VERB? COMPARE> <LB-COMPARE>)
+		(<VERB? SMELL> <TELL "Wet stone, and under it something faintly metallic." CR> <RTRUE>)
+		(<VERB? RUB KICK> <TELL "You keep well clear of it. A smudged print is no use to anyone." CR> <RTRUE>)>>
 
 <ROUTINE LB-TABLE-F ()
 	<COND (<VERB? EXAMINE SEARCH>
-		<TELL "Glass dust from a broken tumbler clings to the scrubbed grain of the [[table]]. Two [[cups]] have gone cold. [[Edith]] keeps looking at the cup opposite hers; she and Ruth were here together during the appeal. Her [[medical bag]] is within reach, with permission to inspect it." CR> <RTRUE>)>>
+		<TELL "Glass dust from a broken tumbler clings to the scrubbed grain of the [[table]]. Two [[cups]] have gone cold. [[Edith]] keeps looking at the cup opposite hers; she and Ruth were here together during the appeal. Her [[medical bag]] is within reach, with permission to inspect it." CR> <RTRUE>)
+		(<VERB? KNOCK> <TELL "Solid deal, scrubbed white. The cups jump in their saucers, and Edith steadies them without looking." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The grain is rough from scrubbing, and here and there something catches at your fingertip like grit." CR> <RTRUE>)
+		(<VERB? LOOK-UNDER> <TELL "Only the flagstones, still damp from a recent mopping." CR> <RTRUE>)
+		(<VERB? SMELL> <TELL "Carbolic soap and stewed tea." CR> <RTRUE>)>>
 
 <ROUTINE LB-BAG-F ()
 	<COND (<VERB? EXAMINE>
@@ -204,18 +272,23 @@
 			<TELL "It stands open now. ">
 			<COND (<IN? ,LB-DRESSING ,LB-BAG> <TELL "A [[bloodied dressing]] rests inside.">) (T <TELL "The evidence has been removed.">)>)
 			(T <TELL "It is still closed.">)>
-		<CRLF> <RTRUE>)>>
+		<CRLF> <RTRUE>)
+		(<VERB? SMELL> <TELL "Carbolic, iodine and old leather." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "Good leather, much mended. The clasp is worn smooth with use." CR> <RTRUE>)>>
 <ROUTINE LB-DRESSING-F ()
 	<COND (<VERB? EXAMINE READ>
 		<SETG LB-DRESSING-SEEN T> <TELL "The [[bloodied dressing]] bears the time 9:17 and initials R.B. in Edith's tidy hand. Three tiny glass fragments adhere to it. A surface cut, not a head wound. ">
 		<COND (,LB-EDITH-CLEARED <TELL "Edith has named the patient: Ruth Bell." CR>)
 			(T <TELL "Show it to Edith and ask whose blood required the discretion." CR>)>
 		<RTRUE>)
-		(<VERB? SHOW> <LB-SHOW>)>>
+		(<VERB? SHOW> <LB-SHOW>)
+		(<VERB? SMELL> <TELL "Iodine, and the stale sweetness of dried blood." CR> <RTRUE>)>>
 
 <ROUTINE LB-TELEGRAPH-F ()
-	<COND (<VERB? EXAMINE LISTEN>
-		<TELL "The [[telegraph]] is a two-way landline. Messages are challenged minute by minute, with unpredictable reply groups; the mainland stamps its acknowledgement on the [[receipt]]. No recorded local performance could answer those challenges." CR> <RTRUE>)>>
+	<COND (<VERB? EXAMINE>
+		<TELL "The [[telegraph]] is a two-way landline. Messages are challenged minute by minute, with unpredictable reply groups; the mainland stamps its acknowledgement on the [[receipt]]. No recorded local performance could answer those challenges." CR> <RTRUE>)
+		(<VERB? LISTEN> <TELL "The sounder clicks in short bursts: a coast station passing the weather, a silence, then more." CR> <RTRUE>)
+		(<VERB? RUB PUSH> <TELL "You keep your hand off the key. One careless touch would send nonsense to the mainland under Tomas's name." CR> <RTRUE>)>>
 
 <ROUTINE LB-RECEIPT-F ()
 	<COND (<VERB? EXAMINE READ>
@@ -223,29 +296,44 @@
 		<COND (,LB-TOMAS-CLEARED <TELL "Tomas has owned to both sides of the strip." CR>)
 			(T <TELL "Show it to [[Tomas]]; the shame and the alibi are on the same strip." CR>)>
 		<RTRUE>)
-		(<VERB? SHOW> <LB-SHOW>)>>
+		(<VERB? SHOW> <LB-SHOW>)
+		(<VERB? RUB> <TELL "Thin paper tape gummed onto a backing form. The mainland stamps are pressed deep into it." CR> <RTRUE>)>>
 
 <ROUTINE LB-AERIAL-F ()
-	<COND (<VERB? EXAMINE LISTEN>
-		<TELL "The [[aerial]] sings through the rain. The gulls have left. The double cough you heard behind the appeal is absent from this wet iron. Somewhere a voice has carried better weather into the storm." CR> <RTRUE>)>>
+	<COND (<VERB? EXAMINE>
+		<TELL "The [[aerial]] sings through the rain. The gulls have left. The double cough you heard behind the appeal is absent from this wet iron. Somewhere a voice has carried better weather into the storm." CR> <RTRUE>)
+		(<VERB? LISTEN> <TELL "The wires hum one low note, which rises whenever a gust comes." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "You keep your hands to yourself. A transmitting aerial is no thing to grab in the rain." CR> <RTRUE>)
+		(<VERB? CLIMB-FOO CLIMB-UP> <TELL "Not in this wind, and not without a harness." CR> <RTRUE>)>>
 
 <ROUTINE LB-LAMP-F ()
 	<COND (<VERB? EXAMINE READ>
-		<TELL "The green [[signal lamp]] follows the transmitter carrier. It cannot distinguish a live voice from a record, or truth from a man being paid to read it. From here the studio's red lamp is invisible: no outside witness could have seen it." CR> <RTRUE>)>>
+		<TELL "The green [[signal lamp]] follows the transmitter carrier. It cannot distinguish a live voice from a record, or truth from a man being paid to read it. From here the studio's red lamp is invisible: no outside witness could have seen it." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The glass is hot. Raindrops hiss and vanish where they strike it." CR> <RTRUE>)
+		(<VERB? LOOK-BEHIND> <TELL "Its cable runs down the mast to the transmitter below." CR> <RTRUE>)>>
 
 <ROUTINE LB-BOOTS-F ()
 	<COND (<VERB? EXAMINE SEARCH>
 		<TELL "Ada's [[leather boots]], offered without grace. The left heel has a square leather repair set diagonally across the edge. Rust-red moisture remains in its stitching. A deliberate repair, not the shape of an ordinary heel. Ada permits you to carry them; her permission sounds like a challenge." CR> <RTRUE>)
-		(<VERB? COMPARE> <LB-COMPARE>)>>
+		(<VERB? COMPARE> <LB-COMPARE>)
+		(<VERB? SMELL> <TELL "Wet leather and dubbin, and something sour in the stitching." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The leather is still damp, though the bunkroom is dry." CR> <RTRUE>)
+		(<VERB? LOOK-INSIDE> <TELL "Nothing inside but a worn insole, shaped by years of Ada's feet." CR> <RTRUE>)
+		(<VERB? WEAR> <TELL "They are a size too small for you, and they are evidence." CR> <RTRUE>)>>
 
 <ROUTINE LB-ROSTER-F ()
 	<COND (<VERB? EXAMINE READ>
-		<TELL "The [[maintenance roster]] assigns Ada the 9:15 inspection beneath the office. The service hatch has a square spindle; the workshop spanner operates it from either side. Ada signed the spanner back at 9:20. Ruth and Edith are assigned to the kitchen, Tomas to the landline. This is duty, not proof of obedience." CR> <RTRUE>)>>
+		<TELL "The [[maintenance roster]] assigns Ada the 9:15 inspection beneath the office. The service hatch has a square spindle; the workshop spanner operates it from either side. Ada signed the spanner back at 9:20. Ruth and Edith are assigned to the kitchen, Tomas to the landline. This is duty, not proof of obedience." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "Cheap paper held by a single drawing pin. The initials on it are in several hands." CR> <RTRUE>)
+		(<VERB? LOOK-BEHIND> <TELL "You lift the corner. Behind it is only distemper, a little paler where the light never reaches." CR> <RTRUE>)>>
 
 <ROUTINE LB-LEDGER-F ()
 	<COND (<VERB? EXAMINE READ>
 		<SETG LB-LEDGER-SEEN T> <TELL "The [[wage ledger]] records eleven years of deductions for transmitter shares that were never issued. Mercer, H.: deceased; balance carried forward. Ada's father died still paying for a station he did not own. Vane has marked the accounts for destruction after tomorrow's sale. Ada is the surviving Mercer. These figures have left her something to answer for her father." CR> <RTRUE>)
-		(<VERB? SHOW> <LB-SHOW>)>>
+		(<VERB? SHOW> <LB-SHOW>)
+		(<VERB? SMELL> <TELL "Mildew and old ink. It has been kept somewhere damp for years." CR> <RTRUE>)
+		(<VERB? SHAKE> <TELL "Nothing falls from between the pages." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The cloth cover is worn through at the spine." CR> <RTRUE>)>>
 
 <ROUTINE LB-VANE-F ()
 	<COND (<VERB? EXAMINE>
@@ -259,7 +347,10 @@
 	<COND (<VERB? EXAMINE> <TELL "A square-socket [[service spanner]], made for the office hatch. There is only one; it is quite large enough to be absent conspicuously." CR> <RTRUE>)
 		(<VERB? USE-ON>
 			<COND (<EQUAL? ,PRSI ,LB-HATCH> <LB-OPEN-HATCH>)
-				(T <TELL "The [[spanner]] operates the service hatch, not that." CR> <RTRUE>)>)>>
+				(T <TELL "The [[spanner]] operates the service hatch, not that." CR> <RTRUE>)>)
+		(<VERB? SHAKE> <TELL "It is heavy and well balanced. Inside, the square socket is worn bright." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The handle is gritty with dried oil." CR> <RTRUE>)
+		(<VERB? SMELL> <TELL "Machine oil and iron." CR> <RTRUE>)>>
 <ROUTINE LB-HATCH-F ()
 	<COND (<VERB? EXAMINE>
 		<COND (<FSET? ,LB-HATCH ,OPENBIT> <TELL "The [[hatch]] stands open. Fresh blood has dried along the underside of its square spindle, where a hand or a heel brushed it. The passage and office are connected now." CR>)
@@ -271,7 +362,10 @@
 		(<VERB? CLOSE>
 			<COND (<FSET? ,LB-HATCH ,OPENBIT> <FCLEAR ,LB-HATCH ,OPENBIT> <TELL "You lower the [[hatch]]. The square bolt falls home." CR>)
 				(T <TELL "The [[hatch]] is already bolted shut." CR>)>
-			<RTRUE>)>>
+			<RTRUE>)
+		(<VERB? KNOCK> <COND (<EQUAL? ,HERE ,LB-PASSAGE> <TELL "Your knuckles ring on the iron underside. Nothing stirs in the office above." CR>) (T <TELL "The hatch gives back a hollow boom, and somewhere below the sound runs away along a tunnel." CR>)> <RTRUE>)
+		(<VERB? LISTEN> <COND (<EQUAL? ,HERE ,LB-PASSAGE> <TELL "From the office above comes nothing at all. It is as still as the man in it." CR>) (T <TELL "Through the boards comes the slow thump of the generator and the drip of water somewhere underground." CR>)> <RTRUE>)
+		(<VERB? RUB> <TELL "The iron is cold. The square spindle stands proud of the plate, its corners worn bright." CR> <RTRUE>)>>
 <ROUTINE LB-OPEN-HATCH ()
 	<COND (<NOT <AND <HELD? ,LB-SPANNER> <ACCESSIBLE? ,LB-SPANNER> <ACCESSIBLE? ,LB-HATCH>>>
 		<TELL "Hold the service spanner within reach of the [[hatch]]." CR>)
@@ -312,7 +406,9 @@
 				(<EQUAL? ,PRSI ,LB-VANE> <TELL "“At 9:16 I left him alive in the office. Edith saw me enter the kitchen straight away. At 9:21 I left her there and found him dead. He owed us wages. That doesn't make what happened a pay rise.”" CR>)
 				(T <TELL "“Ask me about the [[microphone]], the [[broadcast]], or [[Vane]]. I can tell you what I saw. What I heard appears more troublesome.”" CR>)> <RTRUE>)
 		(<VERB? SHOW> <LB-SHOW>)
-		(<VERB? ACCUSE> <LB-ACCUSE>)>>
+		(<VERB? ACCUSE> <LB-ACCUSE>)
+		(<VERB? LISTEN> <TELL "Ruth is murmuring the station call under her breath, over and over, as if to keep her voice in working order: “Saint Bride calling. Saint Bride calling.”" CR> <RTRUE>)
+		(<VERB? RUB> <TELL "Ruth steps back before your hand reaches her sleeve. “I am quite steady, thank you.”" CR> <RTRUE>)>>
 <ROUTINE LB-EDITH-F ()
 	<COND (<VERB? EXAMINE>
 		<TELL "Edith Shaw is washing her hands by rubbing them together, without water. Her [[medical bag]] is within reach. Ask about the [[bag]], the [[broadcast]], or [[Vane]]." CR>
@@ -325,7 +421,9 @@
 				(<EQUAL? ,PRSI ,LB-VANE> <TELL "“He threatened to expose my treatment of union men who could not pay. There was nothing unlawful in treating them; he only needed their next employers to know. He was alive when Ruth left him at 9:16. The clock is irrelevant to the wound.”" CR>)
 				(T <TELL "“Ask about the [[medical bag]], the [[broadcast]], or [[Vane]]. You may examine the bag. I would prefer a fact to an insinuation.”" CR>)> <RTRUE>)
 		(<VERB? SHOW> <LB-SHOW>)
-		(<VERB? ACCUSE> <LB-ACCUSE>)>>
+		(<VERB? ACCUSE> <LB-ACCUSE>)
+		(<VERB? LISTEN> <TELL "She is breathing slowly and deliberately, the way she would tell a frightened patient to." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "Edith looks at your hand until you take it back. “If anyone's pulse wants taking, I can manage it myself.”" CR> <RTRUE>)>>
 <ROUTINE LB-TOMAS-F ()
 	<COND (<VERB? EXAMINE>
 		<TELL "Tomas Vale holds his hands flat, as though they might otherwise transmit a confession. Ask about the [[receipt]], the [[broadcast]], or [[Vane]]." CR>
@@ -338,7 +436,9 @@
 				(<EQUAL? ,PRSI ,LB-VANE> <TELL "“He bought my gambling debt. Then he charged me for the favour every payday. I wanted to leave, not become a murderer permanently resident here.”" CR>)
 				(T <TELL "“Ask about the [[receipt]], the [[broadcast]], or [[Vane]]. I have no talent for looking innocent. The telegraph is better at it.”" CR>)> <RTRUE>)
 		(<VERB? SHOW> <LB-SHOW>)
-		(<VERB? ACCUSE> <LB-ACCUSE>)>>
+		(<VERB? ACCUSE> <LB-ACCUSE>)
+		(<VERB? LISTEN> <TELL "Under the click of the sounder he is counting softly to himself, the way operators count code groups." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "Tomas flinches as though you had touched a live wire. “Sorry. Nerves.”" CR> <RTRUE>)>>
 <ROUTINE LB-ADA-F ()
 	<COND (<VERB? EXAMINE>
 		<TELL "Ada Mercer is looking at the space between her hands. Her speech is exact; her breathing less so. Ask about the [[boots]], the [[broadcast]], [[Vane]], or the [[roster]]." CR>
@@ -361,7 +461,9 @@
 						(T <TELL "“The accounts are in the archive. If you want to understand this station, read them. People are noisier than figures and generally less exact.”" CR>)>)
 				(T <TELL "“Ask about my [[boots]], the [[roster]], the [[broadcast]], or [[Vane]]. Please make it a question whose answer you intend to hear.”" CR>)> <RTRUE>)
 		(<VERB? SHOW> <LB-SHOW>)
-		(<VERB? ACCUSE> <LB-ACCUSE>)>>
+		(<VERB? ACCUSE> <LB-ACCUSE>)
+		(<VERB? LISTEN> <TELL "Her breathing is quick and shallow, though her voice, when she speaks, stays perfectly level." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "Ada does not move away. She simply waits until you take your hand back." CR> <RTRUE>)>>
 
 <ROUTINE LB-SHOW ()
 	<COND (<NOT <AND <HELD? ,PRSO> <ACCESSIBLE? ,PRSO> <ACCESSIBLE? ,PRSI>>>
@@ -431,21 +533,24 @@
 		(T <TELL "The case is open. Your casebook records observations; optional hints require HINT CASEBOOK." CR>)>>
 <ROUTINE LB-OFFICE-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "The [[body]] sits beneath the [[office clock]], facing away from the [[hall->south]]. ">
-		<COND (<FSET? ,LB-HATCH ,OPENBIT> <TELL "The [[hatch]] stands open to the [[passage below->down]].">)
-			(T <TELL "The [[hatch]] is bolted shut over the [[route below->down]].">)>
-		<CRLF> <RTRUE>)>>
+		<TELL "This is Julian Vane's office, a cramped room of filing cabinets, deed boxes and cigar smoke. The air is too warm, and under the smoke there is a smell like old pennies. Vane's [[body]] sits slumped in the desk chair beneath an electric [[office clock]], his back to the door. ">
+		<COND (<FSET? ,LB-HATCH ,OPENBIT> <TELL "A square service [[hatch]] in the floor stands open, and warm air rises from the [[passage below->down]].">)
+			(T <TELL "A square service [[hatch]] is set flush in the floorboards, bolted shut over whatever lies [[below->down]].">)>
+		<TELL " The hall is back to the [[south]]." CR> <RTRUE>)>>
 <ROUTINE LB-PASSAGE-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "A [[stain]] marks the passage from the [[generator room->south]]. ">
-		<COND (<FSET? ,LB-HATCH ,OPENBIT> <TELL "Light falls through the open [[hatch]] from the [[office above->up]].">)
-			(T <TELL "The [[hatch]] is shut against the [[office above->up]].">)>
-		<CRLF> <RTRUE>)>>
+		<TELL "This is the cable passage, a low brick tunnel that carries the station's wiring beneath the floors. It is damp and close, and your shoulders brush cold pipes sweating with condensation. A dark [[stain]] marks the wet stone underfoot. ">
+		<COND (<FSET? ,LB-HATCH ,OPENBIT> <TELL "Overhead, lamplight falls through the open [[hatch]] from Vane's [[office above->up]].">)
+			(T <TELL "Overhead, a square [[hatch]] is shut against the [[office above->up]].">)>
+		<TELL " The tunnel runs back south to the [[generator room->south]]." CR> <RTRUE>)>>
 
 <ROUTINE LB-WEIGHT-F ()
 	<COND (<VERB? EXAMINE>
 		<TELL "A loose [[brass counterweight]], heavy enough to balance the cutting arm. One rim has a broken notch and a damp polished crescent. Something dark remains behind its retaining lug. Its edge has the shape of an incomplete crescent." CR> <RTRUE>)
-		(<VERB? COMPARE> <LB-COMPARE>)>>
+		(<VERB? COMPARE> <LB-COMPARE>)
+		(<VERB? SMELL> <TELL "Brass and lacquer, and faintly something like iron." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "You touch only the clean face. The rest may have more to tell than your fingers would leave on it." CR> <RTRUE>)
+		(<VERB? SHAKE> <TELL "It is heavy for its size, a solid pound or more of brass." CR> <RTRUE>)>>
 
 <ROUTINE LB-ADA-EXHIBIT (EXHIBIT)
 	<COND (<EQUAL? .EXHIBIT ,LB-DISC>
@@ -466,28 +571,74 @@
 <ROUTINE LB-HEEL-REPAIR-F ()
     <COND (<VERB? EXAMINE>
            <SETG LB-STAIN-SEEN T>
-           <TELL "One corner of the diamond sits right on the curve of the heel. Along its opposite edge the stitches left a row of tiny dots." CR>)>>
+           <TELL "One corner of the diamond sits right on the curve of the heel. Along its opposite edge the stitches left a row of tiny dots." CR>)
+		(<VERB? RUB> <TELL "You do not touch the print. The pattern is too useful to spoil." CR> <RTRUE>)>>
 
 <ROUTINE DETAIL-WINDING-KNOB-F ()
     <COND (<VERB? READ> <TELL "SET. There is no winding mark." CR>)
           (<VERB? SPIN> <TELL "The minute hand trembles under your thumb. You let go before you change the reading. This knob sets the hands." CR>)>>
 
 <ROUTINE DETAIL-HEATER-PLATE-F ()
-    <COND (<VERB? READ> <TELL "HEATER. The pencilled arrow points to the lamp that shows when the microphone is warm." CR>)>>
+    <COND (<VERB? READ> <TELL "HEATER. The pencilled arrow points to the lamp that shows when the microphone is warm." CR>)
+		(<VERB? RUB> <TELL "The punched letters are sharp-edged under your thumb. The pencilled arrow does not smudge." CR> <RTRUE>)>>
 
 <ROUTINE LB-ARCHIVE-PAPERS-F ()
-    <COND (<VERB? READ> <TELL "REQUISITION. Below it are spaces for a date, an item and a signature. The lines are blank." CR>)>>
+    <COND (<VERB? READ> <TELL "REQUISITION. Below it are spaces for a date, an item and a signature. The lines are blank." CR>)
+		(<VERB? SEARCH> <TELL "You leaf through them. Every sheet is a blank requisition form, curling in the damp." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The paper is cold and limp with damp." CR> <RTRUE>)
+		(<VERB? LOOK-UNDER> <TELL "Only the scarred top of the reading table." CR> <RTRUE>)>>
 
 <ROUTINE DETAIL-WAX-DAB-F ()
-    <COND (<VERB? RUB> <TELL "You touch the wax on the guard. Its broken edge fits the piece on the switch at DISC." CR>)>>
+    <COND (<VERB? RUB> <TELL "You touch the wax on the guard. Its broken edge fits the piece on the switch at DISC." CR>)
+		(<VERB? SMELL> <TELL "Ordinary candle wax, the kind kept in every drawer on the island for power cuts." CR> <RTRUE>)>>
 
 <ROUTINE LB-COVERED-WALK-F ()
     <COND (<VERB? CROSS>
            <COND (<EQUAL? ,HERE ,LB-PLATFORM> <DO-WALK ,P?EAST>)
-                 (T <DO-WALK ,P?WEST>)>)>>
+                 (T <DO-WALK ,P?WEST>)>)
+		(<VERB? LISTEN> <TELL "Rain drums on the corrugated tin like gravel thrown on a roof." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "The boards are slick at the edges and dry down the middle." CR> <RTRUE>)>>
 
 <ROUTINE LB-HALL-STAIRS-F ()
-    <COND (<VERB? CLIMB-FOO CLIMB-UP> <DO-WALK ,P?UP>)>>
+    <COND (<VERB? CLIMB-FOO CLIMB-UP> <DO-WALK ,P?UP>)
+		(<VERB? RUB> <TELL "The handrail is greasy with years of hands, and the worn treads are as smooth as soap." CR> <RTRUE>)
+		(<VERB? LISTEN> <TELL "Nothing moves upstairs but the rain on the slates." CR> <RTRUE>)>>
 
 <ROUTINE LB-TELEGRAPH-STAIRS-F ()
-    <COND (<VERB? CLIMB-FOO CLIMB-UP> <DO-WALK ,P?UP>)>>
+    <COND (<VERB? CLIMB-FOO CLIMB-UP> <DO-WALK ,P?UP>)
+		(<VERB? RUB> <TELL "The iron is wet, and cold enough to ache." CR> <RTRUE>)
+		(<VERB? LISTEN> <TELL "Rain drums on the trapdoor at the top." CR> <RTRUE>)>>
+
+<ROUTINE LB-HALL-LIGHT-F ()
+	<COND
+		(<VERB? RUB> <TELL "You cannot reach it from here. It swings well inside the door, out of the rain." CR> <RTRUE>)
+		(<VERB? LISTEN> <TELL "Its bracket creaks at the end of every swing, a small sound the wind keeps losing." CR> <RTRUE>)>>
+
+<ROUTINE LB-CONTROL-LIGHT-F ()
+	<COND
+		(<VERB? RUB> <TELL "The glass is warm. It glows as steadily under your finger as before." CR> <RTRUE>)
+		(<VERB? LOOK-BEHIND> <TELL "A pair of cloth-covered wires runs from the lamp down into the transmitter rack." CR> <RTRUE>)>>
+
+<ROUTINE LB-LACQUER-CURL-F ()
+	<COND
+		(<VERB? RUB> <TELL "It is soft and faintly sticky, and it clings to your finger until you flick it back onto the bench." CR> <RTRUE>)
+		(<VERB? SMELL> <TELL "Sharp and sweet, like pear drops." CR> <RTRUE>)>>
+
+<ROUTINE DETAIL-CUTTING-NEEDLE-F ()
+	<COND
+		(<VERB? RUB> <TELL "You stop short of the point. It was made to carve a groove a hair wide, and it would carve you as gladly." CR> <RTRUE>)
+		(<VERB? SMELL> <TELL "Hot lacquer, faint but sharp." CR> <RTRUE>)>>
+
+<ROUTINE DETAIL-BLACK-FELT-F ()
+	<COND
+		(<VERB? RUB> <TELL "Soft and worn smooth, like the cloth of a billiard table." CR> <RTRUE>)
+		(<VERB? LOOK-UNDER> <TELL "You lift the edge. There is only the scarred bench beneath." CR> <RTRUE>)>>
+
+<ROUTINE DETAIL-CUPS-F ()
+	<COND
+		(<VERB? SMELL> <TELL "Stewed tea, gone cold and bitter." CR> <RTRUE>)
+		(<VERB? RUB> <TELL "Stone cold, both of them." CR> <RTRUE>)>>
+
+<ROUTINE DETAIL-BRASS-DUST-F ()
+	<COND
+		(<VERB? RUB> <TELL "You do not touch it. The pattern is the only witness the wound has." CR> <RTRUE>)>>

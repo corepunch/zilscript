@@ -47,9 +47,11 @@ for _, item in ipairs({ env.LB_DISC, env.LB_STYLUS, env.LB_SPANNER, env.LB_CHART
 end
 enter(env.LB_CONTROL)
 for _, action in ipairs(session:linkActions("routing switch")) do
-	assert(not action.command:find(" with ", 1, true)
-		and not action.command:find(" to ", 1, true)
-		and not action.command:find(" for ", 1, true), "Routing switch has no meaningful binary operation: " .. action.command)
+	-- "listen to" is a unary verb whose preposition precedes the object.
+	local rest = action.command:gsub("^listen to ", "")
+	assert(not rest:find(" with ", 1, true)
+		and not rest:find(" to ", 1, true)
+		and not rest:find(" for ", 1, true), "Routing switch has no meaningful binary operation: " .. action.command)
 end
 assert(contains("gramophone", "use spring-driven gramophone with playback stylus"), "Pickup exposes the correct tool")
 assert(contains("gramophone", "use spring-driven gramophone with service spanner"), "Pickup permits a selected wrong-tool experiment")
