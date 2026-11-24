@@ -9,12 +9,13 @@
 <SYNTAX HINT = V-HINTS>
 <SYNTAX EASY = V-EASY-TOGGLE>
 <SYNONYM HINT HINTS>
+<SYNONYM SQUEEZE HUG CUDDLE>
 
 <ROUTINE STORAGE-LOFT-LOOK (RARG)
 	<COND (<AND <EQUAL? .RARG ,M-LOOK> <FSET? ,TOY-BOX ,OPENBIT>>
-		<TELL "In the storage loft, the old cuckoo [[clock]] ">
+		<TELL "This is the storage loft, a low, dusty room tucked under the roof beams. Grey [[cobwebs]] hang from the rafters like curtains. On the wall, an old cuckoo [[clock]] ">
 		<COND (,OLD-TICK-HEARD <TELL "ticks steadily">) (T <TELL "sits silent">)>
-		<TELL " above the open [[box]] by the [[cobwebs]] and [[ladder]] back [[down]]." CR>)>>
+		<TELL " above the open [[box]] of broken toy parts. Pip can climb the [[ladder]] back [[down]] to the workshop floor." CR>)>>
 
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? T))
     <TELL "Score: " N ,SCORE " of " N ,SCORE-MAX " points, in " N ,MOVES>
@@ -54,6 +55,7 @@
            <ENABLE <QUEUE I-TICK 1>>)>
     <ENABLE <QUEUE I-DAWN-WARNING 25>>
     <ENABLE <QUEUE I-NUTMEG-AUTONOMY 8>>
+    <TELL "You are Pip, a workshop gnome no taller than a teacup, and the apprentice of Grandfather Tolliver, the last toymaker in Wrenfold. Every night the town's toys wake up and play, but tonight they are growing still. The magic key that keeps them ticking has vanished from its hook, and Grandfather has not come home. You must find the key and wind the workshop's heart before dawn." CR CR>
     <TELL D ,HERE CR>
     <V-LOOK>
     <MAIN-LOOP>
@@ -114,24 +116,29 @@
 
 <ROUTINE WORKSHOP-FLOOR-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "Grandfather's key [[hook]] is empty">
+           <TELL "This is the floor of Grandfather Tolliver's workshop. Soft golden [[sawdust]] covers the boards and smells of cedar. The brass key [[hook]] is empty, and ">
+           <COND (,STUDY-ACCESS
+                  <TELL "the old cuckoo [[clock]] has swung away from the wall above the folding [[loft ladder->loft ladder]].">)
+                 (T <TELL "an old cuckoo [[clock]] ticks on the wall above the folding [[loft ladder->loft ladder]].">)>
+           <TELL " The great [[workbench]] rises over Pip's head like a house">
            <COND (<AND <FSET? ,OIL-CAN ,INVISIBLE> <IN? ,OIL-CAN ,WORKSHOP-FLOOR>>
-                  <TELL ", but something glints under his [[workbench]] beside the [[loft ladder->loft ladder]].">)
+                  <TELL ". Something glints in the shadows underneath it.">)
                  (<AND <IN? ,OIL-CAN ,WORKSHOP-FLOOR> <NOT <FSET? ,OIL-CAN ,TOUCHBIT>>>
-                  <TELL ", but a copper [[oil can->can]] sits under his [[workbench]] by the [[loft ladder->loft ladder]].">)
-                 (T <TELL " above his [[workbench]] beside the [[loft ladder->loft ladder]].">)>
-           <COND (,STUDY-ACCESS <TELL " The [[pet door->door]] leads [[north]], the bench lies [[east]], and [[stairs]] behind the open [[clock]] lead [[into the study->in]].">)
-                 (T <TELL " The [[pet door->door]] leads [[north]], the tool bench [[east]].">)>
+                  <TELL ", and a copper [[oil can->can]] sits in the shadows underneath it.">)
+                 (T <TELL ".">)>
+           <TELL " A [[pet door->door]] leads [[north]] to the snowy alley, and the tool bench is to the [[east]].">
+           <COND (,LADDER-OILED <TELL " The oiled ladder reaches [[up]] to the storage loft.">)>
+           <COND (,STUDY-ACCESS <TELL " Narrow [[stairs]] behind the open clock lead [[into the study->in]].">)>
            <CRLF>)>>
 
 <ROUTINE WORKBENCH-TOP-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
-           <TELL "Among the [[half-finished toys->toys]], Pip can hardly see the floor [[below->down]].">
+           <TELL "This is the top of Grandfather's workbench, a wide wooden plain scattered with curls of cedar shavings. [[Half-finished toys->toys]] wait under the work lamp for Grandfather to come back and finish them.">
            <COND (,REPAIR-BOOK-OPEN
-                  <TELL " A paper workshop rises from the open [[repair book->book]].">)
+                  <TELL " Tolliver's [[repair book->book]] lies open, and a paper workshop rises from its pages.">)
                  (T
-                  <TELL " Tolliver's [[repair book->book]] rests closed.">)>
-           <TELL CR>)>>
+                  <TELL " Tolliver's big green [[repair book->book]] rests closed beside the work [[lamp]].">)>
+           <TELL " The workshop floor is a long way [[down]]." CR>)>>
 
 <ROUTINE WORKBENCH-DOWN-EXIT ()
     <COND (,REPAIR-BOOK-OPEN
@@ -143,12 +150,13 @@
 <ROUTINE SCRAP-YARD-FCN (RARG)
     <COND (<EQUAL? .RARG ,M-LOOK>
            <COND (<AND <FSET? ,DOLL-HEAD ,INVISIBLE> <IN? ,DOLL-HEAD ,SCRAP-YARD>>
-                  <TELL "By the [[track]] from the square [[north]], something pale shows through the snowy [[piles]]">)
+                  <TELL "This is the scrap-yard, where broken toys end up when nobody wants them any more. Snowy [[piles]] of tin, wood and ribbon rise on every side, and something pale shows through the nearest one.">)
                  (<AND <IN? ,DOLL-HEAD ,SCRAP-YARD> <FSET? ,DOLL-HEAD ,NDESCBIT>>
-                  <TELL "By the [[track]] from the square [[north]], a porcelain [[doll head->head]] rests on the snowy [[piles]]">)
-                 (T <TELL "The [[track]] from the square [[north]] runs between snowy [[piles]]">)>
-           <COND (,CART-MOVED <TELL " beside the open [[gate]] to the [[east]]." CR>)
-                 (T <TELL " beside the iron [[gate]] blocking the way east." CR>)>)>>
+                  <TELL "This is the scrap-yard, where broken toys end up when nobody wants them any more. Snowy [[piles]] of tin, wood and ribbon rise on every side, and a porcelain [[doll head->head]] rests on top of the nearest one.">)
+                 (T <TELL "This is the scrap-yard, where broken toys end up when nobody wants them any more. Snowy [[piles]] of tin, wood and ribbon rise on every side.">)>
+           <TELL " Everything smells of rust and cold snow. Clock Square is back to the [[north]].">
+           <COND (,CART-MOVED <TELL " An iron [[gate]] to the [[east]] stands open now." CR>)
+                 (T <TELL " An iron [[gate]] leads east, but the way is blocked." CR>)>)>>
 
 "The doll head lies INVISIBLE in the scrap piles until Pip searches them."
 
@@ -164,7 +172,13 @@
            <RTRUE>)
           (<VERB? TAKE>
            <TELL "The piles are far too big for Pip to carry, and frozen together besides." CR>
-           <RTRUE>)>>
+           <RTRUE>)
+          (<VERB? KICK ATTACK>
+           <TELL "Pip will not kick them. Every one of these broken things was somebody's favourite toy once." CR>)
+          (<VERB? LISTEN>
+           <TELL "When the wind blows, the piles tinkle and clink -- little bells, tin wheels, a music box with no tune left." CR>)
+          (<VERB? SMELL>
+           <TELL "The piles smell of rust, wet wood and old paint." CR>)>>
 
 ; === DYNAMIC OBJECT DESCRIPTIONS ===
 
@@ -173,9 +187,9 @@
            <COND (,BERTRAND-WOUND
                   <TELL "Captain [[Bertrand]] salutes beside the clear way [[up]]." CR>)
                  (<NOT <IN? ,BERTRAND-KEY ,TOOL-BENCH>>
-                  <TELL "A [[nutcracker]] stands frozen on the [[chair seat]]." CR>)
+                  <TELL "A painted [[nutcracker]] stands frozen on the [[chair seat]], right in the middle of the steps." CR>)
                  (T
-                  <TELL "A [[nutcracker]] stands frozen on the [[chair seat]], a [[key->winding key]] in his back." CR>)>
+                  <TELL "A painted [[nutcracker]] stands frozen on the [[chair seat]], right in the middle of the steps, with a little [[key->winding key]] in his back." CR>)>
            <RTRUE>)>>
 
 <ROUTINE MARZIPAN-DESC-F (RARG)
@@ -183,16 +197,16 @@
            <COND (,MARZIPAN-BUTTON
                   <TELL "[[Marzipan]] hums, her two mismatched button eyes shining." CR>)
                  (T
-                  <TELL "A [[rag doll->ragdoll]] with one [[button eye]] hums." CR>)>
+                  <TELL "A [[rag doll->ragdoll]] with only one [[button eye]] sits against the window, humming softly to herself." CR>)>
            <RTRUE>)>>
 
 <ROUTINE OLD-TICK-DESC-F (RARG)
     <COND (<EQUAL? .RARG ,M-OBJDESC>
            <COND (<FSET? ,TOY-BOX ,OPENBIT> <RTRUE>)>
            <COND (,OLD-TICK-HEARD
-                  <TELL "The old cuckoo [[clock]] ticks steadily." CR>)
+                  <TELL "The old cuckoo [[clock]] on the wall ticks steadily." CR>)
                  (T
-                  <TELL "An old cuckoo [[clock]] sits silent." CR>)>
+                  <TELL "An old cuckoo [[clock]] hangs on the wall, silent and grey with dust." CR>)>
            <RTRUE>)>>
 
 <ROUTINE SCRAP-CART-DESC-F (RARG)
@@ -210,7 +224,7 @@
                  (,KEY-FOUND
                   <TELL "[[Nutmeg]] watches Pip with soft button eyes." CR>)
                  (T
-                  <TELL "A patchy [[fox]] curls up as the workshop [[key->workshop key]] ticks faintly around her neck." CR>)>
+                  <TELL "A patchy toy [[fox]] lies curled in the bed, watching Pip with button eyes. The missing workshop [[key->workshop key]] ticks faintly around her neck." CR>)>
            <RTRUE>)>>
 
 ; === V-WIND HANDLER ===
@@ -397,7 +411,13 @@
             <TELL "The hook is fixed firmly to the wall.">
             <COND (<AND <IN? ,KEY-STRING ,WORKSHOP-FLOOR> <NOT <FSET? ,KEY-STRING ,TOUCHBIT>>>
                    <TELL " But the [[string]] dangling from it looks like it might come free.">)>
-            <CRLF>)>>
+            <CRLF>)
+           (<VERB? RUB>
+            <TELL "Pip touches the hook. It is as cold as a winter puddle. Last night it hummed warm under Pip's fingers, the way it always did when the key hung there." CR>)
+           (<VERB? SMELL>
+            <TELL "Pip sniffs the hook. Brass, old oil -- and, very faintly, something wild and furry, like a fox." CR>)
+           (<VERB? KNOCK>
+            <TELL "Pip taps the hook. It gives a thin, lonely ting that fades away into the quiet workshop." CR>)>>
 
 <ROUTINE WORKBENCH-F ()
     <COND (<VERB? EXAMINE LOOK-INSIDE LOOK-UNDER SEARCH>
@@ -421,29 +441,61 @@
           (<VERB? CLIMB CLIMB-FOO CLIMB-UP>
            <TELL "Pip scrambles up the carved workbench leg, using drawer handles and wooden joints as footholds. At last one hand catches the tabletop. Pip swings over the edge and lands among curls of cedar shavings." CR>
            <GOTO ,WORKBENCH-TOP>
-           <RTRUE>)>>
+           <RTRUE>)
+          (<VERB? KNOCK>
+           <TELL "Knock, knock. Nobody answers, but a curl of cedar shaving drifts down from the top and lands on Pip's hat." CR>)
+          (<VERB? SMELL>
+           <TELL "The workbench smells of cedar, glue and Grandfather's peppermints. It smells like every good evening Pip can remember." CR>)
+          (<VERB? RUB>
+           <TELL "The carved legs are worn smooth, with little dents just right for Pip's hands and boots. Grandfather always said Pip climbed better than a squirrel." CR>)
+          (<VERB? PUSH MOVE>
+           <TELL "Pip pushes with all his might. The workbench is as big as a house to Pip, and it does not move one hair." CR>)>>
 
 <ROUTINE OIL-CAN-F ()
     <COND (<VERB? EXAMINE>
            <TELL "A tiny copper oil can, no bigger than Pip's thumb. It is about half full. The label reads: “Tolliver's Finest -- For Squeaks and Stiff Joints.”" CR>)
           (<VERB? SHAKE>
-           <TELL "Pip shakes the can gently. Oil sloshes inside -- enough for a few uses." CR>)>>
+           <TELL "Pip shakes the can gently. Oil sloshes inside -- enough for a few uses." CR>)
+          (<VERB? SMELL>
+           <TELL "The oil smells warm and nutty, like toasted seeds. It is the smell of squeaky things being made quiet again." CR>)
+          (<VERB? RUB>
+           <TELL "Pip polishes the copper with a sleeve until it shines like a new penny. Pip can see a tiny, stretched reflection of his own face." CR>)
+          (<VERB? OPEN>
+           <TELL "Pip twists the little cap. One golden drop gleams at the spout. Pip screws the cap back on -- better save it for something stiff and rusty." CR>)>>
 
 <ROUTINE SAWDUST-F ()
     <COND (<VERB? EXAMINE>
            <TELL "Soft golden sawdust covers the floorboards. It smells of cedar and old wood. Pip would sweep it on any other night, but tonight there are more important things." CR>)
           (<VERB? TAKE>
-           <TELL "The sawdust slips through Pip's fingers. There is not enough to carry." CR>)>>
+           <TELL "The sawdust slips through Pip's fingers. There is not enough to carry." CR>)
+          (<VERB? SMELL>
+           <TELL "Pip breathes in. Cedar, sweet and sharp. Pip sneezes -- achoo! -- and a little golden cloud puffs up." CR>)
+          (<VERB? KICK PLAY>
+           <TELL "Pip kicks up the sawdust and it rains down glittering in the lamplight. For a moment it feels like an ordinary night." CR>)
+          (<VERB? RUB SEARCH>
+           <TELL "The sawdust is soft and warm under Pip's hands. Pip finds a bent tack and a pencil shaving, and nothing more." CR>)>>
 
 <ROUTINE PET-DOOR-F ()
     <COND (<VERB? EXAMINE>
            <TELL "A small pet door is cut into the bottom of the workshop's main door. It is just the right size for a workshop gnome -- or a fox toy. Moonlight and cold air seep through the flap." CR>)
           (<VERB? OPEN>
-           <TELL "The pet door flap swings freely. It is just wide enough for Pip to slip into the snowy night." CR>)>>
+           <TELL "The pet door flap swings freely. It is just wide enough for Pip to slip into the snowy night." CR>)
+          (<VERB? PUSH>
+           <TELL "The flap swings out with a soft clack. A puff of icy air and three snowflakes blow in around Pip's boots." CR>)
+          (<VERB? KNOCK>
+           <TELL "Tock, tock. The flap rattles. Nobody knocks back -- only the wind." CR>)
+          (<VERB? LISTEN>
+           <TELL "Through the flap Pip hears the wind sighing down the alley and, far away, the slow tick of the clock tower." CR>)>>
 
 <ROUTINE SWEEP-BROOM-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "Pip's tiny broom has worn bristles and a handle smooth from use. It was one of the first things Tolliver ever made for his apprentice." CR>)>>
+           <TELL "Pip's tiny broom has worn bristles and a handle smooth from use. It was one of the first things Tolliver ever made for his apprentice." CR>)
+          (<VERB? SMELL>
+           <TELL "The broom smells of sawdust and straw, and a little of Grandfather's pipe." CR>)
+          (<VERB? RUB>
+           <TELL "The handle is worn smooth in two places, exactly where Pip's hands always hold it." CR>)
+          (<VERB? SHAKE>
+           <TELL "Pip shakes the broom. A puff of golden sawdust falls from the bristles like snow." CR>)>>
 
 <ROUTINE CLOCK-FACE-F ()
     <COND (<VERB? THROUGH CLIMB-FOO CLIMB-UP>
@@ -461,11 +513,27 @@
                   <TELL " The clock has swung open, revealing a narrow staircase leading [[into the study->in]].">)>
            <TELL CR>)
           (<VERB? LISTEN>
-           <TELL "Pip presses an ear to the clock. Tick, tick, tick -- steady as a heartbeat. Beneath it comes another rhythm, deeper and farther away, like a second heart below the workshop." CR>)>>
+           <TELL "Pip presses an ear to the clock. Tick, tick, tick -- steady as a heartbeat. Beneath it comes another rhythm, deeper and farther away, like a second heart below the workshop." CR>)
+          (<VERB? KNOCK>
+           <COND (,STUDY-ACCESS
+                  <TELL "Pip knocks on the open clock case. The sound echoes up the narrow stairs behind it." CR>)
+                 (T
+                  <TELL "Tock, tock. The case sounds strangely hollow, as if there were empty space behind the wall. The little cuckoo door stays shut." CR>)>)
+          (<VERB? PUSH MOVE OPEN>
+           <COND (,STUDY-ACCESS
+                  <TELL "The clock has already swung open. Narrow stairs lead [[into the study->in]]." CR>)
+                 (T
+                  <TELL "Pip pushes and pulls, but the clock is held fast against the wall. Something somewhere must be keeping it shut." CR>)>)
+          (<VERB? RUB>
+           <TELL "The wood is carved with tiny oak leaves. Pip's fingers find a little gear carved among them -- Grandfather's mark." CR>)>>
 
 <ROUTINE KEY-STRING-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "A frayed piece of string, once used to hang the workshop key. The ends are chewed -- by small sharp teeth, from the look of it." CR>)>>
+           <TELL "A frayed piece of string, once used to hang the workshop key. The ends are chewed -- by small sharp teeth, from the look of it." CR>)
+          (<VERB? SMELL>
+           <TELL "Pip sniffs the string. It smells of snow and something wild and furry. A fox, surely." CR>)
+          (<VERB? RUB>
+           <TELL "Pip runs the string between two fingers. The chewed end is still a little damp." CR>)>>
 
 <ROUTINE LOFT-LADDER-F ()
     <COND (<VERB? CLIMB CLIMB-FOO CLIMB-UP>
@@ -480,7 +548,14 @@
            <COND (,LADDER-OILED
                   <TELL "A folding wooden ladder with broad, Pip-sized rungs. With its [[mechanism]] oiled, it rises smoothly past the cuckoo [[clock]] to the storage loft." CR>)
                   (T
-                   <TELL "The ladder folds against the wall beneath the cuckoo [[clock]]. Its lifting [[mechanism]] is rusted solid. A drop of oil might free it." CR>)>)>>
+                   <TELL "The ladder folds against the wall beneath the cuckoo [[clock]]. Its lifting [[mechanism]] is rusted solid. A drop of oil might free it." CR>)>)
+          (<VERB? PUSH MOVE>
+           <COND (,LADDER-OILED
+                  <TELL "The ladder swings up and down as easily as a door. It is ready to climb." CR>)
+                 (T
+                  <TELL "The ladder shudders and creaks, but the rusty [[mechanism]] holds it tight against the wall." CR>)>)
+          (<VERB? KNOCK RUB>
+           <TELL "The broad rungs are made of good oak, warm and smooth. Grandfather built them wide enough for a gnome to stand on with both boots." CR>)>>
 
 <ROUTINE LADDER-MECH-F ()
     <COND (<VERB? OIL> <V-OIL>)
@@ -495,7 +570,13 @@
                   <TELL "The mechanism turns smoothly under Pip's hands. The folding ladder rises toward the loft." CR>)
                  (T
                   <TELL "Pip strains against the mechanism, but it is rusted solid. The iron needs oil first." CR>)>
-           <RTRUE>)>>
+           <RTRUE>)
+          (<VERB? RUB>
+           <COND (,LADDER-OILED <TELL "The iron is slick and shiny with oil now. Pip wipes his fingers on his apron." CR>)
+                 (T <TELL "Flakes of rust come away on Pip's fingers, orange as carrot peel." CR>)>)
+          (<VERB? KICK KNOCK>
+           <COND (,LADDER-OILED <TELL "Clang! The mechanism rings like a little bell and keeps working smoothly." CR>)
+                 (T <TELL "Clang! A shower of rust falls, but the mechanism stays stuck. It needs oil, not kicks." CR>)>)>>
 
 ; === TOOL-BENCH OBJECT HANDLERS ===
 
@@ -534,7 +615,24 @@ coat, and the pages in his handwriting."
                         (T
                          <TELL "“I am Captain Bertrand of the Nutcracker Brigade. State your business, small apprentice.” He salutes, then tips his painted hat toward the stacked books. “The countertop is open for inspection.”" CR>)>)
                   (T
-                   <TELL "His painted mouth stays clamped shut. He looks like he has plenty to say, if only someone would wind him up." CR>)>)>>
+                   <TELL "His painted mouth stays clamped shut. He looks like he has plenty to say, if only someone would wind him up." CR>)>)
+          (<VERB? KNOCK>
+           <COND (,BERTRAND-WOUND
+                  <TELL "Pip knocks politely on Bertrand's wooden chest. “Enter!” he barks, then looks puzzled. “No, wait. That is not how chests work.”" CR>)
+                 (T
+                  <TELL "Pip knocks on the nutcracker's chest. Tock, tock -- solid wood. His painted eyes do not even blink." CR>)>)
+          (<VERB? RUB>
+           <COND (,BERTRAND-WOUND
+                  <TELL "Pip straightens Bertrand's painted coat. “Thank you, apprentice,” he says stiffly. “A captain must look his best on duty.”" CR>)
+                 (T
+                  <TELL "Bertrand's paint is cool and glossy. His wooden arm is stuck fast in a salute that never quite finished." CR>)>)
+          (<VERB? KISS>
+           <COND (,BERTRAND-WOUND
+                  <TELL "Pip kisses Bertrand's painted cheek. His face turns, if possible, even redder. “Most irregular,” he mutters, but his moustache twitches with pleasure." CR>)
+                 (T
+                  <TELL "Pip gives the frozen nutcracker a kiss on his painted cheek. Nothing happens. Kisses work in stories, but nutcrackers need winding." CR>)>)
+          (<VERB? KICK ATTACK>
+           <TELL "Pip would never kick a toy, even a pompous one. Grandfather always says toys are for loving, not bashing." CR>)>>
 
 <ROUTINE BERTRAND-KEY-F ()
     <COND (<VERB? SPIN>
@@ -544,14 +642,20 @@ coat, and the pages in his handwriting."
            <COND (<IN? ,BERTRAND-KEY ,TOOL-BENCH>
                   <TELL "A tiny brass winding key protrudes from the nutcracker's back. Its little wings are made for Pip's fingers; one good winding would wake the captain." CR>)
                   (T
-                   <TELL "A tiny brass winding key. It is the exact size for winding a nutcracker -- or any other clockwork toy." CR>)>)>>
+                   <TELL "A tiny brass winding key. It is the exact size for winding a nutcracker -- or any other clockwork toy." CR>)>)
+          (<VERB? RUB>
+           <TELL "The little brass wings are smooth and warm, polished by years of Grandfather's fingers winding Bertrand every evening at six." CR>)>>
 
 <ROUTINE VARNISH-POT-F ()
     <COND (<VERB? EXAMINE LOOK-INSIDE>
            <TELL "A pot of varnish, left open. The contents have gone thick and tacky -- useless for fine work now. The smell is faintly sweet and chemical." CR>)
           (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,VARNISH-POT>>
            <TELL "Anything dropped into that tacky varnish would never come out clean. Pip thinks better of it." CR>
-           <RTRUE>)>>
+           <RTRUE>)
+          (<VERB? SMELL>
+           <TELL "Pip sniffs, and his nose wrinkles all by itself. The varnish smells sweet and sharp at once, like burnt sugar and pine trees." CR>)
+          (<VERB? RUB>
+           <TELL "Pip dabs one finger on the surface. It comes away with a long, sticky string attached. Yuck! Pip wipes it on the bench." CR>)>>
 
 <ROUTINE TOOL-RACK-F ()
     <COND (<VERB? EXAMINE>
@@ -559,7 +663,11 @@ coat, and the pages in his handwriting."
            <COND (<AND <IN? ,TOY-CHISELS ,TOOL-BENCH> <FSET? ,TOY-CHISELS ,NDESCBIT>> <TELL " Tiny [[chisels]] hang in a row.">)>
            <COND (<AND <IN? ,TOY-FILES ,TOOL-BENCH> <FSET? ,TOY-FILES ,NDESCBIT>> <TELL " The [[needle-files]] share one notch.">)>
            <COND (<AND <IN? ,DETAIL-HAMMER ,TOOL-BENCH> <FSET? ,DETAIL-HAMMER ,NDESCBIT>> <TELL " A jeweller's [[hammer]] hangs by its head.">)>
-           <TELL " An open [[varnish pot->pot]] stands beneath the rack." CR>)>>
+           <TELL " An open [[varnish pot->pot]] stands beneath the rack." CR>)
+          (<VERB? KNOCK MOVE>
+           <TELL "Pip taps the rack. The tiny tools swing and jingle against each other like little silver bells." CR>)
+          (<VERB? RUB>
+           <TELL "Each notch is labelled in Grandfather's tiny pencil writing, so every tool always goes home to the same place." CR>)>>
 
 <ROUTINE MAKESHIFT-STEPS-F ()
     <COND (<VERB? EXAMINE>
@@ -574,7 +682,11 @@ coat, and the pages in his handwriting."
                   <GOTO ,COUNTERTOP>)
                  (T
                   <TELL "Captain Bertrand's frozen wooden boots block the chair seat. Pip cannot reach the books until he moves." CR>)>
-           <RTRUE>)>>
+           <RTRUE>)
+          (<VERB? PUSH MOVE>
+           <TELL "Pip leans on the crate. It does not wobble at all. Grandfather built these steps to last." CR>)
+          (<VERB? SMELL>
+           <TELL "The old repair books smell of leather and dust, and the crate smells of the apples it once held." CR>)>>
 ; === WORKBENCH TOP OBJECT HANDLERS ===
 
 <ROUTINE REPAIR-BOOK-F ()
@@ -603,12 +715,22 @@ coat, and the pages in his handwriting."
                   <FCLEAR ,REPAIR-BOOK ,OPENBIT>)
                  (T
                   <TELL "The repair book is already closed." CR>)>
-           <RTRUE>)>>
+           <RTRUE>)
+          (<VERB? SMELL>
+           <TELL "The book smells of old leather, cedar dust and pencil shavings, just like Grandfather's sleeves." CR>)
+          (<VERB? RUB>
+           <TELL "Pip traces the tiny gear and paintbrush stamped into the cover. The leather is soft and warm, like a well-loved boot." CR>)
+          (<VERB? KNOCK>
+           <TELL "Thump, thump. The heavy cover booms like a drum. It is a very serious sort of book." CR>)>>
 
 <ROUTINE HALF-FINISHED-TOYS-F ()
     <COND (<VERB? EXAMINE LOOK-INSIDE>
            <TELL "Pip walks between Grandfather's unfinished inventions: a [[sailboat]] waiting for its mast, a [[train->wooden train]] with careful red wheels, and a [[wooden duck]] whose missing wheel leaves it tilted as if listening. Nothing here is discarded. Everything is waiting for Tolliver to return." CR>
-           <RTRUE>)>>
+           <RTRUE>)
+          (<VERB? PLAY>
+           <TELL "Pip rolls the train in a little loop and makes the duck waddle after it. “Choo-choo! Quack!” The toys do not wake, but Pip feels a bit braver." CR>)
+          (<VERB? RUB>
+           <TELL "The unfinished wood is still rough in places, waiting for Grandfather's sandpaper." CR>)>>
 ; === COUNTERTOP OBJECT HANDLERS ===
 
 <ROUTINE MARZIPAN-F ()
@@ -628,7 +750,15 @@ coat, and the pages in his handwriting."
                         (T
                          <TELL "Marzipan looks at you with both eyes now. She sings: “Behind the ticking, ticking clock / A door that needs no key or lock / But small paws only fit the crack / To push the hidden latch way back.”" CR>)>)
                   (T
-                   <TELL "Marzipan tilts her head and sings: “Fox feet, fox feet, left the shop / Through the door with a hop and a hop / Key round neck and heart so sore / Find her where the broken toys snore.”" CR>)>)>>
+                   <TELL "Marzipan tilts her head and sings: “Fox feet, fox feet, left the shop / Through the door with a hop and a hop / Key round neck and heart so sore / Find her where the broken toys snore.”" CR>)>)
+          (<VERB? LISTEN>
+           <TELL "Pip leans close. Marzipan's humming has no words, but it goes up and down like snow falling past a window. Now and then she peeks at Pip to see if he is still listening." CR>)
+          (<VERB? RUB SQUEEZE>
+           <TELL "Pip gives Marzipan a hug. She is soft and floppy and smells of lavender. Her humming grows a little warmer." CR>)
+          (<VERB? KISS>
+           <TELL "Pip kisses Marzipan's patched cheek. She giggles -- a tiny sound like a thimble rolling -- and hides her stitched smile behind one hand." CR>)
+          (<VERB? KICK ATTACK>
+           <TELL "Pip would never hurt Marzipan. She is one of Grandfather's best-loved toys." CR>)>>
 
 <ROUTINE DISPLAY-CASE-F ()
     <COND (<VERB? EXAMINE>
@@ -663,12 +793,26 @@ coat, and the pages in his handwriting."
            (<AND <VERB? OPEN>
                  <FSET? ,DISPLAY-CASE ,OPENBIT>>
            <TELL "The display case is already open." CR>
-           <RTRUE>)>>
+           <RTRUE>)
+          (<VERB? KNOCK>
+           <TELL "Tink, tink. The glass rings softly">
+           <COND (<IN? ,TIN-SOLDIER ,DISPLAY-CASE> <TELL ", and the tin soldier inside seems to stand a little straighter">)>
+           <TELL "." CR>)
+          (<VERB? RUB>
+           <TELL "Pip wipes a clean stripe through the dust with one sleeve. Now he is dusty, and the glass is shining." CR>)>>
 
 <ROUTINE TIN-SOLDIER-F ()
     <COND (<VERB? PLACE-HEART> <V-PLACE-HEART>)
           (<VERB? EXAMINE>
-           <TELL "A brave tin soldier, painted in bright red and blue. There is a spot of rust on his bayonet, but his painted eyes are steady. He stands at attention, as if waiting for orders." CR>)>>
+           <TELL "A brave tin soldier, painted in bright red and blue. There is a spot of rust on his bayonet, but his painted eyes are steady. He stands at attention, as if waiting for orders." CR>)
+          (<AND <VERB? PLAY RUB KNOCK> <IN? ,TIN-SOLDIER ,DISPLAY-CASE> <NOT <FSET? ,DISPLAY-CASE ,OPENBIT>>>
+           <TELL "The tin soldier stands behind the glass. Pip's fingers only squeak on the front of the display case." CR>)
+          (<VERB? PLAY>
+           <TELL "“Left, right, left, right!” Pip marches the tin soldier across the countertop. He is heavier than he looks, and very steady on his feet." CR>)
+          (<VERB? RUB>
+           <TELL "Pip rubs the spot of rust on the bayonet. It does not come off, but the tin warms quickly in Pip's hands." CR>)
+          (<VERB? KNOCK>
+           <TELL "Pip taps the soldier's tin hat. Ting! It rings bright and brave, like a tiny bugle." CR>)>>
 
 <ROUTINE MUSIC-BOX-F ()
     <COND (<VERB? SPIN> <V-WIND>)
@@ -680,20 +824,41 @@ coat, and the pages in his handwriting."
                  (,MUSIC-BOX-PLAYED
                   <TELL "A silver music box. Its crank has been turned recently, and the echo of its melody still seems to linger." CR>)
                   (T
-                   <TELL "A small silver music box with a tiny crank on its side. It looks like it would play a tune if wound." CR>)>)>>
+                   <TELL "A small silver music box with a tiny crank on its side. It looks like it would play a tune if wound." CR>)>)
+          (<AND <VERB? LISTEN RUB> <IN? ,MUSIC-BOX ,DISPLAY-CASE> <NOT <FSET? ,DISPLAY-CASE ,OPENBIT>>>
+           <TELL "The music box sits silent behind the glass. Pip presses his nose to the case, but cannot touch it." CR>)
+          (<VERB? LISTEN>
+           <COND (<AND <IN? ,MUSIC-BOX ,WORKSHOP-HEART> <NOT <FSET? ,MUSIC-BOX ,TAKEBIT>>>
+                  <TELL "The lullaby plays on and on, keeping time with the great heart." CR>)
+                 (,MUSIC-BOX-PLAYED
+                  <TELL "The tune has stopped, but Pip can still hum it. Grandfather's lullaby is hard to forget." CR>)
+                 (T
+                  <TELL "Pip holds the box to one ear. Silence -- but somewhere inside, a tiny spring is waiting to sing." CR>)>)
+          (<VERB? RUB>
+           <TELL "Pip polishes the silver lid. Tiny engraved snowflakes appear under the dust." CR>)>>
 
 <ROUTINE SHOP-WINDOW-F ()
     <COND (<VERB? EXAMINE LOOK-THROUGH>
            <TELL "Through the frosted shop window, Pip can see the snowy street outside. The clock tower's face is pale in the moonlight, and the snow is deeper than Pip is tall.">
            <COND (<L? ,TICK-COUNT 31>
                   <TELL " The sky is noticeably lighter now. Dawn is approaching.">)>
-           <TELL CR>)>>
+           <TELL CR>)
+          (<VERB? RUB>
+           <TELL "Pip rubs a round peephole in the frost with his sleeve. Outside, the snowflakes drift past the streetlamps as slowly as feathers." CR>)
+          (<VERB? KNOCK>
+           <TELL "Tap, tap, tap. The cold glass rattles a little in its frame. Out in the street, nobody looks up." CR>)
+          (<VERB? OPEN>
+           <TELL "The window is painted shut, and far too big for Pip besides. The way outside is the pet door on the workshop floor." CR>)>>
 
 <ROUTINE TOY-BUTTON-F ()
     <COND (<VERB? GIVE-TO> <V-GIVE-TO>)
           (<VERB? PLACE-HEART> <V-PLACE-HEART>)
           (<VERB? EXAMINE>
-           <TELL "A spare black button, just the right size for a doll's missing eye. It is smooth and slightly warm, as if someone has been holding it." CR>)>>
+           <TELL "A spare black button, just the right size for a doll's missing eye. It is smooth and slightly warm, as if someone has been holding it." CR>)
+          (<VERB? RUB>
+           <TELL "Pip rubs the button until it shines. In it Pip sees a tiny round reflection -- and behind him, the rag doll's one eye watching hopefully." CR>)
+          (<VERB? SPIN>
+           <TELL "Pip spins the button on the countertop. It twirls like a tiny top, wobbles, and falls flat with a click." CR>)>>
 
 ; === STORAGE-LOFT OBJECT HANDLERS ===
 
@@ -735,7 +900,14 @@ coat, and the pages in his handwriting."
            <COND (,OLD-TICK-HEARD
                   <TELL "Pip listens. The clock ticks with a deep, resonant tone -- almost like a heartbeat. Beneath it comes the distant echo of another mechanism, somewhere below." CR>)
                  (T
-                  <TELL "Pip presses an ear to the old clock. Silence. But then -- was that a faint tick? It is hard to tell. The clock seems to need winding before it will speak." CR>)>)>>
+                  <TELL "Pip presses an ear to the old clock. Silence. But then -- was that a faint tick? It is hard to tell. The clock seems to need winding before it will speak." CR>)>)
+          (<VERB? KNOCK>
+           <COND (,OLD-TICK-HEARD
+                  <TELL "Pip knocks. The little door pops open and the wooden bird peers out. “Who is there?” it asks. “Oh, it is you. Come in -- or rather, do not. There is no room in here.”" CR>)
+                 (T
+                  <TELL "Tock, tock. The bird's little door rattles, but stays shut. The bird inside must be fast asleep." CR>)>)
+          (<VERB? RUB>
+           <TELL "Pip wipes the dust from the clock's face. Underneath, the numbers are painted gold, and a tiny fox is carved beside the twelve." CR>)>>
 
 <ROUTINE TOY-BOX-F ()
     <COND (<VERB? EXAMINE>
@@ -755,23 +927,37 @@ coat, and the pages in his handwriting."
            (<AND <VERB? OPEN>
                  <FSET? ,TOY-BOX ,OPENBIT>>
             <TELL "The box is already open." CR>
-            <RTRUE>)>>
+            <RTRUE>)
+           (<VERB? SMELL>
+            <TELL "The box smells of old cardboard and dust, with a little whiff of glue." CR>)
+           (<VERB? RUB>
+            <TELL "Pip blows the dust off the label. Grandfather's handwriting is round and careful, the way he writes on Pip's birthday cards." CR>)
+           (<VERB? PUSH MOVE>
+            <TELL "Pip pushes the box. It scrapes across the boards and something inside rattles -- springs, perhaps, or wheels." CR>)>>
 
 <ROUTINE DOLL-ARM-F ()
     <COND (<VERB? PLACE-HEART> <V-PLACE-HEART>)
           (<VERB? EXAMINE>
-           <TELL "A delicate porcelain doll arm from Tolliver's repair box. The fingers are curled gently, as if reaching for something. He kept even this little broken piece; it was still worth saving." CR>)>>
+           <TELL "A delicate porcelain doll arm from Tolliver's repair box. The fingers are curled gently, as if reaching for something. He kept even this little broken piece; it was still worth saving." CR>)
+          (<VERB? RUB>
+           <TELL "The porcelain is cool and smooth as an eggshell. Pip holds it very carefully." CR>)
+          (<VERB? SHAKE>
+           <TELL "Pip gives the arm a tiny shake. The little hand seems to wave hello." CR>)>>
 
 <ROUTINE TOLLIVER-JOURNAL-F ()
     <COND (<VERB? READ EXAMINE>
            <COND (<NOT ,JOURNAL-READ>
                   <SETG JOURNAL-READ T>
                   <SCORE-UPD 3>)>
-           <TELL "You open the leather journal. Tolliver's handwriting is neat but growing shakier with each entry. October 14th -- “The workshop key grows weaker. I must wind it more often now. The magic in this town depends on it.” October 20th -- “Old Tick tells me the heart needs attention. I will see to it tonight.” October 21st -- “I could not reach the heart alone. Something blocks the way. I must find another path. The toys need me. Pip needs me.” The rest of the pages are blank." CR>)>>
+           <TELL "Pip opens the leather journal. Tolliver's handwriting is neat but growing shakier with each entry. October 14th -- “The workshop key grows weaker. I must wind it more often now. The magic in this town depends on it.” October 20th -- “Old Tick tells me the heart needs attention. I will see to it tonight.” October 21st -- “I could not reach the heart alone. Something blocks the way. I must find another path. The toys need me. Pip needs me.” The rest of the pages are blank." CR>)>>
 
 <ROUTINE COBWEBS-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "Dusty cobwebs drape the rafters like grey curtains. They have been here a long time -- nothing disturbs the dust up here. Or almost nothing." CR>)>>
+           <TELL "Dusty cobwebs drape the rafters like grey curtains. They have been here a long time -- nothing disturbs the dust up here. Or almost nothing." CR>)
+          (<VERB? RUB MOVE>
+           <TELL "Pip brushes the cobwebs aside. They stick to his fingers, tickly and grey, and a small spider glares at Pip from the rafter before tiptoeing away." CR>)
+          (<VERB? SMELL>
+           <TELL "Dust tickles Pip's nose. Ah -- ah -- achoo! The cobwebs sway." CR>)>>
 
 ; === SNOWY-ALLEY OBJECT HANDLERS ===
 
@@ -783,19 +969,35 @@ coat, and the pages in his handwriting."
            <COND (<EQUAL? ,HERE ,MAILBOX-CORNER>
                   <TELL "Two tracks overlap here. The little fox came to the post, turned, and put a paw almost exactly in her own print going back [[west]]. From there, they lead south toward the scrap-yard." CR>)
                  (T
-                  <TELL "Tiny fox footprints in the snow -- unmistakably toy-sized. They lead [[east]] through the alley, toward the clock square. Someone small and fast came this way, and not long ago." CR>)>)>>
+                  <TELL "Tiny fox footprints in the snow -- unmistakably toy-sized. They lead [[east]] through the alley, toward the clock square. Someone small and fast came this way, and not long ago." CR>)>)
+          (<VERB? RUB>
+           <TELL "Pip kneels and fits a hand into one print. The paw that made it was hardly bigger than Pip's own palm, with four neat toes." CR>)
+          (<VERB? SMELL>
+           <TELL "Pip sniffs the snow. Cold, and underneath it, a faint smell of cedar shavings. Whoever made these tracks has been somewhere near a workshop." CR>)>>
 
 <ROUTINE STREETLAMP-F ()
     <COND (<VERB? EXAMINE>
            <TELL "A streetlamp -- really a toy lantern mounted on a pole. Its flame flickers weakly, but it still casts a warm circle of light on the snow. Someone cared enough to keep it lit." CR>)
           (<VERB? LAMP-ON>
-           <TELL "The streetlamp is already lit. Its flame has been burning a long time." CR>)>>
+           <TELL "The streetlamp is already lit. Its flame has been burning a long time." CR>)
+          (<VERB? LISTEN>
+           <TELL "The little flame hisses and pops, like someone whispering a secret too fast to understand." CR>)
+          (<VERB? KNOCK KICK>
+           <TELL "Pip taps the lamp post. Clink! The flame jumps, flickers, and settles again. Better not do that twice." CR>)
+          (<VERB? RUB>
+           <TELL "Pip warms his cold hands on the post. It is only a little warm, but it is better than nothing on a night like this." CR>)>>
 
 <ROUTINE SNOW-F ()
     <COND (<VERB? EXAMINE>
            <TELL "Fresh snow blankets the cobblestones. It sparkles around the fox footprints, and its cold reaches even through Pip's woollen clothes." CR>)
           (<VERB? TAKE>
-           <TELL "The snow melts in Pip's tiny hands. There is no useful way to carry it." CR>)>>
+           <TELL "The snow melts in Pip's tiny hands. There is no useful way to carry it." CR>)
+          (<VERB? PLAY>
+           <TELL "Pip rolls a snowball no bigger than a pea and sets it on top of a slightly bigger one. A very small snowman for a very small gnome." CR>)
+          (<VERB? KICK>
+           <TELL "Pip kicks the snow. It sprays up in a glittering fan -- and some of it goes down his collar. Brrr!" CR>)
+          (<VERB? RUB>
+           <TELL "The snow is soft on top and crunchy underneath. Pip's fingers turn pink with cold." CR>)>>
 
 ; === CLOCK-SQUARE OBJECT HANDLERS ===
 
@@ -804,14 +1006,23 @@ coat, and the pages in his handwriting."
            <COND (,TOWER-WOUND
                   <TELL "The clock tower stands over the square, its great face now ticking with a slow, steady beat. Time feels stretched -- Pip has bought precious extra hours." CR>)
                   (T
-                   <TELL "The giant clock tower dominates the square. Its face shows the hours until dawn -- each tick of its great hand a reminder that time is running out. A brass winding mechanism sits at the base, too high for Pip to reach alone." CR>)>)>>
+                   <TELL "The giant clock tower dominates the square. Its face shows the hours until dawn -- each tick of its great hand a reminder that time is running out. A brass winding mechanism sits at the base, too high for Pip to reach alone." CR>)>)
+          (<VERB? LISTEN>
+           <COND (,TOWER-WOUND
+                  <TELL "TOCK ... ... TOCK. The tower ticks slowly now, deep and patient, as if time itself has decided to wait for Pip." CR>)
+                 (T
+                  <TELL "TOCK. TOCK. TOCK. The tower's tick is so deep that Pip feels it in his boots. It sounds as if it is in a hurry." CR>)>)
+          (<VERB? KNOCK>
+           <TELL "Pip knocks on the cold stone. The tower is far too big to notice." CR>)
+          (<VERB? RUB>
+           <TELL "The stones are rough and icy. Somebody long ago carved a tiny heart near the bottom, just at Pip's height." CR>)>>
 
 <ROUTINE CLOCK-WINDING-DESC-F (RARG)
     <COND (<EQUAL? .RARG ,M-OBJDESC>
            <COND (,TOWER-WOUND
                   <TELL "The brass winding [[mechanism]] at the clock tower's base turns with a slow, deliberate rhythm." CR>)
                  (T
-                  <TELL "At its base the winding [[mechanism]] is just out of reach." CR>)>
+                  <TELL "At the foot of the tower, a brass winding [[mechanism]] is just out of reach." CR>)>
            <RTRUE>)>>
 
 <ROUTINE CLOCK-WINDING-F ()
@@ -821,15 +1032,29 @@ coat, and the pages in his handwriting."
            <COND (,TOWER-WOUND
                   <TELL "A small wheel catches a tooth, lifts it, and lets it drop. That little drop makes the tick Pip hears from the square." CR>)
                   (T
-                   <TELL "A brass winding mechanism at the tower's base. It is just out of reach -- Pip needs something to stand on." CR>)>)>>
+                   <TELL "A brass winding mechanism at the tower's base. It is just out of reach -- Pip needs something to stand on." CR>)>)
+          (<VERB? LISTEN>
+           <TELL "Inside the brass case, gears click and whir, as busy as bees in a hive." CR>)>>
 
 <ROUTINE BAKER-TOY-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "A wooden baker toy stands in the bakery window, frozen in the act of kneading dough. His painted smile is cheerful, but his eyes are still -- no magic left in him." CR>)>>
+           <TELL "A wooden baker toy stands in the bakery window, frozen in the act of kneading dough. His painted smile is cheerful, but his eyes are still -- no magic left in him." CR>)
+          (<VERB? KNOCK>
+           <TELL "Pip knocks on the bakery window. Tap, tap. The baker does not look up. His hands stay sunk in the wooden dough." CR>)
+          (<VERB? SMELL>
+           <TELL "Pip presses his nose to the glass. Very faintly, the window still smells of cinnamon buns." CR>)
+          (<VERB? RUB>
+           <TELL "Pip can only touch the cold window in front of the baker. It leaves a small, foggy handprint." CR>)>>
 
 <ROUTINE TOY-LAMPS-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "Tin toy lamps dot the cobblestones, their light weak and flickering. Like everything else in Wrenfold, they are running out of magic. Soon they will go dark too." CR>)>>
+           <TELL "Tin toy lamps dot the cobblestones, their light weak and flickering. Like everything else in Wrenfold, they are running out of magic. Soon they will go dark too." CR>)
+          (<VERB? RUB>
+           <TELL "The nearest lamp is barely warm. Its tiny flame shivers as if it were cold too." CR>)
+          (<VERB? LISTEN>
+           <TELL "The lamps fizz quietly, like a kettle that has almost given up boiling." CR>)
+          (<VERB? KICK ATTACK>
+           <TELL "The poor lamps are struggling enough already. Pip leaves them be." CR>)>>
 
 ; === MAILBOX-CORNER OBJECT HANDLERS ===
 
@@ -860,19 +1085,33 @@ coat, and the pages in his handwriting."
                   <TELL "The mailbox shivers but cannot form words. It seems to only know about the things it has seen from its corner." CR>)>)
           (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,MAILBOX>>
            <TELL "The mailbox is stuffed full of unsent letters. There is no room for anything more." CR>
-           <RTRUE>)>>
+           <RTRUE>)
+          (<VERB? KNOCK>
+           <TELL "Pip knocks on the red tin. “Ow!” says the mailbox. “Who is there? Oh. A gnome. Hello, gnome.”" CR>)
+          (<VERB? RUB>
+           <TELL "Pip pats the mailbox's cold red side. For a moment it stops shivering, and its flap gives a happy little flutter." CR>)
+          (<VERB? KISS>
+           <TELL "Pip kisses the mailbox on its tin cheek. The flap clatters bashfully. “Nobody has ever posted one of those to me before.”" CR>)>>
 
 <ROUTINE LETTER-F ()
     <COND (<VERB? READ EXAMINE>
            <COND (<NOT ,LETTER-READ>
                   <SETG LETTER-READ T>
                   <SCORE-UPD 3>)>
-           <TELL "A crumpled envelope. Inside is a letter in Tolliver's handwriting: “My dear Pip -- The heart is failing. I must go and mend it myself. Do not worry. Take care of the toys while I am gone. Wind the key at midnight if I do not return. I am proud of you, little apprentice. -- Grandfather Tolliver.” The letter is dated three days ago." CR>)>>
+           <TELL "A crumpled envelope. Inside is a letter in Tolliver's handwriting: “My dear Pip -- The heart is failing. I must go and mend it myself. Do not worry. Take care of the toys while I am gone. Wind the key at midnight if I do not return. I am proud of you, little apprentice. -- Grandfather Tolliver.” The letter is dated three days ago." CR>)
+          (<VERB? SMELL>
+           <TELL "The paper smells of peppermint and lamp oil. It smells exactly like Grandfather." CR>)>>
 
 <ROUTINE SCARF-F ()
     <COND (<VERB? GIVE-TO> <V-GIVE-TO>)
           (<VERB? EXAMINE>
-           <TELL "A red wool scarf, dropped in the snow. It is well-made and still warm -- whoever lost it cannot have gone far. It looks like it would fit a small toy perfectly." CR>)>>
+           <TELL "A red wool scarf, dropped in the snow. It is well-made and still warm -- whoever lost it cannot have gone far. It looks like it would fit a small toy perfectly." CR>)
+          (<VERB? RUB SQUEEZE>
+           <TELL "The wool is thick and soft, the kind that keeps out the very coldest wind." CR>)
+          (<VERB? WEAR>
+           <TELL "Pip winds the scarf round and round his neck. It is so long that he trips over the end. Somebody colder needs it more -- Pip unwinds it again." CR>)
+          (<VERB? SMELL>
+           <TELL "The scarf smells of snow and wool and, a little, of a warm fireside far away." CR>)>>
 
 <ROUTINE MAILBOX-LETTERS-F ()
     <COND (<VERB? EXAMINE READ>
@@ -905,7 +1144,14 @@ coat, and the pages in his handwriting."
            <COND (,CART-MOVED
                   <TELL "The cart has done nothing to Pip. Leave it be." CR>)
                   (T
-                   <TELL "The cart does not fight back. It simply continues its work, creaking along its track and ignoring Pip entirely." CR>)>)>>
+                   <TELL "The cart does not fight back. It simply continues its work, creaking along its track and ignoring Pip entirely." CR>)>)
+          (<VERB? LISTEN>
+           <COND (,CART-MOVED <TELL "The cart rumbles softly to itself, a low, contented sound, like a cat by the fire." CR>)
+                 (T <TELL "Creak ... clank ... creak. Under the noise, the cart seems to be humming a slow, sad tune to the broken toys in its bed." CR>)>)
+          (<VERB? RUB>
+           <TELL "Pip pats the cold iron rail. The cart's creaking softens for a moment, as if it likes being noticed." CR>)
+          (<VERB? KNOCK KICK>
+           <TELL "Bong! The cart's side rings like a bell. Its mechanical arm lifts, waves at Pip in a puzzled way, and goes back to work." CR>)>>
 
 <ROUTINE HEADLESS-DOLL-F ()
     <COND (<VERB? EXAMINE>
@@ -914,27 +1160,40 @@ coat, and the pages in his handwriting."
                  (T
                   <TELL "A headless porcelain doll in a torn dress. Despite her state, someone has folded her hands neatly in her lap. She looks peaceful, somehow -- as if waiting to be made whole again." CR>)>)
           (<VERB? TAKE>
-           <TELL "The cart has laid her down so carefully. Pip leaves her in its keeping." CR>)>>
+           <TELL "The cart has laid her down so carefully. Pip leaves her in its keeping." CR>)
+          (<VERB? RUB>
+           <TELL "Pip smooths the doll's torn dress and tucks the loose lace back into place. Her folded hands are cold as snow." CR>)>>
 
 <ROUTINE DOLL-HEAD-F ()
     <COND (<VERB? GIVE-TO> <V-GIVE-TO>)
           (<AND <VERB? TAKE> <IN? ,DOLL-HEAD ,SCRAP-CART>>
            <TELL "The head rests beside its doll in the cart now. Pip leaves them together." CR>)
           (<VERB? EXAMINE>
-           <TELL "A porcelain doll head with painted blue eyes and rosebud lips. It matches the headless doll in the cart. They were clearly once part of the same toy." CR>)>>
+           <TELL "A porcelain doll head with painted blue eyes and rosebud lips. It matches the headless doll in the cart. They were clearly once part of the same toy." CR>)
+          (<VERB? RUB>
+           <TELL "Pip gently wipes the snow from the doll's cheeks. Her painted eyes look a little less lonely." CR>)>>
 
 <ROUTINE TOY-HORSE-F ()
     <COND (<AND <VERB? TAKE> <IN? ,TOY-HORSE ,SCRAP-CART>>
            <TELL "The horse is safe in the cart's bed, waiting to be mended. Pip leaves it there." CR>)
           (<VERB? EXAMINE>
-           <TELL "A wooden toy horse, its paint chipped and one leg missing. It rocks gently at Pip's touch, as if dreaming of galloping." CR>)>>
+           <TELL "A wooden toy horse, its paint chipped and one leg missing. It rocks gently at Pip's touch, as if dreaming of galloping." CR>)
+          (<VERB? PLAY>
+           <TELL "“Clip-clop, clip-clop!” Pip rocks the horse back and forth. It wobbles on its three legs, but it seems to enjoy it." CR>)
+          (<VERB? RUB>
+           <TELL "Pip strokes the horse's painted mane. Under the chips, the paint was once a bright cherry red." CR>)>>
 
 <ROUTINE YARD-GATE-F ()
     <COND (<VERB? EXAMINE>
            <COND (,CART-MOVED
                   <TELL "Scraped paint on the gate shows how tightly the cart was wedged. Now Pip can walk through without turning sideways." CR>)
                   (T
-                   <TELL "A [[wheel->cart wheels]] of the scrap cart is wedged against the gatepost. Pushing the gate itself would only push against the wheel." CR>)>)>>
+                   <TELL "A [[wheel->cart wheels]] of the scrap cart is wedged against the gatepost. Pushing the gate itself would only push against the wheel." CR>)>)
+          (<VERB? OPEN PUSH>
+           <COND (,CART-MOVED <TELL "The gate already stands open. The way [[east]] is clear." CR>)
+                 (T <TELL "Pip pushes the gate. It clanks against the cart's wheel and will not open while the cart is in the way." CR>)>)
+          (<VERB? KNOCK>
+           <TELL "Clang, clang. The iron gate rings in the cold air. Somewhere beyond it, something small goes very quiet." CR>)>>
 
 ; === FOX-DEN OBJECT HANDLERS ===
 
@@ -987,7 +1246,26 @@ coat, and the pages in his handwriting."
                  (<G? ,NUTMEG-TRUST 0>
                   <TELL "Nutmeg uncurls a little. “You can ask me for the key now,” she says. “Or show me something of the toymaker's. I think I can talk about him.”" CR>)
                  (T
-                  <TELL "“Nutmeg,” she says at last. “That is my name. Please do not take the ticking away. It is cold enough here already.”" CR>)>)>>
+                  <TELL "“Nutmeg,” she says at last. “That is my name. Please do not take the ticking away. It is cold enough here already.”" CR>)>)
+          (<VERB? RUB>
+           <COND (<EQUAL? ,NUTMEG-TRUST -1>
+                  <TELL "Pip reaches out, but Nutmeg shivers and turns further away. She needs to hear that Pip is sorry first." CR>)
+                 (<OR ,KEY-FOUND <G? ,NUTMEG-TRUST 0>>
+                  <TELL "Nutmeg leans into Pip's hand. Her patchy fur is soft as an old mitten, and she gives a small, surprised sigh." CR>)
+                 (T
+                  <TELL "Nutmeg flinches away from Pip's hand -- then, very slowly, she stretches her nose forward and sniffs his fingers." CR>)>)
+          (<VERB? KISS>
+           <COND (<EQUAL? ,NUTMEG-TRUST -1>
+                  <TELL "Nutmeg hides her face in her paws. Not yet." CR>)
+                 (T
+                  <TELL "Pip kisses the top of Nutmeg's head. Her ears go flat with embarrassment, but her tail gives one small swish." CR>)>)
+          (<VERB? LISTEN>
+           <COND (,KEY-FOUND
+                  <TELL "Nutmeg is humming. It is the first time Pip has heard her sound happy." CR>)
+                 (T
+                  <TELL "Under Nutmeg's quiet breathing, the workshop key ticks faintly against her chest -- tick ... tick ... slower than it should." CR>)>)
+          (<VERB? KICK>
+           <TELL "Pip would never kick Nutmeg. She has been hurt enough already." CR>)>>
 
 <ROUTINE WORKSHOP-KEY-F ()
     <COND (<VERB? SPIN>
@@ -995,6 +1273,11 @@ coat, and the pages in his handwriting."
                  (T <TELL "The key turns between Pip’s fingers. It needs the winding hole in the workshop heart." CR>)>)
           (<AND <VERB? TAKE> ,KEY-WOUND>
            <TELL "The winding teeth hold it fast. Pip leaves the key turning with the heart." CR>)
+          (<VERB? LISTEN>
+           <COND (,KEY-WOUND <TELL "The key ticks in time with the great heart now, loud and sure." CR>)
+                 (T <TELL "Tick ... tick ... tick. The key's ticking is faint and slow, like a sleepy heartbeat." CR>)>)
+          (<VERB? RUB>
+           <TELL "The brass is warm, warmer than metal should be. Under Pip's thumb the carved pattern feels like tiny gears." CR>)
           (<VERB? EXAMINE>
            <COND (,KEY-WOUND <TELL "The little grooves in the brass key mesh with the heart’s teeth. Every tick turns the key one notch." CR>)
                  (,KEY-FOUND
@@ -1021,9 +1304,13 @@ coat, and the pages in his handwriting."
             <RTRUE>)>>
 
 <ROUTINE RAG-BED-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? EXAMINE SEARCH LOOK-INSIDE>
            <COND (<AND <IN? ,STRING-BALL ,FOX-DEN> <NOT <FSET? ,STRING-BALL ,TOUCHBIT>>> <TELL "A ball of red [[yarn]] nestles in the rags. ">)>
-           <TELL "A cosy nest of rags and twigs. It smells faintly of cedar shavings -- the same scent as Tolliver's workshop. Someone has made this place into a home." CR>)>>
+           <TELL "A cosy nest of rags and twigs. It smells faintly of cedar shavings -- the same scent as Tolliver's workshop. Someone has made this place into a home." CR>)
+          (<VERB? RUB>
+           <TELL "The rags are soft and still a little warm. One of them is a scrap of Grandfather's old flannel shirt." CR>)
+          (<VERB? SMELL>
+           <TELL "Cedar shavings and warm fox. It smells like somebody trying very hard to feel at home." CR>)>>
 
 <ROUTINE TOY-CANDLE-F ()
     <COND (<VERB? EXAMINE>
@@ -1031,12 +1318,20 @@ coat, and the pages in his handwriting."
           ;"Not LAMP-OFF: its TURN OFF grammar wants the candle in hand, so a
             reader's menu would offer an action that can only be refused."
           (<VERB? BLOW>
-           <TELL "Pip considers blowing it out, but stops. It is the only warmth in this cold little den." CR>)>>
+           <TELL "Pip considers blowing it out, but stops. It is the only warmth in this cold little den." CR>)
+          (<VERB? SMELL>
+           <TELL "The candle smells of honey and beeswax, sweet as a summer afternoon." CR>)
+          (<VERB? RUB>
+           <TELL "Pip holds his cold hands near the little flame -- not too near. Warmth creeps back into his fingers." CR>)>>
 
 <ROUTINE STRING-BALL-F ()
     <COND (<VERB? GIVE-TO> <V-GIVE-TO>)
           (<VERB? EXAMINE>
-           <TELL "A ball of red yarn. It is slightly frayed, as if someone has been playing with it. A fox, perhaps." CR>)>>
+           <TELL "A ball of red yarn. It is slightly frayed, as if someone has been playing with it. A fox, perhaps." CR>)
+          (<VERB? PLAY>
+           <TELL "Pip rolls the yarn across the floor. It unwinds a little red trail, and Pip winds it back up again, round and round." CR>)
+          (<VERB? RUB SQUEEZE>
+           <TELL "The yarn is soft and squashy, with tooth marks here and there." CR>)>>
 
 ; === TOLLIVER-STUDY OBJECT HANDLERS ===
 
@@ -1044,13 +1339,23 @@ coat, and the pages in his handwriting."
     <COND (<VERB? EXAMINE>
            <TELL "Grandfather Tolliver's worn tweed coat. It still smells like him -- wood shavings, lamp oil, and something faintly like peppermint. The pockets are empty." CR>)
           (<VERB? WEAR>
-           <TELL "The coat is far too large for Pip; it would swallow him whole. Still, Pip wraps a corner around his shoulders. It is warm. It still feels like Tolliver." CR>)>>
+           <TELL "The coat is far too large for Pip; it would swallow him whole. Still, Pip wraps a corner around his shoulders. It is warm. It still feels like Tolliver." CR>)
+          (<VERB? SMELL>
+           <TELL "Pip buries his face in the tweed. Wood shavings, lamp oil, peppermint. For a moment Pip's eyes sting." CR>)
+          (<VERB? SQUEEZE>
+           <TELL "Pip hugs the big coat as hard as he can. It is almost like hugging Grandfather." CR>)
+          (<VERB? SEARCH LOOK-INSIDE>
+           <TELL "Pip climbs halfway into a pocket. It holds only a peppermint wrapper and a little curl of brass wire." CR>)>>
 
 <ROUTINE TEA-CUP-F ()
     <COND (<VERB? EXAMINE>
            <TELL "A cup of tea, long gone cold. A skin of dust floats on the surface. Tolliver never got to finish it." CR>)
           (<VERB? DRINK>
-           <TELL "Pip dips one finger in the cold tea. It is bitter with age, so he leaves the rest." CR>)>>
+           <TELL "Pip dips one finger in the cold tea. It is bitter with age, so he leaves the rest." CR>)
+          (<VERB? SMELL>
+           <TELL "Cold peppermint tea. Grandfather always drank peppermint tea while he worked late." CR>)
+          (<VERB? RUB>
+           <TELL "The cup is stone cold. Nobody has touched it for a long while." CR>)>>
 
 <ROUTINE STUDY-DESK-F ()
     <COND (<VERB? EXAMINE LOOK-INSIDE>
@@ -1059,7 +1364,13 @@ coat, and the pages in his handwriting."
            <COND (<IN? ,STUDY-JOURNAL ,STUDY-DESK> <TELL " Tolliver's [[journal]] lies open.">)>
            <COND (<IN? ,DIAGRAM ,STUDY-DESK>
                   <TELL " Beside the sketch lies a hand-drawn winding [[diagram]].">)>
-           <CRLF>)>>
+           <CRLF>)
+          (<VERB? LOOK-UNDER>
+           <TELL "Pip crawls under the desk. Here the ticking from [[down]] below is loudest, coming up through the boards." CR>)
+          (<VERB? KNOCK>
+           <TELL "Pip knocks on the desk. Something deep below the floor seems to tick back." CR>)
+          (<VERB? RUB>
+           <TELL "The wood is worn pale where Grandfather's elbows rested night after night." CR>)>>
 
 <ROUTINE DIAGRAM-F ()
     <COND (<VERB? READ EXAMINE>
@@ -1079,7 +1390,11 @@ coat, and the pages in his handwriting."
     <COND (<VERB? EXAMINE>
            <TELL "The chair is pushed back as if Grandfather has only stepped away.">
            <COND (<AND <IN? ,TOLLIVER-COAT ,TOLLIVER-STUDY> <NOT <FSET? ,TOLLIVER-COAT ,TOUCHBIT>>> <TELL " His [[coat]] still hangs over its back.">)>
-           <CRLF>)>>
+           <CRLF>)
+          (<VERB? RUB>
+           <TELL "The seat is worn into a soft hollow. It is cold now -- nobody has sat here for days." CR>)
+          (<VERB? PUSH MOVE>
+           <TELL "Pip pushes the chair in neatly under the desk, the way Grandfather likes it. It will be ready when he comes home." CR>)>>
 
 ; === WORKSHOP-HEART OBJECT HANDLERS ===
 
@@ -1117,14 +1432,25 @@ coat, and the pages in his handwriting."
            <COND (,KEY-WOUND
                   <TELL "Pip presses a hand to the mechanism. Tick, tick, tick -- a heartbeat, growing stronger." CR>)
                   (T
-                   <TELL "Silence. The heart is completely still. Not even an echo." CR>)>)>>
+                   <TELL "Silence. The heart is completely still. Not even an echo." CR>)>)
+          (<VERB? RUB>
+           <COND (,KEY-WOUND <TELL "The brass is growing warm under Pip's hand, like a loaf fresh from the oven." CR>)
+                 (T <TELL "The brass is cold as ice. Pip pulls his hand back and blows on his fingers." CR>)>)
+          (<VERB? KNOCK>
+           <TELL "Pip knocks on the great brass case. BONGGG. The sound rolls round and round the chamber, and the silent toys seem to listen." CR>)
+          (<VERB? PUSH MOVE KICK>
+           <TELL "Pip leans on the heart with all his weight. It is bigger than a house to Pip and does not budge. Only its key can make it turn." CR>)>>
 
 <ROUTINE KEY-SLOT-F ()
     <COND (<VERB? EXAMINE>
            <COND (,KEY-WOUND
                   <TELL "The [[workshop key]] is in the keyhole, turning steadily. The brass gleams with renewed warmth." CR>)
                   (T
-                   <TELL "An empty brass keyhole sits at the heart’s centre. Four square corners wait for a winding key." CR>)>)>>
+                   <TELL "An empty brass keyhole sits at the heart’s centre. Four square corners wait for a winding key." CR>)>)
+          (<VERB? LOOK-INSIDE>
+           <TELL "Pip peers into the keyhole. Deep inside, rows of brass teeth wait in the dark, ready to catch a key." CR>)
+          (<VERB? RUB>
+           <TELL "The edges of the keyhole are smooth and shiny, worn by years of Grandfather's careful winding." CR>)>>
 
 <ROUTINE SILENT-TOYS-F ()
     <COND (<VERB? EXAMINE>
@@ -1134,7 +1460,12 @@ coat, and the pages in his handwriting."
                         (T
                          <TELL "The silent toys around the chamber walls. Their painted eyes seem to follow Pip. They are waiting -- hoping -- that the magic will return." CR>)>)
                   (T
-                   <TELL "Dozens of toy figures stand around the heart chamber. Soldiers, dolls, wooden animals -- all of them motionless. Their paint is dull. Their joints are stiff. They are waiting for the heart to beat again." CR>)>)>>
+                   <TELL "Dozens of toy figures stand around the heart chamber. Soldiers, dolls, wooden animals -- all of them motionless. Their paint is dull. Their joints are stiff. They are waiting for the heart to beat again." CR>)>)
+          (<VERB? RUB>
+           <TELL "Pip pats a wooden bear on the nose. Its paint is cold, but Pip is sure he saw one ear twitch." CR>)
+          (<VERB? LISTEN>
+           <COND (,KEY-WOUND <TELL "Here and there a spring creaks and a joint clicks. The toys are beginning to stir." CR>)
+                 (T <TELL "The toys make no sound at all. It is the quietest crowd Pip has ever seen." CR>)>)>>
 
 ; === LOCAL-GLOBALS ACTION HANDLERS ===
 
@@ -1143,18 +1474,30 @@ coat, and the pages in his handwriting."
            <COND (,GAME-WON
                   <TELL "The workshop looks different now. Warm light glows in every window. The magic has returned, a steady, gentle hum from deep within the building." CR>)
                   (T
-                   <TELL "Grandfather Tolliver's workshop -- a cosy old building with frosted windows and a crooked chimney. From outside, nobody would guess the magic it holds within." CR>)>)>>
+                   <TELL "Grandfather Tolliver's workshop -- a cosy old building with frosted windows and a crooked chimney. From outside, nobody would guess the magic it holds within." CR>)>)
+          (<VERB? KNOCK>
+           <TELL "Pip knocks on the workshop wall. Nobody answers. Grandfather would have called “Come in, little one!” by now." CR>)
+          (<VERB? LISTEN>
+           <TELL "From inside comes the soft tick of the cuckoo clock. It sounds lonely without Grandfather humming along." CR>)>>
 
 <ROUTINE MOON-F ()
     <COND (<VERB? EXAMINE>
            <COND (<L? ,TICK-COUNT 31>
                   <TELL "The winter moon is fading now, pale against the brightening sky. Dawn is near." CR>)
                   (T
-                   <TELL "A bright winter moon hangs overhead, casting long blue shadows across the snow. It is a beautiful night -- but a cold one." CR>)>)>>
+                   <TELL "A bright winter moon hangs overhead, casting long blue shadows across the snow. It is a beautiful night -- but a cold one." CR>)>)
+          (<VERB? LISTEN>
+           <TELL "The moon makes no sound at all, but the snow under it seems to hum very quietly." CR>)>>
 
 <ROUTINE BAKERY-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "An abandoned bakery storefront. Through the dusty window, a wooden baker toy stands frozen mid-knead. The glass is frosted with age, and the door hangs slightly ajar." CR>)>>
+           <TELL "An abandoned bakery storefront. Through the dusty window, a wooden baker toy stands frozen mid-knead. The glass is frosted with age, and the door hangs slightly ajar." CR>)
+          (<VERB? SMELL>
+           <TELL "Even now, a ghost of cinnamon and warm bread drifts from the bakery door. Pip's tummy rumbles." CR>)
+          (<VERB? KNOCK>
+           <TELL "Pip knocks on the bakery door. It creaks a little wider, but nobody comes. Inside, everything is dark and still." CR>)
+          (<VERB? ENTER OPEN>
+           <TELL "The bakery door is stuck with frost, open only a crack. Pip's business tonight is with the key, not the buns." CR>)>>
 
 <ROUTINE COBBLER-F ()
     <COND (<VERB? EXAMINE>
@@ -1329,13 +1672,16 @@ coat, and the pages in his handwriting."
            <COND (,CART-MOVED <TELL "Four rusty lines end just past the gate. The rims stand clear of the post now." CR>) (T <TELL "The front rim has rubbed a bright stripe on the gatepost. The back wheels still sit squarely on the rails." CR>)>)>>
 
 <ROUTINE DETAIL-SAILBOAT-F ()
-    <COND (<VERB? PUSH> <TELL "The hull rocks twice and settles on its keel." CR>)>>
+    <COND (<VERB? PUSH> <TELL "The hull rocks twice and settles on its keel." CR>)
+          (<VERB? PLAY> <TELL "Pip blows into the little sail. “Whoosh!” The sailboat bobs on an imaginary sea of sawdust." CR>)>>
 
 <ROUTINE DETAIL-WOODEN-TRAIN-F ()
-    <COND (<VERB? PUSH> <TELL "The train rolls a finger’s length. Its last wheel drags a red streak across the bench." CR>)>>
+    <COND (<VERB? PUSH> <TELL "The train rolls a finger’s length. Its last wheel drags a red streak across the bench." CR>)
+          (<VERB? PLAY> <TELL "“Choo-choo!” Pip pulls the train along a crack in the bench as if it were a railway line." CR>)>>
 
 <ROUTINE DETAIL-WOODEN-DUCK-F ()
-    <COND (<VERB? PUSH> <TELL "The duck rolls round in a circle on its one good wheel and bumps Pip’s thumb." CR>)>>
+    <COND (<VERB? PUSH> <TELL "The duck rolls round in a circle on its one good wheel and bumps Pip’s thumb." CR>)
+          (<VERB? PLAY> <TELL "“Quack, quack,” says Pip for the duck, who cannot say it yet. The duck tilts as if it agrees." CR>)>>
 
 <ROUTINE MUSIC-TOOTH-F ()
     <COND (<VERB? RUB> <TELL "A tiny buzz tickles Pip’s fingertip as the note dies away." CR>)>>
@@ -1345,7 +1691,8 @@ coat, and the pages in his handwriting."
 
 <ROUTINE DETAIL-PAINT-MARK-F ()
     <COND (<VERB? READ> <TELL "The red arrow points [[east]], toward the mailbox." CR>)
-          (<VERB? FOLLOW> <DO-WALK ,P?EAST>)>>
+          (<VERB? FOLLOW> <DO-WALK ,P?EAST>)
+          (<VERB? RUB> <TELL "The paint is dry and a little flaky. Whoever painted the arrow did it in a hurry." CR>)>>
 
 <ROUTINE COUNTER-STEPS-F ()
     <COND (<VERB? CLIMB-FOO CLIMB-DOWN> <DO-WALK ,P?DOWN>)>>
@@ -1361,3 +1708,74 @@ coat, and the pages in his handwriting."
            <V-TAKE>
            <COND (<IN? ,PRSO ,WINNER> <FCLEAR ,PRSO ,NDESCBIT>)>
            <RTRUE>)>>
+
+<ROUTINE SQUARE-PATHS-F ()
+    <COND (<VERB? RUB>
+           <TELL "The wooden cobbles are worn smooth and round by years of little feet -- toy feet, gnome feet, children's boots." CR>)
+          (<VERB? FOLLOW>
+           <TELL "The paths wind every way at once. The red arrow on the cobbles points [[east]], toward the mailbox." CR>)
+          (<VERB? KNOCK>
+           <TELL "Pip stamps on the cobbles. Tock, tock -- they are hollow little wooden blocks, like a giant's xylophone." CR>)>>
+
+<ROUTINE MAILBOX-SNOW-F ()
+    <COND (<VERB? PLAY>
+           <TELL "Pip scoops out a little cave in the drift, just big enough to sit in. It is surprisingly cosy out of the wind." CR>)
+          (<VERB? KICK RUB>
+           <TELL "The drift is crusted hard on top. Pip's boot crunches through into powdery snow below." CR>)>>
+
+<ROUTINE TOWN-F ()
+    <COND (<VERB? EXAMINE>
+           <TELL "Wrenfold is a little town of crooked roofs and snowy chimneys. Every window is dark tonight. In every house, Pip knows, toys are lying very still." CR>)
+          (<VERB? LISTEN>
+           <TELL "The whole town is hushed. No music boxes, no tin drums, no toy trains rattling under beds. Only the clock tower, ticking." CR>)>>
+
+<ROUTINE DEN-ENTRANCE-F ()
+    <COND (<VERB? RUB>
+           <TELL "A few orange hairs are caught on the wire. Somebody comes and goes this way often." CR>)
+          (<VERB? KNOCK>
+           <TELL "Pip knocks on a crate beside the opening. From the bed comes a small, startled sniff." CR>)>>
+
+<ROUTINE BENCH-SHAVINGS-F ()
+    <COND (<VERB? SMELL>
+           <TELL "The curls smell of fresh cedar, sweet and clean, like the inside of a new pencil." CR>)
+          (<VERB? PLAY KICK>
+           <TELL "Pip tosses a curl into the air and catches it on his head like a hat. It looks very fine." CR>)
+          (<VERB? TAKE>
+           <TELL "Pip picks up a curl, then puts it back. There are more important things to carry tonight." CR>)>>
+
+<ROUTINE WORK-LAMP-F ()
+    <COND (<VERB? RUB>
+           <TELL "The brass shade is warm. Pip holds his hands close to it and feels the cold go out of his fingers." CR>)
+          (<VERB? SMELL>
+           <TELL "The lamp smells of warm brass and a little of lamp oil. It is the smell of Grandfather working late." CR>)
+          (<VERB? MOVE PUSH>
+           <TELL "The jointed arm swings a little, and the golden circle of light slides across the half-finished toys." CR>)>>
+
+<ROUTINE HEART-CHAMBER-F ()
+    <COND (<VERB? RUB>
+           <TELL "Pip lays a hand on the nearest pipe. ">
+           <COND (,KEY-WOUND <TELL "It throbs gently, warm as a cat, with every beat of the heart." CR>)
+                 (T <TELL "It is cold and silent." CR>)>)
+          (<VERB? KNOCK LISTEN>
+           <TELL "Pip taps a pipe. Ting -- the sound runs up into the ceiling and comes back from far away, as if the whole workshop were listening." CR>)>>
+
+<ROUTINE BENCH-SHELF-F ()
+    <COND (<VERB? RUB>
+           <TELL "Pip runs a hand along the wood. It is rough with little nicks, and one of them is shaped almost exactly like a star." CR>)
+          (<VERB? KNOCK>
+           <TELL "Tock, tock. The tools on the rack jingle in reply." CR>)>>
+
+<ROUTINE COUNTER-TOP-F ()
+    <COND (<VERB? RUB>
+           <TELL "Pip slides a finger along the polished wood. It squeaks, and Pip's finger comes away a little dusty." CR>)
+          (<VERB? KNOCK>
+           <TELL "Pip knocks on the countertop. Behind the glass, the toys on display give a tiny rattle." CR>)>>
+
+<ROUTINE WORKSHOP-HEART-FCN (RARG)
+    <COND (<EQUAL? .RARG ,M-LOOK>
+           <TELL "This is the heart [[chamber]], deep beneath the workshop, where all of Wrenfold's magic begins.">
+           <COND (,KEY-WOUND
+                  <TELL " Brass [[pipes]] run along the walls, humming now, and the air is growing warm. Dozens of [[toys]] stand in a ring around the great brass [[machine]], and here and there one of them twitches.">)
+                 (T
+                  <TELL " Brass [[pipes]] run along the walls, and the air is cold and very still. Dozens of silent [[toys]] stand in a ring around a great brass [[machine]], as if they came here hoping to be wound.">)>
+           <TELL " The narrow [[passage]] leads back [[up]] to the study." CR>)>>

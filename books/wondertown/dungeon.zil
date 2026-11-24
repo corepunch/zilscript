@@ -68,7 +68,7 @@
 <ROOM TOOL-BENCH
       (IN ROOMS)
       (DESC "Tool Bench")
-      (LDESC "Makeshift [[steps]] climb past the [[tool rack->rack]] to the countertop above the workshop floor to the [[west]].")
+      (LDESC "This is Grandfather's tool bench, a long, low ledge of scarred wood that smells sharply of varnish. A wooden [[tool rack->rack]] covers the wall, full of tools small enough for Pip's hands, and an open [[varnish pot->pot]] stands beneath it. Makeshift [[steps]] made from a crate, an old chair and a pile of books climb toward the countertop above. The workshop floor is back to the [[west]].")
       (WEST TO WORKSHOP-FLOOR)
       (UP TO COUNTERTOP IF BERTRAND-WOUND)
       (FLAGS RLANDBIT ONBIT)
@@ -77,7 +77,7 @@
 <ROOM COUNTERTOP
       (IN ROOMS)
       (DESC "Countertop")
-      (LDESC "Moonlight falls through the [[window]] onto the toy display [[case]] by the [[steps]] back [[down]].")
+      (LDESC "This is the shop countertop, where Grandfather sets out his finest toys for children to admire. Moonlight falls through the frosted shop [[window]] and makes the dust sparkle on a glass toy display [[case]]. From up here the whole workshop looks small and far away. The makeshift [[steps]] lead back [[down]] to the tool bench.")
       (DOWN TO TOOL-BENCH)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL WORKSHOP-BUILDING TOPIC-TOLLIVER TOPIC-KEY TOPIC-FOX)>
@@ -85,7 +85,7 @@
 <ROOM STORAGE-LOFT
       (IN ROOMS) (ACTION STORAGE-LOFT-LOOK)
       (DESC "Storage Loft")
-      (LDESC "In the storage loft, a dusty [[box]] sits under the [[cobwebs]] beside the [[ladder]] back [[down]].")
+      (LDESC "This is the storage loft, a low, dusty room tucked under the roof beams. Grey [[cobwebs]] hang from the rafters like curtains, and the air smells of old cardboard. A dusty cardboard [[box]] sits in the middle of the floor. Pip can climb the [[ladder]] back [[down]] to the workshop floor.")
       (DOWN TO WORKSHOP-FLOOR)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL TOPIC-TOLLIVER)>
@@ -93,29 +93,29 @@
 <ROOM SNOWY-ALLEY
       (IN ROOMS)
       (DESC "Snowy Alley")
-      (LDESC "Under a flickering [[streetlamp]], tiny [[footprints]] cross the [[snow]] [[east]]. The workshop is [[south]].")
+      (LDESC "This is a narrow alley beside the workshop, deep in fresh [[snow]] that sparkles under the moon. A flickering [[streetlamp]], made from an old toy lantern, throws a small circle of warm light. Tiny [[footprints]] cross the snow and hurry away to the [[east]], toward the clock square. The [[workshop]] and its pet door are back to the [[south]].")
       (SOUTH TO WORKSHOP-FLOOR)
       (EAST TO CLOCK-SQUARE)
       (FLAGS RLANDBIT ONBIT)
-      (GLOBAL WORKSHOP-BUILDING MOON TOPIC-FOX)>
+      (GLOBAL WORKSHOP-BUILDING MOON TOWN TOPIC-FOX)>
 
 <ROOM CLOCK-SQUARE
       (IN ROOMS)
       (DESC "Clock Square")
-      (LDESC "From the dim [[lamps]] below the [[tower]], [[paths]] lead [[west]] to the alley, [[east]] to the mailbox and [[south]] to the scrap-yard.")
+      (LDESC "This is Clock Square, in the middle of the little town of Wrenfold. A giant clock [[tower]] stands over the cobbles, and its great face counts the hours until dawn. Tin toy [[lamps]] flicker weakly beside the winding [[paths]], and a wooden [[baker->baker toy]] stands frozen in the window of the old [[bakery]]. Paths lead [[west]] to the snowy alley, [[east]] to the mailbox corner and [[south]] to the scrap-yard.")
       (WEST TO SNOWY-ALLEY)
       (EAST TO MAILBOX-CORNER)
       (SOUTH TO SCRAP-YARD)
       (FLAGS RLANDBIT ONBIT)
-      (GLOBAL MOON TOPIC-FOX TOPIC-TOLLIVER BAKERY)>
+      (GLOBAL MOON TOWN TOPIC-FOX TOPIC-TOLLIVER BAKERY)>
 
 <ROOM MAILBOX-CORNER
       (IN ROOMS)
       (DESC "Mailbox Corner")
-      (LDESC "Fox [[footprints]] double back [[west]] toward the square.")
+      (LDESC "This is a quiet corner at the east end of the square, where the wind has piled the [[snow]] into deep drifts. It is colder here, and the wind whistles softly between the houses. The little fox [[footprints]] stop here, turn around and go back the way they came. The only way out is [[west]], back to Clock Square.")
       (WEST TO CLOCK-SQUARE)
       (FLAGS RLANDBIT ONBIT)
-      (GLOBAL MOON TOPIC-FOX TOPIC-TOLLIVER FOOTPRINTS CLOCK-TOWER)>
+      (GLOBAL MOON TOWN TOPIC-FOX TOPIC-TOLLIVER FOOTPRINTS CLOCK-TOWER)>
 
 <ROOM SCRAP-YARD
       (IN ROOMS)
@@ -129,7 +129,7 @@
 <ROOM FOX-DEN
       (IN ROOMS)
       (DESC "Fox Den")
-      (LDESC "A toy [[candle]] warms a rag [[bed]] just inside the [[entrance]] to the [[west]].")
+      (LDESC "This is a snug little den hidden among old crates behind the scrap-yard. Rags and twigs have been pulled together into a cosy [[bed]], and a toy [[candle]] gives the only light, small and steady. The den smells of cedar shavings, just like the workshop at home. The narrow [[entrance]] leads back [[west]] to the scrap-yard.")
       (WEST TO SCRAP-YARD)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL TOPIC-TOLLIVER TOPIC-KEY TOPIC-FOX TOPIC-HEART)>
@@ -137,7 +137,7 @@
 <ROOM TOLLIVER-STUDY
       (IN ROOMS)
       (DESC "Tolliver's Study")
-      (LDESC "Grandfather’s [[chair]] stands empty at his [[desk]]. A [[ticking]] comes from [[down]] below, and the [[stairs]] lead [[out]].")
+      (LDESC "This is Grandfather Tolliver's study, a small secret room above the workshop. It smells of lamp oil and peppermint. His wooden [[chair]] stands empty at his cluttered [[desk]], as if he has only just stepped away. A faint [[ticking]] rises through the floorboards from somewhere [[down]] below, and the narrow [[stairs]] lead [[out]] to the workshop floor.")
       (OUT TO WORKSHOP-FLOOR)
       (DOWN TO WORKSHOP-HEART)
       (FLAGS RLANDBIT ONBIT)
@@ -146,7 +146,7 @@
 <ROOM WORKSHOP-HEART
       (IN ROOMS)
       (DESC "Workshop Heart")
-      (LDESC "Silent [[toys]] crowd the foot of the [[passage]] back [[up]].")
+      (ACTION WORKSHOP-HEART-FCN)
       (UP TO TOLLIVER-STUDY)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL TOPIC-HEART TOPIC-TOLLIVER)>
@@ -164,7 +164,7 @@
 
 <OBJECT WORKBENCH
         (IN WORKSHOP-FLOOR)
-        (SYNONYM BENCH WORKBENCH TABLE GLINT GLINTS)
+        (SYNONYM BENCH WORKBENCH TABLE GLINT GLINTS SHADOWS)
         (ADJECTIVE ENORMOUS WOODEN WORK GIANT CLUTTERED CARVED TOOL)
         (DESC "enormous workbench")
         (FLAGS NDESCBIT SURFACEBIT CONTBIT OPENBIT SEARCHBIT CLIMBBIT)
@@ -182,7 +182,7 @@
 
 <OBJECT SAWDUST
         (IN WORKSHOP-FLOOR)
-        (SYNONYM SAWDUST DUST FLOOR)
+        (SYNONYM SAWDUST DUST FLOOR BOARDS)
         (ADJECTIVE SOFT GOLDEN CEDAR)
         (DESC "soft sawdust")
         (LDESC "Soft sawdust covers the floorboards like a golden blanket.")
@@ -211,7 +211,7 @@
 
 <OBJECT CLOCK-FACE
         (IN WORKSHOP-FLOOR)
-        (SYNONYM CLOCK CUCKOO STAIRS STAIRCASE)
+        (SYNONYM CLOCK CUCKOO STAIRS STAIRCASE WALL)
         (ADJECTIVE OLD WOODEN WALL CUCKOO TICKING WORKSHOP OPEN)
         (DESC "old cuckoo clock")
         (LDESC "An old cuckoo clock hangs on the wall, ticking softly.")
@@ -281,7 +281,7 @@
 
 <OBJECT TOOL-RACK
         (IN TOOL-BENCH)
-        (SYNONYM RACK TOOLS)
+        (SYNONYM RACK TOOLS WALL)
         (ADJECTIVE WOODEN TOOL TINY)
         (DESC "tool rack")
         (LDESC "A wooden rack of tools hangs on the wall — chisels, files, tiny hammers.")
@@ -290,7 +290,7 @@
 
 <OBJECT MAKESHIFT-STEPS
         (IN TOOL-BENCH)
-        (SYNONYM STEPS STAIRCASE CRATE CHAIR BOOK BOOKS STACK ROUTE SEAT)
+        (SYNONYM STEPS STAIRCASE CRATE CHAIR BOOK BOOKS STACK ROUTE SEAT PILE)
         (ADJECTIVE MAKESHIFT LOW OLD REPAIR BROAD CLIMBING PACKING STACKED CHAIR)
         (DESC "makeshift climbing steps")
         (LDESC "A low crate leads to an old chair, where three broad repair books make the final steps to the countertop.")
@@ -330,7 +330,7 @@
 
 <OBJECT DISPLAY-CASE
         (IN COUNTERTOP)
-        (SYNONYM CASE DISPLAY CABINET)
+        (SYNONYM CASE DISPLAY CABINET TOYS DUST)
         (ADJECTIVE DUSTY GLASS DISPLAY BRASS TOY)
         (DESC "dusty glass display case")
         (INTERACTIONS "")
@@ -361,7 +361,7 @@
 
 <OBJECT SHOP-WINDOW
         (IN COUNTERTOP)
-        (SYNONYM WINDOW)
+        (SYNONYM WINDOW MOONLIGHT FROST)
         (ADJECTIVE FROSTED GLASS SHOP SNOWY)
         (DESC "frosted shop window")
         (LDESC "Through the frosted window, you can see the snowy street outside.")
@@ -383,7 +383,7 @@
 
 <OBJECT OLD-TICK
         (IN STORAGE-LOFT)
-        (SYNONYM CLOCK CUCKOO TICK BIRD LATCH)
+        (SYNONYM CLOCK CUCKOO TICK BIRD LATCH WALL)
         (ADJECTIVE OLD DUSTY CUCKOO WOODEN LOFT FROZEN HIDDEN)
         (DESC "old cuckoo clock")
         (INTERACTIONS "TELL:TOLLIVER-JOURNAL,LETTER,TOLLIVER-COAT,STUDY-JOURNAL")
@@ -427,7 +427,7 @@
 
 <OBJECT COBWEBS
         (IN STORAGE-LOFT)
-        (SYNONYM COBWEBS WEBS DUST COBWEB WEB)
+        (SYNONYM COBWEBS WEBS DUST COBWEB WEB RAFTERS BEAMS ROOF)
         (ADJECTIVE DUSTY GREY GRAY)
         (DESC "dusty cobwebs")
         (LDESC "Dusty cobwebs drape the rafters like grey curtains.")
@@ -457,7 +457,7 @@
 
 <OBJECT SNOW
         (IN SNOWY-ALLEY)
-        (SYNONYM SNOW BLANKET)
+        (SYNONYM SNOW BLANKET ALLEY COBBLESTONES)
         (ADJECTIVE FRESH DEEP COLD SPARKLING)
         (DESC "fresh snow")
         (LDESC "Fresh snow blankets the cobblestones. It sparkles in the moonlight.")
@@ -468,7 +468,7 @@
 
 <OBJECT CLOCK-TOWER
         (IN CLOCK-SQUARE)
-        (SYNONYM TOWER CLOCK BUILDING)
+        (SYNONYM TOWER CLOCK BUILDING FACE)
         (ADJECTIVE GIANT STONE CLOCK GREAT TICKING)
         (DESC "giant clock tower")
         (ACTION CLOCK-TOWER-F)
@@ -584,7 +584,7 @@
 
 <OBJECT SCRAP-PILES
         (IN SCRAP-YARD)
-        (SYNONYM PILES PILE SCRAP PLAYTHINGS HEAP TOYS)
+        (SYNONYM PILES PILE SCRAP PLAYTHINGS HEAP TOYS TIN RIBBON SNOW WOOD RUST)
         (ADJECTIVE BROKEN DISCARDED SNOWY TOY FROZEN)
         (DESC "piles of broken toys")
         (INTERACTIONS "")
@@ -614,7 +614,7 @@
 
 <OBJECT NUTMEG
         (IN FOX-DEN)
-        (SYNONYM FOX NUTMEG VIXEN TOY)
+        (SYNONYM FOX NUTMEG VIXEN TOY EYES)
         (ADJECTIVE PATCHY STUFFED ORANGE FOX FOX-SHAPED LOPSIDED)
         (DESC "patchy fox toy")
         (INTERACTIONS "TELL:WORKSHOP-KEY,TOLLIVER-JOURNAL,LETTER,TOLLIVER-COAT,STUDY-JOURNAL")
@@ -635,7 +635,7 @@
 
 <OBJECT RAG-BED
         (IN FOX-DEN)
-        (SYNONYM BED NEST RAGS)
+        (SYNONYM BED NEST RAGS TWIGS SHAVINGS)
         (ADJECTIVE COSY RAG COZY CEDAR)
         (DESC "cosy rag bed")
         (FLAGS NDESCBIT CONTBIT OPENBIT SURFACEBIT)
@@ -644,7 +644,7 @@
 
 <OBJECT TOY-CANDLE
         (IN FOX-DEN)
-        (SYNONYM CANDLE FLAME)
+        (SYNONYM CANDLE FLAME LIGHT)
         (ADJECTIVE TOY WAX TINY SMALL WARM STEADY)
         (DESC "toy candle")
         (LDESC "A tiny toy candle burns with a warm, steady flame. It is the only light in the den.")
@@ -729,7 +729,7 @@
 
 <OBJECT HEART-MECH
         (IN WORKSHOP-HEART)
-        (SYNONYM MECHANISM HEART CLOCKWORK GEARS)
+        (SYNONYM MECHANISM HEART CLOCKWORK GEARS MACHINE)
         (ADJECTIVE GIANT CENTRAL BRASS CLOCKWORK WORKSHOP VAST SILENT STILL)
         (DESC "workshop heart")
         (INTERACTIONS "WIND:WORKSHOP-KEY")
@@ -760,7 +760,7 @@
 
 <OBJECT BAKERY
     (IN LOCAL-GLOBALS)
-    (SYNONYM BAKERY SHOP SHOPFRONT)
+    (SYNONYM BAKERY SHOP SHOPFRONT WINDOW)
     (ADJECTIVE ABANDONED OLD FROSTED)
     (DESC "bakery")
     (FLAGS NDESCBIT)
@@ -833,14 +833,16 @@
     (ACTION LOFT-RUNGS-F)>
 
 <OBJECT SQUARE-PATHS (IN CLOCK-SQUARE) (DESC "cobbled paths")
-    (SYNONYM PATHS PATH COBBLES) (ADJECTIVE COBBLED WINDING)
+    (SYNONYM PATHS PATH COBBLES SQUARE) (ADJECTIVE COBBLED WINDING CLOCK)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "The cobbles are tiny wooden blocks set on end. A red [[paint mark]] points toward the mailbox.")>
+    (TEXT "The cobbles are tiny wooden blocks set on end. A red [[paint mark]] points toward the mailbox.")
+    (ACTION SQUARE-PATHS-F)>
 
 <OBJECT MAILBOX-SNOW (IN MAILBOX-CORNER) (DESC "drifted snow")
-    (SYNONYM SNOW DRIFT) (ADJECTIVE DRIFTED FRESH)
+    (SYNONYM SNOW DRIFT DRIFTS CORNER) (ADJECTIVE DRIFTED FRESH DEEP QUIET)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Snow has banked up on the windy side of the post. The fox tracks shelter in its lee.")>
+    (TEXT "Snow has banked up on the windy side of the corner, higher than Pip's hat. The fox tracks keep close to it, out of the wind.")
+    (ACTION MAILBOX-SNOW-F)>
 
 <OBJECT CART-TRACK (IN SCRAP-YARD) (DESC "rusted track")
     (SYNONYM TRACK RAIL RAILS) (ADJECTIVE RUSTED IRON)
@@ -848,9 +850,10 @@
     (TEXT "Two rails curve under the cart. There is just enough room beyond the gate for all four [[wheels->cart wheels]].")>
 
 <OBJECT DEN-ENTRANCE (IN FOX-DEN) (DESC "den entrance")
-    (SYNONYM ENTRANCE OPENING) (ADJECTIVE DEN NARROW)
+    (SYNONYM ENTRANCE OPENING CRATES CRATE) (ADJECTIVE DEN NARROW OLD)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Rusty wire ends have been bent away from the opening, so a patch of fur can slip through without snagging.")>
+    (TEXT "The den is tucked between old wooden crates. Rusty wire ends have been bent away from the opening, so a patch of fur can slip through without snagging.")
+    (ACTION DEN-ENTRANCE-F)>
 
 <OBJECT STUDY-STAIRS (IN TOLLIVER-STUDY) (DESC "study stairs")
     (SYNONYM STAIRS STAIRCASE STEPS) (ADJECTIVE STUDY NARROW)
@@ -859,7 +862,7 @@
     (ACTION STUDY-STAIRS-F)>
 
 <OBJECT DISTANT-TICK (IN TOLLIVER-STUDY) (DESC "distant ticking")
-    (SYNONYM TICKING TICK SOUND) (ADJECTIVE DISTANT FAINT)
+    (SYNONYM TICKING TICK SOUND FLOORBOARDS BOARDS FLOOR) (ADJECTIVE DISTANT FAINT)
     (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "Pip puts an ear to the floor. This tick comes up through the boards from below the desk.")
     (ACTION DISTANT-TICK-F)>
@@ -929,3 +932,41 @@
     (SYNONYM NEEDLE-FILES FILES FILE NEEDLE-FILE) (ADJECTIVE FINE)
     (FLAGS NDESCBIT TAKEBIT) (INTERACTIONS "")
     (TEXT "Pip runs a nail down the handles. One has a round end for smoothing holes, one a flat end for the space between two gear teeth.") (ACTION RACK-TOOL-F)>
+
+<OBJECT TOWN
+    (IN LOCAL-GLOBALS)
+    (SYNONYM TOWN WRENFOLD HOUSES ROOFTOPS)
+    (ADJECTIVE LITTLE SLEEPING SNOWY)
+    (DESC "town of Wrenfold")
+    (FLAGS NDESCBIT)
+    (ACTION TOWN-F)>
+
+<OBJECT BENCH-SHAVINGS (IN WORKBENCH-TOP) (DESC "cedar shavings")
+    (SYNONYM SHAVINGS CURLS CURL) (ADJECTIVE CEDAR CURLY)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Pale curls of cedar lie everywhere, each one as long as Pip's arm. Grandfather's plane made them, one smooth stroke at a time.")
+    (ACTION BENCH-SHAVINGS-F)>
+
+<OBJECT WORK-LAMP (IN WORKBENCH-TOP) (DESC "work lamp")
+    (SYNONYM LAMP) (ADJECTIVE WORK BRASS)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "A brass work lamp bends over the bench on a jointed arm. Its glow is low and golden, the way Grandfather leaves it when he means to come back soon.")
+    (ACTION WORK-LAMP-F)>
+
+<OBJECT HEART-CHAMBER (IN WORKSHOP-HEART) (DESC "heart chamber")
+    (SYNONYM CHAMBER PIPES PIPE WALLS) (ADJECTIVE HEART BRASS ROUND)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The chamber is round, like the inside of a great pocket watch. Brass pipes climb the walls and disappear into the ceiling, carrying the heart's beat up into every corner of the workshop.")
+    (ACTION HEART-CHAMBER-F)>
+
+<OBJECT BENCH-SHELF (IN TOOL-BENCH) (DESC "tool bench")
+    (SYNONYM BENCH SHELF LEDGE) (ADJECTIVE TOOL LONG LOW)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The tool bench is a long, low ledge of scarred wood, nicked by a thousand slips of the chisel. Grandfather keeps all his smallest tools here, where Pip can reach them.")
+    (ACTION BENCH-SHELF-F)>
+
+<OBJECT COUNTER-TOP (IN COUNTERTOP) (DESC "countertop")
+    (SYNONYM COUNTERTOP COUNTER TOP) (ADJECTIVE SHOP POLISHED)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "The countertop is polished smooth and dark, with a ring where Grandfather always sets his teacup. From its edge Pip can see right across the moonlit workshop.")
+    (ACTION COUNTER-TOP-F)>
