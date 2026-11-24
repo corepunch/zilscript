@@ -445,7 +445,9 @@ function Session:suggestions(input)
 	end
 	local partners = partnersFor(self)
 	return Suggestions.forInput(input, self.items, function(offer)
-		for _, verb in ipairs({ "look", "inventory", "wait" }) do offer(verb) end
+		-- Complete the verb even in an empty room. After "take " only
+		-- eligible objects from the live parser scope are offered.
+		for _, verb in ipairs({ "look", "inventory", "wait", "take" }) do offer(verb) end
 		for _, exit in ipairs(self.exitList) do offer("go", exit) end
 		for _, item in ipairs(self.items) do
 			if not item.patterns or #item.patterns > 0 then
