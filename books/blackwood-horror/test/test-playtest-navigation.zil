@@ -12,11 +12,11 @@
     <ASSERT-TEXT "narrow stone staircase" <CO-RESUME ,CO "up">>
     <ASSERT-NOT-TEXT "stretcher" <CO-RESUME ,CO "look">>
     <ASSERT-TEXT "stretcher" <CO-RESUME ,CO "examine stairs">>
-    <ASSERT-TEXT "basement corridor is dim" <CO-RESUME ,CO "down">>
+    <ASSERT-TEXT "basement corridor, low and dim" <CO-RESUME ,CO "down">>
 
     ;"Observed: the lit corridor called itself pitch black and put the dripping water east."
     ;"Expected: the dark flooded chamber to the north is the one announced as dark and wet."
-    <ASSERT-TEXT "water drips in the dark north" <CO-RESUME ,CO "look">>
+    <ASSERT-TEXT "water dripping into something deep" <CO-RESUME ,CO "look">>
 
     ;"Observed: CLIMB STAIRCASE and other verbs on scenery printed nothing at all."
     ;"Expected: handled verbs answer, and unhandled verbs fall through to the defaults."
@@ -25,7 +25,7 @@
     <ASSERT "Back in the entrance hall" <==? ,HERE ,SANITARIUM-ENTRANCE>>
     <ASSERT-TEXT "collapsed landing" <CO-RESUME ,CO "climb staircase">>
     <ASSERT-TEXT "no way up" <CO-RESUME ,CO "up">>
-    <ASSERT-TEXT "the ward east" <CO-RESUME ,CO "look">>
+    <ASSERT-TEXT "patient ward lies to the east" <CO-RESUME ,CO "look">>
     <ASSERT-NOT-TEXT "ascends to darkness in the east" <CO-RESUME ,CO "look">>
     <ASSERT-TEXT "wallpaper" <CO-RESUME ,CO "push wallpaper">>
     <SETG HERE ,OPERATING-THEATER>

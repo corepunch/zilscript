@@ -5,9 +5,9 @@
 <ROUTINE RUN-TEST ()
 	<CO-RESUME ,CO "look">
 	<CO-RESUME ,CO "north">
-	<ASSERT-TEXT "gates lie south" <CO-RESUME ,CO "look">>
+	<ASSERT-TEXT "gates are back to the south" <CO-RESUME ,CO "look">>
 	<CO-RESUME ,CO "north">
-	<ASSERT-TEXT "doorway south" <CO-RESUME ,CO "look">>
+	<ASSERT-TEXT "sagging door to the south" <CO-RESUME ,CO "look">>
 	<CO-RESUME ,CO "south">
 	<ASSERT-TEXT "wedged" <CO-RESUME ,CO "close door">>
 	<CO-RESUME ,CO "north">

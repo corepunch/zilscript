@@ -91,7 +91,7 @@ do
 	text = walk:choose("look")
 	check(has(text, "[[brass key->reception key]]") or has(walk.output, "[[brass key->reception key]]"),
 		"the dropped reception key links to itself, not to any key")
-	check(has(walk:choose("examine reception key"), "number '3'"), "its link examines the reception key")
+	check(has(walk:choose("examine reception key"), "number “3”"), "its link examines the reception key")
 	check(not has(text, "A oil") and not has(typed("inventory"), "A oil"), "no 'A oil lantern'")
 end
 
@@ -169,10 +169,10 @@ do
 	check(has(typed("pull chair"), "bolted firmly"), "so does PULL")
 	walk:play({ "west" })
 	local text = walk:choose("read rotting padding")
-	check(has(text, "PATIENT 189.'") and not has(text, "'."), "the blood message ends once")
+	check(has(text, "PATIENT 189.”") and not has(text, "”."), "the blood message ends once")
 	enter(env.ADMINISTRATIVE_WING)
 	text = walk:choose("read scattered papers")
-	check(has(text, "OFF LIMITS.'") and not has(text, "'."), "the memo ends once")
+	check(has(text, "OFF LIMITS.”") and not has(text, "”."), "the memo ends once")
 end
 
 -- Hydrotherapy and the steam door.
