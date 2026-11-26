@@ -383,14 +383,6 @@ local function append_action_history(path, action)
     return true
 end
 
-local function start_game()
-    local output = game:start()
-    if resumed_from_dump then
-        _G._LLM_RESTORED = nil
-    end
-    game_started = true
-    return output
-end
 
 local function resume_action(action)
     local ok, result = pcall(function()
@@ -405,6 +397,48 @@ local function resume_action(action)
         return string.format("[%s] %s", result.status, result.message or "")
     end
     return ""
+end
+
+-- A memory dump holds the world, not the game coroutine, so a command that
+-- stops inside a routine's own READ (YES? after QUIT or RESTART, a name
+-- prompt) cannot be resumed from a snapshot taken at that moment: the story
+-- is mid-turn. The parser's main READ is the only one reached through PARSER;
+-- any other READ is such a prompt. A command that ends in one is kept in
+-- LLM_PENDING, a saved global, in the snapshot taken before it, and the next
+-- invocation replays it to recreate the prompt before delivering the answer.
+local parser_depth, routine_prompt = 0, false
+local pending_commands = ""
+if type(env.PARSER) == "function" then
+    local read, parser = env.READ, env.PARSER
+    env.READ = function(...)
+        routine_prompt = parser_depth == 0
+        local results = table.pack(read(...))
+        routine_prompt = false
+        return table.unpack(results, 1, results.n)
+    end
+    env.PARSER = function(...)
+        parser_depth = parser_depth + 1
+        local results = table.pack(pcall(parser, ...))
+        parser_depth = parser_depth - 1
+        if not results[1] then
+            error(results[2], 0)
+        end
+        return table.unpack(results, 2, results.n)
+    end
+end
+
+local function start_game()
+    local output = game:start()
+    if resumed_from_dump then
+        _G._LLM_RESTORED = nil
+    end
+    game_started = true
+    pending_commands = env.LLM_PENDING or ""
+    env.LLM_PENDING = nil
+    for command in pending_commands:gmatch("[^\n]+") do
+        resume_action(command)
+    end
+    return output
 end
 
 local function replay_action_history(path)
@@ -454,21 +488,19 @@ local function execute_action(action)
     return resume_action(action)
 end
 
--- A memory dump cannot serialize a coroutine suspended inside YES?.  If the
--- preceding one-command invocation stopped at a confirmation prompt, recreate
--- that prompt in the fresh coroutine before delivering the answer.
-local function execute_action_with_confirmation(action)
-    local answer = action:lower():match("^%s*(.-)%s*$")
-    if answer == "y" or answer == "yes" or answer == "n" or answer == "no" then
-        local history = read_action_history(historyfile)
-        local previous = history[#history]
-        local prompt_action = previous and previous.action:lower():match("^%s*(.-)%s*$")
-        if prompt_action == "quit" or prompt_action == "q"
-                or prompt_action == "restart" or prompt_action == "restar" then
-            execute_action(previous.action)
+-- Saves the state after a command, or, when the command stopped at a
+-- routine's prompt, the snapshot this invocation restored with the command
+-- added to LLM_PENDING. Without a snapshot the action history, replayed in
+-- full, recreates the prompt itself.
+local function checkpoint(action)
+    if routine_prompt and not env.PLAY_ENDED then
+        if not resumed_from_dump then
+            return
         end
+        assert(env.RESTORE(savefile), "Could not restore VM snapshot")
+        env.LLM_PENDING = pending_commands .. action .. "\n"
     end
-    return execute_action(action)
+    env.SAVE(savefile)
 end
 
 -- FINISH is terminal across invocations: the ending is remembered in the save
@@ -495,13 +527,27 @@ local function execute_after_ending(action)
     return ENDED_REPLY .. "\n"
 end
 
+-- A link reader can only choose actions, never type, so a routine's prompt
+-- gets the empty reply of a bare Return ("No name entered", "no"), and every
+-- link snapshot falls between turns.
+local function link_action(command)
+    local output = execute_action(command)
+    if routine_prompt then
+        output = output .. resume_action("")
+    end
+    if routine_prompt then
+        error("The story is waiting for typed input, which link play cannot give")
+    end
+    return output
+end
+
 -- If we have an action, execute it
 if args.links then
 		local ok, result = pcall(function()
 		return require("zilscript.link_play").run {
 			args = args, env = env, game = game, gameName = game_name,
 			savefile = savefile, restored = resumed_from_dump,
-			start = start_game, act = execute_action_with_confirmation,
+			start = start_game, act = link_action,
 			room = function() return get_room_name(env) end,
 			score = function() return get_score_info(env) end,
 		}
@@ -517,7 +563,7 @@ if args.action then
     if env.PLAY_ENDED then
         ok, output = pcall(execute_after_ending, args.action)
     else
-        ok, output = pcall(execute_action_with_confirmation, args.action)
+        ok, output = pcall(execute_action, args.action)
     end
     
     if not ok then
@@ -530,9 +576,7 @@ if args.action then
     -- Save game state
     local save_err = nil
     local history_err = nil
-    local ok, err = pcall(function()
-        env.SAVE(savefile)
-    end)
+    local ok, err = pcall(checkpoint, args.action)
     if not ok then
         save_err = tostring(err)
     end

@@ -912,7 +912,26 @@
 	       <SETG P-SLOCBITS .OBITS>
 	       <COND (<AND <ZERO? <GET .TBL ,P-MATCHLEN>>
 			   <EQUAL? ,PRSA ,V?LOOK-INSIDE ,V?SEARCH ,V?EXAMINE>>
-		      <DO-SL ,ROOMS 1 1>)>)>>
+		      <DO-SL ,ROOMS 1 1>)>)>
+	;"The topic of ASK or TELL ... ABOUT need not be here: one asks about
+	  people and things one knows of, as in the later Infocom parsers. The
+	  person asked is the direct object and is still looked for nearby."
+	<COND (<AND <EQUAL? <GET .TBL ,P-MATCHLEN> .LEN>
+		    <VERB? TELL>
+		    <EQUAL? .TBL ,P-PRSI>>
+	       <SEARCH-ANYWHERE ,ROOMS .TBL>
+	       <SEARCH-ANYWHERE ,LOCAL-GLOBALS .TBL>)>>
+
+;"Every object under OBJ, open or closed, near or far."
+<ROUTINE SEARCH-ANYWHERE (OBJ TBL)
+	<SET OBJ <FIRST? .OBJ>>
+	<REPEAT ()
+		<COND (<NOT .OBJ> <RETURN>)>
+		<COND (<AND <GETPT .OBJ ,P?SYNONYM>
+			    <THIS-IT? .OBJ .TBL>>
+		       <OBJ-FOUND .OBJ .TBL>)>
+		<SEARCH-ANYWHERE .OBJ .TBL>
+		<SET OBJ <NEXT? .OBJ>>>>
 
 
 
