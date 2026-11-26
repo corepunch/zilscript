@@ -280,10 +280,11 @@ zip:
 	tmpdir=$$(mktemp -d); \
 	mkdir -p "$$tmpdir"; \
 	cp books/$$game/*.zil "$$tmpdir/"; \
-	mkdir -p "$$tmpdir/core" "$$tmpdir/languages/en" "$$tmpdir/rulesets/classic"; \
+	mkdir -p "$$tmpdir/core" "$$tmpdir/languages/en" "$$tmpdir/rulesets/classic" "$$tmpdir/rulesets/superhero"; \
 	cp core/*.zil core/LICENSE-ZORK-MIT "$$tmpdir/core/"; \
 	cp languages/en/*.zil languages/en/LICENSE-ZORK-MIT "$$tmpdir/languages/en/"; \
-	cp rulesets/classic/en.zil rulesets/classic/LICENSE-ZORK-MIT "$$tmpdir/rulesets/classic/"; \
+	cp rulesets/classic/en*.zil rulesets/classic/common.zil rulesets/classic/LICENSE-ZORK-MIT "$$tmpdir/rulesets/classic/"; \
+	cp rulesets/superhero/en*.zil rulesets/superhero/percentile.zil "$$tmpdir/rulesets/superhero/"; \
 	cd "$$tmpdir" && zip -r "$(CURDIR)/publish/$$game.zip" *.zil core languages rulesets; \
 	rm -rf "$$tmpdir"; \
 	echo "Created publish/$$game.zip"

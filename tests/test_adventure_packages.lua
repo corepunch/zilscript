@@ -4,8 +4,10 @@ local function read(path)
 end
 local function check(path, seen)
  seen = seen or {}
+ seen.order = seen.order or {}
  if seen[path] then return end
  seen[path] = true
+ table.insert(seen.order, path)
  for target in read(path):gmatch('<INSERT%-FILE%s+"([^"]+)"') do
   assert(not target:lower():match("infocom[./]"), path .. " depends on " .. target)
   if target:match("^core[.]") or target:match("^languages[.]") or target:match("^rulesets[.]") then
@@ -18,7 +20,18 @@ end
 check("rulesets/classic/en.zil")
 check("rulesets/classic/de.zil")
 check("languages/de/init.zil")
-check("rulesets/superhero/en.zil")
+-- A ruleset stands on its language's base, never on another ruleset.
+local hero = {}
+check("rulesets/superhero/en.zil", hero)
+for _, path in ipairs(hero.order) do
+ assert(not path:match("^rulesets/classic/"), "superhero rules depend on the classic rules through " .. path)
+end
+for _, lang in ipairs({"en", "de"}) do
+ local classic = {}
+ check("rulesets/classic/" .. lang .. ".zil", classic)
+ assert(classic["languages/" .. lang .. "/base.zil"], "classic " .. lang .. " composes over languages/" .. lang .. "/base.zil")
+end
+assert(hero["languages/en/base.zil"], "superhero composes over languages/en/base.zil")
 local superhero = read("books/blackout-at-meridian/blackout-at-meridian.zil")
 assert(superhero:find('<INSERT-FILE "rulesets.superhero.en">',1,true), "superhero book imports its ruleset")
 assert(not superhero:find("infocom/",1,true), "superhero book depends on a historical directory")
@@ -59,13 +72,16 @@ local function has_text(body)
  end
  return false
 end
-local shared = {parser = "core/parser.zil", loop = "core/loop.zil",
- ["classic-verbs"] = "rulesets/classic/common.zil", ["classic-globals"] = "rulesets/classic/common.zil"}
-for file, home in pairs(shared) do
- local de = forms("languages/de/" .. file .. ".zil")
- for key, body in pairs(forms("languages/en/" .. file .. ".zil")) do
+local shared = {
+ {"languages/%s/parser.zil", "core/parser.zil"}, {"languages/%s/loop.zil", "core/loop.zil"},
+ {"languages/%s/verbs.zil", "core/world.zil"}, {"languages/%s/globals.zil", "core/world.zil"},
+ {"rulesets/classic/%s-verbs.zil", "rulesets/classic/common.zil"}, {"rulesets/classic/%s-globals.zil", "rulesets/classic/common.zil"}}
+for _, pair in ipairs(shared) do
+ local file, home = pair[1], pair[2]
+ local de = forms(file:format("de"))
+ for key, body in pairs(forms(file:format("en"))) do
   local moveable = not nested[key] and not key:match("^INSERT%-FILE ")
-   and (home:match("^core/") or not has_text(body))
+   and (home:match("^core/p") or home:match("^core/l") or not has_text(body))
   assert(not moveable or de[key] ~= body, file .. ": " .. key .. " is identical in both languages; move it to " .. home)
  end
 end
@@ -77,17 +93,34 @@ end
 for _, lang in ipairs({"en", "de"}) do
  local composition = read("rulesets/classic/" .. lang .. ".zil")
  local common = composition:find('<INSERT-FILE "rulesets.classic.common">', 1, true)
- local verbs = composition:find('<INSERT-FILE "languages.' .. lang .. '.classic-verbs">', 1, true)
+ local verbs = composition:find('<INSERT-FILE "rulesets.classic.' .. lang .. '-verbs">', 1, true)
  assert(common and verbs and common < verbs, lang .. " composition inserts the common classic rules before its verbs")
 end
 -- Core and languages name no game's rooms or objects.
-for _, path in ipairs({"core/parser.zil", "core/loop.zil", "core/clock.zil", "core/objects.zil", "rulesets/classic/common.zil",
+for _, path in ipairs({"core/parser.zil", "core/loop.zil", "core/clock.zil", "core/objects.zil", "core/world.zil", "rulesets/classic/common.zil",
+  "rulesets/superhero/percentile.zil", "rulesets/superhero/en-verbs.zil",
   "languages/en/parser.zil", "languages/de/parser.zil", "languages/en/loop.zil", "languages/de/loop.zil"}) do
  for _, name in ipairs({"WEST-OF-HOUSE", "MAILBOX", "TROLL", "THIEF", "CYCLOPS"}) do
   assert(not read(path):find("," .. name, 1, true) and not read(path):find(" " .. name .. ">", 1, true),
    path .. " names the game object " .. name)
  end
 end
+-- The world verbs still carry Zork I special cases (climbing the tree, the
+-- entrance to Hades) and Zork II/III branches. They belong to the classic
+-- rules or the story; this list may only shrink.
+local zork = {"WEST-OF-HOUSE", "ENTRANCE-TO-HADES", "BOOK", "ROPE", "TREE", "STAIRS", "GROUND", "WATER", "GLOBAL-WATER", "TROLL", "THIEF", "CYCLOPS", "MAILBOX", "LAMP", "SWORD"}
+local allowed = {en = {["WEST-OF-HOUSE"] = 1, ["ENTRANCE-TO-HADES"] = 1, BOOK = 1, ROPE = 1, TREE = 1, STAIRS = 1, GROUND = 1, WATER = 1, ["GLOBAL-WATER"] = 1}}
+for _, lang in ipairs({"en"}) do
+ for _, file in ipairs({"verbs", "globals"}) do
+  local text = read("languages/" .. lang .. "/" .. file .. ".zil")
+  for _, name in ipairs(zork) do
+   if text:find("," .. name .. "[%s>)]") then
+    assert(allowed[lang][name], "languages/" .. lang .. "/" .. file .. ".zil gained a reference to the Zork object " .. name)
+   end
+  end
+ end
+end
+
 -- Exercise a real compiler load and the new package graph without historical sources.
 local runtime = require("zilscript.runtime")
 local env = runtime.create_game_env()
