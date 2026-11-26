@@ -18,7 +18,11 @@
  <TELL "Health: " N ,HERO-HEALTH "/" N ,HERO-MAX-HEALTH ", Karma: " N ,HERO-KARMA CR>>
 
 <SYNTAX STRIKE OBJECT = V-HERO-STRIKE>
+<SYNTAX STRIKE OBJECT WITH OBJECT = V-HERO-STRIKE>
 <SYNONYM STRIKE ATTACK HIT PUNCH FIGHT KILL>
+;"The base reads DESTROY (break, smash) only as Zork's DESTROY IN; a hero
+  who breaks something strikes it."
+<SYNTAX DESTROY OBJECT = V-HERO-STRIKE>
 <SYNTAX RESCUE OBJECT = V-HERO-RESCUE>
 <SYNTAX DISABLE OBJECT = V-HERO-DISABLE>
 <SYNONYM DISABLE BYPASS HACK>
@@ -37,4 +41,5 @@
 <ROUTINE V-HERO-FOCUS () <TELL "That does not help." CR>>
 <ROUTINE V-HERO-NAME () <TELL "That has no name to give." CR>>
 <ROUTINE V-HERO-DIAGNOSE ()
+ <COND (<0? ,HERO-MAX-HEALTH> <TELL "You have no ranks yet, so there is no Health or Karma to count." CR> <RTRUE>)>
  <TELL "Health " N ,HERO-HEALTH " of " N ,HERO-MAX-HEALTH ", Karma " N ,HERO-KARMA "." CR>>
