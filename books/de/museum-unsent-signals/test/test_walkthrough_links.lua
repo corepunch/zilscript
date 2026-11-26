@@ -2,11 +2,11 @@ local Walk = require("tests.link_walk")
 local story = "books.de.museum-unsent-signals.museum-unsent-signals"
 local route = {
 	"lies messingtafel", "ost", "kipp lupe", "nimm holzspule", "west",
-	"nord", "inventar", "leg holzspule in lesemulde", "drueck abhörknopf",
+	"nord", "inventar", "leg holzspule in lesemulde", "stoss abhörknopf",
 }
 local endings = {
-	{ "drueck rückantworttaste", "ENDE – PRIVATE RÜCKANTWORT" },
-	{ "drueck gedenktaste", "ENDE – EINE MINUTE FÜR DIE LEBENDEN" },
+	{ "stoss rückantworttaste", "ENDE – PRIVATE RÜCKANTWORT" },
+	{ "stoss gedenktaste", "ENDE – EINE MINUTE FÜR DIE LEBENDEN" },
 }
 for _, ending in ipairs(endings) do
 	local walk = Walk.new(story)

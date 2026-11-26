@@ -233,6 +233,8 @@ local function is_hidden(obj)
 	return invisible ~= nil and FSETQ(obj, invisible)
 end
 
+local zil_language, fallback_text
+
 local function item_patterns(verbs)
 	local preferred = {
 		["LAMP-ON"] = "turn on", ["LAMP-OFF"] = "turn off",
@@ -262,11 +264,15 @@ local function item_patterns(verbs)
 		-- and rulesets load before the story, so a synonym verb a story adds
 		-- ("FIT OBJECT ON OBJECT = V-PUT-ON") never replaces the base verb.
 		local base = verb:lower():match("^[^-]+")
+		local spoken = (fallback_text().spoken or {})[verb]
 		local function rank(pattern)
 			local prefix = pattern.verb .. (pattern.prefix ~= "" and " " .. pattern.prefix or "")
 			if prefix == wanted then return 0, pattern.order end
+			if pattern.verb == spoken then return 1, 0, pattern.order end
 			if pattern.verb == base then return 1, #prefix, pattern.order end
-			return 2, pattern.order
+			-- A bare verb ("nimm") is the plain spelling of an action a
+			-- language also spells with a particle ("heb auf").
+			return 2, #pattern.prefix, pattern.order
 		end
 		local function better(a, b)
 			local a1, a2, a3 = rank(a)
@@ -592,8 +598,6 @@ local function companion_slug(text)
 	return slug ~= "" and slug or "unknown"
 end
 
-local zil_language
-
 -- What the fallback menus say, by <LANGUAGE>. Commands are the language's own
 -- parser words (ASCII stems), labels read naturally to a child.
 local FALLBACK_TEXT = {
@@ -608,6 +612,9 @@ local FALLBACK_TEXT = {
 	de = {
 		labels = { EXAMINE = "%s untersuchen", READ = "%s lesen", OPEN = "%s öffnen", TAKE = "%s nehmen" },
 		commands = { EXAMINE = "untersuch", READ = "lies", OPEN = "oeffn", TAKE = "nimm" },
+		-- The verb a menu speaks for an action the language spells several
+		-- ways ("benutz X fuer Y" and "leg X in Y" are both PUT).
+		spoken = { TAKE = "nimm", PUT = "leg" },
 		-- German nouns are capitalized: keep the story's spelling.
 		lower = false,
 		climbTo = "Hinauf zu ", climbBack = "Zurück hinauf zu ", downTo = "Hinunter zu ", downBack = "Zurück hinunter zu ",
@@ -618,7 +625,7 @@ local FALLBACK_TEXT = {
 	},
 }
 
-local function fallback_text()
+function fallback_text()
 	local name = tostring(zil_language or ""):lower()
 	return FALLBACK_TEXT[(name == "german" or name == "de") and "de" or "en"]
 end

@@ -68,7 +68,7 @@ local de = {
 	titles = {
 		untersuch = "Untersuchen", nimm = "Nehmen", lies = "Lesen", oeffn = "Öffnen",
 		schliess = "Schließen", lass = "Fallen lassen", leg = "Hinlegen", gib = "Geben",
-		schieb = "Schieben", zieh = "Ziehen", dreh = "Drehen", stoss = "Stoßen",
+		schieb = "Schieben", zieh = "Ziehen", dreh = "Drehen", stoss = "Drücken",
 		klettere = "Klettern", steig = "Steigen", such = "Suchen", hoer = "Hören",
 		["hoer zu"] = "Zuhören", riech = "Riechen", iss = "Essen", ess = "Essen", trink = "Trinken",
 		wirf = "Werfen", frag = "Fragen", sag = "Sagen", klopf = "Klopfen", spring = "Springen",

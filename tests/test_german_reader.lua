@@ -48,7 +48,7 @@ assert(session:presentation().language == "de")
 -- Item menus: German titles, German commands, never English words.
 local actions = commands(session:linkActions("brett"))
 assert(actions["untersuch brett"] == "Untersuchen", "examine in German: " .. titles(session:linkActions("brett")))
-assert(actions["heb auf brett"] == "Aufheben", "take in German")
+assert(actions["nimm brett"] == "Nehmen", "take is nimm, not heb auf: " .. titles(session:linkActions("brett")))
 for command in pairs(actions) do
 	assert(not command:match("^examine") and not command:match("^take"), "English command offered: " .. command)
 	local output = walk.game:resume(command)
