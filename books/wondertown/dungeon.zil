@@ -294,7 +294,7 @@
         (ADJECTIVE MAKESHIFT LOW OLD REPAIR BROAD CLIMBING PACKING STACKED CHAIR)
         (DESC "makeshift climbing steps")
         (LDESC "A low crate leads to an old chair, where three broad repair books make the final steps to the countertop.")
-        (FLAGS NDESCBIT CLIMBBIT)
+        (FLAGS NDESCBIT CLIMBBIT PLURALBIT)
         (ACTION MAKESHIFT-STEPS-F)>
 ; === OBJECTS: WORKBENCH TOP ===
 
@@ -313,7 +313,7 @@
         (ADJECTIVE HALF-FINISHED WOODEN TOY UNFINISHED HALF-RIGGED)
         (DESC "half-finished toys")
         (LDESC "A half-rigged sailboat, a wooden train, and a duck with only one wheel wait beneath the work lamp.")
-        (FLAGS NDESCBIT)
+        (FLAGS NDESCBIT PLURALBIT)
         (ACTION HALF-FINISHED-TOYS-F)>
 ; === OBJECTS: COUNTERTOP ===
 
@@ -431,7 +431,7 @@
         (ADJECTIVE DUSTY GREY GRAY)
         (DESC "dusty cobwebs")
         (LDESC "Dusty cobwebs drape the rafters like grey curtains.")
-        (FLAGS NDESCBIT)
+        (FLAGS NDESCBIT PLURALBIT)
         (ACTION COBWEBS-F)>
 
 ; === OBJECTS: SNOWY-ALLEY ===
@@ -442,7 +442,7 @@
         (ADJECTIVE FOX TINY MUDDY TOY-SIZED)
         (DESC "tiny fox footprints")
         (LDESC "Tiny fox footprints lead east through the fresh snow. They are unmistakeably toy-sized.")
-        (FLAGS NDESCBIT)
+        (FLAGS NDESCBIT PLURALBIT)
         (ACTION FOOTPRINTS-F)>
 
 <OBJECT STREETLAMP
@@ -500,7 +500,7 @@
         (ADJECTIVE TIN TOY DIM WEAK FLICKERING)
         (DESC "tin toy lamps")
         (LDESC "Tin toy lamps dot the cobblestones, their light weak and flickering.")
-        (FLAGS LIGHTBIT NDESCBIT)
+        (FLAGS LIGHTBIT NDESCBIT PLURALBIT)
         (ACTION TOY-LAMPS-F)>
 
 ; === OBJECTS: MAILBOX-CORNER ===
@@ -588,7 +588,7 @@
         (ADJECTIVE BROKEN DISCARDED SNOWY TOY FROZEN)
         (DESC "piles of broken toys")
         (INTERACTIONS "")
-        (FLAGS NDESCBIT)
+        (FLAGS NDESCBIT PLURALBIT)
         (ACTION SCRAP-PILES-F)>
 
 <OBJECT TOY-HORSE
@@ -753,7 +753,7 @@
         (ADJECTIVE SILENT MOTIONLESS FROZEN TOY WOODEN PAINTED DULL)
         (DESC "silent toys")
         (LDESC "Dozens of toys stand motionless around the heart, waiting for the magic to return.")
-        (FLAGS NDESCBIT)
+        (FLAGS NDESCBIT PLURALBIT)
         (ACTION SILENT-TOYS-F)>
 
 ; === LOCAL-GLOBALS ===
@@ -834,7 +834,7 @@
 
 <OBJECT SQUARE-PATHS (IN CLOCK-SQUARE) (DESC "cobbled paths")
     (SYNONYM PATHS PATH COBBLES SQUARE) (ADJECTIVE COBBLED WINDING CLOCK)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "The cobbles are tiny wooden blocks set on end. A red [[paint mark]] points toward the mailbox.")
     (ACTION SQUARE-PATHS-F)>
 
@@ -857,7 +857,7 @@
 
 <OBJECT STUDY-STAIRS (IN TOLLIVER-STUDY) (DESC "study stairs")
     (SYNONYM STAIRS STAIRCASE STEPS) (ADJECTIVE STUDY NARROW)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "The treads fit Pip’s boots. At the far end the clock case hides them from anyone looking up from the workshop.")
     (ACTION STUDY-STAIRS-F)>
 
@@ -909,7 +909,7 @@
 
 <OBJECT DETAIL-AXLES (IN SCRAP-YARD) (DESC "axles")
     (SYNONYM AXLES AXLE GREASE) (ADJECTIVE OILED CART)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "The ends shine through the old rust. Whoever looks after this cart put one neat drop of oil on each end.")>
 
 <OBJECT MUSIC-TOOTH (DESC "brass tooth")
@@ -920,17 +920,17 @@
 
 <OBJECT CART-WHEELS (IN SCRAP-YARD) (DESC "cart wheels")
     (SYNONYM WHEELS WHEEL RIMS RIM) (ADJECTIVE CART IRON RUSTED)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (ACTION CART-WHEELS-F)>
 
 <OBJECT TOY-CHISELS (IN TOOL-BENCH) (DESC "chisels")
     (SYNONYM CHISELS CHISEL) (ADJECTIVE TINY)
-    (FLAGS NDESCBIT TAKEBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT TAKEBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "The widest blade is only as wide as Pip’s little fingernail. A curl of wood still clings to the narrowest one.") (ACTION RACK-TOOL-F)>
 
 <OBJECT TOY-FILES (IN TOOL-BENCH) (DESC "needle-files")
     (SYNONYM NEEDLE-FILES FILES FILE NEEDLE-FILE) (ADJECTIVE FINE)
-    (FLAGS NDESCBIT TAKEBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT TAKEBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "Pip runs a nail down the handles. One has a round end for smoothing holes, one a flat end for the space between two gear teeth.") (ACTION RACK-TOOL-F)>
 
 <OBJECT TOWN
@@ -943,7 +943,7 @@
 
 <OBJECT BENCH-SHAVINGS (IN WORKBENCH-TOP) (DESC "cedar shavings")
     (SYNONYM SHAVINGS CURLS CURL) (ADJECTIVE CEDAR CURLY)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "Pale curls of cedar lie everywhere, each one as long as Pip's arm. Grandfather's plane made them, one smooth stroke at a time.")
     (ACTION BENCH-SHAVINGS-F)>
 

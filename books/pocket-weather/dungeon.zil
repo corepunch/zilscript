@@ -24,7 +24,7 @@
 
 <OBJECT TERRACE-TILES (IN TERRACE) (DESC "warm tiles")
  (SYNONYM TILE TILES ROOF) (ADJECTIVE WARM RED)
- (INTERACTIONS "") (FLAGS NDESCBIT)
+ (INTERACTIONS "") (FLAGS NDESCBIT PLURALBIT)
  (TEXT "One red tile clicks under your heel. Lift your foot and the next tile answers. From up here, the whole post sounds like a kettle cooling.")
     (ACTION TERRACE-TILES-F)>
 
@@ -123,7 +123,7 @@
 
 <OBJECT SEEDLINGS (IN GARDEN) (DESC "seedlings") (SYNONYM SEEDLINGS PLANTS ROOTS SOIL SEEDLING PLANT ROOT LEAVES LEAF EARTH) (ADJECTIVE SMALL GROWING)
  (INTERACTIONS "")
- (FLAGS NDESCBIT) (ACTION SEEDLINGS-F)>
+ (FLAGS NDESCBIT PLURALBIT) (ACTION SEEDLINGS-F)>
 
 <OBJECT CHART (IN SHED) (DESC "rain chart") (SYNONYM CHART DIAGRAM) (ADJECTIVE RAIN GARDEN)
  (INTERACTIONS "")
@@ -180,7 +180,7 @@
 
 <OBJECT POST-RAIN (IN DISPATCH) (DESC "rain beads")
     (SYNONYM RAIN BEADS DROPS) (ADJECTIVE COLD BRASS)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "Each bead shivers when the bell rings. Two small ones run together and make a fat one at the rim.")
     (ACTION POST-RAIN-F)>
 
@@ -202,7 +202,7 @@
 
 <OBJECT COMMA-BISCUITS (IN KITCHEN) (DESC "comma biscuits")
     (SYNONYM BISCUITS BISCUIT COMMAS) (ADJECTIVE PLANNED COMMA)
-    (FLAGS NDESCBIT INVISIBLE) (INTERACTIONS "")
+    (FLAGS NDESCBIT INVISIBLE PLURALBIT) (INTERACTIONS "")
     (TEXT "Pip traces a little hooked shape in the flour. One end will be just right for dunking in tea.")
     (ACTION COMMA-BISCUITS-F)>
 
@@ -214,7 +214,7 @@
 
 <OBJECT DETAIL-BUBBLES (IN ROOKERY) (DESC "bubbles")
     (SYNONYM BUBBLES BUBBLE) (ADJECTIVE SOAP LITTLE)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "One bubble settles over a claw mark in the wood. For a moment the tiny scratch looks as big as a ditch.")
     (ACTION DETAIL-BUBBLES-F)>
 
@@ -259,7 +259,7 @@
 
 <OBJECT PIGEONHOLES (IN DISPATCH) (DESC "pigeonholes")
     (SYNONYM PIGEONHOLES OFFICE WALLS WALL COUNTER SLOTS) (ADJECTIVE LETTER ROUND SNUG)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "Rows of little wooden slots, one for every street in town, fill the walls above the counter. Folded forecasts wait in most of them.")
     (ACTION PIGEONHOLES-F)>
 
@@ -277,13 +277,13 @@
 
 <OBJECT NESTS (IN ROOKERY) (DESC "nests")
     (SYNONYM NESTS NEST LOFT TOPS THIMBLES TREASURES TWIGS HAIRPIN) (ADJECTIVE UNTIDY BOTTLE)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "Twigs and string, woven tight, with every rook's treasures pressed into the sides: bottle tops, thimbles, a bent hairpin.")
     (ACTION NESTS-F)>
 
 <OBJECT LAUNDRY-LINES (IN LAUNDRY) (DESC "drying lines")
     (SYNONYM LINES LINE PEGS PEG WASHING TUB SUDS HOOK SOCKS TOWELS) (ADJECTIVE DRYING CLOTHES LEMON)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "Tea towels and socks hang in rows, held by wooden pegs. Underneath, a tub of lemon suds slowly settles.")
     (ACTION LINES-F)>
 
@@ -295,7 +295,7 @@
 
 <OBJECT SEED-SACKS (IN SHED) (DESC "seed sacks")
     (SYNONYM SACKS SACK SACKING SEEDS HUT WALL WALLS EARTH) (ADJECTIVE SEED WOODEN)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "Fat sacks of seed lean against the walls, each one tied at the neck with garden string.")
     (ACTION SACKS-F)>
 

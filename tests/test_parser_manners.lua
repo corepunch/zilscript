@@ -1,7 +1,7 @@
 -- Shared parser and world-verb behavior on a one-room fixture story:
 -- ALL never reaches the global objects, an empty ALL says why, names keep
 -- no article, break characters are words, and a bare verb asks the right
--- question.
+-- question; plural things take "some" and a plural verb.
 local test = require 'tests.test_framework'
 local runtime = require 'zilscript.runtime'
 
@@ -71,7 +71,23 @@ test.describe("Parser manners", function(t)
 		assert.assert_match(game:resume("look"), "small parlour")
 	end)
 
+	t.it("speaks of plural things in the plural", function(assert)
+		local game = story()
+		local out = game:resume("look")
+		assert.assert_match(out, "There is a tin box here%.")
+		assert.assert_match(out, "There are some cobwebs here%.")
+		assert.assert_match(game:resume("listen to cobwebs"), "^The cobwebs make no sound%.")
+		assert.assert_match(game:resume("listen to box"), "^The tin box makes no sound%.")
+		assert.assert_match(game:resume("examine pots"), "^The copper pots are closed%.")
+		assert.assert_match(game:resume("knock on pots"), "^Why knock on some copper pots%?")
+		game:resume("open pots")
+		assert.assert_match(game:resume("look in pots"), "^The copper pots are empty%.")
+		game:resume("take pots")
+		assert.assert_match(game:resume("inventory"), "\n  Some copper pots")
+	end)
+
 	t.it("never kills the player in a world verb", function(assert)
+
 		local game = story()
 		game:resume("take box")
 		assert.assert_match(game:resume("throw box at me"), "bounces off you")

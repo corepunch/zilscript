@@ -299,7 +299,7 @@
         (ADJECTIVE SCATTERED ADMISSION WET GREY DAMP)
         (DESC "scattered papers")
         (INTERACTIONS "")
-        (FLAGS NDESCBIT)
+        (FLAGS NDESCBIT PLURALBIT)
         (ACTION RECEPTION-PAPERS-F)>
 
 <OBJECT OPERATING-TABLE
@@ -350,7 +350,7 @@
         (ADJECTIVE RUSTED BED METAL RUSTY)
         (DESC "bed frames")
         (LDESC "Rusted [[bed frames->beds]] line the corridor.")
-        (FLAGS NDESCBIT) ;"The ward's description tells of them and the drawing."
+        (FLAGS NDESCBIT PLURALBIT) ;"The ward's description tells of them and the drawing."
         (ACTION BED-FRAMES-F)
         (TEXT "Dozens of bed frames line the walls. The mattresses have rotted away, leaving only rusted springs and metal frames. Some still have restraint straps attached.")>
 
@@ -380,7 +380,7 @@
         (DESC "chains")
         (INTERACTIONS "CUT:SCALPEL,COAL-SHOVEL;ATTACK:SCALPEL,COAL-SHOVEL")
         (LDESC "Thick [[chains]] secure the heavy door.")
-        (FLAGS NDESCBIT) ;"The ward's description tells of them while they hold."
+        (FLAGS NDESCBIT PLURALBIT) ;"The ward's description tells of them while they hold."
         (VALUE 4)
         (ACTION CHAINS-F)>
 
@@ -390,7 +390,7 @@
         (ADJECTIVE REFRIGERATED METAL COLD FAINT GREEN)
         (DESC "refrigerated drawers")
         (INTERACTIONS "")
-        (FLAGS NDESCBIT CONTBIT)
+        (FLAGS NDESCBIT CONTBIT PLURALBIT)
         (ACTION DRAWERS-F)>
 
 <OBJECT DISSECTION-TABLE
@@ -448,7 +448,7 @@
         (ADJECTIVE RUSTED DRIPPING RUSTY ANCIENT CORRODED METAL BASEMENT BOILER)
         (DESC "rusty pipes")
         (ACTION PIPES-F)
-        (FLAGS NDESCBIT)>
+        (FLAGS NDESCBIT PLURALBIT)>
 
 <OBJECT VALVE
         (IN BASEMENT-CORRIDOR)
@@ -525,7 +525,7 @@
         (ADJECTIVE SAGGING DAMP)
         (DESC "shelves")
         (INTERACTIONS "")
-        (FLAGS NDESCBIT CONTBIT SEARCHBIT SURFACEBIT)
+        (FLAGS NDESCBIT CONTBIT SEARCHBIT SURFACEBIT PLURALBIT)
         (CAPACITY 40)
         (ACTION SHELVES-F)>
 
@@ -613,7 +613,7 @@
         (ADJECTIVE PORCELAIN LARGE STAINED CRACKED)
         (DESC "porcelain tubs")
         (INTERACTIONS "")
-        (FLAGS NDESCBIT CONTBIT)
+        (FLAGS NDESCBIT CONTBIT PLURALBIT)
         (ACTION TUBS-F)>
 
 <OBJECT SOGGY-NOTEBOOK
@@ -659,7 +659,7 @@
         (ADJECTIVE CELL HEAVY BARRED METAL SOLID SMALL)
         (DESC "cell doors")
         (ACTION CELL-DOORS-F)
-        (FLAGS NDESCBIT)>
+        (FLAGS NDESCBIT PLURALBIT)>
 
 <OBJECT WALL-SCRATCHES
         (IN ISOLATION-WARD)
@@ -668,7 +668,7 @@
         (DESC "wall scratches")
         (INTERACTIONS "")
         (LDESC "Thousands of [[scratch marks->scratches]] cover the cell walls.")
-        (FLAGS NDESCBIT) ;"The ward's description tells of them."
+        (FLAGS NDESCBIT PLURALBIT) ;"The ward's description tells of them."
         (VALUE 2)
         (ACTION WALL-SCRATCHES-F)>
 
@@ -706,7 +706,7 @@
         (DESC "padded walls")
         (INTERACTIONS "")
         (ACTION PADDING-F)
-        (FLAGS NDESCBIT)>
+        (FLAGS NDESCBIT PLURALBIT)>
 
 <OBJECT STRAITJACKET
         (IN PADDED-CELL)
@@ -767,7 +767,7 @@
         (ADJECTIVE SCATTERED MUNDANE)
         (DESC "scattered papers")
         (ACTION SCATTERED-PAPERS-F)
-        (FLAGS NDESCBIT)>
+        (FLAGS NDESCBIT PLURALBIT)>
 
 <OBJECT MASSIVE-DESK
         (IN DIRECTORS-OFFICE)
@@ -929,7 +929,7 @@
         (DESC "wooden pews")
         (INTERACTIONS "")
         (ACTION PEWS-F)
-        (FLAGS NDESCBIT)>
+        (FLAGS NDESCBIT PLURALBIT)>
 
 <OBJECT GREEN-CANDLES
         (IN CHAPEL)
@@ -937,7 +937,7 @@
         (ADJECTIVE GREEN UNNATURAL WAX COLD DARK)
       (DESC "green candles")
       (INTERACTIONS "")
-      (FLAGS NDESCBIT)
+      (FLAGS NDESCBIT PLURALBIT)
       (ACTION GREEN-CANDLES-F)>
 
 <OBJECT WOODEN-BOX
@@ -989,7 +989,7 @@
         (SYNONYM ASHES ASH SOOT CHAR)
         (ADJECTIVE COLD GREY GRAY)
         (DESC "ashes")
-        (FLAGS NDESCBIT)
+        (FLAGS NDESCBIT PLURALBIT)
         (ACTION ASHES-PSEUDO)>
 
 <OBJECT INSTRUMENTS
@@ -997,7 +997,7 @@
         (SYNONYM INSTRUMENTS INSTRUMENT FORCEPS CLAMPS CLAMP)
         (ADJECTIVE MEDICAL SURGICAL RUSTY RUSTED CUTTING)
         (DESC "instruments")
-        (FLAGS NDESCBIT)
+        (FLAGS NDESCBIT PLURALBIT)
         (ACTION INSTRUMENTS-PSEUDO)>
 
 <OBJECT TRAYS
@@ -1005,7 +1005,7 @@
         (SYNONYM TRAYS TRAY)
         (ADJECTIVE METAL INSTRUMENT COLD)
         (DESC "trays")
-        (FLAGS NDESCBIT)
+        (FLAGS NDESCBIT PLURALBIT)
         (ACTION TRAYS-PSEUDO)>
 
 <OBJECT THEATER-BENCHES
@@ -1013,7 +1013,7 @@
         (SYNONYM BENCHES BENCH TIERS TIER)
         (ADJECTIVE WOODEN THEATER OPERATING DARK)
         (DESC "wooden benches")
-        (FLAGS NDESCBIT)
+        (FLAGS NDESCBIT PLURALBIT)
         (ACTION BENCHES-PSEUDO)>
 
 <OBJECT COAL-DUST
@@ -1030,7 +1030,7 @@
         (SYNONYM BENCHES BENCH FOUNTAIN)
         (ADJECTIVE BROKEN STONE IVY MOSSY CRUMBLING)
         (DESC "stone benches")
-        (FLAGS NDESCBIT)
+        (FLAGS NDESCBIT PLURALBIT)
         (ACTION GARDEN-BENCHES-F)>
 
 <OBJECT GRAND-STAIRCASE
@@ -1074,7 +1074,7 @@
     (ADJECTIVE FILING FILE OVERTURNED EMPTY BENT RECEPTION)
     (DESC "filing cabinets")
     (INTERACTIONS "")
-    (FLAGS NDESCBIT)
+    (FLAGS NDESCBIT PLURALBIT)
     (ACTION FILING-CABINETS-F)>
 
 ; === TOPIC OBJECTS (ASK/TELL vocabulary for NPC interaction) ===
@@ -1158,7 +1158,7 @@
 
 <OBJECT RUBBER-HOSES (IN HYDROTHERAPY-ROOM) (DESC "rubber hoses")
     (SYNONYM HOSES HOSE) (ADJECTIVE RUBBER CRACKED)
-    (ACTION RUBBER-HOSES-F) (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION RUBBER-HOSES-F) (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "A [[nozzle]] hangs just above each tub. The rubber cracks into little squares where it bends over the rim.")>
 
 <OBJECT SCORCHED-CONCRETE (IN ELECTROSHOCK-THEATER) (DESC "scorched concrete")
@@ -1177,30 +1177,30 @@
 
 <OBJECT STAFF-BEDS (IN STAFF-QUARTERS) (DESC "staff beds")
     (SYNONYM BEDS BED COTS SPRINGS) (ADJECTIVE STAFF NARROW IRON)
-    (ACTION STAFF-BEDS-F) (FLAGS NDESCBIT) (INTERACTIONS "")
+    (ACTION STAFF-BEDS-F) (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "Each bed has a hook for a uniform at its foot. The hooks face the door, ready for a call in the night.")>
 
 <OBJECT CORRIDOR-STEPS (IN BASEMENT-CORRIDOR) (DESC "stone stairs")
     (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE STONE WORN)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "The lowest step has two worn grooves, a stretcher wheel’s width apart.")
     (ACTION CORRIDOR-STEPS-F)>
 
 <OBJECT THEATER-STEPS (IN ELECTROSHOCK-THEATER) (DESC "stone stairs")
     (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE STONE WORN)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "The first few steps climb beside the chair. Higher up they turn behind the observation glass.")
     (ACTION THEATER-STEPS-F)>
 
 <OBJECT DECK-STEPS (IN OBSERVATION-DECK) (DESC "stone stairs")
     (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE STONE WORN)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "The stairs take a sharp turn behind the mirror. From below, a patient could hear footsteps without seeing who was coming.")
     (ACTION DECK-STEPS-F)>
 
 <OBJECT DETAIL-WHEEL-RUTS (IN SANITARIUM-GATE) (DESC "wheel ruts")
     (SYNONYM RUTS RUT TRACKS) (ADJECTIVE WHEEL BROAD)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "The grooves run in pairs. They deepen just inside the gates, as if the driver always braked in the same place.")>
 
 <OBJECT DETAIL-WIRE-MESH (IN PATIENT-WARD) (DESC "wire mesh")
@@ -1238,13 +1238,13 @@
 
 <OBJECT DETAIL-CARVED-SYMBOLS (IN CHAPEL) (DESC "carved symbols")
     (SYNONYM SYMBOLS CUTS MARKS SYMBOL) (ADJECTIVE CARVED STRANGE)
-    (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT READBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "The same hooked stroke begins each mark. On the pews you can see it clearly where a sleeve has rubbed the wood smooth.")
     (ACTION DETAIL-CARVED-SYMBOLS-F)>
 
 <OBJECT BOOK-HOLLOW (IN HOLLOW-BOOK) (DESC "glued pages")
     (SYNONYM PAGES HOLLOW OUTLINE) (ADJECTIVE GLUED RUSTY)
-    (SIZE 0) (FLAGS NDESCBIT) (INTERACTIONS "")
+    (SIZE 0) (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (ACTION BOOK-HOLLOW-F)>
 
 <OBJECT CROSS-LINING (IN WOODEN-BOX) (DESC "box lining")
@@ -1280,11 +1280,11 @@
 
 <OBJECT WARD-CURTAINS (IN PATIENT-WARD) (DESC "tattered curtains")
     (SYNONYM CURTAINS CURTAIN SCREENS) (ADJECTIVE TATTERED GREY)
-    (FLAGS NDESCBIT) (ACTION WARD-CURTAINS-F)>
+    (FLAGS NDESCBIT PLURALBIT) (ACTION WARD-CURTAINS-F)>
 
 <OBJECT HYDRO-TILES (IN HYDROTHERAPY-ROOM) (DESC "white tiles")
     (SYNONYM TILES TILE) (ADJECTIVE WHITE CRACKED)
-    (FLAGS NDESCBIT) (ACTION HYDRO-TILES-F)>
+    (FLAGS NDESCBIT PLURALBIT) (ACTION HYDRO-TILES-F)>
 
 <OBJECT OFFICE-RUG (IN DIRECTORS-OFFICE) (DESC "worn rug")
     (SYNONYM RUG CARPET) (ADJECTIVE WORN PERSIAN)
@@ -1292,7 +1292,7 @@
 
 <OBJECT CAFETERIA-FURNITURE (IN CAFETERIA) (DESC "stacked chairs")
     (SYNONYM CHAIRS CHAIR TABLES TABLE) (ADJECTIVE STACKED CAFETERIA)
-    (FLAGS NDESCBIT) (ACTION CAFETERIA-FURNITURE-F)>
+    (FLAGS NDESCBIT PLURALBIT) (ACTION CAFETERIA-FURNITURE-F)>
 
 <OBJECT GARDEN-PATH (IN OVERGROWN-GARDEN) (DESC "stone path")
     (SYNONYM PATH PATHS FLAGSTONES) (ADJECTIVE STONE GARDEN)

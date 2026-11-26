@@ -1281,12 +1281,16 @@ function TELL(...)
 					-- A story marks people and other proper names with
 					-- ARTICLEBIT: "Ruth Bell", never "the Ruth Bell".
 					local named = rawget(_G, "ARTICLEBIT") and FSETQ(v, ARTICLEBIT)
+					-- A plural noun marked with PLURALBIT ("cobwebs",
+					-- "copper pots") takes "some", never "a".
+					local plural = rawget(_G, "PLURALBIT") and FSETQ(v, PLURALBIT)
 					if named then
 					elseif token == "A" then
-						io_write(desc:match("^[AEIOUaeiou]") and "an " or "a ")
+						io_write(plural and "some " or desc:match("^[AEIOUaeiou]") and "an " or "a ")
 					elseif token == "CA" then
 						-- Starts a list line: "An oil lantern", "A brass key".
-						io_write(desc:match("^[AEIOUaeiou]") and "An " or "A ")
+						io_write(plural and "Some " or desc:match("^[AEIOUaeiou]") and "An " or "A ")
+
 					elseif token == "THE" then
 						io_write("the ")
 					elseif token == "CTHE" then

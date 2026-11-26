@@ -104,7 +104,7 @@
 
 <OBJECT LB-HALL-STAIRS (IN LB-HALL) (DESC "station stairs")
     (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE STATION WOODEN)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "The middle of each tread is worn hollow. The stair creaks loudest at the turn below the bunkroom.")
     (ACTION LB-HALL-STAIRS-F)>
 
@@ -122,7 +122,7 @@
 
 <OBJECT LB-ARCHIVE-PAPERS (IN LB-ARCHIVE) (DESC "archive papers")
     (SYNONYM PAPERS PAPER DRAUGHT DRAFT) (ADJECTIVE ARCHIVE COLD LOOSE)
-    (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT READBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "The loose sheets lift at one corner whenever air comes under the cutting-room door. Most are blank requisition forms.")
     (ACTION LB-ARCHIVE-PAPERS-F)>
 
@@ -134,7 +134,7 @@
 
 <OBJECT LB-TELEGRAPH-STAIRS (IN LB-TELEGRAPH) (DESC "platform stairs")
     (SYNONYM STAIRS STEPS STAIRCASE TRAPDOOR) (ADJECTIVE PLATFORM IRON)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "Clean drops hang from the lowest iron tread. Someone coming in from the platform brings the weather down with them.")
     (ACTION LB-TELEGRAPH-STAIRS-F)>
 
@@ -175,7 +175,7 @@
 
 <OBJECT DETAIL-CUPS (IN LB-KITCHEN) (DESC "cups")
     (SYNONYM CUPS CUP SAUCER TEA) (ADJECTIVE COLD)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "One cup still has a spoon in it. The other has left three wet rings where its owner kept lifting it and putting it down.")
     (ACTION DETAIL-CUPS-F)>
 
@@ -199,13 +199,13 @@
 
 <OBJECT LB-COATS (IN LB-HALL) (DESC "coats")
     (SYNONYM COATS COAT PEGS PEG OILSKINS POOL) (ADJECTIVE WET WOOL)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "A row of oilskins and one good wool overcoat hang from iron pegs, dripping onto the floor.")
     (ACTION LB-COATS-F)>
 
 <OBJECT LB-CABINETS (IN LB-OFFICE) (DESC "filing cabinets")
     (SYNONYM CABINETS CABINET BOXES BOX FILES DRAWERS) (ADJECTIVE FILING DEED GREEN)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "Green steel cabinets and black japanned deed boxes, every one of them locked. Vane kept his papers where his staff could not reach them.")
     (ACTION LB-CABINETS-F)>
 
@@ -217,13 +217,13 @@
 
 <OBJECT LB-VALVES (IN LB-CONTROL) (DESC "valves")
     (SYNONYM VALVES VALVE RACKS RACK TRANSMITTER) (ADJECTIVE ORANGE STEEL)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "Tall steel racks of valves glow orange behind wire mesh. They warm the room like a small fire.")
     (ACTION LB-VALVES-F)>
 
 <OBJECT LB-SHELVES (IN LB-ARCHIVE) (DESC "archive shelves")
     (SYNONYM SHELVES SHELF DISCS RECORDS) (ADJECTIVE ARCHIVE NUMBERED)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "Hundreds of discs in brown card sleeves, each numbered on the spine in the same neat hand. Dust lies evenly along every shelf.")
     (ACTION LB-SHELVES-F)>
 
@@ -235,7 +235,7 @@
 
 <OBJECT LB-WORKSHOP-SHELVES (IN LB-WORKSHOP) (DESC "workshop shelves")
     (SYNONYM SHELVES SHELF RECEIVERS RECEIVER COILS WIRE) (ADJECTIVE WORKSHOP GUTTED)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "Coils of wire, boxes of spare valves and the gutted cases of old receivers, kept for parts. It is all in better order than it looks.")
     (ACTION LB-WORKSHOP-SHELVES-F)>
 
@@ -247,7 +247,7 @@
 
 <OBJECT LB-PIPES (IN LB-PASSAGE) (DESC "pipes")
     (SYNONYM PIPES PIPE CABLES CABLE WIRING TUNNEL) (ADJECTIVE LEAD COLD BRICK)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "Lead pipes and cloth-wrapped cables run along the brickwork in iron brackets, sweating with condensation.")
     (ACTION LB-PIPES-F)>
 
@@ -265,13 +265,13 @@
 
 <OBJECT LB-BATTERIES (IN LB-TELEGRAPH) (DESC "glass batteries")
     (SYNONYM BATTERIES BATTERY JARS COILS WIRE) (ADJECTIVE GLASS)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "Rows of glass jars of acid, each holding a pair of plates, wired together to drive the landline.")
     (ACTION LB-BATTERIES-F)>
 
 <OBJECT LB-BUNKS (IN LB-BUNKROOM) (DESC "iron bunks")
     (SYNONYM BUNKS BUNK BEDS BED CHAIR) (ADJECTIVE IRON HARD)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "Four iron bunks, the blankets folded square in the naval way. A hard chair stands between two of them.")
     (ACTION LB-BUNKS-F)>
 
