@@ -32,7 +32,7 @@ function Walk.new(module, seed, language)
 	end
 	self.game = runtime.create_game(env, true)
 	self.session = Session.new()
-	self.session.language = Language.of(language)
+	self.session.language = language and Language.of(language) or Language.ofBook(module)
 	self.items = {}
 	self.session.engine = {
 		roomName = function() return self:room() end,

@@ -1,0 +1,16 @@
+{
+  "id": "books.de.borrowed-tomorrows",
+  "title": "Die Bibliothek der geliehenen Morgen",
+  "shortDescription": "Hier wird Sonnenschein tageweise verliehen. Heute fehlt ein Tag.",
+  "description": "Die Stadt hat sich den Sonnenschein von morgen geliehen, doch nur ein einziges Blatt ist übrig. Finde heraus, was eine gewöhnliche Ausleihe kostet, falte das Blatt auseinander und bring das Morgen zu allen auf dem Marktplatz zurück.\n\nEin fantastisches Abenteuer ab acht Jahren. Du hast alle Zeit der Welt und kannst deine Entscheidungen rückgängig machen.",
+  "author": "Studio Null",
+  "year": 2026,
+  "rating": 0,
+  "reviewCount": 0,
+  "collection": "Arena-Originale",
+  "genre": "Kinderabenteuer",
+  "difficulty": "Einstieg",
+  "statusLine": "moves",
+  "startFile": "borrowed-tomorrows.zil",
+  "reviews": []
+}

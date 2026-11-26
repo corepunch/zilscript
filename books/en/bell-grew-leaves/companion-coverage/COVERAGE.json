@@ -1,0 +1,241 @@
+{
+  "adventure": "The Bell That Grew Leaves",
+  "gameModule": "books.en.bell-grew-leaves.bell-grew-leaves",
+  "declaredRoomCount": 4,
+  "rooms": [
+    {
+      "id": "COURT",
+      "source": "dungeon.zil",
+      "reachability": "reachable",
+      "stateFamilies": [
+        {
+          "id": "court.bare",
+          "setup": {
+            "newGame": true,
+            "commands": []
+          },
+          "requiredChoices": [
+            "court.ring",
+            "court.listen"
+          ],
+          "forbiddenChoices": [
+            "court.retrieve",
+            "court.fit"
+          ]
+        },
+        {
+          "id": "court.fitted-dry",
+          "setup": {
+            "newGame": true,
+            "commands": [
+              "east",
+              "take wick",
+              "west",
+              "put wick in bell"
+            ]
+          },
+          "requiredChoices": [
+            "court.ring",
+            "court.retrieve"
+          ],
+          "forbiddenChoices": [
+            "court.fit"
+          ]
+        },
+        {
+          "id": "court.ready",
+          "setup": {
+            "newGame": true,
+            "commands": [
+              "east",
+              "take wick",
+              "west",
+              "north",
+              "turn spout",
+              "put wick in bowl",
+              "east",
+              "open shutter",
+              "west",
+              "south",
+              "put wick in bell"
+            ]
+          },
+          "requiredChoices": [
+            "court.ring",
+            "court.retrieve"
+          ],
+          "forbiddenChoices": [
+            "court.fit"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "STORE",
+      "source": "dungeon.zil",
+      "reachability": "reachable",
+      "stateFamilies": [
+        {
+          "id": "store.wick-present",
+          "setup": {
+            "newGame": true,
+            "commands": [
+              "east"
+            ]
+          },
+          "requiredChoices": [
+            "store.tile",
+            "wick.take",
+            "store.court"
+          ],
+          "forbiddenChoices": []
+        },
+        {
+          "id": "store.wick-carried",
+          "setup": {
+            "newGame": true,
+            "commands": [
+              "east",
+              "take wick"
+            ]
+          },
+          "requiredChoices": [
+            "store.tile",
+            "wick.inspect"
+          ],
+          "forbiddenChoices": [
+            "wick.take"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SPRING",
+      "source": "dungeon.zil",
+      "reachability": "reachable",
+      "stateFamilies": [
+        {
+          "id": "spring.unknown",
+          "setup": {
+            "newGame": true,
+            "commands": [
+              "north"
+            ]
+          },
+          "requiredChoices": [
+            "spring.spout"
+          ],
+          "forbiddenChoices": [
+            "spring.fill",
+            "spring.soak"
+          ]
+        },
+        {
+          "id": "spring.dry",
+          "setup": {
+            "newGame": true,
+            "commands": [
+              "north",
+              "examine spout"
+            ]
+          },
+          "requiredChoices": [
+            "spring.fill"
+          ],
+          "forbiddenChoices": [
+            "spring.drain",
+            "spring.soak"
+          ]
+        },
+        {
+          "id": "spring.full",
+          "setup": {
+            "newGame": true,
+            "commands": [
+              "east",
+              "take wick",
+              "west",
+              "north",
+              "turn spout"
+            ]
+          },
+          "requiredChoices": [
+            "spring.soak",
+            "spring.drain"
+          ],
+          "forbiddenChoices": [
+            "spring.fill"
+          ]
+        },
+        {
+          "id": "spring.soaked",
+          "setup": {
+            "newGame": true,
+            "commands": [
+              "east",
+              "take wick",
+              "west",
+              "north",
+              "turn spout",
+              "put wick in bowl"
+            ]
+          },
+          "requiredChoices": [
+            "wick.inspect",
+            "spring.drain"
+          ],
+          "forbiddenChoices": [
+            "spring.soak"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LANDING",
+      "source": "dungeon.zil",
+      "reachability": "reachable",
+      "stateFamilies": [
+        {
+          "id": "landing.closed",
+          "setup": {
+            "newGame": true,
+            "commands": [
+              "north",
+              "east"
+            ]
+          },
+          "requiredChoices": [
+            "landing.open"
+          ],
+          "forbiddenChoices": [
+            "landing.close"
+          ]
+        },
+        {
+          "id": "landing.open",
+          "setup": {
+            "newGame": true,
+            "commands": [
+              "north",
+              "east",
+              "open shutter"
+            ]
+          },
+          "requiredChoices": [
+            "landing.close"
+          ],
+          "forbiddenChoices": [
+            "landing.open"
+          ]
+        }
+      ]
+    }
+  ],
+  "endings": [
+    {
+      "method": "authored-numbered",
+      "steps": 17,
+      "evidence": "test/test_walkthrough_companion.lua"
+    }
+  ]
+}

@@ -4,7 +4,7 @@ assert(route:write("!north\neast\n"))
 assert(route:close())
 
 local quotedPath = "'" .. routePath:gsub("'", "'\\''") .. "'"
-local replay = assert(io.popen("lua scripts/play-links.lua blackwood-horror " .. quotedPath .. " 2 2>&1", "r"))
+local replay = assert(io.popen("lua scripts/play-links.lua en/blackwood-horror " .. quotedPath .. " 2 2>&1", "r"))
 local output = replay:read("*a")
 local ok = replay:close()
 os.remove(routePath)

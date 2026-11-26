@@ -1,6 +1,6 @@
 #!/usr/bin/env lua
 -- Follow each room link and the links its EXAMINE reply introduces, as a reader and by typing.
--- Usage: lua5.4 scripts/check-link-targets.lua books/blackwood-horror
+-- Usage: lua5.4 scripts/check-link-targets.lua books/en/blackwood-horror
 package.path = "./?.lua;./?/init.lua;" .. package.path
 local Walk = require("tests.link_walk")
 

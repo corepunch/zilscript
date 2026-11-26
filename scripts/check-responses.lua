@@ -2,7 +2,7 @@
 -- check-responses.lua: Every command gets an answer, and every visit a room.
 --
 -- Usage:
---   lua5.4 scripts/check-responses.lua books/blackwood-horror
+--   lua5.4 scripts/check-responses.lua books/en/blackwood-horror
 --
 -- A reader who types a command and sees nothing believes the app is broken.
 -- Two story defects produce that silence:

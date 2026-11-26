@@ -3,7 +3,7 @@
 --
 -- Usage:
 --   lua scripts/check-vocab.lua <file.zil> [file2.zil ...]
---   lua scripts/check-vocab.lua books/limehouse-killings/dungeon.zil
+--   lua scripts/check-vocab.lua books/en/limehouse-killings/dungeon.zil
 --
 -- What it checks:
 --   CRITICAL: Player-addressable objects have a DESC.

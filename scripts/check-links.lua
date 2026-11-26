@@ -2,8 +2,8 @@
 -- check-links.lua: Validate prose links ([[label]] and [[label->target]]).
 --
 -- Usage:
---   lua scripts/check-links.lua books/blackwood-horror
---   lua scripts/check-links.lua books/wondertown books/limehouse-killings
+--   lua scripts/check-links.lua books/en/blackwood-horror
+--   lua scripts/check-links.lua books/en/wondertown books/en/limehouse-killings
 --
 -- Every .zil file in each story folder is read (tests excepted). A link's
 -- target is what the reader's tap gives the parser, so it must be words the

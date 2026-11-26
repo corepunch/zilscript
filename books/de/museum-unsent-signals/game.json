@@ -1,0 +1,16 @@
+{
+  "id": "books.de.museum-unsent-signals",
+  "title": "Das Museum der ungesendeten Signale",
+  "shortDescription": "Hör dir die letzte Aufnahme an, bevor das Museum für immer schließt.",
+  "description": "Unter der Kuppel bewahrt die Stadt Nachrichten auf, die nie abgeschickt wurden. In der letzten Nacht des Museums ist eine Holzspule aus ihrer Vitrine genommen worden. Der Katalog führt sie als leer. Finde heraus, wem die Aufnahme galt, und entscheide, was das Museum nach seiner Schließung bewahren soll.",
+  "author": "Studio Null",
+  "year": 2026,
+  "rating": 0,
+  "reviewCount": 0,
+  "collection": "Arena-Originale",
+  "genre": "Science-Fiction",
+  "difficulty": "Einstieg",
+  "statusLine": "moves",
+  "startFile": "museum-unsent-signals.zil",
+  "reviews": []
+}
