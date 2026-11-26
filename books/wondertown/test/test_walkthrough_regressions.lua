@@ -147,4 +147,14 @@ local warnings = source:match("<ROUTINE I%-DAWN%-WARNING.-\n\n")
 lacks(warnings, "window", "Dawn warnings are true in every room")
 lacks(warnings, "cuckoo", "Dawn warnings are true in every room")
 
+-- 6. A book read with children: Grandfather comes home in both endings,
+-- and the opt-in dawn puts the toys to sleep rather than ending them.
+local ending = source:match("<ROUTINE REWIND%-ENDING.-\n\n")
+lacks(ending, "somehow", "Grandfather is no voice in the gears")
+has(ending, "Grandfather Tolliver hurries down the study stairs", "Grandfather returns in the softer ending")
+has(ending, "boots stamp off the snow", "Grandfather returns in the full ending")
+local dawn = source:match("<ROUTINE I%-TICK.-\n\n")
+lacks(dawn, "forever", "Dawn is sleep, not loss")
+lacks(dawn, "alone", "Dawn is sleep, not loss")
+
 print("Wondertown link regressions: ok")
