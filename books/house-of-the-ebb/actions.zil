@@ -17,15 +17,17 @@
  <COND (<NOT ,MUG-SEEN> <TELL "Look at the mug in the kitchen." CR>) (<NOT ,TALLY-READ> <TELL "Read the tally sheet in the office." CR>) (<NOT ,PLATE-READ> <TELL "Read the signal plate on the landing." CR>) (<NOT <FSET? ,ESHUT ,OPENBIT>> <TELL "Open the shutter in the lantern room." CR>) (<NOT ,LENS-READY> <TELL "Turn the lens in the lantern room." CR>) (T <TELL "On the gallery, ring the bell or pull the brake." CR>)>>
 
 <ROUTINE CAUSEWAY-F (RARG)
- <COND (<EQUAL? .RARG ,M-LOOK> <TELL "You are on the [[causeway]], a raised stone road across the tidal flats that the [[sea]] covers twice a day. Seaweed has dried into the mortar between the stones in little commas, and the water sucks at them on either side.">
+ <COND (<AND <EQUAL? .RARG ,M-ENTER> <NOT ,LENS-READY>> <MOVE ,EKIT ,CAUSEWAY> <RFALSE>)
+  (<EQUAL? .RARG ,M-LOOK> <TELL "You are on the [[causeway]], a raised stone road across the tidal flats that the [[sea]] covers twice a day. Seaweed has dried into the mortar between the stones in little commas, and the water sucks at them on either side.">
  <COND (,LENS-READY <TELL " Only your own boots answer the stones now.">)
-       (T <TELL " Kit walks a pace behind you, close enough to touch.">)>
+       (T <TELL " [[Kit]] walks a pace behind you, close enough to touch.">)>
  <TELL " Ahead to the [[north]] stands the tide-[[house]] where you grew up, and someone has left a light burning in a house that has never had electricity." CR>)>>
 
 <ROUTINE HALL-F (RARG)
- <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the waiting hall, where ferry passengers once sat out the weather until the boat came. Rain has blown in through a broken [[pane]] and settles in the crease of a long wooden [[bench]].">
+ <COND (<AND <EQUAL? .RARG ,M-ENTER> <NOT ,LENS-READY>> <MOVE ,EKIT ,HALL> <RFALSE>)
+  (<EQUAL? .RARG ,M-LOOK> <TELL "This is the waiting hall, where ferry passengers once sat out the weather until the boat came. Rain has blown in through a broken [[pane]] and settles in the crease of a long wooden [[bench]].">
  <COND (<IN? ,EKIT ,HALL> <TELL " Your brother [[Kit]] sets his [[bag]] down beside it without taking his eyes off the floor.">)
-       (T <TELL " Kit's [[bag]] is gone, but the bench is dry where it sat.">)>
+       (T <TELL " Kit's bag is gone, but the bench is dry where it sat.">)>
  <TELL " [[Stairs->hall stairs]] lead [[north]] and up into the house, and from them comes the sound of a boot being set down very carefully. The cold [[kitchen->west]] is to the west, and the [[tally office->east]], which smells of vinegar, is to the east. The [[causeway->south]] is back to the south." CR>)>>
 
 <ROUTINE KITCHEN-F (RARG)
@@ -67,6 +69,9 @@
   (<VERB? LISTEN> <TELL "Under the rain you can hear the buckle on his boot, and nothing else. Not even his breathing." CR>)
   (<VERB? SMELL> <TELL "Wet oilskin and seawater, as though he has just come in off the boat." CR>)
   (<VERB? KISS> <TELL "He ducks his head away, embarrassed, like when he was small." CR>)
+  (<VERB? HELLO> <TELL "“Hello yourself,” Kit says, as though you had only been gone an hour." CR>)
+  (<VERB? FOLLOW> <TELL "He is right beside you. He always has been, tonight." CR>)
+  (<VERB? TAKE PUSH MOVE> <TELL "You put a hand out to steer him, and somehow he is already a step to one side." CR>)
   (<VERB? ATTACK KICK> <TELL "You haven't hit your brother since you were twelve, and you're not starting tonight." CR>)>>
 
 <ROUTINE EMUG-F ()
@@ -76,12 +81,13 @@
   (<VERB? SMELL> <TELL "Faintly, impossibly, of warm cocoa." CR>)
   (<VERB? RUB> <TELL "The lip is smooth and slightly warm, as if it has only just been put down." CR>)
   (<VERB? LOOK-INSIDE> <TELL "It is empty, dry and clean. No dust has settled in it in nine winters." CR>)
-  (<VERB? DRINK> <TELL "There is nothing in it, and it isn't yours." CR>)>>
+  (<VERB? DRINK DRINK-FROM> <TELL "There is nothing in it, and it isn't yours." CR>)>>
 
 <ROUTINE ERANGE-F ()
  <COND
   (<VERB? EXAMINE> <TELL "A black iron range, the heart of the house once. No fire has burned in it for years. On the ledge above it, the keeper kept the family's cups; only one is left." CR>)
   (<VERB? OPEN LOOK-INSIDE> <TELL "The oven door creaks open on old ash and nothing else. You push it shut again." CR>)
+  (<VERB? CLOSE> <TELL "The oven door is already shut on its cold ash." CR>)
   (<VERB? RUB> <TELL "Stone cold. Your fingers come away grey with soot." CR>)
   (<VERB? SMELL> <TELL "Old soot, and very faintly, burnt toast. Kit always burnt the toast." CR>)
   (<VERB? LIGHT> <TELL "There is no coal, and no one has brought any in years." CR>)>>
@@ -130,7 +136,7 @@
     (<NOT <FSET? ,ESHUT ,OPENBIT>> <TELL "The beam breaks on the closed [[shutter]]. The light needs somewhere to go first." CR>)
     (<OR <NOT ,MUG-SEEN> <NOT ,TALLY-READ> <NOT ,PLATE-READ>>
      <TELL "You turn it a notch, then stop. Which berth was left empty? You don't know yet. The [[signal instructions->down]] on the landing, and the records and keepsakes in the rooms below, would tell you; a lucky turn won't." CR>)
-    (T <SETG LENS-READY T> <FCLEAR ,EBRAKE ,INVISIBLE> <MOVE ,EKIT ,GALLERY>
+    (T <SETG LENS-READY T> <FCLEAR ,EBRAKE ,INVISIBLE> <MOVE ,EKIT ,GALLERY> <REMOVE ,EBAG>
      <TELL "You turn the glass to the extra notch at the end of the rim. The beam swings out over the water and settles on an empty berth, where no boat is. On the stair below you hear the boot buckle you heard on the causeway, and you realize Kit is no longer with you. Out on the gallery to the [[east]], someone is calling his name in your voice." CR>)>)
   (<VERB? RUB> <TELL "The glass is warm, as if a light were already burning inside it." CR>)
   (<VERB? LOOK-INSIDE> <TELL "Through the violet glass, the rain on the windows looks like a crowd of small, waiting lights." CR>)
@@ -180,10 +186,9 @@
 
 <ROUTINE EBAG-F ()
  <COND
-  (<VERB? EXAMINE> <COND (<IN? ,EKIT ,HALL> <TELL "Kit's old canvas kit bag, the one he took on the ferry. It is soaked dark, though it has been under a roof since you arrived." CR>)
-    (T <TELL "The bag is gone. Only a dry patch on the bench shows where it sat." CR>)>)
-  (<VERB? OPEN SEARCH LOOK-INSIDE TAKE> <COND (<IN? ,EKIT ,HALL> <TELL "Kit puts his hand flat on the bag before you can touch it. “Not yet,” he says." CR>)
-    (T <TELL "There is nothing there to open now." CR>)>)
+  (<VERB? EXAMINE> <TELL "Kit's old canvas kit bag, the one he took on the ferry. It is soaked dark, though it has been under a roof since you arrived." CR>)
+  (<VERB? OPEN SEARCH LOOK-INSIDE TAKE MOVE> <COND (<IN? ,EKIT ,HALL> <TELL "Kit puts his hand flat on the bag before you can touch it. “Not yet,” he says." CR>)
+    (T <TELL "You glance toward the door, half expecting Kit to stop you. He doesn't, and still you leave the bag alone. It is his to open." CR>)>)
   (<VERB? SMELL> <TELL "Wet canvas and seawater." CR>)>>
 
 <ROUTINE ESTAIRS-F ()

@@ -1,7 +1,8 @@
 <ROUTINE SUGGEST-ACTIONS ()
  <COND
   (<EQUAL? ,HERE ,CAUSEWAY>
-   <CHOICE "causeway.1" "Enter the tide-house" "north" ,CHOICE-INVESTIGATE 99>)
+   <CHOICE "causeway.1" "Enter the tide-house" "north" ,CHOICE-INVESTIGATE 99>
+   <COND (<IN? ,EKIT ,CAUSEWAY> <CHOICE "causeway.kit" "Speak to Kit" "examine younger kit" ,CHOICE-INTERACT 90>)>)
   (<EQUAL? ,HERE ,HALL>
    <COND (<IN? ,EKIT ,HALL> <CHOICE "hall.1" "Speak to Kit" "examine younger kit" ,CHOICE-INVESTIGATE 99>)>
    <CHOICE "hall.bench" "Sit for a moment on the waiting bench" "sit on bench" ,CHOICE-INTERACT 90>
