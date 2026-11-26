@@ -137,6 +137,7 @@ local _act_fn_to_id = {}  -- build-time reverse-lookup: fn_idx -> action_id
 local _pending_syntax = {}  -- SYNTAX entries deferred until action functions are defined
 local _pending_synonyms = {} -- vocabulary aliases applied after all object words exist
 local action_syntax = {}
+local verb_capacity = {} -- syntax lines each verb's block in VERBS can hold
 local object_phrases = {}
 local display_names = {}
 local object_aliases = {}
@@ -2273,16 +2274,29 @@ function SYNTAX(syn)
 			action
 		)
 	end
+	-- A verb's syntax lines may come from several files (a language's world
+	-- verbs, then a ruleset's), so its block grows: when it is full it moves
+	-- to a larger block instead of writing over the next allocation.
+	local bytecode = encode(syn)
 	if cache.verbs[name] then
-		local ptr = GET(VERBS, cache.verbs[name])
+		local index = cache.verbs[name]
+		local ptr = GET(VERBS, index)
 		local num = GETB(ptr, 0)
-		local bytecode = encode(syn)
+		local capacity = verb_capacity[name] or num
+		if num + 1 > capacity then
+			capacity = math.max(num + 1, capacity * 2)
+			local moved = mem:write(string.char(num) .. mem:read(num * #bytecode, ptr + 1) .. string.rep("\0", (capacity - num) * #bytecode))
+			PUT(VERBS, index, moved)
+			ptr = moved
+			verb_capacity[name] = capacity
+		end
 		mem:write(string.char(num + 1), ptr)
 		mem:write(bytecode, ptr + 1 + num * #bytecode)
 	else
 		local num = register(cache.verbs, name)
-		local bytecode = string.rep(encode(syn), _G["NUM_"..syn.VERB] or 1)
-		PUT(VERBS, num, mem:write(string.char(1)..bytecode))
+		local capacity = math.max(_G["NUM_"..syn.VERB] or 1, 1)
+		verb_capacity[name] = capacity
+		PUT(VERBS, num, mem:write(string.char(1) .. bytecode .. string.rep("\0", (capacity - 1) * #bytecode)))
 		_G['ACTQ'..syn.VERB] = learn(name, PSQVERB, 255-num)
 	end
 	_G[syn.ACTION:gsub("_", "Q", 1)] = action
