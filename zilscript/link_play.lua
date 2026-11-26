@@ -52,6 +52,8 @@ function M.run(options)
 		end
 	end
 	local session = Session.new()
+	-- The story names its language in books/<game>/game.json; English otherwise.
+	session.language = require("zilscript.reader.Language").ofBook(options.gameName)
 	local currentRoom, currentItems = "", {}
 	session.engine = {
 		roomName = function() return currentRoom end,
@@ -98,7 +100,7 @@ function M.run(options)
 			table.insert(actions, { label, command, target or "" })
 		end
 		if not running then return actions end
-		for _, control in ipairs({ "look", "inventory", "wait" }) do
+		for _, control in ipairs({ session.language.look, session.language.inventory, session.language.wait }) do
 			add(control, control)
 		end
 		local active = false

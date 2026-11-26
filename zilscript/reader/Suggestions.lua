@@ -1,26 +1,16 @@
 -- Command completion and vocabulary from the running story.
+local namespace = (...):match("^(.*)%.Suggestions$")
+local Language = require(namespace .. ".Language")
+
 local Suggestions = {}
 
 local LIMIT = 3
-
--- Ordered by how often players type them, so "l" offers "look" first.
-local VERBS = {
-	"look", "examine", "open", "take", "inventory", "read", "go", "drop",
-	"close", "enter", "turn on", "turn off", "push", "pull", "move", "put",
-	"give", "unlock", "lock", "climb", "light", "search", "listen", "smell",
-	"wait", "attack", "eat", "drink", "wear", "remove", "throw", "tie",
-	"knock", "jump", "exit", "turn", "ask", "tell", "say", "touch",
-}
-local VERB_RANK = {}
-for index, verb in ipairs(VERBS) do VERB_RANK[verb] = index end
 
 local DIRECTIONS = {
 	"north", "south", "east", "west", "northeast", "northwest",
 	"southeast", "southwest", "up", "down", "in", "out",
 }
 
--- Verbs whose object needs a second one make poor one-tap commands.
-local NEEDS_SECOND = { put = true, give = true, tie = true, throw = true, show = true, unlock = true, lock = true }
 
 local function startsWith(text, prefix)
 	return prefix == "" or text:sub(1, #prefix) == prefix
@@ -34,7 +24,7 @@ end
 -- "small mailbox" is typed as "mailbox": ZIL parsers match the final noun.
 function Suggestions.noun(name)
 	local words = {}
-	for word in tostring(name or ""):lower():gmatch("[%w']+") do table.insert(words, word) end
+	for word in tostring(name or ""):lower():gmatch("[%w'\128-\255]+") do table.insert(words, word) end
 	return words[#words]
 end
 
@@ -81,7 +71,10 @@ function Suggestions.inHand(item, pattern)
 		or (pattern.take and item.traits ~= nil and item.traits.pickable) or false
 end
 
-function Suggestions.oneTapVerbs(item)
+-- `language` is a Language table (English when omitted).
+function Suggestions.oneTapVerbs(item, language)
+	language = Language.of(language)
+	local VERB_RANK, VERBS = language.rank, language.verbs
 	local verbs = {}
 	if item.patterns then
 		local seen = {}
@@ -100,7 +93,7 @@ function Suggestions.oneTapVerbs(item)
 		return names
 	end
 	for index, verb in ipairs(item.verbs or {}) do
-		if not NEEDS_SECOND[verb] then
+		if not language.needsSecond[verb] then
 			table.insert(verbs, { verb = verb, rank = VERB_RANK[verb] or (#VERBS + index) })
 		end
 	end
@@ -127,11 +120,13 @@ end
 
 -- Walk the grammatical slots of a single available command against the
 -- draft. A slot may be an entire noun phrase, such as "brass key".
-function Suggestions.forInput(input, items, visit)
+function Suggestions.forInput(input, items, visit, language)
+	language = Language.of(language)
+	local VERB_RANK = language.rank
 	local draft = input:lower():gsub("^%s+", ""):gsub("%s+", " ")
 	local choices, seen, counts = {}, {}, nounCounts(items)
 	local function offer(verb, first, join, second)
-		if verb == "take" and first and first.traits and first.traits.takeable == false then return end
+		if verb == language.take and first and first.traits and first.traits.takeable == false then return end
 		local rest = draft
 		local function match(slot)
 			local name, short

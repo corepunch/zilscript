@@ -82,7 +82,11 @@ NOUN = "NOUN"
 -- are not loading-only data.
 ACTIONS = 0   -- mem address of action dispatch table (action_id → fn_idx)
 PREACTIONS = 0  -- mem address of pre-action dispatch table (action_id → fn_idx)
+-- Flags a story introduces (ARTICLEBIT, PLURALBIT, German DERBIT...) are
+-- numbered after the built-in ones; numbering them from 1 made DERBIT the
+-- same bit as SACREDBIT.
 FLAGS = {}
+for i, flag in ipairs(ZIL_ObjectFlags) do FLAGS[flag:lower()] = i end
 FUNCTIONS = {}
 _DIRECTIONS = {}
 
@@ -588,7 +592,39 @@ local function companion_slug(text)
 	return slug ~= "" and slug or "unknown"
 end
 
+local zil_language
+
+-- What the fallback menus say, by <LANGUAGE>. Commands are the language's own
+-- parser words (ASCII stems), labels read naturally to a child.
+local FALLBACK_TEXT = {
+	en = {
+		labels = { EXAMINE = "Examine the %s", READ = "Read the %s", OPEN = "Open the %s", TAKE = "Take the %s" },
+		commands = { EXAMINE = "examine", READ = "read", OPEN = "open", TAKE = "take" },
+		lower = true,
+		climbTo = "Climb to ", climbBack = "Climb back to ", downTo = "Down to ", downBack = "Climb back down to ",
+		walkTo = "Walk to ", walkBack = "Walk back to ",
+		directions = {},
+	},
+	de = {
+		labels = { EXAMINE = "%s untersuchen", READ = "%s lesen", OPEN = "%s öffnen", TAKE = "%s nehmen" },
+		commands = { EXAMINE = "untersuch", READ = "lies", OPEN = "oeffn", TAKE = "nimm" },
+		-- German nouns are capitalized: keep the story's spelling.
+		lower = false,
+		climbTo = "Hinauf zu ", climbBack = "Zurück hinauf zu ", downTo = "Hinunter zu ", downBack = "Zurück hinunter zu ",
+		walkTo = "Gehe zu ", walkBack = "Zurück zu ",
+		directions = { north = "nord", south = "sued", east = "ost", west = "west",
+			northeast = "nordost", northwest = "nordwest", southeast = "suedost", southwest = "suedwest",
+			up = "rauf", down = "runter", ["in"] = "hinein", out = "raus" },
+	},
+}
+
+local function fallback_text()
+	local name = tostring(zil_language or ""):lower()
+	return FALLBACK_TEXT[(name == "german" or name == "de") and "de" or "en"]
+end
+
 local function companion_fallback_choices()
+	local say = fallback_text()
 	if not HERE or not FIRSTQ or not GETP then return end
 
 	local direct = {}
@@ -598,12 +634,7 @@ local function companion_fallback_choices()
 		c = NEXTQ(c)
 	end
 
-	local verb_labels = {
-		EXAMINE = "Examine the %s",
-		READ = "Read the %s",
-		OPEN = "Open the %s",
-		TAKE = "Take the %s",
-	}
+	local verb_labels = say.labels
 	local verb_preference = {"OPEN", "READ", "TAKE", "EXAMINE"}
 	local fnd = function(name, array)
 		for _, n in ipairs(array) do if n == name then return true end end
@@ -643,7 +674,7 @@ local function companion_fallback_choices()
 
 		local words = {}
 		for word in item:gmatch("%S+") do
-			table.insert(words, word:lower())
+			table.insert(words, say.lower and word:lower() or word)
 		end
 		local item_name = table.concat(words, " ")
 		if item_name == "" then goto fallback_next end
@@ -660,7 +691,7 @@ local function companion_fallback_choices()
 			CHOICE(
 				id,
 				string.format(verb_labels[selected_verb], item_name),
-				selected_verb:lower() .. " " .. item_name,
+				say.commands[selected_verb] .. " " .. item_name,
 				(selected_verb == "READ" or selected_verb == "EXAMINE")
 					and CHOICE_INVESTIGATE or CHOICE_INTERACT,
 				25
@@ -677,18 +708,18 @@ local function companion_fallback_choices()
 			local visited = dest_room and FSETQ(dest_room, TOUCHBIT)
 			local label
 			if dir_lower == "up" then
-				label = (visited and "Climb back to " or "Climb to ") .. destination
+				label = (visited and say.climbBack or say.climbTo) .. destination
 			elseif dir_lower == "down" then
-				label = (visited and "Climb back down to " or "Down to ") .. destination
+				label = (visited and say.downBack or say.downTo) .. destination
 			elseif visited then
-				label = "Walk back to " .. destination
+				label = say.walkBack .. destination
 			else
-				label = "Walk to " .. destination
+				label = say.walkTo .. destination
 			end
 			CHOICE(
 				"fallback.exit." .. companion_slug(dir_lower),
 				label,
-				dir_lower,
+				say.directions[dir_lower] or dir_lower,
 				CHOICE_RETURN,
 				30
 			)
@@ -2625,8 +2656,8 @@ local function try_open(path)
 	return nil, nil
 end
 
--- <LANGUAGE name> in effect for files inserted after it (see charsets.lua).
-local zil_language
+-- <LANGUAGE name> in effect for files inserted after it (see charsets.lua);
+-- declared with the companion labels, which speak it.
 
 -- This game's compile session: macros and TELL tokens one file defines reach
 -- the files it inserts, and never another game loaded in the same process.
