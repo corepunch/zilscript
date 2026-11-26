@@ -27,6 +27,9 @@ jobs:
     - name: Verify independent adventure packages
       run: make test-adventure-packages
 
+    - name: Run superhero rules assertions
+      run: lua5.4 run-zil-test.lua tests/test-superhero-rules
+
     - name: Run new book regressions and numeric reader routes
       run: make test-new-books
 

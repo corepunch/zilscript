@@ -230,6 +230,7 @@ test-book-walkthroughs:
 	done
 
 test-pure-zil: test-adventure-packages test-new-books test-book-playtests test-book-walkthroughs
+	@lua5.4 run-zil-test.lua tests/test-superhero-rules
 	@echo "Running pure ZIL tests..."
 	@lua5.4 run-zil-test.lua zil/test-simple-new
 	@lua5.4 run-zil-test.lua zil/test-insert-file
