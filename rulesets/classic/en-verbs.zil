@@ -9,7 +9,7 @@
 	 <COND (<FSET? ,PRSO ,ACTORBIT>
 		<COND %<COND (<==? ,ZORK-NUMBER 1>
 			      '(<L? <GETP ,PRSO ,P?STRENGTH> 0>
-		                <TELL "The " D ,PRSO " is rudely awakened." CR>
+		                <TELL CTHE ,PRSO " is rudely awakened." CR>
 		                <AWAKEN ,PRSO>))
 			     (T
 			      '(<NULL-F> <RTRUE>))>
@@ -17,7 +17,7 @@
 		       <TELL
 "He's wide awake, or haven't you noticed..." CR>)>)
 	       (T
-		<TELL "The " D ,PRSO " isn't sleeping." CR>)>>
+		<TELL CTHE ,PRSO " isn't sleeping." CR>)>>
 
 <ROUTINE V-ATTACK ()
 	 <COND (<NOT <FSET? ,PRSO ,ACTORBIT>>
@@ -28,10 +28,10 @@
 		<TELL
 "Trying to attack " A ,PRSO " with your bare hands is suicidal." CR>)
 	       (<NOT <IN? ,PRSI ,WINNER>>
-		<TELL "You aren't even holding the " D ,PRSI "." CR>)
+		<TELL "You aren't even holding " THE ,PRSI "." CR>)
 	       (<NOT <FSET? ,PRSI ,WEAPONBIT>>
 		<TELL
-"Trying to attack the " D ,PRSO " with " A ,PRSI " is suicidal." CR>)
+"Trying to attack " THE ,PRSO " with " A ,PRSI " is suicidal." CR>)
 	       (T
 	        %<COND (<==? ,ZORK-NUMBER 1>
 			'<HERO-BLOW>)
@@ -76,7 +76,7 @@
 		<COND (<OR <IN? ,PRSO ,WINNER>
 			   <IN? ,WINNER ,PRSO>>
 		       <REMOVE-CAREFULLY ,PRSO>
-		       <TELL "The " D ,PRSO>
+		       <TELL CTHE ,PRSO>
 		       <TELL
 " catches fire. Unfortunately, you were ">
 		       <COND (<IN? ,WINNER ,PRSO>
@@ -86,7 +86,7 @@
 		      (T
 		       <REMOVE-CAREFULLY ,PRSO>
 		       <TELL
-"The " D ,PRSO " catches fire and is consumed." CR>)>)
+CTHE ,PRSO " catches fire and is consumed." CR>)>)
 	       (T
 		<TELL "You can't burn " A ,PRSO "." CR>)>>
 
@@ -122,13 +122,13 @@
 "Not a bright idea, especially since you're in it." CR>
 		       <RTRUE>)>
 		<REMOVE-CAREFULLY ,PRSO>
-		<TELL "Your skillful " D ,PRSI "smanship slices the " D ,PRSO
+		<TELL "Your skillful " D ,PRSI "smanship slices " THE ,PRSO
 " into innumerable slivers which blow away." CR>)
 	       (<NOT <FSET? ,PRSI ,WEAPONBIT>>
 		<TELL
 "The \"cutting edge\" of " A ,PRSI " is hardly adequate." CR>)
 	       (T
-		<TELL "Strange concept, cutting the " D ,PRSO "...." CR>)>>
+		<TELL "Strange concept, cutting " THE ,PRSO "...." CR>)>>
 
 <ROUTINE V-DEFLATE ()
 	 <TELL "Come on, now!" CR>>
@@ -142,7 +142,7 @@
 			 <RTRUE>)>)
 		(ELSE T)>
 	 <COND (<FSET? ,PRSI ,TOOLBIT>
-		<TELL "Digging with the " D ,PRSI " is slow and tedious." CR>)
+		<TELL "Digging with " THE ,PRSI " is slow and tedious." CR>)
 	       (T
 		<TELL "Digging with " A ,PRSI " is silly." CR>)>>
 
@@ -210,7 +210,7 @@
 		       '(<NULL-F> <RTRUE>))>
 	       (<OR <NOT ,PRSI>
 		    <NOT <FSET? ,PRSI ,WEAPONBIT>>>
-		<TELL "Trying to destroy the " D ,PRSO " with ">
+		<TELL "Trying to destroy " THE ,PRSO " with ">
 		<COND (<NOT ,PRSI>
 		       <TELL "your bare hands">)
 		      (T
@@ -265,9 +265,7 @@ by knocking down the wall on the east of the room." CR>
 <ROUTINE V-PLAY ()
     <COND (<FSET? ,PRSO ,ACTORBIT>
 	   <TELL
-"You become so engrossed in the role of the " D ,PRSO " that
-you kill yourself, just as he might have done!" CR>
-	   <JIGS-UP "">)
+"You can't play " THE ,PRSO "." CR>)
 	  (ELSE <TELL "That's silly!" CR>)>>
 
 <ROUTINE V-PLUG ()
@@ -305,7 +303,7 @@ you kill yourself, just as he might have done!" CR>
 
 <ROUTINE V-SEND ()
 	 <COND (<FSET? ,PRSO ,ACTORBIT>
-		<TELL "Why would you send for the " D ,PRSO "?" CR>)
+		<TELL "Why would you send for " THE ,PRSO "?" CR>)
 	       (T
 		<TELL "That doesn't make sends." CR>)>>
 
@@ -318,7 +316,7 @@ you kill yourself, just as he might have done!" CR>
 		<RTRUE>)
 	       (T
 		<TELL
-"No doubt you propose to stab the " D ,PRSO " with your pinky?" CR>)>>
+"No doubt you propose to stab " THE ,PRSO " with your pinky?" CR>)>>
 
 <ROUTINE V-STAY ()
 	 <TELL "You will be lost without me!" CR>>

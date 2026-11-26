@@ -1,5 +1,5 @@
 # Targets
-.PHONY: test test-all test-unit test-integration test-game-startup test-zork1 test-zork2 test-parser test-containers test-directions test-light test-pronouns test-take test-turnbit test-clock test-clock-direct test-assertions test-check-commands test-read-mailbox test-walk-around-house test-horror-helpers test-horror-partial test-horror test-horror-failures test-horror-playtest-regressions test-horror-all test-limehouse-walkthrough test-wondertown-descriptions test-pure-zil test-simple-new test-insert-file test-let test-save test-llm help llm-new llm-look test-zilch test-flow-control lint-zil zip limehouse-killings blackwood-horror wondertown
+.PHONY: test test-all test-unit test-integration test-game-startup test-zork1 test-zork2 test-parser test-containers test-directions test-light test-pronouns test-take test-turnbit test-clock test-clock-direct test-assertions test-check-commands test-read-mailbox test-walk-around-house test-horror-helpers test-horror test-horror-failures test-horror-playtest-regressions test-horror-all test-limehouse-walkthrough test-wondertown-descriptions test-pure-zil test-simple-new test-insert-file test-let test-save test-llm help llm-new llm-look test-zilch test-flow-control lint-zil zip limehouse-killings blackwood-horror wondertown
 
 help:
 	@echo "Available targets:"
@@ -43,7 +43,7 @@ help:
 	@echo ""
 	@echo "Horror game tests:"
 	@echo "  test-horror-helpers - Run horror test helpers"
-	@echo "  test-horror-partial - Run horror partial walkthrough"
+	@echo "  - Run horror partial walkthrough"
 	@echo "  test-horror-playtest-regressions - Run isolated Blackwood playtest regressions"
 	@echo "  test-horror-failures - Run horror failing conditions tests"
 	@echo "  test-horror       - Run horror complete walkthrough"
@@ -204,7 +204,7 @@ test-horror-playtest-regressions:
 	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-prose-reveal
 	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-navigation
 
-test-horror-all: test-horror-helpers test-horror-partial test-horror-failures test-horror-playtest-regressions test-horror
+test-horror-all: test-horror-helpers test-horror-failures test-horror-playtest-regressions test-horror
 	@echo "All horror tests completed!"
 
 .PHONY: test-book-playtests

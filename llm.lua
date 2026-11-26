@@ -471,6 +471,30 @@ local function execute_action_with_confirmation(action)
     return execute_action(action)
 end
 
+-- FINISH is terminal across invocations: the ending is remembered in the save
+-- (PLAY_ENDED is a saved global, as in link mode), so the next command cannot
+-- walk on from the last room.
+do
+    local finish = env.FINISH
+    if finish then
+        env.FINISH = function(...)
+            env.PLAY_ENDED = true
+            return finish(...)
+        end
+    end
+end
+
+local ENDED_REPLY = "The story has ended. Type RESTART to play it again, or start a new game."
+
+local function execute_after_ending(action)
+    local answer = action:lower():match("^%s*(.-)%s*$")
+    if answer == "restart" or answer == "restar" then
+        execute_action(action)
+        return execute_action("y")
+    end
+    return ENDED_REPLY .. "\n"
+end
+
 -- If we have an action, execute it
 if args.links then
 		local ok, result = pcall(function()
@@ -489,7 +513,12 @@ if args.links then
 end
 
 if args.action then
-    local ok, output = pcall(execute_action_with_confirmation, args.action)
+    local ok, output
+    if env.PLAY_ENDED then
+        ok, output = pcall(execute_after_ending, args.action)
+    else
+        ok, output = pcall(execute_action_with_confirmation, args.action)
+    end
     
     if not ok then
         write_error_and_exit(output)

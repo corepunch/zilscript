@@ -59,6 +59,14 @@
 			  <SETG PRSO <>>)
 			 (<NOT ,LIT>
 			  <TELL "It's too dark to see." CR>)
+			 (<EQUAL? ,P-GETFLAGS ,P-ALL>
+			  ;"ALL found nothing: say so for the verb"
+			  <COND (<BTST <GETB ,P-SYNTAX ,P-SLOC1> ,SH>
+				 <TELL "You aren't carrying anything." CR>)
+				(<VERB? TAKE>
+				 <TELL "There's nothing here you can take." CR>)
+				(T <TELL "There is nothing here for that." CR>)>
+			  <SET V <>>)
 			 (T
 			  <TELL "It's not clear what you're referring to." CR>
 			  <SET V <>>)>)
@@ -168,6 +176,17 @@
 	       <RFATAL>)>
 	<COND (<==? .O ,IT> <SET O ,P-IT-OBJECT>)>
 	<COND (<==? .I ,IT> <SET I ,P-IT-OBJECT>)>
+	<COND (<AND <EQUAL? ,HIM-OR-HER .I .O>
+		    <OR <NOT ,P-HIM-OR-HER> <NOT <ACCESSIBLE? ,P-HIM-OR-HER>>>>
+	       <TELL "I don't see who you are referring to." CR>
+	       <RFATAL>)>
+	<COND (<==? .O ,HIM-OR-HER> <SET O ,P-HIM-OR-HER>)>
+	<COND (<==? .I ,HIM-OR-HER> <SET I ,P-HIM-OR-HER>)>
+	<COND (<NOT <EQUAL? .A ,V?WALK>>
+	       <COND (<AND .O <FSET? .O ,ACTORBIT> <NOT <EQUAL? .O ,ME ,ADVENTURER ,WINNER>>>
+		      <SETG P-HIM-OR-HER .O>)
+		     (<AND .I <FSET? .I ,ACTORBIT> <NOT <EQUAL? .I ,ME ,ADVENTURER ,WINNER>>>
+		      <SETG P-HIM-OR-HER .I>)>)>
 	<SETG PRSA .A>
 	<SETG PRSO .O>
 	<COND (<AND ,PRSO <NOT <EQUAL? ,PRSI ,IT>> <NOT <VERB? WALK>>>
@@ -220,6 +239,17 @@
 	       <RFATAL>)>
 	<COND (<==? .O ,IT> <SET O ,P-IT-OBJECT>)>
 	<COND (<==? .I ,IT> <SET I ,P-IT-OBJECT>)>
+	<COND (<AND <EQUAL? ,HIM-OR-HER .I .O>
+		    <OR <NOT ,P-HIM-OR-HER> <NOT <ACCESSIBLE? ,P-HIM-OR-HER>>>>
+	       <TELL "I don't see who you are referring to." CR>
+	       <RFATAL>)>
+	<COND (<==? .O ,HIM-OR-HER> <SET O ,P-HIM-OR-HER>)>
+	<COND (<==? .I ,HIM-OR-HER> <SET I ,P-HIM-OR-HER>)>
+	<COND (<NOT <EQUAL? .A ,V?WALK>>
+	       <COND (<AND .O <FSET? .O ,ACTORBIT> <NOT <EQUAL? .O ,ME ,ADVENTURER ,WINNER>>>
+		      <SETG P-HIM-OR-HER .O>)
+		     (<AND .I <FSET? .I ,ACTORBIT> <NOT <EQUAL? .I ,ME ,ADVENTURER ,WINNER>>>
+		      <SETG P-HIM-OR-HER .I>)>)>
 	<SETG PRSA .A>
 	<SETG PRSO .O>
 	<COND (<AND ,PRSO <NOT <VERB? WALK>>>

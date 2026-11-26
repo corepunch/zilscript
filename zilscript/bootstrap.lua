@@ -131,6 +131,8 @@ local mem
 local cache
 -- Dictionary globals (W?word) use the compiler's ASCII spelling of the word.
 local asciiName = require("zilscript.compiler.utils").asciiName
+-- One UTF-8 character (utf8.charpattern; the game environment has no utf8).
+local UTF8_CHAR = "[%z\1-\127\194-\244][\128-\191]*"
 local _obj_count = 0  -- number of declared objects; object IDs are 1.._obj_count
 local _act_count = 0  -- number of registered actions; action IDs are 1.._act_count
 local _act_fn_to_id = {}  -- build-time reverse-lookup: fn_idx -> action_id
@@ -966,9 +968,14 @@ local function merge_dictionary_word(target, source)
 	end
 	local old_primary = old_flags & 3
 	local new_primary = new_flags & 3
+	-- The second slot carries a word's other meaning (INVENTORY's verb when
+	-- INVENTOR, sharing its six letters, was a noun first). Never let an
+	-- empty slot in the target hide the meaning the source carries.
 	local secondary = old:byte(7) or 0
 	if new_primary ~= old_primary then
 		secondary = new:byte(6) or secondary
+	elseif secondary == 0 then
+		secondary = new:byte(7) or 0
 	end
 	mem:write(string.char(
 		old:byte(1), old:byte(2), old:byte(3), old:byte(4),
@@ -1271,7 +1278,11 @@ function TELL(...)
 					APPLY(printer, v)
 				else
 					local desc = GETP(v, _G["PQDESC"]) or ""
-					if token == "A" then
+					-- A story marks people and other proper names with
+					-- ARTICLEBIT: "Ruth Bell", never "the Ruth Bell".
+					local named = rawget(_G, "ARTICLEBIT") and FSETQ(v, ARTICLEBIT)
+					if named then
+					elseif token == "A" then
 						io_write(desc:match("^[AEIOUaeiou]") and "an " or "a ")
 					elseif token == "CA" then
 						-- Starts a list line: "An oil lantern", "A brass key".
@@ -1455,8 +1466,41 @@ function READ(inbuf, parse)
 		s = resolve_display_name(command)
 	end
 
-	local p = {}
+	-- The buffers say how much they hold (first byte: characters, words);
+	-- longer input is cut, as the Z-machine does, instead of overwriting
+	-- the memory after them. The cut falls on a character boundary.
+	local capacity = mem:byte(inbuf)
+	if capacity > 1 and #s > capacity - 1 then
+		local cut = capacity - 1
+		while cut > 0 and (s:byte(cut + 1) or 0) >= 0x80 and (s:byte(cut + 1) or 0) < 0xC0 do cut = cut - 1 end
+		s = s:sub(1, cut)
+	end
+	-- Like the Z-machine, the story's break characters (SIBREAKS: . , " and,
+	-- in German, « ») are words of their own, so "kit, follow me" addresses
+	-- Kit and "look. take lamp" is two commands.
+	local breaks = {}
+	for ch in tostring(rawget(_G, "SIBREAKS") or ".,\""):gmatch(UTF8_CHAR) do breaks[ch] = true end
+	local tokens = {}
 	for pos, word in s:gmatch("()(%S+)") do
+		local start, i = 1, 1
+		while i <= #word do
+			local ch = word:match("^" .. UTF8_CHAR, i) or word:sub(i, i)
+			if breaks[ch] then
+				if i > start then table.insert(tokens, { pos + start - 1, word:sub(start, i - 1) }) end
+				table.insert(tokens, { pos + i - 1, ch })
+				start = i + #ch
+			end
+			i = i + #ch
+		end
+		if start <= #word then table.insert(tokens, { pos + start - 1, word:sub(start) }) end
+	end
+	local p = {}
+	local max_words = mem:byte(parse)
+	if max_words > 0 then
+		while #tokens > max_words do table.remove(tokens) end
+	end
+	for _, token in ipairs(tokens) do
+		local pos, word = token[1], token[2]
 		-- Z-machine truncates dictionary words to 6 characters
 		local normalized = lower_text(word)
 		local truncated = normalized:sub(1, 6)
