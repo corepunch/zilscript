@@ -138,7 +138,9 @@
 			<COND (<OR <AND <VERB? USE-ON> <EQUAL? ,PRSO ,LB-STYLUS>> <AND <VERB? USE-WITH> <EQUAL? ,PRSI ,LB-STYLUS>>> <LB-MOUNT>)
 				(T <TELL "Only the workshop playback stylus fits the pickup." CR> <RTRUE>)>)
 		(<VERB? PLAY LISTEN> <LB-PLAY>)
-		(<VERB? PUT>
+		(<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,LB-PLAYER> <EQUAL? ,PRSO ,LB-STYLUS>> <LB-MOUNT>)
+		(<AND <VERB? PUT-ON> <EQUAL? ,PRSI ,LB-PLAYER> <EQUAL? ,PRSO ,LB-DISC>> <PERFORM ,V?PUT ,LB-DISC ,LB-PLAYER> <RTRUE>)
+		(<VERB? PUT PUT-ON>
 			<COND (<EQUAL? ,PRSI ,LB-PLAYER>
 				<COND (<NOT <EQUAL? ,PRSO ,LB-DISC>> <TELL "Only the [[disc]] belongs on this platter." CR> <RTRUE>)>)>)
 		(<VERB? OPEN CLOSE> <TELL "The platter stays open; the [[disc]] must lie flat on it." CR> <RTRUE>)
@@ -157,6 +159,7 @@
 <ROUTINE LB-PLAY ()
 	<COND (<NOT <ACCESSIBLE? ,LB-PLAYER>> <TELL "The playback apparatus is in the control room." CR>)
 		(<NOT <IN? ,LB-DISC ,LB-PLAYER>> <TELL "Put the archive disc in the gramophone first." CR>)
+		(<AND <NOT <IN? ,LB-STYLUS ,LB-PLAYER>> <HELD? ,LB-STYLUS>> <TELL "The pickup is bare. You are carrying the playback stylus; fit it to the gramophone first." CR>)
 		(<NOT <IN? ,LB-STYLUS ,LB-PLAYER>> <TELL "The pickup is bare. Bring the stylus from the workshop and fit it to the gramophone." CR>)
 		(T <SETG LB-SOUND T>
 		<TELL "The [[disc]] turns. Ada's voice asks the mainland for help. A gull coughs twice; she says, “Even this old island can learn to speak.”|Two coughs, then that sentence: the sequence in your opening note, now turning beneath a needle. A later stutter repeats the first syllable with mechanical patience. This appeal existed in a groove before it was supposedly spoken live.|At the centre, a pencilled timing mark sets the start at 9:17. Six minutes would carry the voice past 9:22. Ruth in the studio may recognise the rehearsal; the cutting register can authenticate its origin." CR>)>
@@ -195,7 +198,8 @@
 		(<VERB? RUB> <TELL "His hand is cold, and the fingers have begun to stiffen. You let it rest where it was." CR> <RTRUE>)
 		(<VERB? MOVE PUSH> <TELL "You will not move him. The police will want him as he was found, and so do you." CR> <RTRUE>)
 		(<VERB? LOOK-UNDER> <TELL "Under the chair there is only a dropped fountain pen, its cap still on." CR> <RTRUE>)
-		(<VERB? KICK> <TELL "Whatever you think of Julian Vane, he is past answering for it." CR> <RTRUE>)>>
+		(<VERB? KICK ATTACK MUNG STRIKE KISS> <TELL "Whatever you think of Julian Vane, he is past answering for it." CR> <RTRUE>)
+		(<VERB? PUT-ON PUT> <COND (<EQUAL? ,PRSI ,LB-BODY> <TELL "You lay nothing on him. Hold an exhibit up to the wound and compare them instead." CR> <RTRUE>)>)>>
 
 <ROUTINE LB-MICROPHONE-F ()
 	<COND (<VERB? EXAMINE>
@@ -208,7 +212,7 @@
 <ROUTINE LB-SWITCH-F ()
 	<COND (<VERB? EXAMINE READ>
 		<TELL "The [[routing switch]] selects MIC or DISC independently of the microphone's red heater lamp. It was found at DISC. A [[wax dab]] under its guard records that position; turning it now would tell you nothing about then. The [[gramophone]] supplies the second feed." CR> <RTRUE>)
-		(<VERB? TURN PUSH MOVE> <TELL "The transmitter is isolated. You test the routing lever without disturbing the wax witness mark: MIC and DISC are independent of the studio heater lamp." CR> <RTRUE>)
+		(<VERB? TURN SPIN PUSH MOVE> <TELL "The transmitter is isolated. You test the routing lever without disturbing the wax witness mark: MIC and DISC are independent of the studio heater lamp." CR> <RTRUE>)
 		(<VERB? RUB> <TELL "The bakelite lever is smooth and cool. Under the guard the wax feels brittle; one careless shove would crumble it." CR> <RTRUE>)
 		(<VERB? LISTEN> <TELL "Somewhere in the rack behind it a relay ticks once, then is quiet." CR> <RTRUE>)>>
 
@@ -394,7 +398,8 @@
 	<RTRUE>>
 
 <ROUTINE LB-RUTH-F ()
-	<COND (<VERB? EXAMINE>
+	<COND (<LB-MANNERS ,LB-RUTH> <RTRUE>)
+		(<VERB? EXAMINE>
 		<TELL "Ruth Bell has the trained stillness of an announcer whose next line will ruin someone. Ask her about the [[microphone]], the [[broadcast]], or [[Vane]]." CR>
 		<COND (,LB-RUTH-CLEARED <TELL "She has stopped watching the red lamp. When you are ready, she will make the station's first honest announcement tonight." CR>)> <RTRUE>)
 		(<VERB? TELL>
@@ -405,12 +410,13 @@
 						(T <TELL "“I heard Ada all through the appeal. Surely that places her?” [[Ruth]] folds her injured hand. “If you have the actual recording, let me hear your evidence rather than your conclusion.”" CR>)>)
 				(<EQUAL? ,PRSI ,LB-VANE> <TELL "“At 9:16 I left him alive in the office. Edith saw me enter the kitchen straight away. At 9:21 I left her there and found him dead. He owed us wages. That doesn't make what happened a pay rise.”" CR>)
 				(T <TELL "“Ask me about the [[microphone]], the [[broadcast]], or [[Vane]]. I can tell you what I saw. What I heard appears more troublesome.”" CR>)> <RTRUE>)
-		(<VERB? SHOW> <LB-SHOW>)
+		(<VERB? SHOW GIVE> <LB-SHOW>)
 		(<VERB? ACCUSE> <LB-ACCUSE>)
 		(<VERB? LISTEN> <TELL "Ruth is murmuring the station call under her breath, over and over, as if to keep her voice in working order: “Saint Bride calling. Saint Bride calling.”" CR> <RTRUE>)
 		(<VERB? RUB> <TELL "Ruth steps back before your hand reaches her sleeve. “I am quite steady, thank you.”" CR> <RTRUE>)>>
 <ROUTINE LB-EDITH-F ()
-	<COND (<VERB? EXAMINE>
+	<COND (<LB-MANNERS ,LB-EDITH> <RTRUE>)
+		(<VERB? EXAMINE>
 		<TELL "Edith Shaw is washing her hands by rubbing them together, without water. Her [[medical bag]] is within reach. Ask about the [[bag]], the [[broadcast]], or [[Vane]]." CR>
 		<COND (,LB-EDITH-CLEARED <TELL "Now that the patient is named, she has the plain impatience of a doctor kept from useful work." CR>)> <RTRUE>)
 		(<VERB? TELL>
@@ -420,12 +426,13 @@
 				(<EQUAL? ,PRSI ,LB-BROADCAST> <TELL "“I heard the appeal from the kitchen. Ruth came in at 9:16, before it started, and stayed until 9:21. A voice through a wall is not a medical observation of its owner.”" CR>)
 				(<EQUAL? ,PRSI ,LB-VANE> <TELL "“He threatened to expose my treatment of union men who could not pay. There was nothing unlawful in treating them; he only needed their next employers to know. He was alive when Ruth left him at 9:16. The clock is irrelevant to the wound.”" CR>)
 				(T <TELL "“Ask about the [[medical bag]], the [[broadcast]], or [[Vane]]. You may examine the bag. I would prefer a fact to an insinuation.”" CR>)> <RTRUE>)
-		(<VERB? SHOW> <LB-SHOW>)
+		(<VERB? SHOW GIVE> <LB-SHOW>)
 		(<VERB? ACCUSE> <LB-ACCUSE>)
 		(<VERB? LISTEN> <TELL "She is breathing slowly and deliberately, the way she would tell a frightened patient to." CR> <RTRUE>)
 		(<VERB? RUB> <TELL "Edith looks at your hand until you take it back. “If anyone's pulse wants taking, I can manage it myself.”" CR> <RTRUE>)>>
 <ROUTINE LB-TOMAS-F ()
-	<COND (<VERB? EXAMINE>
+	<COND (<LB-MANNERS ,LB-TOMAS> <RTRUE>)
+		(<VERB? EXAMINE>
 		<TELL "Tomas Vale holds his hands flat, as though they might otherwise transmit a confession. Ask about the [[receipt]], the [[broadcast]], or [[Vane]]." CR>
 		<COND (,LB-TOMAS-CLEARED <TELL "He has stopped hiding the outgoing side of the receipt. It is a small, sensible revolution." CR>)> <RTRUE>)
 		(<VERB? TELL>
@@ -435,12 +442,13 @@
 				(<EQUAL? ,PRSI ,LB-BROADCAST> <TELL "“I heard Ada from 9:17. I was answering challenge groups on this [[telegraph]] from 9:16 until 9:22. A recording cannot know which numbers the mainland will choose next.”" CR>)
 				(<EQUAL? ,PRSI ,LB-VANE> <TELL "“He bought my gambling debt. Then he charged me for the favour every payday. I wanted to leave, not become a murderer permanently resident here.”" CR>)
 				(T <TELL "“Ask about the [[receipt]], the [[broadcast]], or [[Vane]]. I have no talent for looking innocent. The telegraph is better at it.”" CR>)> <RTRUE>)
-		(<VERB? SHOW> <LB-SHOW>)
+		(<VERB? SHOW GIVE> <LB-SHOW>)
 		(<VERB? ACCUSE> <LB-ACCUSE>)
 		(<VERB? LISTEN> <TELL "Under the click of the sounder he is counting softly to himself, the way operators count code groups." CR> <RTRUE>)
 		(<VERB? RUB> <TELL "Tomas flinches as though you had touched a live wire. “Sorry. Nerves.”" CR> <RTRUE>)>>
 <ROUTINE LB-ADA-F ()
-	<COND (<VERB? EXAMINE>
+	<COND (<LB-MANNERS ,LB-ADA> <RTRUE>)
+		(<VERB? EXAMINE>
 		<TELL "Ada Mercer is looking at the space between her hands. Her speech is exact; her breathing less so. Ask about the [[boots]], the [[broadcast]], [[Vane]], or the [[roster]]." CR>
 		<COND (,LB-TRACE <TELL "When you mention the heel repair she draws her bare feet under the chair." CR>)
 			(,LB-MOTIVE <TELL "She no longer speaks of the owner, only of Vane." CR>)> <RTRUE>)
@@ -460,10 +468,19 @@
 					<COND (,LB-MOTIVE <TELL "“My father thought the shares would keep me here safely after he died. Instead they kept us both paying. I wanted the proof to live longer than Vane's ownership.”" CR>)
 						(T <TELL "“The accounts are in the archive. If you want to understand this station, read them. People are noisier than figures and generally less exact.”" CR>)>)
 				(T <TELL "“Ask about my [[boots]], the [[roster]], the [[broadcast]], or [[Vane]]. Please make it a question whose answer you intend to hear.”" CR>)> <RTRUE>)
-		(<VERB? SHOW> <LB-SHOW>)
+		(<VERB? SHOW GIVE> <LB-SHOW>)
 		(<VERB? ACCUSE> <LB-ACCUSE>)
 		(<VERB? LISTEN> <TELL "Her breathing is quick and shallow, though her voice, when she speaks, stays perfectly level." CR> <RTRUE>)
 		(<VERB? RUB> <TELL "Ada does not move away. She simply waits until you take your hand back." CR> <RTRUE>)>>
+
+<ROUTINE LB-MANNERS (WHO)
+	<COND (<OR <VERB? ATTACK MUNG KICK STRIKE> <AND <VERB? THROW> <EQUAL? ,PRSI .WHO>>>
+		<TELL "One blow has already been struck at Saint Bride tonight. You came to account for it, not to add another, and " D .WHO " knows it." CR>)
+		(<VERB? HELLO> <TELL D .WHO " answers with a short nod. Nobody in the station has much use for pleasantries tonight." CR>)
+		(<VERB? KISS> <TELL "Scarcely the moment, and scarcely the conduct of an insurance investigator." CR>)
+		(<VERB? TAKE PUSH MOVE> <TELL D .WHO " is a witness, not an exhibit. You leave everyone exactly where they are." CR>)
+		(<VERB? FOLLOW> <TELL "Nobody is going anywhere tonight. The gale has seen to that." CR>)
+		(T <RFALSE>)>>
 
 <ROUTINE LB-SHOW ()
 	<COND (<NOT <AND <HELD? ,PRSO> <ACCESSIBLE? ,PRSO> <ACCESSIBLE? ,PRSI>>>
@@ -637,6 +654,7 @@
 <ROUTINE DETAIL-CUPS-F ()
 	<COND
 		(<VERB? SMELL> <TELL "Stewed tea, gone cold and bitter." CR> <RTRUE>)
+		(<VERB? DRINK DRINK-FROM TAKE> <TELL "Cold, stewed, and not yours. You leave Edith's tea where it is." CR> <RTRUE>)
 		(<VERB? RUB> <TELL "Stone cold, both of them." CR> <RTRUE>)>>
 
 <ROUTINE DETAIL-BRASS-DUST-F ()
@@ -716,4 +734,10 @@
 <ROUTINE LB-BUNKS-F ()
 	<COND
 		(<VERB? LOOK-UNDER SEARCH> <TELL "Only swept boards and a strapped kitbag." CR> <RTRUE>)
-		(<VERB? RUB> <TELL "The blankets are coarse grey wool, and cold." CR> <RTRUE>)>>
+		(<VERB? RUB> <TELL "The blankets are coarse grey wool, and cold." CR> <RTRUE>)
+		(<VERB? CLIMB-ON> <TELL "You sit on the edge of the nearest bunk. The springs complain, and Ada does not offer you her chair." CR> <RTRUE>)>>
+
+<ROUTINE LB-STATION-F ()
+	<COND
+		(<VERB? THROUGH ENTER WALK-TO> <DO-WALK ,P?NORTH> <RTRUE>)
+		(<VERB? LISTEN> <TELL "Over the wind you can hear the generator thumping somewhere underneath it, steady as a ship's engine." CR> <RTRUE>)>>
