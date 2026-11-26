@@ -1,5 +1,4 @@
-;"German syntax for the classic rules: the verbs of rulesets/classic/de-verbs.zil
-  and Zork II and III vocabulary.
+;"German syntax for the classic rules: the verbs of rulesets/classic/de-verbs.zil.
   (c) Copyright 1983 Infocom, Inc. See LICENSE-ZORK-MIT."
 
 <SYNTAX ZURUECK = V-BACK>

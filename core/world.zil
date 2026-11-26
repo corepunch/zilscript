@@ -34,13 +34,7 @@
 		<DESCRIBE-OBJECTS T>)>>
 
 <ROUTINE PRE-PUT ()
-	 <COND %<COND (<==? ,ZORK-NUMBER 3>
-		       '(<EQUAL? ,PRSO ,SHORT-POLE>
-		         <RFALSE>))
-		      (T
-		       '(<NULL-F>
-			 <RFALSE>))>
-	       (T
+	 <COND (T
 		<PRE-GIVE>)>> ;"That's easy for you to say..."
 
 <ROUTINE V-RAISE ()
@@ -122,7 +116,22 @@
 		       (<NOT <SET W <NEXT? .W>>>
 			<RETURN <>>)>>>
 
+;"The liquid a room offers: a drinkable thing among its local globals, such
+  as a river or a spring. Fill and drink find it when no object in
+  the command is one."
+<ROUTINE LIQUID-HERE ("AUX" TX (I 0) N O)
+	 <COND (<NOT <SET TX <GETPT ,HERE ,P?GLOBAL>>>
+		<RFALSE>)>
+	 <SET N <PTSIZE .TX>>
+	 <REPEAT ()
+		 <COND (<NOT <L? .I .N>>
+			<RFALSE>)
+		       (<FSET? <SET O <GETB .TX .I>> ,DRINKBIT>
+			<RETURN .O>)>
+		 <SET I <+ .I 1>>>>
+
 <ROUTINE NULL-F ("OPTIONAL" A1 A2)
+
 	 <RFALSE>>
 
 <GLOBAL LOAD-MAX 100>

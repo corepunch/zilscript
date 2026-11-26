@@ -101,7 +101,7 @@
 	(SYNONYM STAIRS STEPS STAIRCASE STAIRWAY)
 	(ADJECTIVE STONE DARK MARBLE FORBIDDING STEEP)
 	(DESC "stairs")
-	(FLAGS NDESCBIT CLIMBBIT)
+	(FLAGS NDESCBIT CLIMBBIT PLURALBIT)
 	(ACTION STAIRS-F)>
 
 <ROUTINE STAIRS-F ()
@@ -121,12 +121,6 @@
 		     <EQUAL? ,PRSI ,GROUND>>
 		<PERFORM ,V?DROP ,PRSO>
 		<RTRUE>)
-	       %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<EQUAL? ,HERE ,SANDY-CAVE>
-			 <SAND-FUNCTION>))
-		      (T
-		       '(<NULL-F>
-			 <RFALSE>))>
 	       (<VERB? DIG>
 		<TELL "The ground is too hard for digging here." CR>)>>
 
@@ -172,24 +166,9 @@
 	       (<VERB? TAKE>
 		<TELL "How romantic!" CR>)
 	       (<VERB? EXAMINE>
-		<COND %<COND (<==? ,ZORK-NUMBER 1>
-			      '(<AND ,MIRROR-1 ,MIRROR-2
-			             <EQUAL? ,HERE <LOC ,MIRROR-1> <LOC ,MIRROR-2>>>
-		                <TELL
-"Your image in the mirror looks tired." CR>))
-			     (<==? ,ZORK-NUMBER 3>
-			      '(,INVIS
-				<TELL
-"A good trick, as you are currently invisible." CR>))
-			     (T
-			      '(<NULL-F> <RTRUE>))>
-		      (T
-		       %<COND (<==? ,ZORK-NUMBER 3>
-			       '<TELL
-"What you can see looks pretty much as usual, sorry to say." CR>)
-			      (ELSE
-			       '<TELL
-"That's difficult unless your eyes are prehensile." CR>)>)>)>>
+		<TELL
+"That's difficult unless your eyes are prehensile." CR>)>>
+
 
 <OBJECT ADVENTURER
 	(SYNONYM ADVENTURER)

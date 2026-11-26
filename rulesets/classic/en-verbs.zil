@@ -7,12 +7,9 @@
 
 <ROUTINE V-ALARM ()
 	 <COND (<FSET? ,PRSO ,ACTORBIT>
-		<COND %<COND (<==? ,ZORK-NUMBER 1>
-			      '(<L? <GETP ,PRSO ,P?STRENGTH> 0>
-		                <TELL CTHE ,PRSO " is rudely awakened." CR>
-		                <AWAKEN ,PRSO>))
-			     (T
-			      '(<NULL-F> <RTRUE>))>
+		<COND (<L? <GETP ,PRSO ,P?STRENGTH> 0>
+		       <TELL CTHE ,PRSO " is rudely awakened." CR>
+		       <AWAKEN ,PRSO>)
 		      (T
 		       <TELL
 "He's wide awake, or haven't you noticed..." CR>)>)
@@ -33,10 +30,7 @@
 		<TELL
 "Trying to attack " THE ,PRSO " with " A ,PRSI " is suicidal." CR>)
 	       (T
-	        %<COND (<==? ,ZORK-NUMBER 1>
-			'<HERO-BLOW>)
-		       (T
-			'<TELL "You can't." CR>)>)>>
+	        <HERO-BLOW>)>>
 
 <ROUTINE V-BACK ()
 	 <TELL "Sorry, my memory is poor. Please give a direction." CR>>
@@ -66,13 +60,7 @@
 	        <TELL "With " A ,PRSI "??!?" CR>)>>
 
 <ROUTINE V-BURN ()
-	 <COND %<COND (<==? ,ZORK-NUMBER 2>
-		       '(<EQUAL? <LOC ,PRSO> ,RECEPTACLE>
-		         <BALLOON-BURN>
-		         <RTRUE>))
-		      (T
-		       '(<NULL-F> <RFALSE>))>
-	       (<FSET? ,PRSO ,BURNBIT>
+	 <COND (<FSET? ,PRSO ,BURNBIT>
 		<COND (<OR <IN? ,PRSO ,WINNER>
 			   <IN? ,WINNER ,PRSO>>
 		       <REMOVE-CAREFULLY ,PRSO>
@@ -136,11 +124,9 @@ CTHE ,PRSO " catches fire and is consumed." CR>)>)
 <ROUTINE V-DIG ()
 	 <COND (<NOT ,PRSI>
 		<SETG PRSI ,HANDS>)>
-	 %<COND (<==? ,ZORK-NUMBER 1>
-		 '<COND (<EQUAL? ,PRSI ,SHOVEL>
-			 <TELL "There's no reason to be digging here." CR>
-			 <RTRUE>)>)
-		(ELSE T)>
+	 <COND (<EQUAL? ,PRSI ,SHOVEL>
+		<TELL "There's no reason to be digging here." CR>
+		<RTRUE>)>
 	 <COND (<FSET? ,PRSI ,TOOLBIT>
 		<TELL "Digging with " THE ,PRSI " is slow and tedious." CR>)
 	       (T
@@ -148,27 +134,24 @@ CTHE ,PRSO " catches fire and is consumed." CR>)>)
 
 <ROUTINE V-ECHO ("AUX" LST MAX (ECH 0) CNT)
 	 #DECL ((LST) <PRIMTYPE VECTOR> (MAX CNT ECH) FIX)
-	 %<COND (<==? ,ZORK-NUMBER 1>
-		 '<COND (<G? <GETB ,P-LEXV ,P-LEXWORDS> 0>
-	                 <SET LST <REST
-				   ,P-LEXV
-				   <* <GETB ,P-LEXV ,P-LEXWORDS> ,P-WORDLEN>>>
-	                 <SET MAX <- <+ <GETB .LST 0> <GETB .LST 1>> 1>>
-	                 <REPEAT ()
-		            <COND (<G? <SET ECH <+ .ECH 1>> 2>
-			           <TELL "..." CR>
-				   <RETURN>)
-			          (T
-			           <SET CNT <- <GETB .LST 1> 1>>
-			           <REPEAT ()
-				      <COND (<G? <SET CNT <+ .CNT 1>> .MAX>
-					     <RETURN>)
-					    (T
-					     <PRINTC <GETB ,P-INBUF .CNT>>)>>
-			           <TELL " ">)>>)
-			(T <TELL "echo echo ..." CR>)>)
-		(T
-		 '<TELL "echo echo ..." CR>)>>
+	 <COND (<G? <GETB ,P-LEXV ,P-LEXWORDS> 0>
+		<SET LST <REST
+			  ,P-LEXV
+			  <* <GETB ,P-LEXV ,P-LEXWORDS> ,P-WORDLEN>>>
+		<SET MAX <- <+ <GETB .LST 0> <GETB .LST 1>> 1>>
+		<REPEAT ()
+		   <COND (<G? <SET ECH <+ .ECH 1>> 2>
+			  <TELL "..." CR>
+			  <RETURN>)
+			 (T
+			  <SET CNT <- <GETB .LST 1> 1>>
+			  <REPEAT ()
+			     <COND (<G? <SET CNT <+ .CNT 1>> .MAX>
+				    <RETURN>)
+				   (T
+				    <PRINTC <GETB ,P-INBUF .CNT>>)>>
+			  <TELL " ">)>>)
+	       (T <TELL "echo echo ..." CR>)>>
 
 <ROUTINE V-EXORCISE ()
 	 <TELL "What a bizarre concept!" CR>>
@@ -203,12 +186,7 @@ CTHE ,PRSO " catches fire and is consumed." CR>)>)
 	 <TELL "You'll have to speak up if you expect me to hear you!" CR>>
 
 <ROUTINE PRE-MUNG ()
-	 <COND %<COND (<==? ,ZORK-NUMBER 3>
-		       '(<EQUAL? ,PRSO ,BEAM>
-		         <RFALSE>))
-		      (T
-		       '(<NULL-F> <RTRUE>))>
-	       (<OR <NOT ,PRSI>
+	 <COND (<OR <NOT ,PRSI>
 		    <NOT <FSET? ,PRSI ,WEAPONBIT>>>
 		<TELL "Trying to destroy " THE ,PRSO " with ">
 		<COND (<NOT ,PRSI>
@@ -225,20 +203,17 @@ CTHE ,PRSO " catches fire and is consumed." CR>)>)
 		<TELL "Nice try." CR>)>>
 
 <ROUTINE V-ODYSSEUS ()
-	 <COND %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<AND <EQUAL? ,HERE ,CYCLOPS-ROOM>
-			      <IN? ,CYCLOPS ,HERE>
-			      <NOT ,CYCLOPS-FLAG>>
-		         <DISABLE <INT I-CYCLOPS>>
-		         <SETG CYCLOPS-FLAG T>
-		         <TELL
+	 <COND (<AND <EQUAL? ,HERE ,CYCLOPS-ROOM>
+		     <IN? ,CYCLOPS ,HERE>
+		     <NOT ,CYCLOPS-FLAG>>
+		<DISABLE <INT I-CYCLOPS>>
+		<SETG CYCLOPS-FLAG T>
+		<TELL
 "The cyclops, hearing the name of his father's deadly nemesis, flees the room
 by knocking down the wall on the east of the room." CR>
-		        <SETG MAGIC-FLAG T>
-		        <FCLEAR ,CYCLOPS ,FIGHTBIT>
-		        <REMOVE-CAREFULLY ,CYCLOPS>))
-		      (T
-		       '(<NULL-F> T))>
+	       <SETG MAGIC-FLAG T>
+	       <FCLEAR ,CYCLOPS ,FIGHTBIT>
+	       <REMOVE-CAREFULLY ,CYCLOPS>)
 	       (T
 		<TELL "Wasn't he a sailor?" CR>)>>
 
@@ -246,14 +221,12 @@ by knocking down the wall on the east of the room." CR>
 	 <TELL "You probably put spinach in your gas tank, too." CR>>
 
 <ROUTINE V-OVERBOARD ("AUX" LOCN)
-	 <COND %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<EQUAL? ,PRSI ,TEETH>
-			 <COND (<FSET? <SET LOCN <LOC ,WINNER>> ,VEHBIT>
-				<MOVE ,PRSO <LOC .LOCN>>
-				<TELL "Ahoy -- " D ,PRSO " overboard!" CR>)
-			       (T
-				<TELL "You're not in anything!" CR>)>))
-		      (T '(<NULL-F> T))>
+	 <COND (<EQUAL? ,PRSI ,TEETH>
+		<COND (<FSET? <SET LOCN <LOC ,WINNER>> ,VEHBIT>
+		       <MOVE ,PRSO <LOC .LOCN>>
+		       <TELL "Ahoy -- " D ,PRSO " overboard!" CR>)
+		      (T
+		       <TELL "You're not in anything!" CR>)>)
 	       (<FSET? <LOC ,WINNER> ,VEHBIT>
 		<PERFORM ,V?THROW ,PRSO>
 		<RTRUE>)
@@ -272,26 +245,17 @@ by knocking down the wall on the east of the room." CR>
 	 <TELL "This has no effect." CR>>
 
 <ROUTINE V-PRAY ()
-	 <COND %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<EQUAL? ,HERE ,SOUTH-TEMPLE>
-		         <GOTO ,FOREST-1>))
-		      (T
-		       '(<NULL-F> <RTRUE>))>
+	 <COND (<EQUAL? ,HERE ,SOUTH-TEMPLE>
+		<GOTO ,FOREST-1>)
 	       (T
 		<TELL
 "If you pray enough, your prayers may be answered." CR>)>>
 
 <ROUTINE V-PUMP ()
-	 <COND %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<AND ,PRSI <NOT <EQUAL? ,PRSI ,PUMP>>>
-		         <TELL "Pump it up with " A ,PRSI "?" CR>))
-		      (T
-		       '(<NULL-F> <RTRUE>))>
-	       %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<IN? ,PUMP ,WINNER>
-		         <PERFORM ,V?INFLATE ,PRSO ,PUMP>))
-		      (T
-		       '(<NULL-F> <RTRUE>))>
+	 <COND (<AND ,PRSI <NOT <EQUAL? ,PRSI ,PUMP>>>
+		<TELL "Pump it up with " A ,PRSI "?" CR>)
+	       (<IN? ,PUMP ,WINNER>
+		<PERFORM ,V?INFLATE ,PRSO ,PUMP>)
 	       (T
 		<TELL "It's really not clear how." CR>)>>
 
@@ -343,16 +307,10 @@ D ,PRSO " with a weapon." CR>)
 	 <TELL "You could certainly never tie it with that!" CR>>
 
 <ROUTINE V-TREASURE ()
-	 <COND %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<EQUAL? ,HERE ,NORTH-TEMPLE>
-		         <GOTO ,TREASURE-ROOM>))
-		      (T
-		       '(<NULL-F> <RTRUE>))>
-	       %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<EQUAL? ,HERE ,TREASURE-ROOM>
-		         <GOTO ,NORTH-TEMPLE>))
-		      (T
-		       '(<NULL-F> <RTRUE>))>
+	 <COND (<EQUAL? ,HERE ,NORTH-TEMPLE>
+		<GOTO ,TREASURE-ROOM>)
+	       (<EQUAL? ,HERE ,TREASURE-ROOM>
+		<GOTO ,NORTH-TEMPLE>)
 	       (T
 		<TELL "Nothing happens." CR>)>>
 
@@ -363,10 +321,7 @@ D ,PRSO " with a weapon." CR>)
 	 <TELL "You cannot wind up " A ,PRSO "." CR>>
 
 <ROUTINE V-WISH ()
-	 %<COND (<==? ,ZORK-NUMBER 2>
-		 '<PERFORM ,V?MAKE ,WISH>)
-		(T
-		 '<TELL "With luck, your wish will come true." CR>)>>
+	 <TELL "With luck, your wish will come true." CR>>
 
 <ROUTINE V-ZORK () <TELL "At your service!" CR>>
 
@@ -379,9 +334,8 @@ D ,PRSO " with a weapon." CR>)
 			      (T
 			       <RETURN <GET .TBL <+ .CNT 1>>>)>)>>>
 
-<COND (<N==? ,ZORK-NUMBER 3>
-       <GLOBAL SWIMYUKS
-	       <LTABLE 0 "You can't swim in the dungeon.">>)>
+<GLOBAL SWIMYUKS
+	<LTABLE 0 "You can't swim in the dungeon.">>
 
 <GLOBAL DUMMY
 	<LTABLE 0

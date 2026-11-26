@@ -6,6 +6,15 @@
 
 "Verb Functions for Game Commands"
 
+;"The verb form that agrees with OBJ, which a reply prints after its name:
+  <TELL CTHE ,PRSO <AGREE ,PRSO \" is\" \" are\"> \" closed.\" CR>. A story marks
+  a plural noun (\"cobwebs\", \"stairs\") with PLURALBIT; its indefinite
+  article is then \"some\"."
+<ROUTINE AGREE (OBJ SINGULAR PLURAL)
+	 <COND (<FSET? .OBJ ,PLURALBIT> .PLURAL)
+	       (T .SINGULAR)>>
+
+
 
 <ROUTINE V-VERBOSE ()
 	 <SETG VERBOSE T>
@@ -94,18 +103,9 @@ game position, or end this session of the game?|
 	<RTRUE>>
 
 <ROUTINE V-VERSION ("AUX" (CNT 17))
-	%<COND (<==? ,ZORK-NUMBER 1>
-		'<TELL "ZORK I: The Great Underground Empire|
+	<TELL "ZORK I: The Great Underground Empire|
 Infocom interactive fiction - a fantasy story|
-Copyright (c) 1981, 1982, 1983, 1984, 1985, 1986">)
-	       (<==? ,ZORK-NUMBER 2>
-		'<TELL "ZORK II: The Wizard of Frobozz|
-Infocom interactive fiction - a fantasy story|
-Copyright (c) 1981, 1982, 1983, 1986">)
-	       (<==? ,ZORK-NUMBER 3>
-		'<TELL "ZORK III: The Dungeon Master|
-Infocom interactive fiction - a fantasy story|
-Copyright 1982, 1983, 1984, 1986">)>
+Copyright (c) 1981, 1982, 1983, 1984, 1985, 1986">
 	<TELL " Infocom, Inc. All rights reserved." CR>
 	<TELL "ZORK is a registered trademark of Infocom, Inc.|
 Release ">
@@ -148,12 +148,7 @@ Release ">
 
 <ROUTINE PRE-BOARD ("AUX" AV)
 	 <SET AV <LOC ,WINNER>>
-	 <COND %<COND (<==? ,ZORK-NUMBER 3>
-		       '(<EQUAL? ,PRSO ,WATER-CHANNEL ,TM-SEAT ,LAKE>
-		         <RFALSE>))
-		      (T
-		       '(<NULL-F> <RTRUE>))>
-	       (<FSET? ,PRSO ,VEHBIT>
+	 <COND (<FSET? ,PRSO ,VEHBIT>
 		<COND (<NOT <IN? ,PRSO ,HERE>>
 		       <TELL
 CTHE ,PRSO " must be on the ground to be boarded." CR>)
@@ -161,7 +156,8 @@ CTHE ,PRSO " must be on the ground to be boarded." CR>)
 		       <TELL "You are already in " THE .AV "!" CR>)
 		      (T
 		       <RFALSE>)>)
-	       (<EQUAL? ,PRSO ,WATER ,GLOBAL-WATER>
+	       ;"Boarding a liquid means getting into it."
+	       (<FSET? ,PRSO ,DRINKBIT>
 		<PERFORM ,V?SWIM ,PRSO>
 		<RTRUE>)
 	       (T
@@ -179,20 +175,11 @@ CTHE ,PRSO " must be on the ground to be boarded." CR>)
 <ROUTINE V-CLIMB-DOWN () <V-CLIMB-UP ,P?DOWN ,PRSO>>
 
 <ROUTINE V-CLIMB-FOO ()
-	 %<COND (<==? ,ZORK-NUMBER 3>
-		 '<V-CLIMB-UP <COND (<EQUAL? ,PRSO ,ROPE ,GLOBAL-ROPE>
-				     ,P?DOWN)
-				    (T ,P?UP)>
-			      T>)
-		(ELSE
-		 '<V-CLIMB-UP ,P?UP ,PRSO>)>>
+	 <V-CLIMB-UP ,P?UP ,PRSO>>
 
 <ROUTINE V-CLIMB-ON ()
 	 <COND (<FSET? ,PRSO ,VEHBIT>
-		%<COND (<==? ,ZORK-NUMBER 3>
-			'<V-CLIMB-UP ,P?UP T>)
-		       (ELSE
-			'<PERFORM ,V?BOARD ,PRSO>)>
+		<PERFORM ,V?BOARD ,PRSO>
 		<RTRUE>)
 	       (T
 		<TELL "You can't climb onto " THE ,PRSO "." CR>)>>
@@ -206,10 +193,8 @@ CTHE ,PRSO " must be on the ground to be boarded." CR>)
 		       <COND (<OR <EQUAL? .X ,NEXIT>
 				  <AND <EQUAL? .X ,CEXIT ,DEXIT ,UEXIT>
 				       <NOT <GLOBAL-IN? ,PRSO <GETB .TX 0>>>>>
-			      <TELL CTHE .OBJ " do">
-			      <COND (<NOT <EQUAL? .OBJ ,STAIRS>>
-				     <TELL "es">)>
-			      <TELL "n't lead ">
+			      <TELL CTHE .OBJ <AGREE .OBJ " doesn't" " don't">
+				    " lead ">
 			      <COND (<==? .DIR ,P?UP>
 				     <TELL "up">)
 				    (T <TELL "down">)>
@@ -221,13 +206,6 @@ CTHE ,PRSO " must be on the ground to be boarded." CR>)
 		     <ZMEMQ ,W?WALL
 			    <SET X <GETPT ,PRSO ,P?SYNONYM>> <PTSIZE .X>>>
 		<TELL "Climbing the walls is to no avail." CR>)
-	       (%<COND (<==? ,ZORK-NUMBER 1>
-			'<AND <NOT <EQUAL? ,HERE ,PATH>>
-			      <EQUAL? .OBJ <> ,TREE>
-			      <GLOBAL-IN? ,TREE ,HERE>>)
-		       (ELSE '<NULL-F>)>
-		<TELL "There are no climbable trees here." CR>
-		<RTRUE>)
 	       (<EQUAL? .OBJ <> ,ROOMS>
 		<TELL "You can't go that way." CR>)
 	       (T
@@ -280,38 +258,7 @@ CTHE ,PRSO " must be on the ground to be boarded." CR>)
 		<RFATAL>)>>
 
 <ROUTINE V-DISENCHANT ()
-	 %<COND (<==? ,ZORK-NUMBER 2>
-		 '<COND (<NOT <IN? ,PRSO ,HERE>>
-		         <RTRUE>)
-	                (<OR <EQUAL? ,SPELL-USED ,W?FEEBLE ,W?FUMBLE ,W?FEAR>
-		          <EQUAL? ,SPELL-USED ,W?FREEZE ,W?FALL ,W?FERMENT>
-		          <EQUAL? ,SPELL-USED ,W?FIERCE ,W?FENCE ,W?FANTASIZE>>
-		          <COND (<FSET? ,PRSO ,ACTORBIT>
-		                 <COND (<EQUAL? ,SPELL-USED ,W?FEEBLE>
-			                <TELL
-CTHE ,PRSO " seems stronger now." CR>)
-			               (<EQUAL? ,SPELL-USED ,W?FUMBLE>
-			                <TELL
-CTHE ,PRSO " no longer appears clumsy." CR>)
-			               (<EQUAL? ,SPELL-USED ,W?FEAR>
-			                <TELL
-CTHE ,PRSO " no longer appears afraid." CR>)
-			               (<EQUAL? ,SPELL-USED ,W?FREEZE>
-			                <TELL
-CTHE ,PRSO " moves again." CR>)
-			               (<EQUAL? ,SPELL-USED ,W?FERMENT>
-			                <TELL
-CTHE ,PRSO " stops swaying." CR>)
-			               (<EQUAL? ,SPELL-USED ,W?FIERCE>
-			                <TELL
-CTHE ,PRSO " appears more peaceful." CR>)>)>)
-	                        (<EQUAL? ,SPELL-USED ,W?FLOAT>
-		                 <TELL
-CTHE ,PRSO " sinks to the ground." CR>)
-	                        (<EQUAL? ,SPELL-USED ,W?FUDGE>
-		                 <TELL "The sweet smell has dispersed." CR>)>)
-		(T
-		 '<TELL "Nothing happens." CR>)>>
+	 <TELL "Nothing happens." CR>>
 
 
 <ROUTINE V-DRINK-FROM ()
@@ -337,7 +284,7 @@ CTHE ,PRSO " sinks to the ground." CR>)
 		<SET DRINK? T>
 		<SET NOBJ <LOC ,PRSO>>
 		<COND (<OR <IN? ,PRSO ,GLOBAL-OBJECTS>
-			   <GLOBAL-IN? ,GLOBAL-WATER ,HERE>
+			   <LIQUID-HERE>
 			   <EQUAL? ,PRSO ,PSEUDO-OBJECT>>
 		       <HIT-SPOT>)
 		      (<OR <NOT .NOBJ>
@@ -352,79 +299,21 @@ CTHE ,PRSO " sinks to the ground." CR>)
 		       <TELL
 "You'll have to open " THE .NOBJ " first." CR>)
 		      (T
+		       ;"A drink carried in an open container is used up."
+		       <REMOVE-CAREFULLY ,PRSO>
 		       <HIT-SPOT>)>)
 	       (<NOT <OR .EAT? .DRINK?>>
 		<TELL
 "I don't think that " THE ,PRSO " would agree with you." CR>)>>
 
 <ROUTINE HIT-SPOT ()
-	 <COND (<AND <EQUAL? ,PRSO ,WATER>
-		     <NOT <GLOBAL-IN? ,GLOBAL-WATER ,HERE>>>
-		<REMOVE-CAREFULLY ,PRSO>)>
 	 <TELL
 "Thank you very much. I was rather thirsty (from all this talking,
 probably)." CR>>
 
 
 <ROUTINE V-ENCHANT ()
-%<COND (<==? ,ZORK-NUMBER 2>
-	'<COND (,WAND-ON <SETG SPELL-VICTIM ,WAND-ON>)>)
-       (T
-	'<NULL-F>)>
-%<COND (<==? ,ZORK-NUMBER 2>
-	'<COND (,SPELL-VICTIM
-		<COND (<NOT ,SPELL-USED>
-		       <TELL "You must be more specific." CR>
-		       <RTRUE>)>
-		<COND (<OR <EQUAL? ,SPELL-USED ,W?FEEBLE ,W?FUMBLE ,W?FEAR>
-			   <EQUAL? ,SPELL-USED ,W?FREEZE ,W?FALL ,W?FERMENT>
-			   <EQUAL? ,SPELL-USED ,W?FIERCE ,W?FENCE ,W?FANTASIZE>>
-		       <COND (<FSET? ,PRSO ,ACTORBIT>
-			      <TELL
-"The wand stops glowing, but there is no other obvious effect." CR>)
-			     (T
-			      <TELL
-"That might have done something, but it's hard to tell with " A ,PRSO "." CR>)>)
-		      ;(<EQUAL? ,SPELL-USED ,W?FIREPROOF>
-		       <RTRUE>)
-		      (<EQUAL? ,SPELL-USED ,W?FUDGE>
-		       <TELL
-"A strong odor of chocolate permeates the room." CR>)
-		      (<EQUAL? ,SPELL-USED ,W?FLUORESCE>
-		       <FSET ,PRSO ,LIGHTBIT>
-		       <FSET ,PRSO ,ONBIT>
-		       <SETG LIT T>
-		       <TELL
-CTHE ,PRSO " begins to glow." CR>)
-		      (<EQUAL? ,SPELL-USED ,W?FILCH>
-		       <SETG SPELL-HANDLED? T>
-		       <COND (<FSET? ,PRSO ,TAKEBIT>
-			      <MOVE ,PRSO ,WINNER>
-			      <SCORE-OBJ ,PRSO>
-			      <TELL "Filched!" CR>)
-			     (ELSE
-			      <TELL "You can't filch " THE ,PRSO "!" CR>)>)
-		      (<AND <EQUAL? ,SPELL-USED ,W?FLOAT>
-			    <FSET? ,PRSO ,TAKEBIT>>
-		       <COND (<AND <EQUAL? ,SPELL-VICTIM ,COLLAR>
-				   <IN? ,COLLAR ,CERBERUS>>
-			      <SETG SPELL-VICTIM ,CERBERUS>)>
-		       <TELL
-CTHE ,PRSO " floats serenely in midair." CR>)
-		      (<AND <EQUAL? ,SPELL-USED ,W?FRY>
-			    <FSET? ,PRSO ,TAKEBIT>>
-		       <SETG SPELL-HANDLED? T>
-		       <REMOVE-CAREFULLY ,PRSO>
-		       <TELL CTHE ,PRSO " goes up in a puff of smoke." CR>)
-		      (ELSE
-		       <SETG SPELL-VICTIM <>>
-		       <TELL
-"The wand stops glowing, but there is no other apparent effect." CR>)>)
-	       (ELSE
-		<SETG SPELL-VICTIM <>>
-		<TELL "Nothing happens." CR>)>)
-       (T
-	'<V-DISENCHANT>)>>
+	 <V-DISENCHANT>>
 
 <ROUTINE REMOVE-CAREFULLY (OBJ "AUX" OLIT)
 	 <COND (<EQUAL? .OBJ ,P-IT-OBJECT>
@@ -460,36 +349,22 @@ CTHE ,PRSO " floats serenely in midair." CR>)
 		<DO-WALK ,P?OUT>)>>
 
 
-<ROUTINE PRE-FILL ("AUX" TX)
+;"Fill X fills it from the liquid here: the room's, or one lying beside you.
+  Fill X with something that is no liquid puts that thing in X."
+<ROUTINE PRE-FILL ("AUX" L)
 	 <COND (<NOT ,PRSI>
-		<SET TX <GETPT ,HERE ,P?GLOBAL>>
-		<COND (<AND .TX <ZMEMQB ,GLOBAL-WATER .TX <- <PTSIZE .TX> 1>>>
-		       <PERFORM ,V?FILL ,PRSO ,GLOBAL-WATER>
-		       <RTRUE>)
-		      (<IN? ,WATER <LOC ,WINNER>>
-		       <PERFORM ,V?FILL ,PRSO ,WATER>
-		       <RTRUE>)
+		<COND (<OR <SET L <LIQUID-HERE>>
+			   <SET L <FIND-IN <LOC ,WINNER> ,DRINKBIT>>>
+		       <PERFORM ,V?FILL ,PRSO .L>)
 		      (T
-		       <TELL "There is nothing to fill it with." CR>
-		       <RTRUE>)>)>
-	 <COND (<EQUAL? ,PRSI ,WATER>
-		<RFALSE>)
-	       (<NOT <EQUAL? ,PRSI ,GLOBAL-WATER>>
+		       <TELL "There is nothing to fill it with." CR>)>
+		<RTRUE>)
+	       (<NOT <FSET? ,PRSI ,DRINKBIT>>
 		<PERFORM ,V?PUT ,PRSI ,PRSO>
 		<RTRUE>)>>
 
 <ROUTINE V-FILL ()
-	 <COND (<NOT ,PRSI>
-		<COND (<GLOBAL-IN? ,GLOBAL-WATER ,HERE>
-		       <PERFORM ,V?FILL ,PRSO ,GLOBAL-WATER>
-		       <RTRUE>)
-		      (<IN? ,WATER <LOC ,WINNER>>
-		       <PERFORM ,V?FILL ,PRSO ,WATER>
-		       <RTRUE>)
-		      (T
-		       <TELL "There's nothing to fill it with." CR>)>)
-	       (T
-		<TELL "You may know how to do that, but I don't." CR>)>>
+	 <TELL "You may know how to do that, but I don't." CR>>
 
 <ROUTINE V-FIND ("AUX" (L <LOC ,PRSO>))
 	 <COND (<EQUAL? ,PRSO ,HANDS ,LUNGS>
@@ -543,22 +418,8 @@ CTHE ,PRSO " nods to you in greeting." CR>)
 		<TELL <PICK-ONE ,HELLOS> CR>)>>
 
 <ROUTINE V-INCANT ()
-%<COND (<==? ,ZORK-NUMBER 2>
-	'<COND (,SPELL-USED
-		<TELL "Nothing happens." CR>)
-	       (,WAND-ON
-		<SETG SPELL-VICTIM ,WAND-ON>
-		<SETG SPELL-USED <GET ,P-LEXV ,P-CONT>>
-		<TELL "The wand glows very brightly for a moment." CR>
-		<ENABLE <QUEUE I-SPELL <+ 10 <RANDOM 10>>>>
-		<SETG WAND-ON <>>
-		<PERFORM ,V?ENCHANT ,SPELL-VICTIM>)
-	       (T
-		<TELL
-"The incantation echoes back faintly, but nothing else happens." CR>)>)
-       (T
-	'<TELL
-"The incantation echoes back faintly, but nothing else happens." CR>)>
+	 <TELL
+"The incantation echoes back faintly, but nothing else happens." CR>
 	 <SETG QUOTE-FLAG <>>
 	 <SETG P-CONT <>>
 	 <RTRUE>>
@@ -581,7 +442,7 @@ CTHE ,PRSO " nods to you in greeting." CR>)
 		       <FCLEAR ,PRSO ,ONBIT>
 		       <COND (,LIT
 			      <SETG LIT <LIT? ,HERE>>)>
-		       <TELL CTHE ,PRSO " is now off." CR>
+		       <TELL CTHE ,PRSO <AGREE ,PRSO " is" " are"> " now off." CR>
 		       <COND (<NOT ,LIT>
 			      <TELL "It is now pitch black." CR>)>)>)
 	       (T
@@ -594,7 +455,7 @@ CTHE ,PRSO " nods to you in greeting." CR>)
 		       <TELL "It is already on." CR>)
 		      (T
 		       <FSET ,PRSO ,ONBIT>
-		       <TELL CTHE ,PRSO " is now on." CR>
+		       <TELL CTHE ,PRSO <AGREE ,PRSO " is" " are"> " now on." CR>
 		       <COND (<NOT ,LIT>
 			      <SETG LIT <LIT? ,HERE>>
 			      <CRLF>
@@ -615,7 +476,7 @@ CTHE ,PRSO " nods to you in greeting." CR>)
 		<COND (<IN? ,PRSO ,HERE>
 		       <COND (<FSET? ,PRSO ,ACTORBIT>
 			      <TELL
-CTHE ,PRSO " is too big to jump over." CR>)
+CTHE ,PRSO <AGREE ,PRSO " is" " are"> " too big to jump over." CR>)
 			     (T
 			      <V-SKIP>)>)
 		      (T
@@ -628,21 +489,13 @@ CTHE ,PRSO " is too big to jump over." CR>)
 		       ;"World verbs never kill: a story that wants a fatal fall
 			 writes it in its own room."
 		       <TELL "It's too far down to jump safely." CR>)
-		      %<COND (<==? ,ZORK-NUMBER 1>
-			      '(<EQUAL? ,HERE ,UP-A-TREE>
-		                <TELL
-"In a feat of unaccustomed daring, you manage to land on your feet without
-killing yourself." CR CR>
-		                <DO-WALK ,P?DOWN>
-		                <RTRUE>))
-			     (T '(<NULL-F> T))>
 		      (T
 		       <V-SKIP>)>)
 	       (T
 		<V-SKIP>)>>
 
 <ROUTINE V-LISTEN ()
-	 <TELL CTHE ,PRSO " makes no sound." CR>>
+	 <TELL CTHE ,PRSO <AGREE ,PRSO " makes" " make"> " no sound." CR>>
 
 <ROUTINE V-LOCK ()
 	 <TELL "It doesn't seem to work." CR>>
@@ -655,9 +508,9 @@ killing yourself." CR CR>
 	 <COND (<FSET? ,PRSO ,DOORBIT>
 		<COND (<FSET? ,PRSO ,OPENBIT>
 		       <TELL
-CTHE ,PRSO " is open, but I can't tell what's beyond it.">)
+CTHE ,PRSO <AGREE ,PRSO " is" " are"> " open, but I can't tell what's beyond it.">)
 		      (T
-		       <TELL CTHE ,PRSO " is closed.">)>
+		       <TELL CTHE ,PRSO <AGREE ,PRSO " is" " are"> " closed.">)>
 		<CRLF>)
 	       (<FSET? ,PRSO ,CONTBIT>
 		<COND (<FSET? ,PRSO ,ACTORBIT>
@@ -666,15 +519,10 @@ CTHE ,PRSO " is open, but I can't tell what's beyond it.">)
 		       <COND (<AND <FIRST? ,PRSO>
 				   <PRINT-CONT ,PRSO>>
 			      <RTRUE>)
-			     %<COND (<==? ,ZORK-NUMBER 3>
-				     '(<FSET? ,PRSO ,SURFACEBIT>
-				       <TELL
-"There is nothing on " THE ,PRSO "." CR>))
-				    (ELSE '(<NULL-F> <RTRUE>))>
 			     (T
-			      <TELL CTHE ,PRSO " is empty." CR>)>)
+			      <TELL CTHE ,PRSO <AGREE ,PRSO " is" " are"> " empty." CR>)>)
 		      (T
-		       <TELL CTHE ,PRSO " is closed." CR>)>)
+		       <TELL CTHE ,PRSO <AGREE ,PRSO " is" " are"> " closed." CR>)>)
 	       (T
 		<TELL "You can't look inside " A ,PRSO "." CR>)>>
 
@@ -716,7 +564,7 @@ CTHE ,PRSO " is open, but I can't tell what's beyond it.">)
 				   <NOT <NEXT? .F>>
 				   <NOT <FSET? .F ,TOUCHBIT>>
 				   <SET STR <GETP .F ,P?FDESC>>>
-			      <TELL CTHE ,PRSO " opens." CR>
+			      <TELL CTHE ,PRSO <AGREE ,PRSO " opens." " open."> CR>
 			      <TELL .STR CR>)
 			     (T
 			      <TELL "Opening " THE ,PRSO " reveals ">
@@ -726,34 +574,17 @@ CTHE ,PRSO " is open, but I can't tell what's beyond it.">)
 		<COND (<FSET? ,PRSO ,OPENBIT>
 		       <TELL "It is already open." CR>)
 		      (T
-		       <TELL CTHE ,PRSO " opens." CR>
+		       <TELL CTHE ,PRSO <AGREE ,PRSO " opens." " open."> CR>
 		       <FSET ,PRSO ,OPENBIT>)>)
+
 	       (T
 		<TELL
 "You must tell me how to do that to " A ,PRSO "." CR>)>>
 
 
+;"A story's liquid answers POUR-ON in its own action."
 <ROUTINE V-POUR-ON ()
-	 <COND (<EQUAL? ,PRSO ,WATER>
-		<REMOVE-CAREFULLY ,PRSO>
-	        <COND (<FLAMING? ,PRSI>
-		       <TELL CTHE ,PRSI " is extinguished." CR>
-		       %<COND (<==? ,ZORK-NUMBER 2>
-			       '<COND (<EQUAL? ,PRSI ,BINF-FLAG>
-				       <SETG BINF-FLAG <>>)>)
-			      (ELSE '<NULL-F>)>
-		       <FCLEAR ,PRSI ,ONBIT>
-		       <FCLEAR ,PRSI ,FLAMEBIT>)
-	              (T
-		       <TELL
-"The water spills over " THE ,PRSI ", to the floor, and evaporates." CR>)>)
-	       %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<EQUAL? ,PRSO ,PUTTY>
-			 <PERFORM ,V?PUT ,PUTTY ,PRSI>))
-		      (T
-		       '(<NULL-F> <RTRUE>))>
-	       (T
-		<TELL "You can't pour that." CR>)>>
+	 <TELL "You can't pour that." CR>>
 
 
 <ROUTINE V-PUSH () <HACK-HACK "Pushing the ">>
@@ -834,25 +665,9 @@ CTHE ,PRSO " is open, but I can't tell what's beyond it.">)
 <ROUTINE V-RUB () <HACK-HACK "Fiddling with the ">>
 
 <ROUTINE V-SAY ("AUX" V)
-	 %<COND (<==? ,ZORK-NUMBER 2>
-		 '<COND (<OR ,SPELL-USED ,WAND-ON>
-		         <PERFORM ,V?INCANT>
-		         <RTRUE>)>)
-		(<==? ,ZORK-NUMBER 3>
-		 '<COND (<AND <FSET? ,FRONT-DOOR ,TOUCHBIT>
-		              <EQUAL? <GET ,P-LEXV ,P-CONT> ,W?FROTZ>
-		              <EQUAL? <GET ,P-LEXV <+ ,P-CONT 2>> ,W?OZMOO>>
-		         <SETG P-CONT <>>
-		         <COND (<EQUAL? ,HERE ,MSTAIRS>
-		                <CRLF>
-		                <GOTO ,FRONT-DOOR>)
-		               (T
-		                <TELL "Nothing happens." CR>)>
-		                <RTRUE>)>)
-		(T
-		 '<COND (<NOT ,P-CONT>
-			 <TELL "Say what?" CR>
-			 <RTRUE>)>)>
+	 <COND (<NOT ,P-CONT>
+		<TELL "Say what?" CR>
+		<RTRUE>)>
 	 <SETG QUOTE-FLAG <>>
 	 <COND (<SET V <FIND-IN ,HERE ,ACTORBIT>>
 		<TELL "You must address " THE .V " directly." CR>
@@ -884,10 +699,7 @@ CTHE ,PRSO " is open, but I can't tell what's beyond it.">)
 		       <COND (<FIRST? ,PRSO>
 			      <SHAKE-LOOP>
 			      <TELL "The contents of the " D, PRSO " spill ">
-	                      <COND (%<COND (<==? ,ZORK-NUMBER 3>
-					     '<FSET? ,HERE ,NONLANDBIT>)
-					    (ELSE
-					     '<NOT <FSET? ,HERE ,RLANDBIT>>)>
+	                      <COND (<NOT <FSET? ,HERE ,RLANDBIT>>
 		                     <TELL "out and disappear">)
 	                            (T
 		                     <TELL "to the ground">)>
@@ -899,7 +711,8 @@ CTHE ,PRSO " is open, but I can't tell what's beyond it.">)
 			      <TELL
 "It sounds like there is something inside " THE ,PRSO "." CR>)
 			     (T
-			      <TELL "The " D, PRSO " sounds empty." CR>)>)>)
+			      <TELL "The " D, PRSO <AGREE ,PRSO " sounds" " sound">
+				    " empty." CR>)>)>)
 	       (T
 		<TELL "Shaken." CR>)>>
 
@@ -908,25 +721,10 @@ CTHE ,PRSO " is open, but I can't tell what's beyond it.">)
 		 <COND (<SET X <FIRST? ,PRSO>>
 			<FSET .X ,TOUCHBIT>
 			<MOVE .X
-			      %<COND (<==? ,ZORK-NUMBER 1>
-				      '<COND (<EQUAL? ,HERE ,UP-A-TREE>
-				              ,PATH)
-				             (<NOT <FSET? ,HERE ,RLANDBIT>>
-				              ,PSEUDO-OBJECT)
-				             (T
-				              ,HERE)>)
-				     (<==? ,ZORK-NUMBER 2>
-				      '<COND (<EQUAL? .X ,WATER>
-				              ,PSEUDO-OBJECT)
-				             (<NOT <FSET? ,HERE ,RLANDBIT>>
-				              ,PSEUDO-OBJECT)
-				             (T
-				              ,HERE)>)
-				     (T
-				      '<COND (<EQUAL? ,HERE ,ON-LAKE>
-					      ,IN-LAKE)
-					     (T
-					      ,HERE)>)>>)
+			      <COND (<NOT <FSET? ,HERE ,RLANDBIT>>
+				     ,PSEUDO-OBJECT)
+				    (T
+				     ,HERE)>>)
 		       (T
 			<RETURN>)>>>
 
@@ -957,27 +755,7 @@ CTHE ,PRSO " is open, but I can't tell what's beyond it.">)
 
 
 <ROUTINE V-SWIM ()
-	 <COND %<COND (<OR <==? ,ZORK-NUMBER 1>
-			   <==? ,ZORK-NUMBER 2>>
-		       '(<GLOBAL-IN? ,GLOBAL-WATER ,HERE>
-		         <TELL "Swimming isn't usually allowed in the ">
-		         <COND (<NOT <EQUAL? ,PRSO ,WATER ,GLOBAL-WATER>>
-	                        <TELL D ,PRSO ".">)
-		               (T
-		                <TELL "dungeon.">)>
-		         <CRLF>))
-		      (T
-		       '(<EQUAL? ,HERE ,ON-LAKE ,IN-LAKE>
-		         <TELL "What do you think you're doing?" CR>))>
-	       %<COND (<==? ,ZORK-NUMBER 3>
-		       '(<EQUAL? ,HERE ,FLATHEAD-OCEAN>
-		         <TELL
-"Between the rocks and waves, you wouldn't last a minute!" CR>))
-		      (T
-		       '(<NULL-F>
-			 <RFALSE>))>
-	       (T
-		<TELL "Go jump in a lake!" CR>)>>
+	 <TELL "Go jump in a lake!" CR>>
 
 
 <ROUTINE PRE-TAKE ()
@@ -995,12 +773,6 @@ CTHE ,PRSO " is open, but I can't tell what's beyond it.">)
 		<COND (<EQUAL? ,PRSI ,GROUND>
 		       <SETG PRSI <>>
 		       <RFALSE>)>
-		%<COND (<==? ,ZORK-NUMBER 2>
-			'<COND (<EQUAL? ,PRSO ,DOOR-KEEPER>
-				<SETG PRSI <>>
-				<RFALSE>)>)
-		       (ELSE
-			'<NULL-F>)>
 		<COND (<NOT <EQUAL? ,PRSI <LOC ,PRSO>>>
 		       <TELL CTHE ,PRSO " isn't in " THE ,PRSI "." CR>)
 		      (T
@@ -1039,30 +811,6 @@ CTHE ,PRSO " is open, but I can't tell what's beyond it.">)
 	       <PERFORM ,V?BOARD ,PRSO>
 	       <RTRUE>)
 	      (<OR .OBJ <NOT <FSET? ,PRSO ,TAKEBIT>>>
-	       %<COND (<==? ,ZORK-NUMBER 2>
-		       '<COND (<AND ,SCOL-ROOM
-				   <OR .OBJ <EQUAL? ,PRSO ,CURTAIN>>>
-			      <SCOL-GO .OBJ>
-			      <RTRUE>)
-			     (<AND <EQUAL? ,HERE ,DEPOSITORY>
-				   <EQUAL? ,PRSO ,SNWL>
-				   ,SCOL-ROOM>
-			      <SCOL-GO .OBJ>
-			      <RTRUE>)
-			     (<AND <EQUAL? ,HERE ,SCOL-ACTIVE>
-				   <EQUAL? ,PRSO 
-					   <GET <SET M <GET-WALL ,HERE>> 1>>>
-			      <SETG SCOL-ROOM <GET .M 2>>
-			      <SETG PRSO <GETP ,PRSO ,P?SIZE>>
-			      <COND (.OBJ <SCOL-OBJ .OBJ 0 ,DEPOSITORY>)
-				    (T
-				     <SCOL-THROUGH 0 ,DEPOSITORY>)>
-			      <RTRUE>)
-			     (<EQUAL? ,PRSO ,CURTAIN>
-			      <TELL
-"You can't go more than part way through the curtain." CR>
-			      <RTRUE>)>)
-		      (ELSE '<NULL-F>)>
 	       <TELL
 "You hit your head against " THE ,PRSO " as you attempt this feat." CR>)
 	      (<IN? ,PRSO ,WINNER>
@@ -1089,19 +837,11 @@ CR>)
 		<TELL "You can't tie " THE ,PRSO " to that." CR>)>>
 
 
+;"Bare hands turn nothing but the pages of something to read."
 <ROUTINE PRE-TURN ()
-	 %<COND (<==? ,ZORK-NUMBER 3>
-		 '<COND (<AND <EQUAL? ,PRSI <> ,ROOMS>
-			      <EQUAL? ,PRSO ,DIAL ,TM-DIAL ,T-BAR>>
-			 <TELL
-"You should turn " THE ,PRSO " to something." CR>
-			 <RTRUE>)>)
-		(ELSE T)>
-	 <COND (%<COND (<==? ,ZORK-NUMBER 1>
-			'<AND <EQUAL? ,PRSI <> ,ROOMS>
-			      <NOT <EQUAL? ,PRSO ,BOOK>>>)
-		       (ELSE
-			'<EQUAL? ,PRSI <> ,ROOMS>)>
+	 <COND (<AND <EQUAL? ,PRSI <> ,ROOMS>
+		     <NOT <FSET? ,PRSO ,READBIT>>>
+
 		<TELL "Your bare hands don't appear to be enough." CR>)
 	       (<NOT <FSET? ,PRSO ,TURNBIT>>
 		<TELL "You can't turn that!" CR>)>>
@@ -1133,11 +873,6 @@ CR>)
 		      (<EQUAL? .PTS ,FEXIT>
 		       <COND (<SET RM <APPLY <GET .PT ,FEXITFCN>>>
 			      <GOTO .RM>)
-			     %<COND (<==? ,ZORK-NUMBER 3>
-				     '(<AND <EQUAL? ,HERE ,CP> ,CP-MOVED>
-		                       <RTRUE>))
-				    (T
-				     '(<NULL-F> <RFALSE>))>
 			     (T
 			      <RFATAL>)>)
 		      (<EQUAL? .PTS ,CEXIT>
@@ -1168,13 +903,6 @@ CR>)
 "There are odd noises in the darkness, and there is no exit in that
 direction." CR>
 		       <RFATAL>)
-		      %<COND (<==? ,ZORK-NUMBER 3>
-			      '(<EQUAL? ,HERE ,DARK-1 ,DARK-2>
-		                <JIGS-UP
-"Oh, no! You have walked into a den of hungry grues and it's dinner time!">))
-			     (T
-			      '(<NULL-F>
-				<RFALSE>))>
 		      (T
 		       <JIGS-UP
 "Oh, no! You have walked into the slavering fangs of a lurking grue!">)>)
@@ -1221,37 +949,20 @@ direction." CR>
 		<COND (<NOT ,SPRAYED?>
 		       <TELL " You are likely to be eaten by a grue.">)>
 		<CRLF>
-		%<COND (<==? ,ZORK-NUMBER 3>
-			'<COND (<EQUAL? ,HERE ,DARK-2>
-		                <TELL
-"The ground continues to slope upwards away from the lake. You can barely
-detect a dim light from the east." CR>)>)
-		       (T
-			'<NULL-F>)>
 		<RFALSE>)>
 	 <COND (<NOT <FSET? ,HERE ,TOUCHBIT>>
 		<FSET ,HERE ,TOUCHBIT>
 		<SET V? T>)>
-	 %<COND (<==? ,ZORK-NUMBER 1>
-		 '<COND (<FSET? ,HERE ,MAZEBIT>
-		         <FCLEAR ,HERE ,TOUCHBIT>)>)
-		(T
-		 '<NULL-F>)>
+	 <COND (<FSET? ,HERE ,MAZEBIT>
+		<FCLEAR ,HERE ,TOUCHBIT>)>
 	 <COND (<IN? ,HERE ,ROOMS>
-		<COND (%<COND (<==? ,ZORK-NUMBER 2>
-			       '<OR <AND <NOT .LOOK?> ,SUPER-BRIEF <NOT <EQUAL? ,HERE ,ZORK3>>>
-				    <NOT .V?>>)
-			      (ELSE
-			       '<OR <AND <NOT .LOOK?> ,SUPER-BRIEF>
-				    <NOT .V?>>)>
+		<COND (<OR <AND <NOT .LOOK?> ,SUPER-BRIEF>
+			   <NOT .V?>>
 		       <TELL D ,HERE>
 		       <COND (<FSET? <SET AV <LOC ,WINNER>> ,VEHBIT>
 			      <TELL ", in " THE .AV>)>
 		       <CRLF>)>)>
-	 <COND (%<COND (<==? ,ZORK-NUMBER 2>
-			'<OR .LOOK? <NOT ,SUPER-BRIEF> <EQUAL? ,HERE ,ZORK3>>)
-		       (ELSE
-			'<OR .LOOK? <NOT ,SUPER-BRIEF>>)>
+	 <COND (<OR .LOOK? <NOT ,SUPER-BRIEF>>
 		<SET AV <LOC ,WINNER>>
 		;<COND (<FSET? .AV ,VEHBIT>
 		       <TELL "(You are in " THE .AV ".)" CR>)>
@@ -1293,7 +1004,7 @@ long description (fdesc or ldesc), otherwise will print short."
 			 <SET STR <GETP .OBJ ,P?LDESC>>>>
 		<TELL .STR>)
 	       (<0? .LEVEL>
-		<TELL "There is " A .OBJ " here">
+		<TELL "There" <AGREE .OBJ " is " " are "> A .OBJ " here">
 		<COND (<FSET? .OBJ ,ONBIT>
 		       <TELL " (providing light)">)>
 		<TELL ".">)
@@ -1305,12 +1016,6 @@ long description (fdesc or ldesc), otherwise will print short."
 		      (<AND <FSET? .OBJ ,WEARBIT>
 			    <IN? .OBJ ,WINNER>>
 		       <TELL " (being worn)">)>)>
-	 %<COND (<==? ,ZORK-NUMBER 2>
-		 '<COND (<AND <EQUAL? .OBJ ,SPELL-VICTIM>
-		              <EQUAL? ,SPELL-USED ,W?FLOAT>>
-		         <TELL " (floating in midair)">)>)
-		(T
-		 '<NULL-F>)>
 	 <COND (<AND <0? .LEVEL>
 		     <SET AV <LOC ,WINNER>>
 		     <FSET? .AV ,VEHBIT>>
@@ -1394,19 +1099,8 @@ long description (fdesc or ldesc), otherwise will print short."
 		<SET INV? T>)
 	       (ELSE
 		<REPEAT ()
-			<COND %<COND (<==? ,ZORK-NUMBER 2>
-				      '(<NOT .Y>
-					<COND (<AND <0? .LEVEL>
-						    <==? ,SPELL? ,S-FANTASIZE>
-						    <PROB 20>>
-					       <TELL "There is a "
-						     <PICK-ONE ,FANTASIES>
-						     " here." CR>
-					       <SET 1ST? <>>)>
-					<RETURN>))
-				     (ELSE
-				      '(<NOT .Y>
-					<RETURN>))>
+			<COND (<NOT .Y>
+			       <RETURN>)
 			      (<EQUAL? .Y .AV> <SET PV? T>)
 			      (<EQUAL? .Y ,WINNER>)
 			      (<AND <NOT <FSET? .Y ,INVISIBLE>>
@@ -1426,7 +1120,7 @@ long description (fdesc or ldesc), otherwise will print short."
 	 <REPEAT ()
 		 <COND (<NOT .Y>
 			<COND (<AND .PV? .AV <FIRST? .AV>>
-			       <SET LEVEL <+ .LEVEL 1>> ;"not in Zork III"
+			       <SET LEVEL <+ .LEVEL 1>>
 			       <PRINT-CONT .AV .V? .LEVEL>)>
 			<RETURN>)
 		       (<EQUAL? .Y .AV ,ADVENTURER>)
@@ -1445,20 +1139,14 @@ long description (fdesc or ldesc), otherwise will print short."
 			       <COND (<L? .LEVEL 0> <SET LEVEL 0>)>
 			       <DESCRIBE-OBJECT .Y .V? .LEVEL>)
 			      (<AND <FIRST? .Y> <SEE-INSIDE? .Y>>
-			       <SET LEVEL <+ .LEVEL 1>> ;"not in Zork III"
+			       <SET LEVEL <+ .LEVEL 1>>
 			       <PRINT-CONT .Y .V? .LEVEL>
-			       <SET LEVEL <- .LEVEL 1>> ;"not in Zork III")>)>
+			       <SET LEVEL <- .LEVEL 1>>)>)>
 		 <SET Y <NEXT? .Y>>>
 	 <COND (<AND .1ST? .SHIT <NOT .GROUPED>> <RFALSE>) (T <RTRUE>)>>
 
 <ROUTINE FIRSTER (OBJ LEVEL)
-	 <COND %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<EQUAL? .OBJ ,TROPHY-CASE>
-		         <TELL
-"Your collection of treasures consists of:" CR>))
-		      (T
-		       '(<NULL-F> <RTRUE>))>
-	       (<EQUAL? .OBJ ,WINNER>
+	 <COND (<EQUAL? .OBJ ,WINNER>
 		<TELL "You are carrying:" CR>)
 	       (<NOT <IN? .OBJ ,ROOMS>>
 		<COND (<G? .LEVEL 0>
@@ -1466,9 +1154,9 @@ long description (fdesc or ldesc), otherwise will print short."
 		<COND (<FSET? .OBJ ,SURFACEBIT>
 		       <TELL "Sitting on " THE .OBJ " is: " CR>)
 		      (<FSET? .OBJ ,ACTORBIT>
-		       <TELL CTHE .OBJ " is holding: " CR>)
+		       <TELL CTHE .OBJ <AGREE .OBJ " is" " are"> " holding: " CR>)
 		      (T
-		       <TELL CTHE .OBJ " contains:" CR>)>)>>
+		       <TELL CTHE .OBJ <AGREE .OBJ " contains:" " contain:"> CR>)>)>>
 
 
 "Scoring"
@@ -1477,18 +1165,8 @@ long description (fdesc or ldesc), otherwise will print short."
 <ROUTINE SCORE-UPD (NUM)
 	 <SETG BASE-SCORE <+ ,BASE-SCORE .NUM>>
 	 <SETG SCORE <+ ,SCORE .NUM>>
-	 %<COND (<==? ,ZORK-NUMBER 1>
-		 '<COND (<AND <EQUAL? ,SCORE 350>
-		              <NOT ,WON-FLAG>>
-		         <SETG WON-FLAG T>
-		         <FCLEAR ,MAP ,INVISIBLE>
-		         <FCLEAR ,WEST-OF-HOUSE ,TOUCHBIT>
-		         <TELL
-"An almost inaudible voice whispers in your ear, \"Look to your treasures
-for the final secret.\"" CR>)>)
-		(T
-		 '<NULL-F>)>
 	 T>
+
 
 
 <ROUTINE YES? ()
@@ -1513,31 +1191,15 @@ for the final secret.\"" CR>)>)
 
 <ROUTINE ITAKE ("OPTIONAL" (VB T) "AUX" CNT OBJ)
 	 #DECL ((VB) <OR ATOM FALSE> (CNT) FIX (OBJ) OBJECT)
-	 <COND %<COND (<==? ,ZORK-NUMBER 1>
-		       '(,DEAD
-		         <COND (.VB
-				<TELL
+	 <COND (,DEAD
+		<COND (.VB
+		       <TELL
 "Your hand passes through its object." CR>)>
-		         <RFALSE>))
-		      (T
-		       '(<NULL-F>
-			 <RFALSE>))>
+		<RFALSE>)
 	       (<NOT <FSET? ,PRSO ,TAKEBIT>>
 		<COND (.VB
 		       <TELL <PICK-ONE ,YUKS> CR>)>
 		<RFALSE>)
-	       %<COND (<==? ,ZORK-NUMBER 2>
-		       '(<AND <EQUAL? ,PRSO ,SPELL-VICTIM>
-		              <EQUAL? ,SPELL-USED ,W?FLOAT ,W?FREEZE>>
-		         <COND (<EQUAL? ,SPELL-USED ,W?FLOAT>
-		                <TELL
-"You can't reach that. It's floating above your head." CR>)
-		               (T
-		                <TELL "It seems rooted to the spot." CR>)>
-		         <RFALSE>))
-		      (T
-		       '(<NULL-F>
-			 <RFALSE>))>
 	       (<AND <FSET? <LOC ,PRSO> ,CONTBIT>
 		     <NOT <FSET? <LOC ,PRSO> ,OPENBIT>>>
 		;"Kludge for parser calling itake"
@@ -1562,19 +1224,7 @@ for the final secret.\"" CR>)>)
 		<MOVE ,PRSO ,WINNER>
 		<FCLEAR ,PRSO ,NDESCBIT>
 		<FSET ,PRSO ,TOUCHBIT>
-		%<COND (<==? ,ZORK-NUMBER 2>
-			'<COND (<EQUAL? ,SPELL? ,S-FILCH>
-		                <COND (<RIPOFF ,PRSO ,WIZARD-CASE>
-			               <TELL
-"When you touch " THE ,PRSO " it immediately disappears!" CR>
-			               <RFALSE>)>)>)
-		       (T
-			'<NULL-F>)>
-		%<COND (<OR <==? ,ZORK-NUMBER 1>
-			    <==? ,ZORK-NUMBER 2>>
-			'<SCORE-OBJ ,PRSO>)
-		       (T
-			'<NULL-F>)>
+		<SCORE-OBJ ,PRSO>
 		<RTRUE>)>>
 
 <ROUTINE IDROP ()
@@ -1654,20 +1304,8 @@ for the final secret.\"" CR>)>)
 			    <NOT <FSET? ,HERE ,RLANDBIT>>
 			    <NOT ,DEAD>
 			    <FSET? .WLOC ,VEHBIT>>
-		       %<COND (<==? ,ZORK-NUMBER 1>
-			       '<TELL
-CTHE .WLOC " comes to a rest on the shore." CR CR>)
-			      (<==? ,ZORK-NUMBER 2>
-			       '<COND (<EQUAL? .WLOC ,BALLOON>
-				       <TELL
-"The balloon lands." CR>)
-				      (<FSET? .WLOC ,VEHBIT>
-				       <TELL
-CTHE .WLOC " comes to a stop." CR CR>)>)
-			      (<==? ,ZORK-NUMBER 3>
-			       '<COND (<FSET? .WLOC ,VEHBIT>
-				       <TELL
-CTHE .WLOC " comes to a stop." CR CR>)>)>)>
+		       <TELL
+CTHE .WLOC " comes to a rest on the shore." CR CR>)>
 		<COND (.AV
 		       <MOVE .WLOC .RM>)
 		      (T
@@ -1680,14 +1318,6 @@ CTHE .WLOC " comes to a stop." CR CR>)>)>)>
 		       <COND (,SPRAYED?
 			      <TELL
 "There are sinister gurgling noises in the darkness all around you!" CR>)
-			     %<COND (<==? ,ZORK-NUMBER 3>
-				     '(<EQUAL? ,HERE ,DARK-1 ,DARK-2>
-		                       <JIGS-UP
-"Oh, no! Dozen of lurking grues attack and devour you! You must have
-stumbled into an authentic grue lair!">))
-				    (T
-				     '(<NULL-F>
-				       <RFALSE>))>
 			     (T
 			      <TELL
 "Oh, no! A lurking grue slithered into the ">
@@ -1706,14 +1336,8 @@ stumbled into an authentic grue lair!">))
 		      (<AND <NOT <EQUAL? ,ADVENTURER ,WINNER>>
 			    <IN? ,ADVENTURER .OHERE>>
 		       <TELL CTHE ,WINNER " leaves the room." CR>)
-		      %<COND (<==? ,ZORK-NUMBER 1>
-			      '(<AND <EQUAL? ,HERE .OHERE>
-				      ;"no double description"
-				     <EQUAL? ,HERE ,ENTRANCE-TO-HADES>>
-				<RTRUE>))
-			     (ELSE
-			      '(<NULL-F> <RTRUE>))>
 		      (<AND .V?
+
 			    <EQUAL? ,WINNER ,ADVENTURER>>
 		       <V-FIRST-LOOK>)>
 		<RTRUE>)>>

@@ -105,21 +105,31 @@ for _, path in ipairs({"core/parser.zil", "core/loop.zil", "core/clock.zil", "co
    path .. " names the game object " .. name)
  end
 end
--- The world verbs still carry Zork I special cases (climbing the tree, the
--- entrance to Hades) and Zork II/III branches. They belong to the classic
--- rules or the story; this list may only shrink.
-local zork = {"WEST-OF-HOUSE", "ENTRANCE-TO-HADES", "BOOK", "ROPE", "TREE", "STAIRS", "GROUND", "WATER", "GLOBAL-WATER", "TROLL", "THIEF", "CYCLOPS", "MAILBOX", "LAMP", "SWORD"}
-local allowed = {en = {["WEST-OF-HOUSE"] = 1, ["ENTRANCE-TO-HADES"] = 1, BOOK = 1, ROPE = 1, TREE = 1, STAIRS = 1, GROUND = 1, WATER = 1, ["GLOBAL-WATER"] = 1}}
-for _, lang in ipairs({"en"}) do
- for _, file in ipairs({"verbs", "globals"}) do
-  local text = read("languages/" .. lang .. "/" .. file .. ".zil")
-  for _, name in ipairs(zork) do
-   if text:find("," .. name .. "[%s>)]") then
-    assert(allowed[lang][name], "languages/" .. lang .. "/" .. file .. ".zil gained a reference to the Zork object " .. name)
-   end
-  end
+-- Core and the English language name none of Zork I's rooms and objects and
+-- test no ZORK-NUMBER: Zork I's special cases live in infocom/zork1. A name
+-- Zork I shares with the language (GROUND, STAIRS) is the language's own.
+local english = {}
+check("languages/en/base.zil", english)
+local defined = {}
+for _, path in ipairs(english.order) do
+ for name in read(path):gmatch("\n<[A-Z]+%s+([%w%-%?]+)") do defined[name] = true end
+end
+local zork1 = {}
+for _, kind in ipairs({"OBJECT", "ROOM"}) do
+ for name in read("infocom/zork1/dungeon.zil"):gmatch("\n<" .. kind .. "%s+([%w%-%?]+)") do
+  if not defined[name] then zork1[name] = true end
  end
 end
+
+assert(zork1["WEST-OF-HOUSE"] and zork1.TREE and zork1["GLOBAL-WATER"] and not zork1.GROUND, "the Zork I name list reads dungeon.zil")
+for _, path in ipairs(english.order) do
+ local text = read(path)
+ assert(not text:find("ZORK-NUMBER", 1, true), path .. " tests ZORK-NUMBER")
+ for name in text:gmatch(",([%w%-%?]+)") do
+  assert(not zork1[name], path .. " names the Zork I object " .. name)
+ end
+end
+
 
 -- Exercise a real compiler load and the new package graph without historical sources.
 local runtime = require("zilscript.runtime")

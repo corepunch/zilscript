@@ -25,6 +25,7 @@ local test_files = {
 	"tests/test_sourcemap_integration.lua",
 	"tests/test_sourcemap.lua",
 	"tests/test_typescript_modules.lua",
+	"tests/test_zork1_world_rules.lua",
 }
 
 local all_passed = true

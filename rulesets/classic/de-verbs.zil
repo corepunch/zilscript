@@ -17,13 +17,10 @@
 
 <ROUTINE V-ALARM ()
 	 <COND (<FSET? ,PRSO ,ACTORBIT>
-		<COND %<COND (<==? ,ZORK-NUMBER 1>
-			      '(<L? <GETP ,PRSO ,P?STRENGTH> 0>
-		                <TELL
+		<COND (<L? <GETP ,PRSO ,P?STRENGTH> 0>
+		       <TELL
 DER-NOM-CAP ,PRSO " wird grob geweckt." CR>
-		                <AWAKEN ,PRSO>))
-			     (T
-			      '(<NULL-F> <RTRUE>))>
+		       <AWAKEN ,PRSO>)
 		      (T
 		       <TELL
 DER-NOM-CAP ,PRSO " ist schon wach, falls du das noch nicht gemerkt
@@ -55,13 +52,7 @@ hast." CR>)>)
 	        <TELL "Mit " EIN-DAT ,PRSI " etwa?!?" CR>)>>
 
 <ROUTINE V-BURN ()
-	 <COND %<COND (<==? ,ZORK-NUMBER 2>
-		       '(<EQUAL? <LOC ,PRSO> ,RECEPTACLE>
-		         <BALLOON-BURN>
-		         <RTRUE>))
-		      (T
-		       '(<NULL-F> <RFALSE>))>
-	       (<FSET? ,PRSO ,BURNBIT>
+	 <COND (<FSET? ,PRSO ,BURNBIT>
 		<COND (<OR <IN? ,PRSO ,WINNER>
 			   <IN? ,WINNER ,PRSO>>
 		       <REMOVE-CAREFULLY ,PRSO>
@@ -136,27 +127,24 @@ DER-NOM-CAP ,PRSO " f%angt Feuer und verbrennt." CR>)>)
 
 <ROUTINE V-ECHO ("AUX" LST MAX (ECH 0) CNT)
 	 #DECL ((LST) <PRIMTYPE VECTOR> (MAX CNT ECH) FIX)
-	 %<COND (<==? ,ZORK-NUMBER 1>
-		 '<COND (<G? <GET ;B ,P-LEXV ,P-LEXWORDS> 0>
-	                 <SET LST <REST
-				   ,P-LEXV
-				   <* <GET ,P-LEXV ,P-LEXWORDS> ,P-WORDLEN>>>
-	                 <SET MAX <- <+ <GET ;B .LST 0> <GET ;B .LST 1>> 1>>
-	                 <REPEAT ()
-		            <COND (<G? <SET ECH <+ .ECH 1>> 2>
-			           <TELL "..." CR>
-				   <RETURN>)
-			          (T
-			           <SET CNT <- <GET ;B .LST 1> 1>>
-			           <REPEAT ()
-				      <COND (<G? <SET CNT <+ .CNT 1>> .MAX>
-					     <RETURN>)
-					    (T
-					     <PRINTC <GET ;B ,P-INBUF .CNT>>)>>
-			           <TELL " ">)>>)
-			(T <TELL "Echo Echo ..." CR>)>)
-		(T
-		 '<TELL "Echo Echo ..." CR>)>>
+	 <COND (<G? <GET ;B ,P-LEXV ,P-LEXWORDS> 0>
+		<SET LST <REST
+			  ,P-LEXV
+			  <* <GET ,P-LEXV ,P-LEXWORDS> ,P-WORDLEN>>>
+		<SET MAX <- <+ <GET ;B .LST 0> <GET ;B .LST 1>> 1>>
+		<REPEAT ()
+		   <COND (<G? <SET ECH <+ .ECH 1>> 2>
+			  <TELL "..." CR>
+			  <RETURN>)
+			 (T
+			  <SET CNT <- <GET ;B .LST 1> 1>>
+			  <REPEAT ()
+			     <COND (<G? <SET CNT <+ .CNT 1>> .MAX>
+				    <RETURN>)
+				   (T
+				    <PRINTC <GET ;B ,P-INBUF .CNT>>)>>
+			  <TELL " ">)>>)
+	       (T <TELL "Echo Echo ..." CR>)>>
 
 <ROUTINE V-EXORCISE ()
 	 <TELL "Was f%ur eine Schnappsidee!" CR>>
@@ -214,12 +202,7 @@ sagst.">)
 	 <TELL "You'll have to speak up if you expect me to hear you!" CR>>
 
 <ROUTINE PRE-MUNG ()
-	 <COND %<COND (<==? ,ZORK-NUMBER 3>
-		       '(<EQUAL? ,PRSO ,BEAM>
-		         <RFALSE>))
-		      (T
-		       '(<NULL-F> <RTRUE>))>
-	       (<OR <NOT ,PRSI>
+	 <COND (<OR <NOT ,PRSI>
 		    <NOT <FSET? ,PRSI ,WEAPONBIT>>>
 		;<TELL "Trying to destroy " DER-ACC ,PRSO " with ">
 		<TELL "Es ist sinnlos, " DER-ACC ,PRSO " mit ">
@@ -230,19 +213,16 @@ sagst.">)
 		<TELL " zerst%oren zu wollen." CR>)>>
 
 <ROUTINE V-ODYSSEUS ()
-	 <COND %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<AND <EQUAL? ,HERE ,CYCLOPS-ROOM>
-			      <IN? ,CYCLOPS ,HERE>
-			      <NOT ,CYCLOPS-FLAG>>
-		         <DISABLE <INT I-CYCLOPS>>
-		         <SETG CYCLOPS-FLAG T>
-		         <TELL
+	 <COND (<AND <EQUAL? ,HERE ,CYCLOPS-ROOM>
+		     <IN? ,CYCLOPS ,HERE>
+		     <NOT ,CYCLOPS-FLAG>>
+		<DISABLE <INT I-CYCLOPS>>
+		<SETG CYCLOPS-FLAG T>
+		<TELL
 "Als der Zyklop von der t%odlichen Strafe seines Vaters h%ort, entflieht er aus dem Zimmer, indem er die Ostwand des Zimmers niederrennt." CR>
-		        <SETG MAGIC-FLAG T>
-		        <FCLEAR ,CYCLOPS ,FIGHTBIT>
-		        <REMOVE-CAREFULLY ,CYCLOPS>))
-		      (T
-		       '(<NULL-F> T))>
+	       <SETG MAGIC-FLAG T>
+	       <FCLEAR ,CYCLOPS ,FIGHTBIT>
+	       <REMOVE-CAREFULLY ,CYCLOPS>)
 	       (T
 		<TELL "War er nicht ein Seemann?" CR>)>>
 
@@ -250,14 +230,12 @@ sagst.">)
 	 <TELL "Du bist wohl auch so einer, der Spinat ins Auto tankt?" CR>>
 
 <ROUTINE V-OVERBOARD ("AUX" LOCN)
-	 <COND %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<EQUAL? ,PRSI ,TEETH>
-			 <COND (<FSET? <SET LOCN <LOC ,WINNER>> ,VEHBIT>
-				<MOVE ,PRSO <LOC .LOCN>>
-				<TELL "Ahoy -- " D ,PRSO " %uber Bord!" CR>)
-			       (T
-				<TELL "You're not in anything!" CR>)>))
-		      (T '(<NULL-F> T))>
+	 <COND (<EQUAL? ,PRSI ,TEETH>
+		<COND (<FSET? <SET LOCN <LOC ,WINNER>> ,VEHBIT>
+		       <MOVE ,PRSO <LOC .LOCN>>
+		       <TELL "Ahoy -- " D ,PRSO " %uber Bord!" CR>)
+		      (T
+		       <TELL "You're not in anything!" CR>)>)
 	       (<FSET? <LOC ,WINNER> ,VEHBIT>
 		<PERFORM ,V?THROW ,PRSO>
 		<RTRUE>)
@@ -277,27 +255,18 @@ sagst.">)
 	 <TELL "Erfolglos." CR>>
 
 <ROUTINE V-PRAY ()
-	 <COND %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<EQUAL? ,HERE ,SOUTH-TEMPLE>
-		         <GOTO ,FOREST-1>))
-		      (T
-		       '(<NULL-F> <RTRUE>))>
+	 <COND (<EQUAL? ,HERE ,SOUTH-TEMPLE>
+		<GOTO ,FOREST-1>)
 	       (T
 		<TELL
 "Wenn du gen%ugend betest, dann werden deine Gebete vielleicht erh%ort." CR>)>>
 
 <ROUTINE V-PUMP ()
-	 <COND %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<AND ,PRSI <NOT <EQUAL? ,PRSI ,PUMP>>>
-		         <TELL
-"Pump" PRONOUN-ACC ,PRSO " up with " EIN-DAT ,PRSI "?" CR>))
-		      (T
-		       '(<NULL-F> <RTRUE>))>
-	       %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<IN? ,PUMP ,WINNER>
-		         <PERFORM ,V?INFLATE ,PRSO ,PUMP>))
-		      (T
-		       '(<NULL-F> <RTRUE>))>
+	 <COND (<AND ,PRSI <NOT <EQUAL? ,PRSI ,PUMP>>>
+		<TELL
+"Pump" PRONOUN-ACC ,PRSO " up with " EIN-DAT ,PRSI "?" CR>)
+	       (<IN? ,PUMP ,WINNER>
+		<PERFORM ,V?INFLATE ,PRSO ,PUMP>)
 	       (T
 		<TELL "It's really not clear how." CR>)>>
 
@@ -367,16 +336,10 @@ erdolchen." CR>)>>
 DER-ACC-CAP ,PRSO " kannst du damit bestimmt nicht fesseln!" CR>>
 
 <ROUTINE V-TREASURE ()
-	 <COND %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<EQUAL? ,HERE ,NORTH-TEMPLE>
-		         <GOTO ,TREASURE-ROOM>))
-		      (T
-		       '(<NULL-F> <RTRUE>))>
-	       %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<EQUAL? ,HERE ,TREASURE-ROOM>
-		         <GOTO ,NORTH-TEMPLE>))
-		      (T
-		       '(<NULL-F> <RTRUE>))>
+	 <COND (<EQUAL? ,HERE ,NORTH-TEMPLE>
+		<GOTO ,TREASURE-ROOM>)
+	       (<EQUAL? ,HERE ,TREASURE-ROOM>
+		<GOTO ,NORTH-TEMPLE>)
 	       (T
 		<TELL "Hier passiert garnichts." CR>)>>
 
@@ -387,10 +350,7 @@ DER-ACC-CAP ,PRSO " kannst du damit bestimmt nicht fesseln!" CR>>
 	 <TELL "Du kannst " DER-ACC ,PRSO " nicht aufziehen." CR>>
 
 <ROUTINE V-WISH ()
-	 %<COND (<==? ,ZORK-NUMBER 2>
-		 '<PERFORM ,V?MAKE ,WISH>)
-		(T
-		 '<TELL "Mit viel Gl%uck, wird dein Wunsch sich erf%ullen." CR>)>>
+	 <TELL "Mit viel Gl%uck, wird dein Wunsch sich erf%ullen." CR>>
 
 <ROUTINE V-ZORK () <TELL "Zu deinen Diensten!" CR>>
 
@@ -401,32 +361,19 @@ DER-ACC-CAP ,PRSO " kannst du damit bestimmt nicht fesseln!" CR>>
 		<COND (<NOT ,SPRAYED?>
 		       <TELL " Es besteht die M%oglichkeit, da%s du von einem Greuel gefressen wirst.">)>
 		<CRLF>
-		%<COND (<==? ,ZORK-NUMBER 3>
-			'<COND (<EQUAL? ,HERE ,DARK-2>
-		                <TELL
-"The ground continues to slope upwards away from the lake. You can barely
-detect a dim light from the east." CR>)>)
-		       (T
-			'<NULL-F>)>
 		<RFALSE>)>
 	 <COND (<NOT <FSET? ,HERE ,TOUCHBIT>>
 		<FSET ,HERE ,TOUCHBIT>
 		<SET V? T>)>
-	 %<COND (<==? ,ZORK-NUMBER 1>
-		 '<COND (<IN-MAZE? ,HERE>
-		         <FCLEAR ,HERE ,TOUCHBIT>)>)
-		(T
-		 '<NULL-F>)>
+	 <COND (<IN-MAZE? ,HERE>
+		<FCLEAR ,HERE ,TOUCHBIT>)>
 	 <COND (<IN? ,HERE ,ROOMS>
 		;"Was <TELL D ,HERE CR>"
 		<TELL D ,HERE>
 		<COND (<FSET? <SET AV <LOC ,WINNER>> ,VEHBIT>
 		       <TELL ", in " DER-DAT .AV>)>
 		<CRLF>)>
-	 <COND (%<COND (<==? ,ZORK-NUMBER 2>
-			'<OR .LOOK? <NOT ,SUPER-BRIEF> <EQUAL? ,HERE ,ZORK3>>)
-		       (ELSE
-			'<OR .LOOK? <NOT ,SUPER-BRIEF>>)>
+	 <COND (<OR .LOOK? <NOT ,SUPER-BRIEF>>
 		<SET AV <LOC ,WINNER>>
 		;<COND (<FSET? .AV ,VEHBIT>
 		       <TELL "(You are in " DER-DAT .AV ".)" CR>)>
@@ -451,16 +398,13 @@ detect a dim light from the east." CR>)>)
 	 <SETG BASE-SCORE <+ ,BASE-SCORE .NUM>>
 	 <SETG SCORE <+ ,SCORE .NUM>>
 	 ;<TELL "[Your score g%os up.]" CR>
-	 %<COND (<==? ,ZORK-NUMBER 1>
-		 '<COND (<AND <EQUAL? ,SCORE 350>
-		              <NOT ,WON-FLAG>>
-		         <SETG WON-FLAG T>
-		         <FCLEAR ,MAP ,INVISIBLE>
-		         <FCLEAR ,WEST-OF-HOUSE ,TOUCHBIT>
-		         <TELL
-"Eine fast unvernehmbare Stimme fl%ustert dir zu: %>Suche unter den Sch%atzen nach dem letzten Geheimnis.%<" CR>)>)
-		(T
-		 '<NULL-F>)>
+	 <COND (<AND <EQUAL? ,SCORE 350>
+		     <NOT ,WON-FLAG>>
+		<SETG WON-FLAG T>
+		<FCLEAR ,MAP ,INVISIBLE>
+		<FCLEAR ,WEST-OF-HOUSE ,TOUCHBIT>
+		<TELL
+"Eine fast unvernehmbare Stimme fl%ustert dir zu: %>Suche unter den Sch%atzen nach dem letzten Geheimnis.%<" CR>)>
 	 T>
 
 <ROUTINE LKP (ITM TBL "AUX" (CNT 0) LEN)
@@ -473,9 +417,8 @@ detect a dim light from the east." CR>)>)
 			      (T
 			       <RETURN <GET .TBL <+ .CNT 1>>>)>)>>>
 
-<COND (<N==? ,ZORK-NUMBER 3>
-       <GLOBAL SWIMYUKS
-	       <LTABLE 0 "Du kannst in dem Kerker nicht schwimmen.">>)>
+<GLOBAL SWIMYUKS
+	<LTABLE 0 "Du kannst in dem Kerker nicht schwimmen.">>
 
 <GLOBAL DUMMY
 	<LTABLE 0

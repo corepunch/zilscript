@@ -154,6 +154,16 @@ It is clear that the owners must have been extremely wealthy." CR>)
 		<TELL "Don't you believe me? The mountains are impassable!"
 		      CR>)>>
 
+;"Only the tree beside the path can be climbed; the forest's trees lead
+  neither up nor down."
+<ROUTINE TREE-F ()
+	 <COND (<AND <VERB? CLIMB-UP CLIMB-DOWN CLIMB-FOO>
+		     <NOT <EQUAL? ,HERE ,PATH>>
+		     <NOT <GETPT ,HERE <COND (<VERB? CLIMB-DOWN> ,P?DOWN)
+					     (T ,P?UP)>>>>
+		<TELL "There are no climbable trees here." CR>)>>
+
+
 <ROUTINE WATER-F ("AUX" AV W PI?)
 	 <COND (<VERB? SGIVE> <RFALSE>)
 	       (<VERB? THROUGH BOARD>
@@ -234,7 +244,17 @@ It is clear that the owners must have been extremely wealthy." CR>)
 	       (<VERB? THROW>
 		<TELL
 "The water splashes on the walls and evaporates immediately." CR>
-		<REMOVE-CAREFULLY ,WATER>)>>
+		<REMOVE-CAREFULLY ,WATER>)
+	       (<VERB? POUR-ON>
+		<REMOVE-CAREFULLY ,PRSO>
+		<COND (<FLAMING? ,PRSI>
+		       <TELL CTHE ,PRSI " is extinguished." CR>
+		       <FCLEAR ,PRSI ,ONBIT>
+		       <FCLEAR ,PRSI ,FLAMEBIT>)
+		      (T
+		       <TELL
+"The water spills over " THE ,PRSI ", to the floor, and evaporates." CR>)>
+		<RTRUE>)>>
 
 <GLOBAL KITCHEN-WINDOW-FLAG <>>
 
@@ -963,7 +983,11 @@ is an enormous mirror which fills the entire wall. There are exits
 on the other three sides of the room." CR>
 		<COND (,MIRROR-MUNG
 		       <TELL
-"Unfortunately, the mirror has been destroyed by your recklessness." CR>)>)>>
+"Unfortunately, the mirror has been destroyed by your recklessness." CR>)>)
+	       (<AND <EQUAL? .RARG ,M-BEG>
+		     <VERB? EXAMINE>
+		     <EQUAL? ,PRSO ,ME>>
+		<TELL "Your image in the mirror looks tired." CR>)>>
 
 <GLOBAL MIRROR-MUNG <>>
 ;<GLOBAL LUCKY T>
@@ -1381,7 +1405,11 @@ leak in the dam." CR>>
 			 <EQUAL? ,PRSI ,PUTTY>>
 		    <AND <VERB? PUT>
 			 <EQUAL? ,PRSO ,PUTTY>>>
-		<TELL "The all-purpose gunk isn't a lubricant." CR>)>>
+		<TELL "The all-purpose gunk isn't a lubricant." CR>)
+	       (<AND <VERB? POUR-ON>
+		     <EQUAL? ,PRSO ,PUTTY>>
+		<PERFORM ,V?PUT ,PUTTY ,PRSI>
+		<RTRUE>)>>
 
 <ROUTINE TUBE-FUNCTION ()
 	 <COND (<AND <VERB? PUT>
@@ -2859,7 +2887,18 @@ The boat deflates to the sounds of hissing, sputtering, and cursing." CR>
 
 <GDECL (BEACH-DIG) FIX>
 
+;"The ground of the sandy cave is the sand the scarab is buried in: digging
+  it is digging the sand, never the hard ground of other rooms."
+<ROUTINE SANDY-CAVE-F (RARG)
+	 <COND (<AND <EQUAL? .RARG ,M-BEG>
+		     <VERB? DIG>
+		     <EQUAL? ,GROUND ,PRSO ,PRSI>>
+		<COND (<NOT <SAND-FUNCTION>>
+		       <V-DIG>)>
+		<RTRUE>)>>
+
 <ROUTINE SAND-FUNCTION ()
+
 	 <COND (<AND <VERB? DIG> <==? ,PRSI ,SHOVEL>>
 		<SETG BEACH-DIG <+ 1 ,BEACH-DIG>>
 		<COND (<G? ,BEACH-DIG 3>
@@ -2897,6 +2936,12 @@ branches. The nearest branch above you is above your reach." CR>
 	       (<EQUAL? .RARG ,M-BEG>
 		<COND (<AND <VERB? CLIMB-DOWN> <EQUAL? ,PRSO ,TREE ,ROOMS>>
 		       <DO-WALK ,P?DOWN>)
+		      (<AND <VERB? LEAP> <NOT ,PRSO>>
+		       <TELL
+"In a feat of unaccustomed daring, you manage to land on your feet without
+killing yourself." CR CR>
+		       <DO-WALK ,P?DOWN>
+		       <RTRUE>)
 		      (<AND <VERB? CLIMB-UP CLIMB-FOO>
 			    <EQUAL? ,PRSO ,TREE>>
 		       <DO-WALK ,P?UP>)
@@ -4092,7 +4137,10 @@ color, even unreal." CR CR>
 			;<SETG GWIM-DISABLE T>
 			<SETG ALWAYS-LIT T>
 			<PUTP ,WINNER ,P?ACTION DEAD-FUNCTION>
-			<GOTO ,ENTRANCE-TO-HADES>)
+			;"Dying at the gates leaves you there: no second description."
+			<GOTO ,ENTRANCE-TO-HADES
+			      <NOT <EQUAL? ,HERE ,ENTRANCE-TO-HADES>>>)
+
 		       (T
 			<TELL
 "Now, let's take a look here...
@@ -4183,3 +4231,78 @@ here is too friendly anyhow. Gulp!" CR>)>>
 	 <COND (<AND <EQUAL? .RARG ,M-ENTER>
 		     <IN? ,TROLL ,HERE>>
 		<THIS-IS-IT ,TROLL>)>>
+
+"SUBTITLE ZORK I'S OWN WORLD RULES"
+
+;"Zork I replaces these world routines of languages/en with its own: the
+  rules here name its rooms and objects, which the shared world never does."
+
+;"Reaching 350 points reveals the map to the barrow."
+<ROUTINE SCORE-UPD (NUM)
+	 <SETG BASE-SCORE <+ ,BASE-SCORE .NUM>>
+	 <SETG SCORE <+ ,SCORE .NUM>>
+	 <COND (<AND <EQUAL? ,SCORE 350>
+		     <NOT ,WON-FLAG>>
+		<SETG WON-FLAG T>
+		<FCLEAR ,MAP ,INVISIBLE>
+		<FCLEAR ,WEST-OF-HOUSE ,TOUCHBIT>
+		<TELL
+"An almost inaudible voice whispers in your ear, \"Look to your treasures
+for the final secret.\"" CR>)>
+	 T>
+
+;"The trophy case lists your treasures."
+<ROUTINE FIRSTER (OBJ LEVEL)
+	 <COND (<EQUAL? .OBJ ,TROPHY-CASE>
+		<TELL
+"Your collection of treasures consists of:" CR>)
+	       (<EQUAL? .OBJ ,WINNER>
+		<TELL "You are carrying:" CR>)
+	       (<NOT <IN? .OBJ ,ROOMS>>
+		<COND (<G? .LEVEL 0>
+		       <TELL <GET ,INDENTS .LEVEL>>)>
+		<COND (<FSET? .OBJ ,SURFACEBIT>
+		       <TELL "Sitting on " THE .OBJ " is: " CR>)
+		      (<FSET? .OBJ ,ACTORBIT>
+		       <TELL CTHE .OBJ " is holding: " CR>)
+		      (T
+		       <TELL CTHE .OBJ " contains:" CR>)>)>>
+
+;"Wherever
+ the river and the reservoir are, swimming is forbidden."
+<ROUTINE V-SWIM ()
+	 <COND (<GLOBAL-IN? ,GLOBAL-WATER ,HERE>
+		<TELL "Swimming isn't usually allowed in the ">
+		<COND (<NOT <EQUAL? ,PRSO ,WATER ,GLOBAL-WATER>>
+		       <TELL D ,PRSO ".">)
+		      (T
+		       <TELL "dungeon.">)>
+		<CRLF>)
+	       (T
+		<TELL "Go jump in a lake!" CR>)>>
+
+;"What is shaken out up the tree falls to the path below."
+<ROUTINE SHAKE-LOOP ("AUX" X)
+	 <REPEAT ()
+		 <COND (<SET X <FIRST? ,PRSO>>
+			<FSET .X ,TOUCHBIT>
+			<MOVE .X
+			      <COND (<EQUAL? ,HERE ,UP-A-TREE>
+				     ,PATH)
+				    (<NOT <FSET? ,HERE ,RLANDBIT>>
+				     ,PSEUDO-OBJECT)
+				    (T
+				     ,HERE)>>)
+		       (T
+			<RETURN>)>>>
+
+;"The ground of the sandy cave is the sand the scarab is buried in."
+<ROUTINE GROUND-FUNCTION ()
+	 <COND (<AND <VERB? PUT PUT-ON>
+		     <EQUAL? ,PRSI ,GROUND>>
+		<PERFORM ,V?DROP ,PRSO>
+		<RTRUE>)
+	       (<EQUAL? ,HERE ,SANDY-CAVE>
+		<SAND-FUNCTION>)
+	       (<VERB? DIG>
+		<TELL "The ground is too hard for digging here." CR>)>>

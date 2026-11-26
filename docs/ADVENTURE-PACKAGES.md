@@ -53,10 +53,24 @@ world) or `rulesets/classic/common.zil` (classic rules without text); the
 test fails if one is duplicated again. Identical verbs with English text the
 German edition never translated stay in each language, which owns the words.
 
-The world verbs still carry Zork I special cases (climbing the tree, the
-entrance to Hades) and Zork II and III branches. They belong to the classic
-rules or to Zork I's own actions; the package test pins the list so it can
-only shrink.
+The English world verbs name no story's objects and test no `ZORK-NUMBER`.
+Zork I's own cases live in Zork I: an object's or room's action answers the
+verb (`TREE-F`, `TREE-ROOM`, `MIRROR-ROOM`, `SANDY-CAVE-F`, `WATER-F`,
+`PUTTY-FCN`), or `infocom/zork1/actions.zil` replaces a world routine with
+its own ("Zork I's own world rules": `SCORE-UPD`, `FIRSTER`, `V-SWIM`,
+`SHAKE-LOOP`), as a book replaces `V-SCORE`. A later `ROUTINE` replaces an
+earlier one wherever it is called; an object's `ACTION` is bound when the
+object is defined, so a language object's action cannot be replaced. The
+world's own rules are generic: a liquid is a `DRINKBIT` object (fill from the
+one among the room's globals, board it to swim, drink it from an open
+container to use it up), and pages turn by hand (`PRE-TURN` lets a `READBIT`
+object turn without a tool). The package test fails if a Zork I name or
+`ZORK-NUMBER` returns to core or the English language.
+
+Plural nouns carry `PLURALBIT`: the `A` and `CA` tokens print "some", and
+`AGREE` picks a reply's verb form (`<TELL CTHE ,PRSO <AGREE ,PRSO " is" " are">
+" closed." CR>`).
+
 
 A verb's syntax lines may come from the language and from a ruleset (`READ`,
 `THROW`, `TIE`): the runtime grows the verb's syntax block as lines arrive.

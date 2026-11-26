@@ -774,17 +774,7 @@
 	 <COND (<AND <NOT ,P-NAM> ,P-ADJ>
 		<COND (<WT? ,P-ADJN ,PS?OBJECT ,P1?OBJECT>
 		       <SETG P-NAM ,P-ADJN>
-		       <SETG P-ADJ <>>)
-		      %<COND (<==? ,ZORK-NUMBER 3>
-			      '(<SET BITS
-				     <WT? ,P-ADJN
-					  ,PS?DIRECTION ,P1?DIRECTION>>
-				<SETG P-ADJ <>>
-				<PUT .TBL ,P-MATCHLEN 1>
-				<PUT .TBL 1 ,INTDIR>
-				<SETG P-DIRECTION .BITS>
-				<RTRUE>))
-			     (ELSE '(<NULL-F> T))>>)>
+		       <SETG P-ADJ <>>)>)>
 	 <COND (<AND <NOT ,P-NAM>
 		     <NOT ,P-ADJ>
 		     <NOT <EQUAL? ,P-GETFLAGS ,P-ALL>>
