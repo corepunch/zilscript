@@ -1,3 +1,13 @@
 # German source provenance
 
-The German parser, syntax, messages, loop, classic globals and verb handlers were relocated from the existing repository's infocom/zork1-de archive at 5eeb0b1880bac1993f71ca9dd866af8a0f5dcbcb. Original copyright headers are retained. IF Archive lists German release 15 alongside the MIT Zork releases (https://www.ifarchive.org/indexes/if-archive/infocom/source/); the separate historical GitHub mirror's README retains an older non-open-license statement. Exact correspondence to the licensed archive has not been verified. Do not treat this development package as a verified MIT distribution or include it in a commercial export until the applicable grant is confirmed. Shared clock and object queries derive from the MIT English source.
+`infocom/zork1-de` is Infocom's German Zork I (release 15). It is reference
+material: we study it and play it in tests (`tests/test_german_zork.lua`) to
+learn how a German package must work. We do not ship it.
+
+The German parser, syntax, messages, loop, classic globals and verb handlers
+in this folder were relocated from that archive and keep their original
+notices. They are a working starting point for our own German package, not
+its final form: German adventures we publish should run on a package we have
+written, using what `docs/LANGUAGE-PACKAGES.md` records about the reference.
+Code shared with English in `core/` and `rulesets/classic/common.zil` derives
+from the MIT-licensed English Zork I source.

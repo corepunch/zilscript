@@ -310,5 +310,7 @@ and edits each of these:
 
 ## Provenance
 
-The German sources keep their original notices; their licence for
-distribution is unverified (see `languages/de/SOURCE-PROVENANCE.md`).
+German Zork I is reference material: we study and test against it and do
+not ship it. `languages/de` is still Infocom's German code relocated from it,
+so German adventures we publish should run on a package we write from what
+this document records (see `languages/de/SOURCE-PROVENANCE.md`).
