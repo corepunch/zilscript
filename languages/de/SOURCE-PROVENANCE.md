@@ -1,0 +1,3 @@
+# German source provenance
+
+The German parser, syntax, messages, loop, classic globals and verb handlers were relocated from the existing repository's infocom/zork1-de archive at 5eeb0b1880bac1993f71ca9dd866af8a0f5dcbcb. Original copyright headers are retained. IF Archive lists German release 15 alongside the MIT Zork releases (https://www.ifarchive.org/indexes/if-archive/infocom/source/); the separate historical GitHub mirror's README retains an older non-open-license statement. Exact correspondence to the licensed archive has not been verified. Do not treat this development package as a verified MIT distribution or include it in a commercial export until the applicable grant is confirmed. Shared clock and object queries derive from the MIT English source.

@@ -1,3 +1,3 @@
-;"Transitional German reference adapter. Keep original archival source in place."
-<INSERT-FILE "infocom.zork1-de.tells">
-<INSERT-FILE "infocom.zork1-de.syntax">
+;"German grammar and grammatical rendering. See SOURCE-PROVENANCE.md."
+<INSERT-FILE "languages.de.messages">
+<INSERT-FILE "languages.de.syntax">
