@@ -278,22 +278,12 @@ zip:
 	mkdir -p "$(CURDIR)/publish"; \
 	tmpdir=$$(mktemp -d); \
 	mkdir -p "$$tmpdir"; \
-	cp books/$$game/*.zil "$$tmpdir/" 2>/dev/null || true; \
-	for f in infocom/zork1/*.zil; do \
-		base=$$(basename "$$f"); \
-		if [ "$$base" != "dungeon.zil" ] && [ "$$base" != "actions.zil" ]; then \
-			cp "$$f" "$$tmpdir/"; \
-		fi; \
-	done; \
-	mkdir -p "$tmpdir/infocom/zork1" "$tmpdir/core" "$tmpdir/languages/en" "$tmpdir/rulesets/classic"; \
-	for f in infocom/zork1/*.zil; do \
-		base=$(basename "$f"); \
-		if [ "$base" != "dungeon.zil" ] && [ "$base" != "actions.zil" ]; then cp "$f" "$tmpdir/infocom/zork1/"; fi; \
-	done; \
-	cp core/clock.zil core/LICENSE-ZORK-MIT "$tmpdir/core/"; \
-	cp languages/en/*.zil languages/en/LICENSE-ZORK-MIT "$tmpdir/languages/en/"; \
-	cp rulesets/classic/*.zil "$tmpdir/rulesets/classic/"; \
-	cd "$tmpdir" && zip -r "$(CURDIR)/publish/$game.zip" *.zil core languages rulesets infocom; \
+	cp books/$$game/*.zil "$$tmpdir/"; \
+	mkdir -p "$$tmpdir/core" "$$tmpdir/languages/en" "$$tmpdir/rulesets/classic"; \
+	cp core/*.zil core/LICENSE-ZORK-MIT "$$tmpdir/core/"; \
+	cp languages/en/*.zil languages/en/LICENSE-ZORK-MIT "$$tmpdir/languages/en/"; \
+	cp rulesets/classic/en.zil rulesets/classic/LICENSE-ZORK-MIT "$$tmpdir/rulesets/classic/"; \
+	cd "$$tmpdir" && zip -r "$(CURDIR)/publish/$$game.zip" *.zil core languages rulesets; \
 	rm -rf "$$tmpdir"; \
 	echo "Created publish/$$game.zip"
 

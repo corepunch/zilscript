@@ -1,22 +1,48 @@
--- Structural regression: package wiring should not reorder declarations.
+-- Verify the reusable import graph does not refer to an Infocom game directory.
 local function read(path)
  local f = assert(io.open(path, "rb")); local s = f:read("*a"); f:close(); return s
 end
-local function imports(path)
- local result = {}
- for target in read(path):gmatch('<INSERT%-FILE%s+"([^"]+)"') do result[#result+1] = target end
- return table.concat(result, ",")
+local function check(path, seen)
+ seen = seen or {}
+ if seen[path] then return end
+ seen[path] = true
+ for target in read(path):gmatch('<INSERT%-FILE%s+"([^"]+)"') do
+  assert(not target:lower():match("infocom[./]"), path .. " depends on " .. target)
+  if target:match("^core[.]") or target:match("^languages[.]") or target:match("^rulesets[.]") then
+   check((target:gsub("%.", "/")) .. ".zil", seen)
+  else
+   error(path .. " has nonqualified package dependency " .. target)
+  end
+ end
 end
-assert(imports("rulesets/classic/en.zil") == "infocom.zork1.main,core.clock,infocom.zork1.parser,languages.en.init,infocom.zork1.macros,infocom.zork1.verbs,infocom.zork1.globals")
-assert(imports("languages/en/init.zil") == "languages.en.syntax")
-assert(imports("languages/de/init.zil") == "infocom.zork1-de.tells,infocom.zork1-de.syntax")
-assert(imports("infocom/zork1/zork1.zil") == "rulesets.classic.en,dungeon,actions")
-assert(imports("books/the-midnight-ledger/the-midnight-ledger.zil") == "rulesets.classic.en,actions,dungeon,companion")
-local function normalizedClock(path)
+check("rulesets/classic/en.zil")
+check("rulesets/classic/de.zil")
+check("languages/de/init.zil")
+local names = {"bell-grew-leaves", "blackwood-horror", "borrowed-tomorrows", "house-of-the-ebb", "last-broadcast", "limehouse-killings", "museum-unsent-signals", "pocket-weather", "silent-vector", "station-minus-one", "the-midnight-ledger", "wondertown"}
+for _, name in ipairs(names) do
+ local path = "books/" .. name .. "/" .. name .. ".zil"
  local source = read(path)
- return (assert(source:match("(<CONSTANT C%-TABLELEN.*)")):gsub(";[^\n]*",""):gsub("%s+",""))
+ assert(source:find('<INSERT-FILE "rulesets.classic.en">',1,true), path)
+ assert(not source:find("infocom/zork",1,true), path)
 end
-assert(normalizedClock("core/clock.zil") == normalizedClock("infocom/zork1-de/clock.zil"), "reference clock logic diverged")
-assert(imports("infocom/zork1/clock.zil") == "core.clock")
-assert(imports("infocom/zork1/syntax.zil") == "languages.en.syntax")
-print("ok - adventure package structure and shared clock")
+assert(not read("zilscript/bootstrap.lua"):find('try_candidate("infocom/zork1/',1,true), "hidden historical fallback")
+-- Exercise a real compiler load and the new package graph without historical sources.
+local runtime = require("zilscript.runtime")
+local env = runtime.create_game_env()
+assert(runtime.init(env,true))
+env.require("zilscript")
+local originalOpen = io.open
+io.open = function(path, ...)
+ if type(path) == "string" and path:find("infocom/",1,true) then error("unexpected historical dependency: " .. path) end
+ return originalOpen(path,...)
+end
+local ok,err=pcall(function()
+ assert(runtime.load_modules(env,{"books.the-midnight-ledger.the-midnight-ledger"},{silent=true}))
+ local game=runtime.create_game(env,true)
+ local opening=game:start()
+ assert(type(opening)=="string" and opening:match("%S"),"empty opening")
+ assert(game:is_running(),"story stopped")
+end)
+io.open=originalOpen
+assert(ok,err)
+print("ok - independent package graph and original book startup")

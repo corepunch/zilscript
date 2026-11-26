@@ -2539,10 +2539,6 @@ function INSERT_FILE(filename, source_filename)
 	-- If still not found, try the filename as-is
 	if not file then try_candidate(filename) end
 	
-	-- Final fallback: try infocom/zork1/ as substrate
-	if not file and not name_path:match("infocom/zork[123][/\\]") then
-		try_candidate("infocom/zork1/" .. name_path)
-	end
 	
 	if not file then
 		error(string.format("INSERT_FILE: Cannot open '%s' (resolved to '%s', tried package.zilpath and direct paths)", filename, name_path))
