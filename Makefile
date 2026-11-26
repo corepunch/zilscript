@@ -310,4 +310,6 @@ test-adventure-packages:
 	@lua5.4 tests/test_adventure_packages.lua
 
 test-german-zork:
+	@lua5.4 tests/test_german_reader.lua
 	@lua5.4 tests/test_german_zork.lua
+	@lua5.4 tests/test_german_world.lua

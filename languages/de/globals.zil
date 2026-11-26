@@ -117,9 +117,7 @@ DER-NOM-CAP ,WINNER " seems confused. \"I don't see any ">
        (T
 	<BUFFER-PRINT <GET ,P-ITBL ,P-NC2> <GET ,P-ITBL ,P-NC2L> <>>)>>
 
-
 "Objects shared by all three Zorks go here"
-
 
 ;<OBJECT BLESSINGS
 	(LOC GLOBAL-OBJECTS)
@@ -140,7 +138,6 @@ DER-NOM-CAP ,WINNER " seems confused. \"I don't see any ">
 		<TELL
 "Du mu%st sagen, ob du nach oben oder unten gehen willst." CR>)>>
 
-
 <OBJECT GROUND
 	(LOC GLOBAL-OBJECTS)
 	(SYNONYM GRUND BODEN MEERESBODEN SAND FUSSBODEN FU\%SBODEN)
@@ -153,15 +150,8 @@ DER-NOM-CAP ,WINNER " seems confused. \"I don't see any ">
 		     <EQUAL? ,PRSI ,GROUND>>
 		<PERFORM ,V?DROP ,PRSO>
 		<RTRUE>)
-	       %<COND (<==? ,ZORK-NUMBER 1>
-		       '(<EQUAL? ,HERE ,SANDY-CAVE>
-			 <SAND-FUNCTION>))
-		      (T
-		       '(<NULL-F>
-			 <RFALSE>))>
 	       (<VERB? DIG>
 		<TELL "Hier ist der Boden zu hart zum Graben." CR>)>>
-
 
 <OBJECT LUNGS
 	(LOC GLOBAL-OBJECTS)
@@ -204,23 +194,8 @@ CR>)
 	       (<VERB? TAKE>
 		<TELL "Ach, wie romantisch!" CR>)
 	       (<VERB? EXAMINE>
-		<COND %<COND (<==? ,ZORK-NUMBER 1>
-			      '(<EQUAL? ,HERE <LOC ,MIRROR-1> <LOC ,MIRROR-2>>
-		                <TELL
-"Dein Spiegelbild sieht m%ude aus." CR>))
-			     (<==? ,ZORK-NUMBER 3>
-			      '(,INVIS
-				<TELL
-"A good trick, as you are currently invisible." CR>))
-			     (T
-			      '(<NULL-F> <RTRUE>))>
-		      (T
-		       %<COND (<==? ,ZORK-NUMBER 3>
-			       '<TELL
-"What you can see looks pretty much as usual, sorry to say." CR>)
-			      (ELSE
-			       '<TELL
-"Das ist schwierig, au%ser wenn deine Augen rausnehmbar sind." CR>)>)>)>>
+		<TELL
+"Das ist schwierig, au%ser wenn deine Augen rausnehmbar sind." CR>)>>
 
 <OBJECT ADVENTURER
 	(SYNONYM ABENTEUER)
@@ -229,14 +204,12 @@ CR>)
 	(STRENGTH 0)
 	(ACTION 0)>
 
-
 <ROUTINE PATH-OBJECT ()
 	 <COND (<VERB? FIND TAKE FOLLOW>
 		<TELL "Du mu%st eine Richtung angeben." CR>)
 	       (<VERB? DIG>
 		<PERFORM ,V?DIG ,GROUND>
 		<RTRUE>)>>
-
 
 <OBJECT HANDS
 	(LOC GLOBAL-OBJECTS)

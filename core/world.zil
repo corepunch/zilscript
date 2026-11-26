@@ -137,3 +137,20 @@
 <GLOBAL LOAD-MAX 100>
 
 <GLOBAL LOAD-ALLOWED 100>
+
+<ROUTINE SCORE-UPD (NUM)
+	 <SETG BASE-SCORE <+ ,BASE-SCORE .NUM>>
+	 <SETG SCORE <+ ,SCORE .NUM>>
+	 T>
+
+<ROUTINE SHAKE-LOOP ("AUX" X)
+	 <REPEAT ()
+		 <COND (<SET X <FIRST? ,PRSO>>
+			<FSET .X ,TOUCHBIT>
+			<MOVE .X
+			      <COND (<NOT <FSET? ,HERE ,RLANDBIT>>
+				     ,PSEUDO-OBJECT)
+				    (T
+				     ,HERE)>>)
+		       (T
+			<RETURN>)>>>

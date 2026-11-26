@@ -14,8 +14,6 @@
 	 <COND (<FSET? .OBJ ,PLURALBIT> .PLURAL)
 	       (T .SINGULAR)>>
 
-
-
 <ROUTINE V-VERBOSE ()
 	 <SETG VERBOSE T>
 	 <SETG SUPER-BRIEF <>>
@@ -125,7 +123,6 @@ Release ">
 	       (T
 		<TELL CR "** Disk Failure **" CR>)>>
 
-
 <ROUTINE V-RANDOM ()
 	 <COND (<NOT <EQUAL? ,PRSO ,INTNUM>>
 		<TELL "Illegal call to #RND." CR>)
@@ -133,18 +130,15 @@ Release ">
 		<RANDOM <- 0 ,P-NUMBER>>
 		<RTRUE>)>>
 
-
 ^L
 
 "Real Verb Functions"
-
 
 <ROUTINE V-ANSWER ()
 	 <TELL "Nobody seems to be awaiting your answer." CR>
 	 <SETG P-CONT <>>
 	 <SETG QUOTE-FLAG <>>
 	 <RTRUE>>
-
 
 <ROUTINE PRE-BOARD ("AUX" AV)
 	 <SET AV <LOC ,WINNER>>
@@ -170,7 +164,6 @@ CTHE ,PRSO " must be on the ground to be boarded." CR>)
 	 <MOVE ,WINNER ,PRSO>
 	 <APPLY <GETP ,PRSO ,P?ACTION> ,M-ENTER>
 	 <RTRUE>>
-
 
 <ROUTINE V-CLIMB-DOWN () <V-CLIMB-UP ,P?DOWN ,PRSO>>
 
@@ -240,7 +233,6 @@ CTHE ,PRSO " must be on the ground to be boarded." CR>)
 	       (T
 		<TELL "You cannot talk to that!" CR>)>>
 
-
 <ROUTINE V-DISEMBARK ()
 	 <COND (<AND <EQUAL? ,PRSO ,ROOMS>
 		     <FSET? <LOC ,WINNER> ,VEHBIT>>
@@ -260,10 +252,8 @@ CTHE ,PRSO " must be on the ground to be boarded." CR>)
 <ROUTINE V-DISENCHANT ()
 	 <TELL "Nothing happens." CR>>
 
-
 <ROUTINE V-DRINK-FROM ()
 	 <TELL "How peculiar!" CR>>
-
 
 <ROUTINE V-DROP ()
 	 <COND (<IDROP>
@@ -311,7 +301,6 @@ CTHE ,PRSO " must be on the ground to be boarded." CR>)
 "Thank you very much. I was rather thirsty (from all this talking,
 probably)." CR>>
 
-
 <ROUTINE V-ENCHANT ()
 	 <V-DISENCHANT>>
 
@@ -347,7 +336,6 @@ probably)." CR>>
 		<RTRUE>)
 	       (ELSE
 		<DO-WALK ,P?OUT>)>>
-
 
 ;"Fill X fills it from the liquid here: the room's, or one lying beside you.
   Fill X with something that is no liquid puts that thing in X."
@@ -393,7 +381,6 @@ somewhere." CR>)
 <ROUTINE V-FOLLOW ()
 	 <TELL "You're nuts!" CR>>
 
-
 <ROUTINE PRE-GIVE ()
 	 <COND (<NOT <HELD? ,PRSO>>
 		<TELL 
@@ -404,7 +391,6 @@ somewhere." CR>)
 		<TELL "You can't give " A ,PRSO " to " A ,PRSI "!" CR>)
 	       (T
 		<TELL CTHE ,PRSI " refuses it politely." CR>)>>
-
 
 <ROUTINE V-HELLO ()
 	 <COND (,PRSO
@@ -423,7 +409,6 @@ CTHE ,PRSO " nods to you in greeting." CR>)
 	 <SETG QUOTE-FLAG <>>
 	 <SETG P-CONT <>>
 	 <RTRUE>>
-
 
 <ROUTINE V-KISS ()
 	 <TELL "That wouldn't be welcome." CR>>
@@ -467,7 +452,6 @@ CTHE ,PRSO " nods to you in greeting." CR>)
 		<TELL "You can't turn that on." CR>)>
 	 <RTRUE>>
 
-
 <ROUTINE V-LEAN-ON ()
 	 <TELL "Getting tired?" CR>>
 
@@ -499,7 +483,6 @@ CTHE ,PRSO <AGREE ,PRSO " is" " are"> " too big to jump over." CR>)
 
 <ROUTINE V-LOCK ()
 	 <TELL "It doesn't seem to work." CR>>
-
 
 <ROUTINE V-LOOK-BEHIND ()
 	 <TELL "There is nothing behind " THE ,PRSO "." CR>>
@@ -538,7 +521,6 @@ CTHE ,PRSO <AGREE ,PRSO " is" " are"> " open, but I can't tell what's beyond it.
 
 <ROUTINE V-LOWER () <HACK-HACK "Playing in this way with the ">>
 
-
 <ROUTINE PRE-MOVE ()
 	 <COND (<HELD? ,PRSO>
 		<TELL "You aren't an accomplished enough juggler." CR>)>>
@@ -548,7 +530,6 @@ CTHE ,PRSO <AGREE ,PRSO " is" " are"> " open, but I can't tell what's beyond it.
 		<TELL "Moving " THE ,PRSO " reveals nothing." CR>)
 	       (T
 		<TELL "You can't move " THE ,PRSO "." CR>)>>
-
 
 <ROUTINE V-OPEN ("AUX" F STR)
 	 <COND (<AND <FSET? ,PRSO ,CONTBIT>
@@ -581,17 +562,14 @@ CTHE ,PRSO <AGREE ,PRSO " is" " are"> " open, but I can't tell what's beyond it.
 		<TELL
 "You must tell me how to do that to " A ,PRSO "." CR>)>>
 
-
 ;"A story's liquid answers POUR-ON in its own action."
 <ROUTINE V-POUR-ON ()
 	 <TELL "You can't pour that." CR>>
-
 
 <ROUTINE V-PUSH () <HACK-HACK "Pushing the ">>
 
 <ROUTINE V-PUSH-TO ()
 	 <TELL "You can't push things to that." CR>>
-
 
 <ROUTINE V-PUT ()
 	 <COND (<OR <FSET? ,PRSI ,OPENBIT>
@@ -639,7 +617,6 @@ CTHE ,PRSO <AGREE ,PRSO " is" " are"> " open, but I can't tell what's beyond it.
 <ROUTINE V-PUT-UNDER ()
 	 <TELL "You can't do that." CR>>
 
-
 <ROUTINE PRE-READ ()
 	 <COND (<NOT ,LIT>
 		<TELL "It is impossible to read in the dark." CR>)
@@ -651,7 +628,6 @@ CTHE ,PRSO <AGREE ,PRSO " is" " are"> " open, but I can't tell what's beyond it.
 		<TELL "How does one read " A ,PRSO "?" CR>)
 	       (T
 		<TELL <GETP ,PRSO ,P?TEXT> CR>)>>
-
 
 <ROUTINE V-REPLY ()
 	 <TELL "It is hardly likely that " THE ,PRSO " is interested." CR>
@@ -680,7 +656,6 @@ CTHE ,PRSO <AGREE ,PRSO " is" " are"> " open, but I can't tell what's beyond it.
 
 <ROUTINE V-SEARCH ()
 	 <TELL "You find nothing unusual." CR>>
-
 
 <ROUTINE PRE-SGIVE ()
 	 <PERFORM ,V?GIVE ,PRSI ,PRSO>
@@ -716,19 +691,6 @@ CTHE ,PRSO <AGREE ,PRSO " is" " are"> " open, but I can't tell what's beyond it.
 	       (T
 		<TELL "Shaken." CR>)>>
 
-<ROUTINE SHAKE-LOOP ("AUX" X)
-	 <REPEAT ()
-		 <COND (<SET X <FIRST? ,PRSO>>
-			<FSET .X ,TOUCHBIT>
-			<MOVE .X
-			      <COND (<NOT <FSET? ,HERE ,RLANDBIT>>
-				     ,PSEUDO-OBJECT)
-				    (T
-				     ,HERE)>>)
-		       (T
-			<RETURN>)>>>
-
-
 <GLOBAL WHEEEEE
 	<LTABLE 0 "You jump on the spot."
 	       "You hop up and down."
@@ -737,14 +699,12 @@ CTHE ,PRSO <AGREE ,PRSO " is" " are"> " open, but I can't tell what's beyond it.
 <ROUTINE V-SMELL ()
 	 <TELL "It smells like " A ,PRSO "." CR>>
 
-
 <ROUTINE V-SQUEEZE ()
 	 <COND (<FSET? ,PRSO ,ACTORBIT>
 		<TELL CTHE ,PRSO " does not understand this.">)
 	       (T
 		<TELL "How singularly useless.">)>
 	 <CRLF>>
-
 
 <ROUTINE V-STAND ()
 	 <COND (<FSET? <LOC ,WINNER> ,VEHBIT>
@@ -753,10 +713,8 @@ CTHE ,PRSO <AGREE ,PRSO " is" " are"> " open, but I can't tell what's beyond it.
 	       (T
 		<TELL "You are already standing, I think." CR>)>>
 
-
 <ROUTINE V-SWIM ()
 	 <TELL "Go jump in a lake!" CR>>
-
 
 <ROUTINE PRE-TAKE ()
 	 <COND (<IN? ,PRSO ,WINNER>
@@ -829,13 +787,11 @@ CR>)
 		      (T <TELL "Thrown." CR>)>)
 	       (ELSE <TELL "Huh?" CR>)>>
 
-
 <ROUTINE V-TIE ()
 	 <COND (<EQUAL? ,PRSI ,WINNER>
 		<TELL "You can't tie anything to yourself." CR>)
 	       (T
 		<TELL "You can't tie " THE ,PRSO " to that." CR>)>>
-
 
 ;"Bare hands turn nothing but the pages of something to read."
 <ROUTINE PRE-TURN ()
@@ -848,7 +804,6 @@ CR>)
 
 <ROUTINE V-TURN ()
 	 <TELL "This has no effect." CR>>
-
 
 <ROUTINE V-UNTIE ()
 	 <TELL "This cannot be tied, so it cannot be untied!" CR>>
@@ -931,16 +886,13 @@ direction." CR>
 		<PERFORM ,V?TAKE ,PRSO>
 		<RTRUE>)>>
 
-
 <ROUTINE V-YELL () <TELL "Aaaarrrrgggghhhh!" CR>>
-
 
 ^L
 
 "Verb-Associated Routines"
 
 "Descriptions"
-
 
 <ROUTINE DESCRIBE-ROOM ("OPTIONAL" (LOOK? <>) "AUX" V? STR AV)
 	 <SET V? <OR .LOOK? ,VERBOSE>>
@@ -991,7 +943,6 @@ direction." CR>
 
 "DESCRIBE-OBJECT -- takes object and flag.  if flag is true will print a
 long description (fdesc or ldesc), otherwise will print short."
-
 
 <ROUTINE DESCRIBE-OBJECT (OBJ V? LEVEL "AUX" (STR <>) AV)
 	 <SETG DESC-OBJECT .OBJ>
@@ -1158,16 +1109,7 @@ long description (fdesc or ldesc), otherwise will print short."
 		      (T
 		       <TELL CTHE .OBJ <AGREE .OBJ " contains:" " contain:"> CR>)>)>>
 
-
 "Scoring"
-
-
-<ROUTINE SCORE-UPD (NUM)
-	 <SETG BASE-SCORE <+ ,BASE-SCORE .NUM>>
-	 <SETG SCORE <+ ,SCORE .NUM>>
-	 T>
-
-
 
 <ROUTINE YES? ()
 	 <PRINTI ">">
@@ -1179,7 +1121,6 @@ long description (fdesc or ldesc), otherwise will print short."
 
 "Death"
 
-
 ;"JIGS-UP is in ACTIONS.ZIL"
 
 ;"RANDOMIZE-OBJECTS is in ACTIONS.ZIL"
@@ -1187,7 +1128,6 @@ long description (fdesc or ldesc), otherwise will print short."
 ;"KILL-INTERRUPTS is in ACTIONS.ZIL"
 
 "Object Manipulation"
-
 
 <ROUTINE ITAKE ("OPTIONAL" (VB T) "AUX" CNT OBJ)
 	 #DECL ((VB) <OR ATOM FALSE> (CNT) FIX (OBJ) OBJECT)
@@ -1240,7 +1180,6 @@ long description (fdesc or ldesc), otherwise will print short."
 		<MOVE ,PRSO <LOC ,WINNER>>
 		<RTRUE>)>>
 
-
 "Miscellaneous"
 
 <CONSTANT UEXIT 1>
@@ -1251,7 +1190,6 @@ long description (fdesc or ldesc), otherwise will print short."
 
 <CONSTANT CEXITFLAG 1>
 <CONSTANT DEXITSTR 1>
-
 
 <ROUTINE HACK-HACK (STR)
 	 <COND (<AND <IN? ,PRSO ,GLOBAL-OBJECTS>
@@ -1342,7 +1280,6 @@ CTHE .WLOC " comes to a rest on the shore." CR CR>)>
 		       <V-FIRST-LOOK>)>
 		<RTRUE>)>>
 
-
 <ROUTINE OTHER-SIDE (DOBJ "AUX" (P 0) TX) ;"finds room beyond given door"
 	 <REPEAT ()
 		 <SET P <NEXTP ,HERE .P>>
@@ -1354,10 +1291,8 @@ CTHE .WLOC " comes to a rest on the shore." CR CR>)>
 				    <EQUAL? <GETB .TX ,DEXITOBJ> .DOBJ>>
 			       <RETURN .P>)>)>>>
 
-
 <ROUTINE THIS-IS-IT (OBJ)
 	 <SETG P-IT-OBJECT .OBJ>>
-
 
 <GLOBAL HELLOS
 	<LTABLE 0 "Hello."

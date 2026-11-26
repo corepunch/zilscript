@@ -65,12 +65,7 @@
 	       <SETG LIT <LIT? ,HERE>>
 	       <COND (<NOT ,SUPER-BRIEF> 
 		      <CRLF>)>
-	       %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE>
-		       '<PROG ()
-			      <UPDATE-STATUS-LINE>
-			      <TELL ">">>)
-		      (T
-		       '<TELL ">">)>
+	       <TELL ">">
 	       <PUTB ,P-INBUF 1 0>
 	       <READ ,P-INBUF ,P-LEXV>)>
 	<SETG P-LEN <GETB ,P-LEXV ,P-LEXWORDS>>
@@ -1006,6 +1001,23 @@
 ;"If the possible matching syns for an object are all the same gender,
 then you could just check gender of the first object found to determine
 “Welcher, Welches, or Welche”"
+;"The noun phrase the player typed, its last word capitalized: a German noun."
+<ROUTINE NOUN-PHRASE-PRINT (PRSO? "AUX" BEG END LAST)
+	 <COND (.PRSO?
+		<SET BEG <GET ,P-ITBL ,P-NC1>>
+		<SET END <GET ,P-ITBL ,P-NC1L>>)
+	       (ELSE
+		<SET BEG <GET ,P-ITBL ,P-NC2>>
+		<SET END <GET ,P-ITBL ,P-NC2L>>)>
+	 <SET LAST <BACK .END ,P-WORDLEN>>
+	 <COND (<OR <EQUAL? .BEG .END> <EQUAL? <GET .LAST 0> ,W?COMMA ,W?PERIOD ,W?MICH ,W?INTNUM>>
+		<BUFFER-PRINT .BEG .END <>>
+		<RTRUE>)>
+	 <COND (<NOT <EQUAL? .BEG .LAST>>
+		<BUFFER-PRINT .BEG .LAST <>>
+		<TELL " ">)>
+	 <CAPITALIZE .LAST>>
+
 <ROUTINE WHICH-PRINT (TLEN LEN TBL "AUX" OBJ RLEN)
 	 <SET RLEN .LEN>
 	 <TELL "Welche">
@@ -1028,15 +1040,14 @@ then you could just check gender of the first object found to determine
 		      ;(ELSE <PRINTB ,W?ONE>)>)
 	       (ELSE
 		<TELL " ">
-		<THING-PRINT <EQUAL? .TBL ,P-PRSO>>)>
+		<NOUN-PHRASE-PRINT <EQUAL? .TBL ,P-PRSO>>)>
 	 <TELL " meinst du, ">
 	 <REPEAT ()
 		 <TELL DER-ACC .OBJ>
 		 <SET TLEN <+ .TLEN 1>> ;"this and next line used above TELL"
 		 <SET OBJ <GET .TBL .TLEN>>
 		 <COND (<EQUAL? .LEN 2>
-		        <COND (<NOT <EQUAL? .RLEN 2>> <TELL ",">)>
-		        <TELL " or ">)
+		        <TELL " oder ">)
 		       (<G? .LEN 2> <TELL ", ">)>
 		 <COND (<L? <SET LEN <- .LEN 1>> 1>
 		        <TELL "?" CR>
@@ -1187,13 +1198,11 @@ then you could just check gender of the first object found to determine
 			 <SET SYNS <GETPT .OBJ ,P?SYNONYM>>
 			 <- </ <PTSIZE .SYNS> 2> 1>>>>
 	<RFALSE>)
+       ;"P-ADJ is the typed word; an object lists its adjectives by number."
        (<AND ,P-ADJ
 	     <OR <NOT <SET SYNS <GETPT .OBJ ,P?ADJECTIVE>>>
-		 ;<NOT <ZMEMQB ,P-ADJ .SYNS <- <PTSIZE .SYNS> 1>>>
-		 <NOT %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE>
-			      '<ZMEMQ  ,P-ADJ .SYNS <RMGL-SIZE .SYNS>>)
-			     (T
-			      '<ZMEMQB ,P-ADJ .SYNS <RMGL-SIZE .SYNS>>)>>>>
+		 <NOT <ZMEMQB <WT? ,P-ADJ ,PS?ADJECTIVE ,P1?ADJECTIVE>
+			      .SYNS <- <PTSIZE .SYNS> 1>>>>>
 	<RFALSE>)
        (<AND <NOT <ZERO? ,P-GWIMBIT>> <NOT <FSET? .OBJ ,P-GWIMBIT>>>
 	<RFALSE>)>

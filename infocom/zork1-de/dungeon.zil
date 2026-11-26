@@ -62,7 +62,8 @@
 	(SYNONYM BAUM AESTEN \%ASTEN AST)
 	(ADJECTIVE GROSSE GROSSEN GRO\%SE GRO\%SEN STORM UMGEBLASENE)
 	(DESC "Baum")
-	(FLAGS NDESCBIT CLIMBBIT DERBIT)>
+	(FLAGS NDESCBIT CLIMBBIT DERBIT)
+	(ACTION TREE-F)>
 
 <OBJECT MOUNTAIN-RANGE
 	(LOC MOUNTAINS)
@@ -1629,7 +1630,7 @@ Vorschein.")
       (NORD TO MAZE-1)
       (SUED TO MAZE-2)
       (WEST TO MAZE-4)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROOM MAZE-2
       (LOC ROOMS)
@@ -1638,7 +1639,7 @@ Vorschein.")
       (SUED TO MAZE-1)
       (RUNTER PER MAZE-DIODES) 
       (OST TO MAZE-3)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROOM MAZE-3
       (LOC ROOMS)
@@ -1647,7 +1648,7 @@ Vorschein.")
       (WEST TO MAZE-2)
       (NORD TO MAZE-4)
       (RAUF TO MAZE-5)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROOM MAZE-4
       (LOC ROOMS)
@@ -1656,14 +1657,14 @@ Vorschein.")
       (WEST TO MAZE-3)
       (NORD TO MAZE-1)
       (OST TO DEAD-END-1)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROOM DEAD-END-1
       (LOC ROOMS)
       (DESC "Sackgasse")
       (LDESC "Du bist an eine Sackgasse in dem Irrgarten gekommen.")
       (SUED TO MAZE-4)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROOM MAZE-5
       (LOC ROOMS)
@@ -1673,14 +1674,14 @@ Vorschein.")
       (OST TO DEAD-END-2)
       (NORD TO MAZE-3)
       (SW TO MAZE-6)
-      (FLAGS RLANDBIT)>
+      (FLAGS RLANDBIT MAZEBIT)>
 
 <ROOM DEAD-END-2
       (LOC ROOMS)
       (DESC "Sackgasse")
       (LDESC "Du bist an einer Sackgasse in dem Irrgarten gekommen.")
       (WEST TO MAZE-5)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROOM MAZE-6
       (LOC ROOMS)
@@ -1690,7 +1691,7 @@ Vorschein.")
       (OST TO MAZE-7)
       (WEST TO MAZE-6)
       (RAUF TO MAZE-9)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROOM MAZE-7
       (LOC ROOMS)
@@ -1701,7 +1702,7 @@ Vorschein.")
       (RUNTER PER MAZE-DIODES) ;"to DEAD-END-1"
       (OST TO MAZE-8)
       (SUED TO MAZE-15)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROOM MAZE-8
       (LOC ROOMS)
@@ -1710,14 +1711,14 @@ Vorschein.")
       (NO TO MAZE-7)
       (WEST TO MAZE-8)
       (SO TO DEAD-END-3)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROOM DEAD-END-3
       (LOC ROOMS)
       (DESC "Sackgasse")
       (LDESC "Du bist an einer Sackgasse in dem Irrgarten gekommen.")
       (NORD TO MAZE-8)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROOM MAZE-9
       (LOC ROOMS)
@@ -1729,7 +1730,7 @@ Vorschein.")
       (SUED TO MAZE-13)
       (WEST TO MAZE-12)
       (NW TO MAZE-9)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROOM MAZE-10
       (LOC ROOMS)
@@ -1738,7 +1739,7 @@ Vorschein.")
       (OST TO MAZE-9)
       (WEST TO MAZE-13)
       (RAUF TO MAZE-11)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROOM MAZE-11
       (LOC ROOMS)
@@ -1748,7 +1749,7 @@ Vorschein.")
       (RUNTER TO MAZE-10)
       (NW TO MAZE-13)
       (SW TO MAZE-12)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROUTINE IN-MAZE? (PLACE)
 	 <COND (<EQUAL? .PLACE ,MAZE-1 ,MAZE-2 ,MAZE-3 ,MAZE-4 ,MAZE-5
@@ -1779,14 +1780,14 @@ Vorschein.")
       (OST TO MAZE-13)
       (RAUF TO MAZE-9)
       (NORD TO DEAD-END-4)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROOM DEAD-END-4
       (LOC ROOMS)
       (DESC "Dead End")
       (LDESC "Du bist an einer Sackgasse in dem Irrgarten gekommen.")
       (SUED TO MAZE-12)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROOM MAZE-13
       (LOC ROOMS)
@@ -1796,7 +1797,7 @@ Vorschein.")
       (RUNTER TO MAZE-12)
       (SUED TO MAZE-10)
       (WEST TO MAZE-11)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROOM MAZE-14
       (LOC ROOMS)
@@ -1806,7 +1807,7 @@ Vorschein.")
       (NW TO MAZE-14)
       (NO TO MAZE-7)
       (SUED TO MAZE-7)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 <ROOM MAZE-15
       (LOC ROOMS)
@@ -1815,7 +1816,7 @@ Vorschein.")
       (WEST TO MAZE-14)
       (SUED TO MAZE-7)
       (SO TO CYCLOPS-ROOM)
-      (FLAGS RLANDBIT )>
+      (FLAGS RLANDBIT MAZEBIT )>
 
 
 "SUBTITLE CYCLOPS AND HIDEAWAY"

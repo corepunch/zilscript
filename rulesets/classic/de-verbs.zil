@@ -207,7 +207,7 @@ sagst.">)
 		;<TELL "Trying to destroy " DER-ACC ,PRSO " with ">
 		<TELL "Es ist sinnlos, " DER-ACC ,PRSO " mit ">
 		<COND (<NOT ,PRSI>
-		       <TELL "blo%sen F%austen">)
+		       <TELL "blossen F%austen">)
 		      (T
 		       <TELL EIN-DAT ,PRSI>)>
 		<TELL " zerst%oren zu wollen." CR>)>>
@@ -279,12 +279,6 @@ sagst.">)
 	       (T
 		<TELL "Das ist Unsinn." CR>)>>
 
-<GLOBAL WHEEEEE
-	<LTABLE 0 "Ausgezeichnet. Du bist in die 4. Klasse versetzt!"
-		  "Macht's dir Spa%s?"
-		  "Jaaaaaaaaaa!!!!!"
-		  "Soll ich etwa Beifall klatschen?">>
-
 <ROUTINE V-SPIN ()
 	 <TELL "Den kannst du nicht rumwirbeln!" CR>>
 
@@ -354,59 +348,6 @@ DER-ACC-CAP ,PRSO " kannst du damit bestimmt nicht fesseln!" CR>>
 
 <ROUTINE V-ZORK () <TELL "Zu deinen Diensten!" CR>>
 
-<ROUTINE DESCRIBE-ROOM ("OPTIONAL" (LOOK? <>) "AUX" V? STR AV)
-	 <SET V? <OR .LOOK? ,VERBOSE>>
-	 <COND (<NOT ,LIT>
-		<TELL "Es ist stockdunkel.">
-		<COND (<NOT ,SPRAYED?>
-		       <TELL " Es besteht die M%oglichkeit, da%s du von einem Greuel gefressen wirst.">)>
-		<CRLF>
-		<RFALSE>)>
-	 <COND (<NOT <FSET? ,HERE ,TOUCHBIT>>
-		<FSET ,HERE ,TOUCHBIT>
-		<SET V? T>)>
-	 <COND (<IN-MAZE? ,HERE>
-		<FCLEAR ,HERE ,TOUCHBIT>)>
-	 <COND (<IN? ,HERE ,ROOMS>
-		;"Was <TELL D ,HERE CR>"
-		<TELL D ,HERE>
-		<COND (<FSET? <SET AV <LOC ,WINNER>> ,VEHBIT>
-		       <TELL ", in " DER-DAT .AV>)>
-		<CRLF>)>
-	 <COND (<OR .LOOK? <NOT ,SUPER-BRIEF>>
-		<SET AV <LOC ,WINNER>>
-		;<COND (<FSET? .AV ,VEHBIT>
-		       <TELL "(You are in " DER-DAT .AV ".)" CR>)>
-		<COND (<AND .V? <APPLY <GETP ,HERE ,P?ACTION> ,M-LOOK>>
-		       <RTRUE>)
-		      (<AND .V? <SET STR <GETP ,HERE ,P?LDESC>>>
-		       <TELL .STR CR>)
-		      (T
-		       <APPLY <GETP ,HERE ,P?ACTION> ,M-FLASH>)>
-		<COND (<AND <NOT <EQUAL? ,HERE .AV>> <FSET? .AV ,VEHBIT>>
-		       <APPLY <GETP .AV ,P?ACTION> ,M-LOOK>)>)>
-	 T>
-
-<ROUTINE DESCRIBE-OBJECTS ("OPTIONAL" (V? <>))
-	 <COND (,LIT
-		<COND (<FIRST? ,HERE>
-		       <PRINT-CONT ,HERE <SET V? <OR .V? ,VERBOSE>> -1>)>)
-	       (T
-		<TELL "Nur Flederm%ause k%onnen im Dunkeln sehen. Und du bist keine." CR>)>>
-
-<ROUTINE SCORE-UPD (NUM)
-	 <SETG BASE-SCORE <+ ,BASE-SCORE .NUM>>
-	 <SETG SCORE <+ ,SCORE .NUM>>
-	 ;<TELL "[Your score g%os up.]" CR>
-	 <COND (<AND <EQUAL? ,SCORE 350>
-		     <NOT ,WON-FLAG>>
-		<SETG WON-FLAG T>
-		<FCLEAR ,MAP ,INVISIBLE>
-		<FCLEAR ,WEST-OF-HOUSE ,TOUCHBIT>
-		<TELL
-"Eine fast unvernehmbare Stimme fl%ustert dir zu: %>Suche unter den Sch%atzen nach dem letzten Geheimnis.%<" CR>)>
-	 T>
-
 <ROUTINE LKP (ITM TBL "AUX" (CNT 0) LEN)
 	 <SET LEN <GET .TBL 0>>
 	 <REPEAT ()
@@ -425,3 +366,53 @@ DER-ACC-CAP ,PRSO " kannst du damit bestimmt nicht fesseln!" CR>>
 "Pa%s auf."
 "Dazu ist es zu sp%at."
 "La%s dir die Augen checken.">>
+
+;"Attack, destroy and dig: Zork's violence and its shovel."
+<ROUTINE V-ATTACK ("AUX" X)
+	 <COND (<NOT <FSET? ,PRSO ,ACTORBIT>>
+		<TELL
+"Nur ein Verr%uckter w%urde " EIN-ACC ,PRSO " angreifen." CR>)
+	       ;"for “greif troll an”"
+	       (<AND <NOT ,PRSI>
+		     <SET X <FIND-IN ,ADVENTURER ,WEAPONBIT>>>
+		<TELL "(mit " DER-DAT .X ")" CR CR>
+		<PERFORM ,V?ATTACK ,ADVENTURER .X>
+		<RTRUE>)
+	       (<OR <NOT ,PRSI>
+		    <EQUAL? ,PRSI ,HANDS>>
+		<TELL
+EIN-ACC-CAP ,PRSO " mit den nackten H%anden anzugreifen ist Selbstmord." CR>)
+	       (<NOT <IN? ,PRSI ,WINNER>>
+		<TELL 
+"Du h%alst noch nicht einmal " DER-ACC ,PRSI " in der Hand." CR>)
+	       (<NOT <FSET? ,PRSI ,WEAPONBIT>>
+		;<TELL
+"Trying to attack " DER-ACC ,PRSO " with " EIN-DAT ,PRSI " is suicidal." CR>
+		<TELL 
+EIN-ACC-CAP ,PRSO " mit " EIN-DAT ,PRSI " anzugreifen ist Selbstmord." CR>)
+	       (T
+	        <HERO-BLOW>)>>
+
+
+<ROUTINE V-DIG ()
+	 <COND (<NOT ,PRSI>
+		<SETG PRSI ,HANDS>)>
+	 <COND (<EQUAL? ,PRSI ,SHOVEL>
+			 <TELL "Hier gibt es wahrlich keinen Grund zum Graben." CR>
+			 <RTRUE>)>
+	 <COND (<FSET? ,PRSI ,TOOLBIT>
+		<TELL 
+ "Mit " DER-DAT ,PRSI " zu graben ist langsam und m%uhsam." CR>)
+	       (T
+		<TELL "Mit " EIN-DAT ,PRSI " zu graben ist bl%odsinnig." CR>)>>
+
+
+<ROUTINE V-MUNG ()
+	 <COND (<FSET? ,PRSO ,ACTORBIT>
+		<PERFORM ,V?ATTACK ,PRSO>
+		<RTRUE>)
+	       (T
+		<TELL "Gutgemeinter Versuch..." CR>)>>
+
+<ROUTINE V-ENCHANT ()
+	 <V-DISENCHANT>>

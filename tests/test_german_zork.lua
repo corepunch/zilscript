@@ -24,6 +24,8 @@ expect(game:start(), {
 
 local route = {
 	-- A phone keyboard capitalizes the first word: Ö must find öffne.
+	-- An adjective in front of the noun
+	{ "untersuche den kleinen Briefkasten", "Briefkasten" },
 	{ "Öffne den Briefkasten", "Der kleine Briefkasten, der geöffnet ist, enthält ein Zettel." },
 	{ "nimm den Zettel", "Genommen." },
 	-- Zettel is masculine (DERBIT), so "ihn" refers to it.
@@ -32,7 +34,7 @@ local route = {
 	{ "ost", "Hinter dem Haus" },
 	-- ASCII spellings of umlauts are vocabulary too.
 	{ "oeffne das fenster", "öffnest du das Fenster" },
-	{ "west", "Küche", "Auf dem Tisch steht eine Flasche.", "Hier ist ein brauner Sack." },
+	{ "west", "Küche", "Auf dem Tisch steht eine Flasche.", "Auf dem Tisch ist ein länglicher brauner Sack." },
 	{ "nimm den sack", "Genommen." },
 	{ "west", "Wohnzimmer", "Messingleuchte ist auf dem Trophäenschrank." },
 	{ "nimm die lampe", "Genommen." },
