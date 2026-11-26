@@ -43,42 +43,69 @@ book entry (books/<book>/<book>[-<lang>].zil)
 ### rulesets/rpg/kernel.zil (language-neutral)
 
 * **Characters are stat tables.** A character, the hero or an opponent, is
-  a table of numbers indexed by attribute constants the system defines
-  (`<STAT ,HERO ,A-STRENGTH>`, `<SET-STAT ,DRONE ,A-HEALTH 40>`). The player
-  and every opponent use the same routines; a story never keeps
-  `DRONE-HP`-style globals.
-* **Resources** are attributes with a maximum: `<SPEND tbl attr n>` refuses
-  when short, `<GAIN tbl attr n>` caps at the maximum, `<LOSE tbl attr n>`
-  floors at zero. Health, karma, mana and sanity are all resources.
-* **Dice**: `<ROLL count sides>`, built on `RANDOM`, so seeded play replays.
-* **Checks**: `<CHECK tbl attr difficulty required>` rolls through the
-  system (`SYSTEM-ROLL`, `SYSTEM-GRADE`), records the roll and tier, reports
-  through the language (`REPORT-CHECK`), and returns whether the tier is at
-  least `required`.
-* **Archetypes** are tables of starting values; `<BECOME tbl archetype>`
-  copies them and asks the system to derive the rest (`SYSTEM-DERIVE`).
-* **Sheet**: the system lists the attributes to show (`SHEET-LAYOUT`); the
-  kernel prints them through the language's labels.
-* **Actions**: generic action routines (`V-RPG-ATTACK`, `V-RPG-POWER`,
-  `V-RPG-RESCUE`, `V-RPG-DISABLE`, `V-RPG-CHOOSE`, `V-RPG-NAME`,
-  `V-RPG-STATUS`) whose default replies come from the language and whose real
-  effects come from the story's object ACTION routines.
+  a table of `CHARACTER-SIZE` (32) words indexed by attribute constants the
+  system defines, numbered 1 to 15 (`<STAT ,HERO ,A-STRENGTH>`,
+  `<SET-STAT ,DRONE-STATS ,A-HEALTH 40>`). Slot 0 remembers the archetype the
+  character became. The player is the kernel's `HERO`; an opponent is
+  `<GLOBAL DRONE-STATS <ITABLE 32 0>>` in the story. The player and every
+  opponent use the same routines; a story never keeps `DRONE-HP`-style
+  globals.
+* **Resources** are attributes with a maximum (kept in slot attribute+16,
+  `<MAX-STAT tbl attr>`), set full by `<SET-RESOURCE tbl attr max>`:
+  `<SPEND tbl attr n>` refuses (false) when short or when `n` is not positive,
+  `<GAIN tbl attr n>` caps at the maximum and returns what was gained,
+  `<LOSE tbl attr n>` floors at zero and returns what was lost. Health,
+  karma, mana and sanity are all resources. A maximum of `NO-LIMIT` marks a
+  resource without a ceiling (karma); the sheet shows a maximum only for a
+  resource whose maximum is above 0 and below `NO-LIMIT`.
+* **Dice**: `<ROLL count sides>`, the sum of `count` calls of `RANDOM`, so
+  seeded play replays.
+* **Checks**: `<CHECK tbl attr difficulty required>` asks the system to roll
+  (`<SYSTEM-ROLL tbl attr difficulty>`) and grade
+  (`<SYSTEM-GRADE tbl attr difficulty roll>`, a tier from 0), records
+  `LAST-ROLL` and `LAST-TIER`, reports through `REPORT-CHECK` (the kernel's
+  sentence: the system's `CHECK-TERMS`, the roll, the system's `TIER-NAME`),
+  and returns whether the tier is at least `required`. `difficulty` means
+  what the system says (unused by the percentile system, a target number in
+  d20).
+* **Archetypes** are `LTABLE`s of starting values for attributes 1, 2, ...;
+  `<BECOME tbl archetype>` copies them, remembers the archetype
+  (`<BECAME? tbl>`, `<KIND-OF tbl>`) and calls `<SYSTEM-DERIVE tbl>`, which
+  sets the resources and their maxima.
+* **Sheet and status**: the system lists the attributes to show in two
+  `LTABLE`s, `SHEET-LAYOUT` (two to a line: `Name: 30` or `Health: 12/18`)
+  and `STATUS-LAYOUT` (`Health 12 of 18, Karma 7.`); the kernel prints them
+  with the language's `ATTR-NAME` and `OF-WORD`.
+* **The hero's name** (`HERO-NAME`): `<ASK-NAME>` prints the language's
+  `NAME-PROMPT`, reads a line and returns 0 (refused: characters outside
+  printable ASCII), 1 (blank, name kept) or 2 (stored, capitalised word by
+  word, at most 32 characters); `<NAMED?>` and `<PRINT-NAME>` read it back.
+  What an unnamed hero is called is the story's.
+* **Actions**: `V-RPG-ATTACK`, `V-RPG-POWER`, `V-RPG-RESCUE`,
+  `V-RPG-DISABLE`, `V-RPG-CHOOSE`, `V-RPG-NAME` and `V-RPG-STATUS` print the
+  language's default reply (`SAY-NO-TARGET`, `SAY-NO-POWER`, ...) when no
+  story object takes the action in its ACTION routine
+  (`<VERB? RPG-ATTACK>`).
 
 ### rulesets/rpg/&lt;lang&gt;.zil
 
-The kernel's words once per language: SYNTAX for the action verbs, their
-default replies, `REPORT-CHECK`, the sheet's layout sentence, the naming
-prompt. A system adds no sentences here.
+The kernel's words once per language: SYNTAX and synonyms for the seven
+actions, the `SAY-NO-*` replies, `OF-WORD` ("of"/"von"), `NAME-PROMPT`,
+and the world's `DIAGNOSE` in German. A system adds no sentences here.
 
 ### rulesets/&lt;system&gt;/system.zil and &lt;lang&gt;.zil
 
-`system.zil` is numbers only: attribute constants, `SYSTEM-ROLL`,
+`system.zil` is numbers only: the attribute constants, `SYSTEM-ROLL`,
 `SYSTEM-GRADE` (for the superhero system, the percentile rank table),
 `SYSTEM-DERIVE` (health from the physical ranks, karma from the mental
-ones), `SHEET-LAYOUT`. `<lang>.zil` is names only (`ATTR-NAME`, `TIER-NAME`)
-plus the composition of the layers, and any verb unique to that system.
+ones), `SHEET-LAYOUT` and `STATUS-LAYOUT`. `<lang>.zil` is names only:
+`ATTR-NAME`, `TIER-NAME`, `CHECK-TERMS` (what a roll is against: "Rank 30;
+d100"), plus the composition of the layers (language base, kernel, kernel
+words, system), and any verb unique to that system.
 
-A new system is two short files per language plus one numbers file.
+A new system is one numbers file plus one names-and-composition file per
+language; `tests/fixtures/rpg/toy-d20.zil` is a complete example (a d20
+system in 30 lines) that `tests/test-rpg-kernel.zil` plays the kernel with.
 
 ## Editions: one story, many languages
 
@@ -103,5 +130,25 @@ A book's logic is written once. Each edition adds its words:
 * **Tests** play the logic through each edition with the same seeded route,
   so both editions reach the same endings with the same dice.
 
-The app lists each edition (`books.<book>` and `books.<book>-<lang>`); both
-entries point at the same logic.
+* **Exits are words.** A direction is a property named by a compass word
+  (`NORTH`, `NORD`), so the edition declares each room's exits, including a
+  gate and the text of its refusal (`(NORTH TO BRIDGE IF HERO-CLASS ELSE "...")`;
+  a routine-decided `PER` exit has no way back for `go back`). The few places
+  where logic must walk somewhere call edition routines (`WALK-TO-BRIDGE`).
+* **Replacing the world's routines** (`V-VERSION`, `V-SCORE`, `GO`) must come
+  after the language base, while the objects of a German edition come before
+  it (a direction word must not collide with an object number): the logic that
+  replaces world routines lives in `rules.zil`, inserted last.
+
+Layout of a book with editions (one story, so one app entry per edition):
+
+```
+books/shared/<book>/logic.zil, rules.zil   the story, no words
+books/<lang>/<book>/<book>.zil             the entry: imports rulesets.<system>.<lang>,
+                                           the logic, the edition's words, the rules
+books/<lang>/<book>/<words>.zil            the edition's words: partial objects and rooms,
+                                           MSG-* routines, syntax, companion cards
+books/<lang>/<book>/game.json              the edition's own app id and language
+```
+
+Each edition has its own id, so saves never cross.

@@ -5,7 +5,7 @@ above it:
 
 ```
 story (books/<name>, infocom/zork1)       rooms, objects, prose
-  rulesets/<rules>/<lang>.zil              the game's rules: classic, superhero
+  rulesets/<rules>/<lang>.zil              the game's rules: classic, or an RPG system over rulesets/rpg
     languages/<lang>/base.zil              everything an adventure in that language needs
       core/                                language-neutral engine ZIL
 ```
@@ -39,12 +39,15 @@ checks all of this.
   `<lang>-verbs.zil` the combat, magic, treasure and puzzle verbs with their
   words, `<lang>-globals.zil` Zork's scenery and characters (the sailor, the
   grue, zorkmids). `rulesets/classic/<lang>.zil` composes them over the base.
-* `rulesets/superhero/`: `percentile.zil` holds the numbers (attributes,
-  percentile checks, health, karma); `en-verbs.zil` the English words: the
-  check report, the character sheet, and the hero actions (strike, attack,
-  hit, rescue, disable, focus, choose, diagnose) with replies for when no
-  object takes them. `rulesets/superhero/en.zil` composes them over
-  `languages/en/base.zil`, without the classic rules.
+* `rulesets/rpg/`: what every tabletop system shares. `kernel.zil` is
+  language-neutral (characters, resources, dice, checks, archetypes, sheet,
+  hero name, the generic actions); `en.zil` and `de.zil` hold its words
+  (syntax, default replies, naming prompt). See [RPG-SYSTEMS.md](RPG-SYSTEMS.md).
+* `rulesets/superhero/`: one system. `system.zil` holds its numbers
+  (attribute constants, the percentile rank table, health and karma);
+  `en.zil` and `de.zil` hold its names (`ATTR-NAME`, `TIER-NAME`,
+  `CHECK-TERMS`) and compose the layers: the language base, the kernel, the
+  kernel's words in that language and `system.zil`, without the classic rules.
 
 Which form goes where was decided by references, not by hand: everything the
 parser, loop and world verbs reach is the world; the rest of Zork's verbs are
@@ -85,9 +88,9 @@ A story imports one ruleset with a qualified name:
 <INSERT-FILE "actions">
 ```
 
-It must not import historical game folders. A new ruleset copies the shape of
-`rulesets/superhero`: its numbers in a language-neutral file, its words and
-verbs in `<lang>-verbs.zil`, and a `<lang>.zil` over `languages.<lang>.base`.
+It must not import historical game folders. A new RPG system copies the shape of
+`rulesets/superhero`: its numbers in `system.zil`, its names and a
+composition over `languages.<lang>.base` and `rulesets.rpg` in `<lang>.zil`.
 
 ## Validation
 
