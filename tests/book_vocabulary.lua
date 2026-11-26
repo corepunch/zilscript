@@ -93,13 +93,15 @@ return function(root, expect, exhaustive, bookNames)
 	books = selected
 	local objects, commands = 0, 0
 	local Language = require("zilscript.reader.Language")
+	local Story = require("zilscript.reader.Story")
 	for book, phrases in pairs(books) do
 		-- The story's language (game.json) decides the verb the parser understands.
-		local lang = Language.ofBook(book)
+		local story = Story.of("books/" .. book, root)
+		local lang = story.language
 		local examine = lang.examine
 		local declarations = {}
-		for _, source in ipairs({ "dungeon.zil", "actions.zil" }) do
-			local file = assert(io.open(root .. "/books/" .. book .. "/" .. source))
+		for _, source in ipairs(story.declarations) do
+			local file = assert(io.open(root .. "/" .. source))
 			for _, node in ipairs(parser.parse(file:read("a"))) do
 				if node.name == "OBJECT" then table.insert(declarations, node) end
 			end
@@ -109,7 +111,7 @@ return function(root, expect, exhaustive, bookNames)
 		assert(runtime.init(env, true))
 		env.require("zilscript")
 		package.zilpath = root .. "/books/" .. book .. "/?.zil;" .. root .. "/infocom/zork1/?.zil;" .. root .. "/?.zil"
-		assert(runtime.load_zil_files({ root .. "/books/" .. book .. "/" .. book:match("[^/]+$") .. ".zil" }, env, { silent = true }))
+		assert(runtime.load_zil_files({ root .. "/" .. story.module:gsub("%.", "/") .. ".zil" }, env, { silent = true }))
 		local game = runtime.create_game(env, true)
 		game:start()
 

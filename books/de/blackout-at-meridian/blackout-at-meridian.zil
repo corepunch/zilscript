@@ -10,9 +10,9 @@
 <PROPDEF TVALUE 0>
 <DIRECTIONS NORD OST WEST SUED NO NW SO SW RAUF RUNTER HINEIN RAUS LANDEN>
 ;"German vocabulary, TELL tokens and messages come first, as in Zork I
-  (German): the story's objects need them. The ruleset follows the story."
+  (German); the story's logic and words follow the ruleset."
 <INSERT-FILE "languages.de.init">
-<INSERT-FILE "dungeon">
+<INSERT-FILE "books.de.blackout-at-meridian.de">
+<INSERT-FILE "books.shared.blackout-at-meridian.logic">
 <INSERT-FILE "rulesets.superhero.de">
-<INSERT-FILE "actions">
-<INSERT-FILE "companion">
+<INSERT-FILE "books.shared.blackout-at-meridian.rules">

@@ -146,7 +146,7 @@ Layout of a book with editions (one story, so one app entry per edition):
 books/shared/<book>/logic.zil, rules.zil   the story, no words
 books/<lang>/<book>/<book>.zil             the entry: imports rulesets.<system>.<lang>,
                                            the logic, the edition's words, the rules
-books/<lang>/<book>/<words>.zil            the edition's words: partial objects and rooms,
+books/<lang>/<book>/<lang>.zil               the edition's words: partial objects and rooms,
                                            MSG-* routines, syntax, companion cards
 books/<lang>/<book>/game.json              the edition's own app id and language
 ```

@@ -16,6 +16,7 @@
 
 package.path = "./?.lua;./?/init.lua;" .. package.path
 local Language = require("zilscript.reader.Language")
+local Story = require("zilscript.reader.Story")
 
 local function read(path)
 	local file = io.open(path, "r")
@@ -88,9 +89,10 @@ if #dirs == 0 then
 end
 
 for _, dir in ipairs(dirs) do
-	local files, sources = zil_files(dir), {}
+	local story = Story.of(dir)
+	local files, sources = story.sources, {}
 	for _, path in ipairs(files) do table.insert(sources, read(path) or "") end
-	local lang = Language.ofBook(dir)
+	local lang = story.language
 	local directions = Language.compassSet(lang)
 	local nouns, adjectives = vocabulary(sources, lang)
 	local links = 0

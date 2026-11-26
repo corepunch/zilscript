@@ -259,7 +259,7 @@ local function main()
         end
         local content = f:read("*a")
         f:close()
-        lang = Language.ofBook(filepath:match("books/([^/]+)/") or "")
+        lang = Language.ofBook(filepath)
 
         local objects = parse_zil_objects(content)
         local file_issues = {}

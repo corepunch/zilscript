@@ -56,8 +56,8 @@ assert(systemNames["A-FIGHTING"] and systemNames["A-HEALTH"], "the system's attr
 local function storyNames()
  local names = {}
  for _, book in ipairs({"blackout-at-meridian"}) do
-  for _, file in ipairs({"dungeon.zil", "logic.zil"}) do
-   local f = io.open("books/" .. book .. "/" .. file, "rb")
+  for _, file in ipairs({"shared/" .. book .. "/logic.zil"}) do
+   local f = io.open("books/" .. file, "rb")
    if f then
     local src = f:read("*a"); f:close()
     for name in src:gmatch("\n<[OR][BO][JO][EM]C?T?%s+([%w%-]+)") do names[name] = true end
@@ -81,9 +81,25 @@ for _, path in ipairs({"rulesets/superhero/system.zil", "rulesets/superhero/en.z
  for name in text:gmatch(",([%w%-%?]+)") do assert(not story[name], path .. " names the story's " .. name) end
  assert(not text:find("DRONE", 1, true) and not text:find("Meridian", 1, true) and not text:find("Dispatch", 1, true), path .. " names a story")
 end
-local superhero = read("books/en/blackout-at-meridian/blackout-at-meridian.zil")
-assert(superhero:find('<INSERT-FILE "rulesets.superhero.en">',1,true), "superhero book imports its ruleset")
-assert(not superhero:find("infocom/",1,true), "superhero book depends on a historical directory")
+-- One book, two editions: each entry imports its language's ruleset, the
+-- book's one logic and its own words; the logic and rules say no word of
+-- either language.
+for lang in pairs({en = true, de = true}) do
+ local entry = "books/" .. lang .. "/blackout-at-meridian/blackout-at-meridian.zil"
+ local superhero = read(entry)
+ assert(superhero:find('<INSERT-FILE "rulesets.superhero.' .. lang .. '">',1,true), entry .. " imports its ruleset")
+ assert(superhero:find('<INSERT-FILE "books.shared.blackout-at-meridian.logic">',1,true), entry .. " imports the book's logic")
+ assert(superhero:find('<INSERT-FILE "books.shared.blackout-at-meridian.rules">',1,true), entry .. " imports the book's rules")
+ assert(superhero:find('<INSERT-FILE "books.' .. lang .. '.blackout-at-meridian.' .. lang .. '">',1,true), entry .. " imports its edition's words")
+ assert(not superhero:find("infocom/",1,true), entry .. " depends on a historical directory")
+end
+for _, path in ipairs({"books/shared/blackout-at-meridian/logic.zil", "books/shared/blackout-at-meridian/rules.zil"}) do
+ local text = read(path):gsub(';"[^"]*"', ""):gsub('; "[^"]*"', "")
+ for str in text:gmatch('"([^"]*)"') do
+  assert(str == "OPTIONAL" or str == "AUX", path .. " contains the text " .. str:sub(1, 40) .. "; words belong to an edition")
+ end
+ assert(not read(path):find("INSERT%-FILE"), path .. " inserts files")
+end
 
 -- A top-level form that is the same in both languages is shared: parser and
 -- loop code belongs in core/, text-free classic rules in
@@ -205,6 +221,14 @@ local ok,err=pcall(function()
  local heroOpening=hero:start()
  assert(type(heroOpening)=="string" and heroOpening:match("%S"),"empty superhero opening")
  assert(hero:is_running(),"superhero story stopped")
+ local deEnv = runtime.create_game_env()
+ assert(runtime.init(deEnv,true))
+ deEnv.require("zilscript")
+ assert(runtime.load_modules(deEnv,{"books.de.blackout-at-meridian.blackout-at-meridian"},{silent=true}))
+ local de=runtime.create_game(deEnv,true)
+ local deOpening=de:start()
+ assert(type(deOpening)=="string" and deOpening:match("Um neun Uhr"),"empty German edition opening")
+ assert(de:is_running(),"German edition stopped")
 end)
 io.open=originalOpen
 assert(ok,err)
