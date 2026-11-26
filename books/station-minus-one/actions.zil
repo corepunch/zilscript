@@ -1,9 +1,10 @@
+<SYNTAX TURN OBJECT = V-SPIN>
 <GLOBAL LOOP-OBSERVED <>>
 <GLOBAL STATION-END 0>
 
 <ROUTINE STATION-CLOCK-F ()
  <COND (<VERB? EXAMINE READ>
-  <TELL "The second hand sweeps up toward twelve, and every time it crosses, the clock jerks back and comes out one second behind midnight again. It has been one second to midnight for an hour. Beneath it, the arrivals board shows a single train, marked ARRIVAL MINUS ONE: due here yesterday." CR>)
+  <TELL "The second hand sweeps up toward twelve, and every time it crosses, the clock jerks back and comes out one second behind midnight again. It has been one second to midnight for an hour. Beneath it hangs the [[arrivals board->board]]." CR>)
        (<VERB? LISTEN>
   <TELL "It ticks steadily, and then, just at the top of the minute, there is a double tick, like a heel caught on a stair." CR>)
        (<VERB? RUB TAKE MOVE>
@@ -11,7 +12,19 @@
        (<VERB? WIND>
   <TELL "There is no key and no winder. The clock takes its time from the rail signal, and the rail signal is the thing that has gone wrong." CR>)
        (<VERB? LOOK-BEHIND>
-  <TELL "Only a fat grey cable, running from the clock along the ceiling toward the platform." CR>)>>
+  <TELL "Only a fat grey cable, running from the clock along the ceiling toward the platform." CR>)
+       (<VERB? SPIN>
+  <TELL "The hands are behind glass, high above the wickets. The clock takes its time from the rail, not from anyone's fingers." CR>)>>
+
+<ROUTINE ARRIVALS-BOARD-F ()
+ <COND (<VERB? EXAMINE READ>
+  <TELL "Every line of the arrivals board is blank except one: ARRIVAL MINUS ONE, due here yesterday. Beside it, where the board would say ON TIME or DELAYED, a small amber word keeps flickering: CALLING." CR>)
+       (<VERB? RUB KNOCK>
+  <TELL "The board is hung high under the clock. Even on tiptoe you can only reach its frame, which is faintly warm." CR>)
+       (<VERB? LISTEN>
+  <TELL "Each time CALLING flickers, the board gives a tiny click, the same rhythm as the platform bell." CR>)
+       (<VERB? TAKE MOVE>
+  <TELL "It is bolted under the clock, far out of reach." CR>)>>
 
 <ROUTINE TICKET-WICKETS-F ()
  <COND (<VERB? EXAMINE>
@@ -20,14 +33,20 @@
   <TELL "The nearest gate swings, clacks against its stop, and settles. The sound runs all the way round the empty hall." CR>)
        (<VERB? RUB>
   <TELL "The steel is cold enough to sting. Someone has polished the top rail to a shine with years of passing hands." CR>)
-       (<VERB? CLIMB-ON CLIMB-FOO>
+       (<VERB? CLIMB-ON CLIMB-FOO OPEN CLOSE>
   <TELL "No need. They are locked open; you can walk straight through." CR>)>>
 
 <ROUTINE STAFF-TABLE-F ()
- <COND (<VERB? EXAMINE>
+ <COND (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,STAFF-TABLE>>
+  <COND (<HELD? ,PRSO>
+         <MOVE ,PRSO ,STAFF-ROOM>
+         <TELL "You set the " D ,PRSO " down on the table, beside the logbook." CR>)
+        (T <TELL "You aren't holding that." CR>)>)
+       (<EQUAL? ,PRSI ,STAFF-TABLE> <RFALSE>)
+       (<VERB? EXAMINE>
   <TELL "A scuffed staff table with tea rings all over it. The [[logbook]] lies open in the middle, where whoever is on shift can't miss it." CR>)
        (<VERB? LOOK-UNDER>
-  <TELL "Only dust, and a chair pushed back as if someone got up in a hurry." CR>)
+  <TELL "Only dust, and a [[chair]] pushed back as if someone got up in a hurry." CR>)
        (<VERB? KNOCK>
   <TELL "It sounds hollow and cheap. Nobody answers, which is a relief." CR>)
        (<VERB? TAKE MOVE PUSH>
@@ -42,8 +61,18 @@
   <TELL "Both are cool and wet. One has a chip in the rim that you don't remember." CR>)
        (<VERB? TAKE>
   <TELL "You leave them where they are. Whoever rinsed the second one may want it." CR>)
+       (<VERB? DRINK DRINK-FROM>
+  <TELL "Both cups are empty. Only the smell of stewed tea is left in the room." CR>)
        (<VERB? LOOK-UNDER>
   <TELL "Under each cup is a small ring of water on the drainer, nothing more." CR>)>>
+
+<ROUTINE STAFF-CHAIR-F ()
+ <COND (<VERB? EXAMINE>
+  <TELL "A plastic staff chair, pushed back from the table at an angle, as though someone stood up in a hurry. The seat is still faintly warm." CR>)
+       (<VERB? CLIMB-ON CLIMB-FOO>
+  <TELL "You sit for a moment. From here the open logbook is right in front of you. Then the platform bell rings again, faintly, and you get up." CR>)
+       (<VERB? PUSH MOVE>
+  <TELL "You tuck the chair back under the table. It scrapes on the concrete, loud in the empty station." CR>)>>
 
 <ROUTINE SHIFT-LOG-F ()
  <COND (<VERB? EXAMINE READ>
@@ -87,7 +116,9 @@
 
 <ROUTINE CALIBRATION-STUD-F ()
  <COND (<VERB? EXAMINE>
-  <TELL "A low, square brass button, worn smooth by thumbs. Pressing it makes the gauge weigh whatever is on the track, measured against the weight in the [[cradle]]. With nothing in the cradle, it has nothing to measure against." CR>)
+  <TELL "A low, square brass button, worn smooth by thumbs. Pressing it makes the gauge weigh whatever is on the track, measured against the weight in the [[cradle]]. A needle and a little readout window sit just above it.">
+  <COND (,LOOP-OBSERVED <TELL " The needle still rests at the full weight of a train." CR>)
+        (T <TELL " The needle rests at zero." CR>)>)
        (<VERB? PUSH>
         <COND (<NOT <IN? ,TEST-PUCK ,RECEIVER-CRADLE>>
                <TELL "EMPTY REFERENCE, says the little window over the stud. The gauge has nothing to measure against; you need to seat a ceramic puck in the [[cradle]] first." CR>)
@@ -139,15 +170,17 @@
   <TELL "Worn concrete steps between the ticket hall and the lower platform, with a steel rail down the middle." CR>)
        (<VERB? LISTEN>
   <TELL "Warm air breathes up and down them, as if the station itself were breathing." CR>)
-       (<VERB? CLIMB-FOO CLIMB-ON>
-  <TELL "To use them, just go that way." CR>)>>
+       (<VERB? CLIMB-FOO CLIMB-ON CLIMB-UP CLIMB-DOWN>
+  <COND (<EQUAL? ,HERE ,TICKET-HALL> <DO-WALK ,P?DOWN>)
+        (T <DO-WALK ,P?UP>)>
+  <RTRUE>)>>
 
 <ROUTINE STAFF-SINK-F ()
  <COND (<VERB? EXAMINE>
   <TELL "A little steel sink with a dripping tap and a wire drainer. The two rinsed [[cups]] stand upside down on the drainer." CR>)
        (<VERB? LISTEN>
   <TELL "The tap drips, slowly, about once a second. Then twice, quickly, as though it has lost count." CR>)
-       (<VERB? TURN OPEN CLOSE>
+       (<VERB? TURN SPIN OPEN CLOSE>
   <TELL "You turn the tap tight. A moment later it starts dripping again." CR>)>>
 
 <ROUTINE GAUGE-DIALS-F ()
@@ -178,11 +211,31 @@
 
 <ROUTINE PLATFORM-POST-F ()
  <COND (<VERB? EXAMINE>
-  <TELL "A squat steel post at the platform edge, bearing two controls: the red [[rescue switch->switch]] and the grey [[quarantine latch->latch]]. Only one of them can be used tonight." CR>)
+  <TELL "A squat steel post at the platform edge, with the platform bell bolted to its top. It bears two controls: the red [[rescue switch->switch]] and the grey [[quarantine latch->latch]]. Only one of them can be used tonight." CR>)
+       (<VERB? RING LISTEN>
+  <TELL "The platform bell is still trembling from the train's call. Under your hand it gives one dull note, and the rails carry it off into the dark." CR>)
        (<VERB? RUB>
   <TELL "The post trembles faintly under your hand, in time with the rails." CR>)
        (<VERB? KICK MOVE>
   <TELL "It is set deep in the concrete and doesn't budge." CR>)>>
+
+<ROUTINE UNSEEN-TRAIN-F ()
+ <COND (<VERB? EXAMINE LOOK-INSIDE FIND>
+  <COND (,LOOP-OBSERVED
+         <TELL "You still can't see it. But the gauge has weighed it: a whole train, with someone aboard, standing just beyond the edge of the platform, waiting for a signal." CR>)
+        (T
+         <TELL "There is no train in sight, only the warmth on the [[track]] and the bell's call. An echo on the rail would look just the same. The instruments in the gauge room could tell you whether anything is really there." CR>)>)
+       (<VERB? LISTEN>
+  <PERFORM ,V?LISTEN ,PLATFORM-TRACK>
+  <RTRUE>)
+       (<VERB? BOARD THROUGH WAVE TAKE PUSH>
+  <TELL "There is nothing on the track your hands can reach. The only way to answer the train is with the controls on the [[post]]." CR>)>>
+
+<ROUTINE PLATFORM-EDGE-F ()
+ <COND (<VERB? EXAMINE>
+  <TELL "A long concrete platform with a yellow line painted along its edge. The frost on it is unmarked except for your own footprints and a thin wet line along the very edge, where warmth has risen from the rails." CR>)
+       (<VERB? THROUGH CLIMB-DOWN LEAP>
+  <TELL "You stay behind the yellow line. Whatever is on that track, you don't want to be standing on it when it arrives." CR>)>>
 
 <ROUTINE STATION-END-POSSIBLE ()
  <COND (,LOOP-OBSERVED <RTRUE>)
@@ -210,7 +263,7 @@
        (<VERB? PUSH>
         <COND (<STATION-END-POSSIBLE>
           <SETG STATION-END 2>
-          <TELL "You press the latch, and the berth closes. A single note travels out along the rail under the frost; after a long pause, another comes back. The driver has heard you and is braking, safe in yesterday. The warmth fades from the rails. In the logbook you draw two small circles for the two signals, so whoever works here alone tomorrow will know there was an answer." CR CR "ENDING: OUTSIDE THE TIMETABLE" CR>
+          <TELL "You press the latch, and the berth closes. A single note travels out along the rail under the frost; after a long pause, another comes back. The driver has heard you and is braking, safe in yesterday. The warmth fades from the rails. Later, back in the staff room, you draw two small circles in the logbook for the two signals, so whoever works here alone tomorrow will know there was an answer." CR CR "ENDING: OUTSIDE THE TIMETABLE" CR>
           <FINISH>)>
         <RTRUE>)
        (<VERB? RUB>
