@@ -17,6 +17,7 @@ local test_files = {
 	"tests/test_llm.lua",
 	"tests/test_macro_expansion.lua",
 	"tests/test_parser.lua",
+	"tests/test_parser_manners.lua",
 	"tests/test_play_links.lua",
 	"tests/test_require_system.lua",
 	"tests/test_reader_state.lua",

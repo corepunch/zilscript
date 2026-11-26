@@ -41,8 +41,16 @@
 
 <OBJECT IT
 	(IN GLOBAL-OBJECTS)
-	(SYNONYM IT THEM HER HIM)
+	(SYNONYM IT THEM)
 	(DESC "random object")
+	(FLAGS NDESCBIT TOUCHBIT)>
+
+;"HIM and HER mean the last person a command involved (P-HIM-OR-HER), not
+  the last object: \"show the letter to her\" addresses Lady Ashworth."
+<OBJECT HIM-OR-HER
+	(IN GLOBAL-OBJECTS)
+	(SYNONYM HIM HER)
+	(DESC "random person")
 	(FLAGS NDESCBIT TOUCHBIT)>
 
 <OBJECT NOT-HERE-OBJECT
@@ -68,7 +76,7 @@
 		<NOT-HERE-PRINT .PRSO?>
 		<TELL " here!" CR>)
 	       (T
-		<TELL "The " D ,WINNER " seems confused. \"I don't see any ">
+		<TELL CTHE ,WINNER " seems confused. \"I don't see any ">
 		<NOT-HERE-PRINT .PRSO?>
 		<TELL " here!\"" CR>)>
 	 <RTRUE>>
@@ -132,7 +140,7 @@
 <OBJECT ME
 	(IN GLOBAL-OBJECTS)
 	(SYNONYM ME MYSELF SELF CRETIN)
-	(DESC "cretin")
+	(DESC "yourself")
 	(FLAGS ACTORBIT)
 	(ACTION CRETIN-FCN)>
 
@@ -185,7 +193,7 @@
 
 <OBJECT ADVENTURER
 	(SYNONYM ADVENTURER)
-	(DESC "cretin")
+	(DESC "yourself")
 	(FLAGS NDESCBIT INVISIBLE SACREDBIT ACTORBIT)
 	(STRENGTH 0)
 	(ACTION 0)>

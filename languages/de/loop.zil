@@ -78,6 +78,14 @@
 			  <SETG PRSO <>>)
 			 (<NOT ,LIT>
 			  <TELL "Es ist zu dunkel, um etwas zu sehen." CR>)
+			 (<EQUAL? ,P-GETFLAGS ,P-ALL>
+			  ;"ALLES fand nichts: sag es passend zum Verb"
+			  <COND (<BTST <GETB ,P-SYNTAX ,P-SLOC1> ,SH>
+				 <TELL "Du tr%agst nichts bei dir." CR>)
+				(<VERB? TAKE>
+				 <TELL "Es gibt hier nichts, das man nehmen kann." CR>)
+				(T <TELL "Hier gibt es nichts daf%ur." CR>)>
+			  <SET V <>>)
 			 (T
 			  <REFERRING>
 			  <SET V <>>)>)

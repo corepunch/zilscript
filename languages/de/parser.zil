@@ -566,10 +566,18 @@
 			    <ZERO? ,P-NCN>
 			    <OR <ZERO? <SET PREP <GET ,P-ITBL ,P-PREP1>>>
 				<EQUAL? .PREP <GETB .SYN ,P-SPREP1>>>>
-		       <SET DRIVE1 .SYN>)
+		       ;"Keep the first candidate unless a later one has exactly the
+			 typed preposition: EXAMINE asks what to examine, not what
+			 to examine ON."
+		       <COND (<OR <NOT .DRIVE1>
+				  <AND <EQUAL? <GETB .SYN ,P-SPREP1> <GET ,P-ITBL ,P-PREP1>>
+				       <NOT <EQUAL? <GETB .DRIVE1 ,P-SPREP1> <GET ,P-ITBL ,P-PREP1>>>>>
+			      <SET DRIVE1 .SYN>)>)
 		      (<EQUAL? <GETB .SYN ,P-SPREP1> <GET ,P-ITBL ,P-PREP1>>
 		       <COND (<AND <EQUAL? .NUM 2> <EQUAL? ,P-NCN 1>>
-			      <SET DRIVE2 .SYN>)
+			      ;"The first declared line asks the natural question:
+				GIVE X TO, PUT X IN."
+			      <COND (<NOT .DRIVE2> <SET DRIVE2 .SYN>)>)
 			     (<EQUAL? <GETB .SYN ,P-SPREP2>
 				   <GET ,P-ITBL ,P-PREP2>>
 			      <SYNTAX-FOUND .SYN>
@@ -984,7 +992,10 @@
 		      <SETG P-NAM <>>
 		      <SETG P-ADJ <>>
 		      <RFALSE>)
-		     (<ZERO? .LEN> <SET GCHECK T> <AGAIN>)>
+		     ;"ALL means what is here and what you carry; the global objects are
+		       for naming things, so ALL never falls back to them."
+		     (<AND <ZERO? .LEN> <NOT <BTST ,P-GETFLAGS ,P-ALL>>>
+		      <SET GCHECK T> <AGAIN>)>
 	       <SETG P-SLOCBITS .XBITS>
 	       <SETG P-NAM <>>
 	       <SETG P-ADJ <>>
