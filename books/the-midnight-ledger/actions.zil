@@ -13,6 +13,16 @@
 
 <SYNTAX HINT = V-BOOK-HINT>
 <SYNTAX TURN OBJECT = V-SPIN>
+; The classic rules only know ATTACK WITH a weapon; a hearing has none, so
+; a bare "attack ives" reaches the actor's own reply.
+<SYNTAX ATTACK OBJECT (FIND ACTORBIT) (ON-GROUND IN-ROOM) = V-ATTACK>
+; SIT is a synonym of CLIMB, which wants an object; sitting down alone is
+; answered by the room.
+<SYNTAX CLIMB = V-LEDGER-SIT>
+
+<ROUTINE V-LEDGER-SIT ()
+ <COND (<EQUAL? ,HERE ,CHAMBER> <PERFORM ,V?CLIMB-ON ,MTABLE> <RTRUE>)
+       (T <TELL "There is nothing here to sit on or climb, and the hearing is waiting." CR>)>>
 
 <ROUTINE V-BOOK-HINT ()
  <COND (<OR <NOT ,SCALE-SEEN> <NOT ,LEDGER-READ>> <TELL "Compare the scale and the midnight ledger. One clock is untrustworthy." CR>) (<OR <NOT ,SEAL-SEEN> <NOT ,CAB-SEEN>> <TELL "The seal and cabinet explain how the crate can change without a dispatch mark breaking." CR>) (<NOT ,REG-READ> <TELL "Read the public shift register and compare who left with the interval of the loss." CR>) (<NOT ,CASE-READY> <TELL "Turn the evidence panel when all three columns are established." CR>) (T <TELL "Choose the named tab that matches the access and time evidence." CR>)>>
@@ -26,7 +36,7 @@
  <TELL " The weigh room is to the [[west]] and the records room to the [[east]]. The public registry is to the [[north]], and the vestibule is back to the [[south]]." CR>)>>
 
 <ROUTINE CLOAKROOM-F (RARG)
- <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the cloakroom, a narrow room lined with coat [[pegs]], every one of them empty, above a hissing radiator. [[Porter Ives->ives]], a broad, tired man, has hung his own wet [[coat]] on the wall so that his hands will stop searching its pockets. The vestibule is back to the [[west]]." CR>)>>
+ <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the cloakroom, a narrow room lined with coat [[pegs]], every one of them empty, above a hissing [[radiator]]. [[Porter Ives->ives]], a broad, tired man, has hung his own wet [[coat]] on the wall so that his hands will stop searching its pockets. The vestibule is back to the [[west]]." CR>)>>
 
 <ROUTINE SCALEHOUSE-F (RARG)
  <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the weigh room, where every crate is weighed into the auction and out again. [[Dust]] lies over the floor, except in clean squares where crates were standing. The big platform [[weigh scale->scale]] has stopped swinging, and a paper strip hangs from its printer. A [[clock]] ticks on the wall above it. The hearing chamber is back to the [[east]]." CR>)>>
@@ -38,7 +48,7 @@
  <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the transit cage, a wire-walled room where sold lots wait to be shipped. It is dim in here, and the floor shifts a little underfoot. A [[syndicate seal->seal]] dangles crooked from an empty hook, and beside it a [[transit crate->crate]] gives a soft rattle whenever the floor moves. The lit records room is back to the [[south]]." CR>)>>
 
 <ROUTINE REGISTRY-F (RARG)
- <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the public registry, where everyone who comes or goes on the night shift signs the book. Rain dripping from the people who leaned over to sign has softened the pages of the [[shift register->register]]. Across the room, [[Assessor Orr->orr]], a neat, narrow man in a grey suit, keeps unbuttoning and rebuttoning one cuff. The hearing chamber is back to the [[south]]." CR>)>>
+ <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the public registry, where everyone who comes or goes on the night shift signs the book. Rain dripping from the people who leaned over to sign has softened the pages of the [[shift register->register]]. Across the room, [[Assessor Orr->orr]], a neat, narrow man in a grey suit, keeps unbuttoning and rebuttoning one cuff, a long document [[sleeve]] clamped under his other arm. The hearing chamber is back to the [[south]]." CR>)>>
 
 <ROUTINE MNOTICE-F ()
  <COND
@@ -58,7 +68,7 @@
 <ROUTINE MCOAT-F ()
  <COND
   (<VERB? EXAMINE> <TELL "Ives's heavy coat, soaked through and dripping onto the floor. White chalk dust is ground into both pockets." CR>)
-  (<VERB? SEARCH LOOK-INSIDE OPEN> <TELL "Ives watches you do it. The pockets hold a stub of dispatch chalk, a tram ticket and a boiled sweet. No key." CR>)
+  (<VERB? SEARCH LOOK-INSIDE OPEN> <TELL "Ives watches you do it. The pockets hold a stub of dispatch [[chalk]], a tram ticket and a boiled sweet. No key." CR>)
   (<VERB? SMELL> <TELL "Wet wool and chalk. No oranges." CR>)
   (<VERB? TAKE> <TELL "“That's mine,” Ives says, before your hand gets there." CR>)>>
 
@@ -86,13 +96,14 @@
   (,REG-READ <TELL "“You'll see I signed out of the registry at eleven fifty-five,” Orr says. “Where I went after that? The register is not a diary.”" CR>)
   (T <TELL "Orr smiles thinly. “The porter had his chalk all over that crate,” he says. “That should be enough for any reasonable person.”" CR>)>)
   (<VERB? SMELL> <TELL "Expensive soap, and under it, very faintly, oranges." CR>)
-  (<VERB? SEARCH> <TELL "“You have no authority to search an assessor,” Orr says, and tucks his long document sleeve more tightly under his arm." CR>)
+  (<VERB? SEARCH> <TELL "“You have no authority to search an assessor,” Orr says, and tucks his long document [[sleeve]] more tightly under his arm." CR>)
   (<VERB? RUB> <TELL "He steps back. “Mind the suit.”" CR>)
   (<VERB? ATTACK KICK> <TELL "That would give Orr exactly the scene he wants." CR>)>>
 
 <ROUTINE MSCALE-F ()
  <COND
-  (<VERB? EXAMINE READ> <SETG SCALE-SEEN T> <TELL "The scale prints a paper strip for every weighing. Tonight's strip shows the same crate weighed twice, six minutes apart. The second time it was exactly eleven pounds lighter: the weight of the astrolabe and its felt tray. The times on the strip are stamped by a separate pulse sent down the speaking tube, not taken from the wall [[clock]]." CR>)
+  (<VERB? EXAMINE READ> <SETG SCALE-SEEN T> <TELL "The scale prints a paper strip for every weighing. Tonight's strip shows the same crate weighed twice, six minutes apart. The second time it was exactly eleven pounds lighter: the weight of the astrolabe and its felt tray. The times on the strip are stamped by a separate pulse sent down the speaking [[tube]], not taken from the wall [[clock]]." CR>)
+  (<VERB? TAKE> <TELL "The strip stays on the printer until the clerk tears it off for the record." CR>)
   (<VERB? CLIMB-ON CLIMB-FOO> <TELL "You step onto the platform. The needle swings round to your weight, and you step off again before the printer can make a record of you." CR>)
   (<VERB? PUSH MOVE> <TELL "The platform rocks under your hand; the needle twitches and settles back to zero." CR>)
   (<VERB? LISTEN> <TELL "The speaking tube beside the printer hisses faintly, and once a minute it gives a small click: the pulse that stamps the time." CR>)>>
@@ -106,7 +117,7 @@
 
 <ROUTINE MLEDGER-F ()
  <COND
-  (<VERB? EXAMINE READ SEARCH> <SETG LEDGER-READ T> <TELL "Tonight's entries, in the scale clerk's neat hand. He copied both time stamps from the scale strip: at 11:57 the crate weighed eleven pounds more; at 12:03, the same crate weighed without them. In the margin a bracket joins the two lines, and Ives has signed it. The bracket records two WEIGHINGS of the crate, not two visits to the cage." CR>)
+  (<VERB? EXAMINE READ SEARCH> <SETG LEDGER-READ T> <TELL "Tonight's entries, in the scale clerk's neat hand. He copied both time stamps from the scale strip: at 11:57 the crate weighed eleven pounds more; at 12:03, the same crate weighed eleven pounds less. In the margin a bracket joins the two lines, and Ives has signed it. The bracket records two WEIGHINGS of the crate, not two visits to the cage." CR>)
   (<VERB? RUB> <TELL "Ives's signature is pressed in hard, with a little chalk dust caught in the letters." CR>)
   (<VERB? SMELL> <TELL "Damp paper and ink. This one, at least, has stayed dry." CR>)
   (<VERB? TAKE> <TELL "The ledger is evidence, and it stays in the records room where the clerk can vouch for it." CR>)>>
@@ -114,10 +125,66 @@
 <ROUTINE MCAB-F ()
  <COND
   (<VERB? EXAMINE SEARCH LOOK-INSIDE> <SETG CAB-SEEN T> <TELL "Every cage key hangs on its own brass tag. Ives's key is still chained to the wall, under a printed rule that a porter must stay beside the scale during a weigh-in. The assessor's tag, Orr's, is back on its hook now, and it is smeared with the orange-scented oil used on fresh hinge pins." CR>)
-  (<VERB? OPEN> <TELL "It isn't locked. The keys inside clink on their hooks as the door swings." CR>)
+  (<VERB? OPEN> <TELL "It isn't locked. The [[keys]] inside clink on their hooks as the door swings." CR>)
+  (<VERB? CLOSE> <TELL "You push the door to. It swings open again an inch; the catch has long since worn smooth." CR>)
   (<VERB? SMELL> <TELL "Oranges, sharpest close to one of the hooks." CR>)
   (<VERB? RUB> <TELL "Your fingertips come away slightly oily." CR>)
   (<VERB? TAKE MOVE> <TELL "It is screwed to the wall." CR>)>>
+
+<ROUTINE MKEYS-F ()
+ <COND
+  (<VERB? EXAMINE SEARCH READ> <SETG CAB-SEEN T> <TELL "Each cage key hangs from its own brass tag inside the [[cabinet]]. Ives's key is chained to the wall, under a printed rule that a porter must stay beside the scale during a weigh-in. Orr's tag hangs back on its hook, smeared with the orange-scented oil used on fresh hinge pins." CR>)
+  (<VERB? SMELL> <TELL "Oranges, strongest on Orr's tag." CR>)
+  (<VERB? RUB> <TELL "Your fingertips come away slightly oily from Orr's tag. The others are dry." CR>)
+  (<VERB? TAKE MOVE PULL> <TELL "The keys stay on their hooks. Orr's tag is evidence now, and so is the oil on it." CR>)>>
+
+<ROUTINE MPOCKETS-F ()
+ <COND
+  (<VERB? EXAMINE READ> <TELL "A stub of white dispatch chalk, worn flat on one side, a tram ticket punched for the last car home, and a boiled sweet still in its paper. Nothing in Ives's pockets would open a lock." CR>)
+  (<VERB? EAT> <TELL "“Leave a man his sweet,” Ives says. You put it back in the [[coat]]." CR>)
+  (<VERB? TAKE> <TELL "“Those are mine,” Ives says. You put his things back in the [[coat]]." CR>)
+  (<VERB? SMELL> <TELL "Chalk and peppermint. No oranges." CR>)>>
+
+<ROUTINE MRADIATOR-F ()
+ <COND
+  (<VERB? EXAMINE> <TELL "An iron radiator under the empty [[pegs]], hissing and steaming. Ives's coat drips on it and the drops fizz." CR>)
+  (<VERB? RUB TAKE> <TELL "It is too hot to touch for long." CR>)
+  (<VERB? LISTEN> <TELL "It ticks and hisses like an impatient clerk." CR>)>>
+
+<ROUTINE MPAPERS-F ()
+ <COND
+  (<VERB? EXAMINE READ> <TELL "Venn's papers are squared at the end of the table: a blank finding form with WHERE, WHEN and WHO left empty, and her notes of everything said tonight, in a hand too small to read upside down." CR>)
+  (<VERB? TAKE> <TELL "Venn puts her pen down on top of them. “Mine,” she says." CR>)>>
+
+<ROUTINE MTUBE-F ()
+ <COND
+  (<VERB? EXAMINE> <TELL "A brass speaking tube runs down beside the scale's printer. Once a minute it clicks, and the printer stamps the time from that click, not from the wall [[clock]]." CR>)
+  (<VERB? LISTEN> <TELL "It hisses faintly, and once a minute it gives a small click: the pulse that stamps the time." CR>)
+  (<VERB? TELL> <TELL "Nobody answers. The tube only carries the time." CR>)>>
+
+<ROUTINE MFELT-F ()
+ <COND
+  (<VERB? EXAMINE> <TELL "Two green felt corners, torn from the astrolabe's tray as it was lifted out in a hurry." CR>)
+  (<VERB? TAKE> <TELL "They are evidence. You leave them in the [[crate]]." CR>)
+  (<VERB? SMELL> <TELL "Pine shavings and oranges." CR>)>>
+
+<ROUTINE MOIL-F ()
+ <COND
+  (<VERB? EXAMINE> <TELL "A half-circle of oil on the crate's hinge edge, where a freshly oiled hinge pin was swung through it. It smells of oranges." CR>)
+  (<VERB? RUB> <TELL "It is still tacky. Whoever oiled that hinge did it tonight." CR>)
+  (<VERB? SMELL> <TELL "Oranges, sharp and fresh." CR>)>>
+
+<ROUTINE MWIRE-F ()
+ <COND
+  (<VERB? EXAMINE> <TELL "Walls of heavy wire mesh, bolted floor to ceiling. Nobody could reach a crate in here from outside; you come in through the grille from the records room or not at all." CR>)
+  (<VERB? CLIMB-ON CLIMB-FOO CLIMB-UP> <TELL "The mesh is too fine for a toehold." CR>)
+  (<VERB? RUB PUSH> <TELL "It rings faintly and holds." CR>)>>
+
+<ROUTINE MSLEEVE-F ()
+ <COND
+  (<VERB? EXAMINE> <TELL "A long leather document sleeve, the kind an assessor carries his valuations in. It is fatter than valuations would make it, and Orr keeps it clamped under his arm." CR>)
+  (<VERB? TAKE OPEN SEARCH LOOK-INSIDE> <TELL "Orr turns his shoulder. “Papers of the syndicate,” he says. “Unless you have a finding, they stay with me.”" CR>)
+  (<VERB? SMELL> <TELL "Leather, and oranges." CR>)>>
 
 <ROUTINE MSEAL-F ()
  <COND
@@ -128,8 +195,10 @@
 
 <ROUTINE MCRATE-F ()
  <COND
-  (<VERB? EXAMINE> <TELL "The crate is empty except for two felt corners from the astrolabe's tray. On the hinge edge, newly exposed, is a half-circle of oil. Ives's chalk mark on the outside of the lid is unbroken; nobody had to touch it." CR>)
-  (<VERB? OPEN LOOK-INSIDE SEARCH> <TELL "You lift the lid. Inside are only the two felt corners, and a smell of oranges." CR>)
+  (<VERB? EXAMINE> <TELL "The crate is empty except for two [[felt corners->felt]] from the astrolabe's tray. On the hinge edge, newly exposed, is a half-circle of [[oil]]. Ives's chalk mark on the outside of the lid is unbroken; nobody had to touch it." CR>)
+  (<VERB? OPEN LOOK-INSIDE SEARCH> <TELL "You lift the lid. Inside are only the two [[felt corners->felt]], and a smell of oranges." CR>)
+  (<VERB? CLOSE> <TELL "You let the lid down gently. Ives's chalk mark stays unbroken." CR>)
+  (<VERB? TAKE> <TELL "It is evidence, and it is heavier than it looks even empty. It stays in the cage." CR>)
   (<VERB? SMELL> <TELL "Pine shavings and, unmistakably, oranges." CR>)
   (<VERB? PUSH MOVE> <TELL "It rattles softly. Something small and loose is still inside: a felt corner sliding about." CR>)
   (<VERB? KICK ATTACK> <TELL "It is evidence, and there are witnesses." CR>)>>
@@ -171,15 +240,15 @@
 
 <ROUTINE MTABLE-F ()
  <COND
-  (<VERB? EXAMINE> <TELL "A long oak table ringed with empty chairs. The [[evidence panel->panel]] stands in the middle, and Venn's papers are squared neatly at one end." CR>)
+  (<VERB? EXAMINE> <TELL "A long oak table ringed with empty chairs. The [[evidence panel->panel]] stands in the middle, and Venn's [[papers]] are squared neatly at one end." CR>)
   (<VERB? KNOCK> <TELL "Venn looks up. “Order,” she says mildly, and goes back to writing." CR>)
   (<VERB? CLIMB-ON CLIMB-FOO> <TELL "You pull out a chair and sit for a moment. It is the first time you have sat down all night." CR>)>>
 
 <ROUTINE MPEGS-F ()
  <COND
-  (<VERB? EXAMINE> <TELL "A row of brass coat pegs, all empty. Everyone else at the auction kept their coats on. Beneath them, the radiator hisses and steams." CR>)
-  (<VERB? RUB> <TELL "The radiator is too hot to touch for long." CR>)
-  (<VERB? LISTEN> <TELL "The radiator ticks and hisses like an impatient clerk." CR>)>>
+  (<VERB? EXAMINE> <TELL "A row of brass coat pegs, all empty. Everyone else at the auction kept their coats on. Beneath them, the [[radiator]] hisses and steams." CR>)
+  (<VERB? RUB> <TELL "Cold brass, smoothed by years of coats." CR>)
+  (<VERB? TAKE> <TELL "They are screwed into the panelling." CR>)>>
 
 <ROUTINE MDUST-F ()
  <COND
@@ -201,4 +270,5 @@
  <COND
   (<VERB? EXAMINE> <TELL "A folding iron grille that closes off the transit cage. It stands open now, and the cage beyond it is dark." CR>)
   (<VERB? CLOSE> <TELL "You leave it open. The cage is part of the evidence." CR>)
+  (<VERB? OPEN> <TELL "It is already open, folded back against the wall." CR>)
   (<VERB? RUB> <TELL "Its hinges are freshly oiled, and the oil smells of oranges." CR>)>>
