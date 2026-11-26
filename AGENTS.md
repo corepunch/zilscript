@@ -56,6 +56,17 @@ authoritative workflow is
 and authoring format are specified in
 [Companion ZIL Files](docs/COMPANION-ZIL.md).
 
+## Core, languages and rulesets
+
+Shared engine ZIL lives in `core/`, each language in `languages/<xx>/`, and
+game rules in `rulesets/` ([Adventure packages](docs/ADVENTURE-PACKAGES.md)).
+Core and languages never name a game's rooms or objects. A form identical in
+two languages belongs in `core/`; `tests/test_adventure_packages.lua` enforces
+it. Before changing a language package or adding one, read
+[Language packages](docs/LANGUAGE-PACKAGES.md): what German Zork I changed
+over English, the runtime's one property layout, and what a new language
+provides.
+
 ## Illustrating Adventures
 
 To turn a playable adventure into a beat-illustrated interactive storybook,
