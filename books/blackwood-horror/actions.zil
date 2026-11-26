@@ -175,6 +175,7 @@ player never stands in the dark."
 <SYNTAX SCRAPE OBJECT = V-SCRAPE>
 <SYNTAX SCRAPE OBJECT WITH OBJECT = V-SCRAPE>
 <SYNTAX INJECT OBJECT WITH OBJECT = V-INJECT>
+<SYNTAX SHOW OBJECT (HELD CARRIED HAVE) TO OBJECT = V-SHOW>
 <SYNTAX KINDLE OBJECT WITH OBJECT = V-IGNITE>
 <SYNTAX TURN OBJECT (FIND TURNBIT) (HELD CARRIED ON-GROUND IN-ROOM) = V-TURN-BARE>
 <SYNTAX LISTEN = V-LISTEN-AROUND>
@@ -729,7 +730,9 @@ ajar, so examining it swings the door wide, as opening it does."
           (<VERB? LISTEN>
            <TELL "You press your ear to the bars. Inside, the silence is total." CR>)
           (<VERB? PUSH MOVE>
-           <TELL "The doors are rusted where they stand." CR>)>>
+           <TELL "The doors are rusted where they stand." CR>)
+          (<VERB? OPEN UNLOCK ENTER THROUGH PULL>
+           <TELL "You try the nearest handle, then the next. Every cell is locked, and the keyholes have rusted solid. Through the bars you can see there is nothing inside but the scratches." CR>)>>
 
 <ROUTINE WALL-SCRATCHES-F ()
          <COND (<VERB? EXAMINE COUNT>
@@ -864,6 +867,14 @@ ajar, so examining it swings the door wide, as opening it does."
            <TELL "The desk is solid; the books along its back hardly stir." CR>)
           (<VERB? LOOK-UNDER>
            <TELL "Under the desk there is only a worn rug, scuffed where a chair turned and turned." CR>)
+          (<VERB? OPEN SEARCH>
+           <TELL "You pull the drawers out one by one: empty folders, dried pens, a blotter with nothing written on it. Mordecai kept nothing in his desk that he wanted kept.">
+           <COND (<AND <IN? ,HOLLOW-BOOK ,DIRECTORS-OFFICE> <NOT <FSET? ,HOLLOW-BOOK ,TOUCHBIT>>>
+                  <TELL " Along the back, between the labeled medical texts, a red [[tome->book]] has no title.">)>
+           <CRLF>
+           <RTRUE>)
+          (<VERB? CLOSE>
+           <TELL "You push the drawers shut. They glide home without a sound." CR>)
           (<VERB? SMELL>
            <TELL "Beeswax and stale pipe tobacco." CR>)>>
 
@@ -874,9 +885,9 @@ ajar, so examining it swings the door wide, as opening it does."
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      <FSET? ,HOLLOW-BOOK ,OPENBIT>>
-                <TELL "Someone glued the [[pages->cut pages]] together, then cut a hollow through them. ">
+                <TELL "Someone glued the [[pages->glued pages]] together, then cut a hollow through them. ">
                 <COND (<IN? ,SAFE-KEY ,HOLLOW-BOOK> <TELL "The small [[safe key]] fits the hollow exactly." CR>)
-                      (T <TELL "A rusty [[outline->cut pages]] shows where the key lay." CR>)>
+                      (T <TELL "A rusty [[outline->glued pages]] shows where the key lay." CR>)>
                 <RTRUE>)
                (<AND <VERB? OPEN>
                      <NOT <FSET? ,HOLLOW-BOOK ,OPENBIT>>>
@@ -983,9 +994,10 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
 <ROUTINE LOCKERS-F ()
          <COND (<VERB? EXAMINE LOOK-INSIDE SEARCH OPEN>
                 <UNCOVER ,LOCKERS>
-                <TELL "Most lockers are empty or hold rotted clothing.">
+                <TELL "Most lockers are empty or hold rotted clothing. One still holds a nurse's [[uniform]]">
                 <COND (<IN? ,PHOTOGRAPH ,LOCKERS>
-                       <TELL " One still holds a nurse's uniform, and tucked behind it, a [[photograph]].">)>
+                       <TELL ", and tucked behind it, a [[photograph]]">)>
+                <TELL ".">
                 <TELL CR>
                 <RTRUE>)
           (<VERB? KNOCK KICK>
@@ -995,6 +1007,16 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
           (<VERB? PUSH MOVE>
            <TELL "The bank of lockers rocks and settles back with a groan." CR>)>>
 
+<ROUTINE STAFF-UNIFORM-F ()
+    <COND (<VERB? EXAMINE LOOK-INSIDE SEARCH>
+           <TELL "A starched nurse's uniform, grey with mildew. The name tape over the pocket has been unpicked, leaving only a row of needle holes." CR>)
+          (<VERB? TAKE WEAR MOVE PULL>
+           <TELL "The cloth splits at the shoulder seam as soon as you lift it from its hook. You let it hang where it was." CR>)
+          (<VERB? SMELL>
+           <TELL "Mildew, and under it the ghost of starch." CR>)
+          (<VERB? RUB>
+           <TELL "The fabric is stiff and damp, like paper left out in the rain." CR>)>>
+
 <ROUTINE PHOTOGRAPH-F ()
          <COND (<VERB? EXAMINE>
                 <TELL "The photograph shows the sanitarium staff posed outside the building. Dr. Mordecai stands in the center, unsmiling. Written on the back: “Staff photo 1950. Two years before they closed us down. Two years before everything went wrong.”" CR>
@@ -1003,7 +1025,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
            <TELL "The surface is cracked into tiny squares. Someone has rubbed one face in the back row nearly away." CR>)>>
 
 <ROUTINE COUNTER-F ()
-         <COND (<VERB? EXAMINE LOOK-INSIDE>
+         <COND (<VERB? EXAMINE LOOK-INSIDE READ>
                 <TELL "The serving counter is thick with dust. Old menus are still posted on the wall: “Monday - Mystery Meat”.">
                 <COND (<IN? ,BELL ,SERVING-COUNTER> <TELL " A [[bell]] for summoning kitchen staff sits on the counter.">)>
                 <CRLF>
@@ -1185,6 +1207,10 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
                   <TELL "You scrape away a patch of frost, but new crystals creep across the exposed metal almost immediately. The cabinet needs sustained heat." CR>)>)
           (T
            <TELL "Scraping it accomplishes nothing." CR>)>
+    <RTRUE>>
+
+<ROUTINE V-SHOW ()
+    <TELL "No one here is in any state to look at " THE ,PRSO "." CR>
     <RTRUE>>
 
 <ROUTINE V-INJECT ()
@@ -1491,14 +1517,14 @@ lost name."
                (<VERB? TELL>
                 <TELL "Patient 189 listens without looking at what you name. Its fingers tighten around the edge of the altar, then slowly release it." CR>
                 <RTRUE>)
-               (<AND <VERB? ATTACK KILL MUNG>
+               (<AND <VERB? ATTACK KILL MUNG KICK>
                      <NOT ,GAME-WON>>
                 <TELL "You cannot bring yourself to approach it. Some primal instinct holds you back." CR>
                 <RTRUE>)
                (<VERB? RUB>
                 <TELL "You reach toward Patient 189, but stop yourself. The air around it feels wrong—cold and electric." CR>
                 <RTRUE>)
-               (<VERB? GIVE>
+               (<VERB? GIVE SHOW>
                 <COND (<EQUAL? ,PRSO ,ANCIENT-RELIC>
                        <PATIENT-189-RESOLUTION-F>)
                       (T
@@ -1824,8 +1850,10 @@ lost name."
            <TELL "Under the lowest tier there is only dust and darkness." CR>)>>
 
 <ROUTINE GARDEN-BENCHES-F ()
-    <COND (<VERB? EXAMINE SIT>
-           <TELL "Broken stone benches, half-consumed by ivy and moss. Whatever respite this garden once offered ended decades ago." CR>)
+    <COND (<VERB? EXAMINE>
+           <TELL "Broken stone benches, half-consumed by ivy and moss, stand around a crumbling fountain choked with dead leaves. Whatever respite this garden once offered ended decades ago." CR>)
+          (<VERB? CLIMB-ON>
+           <TELL "You perch on the least broken bench. The cold of the stone comes straight through your clothes, and you stand again." CR>)
           (<VERB? RUB>
            <TELL "The stone is cold and furred with moss." CR>)
           (<VERB? LOOK-UNDER>
@@ -1902,7 +1930,7 @@ lost name."
           (<VERB? RUB>
            <TELL "The paper is soft as wet skin and slides under your fingers." CR>)
           (<VERB? SMELL>
-           <TELL "Sweet, rotten mould. It catches at the back of your throat." CR>)
+           <TELL "Sweet, rotten mold. It catches at the back of your throat." CR>)
           (<VERB? MOVE LOOK-BEHIND>
            <TELL "A long strip peels away and hangs down. Behind it is only grey plaster, beaded with water." CR>)>>
 
@@ -2165,7 +2193,9 @@ test of whether the points were given; the VALUE, zeroed, is."
           (<VERB? RUB>
            <TELL "The springs are cold and give a little, still holding the shape of someone tired." CR>)
           (<VERB? LOOK-UNDER>
-           <TELL "Under the beds there is only dust and a single lost hairpin." CR>)>>
+           <TELL "Under the beds there is only dust and a single lost hairpin." CR>)
+          (<VERB? CLIMB-ON>
+           <TELL "You sit on the edge of the nearest bed. The springs complain loudly, and somewhere down the corridor something answers with a creak of its own. You get up." CR>)>>
 
 <ROUTINE DEAD-LAMP-F ()
     <COND
@@ -2213,7 +2243,9 @@ test of whether the points were given; the VALUE, zeroed, is."
           (<VERB? LISTEN>
            <TELL "Wind moans faintly down the chimney, rising and falling like slow breathing." CR>)
           (<VERB? RUB>
-           <TELL "The iron is cold and gritty with soot." CR>)>>
+           <TELL "The iron is cold and gritty with soot." CR>)
+          (<VERB? BOARD CLIMB-ON CLIMB-FOO CLIMB-UP THROUGH>
+           <TELL "You crouch at the grate and peer up. The flue narrows to a slot no wider than your hand, furred with soot, and the wind breathes down it into your face." CR>)>>
 
 <ROUTINE THEATER-EXIT-F ()
     <COND (<VERB? EXAMINE>

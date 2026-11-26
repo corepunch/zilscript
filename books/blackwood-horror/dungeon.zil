@@ -47,7 +47,7 @@
 <ROOM SANITARIUM-ENTRANCE
       (IN ROOMS)
       (DESC "Sanitarium Entrance Hall")
-      (LDESC "You are in the entrance hall of the sanitarium. Half of the [[grand staircase->staircase]] has fallen in, and the plaster dust on the floor shows no footprints but yours. Black mould has crept up the peeling [[wallpaper]]. Reception is to the [[west]], and the patient ward lies to the [[east]]. A sagging [[door]] stands half-open to the [[north]], narrow stairs go [[down]] to the basement, and the gates are back to the [[south]].")
+      (LDESC "You are in the entrance hall of the sanitarium. Half of the [[grand staircase->staircase]] has fallen in, and the plaster dust on the floor shows no footprints but yours. Black mold has crept up the peeling [[wallpaper]]. Reception is to the [[west]], and the patient ward lies to the [[east]]. A sagging [[door]] stands half-open to the [[north]], narrow stairs go [[down]] to the basement, and the gates are back to the [[south]].")
       (SOUTH TO SANITARIUM-GATE)
       (WEST TO RECEPTION-ROOM)
       (NORTH TO OPERATING-THEATER)
@@ -525,7 +525,8 @@
         (ADJECTIVE SAGGING DAMP)
         (DESC "shelves")
         (INTERACTIONS "")
-        (FLAGS NDESCBIT CONTBIT SEARCHBIT)
+        (FLAGS NDESCBIT CONTBIT SEARCHBIT SURFACEBIT)
+        (CAPACITY 40)
         (ACTION SHELVES-F)>
 
 <OBJECT MEDICAL-BAG
@@ -770,8 +771,8 @@
 
 <OBJECT MASSIVE-DESK
         (IN DIRECTORS-OFFICE)
-        (SYNONYM DESK)
-        (ADJECTIVE MASSIVE WOOD WOODEN DARK POLISHED)
+        (SYNONYM DESK DRAWERS TEXTS BOOKS)
+        (ADJECTIVE MASSIVE WOOD WOODEN DARK POLISHED MEDICAL)
         (DESC "massive desk")
         (FLAGS NDESCBIT CONTBIT OPENBIT SURFACEBIT)
         (ACTION MASSIVE-DESK-F)>
@@ -876,7 +877,7 @@
 
 <OBJECT SERVING-COUNTER
         (IN CAFETERIA)
-        (SYNONYM COUNTER DUST)
+        (SYNONYM COUNTER DUST MENUS MENU KITCHEN)
         (ADJECTIVE SERVING DUSTY)
         (DESC "serving counter")
         (FLAGS NDESCBIT SURFACEBIT CONTBIT OPENBIT)
@@ -1026,8 +1027,8 @@
 
 <OBJECT GARDEN-BENCHES
         (IN OVERGROWN-GARDEN)
-        (SYNONYM BENCHES BENCH)
-        (ADJECTIVE BROKEN STONE IVY MOSSY)
+        (SYNONYM BENCHES BENCH FOUNTAIN)
+        (ADJECTIVE BROKEN STONE IVY MOSSY CRUMBLING)
         (DESC "stone benches")
         (FLAGS NDESCBIT)
         (ACTION GARDEN-BENCHES-F)>
@@ -1170,6 +1171,10 @@
     (ACTION OBSERVATION-DESK-F) (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "The front edge is worn smooth just where an observer could lean on it and write without taking their eyes off the glass.")>
 
+<OBJECT STAFF-UNIFORM (IN LOCKERS) (DESC "uniform")
+    (SYNONYM UNIFORM CLOTHING CLOTHES DRESS) (ADJECTIVE NURSE ROTTED STARCHED)
+    (SIZE 0) (FLAGS NDESCBIT) (INTERACTIONS "") (ACTION STAFF-UNIFORM-F)>
+
 <OBJECT STAFF-BEDS (IN STAFF-QUARTERS) (DESC "staff beds")
     (SYNONYM BEDS BED COTS SPRINGS) (ADJECTIVE STAFF NARROW IRON)
     (ACTION STAFF-BEDS-F) (FLAGS NDESCBIT) (INTERACTIONS "")
@@ -1237,8 +1242,8 @@
     (TEXT "The same hooked stroke begins each mark. On the pews you can see it clearly where a sleeve has rubbed the wood smooth.")
     (ACTION DETAIL-CARVED-SYMBOLS-F)>
 
-<OBJECT BOOK-HOLLOW (IN HOLLOW-BOOK) (DESC "cut pages")
-    (SYNONYM PAGES HOLLOW OUTLINE) (ADJECTIVE CUT GLUED RUSTY)
+<OBJECT BOOK-HOLLOW (IN HOLLOW-BOOK) (DESC "glued pages")
+    (SYNONYM PAGES HOLLOW OUTLINE) (ADJECTIVE GLUED RUSTY)
     (SIZE 0) (FLAGS NDESCBIT) (INTERACTIONS "")
     (ACTION BOOK-HOLLOW-F)>
 
