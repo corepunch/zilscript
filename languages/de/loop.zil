@@ -42,17 +42,17 @@
 			   <COND (<G? <SET CNT <+ .CNT 1>> .OCNT>
 				  <RETURN>)
 				 (T
-				  <COND (<AND <EQUAL? <GET ,P-PRSI .CNT> ,IT>
+				  <COND (<AND <EQUAL? <GET ,P-PRSO .CNT> ,IT>
 					      ,P-IT-OBJECT>
-					 <PUT ,P-PRSI .CNT ,P-IT-OBJECT>
+					 <PUT ,P-PRSO .CNT ,P-IT-OBJECT>
 					 <RETURN>)
-					(<AND <EQUAL? <GET ,P-PRSI .CNT> ,HIM>
+					(<AND <EQUAL? <GET ,P-PRSO .CNT> ,HIM>
 					      ,P-HIM-OBJECT>
-					 <PUT ,P-PRSI .CNT ,P-HIM-OBJECT>
+					 <PUT ,P-PRSO .CNT ,P-HIM-OBJECT>
 					 <RETURN>)
-					(<AND <EQUAL? <GET ,P-PRSI .CNT> ,HER>
+					(<AND <EQUAL? <GET ,P-PRSO .CNT> ,HER>
 					      ,P-HER-OBJECT>
-					 <PUT ,P-PRSI .CNT ,P-HER-OBJECT>
+					 <PUT ,P-PRSO .CNT ,P-HER-OBJECT>
 					 <RETURN>)>)>>)>
 		   <SET CNT 0>)>
 	    <SET NUM

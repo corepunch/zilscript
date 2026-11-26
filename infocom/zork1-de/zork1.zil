@@ -11,7 +11,6 @@
 <SETG NEW-VOC? T>
 <FREQUENT-WORDS?>
 
-<LANGUAGE GERMAN>
 
 <PRINC "Renovated ZORK I: The Great Underground Empire
 ">

@@ -1143,7 +1143,7 @@ then you could just check gender of the first object found to determine
 "Man kann mehrere "> 
 	       <COND (<EQUAL? .LOSS 2> <TELL "Dative">)
 		     (T
-		      <TELL "Akkusitiv">)>
+		      <TELL "Akkusativ">)>
 	       <TELL " nicht mit %>">
 	       <SET TMP <GET ,P-ITBL ,P-VERBN>>
 	       <COND (<ZERO? .TMP> <TELL "das">)
