@@ -269,20 +269,20 @@ local function visitItemActions(item, partners, visit)
 		if verb ~= "look" and verb ~= "examine" then visit(verb, item) end
 	end
 	for _, pattern in ipairs(item.patterns or {}) do
-		if pattern.join ~= nil then
+		if pattern.join ~= nil and Suggestions.inHand(item, pattern) then
 			local prefix = pattern.verb .. (pattern.prefix ~= "" and " " .. pattern.prefix or "")
 			local paired = {}
 			for _, other in ipairs(partners(pattern.join == "about")) do
 				local second = other.item
 				local tool = pattern.join == "with"
 				local traits = second and second.traits or {}
+				-- These checks name the action, not the verb word: a story's
+				-- synonym ("FIT OBJECT ON OBJECT = V-PUT-ON") puts all the same.
 				local standardGift = pattern.action == nil or pattern.action == "GIVE" or pattern.action == "SHOW"
-				local recipient = standardGift and (pattern.verb == "give" or pattern.verb == "show") and not pattern.reverse
-				local container = pattern.verb == "put"
+				local recipient = standardGift and not pattern.reverse
+				local container = pattern.action ~= nil and pattern.action:match("^[^-]+") == "PUT"
 				-- Handing over or putting away needs the thing in hand first.
-				local handed = not pattern.reverse
-					and (pattern.action == nil or pattern.action == "PUT" or standardGift)
-					and (pattern.verb == "put" or pattern.verb == "give" or pattern.verb == "show")
+				local handed = not pattern.reverse and (pattern.action == "PUT" or standardGift)
 				local identity = second and (second.identity or second.target or second.noun)
 				if second and identity and not paired[identity]
 						and (not pattern.partners or pattern.partners[identity])

@@ -137,6 +137,7 @@ local _act_fn_to_id = {}  -- build-time reverse-lookup: fn_idx -> action_id
 local _pending_syntax = {}  -- SYNTAX entries deferred until action functions are defined
 local _pending_synonyms = {} -- vocabulary aliases applied after all object words exist
 local action_syntax = {}
+local syntax_order = 0 -- declaration order of SYNTAX lines, before any deferral
 local verb_capacity = {} -- syntax lines each verb's block in VERBS can hold
 local object_phrases = {}
 local display_names = {}
@@ -249,12 +250,29 @@ local function item_patterns(verbs)
 				end
 			end
 		end
-		for _, pattern in ipairs(available) do
+		-- A menu speaks an action by its own spelling ("look in" for
+		-- LOOK-INSIDE), else by the verb the action is named for (PUT for
+		-- PUT-ON), else by the first SYNTAX line declared for it. Languages
+		-- and rulesets load before the story, so a synonym verb a story adds
+		-- ("FIT OBJECT ON OBJECT = V-PUT-ON") never replaces the base verb.
+		local base = verb:lower():match("^[^-]+")
+		local function rank(pattern)
 			local prefix = pattern.verb .. (pattern.prefix ~= "" and " " .. pattern.prefix or "")
+			if prefix == wanted then return 0, pattern.order end
+			if pattern.verb == base then return 1, #prefix, pattern.order end
+			return 2, pattern.order
+		end
+		local function better(a, b)
+			local a1, a2, a3 = rank(a)
+			local b1, b2, b3 = rank(b)
+			if a1 ~= b1 then return a1 < b1 end
+			if a2 ~= b2 then return a2 < b2 end
+			return (a3 or 0) < (b3 or 0)
+		end
+		for _, pattern in ipairs(available) do
 			local kind = pattern.join and "binary" or "unary"
-			local score = (prefix == wanted and 0 or 100) + #prefix
-			if not scores[kind] or score < scores[kind] then
-				best[kind], scores[kind] = pattern, score
+			if not best[kind] or better(pattern, best[kind]) then
+				best[kind] = pattern
 			end
 		end
 		for _, kind in ipairs({ "unary", "binary" }) do
@@ -375,7 +393,9 @@ local function add_items(room, carried, sealed)
 				end
 			end
 		end
-		local traits = { takeable = FSETQ(obj, TAKEBIT), actor = FSETQ(obj, ACTORBIT), container = FSETQ(obj, CONTBIT), surface = FSETQ(obj, SURFACEBIT) }
+		-- pickable: the parser's implicit take (a TAKE syntax) would lift it.
+		local trytake = rawget(_G, "TRYTAKEBIT")
+		local traits = { takeable = FSETQ(obj, TAKEBIT), pickable = FSETQ(obj, TAKEBIT) and not (trytake and FSETQ(obj, trytake)), actor = FSETQ(obj, ACTORBIT), container = FSETQ(obj, CONTBIT), surface = FSETQ(obj, SURFACEBIT) }
 		if FSETQ(obj, ACTORBIT) then
 			for index, pattern in ipairs(patterns) do
 				if pattern.verb == "give" or pattern.verb == "show" then
@@ -2239,6 +2259,10 @@ function SYNTAX(syn)
 		PREACTIONS = mem:write(string.rep('\0\0', 256))
 	end
 	local name = syn.VERB:lower()
+	if not syn.order then
+		syntax_order = syntax_order + 1
+		syn.order = syntax_order
+	end
 	if not syn.ACTION then
 		error(string.format("SYNTAX for verb '%s' is missing ACTION", syn.VERB))
 	end
@@ -2260,6 +2284,12 @@ function SYNTAX(syn)
 			held = syn.SUBJECT and syn.SUBJECT.WHERE
 				and ((syn.SUBJECT.WHERE & (SH + SC)) ~= 0)
 				and ((syn.SUBJECT.WHERE & (SOG + SIR)) == 0) or false,
+			-- ITAKE-CHECK refuses a HAVE object the player does not hold
+			-- ("You don't have the reed wick.") unless TAKE lets it pick
+			-- the object up first.
+			have = ((syn.OBJECT.WHERE or 0) & SHAVE) ~= 0,
+			take = ((syn.OBJECT.WHERE or 0) & STAKE) ~= 0,
+			order = syn.order,
 		})
 	end
 	local function encode(s)
