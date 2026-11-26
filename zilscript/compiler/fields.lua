@@ -116,6 +116,7 @@ Fields.FIELD_WRITERS = {
   ACTION = writeRoutineField,
   DESCFCN = writeRoutineField,
   IN = writeObjectField,
+  LOC = writeObjectField,
   GLOBAL = writeObjectList,
   PSEUDO = writePseudoField,
 }

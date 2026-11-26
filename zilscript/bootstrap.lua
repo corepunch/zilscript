@@ -66,7 +66,6 @@ end
 -- === Core globals ===
 VERBS   = nil
 QUEUES  = {}
-ROOMS   = {}
 PROPERTIES = {}
 -- PREPOSITIONS: Pre-allocated array format [0]=count, [1]=word_ptr1, [2]=index1, ...
 -- Maximum 128 prepositions, format: index_count, then pairs of (word_ptr, original_index)
@@ -95,9 +94,14 @@ DESCS = {}
 DIRS = {}
 
 _VTBL = {}
-_OTBL = 0  -- mem address of 256×2-byte object pointer table; set on first DECL_OBJECT
-_CHILD_TBL = 0 -- parent object id -> first child object id
-_SIBLING_TBL = 0 -- object id -> next sibling object id
+-- Object numbers are words: games compiled for later Z-machine versions (the
+-- German Zork I has 256 objects) outgrow the version 3 limit of 255. Fields
+-- the ZIL itself reads with GETB (exit targets, doors, GLOBAL lists) stay
+-- bytes, and encoding an object above 255 there is an error.
+local MAX_OBJECTS = 1023
+_OTBL = 0  -- mem address of the object pointer table; set on first DECL_OBJECT
+_CHILD_TBL = 0 -- parent object id -> first child object id (words)
+_SIBLING_TBL = 0 -- object id -> next sibling object id (words)
 
 T = true
 CR = "\n"
@@ -125,6 +129,8 @@ M_CONTAINER = M_OBJECT
 
 local mem
 local cache
+-- Dictionary globals (W?word) use the compiler's ASCII spelling of the word.
+local asciiName = require("zilscript.compiler.utils").asciiName
 local _obj_count = 0  -- number of declared objects; object IDs are 1.._obj_count
 local _act_count = 0  -- number of registered actions; action IDs are 1.._act_count
 local _act_fn_to_id = {}  -- build-time reverse-lookup: fn_idx -> action_id
@@ -766,6 +772,15 @@ local function companion_route_select(id)
 	return COMPANION_SELECT(id)
 end
 
+-- Lowercase for input and vocabulary: ASCII plus the Latin-1 capitals
+-- (À–Þ, U+00C0–U+00DE, but not ×), so "Öffne" finds the word öffne.
+local function lower_text(s)
+	return (s:lower():gsub("\195([\128-\158])", function(c)
+		if c == "\151" then return nil end
+		return "\195" .. string.char(c:byte() + 32)
+	end))
+end
+
 local function encode_fptr(n)
   return string.format("<@F:%X>", n)
 end
@@ -783,6 +798,15 @@ local function makeword(val)
 	return string.char(val&0xff, (val>>8)&0xff)
 end
 
+-- An object number in a field the ZIL reads with GETB (exit target, door,
+-- GLOBAL list). Version 3 layouts have one byte for it; say so rather than
+-- send the player to object 255.
+local function objectbyte(id, where)
+	assert(type(id) == "number" and id >= 0 and id <= 255,
+		string.format("Object %s in %s needs a word-sized field; byte fields hold objects up to 255", tostring(id), where))
+	return string.char(id)
+end
+
 local function makedword(val)
 	return string.char(val&0xff, (val>>8)&0xff, (val>>16)&0xff, (val>>24)&0xff)
 end
@@ -791,6 +815,35 @@ local function makeqword(val)
 	return string.char(val&0xff, (val>>8)&0xff, (val>>16)&0xff, (val>>24)&0xff,
 	                   (val>>32)&0xff, (val>>40)&0xff, (val>>48)&0xff, (val>>56)&0xff)
 end
+
+-- Strings live in a pool beside story memory, as the Z-machine keeps them in
+-- high memory: a 16-bit word holds a string's handle, not its address, so
+-- story text no longer competes with tables and objects for 64 KB, and the
+-- same text (a PUTP of an LDESC, say) is stored once.
+local string_pool = {}
+local string_ids = {}
+local MAX_STRINGS = 0xffff
+
+local function intern(s)
+	local id = string_ids[s]
+	if id then return id end
+	assert(#string_pool < MAX_STRINGS, "Too many distinct strings (max " .. MAX_STRINGS .. ")")
+	table.insert(string_pool, s)
+	id = #string_pool
+	string_ids[s] = id
+	return id
+end
+
+-- Truncates the pool to its first count strings (restart and undo).
+local function truncate_strings(count)
+	for id = #string_pool, count + 1, -1 do
+		string_ids[string_pool[id]] = nil
+		string_pool[id] = nil
+	end
+end
+
+-- Bytes of story memory in use, and pooled strings; tests watch both.
+function MEMORY_USED() return mem.size, #string_pool end
 
 mem = setmetatable({size=0},{__index={
 	write = function(self, buffer, pos)
@@ -807,11 +860,11 @@ mem = setmetatable({size=0},{__index={
 
 	stringprop = function (self, s)
 		if type(s) == 'number' then s = encode_fptr(s) end
-		return makeword(self:write(makeword(#s)..s))
+		return makeword(intern(s))
 	end,
 
 	write_word = function(mem, k) return mem:write(makeword(k)) end,
-	writestring2 = function(mem, s) return mem:write(makeword(#s)..s) end,
+	writestring2 = function(mem, s) return intern(s) end,
 
 	table_to_str = function(self, start, end_pos)
 		local bytes = {}
@@ -824,8 +877,9 @@ mem = setmetatable({size=0},{__index={
 	word = function(self, ptr) return self:byte(ptr)|(self:byte(ptr+1)<<8) end,
 	dword = function(self, ptr) return self:byte(ptr)|(self:byte(ptr+1)<<8)|(self:byte(ptr+2)<<16)|(self:byte(ptr+3)<<24) end,
 	qword = function(self, ptr) return self:byte(ptr)|(self:byte(ptr+1)<<8)|(self:byte(ptr+2)<<16)|(self:byte(ptr+3)<<24)|(self:byte(ptr+4)<<32)|(self:byte(ptr+5)<<40)|(self:byte(ptr+6)<<48)|(self:byte(ptr+7)<<56) end,
-	string = function(self, ptr)
-		local str = self:table_to_str(ptr + 2, ptr + self:word(ptr) + 1)
+	string = function(self, id)
+		local str = string_pool[id]
+		if str == nil then return nil end
 		return decode_fptr(str) or str
 	end,
 
@@ -1116,6 +1170,7 @@ local function capture_game_state()
 	local state = {
 		mem_size = mem.size,
 		mem_bytes = {},
+		string_count = #string_pool,
 		globals = {},
 	}
 
@@ -1148,6 +1203,7 @@ local function restore_game_state(state)
 		mem[i] = state.mem_bytes[i]
 	end
 	mem.size = state.mem_size
+	truncate_strings(state.string_count)
 	output_buffer = {}
 end
 
@@ -1216,7 +1272,11 @@ function TELL(...)
 	return true
 end
 
-function PRINT(n) io_write(mem:string(n)) return true end
+-- PRINT takes a string handle, or text a global or property already holds.
+function PRINT(n)
+	if type(n) == "string" then io_write(n) else io_write(mem:string(n) or "") end
+	return true
+end
 function PRINTD(ptr)
 	local desc = GETP(ptr, _G["PQDESC"]) or ""
 	-- Native inventory/container lists name real objects, so their names are
@@ -1377,7 +1437,7 @@ function READ(inbuf, parse)
 	local p = {}
 	for pos, word in s:gmatch("()(%S+)") do
 		-- Z-machine truncates dictionary words to 6 characters
-		local normalized = word:lower()
+		local normalized = lower_text(word)
 		local truncated = normalized:sub(1, 6)
 		local exact_spec = cache.exact_words[normalized]
 		local exact_target
@@ -1393,7 +1453,7 @@ function READ(inbuf, parse)
 		if stem then index = cache.words[stem:sub(1, 6)] or 0 end
 		table.insert(p, makeword(index).. string.char(#word, pos&0xff))
 	end
-	mem:write(s: lower()..'\0', inbuf+1)
+	mem:write(lower_text(s)..'\0', inbuf+1)
 	mem:write(string.char(#p)..table.concat(p), parse+1)
 end
 
@@ -1457,7 +1517,7 @@ MULL = MUL
 
 -- Object / room ops
 -- Returns the mem address of object num's property table block.
--- _OTBL is the base of a 256×2-byte array allocated in mem by the first DECL_OBJECT call.
+-- _OTBL is the base of a MAX_OBJECTS×2-byte array allocated by the first DECL_OBJECT call.
 local function getobj(num)
 	if type(num) ~= "number" or num <= 0 then return nil end
 	local pointer = mem:word(_OTBL + (num-1)*2)
@@ -1483,21 +1543,21 @@ function INQ(obj, room) return GETP(obj, PQLOC) == room end
 local function unlink_object(obj)
 	local parent = LOC(obj)
 	if not parent or parent == 0 then return end
-	local child = mem:byte(_CHILD_TBL + parent)
+	local child = mem:word(_CHILD_TBL + parent*2)
 	local previous = 0
 	while child ~= 0 do
 		if child == obj then
-			local next_sibling = mem:byte(_SIBLING_TBL + child)
+			local next_sibling = mem:word(_SIBLING_TBL + child*2)
 			if previous == 0 then
-				mem:write(makebyte(next_sibling), _CHILD_TBL + parent)
+				mem:write(makeword(next_sibling), _CHILD_TBL + parent*2)
 			else
-				mem:write(makebyte(next_sibling), _SIBLING_TBL + previous)
+				mem:write(makeword(next_sibling), _SIBLING_TBL + previous*2)
 			end
-			mem:write(makebyte(0), _SIBLING_TBL + child)
+			mem:write(makeword(0), _SIBLING_TBL + child*2)
 			return
 		end
 		previous = child
-		child = mem:byte(_SIBLING_TBL + child)
+		child = mem:word(_SIBLING_TBL + child*2)
 	end
 end
 
@@ -1505,9 +1565,9 @@ function MOVE(obj, dest)
 	unlink_object(obj)
 	PUTP(obj, PQLOC, dest)
 	if dest and dest ~= 0 then
-		local first = mem:byte(_CHILD_TBL + dest)
-		mem:write(makebyte(first), _SIBLING_TBL + obj)
-		mem:write(makebyte(obj), _CHILD_TBL + dest)
+		local first = mem:word(_CHILD_TBL + dest*2)
+		mem:write(makeword(first), _SIBLING_TBL + obj*2)
+		mem:write(makeword(obj), _CHILD_TBL + dest*2)
 	end
 end
 
@@ -1517,12 +1577,12 @@ function REMOVE(obj)
 end
 
 function FIRSTQ(obj)
-	local child = mem:byte(_CHILD_TBL + obj)
+	local child = mem:word(_CHILD_TBL + obj*2)
 	return child ~= 0 and child or nil
 end
 
 function NEXTQ(obj)
-	local sibling = mem:byte(_SIBLING_TBL + obj)
+	local sibling = mem:word(_SIBLING_TBL + obj*2)
 	return sibling ~= 0 and sibling or nil
 end
 
@@ -1562,7 +1622,7 @@ learn = function(word, atom, value)
 			[","] = "COMMA",
 			["\""] = "QUOTE",
 		}
-		return specials[word] or word:upper()
+		return specials[word] or asciiName(word:upper())
 	end
 	local prim = {
 		[PSQOBJECT]=P1QOBJECT,
@@ -1573,7 +1633,7 @@ learn = function(word, atom, value)
 		[PSQBUZZ_WORD]=P1QNONE,
 	}
 	if not word then return 0 end
-	word = word:lower()
+	word = lower_text(word)
 	-- Z-machine truncates dictionary words to 6 characters
 	local word_key = word:sub(1, 6)
 	if type(value) == 'table' then
@@ -1731,23 +1791,13 @@ local declared_objects = {}
 function DECL_OBJECT(name)
 	if name and declared_objects[name] then return declared_objects[name] end
 	if not _OTBL or _OTBL == 0 then
-		-- Allocate the 256×2-byte object pointer table on first use
-		_OTBL = mem:write(string.rep('\0\0', 256))
-		_CHILD_TBL = mem:write(string.rep('\0', 256))
-		_SIBLING_TBL = mem:write(string.rep('\0', 256))
+		-- Allocate the object pointer and tree tables on first use
+		_OTBL = mem:write(string.rep('\0\0', MAX_OBJECTS))
+		_CHILD_TBL = mem:write(string.rep('\0\0', MAX_OBJECTS + 1))
+		_SIBLING_TBL = mem:write(string.rep('\0\0', MAX_OBJECTS + 1))
 	end
-	-- Direction properties are passed through PRSO for WALK. Several Infocom
-	-- parsers also use numeric pseudo-objects such as IT, so assigning an object
-	-- the same number as a direction makes a walk look like pronoun substitution.
-	-- Leave holes for direction-property numbers when allocating object IDs.
-	repeat
-		_obj_count = _obj_count + 1
-		local is_direction = false
-		for _, property in pairs(_DIRECTIONS) do
-			if property == _obj_count then is_direction = true break end
-		end
-	until not is_direction
-	assert(_obj_count <= 255, "Too many objects (max 255) while declaring " .. tostring(name))
+	_obj_count = _obj_count + 1
+	assert(_obj_count <= MAX_OBJECTS, "Too many objects (max " .. MAX_OBJECTS .. ") while declaring " .. tostring(name))
 	if name then declared_objects[name] = _obj_count end
 	return _obj_count
 end
@@ -1894,33 +1944,28 @@ function OBJECT(object)
 			end
 			table.insert(t, makeprop(makeqword(flags), k))
 		elseif k == "GLOBAL" then 	
-			table.insert(t, makeprop(table.concat2(v, string.char), k))
+			table.insert(t, makeprop(table.concat2(v, function(id) return objectbyte(id, tostring(object_name) .. " GLOBAL") end), k))
 		elseif k == "LOC" then 
-			-- LOC property: stores the object's location as a numeric object ID
-			-- In proper ZIL games, containers like ROOMS are defined as objects with numeric IDs
-			-- If LOC is a table (e.g., bootstrap's default ROOMS = {}), we use 0 to indicate "no valid location"
-			-- This is acceptable because well-formed ZIL will redefine ROOMS as an actual object
-			-- Once ROOMS is defined as an object, its numeric ID will be used correctly
+			-- LOC property: the location's object number (OBJECT_REF resolves a
+			-- container such as ROOMS declared in a later file)
 			local loc_value = type(v) == 'number' and v or 0
-			table.insert(t, makeprop(makebyte(loc_value), k))
+			table.insert(t, makeprop(makedword(loc_value), k))
 		-- using PQACTION for ACTION property, commented out original function support
 		elseif k == "ACTION" or k == "DESCFCN" then 
 			table.insert(t, makeprop(function_prop(v, k, n), k))
 		elseif k == "THINGS" and type(v) == "number" then
 			table.insert(t, makeprop(makeword(v), k))
 		elseif type(v) == 'string' then table.insert(t, makeprop(mem:stringprop(v), k))
+		elseif type(v) == 'number' and _DIRECTIONS[k] then
+			-- UEXIT: (dir TO room) compiles to the room's number
+			table.insert(t, makeprop(objectbyte(v, tostring(object_name) .. "." .. k), k))
 		elseif type(v) == 'number' then table.insert(t, makeprop(makebyte(v), k))
 		elseif type(v) == 'function' then table.insert(t, makeprop(mem:stringprop(fn(v)), k))
 		elseif _DIRECTIONS[k] or (type(v) == "table" and (v.per or v[1] ~= nil)) then
 			if not _DIRECTIONS[k] then DIRECTIONS(k) end
+			-- A bare room number (UEXIT) or message (NEXIT) took the branches above.
 			local str
-			if type(v) == 'number' then
-				-- UEXIT: bare number from compiler (e.g., SOUTH = ROOM_ID)
-				str = string.char(v)
-			elseif type(v) == 'string' then
-				-- NEXIT: bare string from compiler (e.g., OUT = "message")
-				str = mem:write(v.."\0")
-			elseif v.per then
+			if v.per then
 				local per = resolve_global(v.per)
 				if type(per) == "table" and per.__routine_ref then
 					defer_routine_ref(per.__routine_ref, n, k, "exit")
@@ -1935,11 +1980,11 @@ function OBJECT(object)
 				if v[1] == nil then
 					error(string.format("Unresolved exit target for %s.%s", tostring(object_name), tostring(k)))
 				end
-				str = string.char(v[1]) -- UEXIT = 1
+				str = objectbyte(v[1], tostring(object_name) .. "." .. k) -- UEXIT = 1
 				local say = v.say and mem:writestring2(v.say) or 0
 				if v.door ~= nil then
 					local door = type(v.door) == "boolean" and (v.door and 1 or 0) or v.door
-					str = str..string.char(door)..makeword(say)..string.char(0) -- DEXIT = 5
+					str = str..objectbyte(door, tostring(object_name) .. "." .. k .. " door")..makeword(say)..string.char(0) -- DEXIT = 5
 				elseif v.flag ~= nil then
 					local flag_val = v.flag
 					if type(flag_val) == "table" and flag_val.__global_ref then
@@ -1966,7 +2011,7 @@ function OBJECT(object)
 	-- Ensure LOC property always exists (default to 0 if not specified)
 	if not object.LOC then
 		local loc_value = 0
-		table.insert(t, makeprop(makebyte(loc_value), "LOC"))
+		table.insert(t, makeprop(makedword(loc_value), "LOC"))
 	end
 	-- Ensure FLAGS property always exists (default to 0 if not specified)
 	if not object.FLAGS then
@@ -1978,15 +2023,15 @@ function OBJECT(object)
 	-- Z-machine rule of inserting the object at the head of its new parent.
 	local parent = LOC(n)
 	if parent and parent ~= 0 then
-		local first = mem:byte(_CHILD_TBL + parent)
+		local first = mem:word(_CHILD_TBL + parent*2)
 		if first == 0 then
-			mem:write(makebyte(n), _CHILD_TBL + parent)
+			mem:write(makeword(n), _CHILD_TBL + parent*2)
 		else
 			local sibling = first
-			while mem:byte(_SIBLING_TBL + sibling) ~= 0 do
-				sibling = mem:byte(_SIBLING_TBL + sibling)
+			while mem:word(_SIBLING_TBL + sibling*2) ~= 0 do
+				sibling = mem:word(_SIBLING_TBL + sibling*2)
 			end
-			mem:write(makebyte(n), _SIBLING_TBL + sibling)
+			mem:write(makeword(n), _SIBLING_TBL + sibling*2)
 		end
 	end
 end
@@ -2262,7 +2307,7 @@ end
 function BUZZ(...)
 	for _, buzz in ipairs {...} do
 		learn(buzz, PSQBUZZ_WORD, nil)
-		_G['WQ'..buzz:upper()] = cache.words[buzz:lower():sub(1, 6)]
+		_G['WQ'..asciiName(buzz:upper())] = cache.words[buzz:lower():sub(1, 6)]
 	end
 end
 
@@ -2287,7 +2332,7 @@ function SYNONYM(verb, ...)
 			cache.words[syn_key] = cache.words[syn_key]
 				or mem:write(string.rep('\0', 7))
 		end
-		_G['WQ'..syn:upper()] = cache.words[syn_key]
+		_G['WQ'..asciiName(syn:upper())] = cache.words[syn_key]
   end
 end
 
@@ -2488,6 +2533,17 @@ local function try_open(path)
 	return nil, nil
 end
 
+-- <LANGUAGE name> in effect for files inserted after it (see charsets.lua).
+local zil_language
+
+-- This game's compile session: macros and TELL tokens one file defines reach
+-- the files it inserts, and never another game loaded in the same process.
+ZIL_COMPILE_SESSION = require("zilscript.compiler").newSession()
+
+function LANGUAGE(name)
+	zil_language = name
+end
+
 -- INSERT_FILE loads and executes a ZIL file
 -- This is used by INSERT-FILE directive to include other files
 function INSERT_FILE(filename, source_filename)
@@ -2556,12 +2612,12 @@ function INSERT_FILE(filename, source_filename)
 	local compiler = require 'zilscript.compiler'
 	local sourcemap = require 'zilscript.sourcemap'
 	
-	local ok, ast = pcall(parser.parse, content, filepath)
+	local ok, ast = pcall(parser.parse, content, filepath, { language = zil_language })
 	if not ok then
 		error(string.format("%s: Failed to parse: %s", filepath, ast))
 	end
 	
-	local result = compiler.compile(ast, filepath .. ".lua")
+	local result = compiler.compile(ast, filepath .. ".lua", { session = ZIL_COMPILE_SESSION })
 	
 	-- Execute the compiled code in the current environment
 	local chunk, load_err = load(result.combined, "@" .. filepath, "t", _G)
@@ -2578,8 +2634,8 @@ end
 -- === Save / Restore game state ===
 -- The save file contains: mem (which holds object properties, locations, and FLAGS),
 
-local SAVE_MAGIC_V1 = "ZILSAVE\1"
-local SAVE_MAGIC_V2 = "ZILSAVE\2"
+-- Saves from earlier formats simply do not load.
+local SAVE_MAGIC = "ZILSAVE\3"
 local SAVE_CHUNK_SIZE = 4096  -- Write mem to file in chunks to avoid table.unpack limits
 
 -- Write a 4-byte little-endian integer into file
@@ -2614,7 +2670,7 @@ function SAVE(filename)
 	end
 
 	-- Header
-	file:write(SAVE_MAGIC_V2)
+	file:write(SAVE_MAGIC)
 
 	-- mem: size (4 bytes LE) + raw bytes written in chunks
 	local size = mem.size
@@ -2626,6 +2682,12 @@ function SAVE(filename)
 		for i = pos, chunk_end do bytes[#bytes + 1] = mem[i] or 0 end
 		file:write(string.char(table.unpack(bytes)))
 		pos = chunk_end + 1
+	end
+	-- The string pool: handles in memory refer to these, in this order.
+	write_int32(file, #string_pool)
+	for _, str in ipairs(string_pool) do
+		write_int32(file, #str)
+		file:write(str)
 	end
 
 	-- ZIL globals: count (2 bytes LE) + name-length-prefixed name + typed value
@@ -2706,8 +2768,8 @@ function RESTORE(filename)
 	end
 
 	-- Verify header
-	local magic = file:read(#SAVE_MAGIC_V2)
-	if magic ~= SAVE_MAGIC_V1 and magic ~= SAVE_MAGIC_V2 then
+	local magic = file:read(#SAVE_MAGIC)
+	if magic ~= SAVE_MAGIC then
 		TELL("Invalid save file.", CR)
 		file:close()
 		return false
@@ -2721,6 +2783,20 @@ function RESTORE(filename)
 	if not data or #data < size then file:close(); return false end
 	for i = 1, size do mem[i] = data:byte(i) end
 	mem.size = size
+
+	local cb = file:read(4)
+	if not cb or #cb < 4 then file:close(); return false end
+	local pool = {}
+	for _ = 1, read_int32(cb) do
+		local lb = file:read(4)
+		if not lb or #lb < 4 then file:close(); return false end
+		local length = read_int32(lb)
+		local str = length > 0 and file:read(length) or ""
+		if not str or #str < length then file:close(); return false end
+		table.insert(pool, str)
+	end
+	truncate_strings(0)
+	for _, str in ipairs(pool) do intern(str) end
 
 	-- Restore ZIL globals
 	local restored_globals = {}
@@ -2775,12 +2851,12 @@ function RESTORE(filename)
 		end
 	end
 
-	-- Version 2 saves append the vocabulary address map after the scalar globals.
+	-- The vocabulary address map follows the scalar globals.
 	-- Dictionary storage is rebuilt whenever a game process starts, and its
 	-- addresses are not guaranteed to match those in the process that wrote the
 	-- save.  Restore the saved map so READ and parser word lookups point into the
 	-- memory image we just loaded.
-	if magic == SAVE_MAGIC_V2 then
+	do
 		local section_type = file:read(1)
 		if section_type and section_type:byte() == 4 then
 			local count_bytes = file:read(2)

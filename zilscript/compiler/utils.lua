@@ -16,9 +16,15 @@ function Utils.digitsToLetters(str)
   end)
 end
 
+-- Lua names are ASCII: each byte of a UTF-8 character (a German atom such
+-- as W?HÄNDE) becomes _XX. The runtime names dictionary globals the same way.
+function Utils.asciiName(str)
+  return (str:gsub("[\128-\255]", function(c) return string.format("_%02X", c:byte()) end))
+end
+
 -- Normalize identifier to Lua-safe name
 function Utils.normalizeIdentifier(str)
-  return str
+  return Utils.asciiName(str)
     :gsub(":.*$", "")          -- Strip optional ZIL type annotation
     :gsub("^[,.]+", "")        -- Remove leading commas/dots
     :gsub("[,.]", "")          -- Remove internal commas/dots
@@ -47,7 +53,7 @@ function Utils.normalizeFunctionName(name)
     ["G=?"] = "GEQ",
     ["L=?"] = "LEQ",
   }
-  return OPERATOR_MAP[name] or name:gsub(":.*$", ""):gsub("%-", "_"):gsub("&", "_"):gsub("%?", "Q"):gsub("%$", "_DOLLAR_"):gsub("!", "_BANG_"):gsub("/", "_"):gsub("\\", "_")
+  return OPERATOR_MAP[name] or Utils.asciiName(name):gsub(":.*$", ""):gsub("%-", "_"):gsub("&", "_"):gsub("%?", "Q"):gsub("%$", "_DOLLAR_"):gsub("!", "_BANG_"):gsub("/", "_"):gsub("\\", "_")
 end
 
 -- Check if node is a COND expression

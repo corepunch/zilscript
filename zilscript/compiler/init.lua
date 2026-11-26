@@ -22,7 +22,8 @@ local Compiler = {
   local_vars = {},               -- Track local variables in current scope
   diagnostics = nil,             -- Diagnostic collection for error reporting
   enable_semantic_check = false, -- Enable semantic checking with checker module
-  macros = {}                    -- Store defined macros for expansion
+  macros = {},                   -- Macros of the current compile session
+  tell_tokens = {}               -- TELL-TOKENS of the current compile session
 }
 
 -- Bind value conversion functions to compiler
@@ -47,8 +48,18 @@ end
 -- lua_filename: the name of the Lua file being generated (for source mapping) - optional
 -- options: optional table with compilation options:
 --   - enable_semantic_check: boolean, enable semantic analysis (default: false)
+-- options.session holds what one file defines for the files compiled after
+-- it in the same game (DEFMAC, TELL-TOKENS). Each game environment owns one;
+-- a compile without it starts empty, so nothing leaks between games.
+function Compiler.newSession()
+  return { macros = {}, tell_tokens = {} }
+end
+
 function Compiler.compile(ast, lua_filename, options)
   options = options or {}
+  local session = options.session or Compiler.newSession()
+  Compiler.macros = session.macros
+  Compiler.tell_tokens = session.tell_tokens
   
   -- Create diagnostic collection for better error reporting
   local diagnostics = diagnostics_module.new()
@@ -92,6 +103,9 @@ function Compiler.compile(ast, lua_filename, options)
   for i = 1, #ast do
     local node = ast[i]
     
+    if node.type == "expr" and node.name ~= "DEFMAC" then
+      node = print_node_module.expandMacros(node, Compiler, form_handlers)
+    end
     if node.type == "expr" then
       local name = node.name or ""
       
@@ -119,6 +133,9 @@ function Compiler.compile(ast, lua_filename, options)
       -- Skip forms that don't generate output
       if name == "GDECL" or name == "PROG" or is_zilch_host_cond then
         -- Skip
+      -- TELL-TOKENS opens with a list of aliases, not an atom
+      elseif name == "TELL-TOKENS" then
+        toplevel.registerTellTokens(node, Compiler)
       -- Direct statements (print to body directly)
       elseif toplevel.DIRECT_STATEMENTS[name] then
         print_node(body, node, 0, false)

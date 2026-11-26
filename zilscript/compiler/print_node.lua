@@ -14,6 +14,7 @@
 -- This matches TypeScript's approach: node.members[0].text
 -- Direct access is clear, performant, and standard in both Lua and TypeScript
 local utils = require 'zilscript.compiler.utils'
+local evaluate = require 'zilscript.evaluate'
 
 local PrintNode = {}
 
@@ -33,6 +34,7 @@ local function expandMacro(call_node, macro, compiler)
     call_args[i] = call_node[i]
   end
   
+  local declared = {}
   local arg_idx = 1
   local i = 1
   while i <= #params do
@@ -59,9 +61,10 @@ local function expandMacro(call_node, macro, compiler)
     end
     
     if param_name then
+      declared[param_name] = true
       if is_rest then
         -- Collect all remaining args as a list
-        local rest_list = {type = "list"}
+        local rest_list = {type = "list", rest = true}
         while arg_idx <= #call_args do
           table.insert(rest_list, call_args[arg_idx])
           arg_idx = arg_idx + 1
@@ -97,13 +100,32 @@ local function expandMacro(call_node, macro, compiler)
         end
       end
       return node
+    elseif node.type == "expr" and node.name == "ASSIGNED?" and node[1]
+        and node[1].type == "ident" and declared[node[1].value] then
+      -- Whether an optional macro parameter was passed is known now.
+      if param_map[node[1].value] ~= nil then return {type = "ident", value = "T"} end
+      return {type = "expr", name = ""} -- <>
+    elseif node.type == "expr" and node.name == "FORM" and node[1] and node[1].value then
+      -- <FORM X a b> builds the form <X a b>, as MDL does when a macro runs.
+      local new_node = {type = "expr", name = node[1].value}
+      for i = 2, #node do
+        local subst = substitute(node[i])
+        if subst and subst.type == "list" and subst.rest then
+          for j = 1, #subst do table.insert(new_node, subst[j]) end
+        else
+          table.insert(new_node, subst)
+        end
+      end
+      setmetatable(new_node, getmetatable(node))
+      return new_node
     elseif node.type == "expr" then
       -- Recursively substitute in expressions
       local new_node = {type = "expr", name = node.name}
       for i = 1, #node do
         local subst = substitute(node[i])
-        -- If substitution returns a list (rest params), expand it inline
-        if subst and subst.type == "list" then
+        -- A rest parameter's arguments expand inline; the form's own lists
+        -- (COND clauses, parameter lists) keep their shape.
+        if subst and subst.type == "list" and subst.rest then
           for j = 1, #subst do
             table.insert(new_node, subst[j])
           end
@@ -127,8 +149,46 @@ local function expandMacro(call_node, macro, compiler)
     return node
   end
   
-  -- Expand the macro body with substitutions
-  return substitute(macro.body)
+  -- Expand the macro body with substitutions. A body that is a compile-time
+  -- COND (Infocom's RMGL-SIZE, GET/B) chooses its clause now; emitting it
+  -- would put a statement where the call site needs an expression.
+  local expanded = substitute(macro.body)
+  while expanded and expanded.type == "expr" and expanded.name == "COND" do
+    local chosen = evaluate.select_clause(expanded)
+    if chosen == nil then break end
+    if chosen == false then return {type = "expr", name = ""} end -- <>
+    expanded = chosen
+  end
+  return expanded
+end
+
+local BUILTIN_PREDICATES = {["VERB?"] = true, ["PRSO?"] = true, ["PRSI?"] = true, ["ROOM?"] = true}
+local MAX_EXPANSION_DEPTH = 64
+
+-- Replaces every macro call in a top-level form with its expansion before
+-- code generation, so a macro that yields a COND (ABS) compiles like a
+-- written COND wherever it appears. Quoted forms are left as written, and a
+-- form the compiler implements itself (TELL) wins over a source macro, as it
+-- does during code generation.
+function PrintNode.expandMacros(node, compiler, handlers, depth)
+  depth = depth or 0
+  if type(node) ~= "table" or node.type == "placeholder" then return node end
+  assert(depth < MAX_EXPANSION_DEPTH, "Macro expansion too deep near " .. tostring(node.name))
+  if node.type == "expr" then
+    local name = node.name
+    local macro = type(name) == "string" and not BUILTIN_PREDICATES[name] and not handlers[name]
+      and (compiler.macros[name] or compiler.macros[utils.normalizeFunctionName(name)])
+    if macro then
+      local expanded = expandMacro(node, macro, compiler)
+      if expanded then return PrintNode.expandMacros(expanded, compiler, handlers, depth + 1) end
+    end
+  elseif node.type ~= "list" then
+    return node
+  end
+  for i = 1, #node do
+    node[i] = PrintNode.expandMacros(node[i], compiler, handlers, depth)
+  end
+  return node
 end
 
 -- Main code generation function

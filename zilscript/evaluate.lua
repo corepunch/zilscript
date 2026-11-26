@@ -1,8 +1,16 @@
 -- Evaluation for conditional compilation
 local compile_time_globals = {}
 
+-- Names Infocom's sources test with GASSIGNED? to learn how they are being
+-- built. Like Infocom's compiler, this one is ZILCH (the branch holding
+-- compiled code rather than MDL interpreter code) and makes production
+-- stories (PREDGEN: the non-debug PERFORM). It does not assign PLUS-MODE,
+-- because the runtime writes the version 3 exit and GLOBAL layouts.
+local BUILD = { ZILCH = true, PREDGEN = true }
+
 local function normalized_global(name)
 	name = tostring(name or ""):gsub("^[,.]", "")
+	if BUILD[name] ~= nil then return BUILD[name] end
 	return rawget(_G, name)
 		or rawget(_G, name:gsub("%-", "_"):gsub("%?", "Q"))
 end
@@ -72,7 +80,64 @@ local function get_number(node)
 	return node.value
 end
 
+-- Decides a conditional-compilation test: true, false, or nil when it
+-- depends on something only known at run time. Globals set by SETG in files
+-- that ran before this one count as compile-time values, as they do in ZIL.
+local function truth(node)
+	if not node then return nil end
+	if node.type == "number" then return node.value ~= 0 end
+	if node.type == "string" then return true end
+	if node.type == "ident" or node.type == "symbol" then
+		local name = tostring(node.value or "")
+		if name == "T" or name == "ELSE" then return true end
+		if name == "<>" then return false end
+		if name:match("^,") then
+			local value = normalized_global(name)
+			if value == nil then return false end
+			return value ~= false and value ~= 0
+		end
+		return nil
+	end
+	if node.type ~= "expr" then return nil end
+	if node.name == "" then return false end -- <>
+	if node.name == "GASSIGNED?" then
+		local name = node[1] and (node[1].value or node[1].name)
+		if not name then return nil end
+		return normalized_global(name) ~= nil
+	elseif node.name == "AND" then
+		for _, child in ipairs(node) do
+			local value = truth(child)
+			if value ~= true then return value end
+		end
+		return true
+	elseif node.name == "OR" then
+		local unknown = false
+		for _, child in ipairs(node) do
+			local value = truth(child)
+			if value == true then return true end
+			if value == nil then unknown = true end
+		end
+		if unknown then return nil end
+		return false
+	elseif node.name == "NOT" then
+		local value = truth(node[1])
+		if value == nil then return nil end
+		return not value
+	elseif node.name == "==?" or node.name == "=?" or node.name == "N==?" or node.name == "N=?" then
+		local a, b = get_number(node[1]) or scalar(node[1]), get_number(node[2]) or scalar(node[2])
+		if a == nil or b == nil then return nil end
+		local equal = a == b
+		if node.name:sub(1, 1) == "N" then return not equal end
+		return equal
+	end
+	return nil
+end
+
 local function evaluate_cond(node, value_node)
+	if node.type == "expr" and (node.name == "AND" or node.name == "NOT" or node.name == "GASSIGNED?") then
+		if truth(node) then return value_node end
+		return nil
+	end
 	if node.type == "expr" then
 		if node.name == "==?" and #node == 2 then
 			local a, b = get_number(node[1]), get_number(node[2])
@@ -85,8 +150,6 @@ local function evaluate_cond(node, value_node)
 					return value_node
 				end
 			end
-		elseif node.name == "GASSIGNED?" then
-			return value_node
 		end
 	elseif node.type == "ident" then
 		-- Check if identifier is a global variable and evaluate its truthiness
@@ -172,8 +235,12 @@ local function evaluate(cond)
 		if clause.type == "list" and #clause > 0 then
 			local result = evaluate_cond(clause[1], clause[2])
 			if result then
+				-- A quoted form is code to compile; a number, string or atom is
+				-- the value itself. An unquoted form would need MDL to run.
 				if result.type == "placeholder" and result[1] then
 					return result[1]
+				elseif result.type ~= "expr" then
+					return result
 				else
 					return nil
 				end
@@ -183,4 +250,20 @@ local function evaluate(cond)
 	return nil
 end
 
-return evaluate
+-- Picks the clause of a compile-time <COND> whose test holds. Returns the
+-- clause's value, false when no clause applies, or nil when a test can only
+-- be decided at run time (the COND then stays runtime code).
+local function select_clause(cond)
+	if not cond or cond.type ~= "expr" or cond.name ~= "COND" then return nil end
+	for _, clause in ipairs(cond) do
+		if clause.type ~= "list" or #clause == 0 then return nil end
+		local value = truth(clause[1])
+		if value == nil then return nil end
+		if value then return clause[#clause] end
+	end
+	return false
+end
+
+return setmetatable({ truth = truth, select_clause = select_clause }, {
+	__call = function(_, cond) return evaluate(cond) end,
+})
