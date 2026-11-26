@@ -490,7 +490,7 @@
       (LDESC "A blue enamel kettle waits on the range, warm enough to mist its spout.")
       (SYNONYM KETTLE POT TEA CARD STEAM)
       (ADJECTIVE BLUE ENAMEL WARM HOT)
-      (FLAGS NDESCBIT DRINKBIT READBIT)
+      (FLAGS NDESCBIT READBIT)
       (ACTION KETTLE-F)>
 
 <OBJECT BELL-WIRE
