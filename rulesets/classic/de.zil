@@ -4,4 +4,5 @@
 <INSERT-FILE "languages.de.loop">
 <INSERT-FILE "languages.de.parser">
 <INSERT-FILE "core.objects">
+<INSERT-FILE "rulesets.classic.common">
 <INSERT-FILE "languages.de.classic-verbs">

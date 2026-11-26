@@ -8,11 +8,6 @@ that is, responses you get if there's nothing interesting to respond
 to what was typed. Most sentences are of a very general nature, which
 must be maintained since you can plug in any (THING) into the sentence. ***"
 
-;"Verb Functions for Game Commands"
-
-<GLOBAL VERBOSE <>>
-<GLOBAL SUPER-BRIEF <>>
-<GDECL (VERBOSE SUPER-BRIEF) <OR ATOM FALSE>>
 
 <ROUTINE V-VERBOSE ()
 	 <SETG VERBOSE T>
@@ -163,9 +158,6 @@ Ver%offenlichtung ">
 	       (T
 		<TELL CR "** Diskettenfehler **" CR>)>>
 
-<ROUTINE V-COMMAND-FILE ()
-	 <DIRIN 1>
-	 <RTRUE>>
 
 <ROUTINE V-RANDOM ()
 	 <COND (<NOT <EQUAL? ,PRSO ,INTNUM>>
@@ -174,13 +166,6 @@ Ver%offenlichtung ">
 		<RANDOM <- 0 ,P-NUMBER>>
 		<RTRUE>)>>
 
-<ROUTINE V-RECORD ()
-	 <DIROUT 4>
-	 <RTRUE>>
-
-<ROUTINE V-UNRECORD ()
-	 <DIROUT -4>
-	 <RTRUE>>
 
 ;"Real Verb Functions"
 
@@ -576,16 +561,10 @@ DER-NOM-CAP ,PRSO " sinks to the ground." CR>)
 		(T
 		 '<TELL "Hier passiert garnichts." CR>)>>
 
-<ROUTINE V-DRINK ()
-	 <V-EAT>>
 
 <ROUTINE V-DRINK-FROM ()
 	 <TELL "Wie eigenartig!" CR>>
 
-<ROUTINE PRE-DROP ()
-	 <COND (<EQUAL? ,PRSO <LOC ,WINNER>>
-		<PERFORM ,V?DISEMBARK ,PRSO>
-		<RTRUE>)>>
 
 <ROUTINE V-DROP ()
 	 <COND (<IDROP>
@@ -842,7 +821,6 @@ DER-NOM-CAP ,PRSI " lehnt " PRONOUN-ACC ,PRSI " h%oflich ab." CR>)>>
 <ROUTINE V-HATCH ()
 	 <TELL "Bizarre!" CR>>
 
-<GLOBAL HS 0> ;"counts occurences of HELLO, SAILOR"
 
 <ROUTINE V-HELLO ()
 	 <COND (<AND ,PRSO
@@ -1000,9 +978,6 @@ DER-NOM-CAP ,PRSO " ist zu gro%s, um %uber ihn zu springen." CR>)
 <ROUTINE V-LOCK ()
 	 <TELL "Das scheint nicht zu funktionieren." CR>>
 
-<ROUTINE V-LOOK ()
-	 <COND (<DESCRIBE-ROOM T>
-		<DESCRIBE-OBJECTS T>)>>
 
 <ROUTINE V-LOOK-BEHIND ()
 	 <TELL "Da ist nichts hinter " DER-DAT ,PRSO "." CR>>
@@ -1232,15 +1207,6 @@ DER-NOM-CAP ,PRSO ", der ge%offnet ist, enth%alt ">
 <ROUTINE V-PUSH-TO ()
 	 <TELL "Dahin kann man nichts schieben." CR>>
 
-<ROUTINE PRE-PUT ()
-	 <COND %<COND (<==? ,ZORK-NUMBER 3>
-		       '(<EQUAL? ,PRSO ,SHORT-POLE>
-		         <RFALSE>))
-		      (T
-		       '(<NULL-F>
-			 <RFALSE>))>
-	       (T
-		<PRE-GIVE>)>> ;"That's easy for you to say"
 
 <ROUTINE V-PUT ()
 	 <COND (<OR <FSET? ,PRSI ,OPENBIT>
@@ -1291,8 +1257,6 @@ DER-NOM-CAP ,PRSI " hat keine gute Oberfl%ache." CR>)>>
 <ROUTINE V-PUT-UNDER ()
 	 <TELL "You can't do that." CR>>
 
-<ROUTINE V-RAISE ()
-	 <V-LOWER>>
 
 ;<ROUTINE V-RAPE ()
 	 <TELL "What a (ahem!) strange idea." CR>>
@@ -1310,9 +1274,6 @@ DER-NOM-CAP ,PRSI " hat keine gute Oberfl%ache." CR>)>>
 	       (T
 		<TELL <GETP ,PRSO ,P?TEXT> CR>)>>
 
-<ROUTINE V-READ-PAGE ()
-	 <PERFORM ,V?READ ,PRSO>
-	 <RTRUE>>
 
 <ROUTINE V-REPENT ()
 	 <TELL "Es k%onnte m%oglicherweise schon zu sp%at sein." CR>>
@@ -1453,8 +1414,6 @@ DER-NOM-CAP ,PRSO " h%ort sich leer an." CR>)>)>)
 		       (T
 			<RETURN>)>>>
 
-<ROUTINE V-SKIP ()
-	 <TELL <PICK-ONE ,WHEEEEE> CR>>
 
 <GLOBAL WHEEEEE
 	<LTABLE 0 "Ausgezeichnet. Du bist in die 4. Klasse versetzt!"
@@ -1469,8 +1428,6 @@ PRONOUN-NOM-CAP ,PRSO " riecht genau wie " EIN-NOM ,PRSO "." CR>>
 <ROUTINE V-SPIN ()
 	 <TELL "Den kannst du nicht rumwirbeln!" CR>>
 
-<ROUTINE V-SPRAY ()
-	 <V-SQUEEZE>>
 
 <ROUTINE V-SQUEEZE ()
 	 <COND (<FSET? ,PRSO ,ACTORBIT>
@@ -1479,8 +1436,6 @@ PRONOUN-NOM-CAP ,PRSO " riecht genau wie " EIN-NOM ,PRSO "." CR>>
 		<TELL "Wie einmalig sinnlos.">)>
 	 <CRLF>>
 
-<ROUTINE V-SSPRAY ()
-	 <PERFORM ,V?SPRAY ,PRSI ,PRSO>>
 
 <ROUTINE V-STAB ("AUX" W)
 	 <COND (<SET W <FIND-WEAPON ,WINNER>>
@@ -1745,8 +1700,6 @@ DER-ACC-CAP ,PRSO " kannst du damit bestimmt nicht fesseln!" CR>>
 <ROUTINE V-TURN ()
 	 <TELL "Erfolglos." CR>>
 
-<ROUTINE V-UNLOCK ()
-	 <V-LOCK>>
 
 <ROUTINE V-UNTIE ()
 	 <TELL 
@@ -1875,14 +1828,6 @@ DER-ACC-CAP ,PRSO " wedeln, scheint nicht zu funktionieren." CR>>
 
 "Descriptions"
 
-<GLOBAL LIT <>>
-
-<GLOBAL SPRAYED? <>>
-
-<ROUTINE V-FIRST-LOOK ()
-	 <COND (<DESCRIBE-ROOM>
-		<COND (<NOT ,SUPER-BRIEF>
-		       <DESCRIBE-OBJECTS>)>)>>
 
 <ROUTINE DESCRIBE-ROOM ("OPTIONAL" (LOOK? <>) "AUX" V? STR AV)
 	 <SET V? <OR .LOOK? ,VERBOSE>>
@@ -1940,7 +1885,6 @@ detect a dim light from the east." CR>)>)
 "DESCRIBE-OBJECT -- takes object and flag. if flag is true will print a
 long description (fdesc or ldesc), otherwise will print short."
 
-<GLOBAL DESC-OBJECT <>>
 
 <ROUTINE DESCRIBE-OBJECT (OBJ V? LEVEL "AUX" (STR <>) AV)
 	 <SETG DESC-OBJECT .OBJ>
@@ -2092,16 +2036,8 @@ long description (fdesc or ldesc), otherwise will print short."
 		       <TELL DER-NOM-CAP .OBJ " scheint das Folgende zu enthalten:" CR>)>)>>
 
 
-
 "Scoring"
 
-<GLOBAL MOVES 0>
-
-<GLOBAL SCORE 0>
-
-<GLOBAL BASE-SCORE 0>
-
-<GLOBAL WON-FLAG <>>
 
 <ROUTINE SCORE-UPD (NUM)
 	 <SETG BASE-SCORE <+ ,BASE-SCORE .NUM>>
@@ -2119,10 +2055,6 @@ long description (fdesc or ldesc), otherwise will print short."
 		 '<NULL-F>)>
 	 T>
 
-<ROUTINE SCORE-OBJ (OBJ "AUX" TEMP)
-	 <COND (<G? <SET TEMP <GETP .OBJ ,P?VALUE>> 0>
-		<SCORE-UPD .TEMP>
-		<PUTP .OBJ ,P?VALUE 0>)>>
 
 ;<ROUTINE YES? ()
 	 <PRINTI ">">
@@ -2162,11 +2094,6 @@ long description (fdesc or ldesc), otherwise will print short."
 
 "Death"
 
-<GLOBAL DEAD <>>
-
-<GLOBAL DEATHS 0>
-
-<GLOBAL LUCKY 1>
 
 ;"JIGS-UP is in ACTIONS.ZIL"
 
@@ -2176,9 +2103,6 @@ long description (fdesc or ldesc), otherwise will print short."
 
 "Object Manipulation"
 
-<GLOBAL FUMBLE-NUMBER 7>
-
-<GLOBAL FUMBLE-PROB 8>
 
 <ROUTINE ITAKE ("OPTIONAL" (VB T) "AUX" CNT OBJ)
 	 #DECL ((VB) <OR ATOM FALSE> (CNT) FIX (OBJ) OBJECT)
@@ -2263,12 +2187,8 @@ disappears!" CR>
 		<RTRUE>)>>
 
 
-
-
-
 "Miscellaneous"
 
-<CONSTANT REXIT 0>
 <CONSTANT UEXIT %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 2) (T 1)>>
 	"Uncondl EXIT:	(dir TO rm)		 = rm"
 <CONSTANT NEXIT %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 3) (T 2)>>
@@ -2280,21 +2200,9 @@ disappears!" CR>
 <CONSTANT DEXIT %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 6) (T 5)>>
 	"Door EXIT:	(dir TO rm IF dr IS OPEN)= rm, dr, str-ing, 0"
 
-<CONSTANT NEXITSTR 0>
-<CONSTANT FEXITFCN 0>
 <CONSTANT CEXITFLAG %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 4) (T 1)>>	"GET/B"
-<CONSTANT CEXITSTR 1>		"GET"
-<CONSTANT DEXITOBJ 1>		"GET/B"
 <CONSTANT DEXITSTR %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 2) (T 1)>>	"GET"
 
-<GLOBAL INDENTS
-	<TABLE (PURE)
-	       ""
-	       "  "
-	       "    "
-	       "      "
-	       "        "
-	       "          ">>
 
 ;<ROUTINE HACK-HACK (STR "OPT" (DATIVE? <>))
 	 <COND (<AND <IN? ,PRSO ,GLOBAL-OBJECTS>
@@ -2423,35 +2331,16 @@ stumbled into an authentic grue lair!">))
 			      (T
 			       <RETURN <GET .TBL <+ .CNT 1>>>)>)>>>
 
-<ROUTINE DO-WALK (DIR)
-	 <SETG P-WALK-DIR .DIR>
-	 <PERFORM ,V?WALK .DIR>>
 
 ;<ROUTINE WORD-TYPE (OBJ WORD "AUX" SYNS)
 	 <ZMEMQ .WORD
 		<SET SYNS <GETPT .OBJ ,P?SYNONYM>>
 		<- </ <PTSIZE .SYNS> 2> 1>>>
 
-<ROUTINE GLOBAL-IN? (OBJ1 OBJ2 "AUX" TX)
-	 <COND (<SET TX <GETPT .OBJ2 ,P?GLOBAL>>
-		<ZMEMQB .OBJ1 .TX <- <PTSIZE .TX> 1>>)>> 
-
-<ROUTINE FIND-IN (WHERE WHAT "AUX" W)
-	 <SET W <FIRST? .WHERE>>
-	 <COND (<NOT .W>
-		<RFALSE>)>
-	 <REPEAT ()
-		 <COND (<AND <FSET? .W .WHAT>
-			     <NOT <EQUAL? .W ,ADVENTURER>>>
-			<RETURN .W>)
-		       (<NOT <SET W <NEXT? .W>>>
-			<RETURN <>>)>>>
-
 
 ;<ROUTINE IN-HERE? (OBJ)
 	 <OR <IN? .OBJ ,HERE>
 	     <GLOBAL-IN? .OBJ ,HERE>>>
-
 
 
 <ROUTINE OTHER-SIDE (DOBJ "AUX" (P 0) TX) ;"finds room beyond given door"
@@ -2464,13 +2353,6 @@ stumbled into an authentic grue lair!">))
 				    <EQUAL? <GETB .TX ,DEXITOBJ> .DOBJ>>
 			       <RETURN .P>)>)>>>
 
-<ROUTINE MUNG-ROOM (RM STR)
-	 %<COND (<==? ,ZORK-NUMBER 2>
-		 '<COND (<EQUAL? .RM ,INSIDE-BARROW>
-			 <RFALSE>)>)
-		(ELSE T)>
-	 <FSET .RM ,RMUNGBIT>
-	 <PUTP .RM ,P?LDESC .STR>>
 
 <GLOBAL P-HIM-OBJECT <>>
 

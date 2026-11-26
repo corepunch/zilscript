@@ -117,14 +117,9 @@ DER-NOM-CAP ,WINNER " seems confused. \"I don't see any ">
        (T
 	<BUFFER-PRINT <GET ,P-ITBL ,P-NC2> <GET ,P-ITBL ,P-NC2L> <>>)>>
 
-<ROUTINE NULL-F ("OPTIONAL" A1 A2)
-	 <RFALSE>>
 
 "Objects shared by all three Zorks go here"
 
-<GLOBAL LOAD-MAX 100>
-
-<GLOBAL LOAD-ALLOWED 100>
 
 ;<OBJECT BLESSINGS
 	(LOC GLOBAL-OBJECTS)

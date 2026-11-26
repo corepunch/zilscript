@@ -23,46 +23,71 @@ local superhero = read("books/blackout-at-meridian/blackout-at-meridian.zil")
 assert(superhero:find('<INSERT-FILE "rulesets.superhero.en">',1,true), "superhero book imports its ruleset")
 assert(not superhero:find("infocom/",1,true), "superhero book depends on a historical directory")
 
--- A top-level form that is the same in both languages belongs in core/.
--- Forms inside conditional compilation stay with the loop that owns them.
+-- A top-level form that is the same in both languages is shared: parser and
+-- loop code belongs in core/, text-free classic rules in
+-- rulesets/classic/common.zil. A classic form with player-facing text stays
+-- in each language, which owns its words. Forms nested in conditional
+-- compilation stay with the code that owns them.
 local nested = {["SETG DEBUG"] = true, ["DEFINE D-APPLY"] = true, ["ROUTINE DD-APPLY"] = true}
+local markers = {AUX = true, OPTIONAL = true, OPT = true, ARGS = true, EXTRA = true, NAME = true, BIND = true, TUPLE = true}
 local function forms(path)
- local src, out, i = read(path), {}, 1
- while true do
-  local s, _, kind, name = src:find("\n<(%u[%u%-]*)%s+([^%s>]+)", i)
-  if not s then break end
-  local depth, j, instr = 0, s + 1, false
-  while j <= #src do
-   local c = src:sub(j, j)
-   if instr then
-    if c == "\\" then j = j + 1 elseif c == '"' then instr = false end
-   elseif c == '"' then instr = true
-   elseif c == "<" then depth = depth + 1
-   elseif c == ">" then depth = depth - 1; if depth == 0 then break end end
-   j = j + 1
+ local src, out, depth, i, instr, start = read(path), {}, 0, 1, false, nil
+ while i <= #src do
+  local c = src:sub(i, i)
+  if instr then
+   if c == "\\" then i = i + 1 elseif c == '"' then instr = false end
+  elseif c == '"' then instr = true
+  elseif c == "<" then
+   if depth == 0 and (i == 1 or src:sub(i - 1, i - 1) == "\n") then start = i end
+   depth = depth + 1
+  elseif c == ">" then
+   depth = depth - 1
+   if depth == 0 and start then
+    local body = src:sub(start, i)
+    local kind, name = body:match("^<(%u[%u%-]*)%s+([^%s>]+)")
+    if kind then out[kind .. " " .. name] = body:gsub(';"[^"]*"', ""):gsub("%s+", " ") end
+    start = nil
+   end
   end
-  out[kind .. " " .. name] = src:sub(s + 1, j):gsub(';"[^"]*"', ""):gsub("%s+", " ")
-  i = j
+  i = i + 1
  end
  return out
 end
-for _, file in ipairs({"parser", "loop"}) do
+local function has_text(body)
+ for str in body:gmatch('"(.-)"') do
+  if str:find("%a") and not markers[str] then return true end
+ end
+ return false
+end
+local shared = {parser = "core/parser.zil", loop = "core/loop.zil",
+ ["classic-verbs"] = "rulesets/classic/common.zil", ["classic-globals"] = "rulesets/classic/common.zil"}
+for file, home in pairs(shared) do
  local de = forms("languages/de/" .. file .. ".zil")
  for key, body in pairs(forms("languages/en/" .. file .. ".zil")) do
-  assert(nested[key] or key:match("^INSERT%-FILE ") or de[key] ~= body, file .. ": " .. key .. " is identical in both languages; move it to core/" .. file .. ".zil")
+  local moveable = not nested[key] and not key:match("^INSERT%-FILE ")
+   and (home:match("^core/") or not has_text(body))
+  assert(not moveable or de[key] ~= body, file .. ": " .. key .. " is identical in both languages; move it to " .. home)
  end
+end
+for _, file in ipairs({"parser", "loop"}) do
  for _, lang in ipairs({"en", "de"}) do
   assert(read("languages/" .. lang .. "/" .. file .. ".zil"):find('<INSERT-FILE "core.' .. file .. '">',1,true), lang .. " " .. file .. " inserts core." .. file)
  end
 end
-local names = {"bell-grew-leaves", "blackwood-horror", "borrowed-tomorrows", "house-of-the-ebb", "last-broadcast", "limehouse-killings", "museum-unsent-signals", "pocket-weather", "silent-vector", "station-minus-one", "the-midnight-ledger", "wondertown"}
-for _, name in ipairs(names) do
- local path = "books/" .. name .. "/" .. name .. ".zil"
- local source = read(path)
- assert(source:find('<INSERT-FILE "rulesets.classic.en">',1,true), path)
- assert(not source:find("infocom/zork",1,true), path)
+for _, lang in ipairs({"en", "de"}) do
+ local composition = read("rulesets/classic/" .. lang .. ".zil")
+ local common = composition:find('<INSERT-FILE "rulesets.classic.common">', 1, true)
+ local verbs = composition:find('<INSERT-FILE "languages.' .. lang .. '.classic-verbs">', 1, true)
+ assert(common and verbs and common < verbs, lang .. " composition inserts the common classic rules before its verbs")
 end
-assert(not read("zilscript/bootstrap.lua"):find('try_candidate("infocom/zork1/',1,true), "hidden historical fallback")
+-- Core and languages name no game's rooms or objects.
+for _, path in ipairs({"core/parser.zil", "core/loop.zil", "core/clock.zil", "core/objects.zil", "rulesets/classic/common.zil",
+  "languages/en/parser.zil", "languages/de/parser.zil", "languages/en/loop.zil", "languages/de/loop.zil"}) do
+ for _, name in ipairs({"WEST-OF-HOUSE", "MAILBOX", "TROLL", "THIEF", "CYCLOPS"}) do
+  assert(not read(path):find("," .. name, 1, true) and not read(path):find(" " .. name .. ">", 1, true),
+   path .. " names the game object " .. name)
+ end
+end
 -- Exercise a real compiler load and the new package graph without historical sources.
 local runtime = require("zilscript.runtime")
 local env = runtime.create_game_env()

@@ -6,9 +6,6 @@
 
 "Verb Functions for Game Commands"
 
-<GLOBAL VERBOSE <>>
-<GLOBAL SUPER-BRIEF <>>
-<GDECL (VERBOSE SUPER-BRIEF) <OR ATOM FALSE>>
 
 <ROUTINE V-VERBOSE ()
 	 <SETG VERBOSE T>
@@ -128,9 +125,6 @@ Release ">
 	       (T
 		<TELL CR "** Disk Failure **" CR>)>>
 
-<ROUTINE V-COMMAND-FILE ()
-	 <DIRIN 1>
-	 <RTRUE>>
 
 <ROUTINE V-RANDOM ()
 	 <COND (<NOT <EQUAL? ,PRSO ,INTNUM>>
@@ -139,13 +133,6 @@ Release ">
 		<RANDOM <- 0 ,P-NUMBER>>
 		<RTRUE>)>>
 
-<ROUTINE V-RECORD ()
-	 <DIROUT 4>
-	 <RTRUE>>
-
-<ROUTINE V-UNRECORD ()
-	 <DIROUT -4>
-	 <RTRUE>>
 
 ^L
 
@@ -466,16 +453,10 @@ Release ">
 		(T
 		 '<TELL "Nothing happens." CR>)>>
 
-<ROUTINE V-DRINK ()
-	 <V-EAT>>
 
 <ROUTINE V-DRINK-FROM ()
 	 <TELL "How peculiar!" CR>>
 
-<ROUTINE PRE-DROP ()
-	 <COND (<EQUAL? ,PRSO <LOC ,WINNER>>
-		<PERFORM ,V?DISEMBARK ,PRSO>
-		<RTRUE>)>>
 
 <ROUTINE V-DROP ()
 	 <COND (<IDROP>
@@ -720,7 +701,6 @@ somewhere." CR>)
 <ROUTINE V-HATCH ()
 	 <TELL "Bizarre!" CR>>
 
-<GLOBAL HS 0> ;"counts occurences of HELLO, SAILOR"
 
 <ROUTINE V-HELLO ()
 	 <COND (,PRSO
@@ -855,9 +835,6 @@ killing yourself." CR CR>
 <ROUTINE V-LOCK ()
 	 <TELL "It doesn't seem to work." CR>>
 
-<ROUTINE V-LOOK ()
-	 <COND (<DESCRIBE-ROOM T>
-		<DESCRIBE-OBJECTS T>)>>
 
 <ROUTINE V-LOOK-BEHIND ()
 	 <TELL "There is nothing behind the " D ,PRSO "." CR>>
@@ -1072,15 +1049,6 @@ you kill yourself, just as he might have done!" CR>
 <ROUTINE V-PUSH-TO ()
 	 <TELL "You can't push things to that." CR>>
 
-<ROUTINE PRE-PUT ()
-	 <COND %<COND (<==? ,ZORK-NUMBER 3>
-		       '(<EQUAL? ,PRSO ,SHORT-POLE>
-		         <RFALSE>))
-		      (T
-		       '(<NULL-F>
-			 <RFALSE>))>
-	       (T
-		<PRE-GIVE>)>> ;"That's easy for you to say..."
 
 <ROUTINE V-PUT ()
 	 <COND (<OR <FSET? ,PRSI ,OPENBIT>
@@ -1128,8 +1096,6 @@ you kill yourself, just as he might have done!" CR>
 <ROUTINE V-PUT-UNDER ()
 	 <TELL "You can't do that." CR>>
 
-<ROUTINE V-RAISE ()
-	 <V-LOWER>>
 
 <ROUTINE V-RAPE ()
 	 <TELL "What a (ahem!) strange idea." CR>>
@@ -1146,9 +1112,6 @@ you kill yourself, just as he might have done!" CR>
 	       (T
 		<TELL <GETP ,PRSO ,P?TEXT> CR>)>>
 
-<ROUTINE V-READ-PAGE ()
-	 <PERFORM ,V?READ ,PRSO>
-	 <RTRUE>>
 
 <ROUTINE V-REPENT ()
 	 <TELL "It could very well be too late!" CR>>
@@ -1266,8 +1229,6 @@ you kill yourself, just as he might have done!" CR>
 		       (T
 			<RETURN>)>>>
 
-<ROUTINE V-SKIP ()
-	 <TELL <PICK-ONE ,WHEEEEE> CR>>
 
 <GLOBAL WHEEEEE
 	<LTABLE 0 "Very good. Now you can go to the second grade."
@@ -1281,8 +1242,6 @@ you kill yourself, just as he might have done!" CR>
 <ROUTINE V-SPIN ()
 	 <TELL "You can't spin that!" CR>>
 
-<ROUTINE V-SPRAY ()
-	 <V-SQUEEZE>>
 
 <ROUTINE V-SQUEEZE ()
 	 <COND (<FSET? ,PRSO ,ACTORBIT>
@@ -1291,8 +1250,6 @@ you kill yourself, just as he might have done!" CR>
 		<TELL "How singularly useless.">)>
 	 <CRLF>>
 
-<ROUTINE V-SSPRAY ()
-	 <PERFORM ,V?SPRAY ,PRSI ,PRSO>>
 
 <ROUTINE V-STAB ("AUX" W)
 	 <COND (<SET W <FIND-WEAPON ,WINNER>>
@@ -1505,8 +1462,6 @@ CR>)
 <ROUTINE V-TURN ()
 	 <TELL "This has no effect." CR>>
 
-<ROUTINE V-UNLOCK ()
-	 <V-LOCK>>
 
 <ROUTINE V-UNTIE ()
 	 <TELL "This cannot be tied, so it cannot be untied!" CR>>
@@ -1623,14 +1578,6 @@ direction." CR>
 
 "Descriptions"
 
-<GLOBAL LIT <>>
-
-<GLOBAL SPRAYED? <>>
-
-<ROUTINE V-FIRST-LOOK ()
-	 <COND (<DESCRIBE-ROOM>
-		<COND (<NOT ,SUPER-BRIEF>
-		       <DESCRIBE-OBJECTS>)>)>>
 
 <ROUTINE DESCRIBE-ROOM ("OPTIONAL" (LOOK? <>) "AUX" V? STR AV)
 	 <SET V? <OR .LOOK? ,VERBOSE>>
@@ -1699,7 +1646,6 @@ detect a dim light from the east." CR>)>)
 "DESCRIBE-OBJECT -- takes object and flag.  if flag is true will print a
 long description (fdesc or ldesc), otherwise will print short."
 
-<GLOBAL DESC-OBJECT <>>
 
 <ROUTINE DESCRIBE-OBJECT (OBJ V? LEVEL "AUX" (STR <>) AV)
 	 <SETG DESC-OBJECT .OBJ>
@@ -1890,16 +1836,8 @@ long description (fdesc or ldesc), otherwise will print short."
 		       <TELL "The " D .OBJ " contains:" CR>)>)>>
 
 
-
 "Scoring"
 
-<GLOBAL MOVES 0>
-
-<GLOBAL SCORE 0>
-
-<GLOBAL BASE-SCORE 0>
-
-<GLOBAL WON-FLAG <>>
 
 <ROUTINE SCORE-UPD (NUM)
 	 <SETG BASE-SCORE <+ ,BASE-SCORE .NUM>>
@@ -1917,10 +1855,6 @@ for the final secret.\"" CR>)>)
 		 '<NULL-F>)>
 	 T>
 
-<ROUTINE SCORE-OBJ (OBJ "AUX" TEMP)
-	 <COND (<G? <SET TEMP <GETP .OBJ ,P?VALUE>> 0>
-		<SCORE-UPD .TEMP>
-		<PUTP .OBJ ,P?VALUE 0>)>>
 
 <ROUTINE YES? ()
 	 <PRINTI ">">
@@ -1932,11 +1866,6 @@ for the final secret.\"" CR>)>)
 
 "Death"
 
-<GLOBAL DEAD <>>
-
-<GLOBAL DEATHS 0>
-
-<GLOBAL LUCKY 1>
 
 ;"JIGS-UP is in ACTIONS.ZIL"
 
@@ -1946,9 +1875,6 @@ for the final secret.\"" CR>)>)
 
 "Object Manipulation"
 
-<GLOBAL FUMBLE-NUMBER 7>
-
-<GLOBAL FUMBLE-PROB 8>
 
 <ROUTINE ITAKE ("OPTIONAL" (VB T) "AUX" CNT OBJ)
 	 #DECL ((VB) <OR ATOM FALSE> (CNT) FIX (OBJ) OBJECT)
@@ -2030,33 +1956,17 @@ for the final secret.\"" CR>)>)
 		<RTRUE>)>>
 
 
-
-
-
 "Miscellaneous"
 
-<CONSTANT REXIT 0>
 <CONSTANT UEXIT 1>
 <CONSTANT NEXIT 2>
 <CONSTANT FEXIT 3>
 <CONSTANT CEXIT 4>
 <CONSTANT DEXIT 5>
 
-<CONSTANT NEXITSTR 0>
-<CONSTANT FEXITFCN 0>
 <CONSTANT CEXITFLAG 1>
-<CONSTANT CEXITSTR 1>
-<CONSTANT DEXITOBJ 1>
 <CONSTANT DEXITSTR 1>
 
-<GLOBAL INDENTS
-	<TABLE (PURE)
-	       ""
-	       "  "
-	       "    "
-	       "      "
-	       "        "
-	       "          ">>
 
 <ROUTINE HACK-HACK (STR)
 	 <COND (<AND <IN? ,PRSO ,GLOBAL-OBJECTS>
@@ -2182,26 +2092,6 @@ stumbled into an authentic grue lair!">))
 			      (T
 			       <RETURN <GET .TBL <+ .CNT 1>>>)>)>>>
 
-<ROUTINE DO-WALK (DIR)
-	 <SETG P-WALK-DIR .DIR>
-	 <PERFORM ,V?WALK .DIR>>
-
-<ROUTINE GLOBAL-IN? (OBJ1 OBJ2 "AUX" TX)
-	 <COND (<SET TX <GETPT .OBJ2 ,P?GLOBAL>>
-		<ZMEMQB .OBJ1 .TX <- <PTSIZE .TX> 1>>)>> 
-
-<ROUTINE FIND-IN (WHERE WHAT "AUX" W)
-	 <SET W <FIRST? .WHERE>>
-	 <COND (<NOT .W>
-		<RFALSE>)>
-	 <REPEAT ()
-		 <COND (<AND <FSET? .W .WHAT>
-			     <NOT <EQUAL? .W ,ADVENTURER>>>
-			<RETURN .W>)
-		       (<NOT <SET W <NEXT? .W>>>
-			<RETURN <>>)>>>
-
-
 
 <ROUTINE OTHER-SIDE (DOBJ "AUX" (P 0) TX) ;"finds room beyond given door"
 	 <REPEAT ()
@@ -2214,13 +2104,6 @@ stumbled into an authentic grue lair!">))
 				    <EQUAL? <GETB .TX ,DEXITOBJ> .DOBJ>>
 			       <RETURN .P>)>)>>>
 
-<ROUTINE MUNG-ROOM (RM STR)
-	 %<COND (<==? ,ZORK-NUMBER 2>
-		 '<COND (<EQUAL? .RM ,INSIDE-BARROW>
-			 <RFALSE>)>)
-		(ELSE T)>
-	 <FSET .RM ,RMUNGBIT>
-	 <PUTP .RM ,P?LDESC .STR>>
 
 <ROUTINE THIS-IS-IT (OBJ)
 	 <SETG P-IT-OBJECT .OBJ>>

@@ -191,8 +191,14 @@ German has 290 `SYNTAX` lines (English 267) and 124 `SYNONYM` lines (74).
 `languages/de/messages.zil` is not a message catalog. It is the German
 counterpart of `languages/en/macros.zil`: TELL-TOKENS, the 13 printers,
 `DPRINT`, and the same DEFMACs as English (`VERB?` through `ABS`). Text
-everywhere else is inline. English left in the German package **(read, not
-run)**: `loop.zil` "The " before "Das andere Ding", `parser.zil` "the " in
+everywhere else is inline.
+
+Eleven verb handlers are word for word the English ones, text included,
+because the translator never reached them: `V-VERBOSE`, `V-BRIEF`,
+`V-SUPER-BRIEF` ("Maximum verbosity."), `V-RANDOM`, `V-BACK`, `V-BLAST`,
+`V-CHOMP`, `V-HATCH`, `V-MUMBLE`, `V-PUT-UNDER`, `V-SGIVE`. They stay in each
+package, because the language owns the words. Other English left in the German
+package **(read, not run)**: `loop.zil` "The " before "Das andere Ding", `parser.zil` "the " in
 `BUFFER-PRINT` and " or " in `WHICH-PRINT`, about 49 lines in
 `classic-verbs.zil` (many in Zork II/III branches that Zork I never compiles),
 and about 10 lines in `zork1-de/actions.zil`.
@@ -243,6 +249,11 @@ keep object numbers below 256.
 * `core/loop.zil`: `M-*` codes, `PLAYER`, `P-WON`, `MAIN-LOOP`, `P-MULT`, `P-NOT-HERE`.
 * `core/clock.zil` (`QUEUE`, `INT`, `CLOCKER`), `core/objects.zil`
   (`SEE-INSIDE?`, `CCOUNT`, `WEIGHT`, `HELD?`).
+* `rulesets/classic/common.zil`: the classic rules without text, 44 forms
+  (the exit-table constants, `DO-WALK`, `GLOBAL-IN?`, `FIND-IN`, the score,
+  death, load and verbosity globals, `SCORE-OBJ`, `MUNG-ROOM`, `V-LOOK`,
+  `V-FIRST-LOOK`, `PRE-DROP`, `PRE-PUT`, `NULL-F` and the verbs whose code is
+  shared). Both compositions insert it before their language's verbs.
 * The compiler and runtime: UTF-8 text, TELL-TOKENS, macros, object and
   string limits.
 
@@ -283,9 +294,10 @@ and edits each of these:
    three copied blocks.
 6. **Orphan and GWIM phrasing** as a language routine.
 7. **Shared macros** (`VERB?` through `ABS`) into `core/macros.zil`.
-8. **Classic rules out of the language packages.** 51 forms of
-   `classic-verbs.zil` are identical in both languages (scoring, deaths, exit
-   constants, `DO-WALK`, `DESC-OBJECT`); they belong to the classic ruleset.
+8. **Text out of the classic verbs.** The rules without text are already in
+   `rulesets/classic/common.zil`. The rest of `classic-verbs.zil` is the same
+   algorithm with the language's sentences inside; with message hooks (item 2)
+   most of it moves to the ruleset too.
 
 ### 8.4 Tests a new language needs
 
