@@ -128,7 +128,7 @@ For integration test documentation, see **[tests/TESTS.md](tests/TESTS.md)**.
     - `test_runtime.lua` - Runtime unit tests
     - `run_all.lua` - Unit test runner
 - `infocom/zork1/` - Zork 1 game files
-- `books/blackwood-horror/` - Additional adventure files
+- `books/en/blackwood-horror/` - Additional adventure files
 
 ## Choosing a Story
 
@@ -136,7 +136,7 @@ For integration test documentation, see **[tests/TESTS.md](tests/TESTS.md)**.
 
 ```sh
 lua5.4 main.lua                                   # infocom.zork1.zork1
-lua5.4 main.lua books.the-midnight-ledger.the-midnight-ledger
+lua5.4 main.lua books.en.the-midnight-ledger.the-midnight-ledger
 ```
 
 A story's entry file imports a ruleset, which composes over its language's

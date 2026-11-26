@@ -3,7 +3,7 @@
 local Walk = require("tests.link_walk")
 
 -- Wondertown's tin soldier stands in a shut glass case on the countertop.
-local toys = Walk.new("books.wondertown.wondertown")
+local toys = Walk.new("books.en.wondertown.wondertown")
 local env = toys.env
 env.MOVE(env.WINNER, env.COUNTERTOP)
 env.HERE = env.COUNTERTOP
@@ -17,7 +17,7 @@ assert(toys:offers("take tin soldier"), "An open case lets the soldier be taken"
 assert(not toys:offers("open dusty case"), "An open case offers no Open")
 
 -- A lamp offers the switch position it is not in.
-local ward = Walk.new("books.blackwood-horror.blackwood-horror")
+local ward = Walk.new("books.en.blackwood-horror.blackwood-horror")
 env = ward.env
 env.MOVE(env.OIL_LANTERN, env.WINNER)
 ward:choose("inventory")

@@ -122,11 +122,15 @@ The repository contains both engine code and adventure content.
 
 ### Adventure content
 
-- [infocom/zork1](/Users/ICHERNA/Developer/adventure-arena/External/zilscript/infocom/zork1): canonical imported Zork I content and Zork-related tests.
-- [books/blackwood-horror](/Users/ICHERNA/Developer/adventure-arena/External/zilscript/books/blackwood-horror): local adventure content and its test walkthroughs.
-- [infocom](/Users/ICHERNA/Developer/adventure-arena/External/zilscript/infocom): other imported Infocom sources kept as regular folders, not submodules.
+- [books/en](books/en) and [books/de](books/de) are independent title catalogs. Each game's entry file loads its ruleset or substrate before the local world and actions.
+- The English books use explicit packages in [rulesets](rulesets), [languages](languages), and [core](core).
+- The localized German books load the adapted substrate in [infocom/zork1-de/books.zil](infocom/zork1-de/books.zil).
+- [infocom](infocom) holds the imported games and their tests.
 
-In practice, the engine expects adventures to be modularized into load-order-sensitive files such as globals, parser, verbs, actions, syntax, dungeon, and main.
+Edition IDs include the catalog language, so a save from one edition belongs
+to that edition even when two books have the same slug. See
+[Localizing Adventure Arena books](docs/LOCALIZING_BOOKS.md) for the source
+differences and the conversion workflow.
 
 ## Testing Architecture
 

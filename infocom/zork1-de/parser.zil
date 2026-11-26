@@ -6,7 +6,7 @@
 
 ;"ein, eine, ect. replaces w?one in all cases"
 
-<SETG SIBREAKS ".,\"\%<\%>">
+<SETG SIBREAKS ".,\"<>">
 
 <GLOBAL PRSA <>>
 <GLOBAL PRSI <>>
@@ -75,9 +75,9 @@
 <CONSTANT P-WORDLEN 4> ;"Offset to parts of speech byte"
 
 
-<CONSTANT P-PSOFF %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 6) (T 4)>>
+<CONSTANT P-PSOFF 4>
 			"Offset to parts of speech byte"
-<CONSTANT P-P1OFF %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 7) (T 5)>>
+<CONSTANT P-P1OFF 5>
 			"Offset to first part of speech"
 
 ;<CONSTANT P-PSOFF 4> ;"Offset to first part of speech"
@@ -156,12 +156,7 @@
 	       <SETG LIT <LIT? ,HERE>>
 	       <COND (<NOT ,SUPER-BRIEF> 
 		      <CRLF>)>
-	       %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE>
-		       '<PROG ()
-			      <UPDATE-STATUS-LINE>
-			      <TELL ">">>)
-		      (T
-		       '<TELL ">">)>
+
 	       <PUTB ,P-INBUF 1 0>
 	       <READ ,P-INBUF ,P-LEXV>)>
 	<SETG P-LEN <GETB ,P-LEXV ,P-LEXWORDS>>
@@ -207,10 +202,10 @@
 		      <TELL "Bitte?" CR>
 		      <RFALSE>)
 		     (,P-OFLAG
-		      <TELL "Gespr%achsfetzen wiederholen ist schwierig." CR>
+		      <TELL "Gesprächsfetzen wiederholen ist schwierig." CR>
 		      <RFALSE>)
 		     (<NOT ,P-WON>
-		      <TELL "Das w%urde den Fehler nur wiederholen." CR>
+		      <TELL "Das würde den Fehler nur wiederholen." CR>
 		      <RFALSE>)
 		     (<G? ,P-LEN 1>
 		      <COND (<OR <EQUAL? <GET ,P-LEXV <+ .PTR ,P-LEXELEN>>
@@ -372,7 +367,7 @@
 				   <WT? .WRD ,PS?VERB ,P1?VERB>
 				   <EQUAL? ,WINNER ,PLAYER>>
 			      <TELL
-"Bitte lies die Anleitung zum Spiel, um die richtige Anrede zu finden, die man f%ur andere Leute oder Biester benutzt." CR>
+"Bitte lies die Anleitung zum Spiel, um die richtige Anrede zu finden, die man für andere Leute oder Biester benutzt." CR>
 			      <RFALSE>)
 			     (T
 			      <CANT-USE .PTR>
@@ -513,7 +508,7 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 					  <WT? .NW ,PS?OBJECT>>)
 				    (<AND <NOT .ANDFLG>
 					  <NOT <EQUAL? .NW ,W?ABER ,W?AUSSER
-						       ,W?AU\%SER>>
+						       ,W?AUSSER>>
 					  <NOT <EQUAL? .NW ,W?UND ,W?COMMA>>>
 				     <PUT ,P-ITBL
 					  <+ .NUM 1>
@@ -726,7 +721,7 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 	<TELL "Du hast das Wort %>"> 
 	<WORD-PRINT <GETB <REST ,P-LEXV <SET BUF <* .PTR 2>>> 2>
 		    <GETB <REST ,P-LEXV .BUF> 3>>
-	<TELL "%< so gebraucht, da%s ich es nicht verstehen kann." CR>
+	<TELL "%< so gebraucht, daß ich es nicht verstehen kann." CR>
 	<SETG QUOTE-FLAG <>>
 	<SETG P-OFLAG <>>>
 
@@ -1148,7 +1143,7 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 			 <SETG P-GETFLAGS ,P-ALL>
 			 <COND (<EQUAL? .NW ;,W?OF ;,W?VON ,W?VOLL>
 				<SET PTR <REST .PTR ,P-WORDLEN>>)>)
-			(<EQUAL? .WRD ,W?ABER ,W?AUSSER ,W?AU\%SER>
+			(<EQUAL? .WRD ,W?ABER ,W?AUSSER ,W?AUSSER>
 			 <OR <GET-OBJECT <OR .BUT .TBL>> <RFALSE>>
 			 <SET BUT ,P-BUTS>
 			 <PUT .BUT ,P-MATCHLEN 0>)
@@ -1340,9 +1335,9 @@ then you could just check gender of the first object found to determine
 	<SET LEN <GET .TBL ,P-MATCHLEN>>
 	<SET OBITS ,P-SLOCBITS>
 	<COND (<SET RMG <GETPT ,HERE ,P?GLOBAL>>
-	       <SET RMGL <- </ <PTSIZE .RMG> 2> 1>>
+	       <SET RMGL <- <PTSIZE .RMG> 1>>
 	       <REPEAT ()
-		       <COND (<THIS-IT? <SET OBJ <GET .RMG .CNT>> .TBL>
+		       <COND (<THIS-IT? <SET OBJ <GETB .RMG .CNT>> .TBL>
 			      <OBJ-FOUND .OBJ .TBL>)>
 		       <COND (<IGRTR? CNT .RMGL> <RETURN>)>>)>
 	;<COND (<SET RMG <GETPT ,HERE ,P?PSEUDO>>
@@ -1514,7 +1509,7 @@ then you could just check gender of the first object found to determine
 		       <RETURN <REST .TBL <* .CNT 2>>>)
 		      (<IGRTR? CNT .SIZE> <RFALSE>)>>>
 
-;<ROUTINE ZMEMQB (ITM TBL SIZE "AUX" (CNT 0))
+<ROUTINE ZMEMQB (ITM TBL SIZE "AUX" (CNT 0))
 	<REPEAT ()
 		<COND (<EQUAL? .ITM <GETB .TBL .CNT>>
 		       <RTRUE>)
@@ -1569,11 +1564,8 @@ then you could just check gender of the first object found to determine
 	<RFALSE>)
        (<AND ,P-ADJ
 	     <OR <NOT <SET SYNS <GETPT .OBJ ,P?ADJECTIVE>>>
-		 ;<NOT <ZMEMQB ,P-ADJ .SYNS <- <PTSIZE .SYNS> 1>>>
-		 <NOT %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE>
-			      '<ZMEMQ  ,P-ADJ .SYNS <RMGL-SIZE .SYNS>>)
-			     (T
-			      '<ZMEMQB ,P-ADJ .SYNS <RMGL-SIZE .SYNS>>)>>>>
+		 <NOT <ZMEMQB <WT? ,P-ADJ ,PS?ADJECTIVE ,P1?ADJECTIVE>
+		              .SYNS <- <PTSIZE .SYNS> 1>>>>>
 	<RFALSE>)
        (<AND <NOT <ZERO? ,P-GWIMBIT>> <NOT <FSET? .OBJ ,P-GWIMBIT>>>
 	<RFALSE>)>

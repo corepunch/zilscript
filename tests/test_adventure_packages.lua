@@ -81,7 +81,7 @@ for _, path in ipairs({"rulesets/superhero/system.zil", "rulesets/superhero/en.z
  for name in text:gmatch(",([%w%-%?]+)") do assert(not story[name], path .. " names the story's " .. name) end
  assert(not text:find("DRONE", 1, true) and not text:find("Meridian", 1, true) and not text:find("Dispatch", 1, true), path .. " names a story")
 end
-local superhero = read("books/blackout-at-meridian/blackout-at-meridian.zil")
+local superhero = read("books/en/blackout-at-meridian/blackout-at-meridian.zil")
 assert(superhero:find('<INSERT-FILE "rulesets.superhero.en">',1,true), "superhero book imports its ruleset")
 assert(not superhero:find("infocom/",1,true), "superhero book depends on a historical directory")
 
@@ -192,7 +192,7 @@ io.open = function(path, ...)
  return originalOpen(path,...)
 end
 local ok,err=pcall(function()
- assert(runtime.load_modules(env,{"books.the-midnight-ledger.the-midnight-ledger"},{silent=true}))
+ assert(runtime.load_modules(env,{"books.en.the-midnight-ledger.the-midnight-ledger"},{silent=true}))
  local game=runtime.create_game(env,true)
  local opening=game:start()
  assert(type(opening)=="string" and opening:match("%S"),"empty opening")
@@ -200,7 +200,7 @@ local ok,err=pcall(function()
  local heroEnv = runtime.create_game_env()
  assert(runtime.init(heroEnv,true))
  heroEnv.require("zilscript")
- assert(runtime.load_modules(heroEnv,{"books.blackout-at-meridian.blackout-at-meridian"},{silent=true}))
+ assert(runtime.load_modules(heroEnv,{"books.en.blackout-at-meridian.blackout-at-meridian"},{silent=true}))
  local hero=runtime.create_game(heroEnv,true)
  local heroOpening=hero:start()
  assert(type(heroOpening)=="string" and heroOpening:match("%S"),"empty superhero opening")

@@ -143,7 +143,7 @@ DER-NOM-CAP ,WINNER " seems confused. \"I don't see any ">
 <ROUTINE STAIRS-F ()
 	 <COND (<VERB? THROUGH>
 		<TELL
-"Du mu%st sagen, ob du nach oben oder unten gehen willst." CR>)>>
+"Du mußt sagen, ob du nach oben oder unten gehen willst." CR>)>>
 
 <OBJECT SAILOR
 	(LOC GLOBAL-OBJECTS)
@@ -196,7 +196,7 @@ off toward the west, singing a lively, but somewhat uncouth, sailor song." CR>
 
 <OBJECT GROUND
 	(LOC GLOBAL-OBJECTS)
-	(SYNONYM GRUND BODEN MEERESBODEN SAND FUSSBODEN FU\%SBODEN)
+	(SYNONYM GRUND BODEN MEERESBODEN SAND FUSSBODEN FUSSBODEN)
 	(DESC "Grund")
 	(FLAGS DERBIT)
 	(ACTION GROUND-FUNCTION)>
@@ -218,7 +218,7 @@ off toward the west, singing a lively, but somewhat uncouth, sailor song." CR>
 <OBJECT GRUE
 	(LOC GLOBAL-OBJECTS)
 	(SYNONYM GREUEL)
-	(ADJECTIVE BOESARTIGE B\%OSARTIGE)
+	(ADJECTIVE BOESARTIGE BOESARTIGE)
 	(DESC "Greuel")
 	(ADJDESC "lauernd")
 	(FLAGS DASBIT)
@@ -227,13 +227,13 @@ off toward the west, singing a lively, but somewhat uncouth, sailor song." CR>
 <ROUTINE GRUE-FUNCTION ()
     <COND (<VERB? EXAMINE>
 	   <TELL
-"Das Greuel ist ein b%osartiges lauerndes Wesen in den dunklen Orten dieser Welt. Sein Lieblingsfressen besteht aus Abenteurern, aber sein uners%attlicher Appetit ist von seiner Furcht vor Licht gem%a%sigt Kein Greuel ist je bei Tageslicht gesehen worden, und nur wenige haben seine f%urchterlichen Krallen %uberlebt, um von dem grauenhaften Wesen zu erz%ahlen." CR>)
+"Das Greuel ist ein bösartiges lauerndes Wesen in den dunklen Orten dieser Welt. Sein Lieblingsfressen besteht aus Abenteurern, aber sein unersättlicher Appetit ist von seiner Furcht vor Licht gemäßigt Kein Greuel ist je bei Tageslicht gesehen worden, und nur wenige haben seine fürchterlichen Krallen überlebt, um von dem grauenhaften Wesen zu erzählen." CR>)
 	  (<VERB? FIND>
 	   <TELL
-"Hier ist kein Greuel, aber ich bin sicher, das mindestens eines hier in der N%ahe im Dunkeln auf der Lauer liegt. Es w%are schon klug, auf die Lichtquelle zu achten." CR>)
+"Hier ist kein Greuel, aber ich bin sicher, das mindestens eines hier in der Nähe im Dunkeln auf der Lauer liegt. Es wäre schon klug, auf die Lichtquelle zu achten." CR>)
 	  (<VERB? LISTEN>
 	   <TELL
-"Es gibt keinen Ton von sich, aber es liegt immer in der N%ahe im Dunkeln."
+"Es gibt keinen Ton von sich, aber es liegt immer in der Nähe im Dunkeln."
 CR>)>>
 
 <OBJECT LUNGS
@@ -254,7 +254,7 @@ CR>)>>
 		<SETG P-CONT <>>
 		<SETG QUOTE-FLAG <>>
 		<TELL
-"Selbstgespr%ache deuten auf einen bevorstehenden Nervenzusammenbruch hin."
+"Selbstgespräche deuten auf einen bevorstehenden Nervenzusammenbruch hin."
 CR>)
 	       (<AND <VERB? GIVE>
 		     <EQUAL? ,PRSI ,ME>>
@@ -263,24 +263,24 @@ CR>)
 	       (<VERB? ALARM>
 		<TELL "Du bist schon hellwach!" CR>)
 	       (<VERB? EAT>
-		<TELL "Selbst-Kanibalismus ist nicht die L%osung." CR>)
+		<TELL "Selbst-Kanibalismus ist nicht die Lösung." CR>)
 	       (<VERB? ATTACK MUNG>
 		<COND (<AND ,PRSI <FSET? ,PRSI ,WEAPONBIT>>
 		       <JIGS-UP 
 "Wenn du darauf bestehst.........Bum! Du bist tot.">)
 		      (T
-		       <TELL "Selbstmord ist nicht die L%osung." CR>)>)
+		       <TELL "Selbstmord ist nicht die Lösung." CR>)>)
 	       (<VERB? THROW>
 		<COND (<==? ,PRSO ,ME>
 		       <TELL
-"Warum l%aufst du nicht wie normale Menschen?" CR>)>)
+"Warum läufst du nicht wie normale Menschen?" CR>)>)
 	       (<VERB? TAKE>
 		<TELL "Ach, wie romantisch!" CR>)
 	       (<VERB? EXAMINE>
 		<COND %<COND (<==? ,ZORK-NUMBER 1>
 			      '(<EQUAL? ,HERE <LOC ,MIRROR-1> <LOC ,MIRROR-2>>
 		                <TELL
-"Dein Spiegelbild sieht m%ude aus." CR>))
+"Dein Spiegelbild sieht müde aus." CR>))
 			     (<==? ,ZORK-NUMBER 3>
 			      '(,INVIS
 				<TELL
@@ -293,7 +293,7 @@ CR>)
 "What you can see looks pretty much as usual, sorry to say." CR>)
 			      (ELSE
 			       '<TELL
-"Das ist schwierig, au%ser wenn deine Augen rausnehmbar sind." CR>)>)>)>>
+"Das ist schwierig, außer wenn deine Augen rausnehmbar sind." CR>)>)>)>>
 
 <OBJECT ADVENTURER
 	(SYNONYM ABENTEUER)
@@ -312,7 +312,7 @@ CR>)
 
 <ROUTINE PATH-OBJECT ()
 	 <COND (<VERB? FIND TAKE FOLLOW>
-		<TELL "Du mu%st eine Richtung angeben." CR>)
+		<TELL "Du mußt eine Richtung angeben." CR>)
 	       (<VERB? DIG>
 		<PERFORM ,V?DIG ,GROUND>
 		<RTRUE>)>>
@@ -327,16 +327,16 @@ CR>)
 <ROUTINE ZORKMID-FUNCTION ()
     <COND (<VERB? EXAMINE>
 	   <TELL
-"Zorkknete ist die W%ahrung des Gro%sen Unterweltreiches." CR>)
+"Zorkknete ist die Währung des Großen Unterweltreiches." CR>)
 	  (<VERB? FIND>
 	   <TELL
 "Man findet Zorkknete am besten, indem man rausgeht, und sie sucht." CR>)>>
 
 <OBJECT HANDS
 	(LOC GLOBAL-OBJECTS)
-	(SYNONYM HAND HAENDE H\%ANDE)
+	(SYNONYM HAND HAENDE HAENDE)
 	(ADJECTIVE PAAR)
-	(DESC "Paar H%ande")
+	(DESC "Paar Hände")
 	(FLAGS NDESCBIT TOOLBIT DASBIT)>
 
 ;"status line stuff"
@@ -389,7 +389,7 @@ CR>)
 		<DO-CURSET 1 48 ;53>
 		<TELL "Spielstand:">
 		<DO-CURSET 1 66>
-		<TELL "Z%ugen:">)> ;"ren: JEFF - if Zuegen printed then needs"
+		<TELL "Zügen:">)> ;"ren: JEFF - if Zuegen printed then needs"
 	 ;<BUFOUT T>               ;"to start one char to left, 65"
 	 <HLIGHT ,H-NORMAL>
 	 <SCREEN ,S-TEXT>
@@ -419,7 +419,7 @@ CR>)
 		    <DO-CURSET 1 2>
 		    <SAY-HERE>)>
 	 <COND (<G? ,WIDTH 78>
-		;"in case score g%os down, move 1 col. to left and print space"
+		;"in case score gös down, move 1 col. to left and print space"
 		<DO-CURSET 1 ;59 60>
 		<TELL N ,SCORE " ">
 		<DO-CURSET 1 73>
@@ -428,7 +428,7 @@ CR>)
 		<DIROUT ,D-TABLE-ON ,SL-TABLE>
 		<TELL N ,SCORE "/" N ,MOVES>
 		<DIROUT ,D-TABLE-OFF>
-		;"in case score g%os down, one col. to left and print space"
+		;"in case score gös down, one col. to left and print space"
 		<DO-CURSET 1 <- ,WIDTH <+ <GET ,SL-TABLE 0> 2 ;1>>>
 		<TELL " " N ,SCORE "/" N ,MOVES>)>
 	 <HLIGHT ,H-NORMAL>

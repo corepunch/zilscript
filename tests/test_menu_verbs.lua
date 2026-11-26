@@ -39,14 +39,14 @@ assert(w.env.LOC(w.env.PEBBLE) == w.env.SHELF)
 check(w, "shake pebble", false)
 
 -- The books where the menus first offered "You don't have the reed wick."
-w = Walk.new("books.bell-grew-leaves.bell-grew-leaves")
+w = Walk.new("books.en.bell-grew-leaves.bell-grew-leaves")
 w:choose("east")
 check(w, "shake reed wick", false)
 check(w, "take reed wick", true)
 w:choose("take reed wick")
 check(w, "shake reed wick", true)
 
-w = Walk.new("books.borrowed-tomorrows.borrowed-tomorrows")
+w = Walk.new("books.en.borrowed-tomorrows.borrowed-tomorrows")
 typed(w, "open cabinet")
 check(w, "shake tomorrow leaf", false)
 

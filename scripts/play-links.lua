@@ -1,12 +1,14 @@
 -- Replays a route file through the reader's link menus and shows where it
--- ends: lua5.4 scripts/play-links.lua <game> <route.txt> [tail] [seed]
+-- ends: lua5.4 scripts/play-links.lua <lang>/<book> <route.txt> [tail] [seed]
 -- The route holds one offered command per line; "#" starts a comment. A line
 -- starting with "!" is typed to the parser unchecked, for diagnosing
 -- vocabulary; a route with such a line is not a link-only playthrough.
 package.path = "./?.lua;./?/init.lua;" .. package.path
 local Walk = require("tests.link_walk")
 local name, path, tail, seed = arg[1], arg[2], tonumber(arg[3]) or 1, tonumber(arg[4])
-local walk = Walk.new("books." .. name .. "." .. name, seed, require("zilscript.reader.Language").ofBook(name).code)
+local lang, book = name:match("^(%a%a)/(.+)$")
+assert(lang, "name the edition: en/<book> or de/<book>")
+local walk = Walk.new("books." .. lang .. "." .. book .. "." .. book, seed, lang)
 local shown = { "[start] " .. walk.output }
 local failure
 for raw in io.lines(path) do

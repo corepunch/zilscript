@@ -135,14 +135,11 @@ function Language.of(name)
 	return LANGUAGES[CODES[tostring(name or ""):lower()] or "en"]
 end
 
--- The story language named by books/<name>/game.json ("language": "de").
--- `root` is the repository root, default the working directory.
-function Language.ofBook(name, root)
-	local file = io.open((root or ".") .. "/books/" .. tostring(name):gsub("^books/", ""):gsub("/$", "") .. "/game.json")
-	if not file then return Language.of(nil) end
-	local body = file:read("a")
-	file:close()
-	return Language.of(body:match('"language"%s*:%s*"([^"]*)"'))
+-- The story language of a book: its edition folder, books/<lang>/<book>.
+-- Accepts "books/de/x", "books.de.x", "de/x" or a path inside the book.
+function Language.ofBook(name)
+	local code = tostring(name or ""):gsub("^.-books[/.]", ""):match("^(%a%a)[/.]")
+	return LANGUAGES[code] or LANGUAGES.en
 end
 
 -- A vocabulary word as the reader types it: the story source writes
