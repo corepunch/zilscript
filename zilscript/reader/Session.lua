@@ -278,11 +278,13 @@ local function visitItemActions(item, partners, visit)
 				local traits = second and second.traits or {}
 				-- These checks name the action, not the verb word: a story's
 				-- synonym ("FIT OBJECT ON OBJECT = V-PUT-ON") puts all the same.
-				local standardGift = pattern.action == nil or pattern.action == "GIVE" or pattern.action == "SHOW"
+				-- A pattern built without its action is read by its verb word.
+				local action = pattern.action or (pattern.verb or ""):upper()
+				local standardGift = action == "GIVE" or action == "SHOW"
 				local recipient = standardGift and not pattern.reverse
-				local container = pattern.action ~= nil and pattern.action:match("^[^-]+") == "PUT"
+				local container = action:match("^[^-]+") == "PUT"
 				-- Handing over or putting away needs the thing in hand first.
-				local handed = not pattern.reverse and (pattern.action == "PUT" or standardGift)
+				local handed = not pattern.reverse and (action == "PUT" or standardGift)
 				local identity = second and (second.identity or second.target or second.noun)
 				if second and identity and not paired[identity]
 						and (not pattern.partners or pattern.partners[identity])
