@@ -200,7 +200,7 @@ because the translator never reached them: `V-VERBOSE`, `V-BRIEF`,
 package, because the language owns the words. Other English left in the German
 package **(read, not run)**: `loop.zil` "The " before "Das andere Ding", `parser.zil` "the " in
 `BUFFER-PRINT` and " or " in `WHICH-PRINT`, about 49 lines in
-`classic-verbs.zil` (many in Zork II/III branches that Zork I never compiles),
+the German verbs (many in Zork II/III branches that Zork I never compiles),
 and about 10 lines in `zork1-de/actions.zil`.
 
 ## 6. Version code is not language code
@@ -249,13 +249,11 @@ keep object numbers below 256.
 * `core/loop.zil`: `M-*` codes, `PLAYER`, `P-WON`, `MAIN-LOOP`, `P-MULT`, `P-NOT-HERE`.
 * `core/clock.zil` (`QUEUE`, `INT`, `CLOCKER`), `core/objects.zil`
   (`SEE-INSIDE?`, `CCOUNT`, `WEIGHT`, `HELD?`).
-* `rulesets/classic/common.zil`: the classic rules without text, 44 forms
-  (the exit-table constants, `DO-WALK`, `GLOBAL-IN?`, `FIND-IN`, the score,
-  death, load and verbosity globals, `SCORE-OBJ`, `MUNG-ROOM`, `V-LOOK`,
-  `V-FIRST-LOOK`, `PRE-DROP`, `PRE-PUT`, `NULL-F` and the verbs whose code is
-  shared). Both compositions insert it before their language's verbs.
-* The compiler and runtime: UTF-8 text, TELL-TOKENS, macros, object and
-  string limits.
+* `core/world.zil`: the world without text (exit layout, `DO-WALK`,
+  description state, verbosity, `V-LOOK`, `PRE-DROP`, `PRE-PUT`).
+* `rulesets/classic/common.zil`: Zork's rules without text. Zork's verbs
+  with text are in `rulesets/classic/<lang>-verbs.zil` and their syntax in
+  `<lang>-syntax.zil`, so a language provides only the world verbs.
 
 ### 8.2 What a language package provides today
 
@@ -269,8 +267,10 @@ and edits each of these:
 | `parser.zil` | `SIBREAKS`, `PARSER`, `WT?`, `CLAUSE`, `ORPHAN-MERGE`, `WORD-PRINT`, `UNKNOWN-WORD`, `CANT-USE`, `SYNTAX-CHECK`, `CANT-ORPHAN`, `BUFFER-PRINT`, `PREP-PRINT`, `CLAUSE-COPY`, `GWIM`, `SNARFEM`, `GET-OBJECT`, `WHICH-PRINT`, `GLOBAL-CHECK`, `ITAKE-CHECK`, `MANY-CHECK`, `THIS-IT?`, `ACCESSIBLE?` |
 | `loop.zil` | `MAIN-LOOP-1`, `PERFORM`, `D-APPLY`, `DD-APPLY` |
 | macros or messages | TELL tokens for the language's noun phrases, article and pronoun printers |
-| `classic-globals.zil` | `GLOBAL-OBJECTS` with the grammatical flags, the referent objects, `NOT-HERE-OBJECT` |
-| `classic-verbs.zil` | every `V-*`/`PRE-*` handler with its text, `THIS-IS-IT`, `DESCRIBE-OBJECT`, `PRINT-CONT` |
+| `globals.zil` | `GLOBAL-OBJECTS` with the grammatical flags, the referent objects, `NOT-HERE-OBJECT` |
+| `verbs.zil` | the world `V-*`/`PRE-*` handlers with their text, `THIS-IS-IT`, `DESCRIBE-OBJECT`, `PRINT-CONT` |
+| `base.zil` | the composition a ruleset builds on |
+| `rulesets/<rules>/<lang>-verbs.zil` | each ruleset's verbs in the language (classic: combat, magic, treasure; superhero: the check report and hero actions) |
 | the story | `<DIRECTIONS>`, grammatical data on every object, inflected synonyms, translated descriptions |
 
 ### 8.3 What to extract before a third language is cheap
@@ -294,10 +294,12 @@ and edits each of these:
    three copied blocks.
 6. **Orphan and GWIM phrasing** as a language routine.
 7. **Shared macros** (`VERB?` through `ABS`) into `core/macros.zil`.
-8. **Text out of the classic verbs.** The rules without text are already in
-   `rulesets/classic/common.zil`. The rest of `classic-verbs.zil` is the same
-   algorithm with the language's sentences inside; with message hooks (item 2)
-   most of it moves to the ruleset too.
+8. **Zork out of the world verbs.** Zork's rules are already split off into
+   `rulesets/classic`, but `verbs.zil` still has Zork I special cases (the
+   tree, the entrance to Hades) and Zork II/III branches; move them to the
+   classic rules or Zork I's actions. Then, with message hooks (item 2), the
+   world verbs' algorithm moves to `core/world.zil` and only their sentences
+   stay in each language.
 
 ### 8.4 Tests a new language needs
 

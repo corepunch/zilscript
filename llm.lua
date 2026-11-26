@@ -113,16 +113,7 @@ local GAMES = {
         modules = {"books.last-broadcast.last-broadcast"}
     },
     zork1 = {
-        modules = {
-            "infocom.zork1.globals",
-            "infocom.zork1.clock",
-            "infocom.zork1.parser",
-            "infocom.zork1.verbs",
-            "infocom.zork1.actions",
-            "infocom.zork1.syntax",
-            "infocom.zork1.dungeon",
-            "infocom.zork1.main",
-        }
+        modules = {"infocom.zork1.zork1"}
     },
     zork3 = {
         modules = {

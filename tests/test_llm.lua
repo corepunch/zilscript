@@ -45,16 +45,7 @@ local function boot_zork1_env()
 	local env = runtime.create_game_env()
 	assert(runtime.init(env, true))
 	env.require('zilscript')
-	assert(runtime.load_modules(env, {
-		'infocom.zork1.globals',
-		'infocom.zork1.clock',
-		'infocom.zork1.parser',
-		'infocom.zork1.verbs',
-		'infocom.zork1.actions',
-		'infocom.zork1.syntax',
-		'infocom.zork1.dungeon',
-		'infocom.zork1.main',
-	}, {silent = true}))
+	assert(runtime.load_modules(env, {'infocom.zork1.zork1'}, {silent = true}))
 	return env
 end
 
