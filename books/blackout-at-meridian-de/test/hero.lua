@@ -1,6 +1,6 @@
 -- Shared helpers for the German Blackout at Meridian tests: a typed session on
 -- the seeded reader walk, forced dice, and an independent copy of the
--- percentile table in rulesets/superhero/percentile.zil to check every
+-- percentile table in rulesets/superhero/system.zil to check every
 -- reported roll.
 local Walk = require("tests.link_walk")
 
@@ -54,7 +54,8 @@ local function truthy(v) return v ~= nil and v ~= false and v ~= 0 end
 
 function Session:state()
 	local e = self.env
-	return { health = e.HERO_HEALTH, max = e.HERO_MAX_HEALTH, karma = e.HERO_KARMA, drone = e.DRONE_HP,
+	local function stat(character, attribute) return e.STAT(character, attribute) end
+	return { health = stat(e.HERO, e.A_HEALTH), max = e.MAX_STAT(e.HERO, e.A_HEALTH), karma = stat(e.HERO, e.A_KARMA), drone = stat(e.DRONE_STATS, e.A_HEALTH),
 		rescued = truthy(e.RESCUED), disabled = truthy(e.DISABLED), boosted = truthy(e.BOOSTED), class = e.HERO_CLASS }
 end
 

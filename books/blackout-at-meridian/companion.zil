@@ -12,6 +12,6 @@
  (<EQUAL? ,HERE ,RELAY>
   <COND (<NOT ,DISABLED> <CHOICE "relay.strike" "Strike the drone" "strike drone" ,CHOICE-INVESTIGATE 99>)>
   <CHOICE "relay.bypass" "Throw the bypass lever" "disable console" ,CHOICE-INVESTIGATE 98>
-  <COND (<AND <NOT ,BOOSTED> <L? ,HERO-HEALTH ,HERO-MAX-HEALTH>> <CHOICE "relay.kit" "Use the recovery kit" "use kit" ,CHOICE-INVESTIGATE 95>)>
+  <COND (<AND <NOT ,BOOSTED> <L? <STAT ,HERO ,A-HEALTH> <MAX-STAT ,HERO ,A-HEALTH>>> <CHOICE "relay.kit" "Use the recovery kit" "use kit" ,CHOICE-INVESTIGATE 95>)>
   <CHOICE "relay.back" "Return to the bridge" "west" ,CHOICE-INVESTIGATE 80>)>
  <COND (<NOT <0? ,HERO-CLASS>> <CHOICE "hero.sheet" "Read character sheet" "read sheet" ,CHOICE-INVESTIGATE 90>)>>

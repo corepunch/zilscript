@@ -1,9 +1,13 @@
 <GLOBAL HERO-CLASS 0>
 <GLOBAL RESCUED <>>
-<GLOBAL DRONE-HP 40>
 <GLOBAL DISABLED <>>
 <GLOBAL BOOSTED <>>
-<GLOBAL HERO-NAME <ITABLE 33 (BYTE) 0>>
+<GLOBAL DRONE-STATS <ITABLE 32 0>>
+;"The three profiles: starting ranks for Fighting, Agility, Strength,
+  Endurance, Reason, Intuition, Psyche and Power."
+<GLOBAL BULWARK-RANKS <LTABLE 30 10 40 40 6 10 10 30>>
+<GLOBAL ARC-RANKS <LTABLE 20 40 10 20 20 20 10 40>>
+<GLOBAL LENS-RANKS <LTABLE 10 20 10 20 40 30 20 30>>
 
 <ROOM DISPATCH (DESC "Leitstelle") (IN ROOMS) (FLAGS RLANDBIT ONBIT)
  (NORD TO BRIDGE IF HERO-CLASS ELSE "Die Leitstelle schickt keinen unangemeldeten Helden in den Sturm. W%ahle zuerst ein Profil: Fels, Blitz oder Luchs.")

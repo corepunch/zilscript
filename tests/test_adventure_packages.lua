@@ -32,6 +32,55 @@ for _, lang in ipairs({"en", "de"}) do
  assert(classic["languages/" .. lang .. "/base.zil"], "classic " .. lang .. " composes over languages/" .. lang .. "/base.zil")
 end
 assert(hero["languages/en/base.zil"], "superhero composes over languages/en/base.zil")
+-- The layers of an RPG system: kernel (no language, no system), the kernel's
+-- words per language, the system's numbers, the system's names per language.
+for _, lang in ipairs({"en", "de"}) do
+ local g = {}
+ check("rulesets/superhero/" .. lang .. ".zil", g)
+ for _, layer in ipairs({"languages/" .. lang .. "/base.zil", "rulesets/rpg/kernel.zil", "rulesets/rpg/" .. lang .. ".zil", "rulesets/superhero/system.zil"}) do
+  assert(g[layer], "superhero " .. lang .. " composes " .. layer)
+ end
+ assert(not g["languages/" .. (lang == "en" and "de" or "en") .. "/base.zil"], "superhero " .. lang .. " stands on one language only")
+end
+for _, path in ipairs({"rulesets/rpg/kernel.zil", "rulesets/rpg/en.zil", "rulesets/rpg/de.zil"}) do
+ assert(not read(path):find("rulesets.superhero", 1, true) and not read(path):find("rulesets.classic", 1, true), path .. " names a ruleset it should stand beneath")
+end
+assert(not read("rulesets/superhero/system.zil"):find("INSERT%-FILE"), "a system's numbers insert nothing")
+-- The kernel and the language files name no system and no story: no
+-- attribute of any system, no object or room of any book.
+local systemNames = {}
+for _, path in ipairs({"rulesets/superhero/system.zil"}) do
+ for name in read(path):gmatch("<CONSTANT%s+([%w%-]+)") do systemNames[name] = true end
+end
+assert(systemNames["A-FIGHTING"] and systemNames["A-HEALTH"], "the system's attribute names are read from system.zil")
+local function storyNames()
+ local names = {}
+ for _, book in ipairs({"blackout-at-meridian"}) do
+  for _, file in ipairs({"dungeon.zil", "logic.zil"}) do
+   local f = io.open("books/" .. book .. "/" .. file, "rb")
+   if f then
+    local src = f:read("*a"); f:close()
+    for name in src:gmatch("\n<[OR][BO][JO][EM]C?T?%s+([%w%-]+)") do names[name] = true end
+   end
+  end
+ end
+ return names
+end
+local story = storyNames()
+assert(story.DRONE and story.DISPATCH, "the story names are read from the book")
+for _, path in ipairs({"rulesets/rpg/kernel.zil", "rulesets/rpg/en.zil", "rulesets/rpg/de.zil"}) do
+ local text = read(path)
+ for name in text:gmatch(",([%w%-%?]+)") do
+  assert(not systemNames[name], path .. " names the system's attribute " .. name)
+  assert(not story[name], path .. " names the story's " .. name)
+ end
+ assert(not text:find("DRONE", 1, true) and not text:find("Meridian", 1, true), path .. " names a story")
+end
+for _, path in ipairs({"rulesets/superhero/system.zil", "rulesets/superhero/en.zil", "rulesets/superhero/de.zil"}) do
+ local text = read(path)
+ for name in text:gmatch(",([%w%-%?]+)") do assert(not story[name], path .. " names the story's " .. name) end
+ assert(not text:find("DRONE", 1, true) and not text:find("Meridian", 1, true) and not text:find("Dispatch", 1, true), path .. " names a story")
+end
 local superhero = read("books/blackout-at-meridian/blackout-at-meridian.zil")
 assert(superhero:find('<INSERT-FILE "rulesets.superhero.en">',1,true), "superhero book imports its ruleset")
 assert(not superhero:find("infocom/",1,true), "superhero book depends on a historical directory")
@@ -75,6 +124,7 @@ end
 local shared = {
  {"languages/%s/parser.zil", "core/parser.zil"}, {"languages/%s/loop.zil", "core/loop.zil"},
  {"languages/%s/verbs.zil", "core/world.zil"}, {"languages/%s/globals.zil", "core/world.zil"},
+ {"rulesets/rpg/%s.zil", "rulesets/rpg/kernel.zil"}, {"rulesets/superhero/%s.zil", "rulesets/superhero/system.zil"},
  {"rulesets/classic/%s-verbs.zil", "rulesets/classic/common.zil"}, {"rulesets/classic/%s-globals.zil", "rulesets/classic/common.zil"}}
 for _, pair in ipairs(shared) do
  local file, home = pair[1], pair[2]
@@ -98,7 +148,7 @@ for _, lang in ipairs({"en", "de"}) do
 end
 -- Core and languages name no game's rooms or objects.
 for _, path in ipairs({"core/parser.zil", "core/loop.zil", "core/clock.zil", "core/objects.zil", "core/world.zil", "rulesets/classic/common.zil",
-  "rulesets/superhero/percentile.zil", "rulesets/superhero/en-verbs.zil",
+  "rulesets/rpg/kernel.zil", "rulesets/rpg/en.zil", "rulesets/rpg/de.zil", "rulesets/superhero/system.zil", "rulesets/superhero/en.zil", "rulesets/superhero/de.zil",
   "languages/en/parser.zil", "languages/de/parser.zil", "languages/en/loop.zil", "languages/de/loop.zil"}) do
  for _, name in ipairs({"WEST-OF-HOUSE", "MAILBOX", "TROLL", "THIEF", "CYCLOPS"}) do
   assert(not read(path):find("," .. name, 1, true) and not read(path):find(" " .. name .. ">", 1, true),

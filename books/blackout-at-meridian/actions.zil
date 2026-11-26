@@ -6,13 +6,14 @@
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? T))
  <TELL "Hero: "> <HERO-PRINT-NAME>
  <COND (<0? ,HERO-CLASS> <TELL ", no profile registered yet." CR> <RTRUE>)>
- <TELL " (" > <HERO-PRINT-CLASS> <TELL ")" CR> <HERO-SHEET>>
+ <TELL " (" > <HERO-PRINT-CLASS> <TELL ")" CR> <PRINT-SHEET ,HERO>>
 
 <ROUTINE GO ()
  <V-VERSION> <CRLF>
  <SETG COMPACT-ROOM-LISTS T> <SETG HERE ,DISPATCH> <SETG VERBOSE T> <SETG LIT T>
  <SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
  <MOVE ,DOSSIER ,WINNER>
+ <SET-RESOURCE ,DRONE-STATS ,A-HEALTH 40>
  <TELL "At nine o'clock the storm took Meridian's power, and then someone took the relay station that should have brought it back. A guard drone now holds the station, and on Meridian Bridge a tram full of passengers hangs from a broken cable over the river. You are the city's newest hero, and tonight is your first call. Register a profile at dispatch, then get to the bridge. (Type HELP at any time for how to play.)" CR CR>
  <TELL D ,HERE CR> <V-LOOK> <MAIN-LOOP> <AGAIN>>
 
@@ -35,42 +36,8 @@
        (,DISABLED <TELL "The deep hum of the console, and nothing else." CR>)
        (T <TELL "The deep hum of the console and the high whine of the drone's rotors." CR>)>>
 
-;"READ stores the reply lowercase, so the name is capitalised word by word.
-  A line with characters outside printable ASCII is refused rather than
-  stored half; a blank line keeps the current name."
-<ROUTINE HERO-NAME-STATUS ("AUX" (I 1) C (STATUS 1))
- <REPEAT ()
-  <SET C <GETB ,P-INBUF .I>>
-  <COND (<OR <0? .C> <G? .I 119>> <RETURN>)
-        (<OR <L? .C 32> <G? .C 126>> <SET STATUS 0> <RETURN>)
-        (<N==? .C 32> <SET STATUS 2>)>
-  <SET I <+ .I 1>>>
- .STATUS>
-
-;"Spaces are collapsed, and a name longer than the table is cut at the last
-  whole word that fits."
-<ROUTINE HERO-COPY-NAME ("AUX" (I 1) (J 0) C (CAP T) (SPACE 0))
- <REPEAT ()
-  <SET C <GETB ,P-INBUF .I>>
-  <COND (<OR <0? .C> <G? .I 119>> <RETURN>)
-        (<G? .J 31>
-         <COND (<AND <N==? .C 32> <G? .SPACE 0>> <SET J .SPACE>)>
-         <RETURN>)>
-  <COND (<AND <==? .C 32> <OR <0? .J> <==? <GETB ,HERO-NAME <- .J 1>> 32>>>)
-        (T
-         <COND (<==? .C 32> <SET SPACE .J>)>
-         <COND (<AND .CAP <NOT <L? .C 97>> <NOT <G? .C 122>>> <SET C <- .C 32>>)>
-         <SET CAP <EQUAL? .C 32 45>>
-         <PUTB ,HERO-NAME .J .C>
-         <SET J <+ .J 1>>)>
-  <SET I <+ .I 1>>>
- <COND (<AND <G? .J 0> <==? <GETB ,HERO-NAME <- .J 1>> 32>> <SET J <- .J 1>>)>
- <PUTB ,HERO-NAME .J 0>>
-
-<ROUTINE HERO-PRINT-NAME ("AUX" (I 0) C)
- <COND (<0? <GETB ,HERO-NAME 0>> <TELL "Meridian"> <RTRUE>)>
- <REPEAT () <SET C <GETB ,HERO-NAME .I>> <COND (<OR <0? .C> <G? .I 31>> <RETURN>)>
-  <PRINTC .C> <SET I <+ .I 1>>>>
+<ROUTINE HERO-PRINT-NAME ()
+ <COND (<NAMED?> <PRINT-NAME>) (T <TELL "Meridian">)>>
 
 <ROUTINE HERO-PRINT-CLASS ()
  <COND (<==? ,HERO-CLASS 1> <TELL "Bulwark">)
@@ -80,12 +47,12 @@
 ;"Damage from a failed or answered action: the cost, then the Health left,
   then the ending if nothing is left."
 <ROUTINE HERO-HURT (AMOUNT)
- <HERO-DAMAGE .AMOUNT 0>
- <TELL " (Health " N ,HERO-HEALTH " of " N ,HERO-MAX-HEALTH ".)" CR>
+ <LOSE ,HERO ,A-HEALTH .AMOUNT>
+ <TELL " (Health " N <STAT ,HERO ,A-HEALTH> " of " N <MAX-STAT ,HERO ,A-HEALTH> ".)" CR>
  <HERO-LOSS-CHECK>>
 
 <ROUTINE HERO-LOSS-CHECK ()
- <COND (<0? ,HERO-HEALTH>
+ <COND (<0? <STAT ,HERO ,A-HEALTH>>
         <CRLF>
         <COND (<EQUAL? ,HERE ,RELAY> <TELL "Your knees give way on the concrete floor. The rescue crew drags you out into the rain, and behind you the drone keeps its watch over the dark city.">)
               (T <TELL "Your grip fails and you fall against the rails. The crew pulls the passengers down without you and carries you off the bridge in their net.">)>
@@ -137,18 +104,18 @@
               (<0? ,HERO-CLASS> <TELL " To take it on, choose it.">)>
         <CRLF> <RTRUE>)
        (<VERB? TAKE> <TELL "The card stays pinned to the board. Choose it, and dispatch sends that hero." CR>)
-       (<VERB? HERO-CHOOSE BOOK-USE>
+       (<VERB? RPG-CHOOSE BOOK-USE>
         <COND (<NOT <0? ,HERO-CLASS>>
                <TELL "You are already registered as "> <HERO-PRINT-CLASS>
                <TELL ". Dispatch does not change heroes in the middle of a call." CR> <RTRUE>)>
-        <COND (<EQUAL? ,PRSO ,VANGUARD> <HERO-INIT 30 10 40 40 6 10 10 30>)
-              (<EQUAL? ,PRSO ,ARC> <HERO-INIT 20 40 10 20 20 20 10 40>)
-              (T <HERO-INIT 10 20 10 20 40 30 20 30>)>
+        <COND (<EQUAL? ,PRSO ,VANGUARD> <BECOME ,HERO ,BULWARK-RANKS>)
+              (<EQUAL? ,PRSO ,ARC> <BECOME ,HERO ,ARC-RANKS>)
+              (T <BECOME ,HERO ,LENS-RANKS>)>
         <SETG HERO-CLASS <PROFILE-CLASS ,PRSO>>
         <TELL "Dispatch registers you as "> <HERO-PRINT-CLASS> <TELL ". Your ranks:" CR>
-        <HERO-SHEET>
+        <PRINT-SHEET ,HERO>
         <TELL "The bridge is to the [[north]]." CR> <RTRUE>)
-       (<VERB? HERO-STRIKE> <TELL "Tearing up the duty board will not get anyone off the bridge." CR>)>>
+       (<VERB? RPG-ATTACK> <TELL "Tearing up the duty board will not get anyone off the bridge." CR>)>>
 
 <ROUTINE PROFILE-CLASS (OBJ)
  <COND (<EQUAL? .OBJ ,VANGUARD> 1) (<EQUAL? .OBJ ,ARC> 2) (T 3)>>
@@ -160,7 +127,7 @@
               (<==? ,HERO-CLASS 2> <TELL "The [[Arc]] card is marked ACTIVE in red pen. The [[Bulwark]] and [[Lens]] cards wait for another night." CR>)
               (T <TELL "The [[Lens]] card is marked ACTIVE in red pen. The [[Bulwark]] and [[Arc]] cards wait for another night." CR>)>)
        (<VERB? TAKE MOVE PUSH> <TELL "The board is screwed to the wall. The cards are what matter." CR>)
-       (<VERB? HERO-STRIKE> <TELL "Tearing up the duty board will not get anyone off the bridge." CR>)>>
+       (<VERB? RPG-ATTACK> <TELL "Tearing up the duty board will not get anyone off the bridge." CR>)>>
 
 <ROUTINE WINDOW-F ()
  <COND (<VERB? EXAMINE LOOK-INSIDE>
@@ -168,28 +135,27 @@
        (<VERB? OPEN> <TELL "The window is painted shut, and the storm can stay outside." CR>)
        (<VERB? CLOSE> <TELL "It is already shut." CR>)
        (<VERB? RUB> <TELL "The glass is cold. The rain is on the other side of it." CR>)
-       (<VERB? HERO-STRIKE> <TELL "Dispatch has enough to repair tonight." CR>)>>
+       (<VERB? RPG-ATTACK> <TELL "Dispatch has enough to repair tonight." CR>)>>
 
-<ROUTINE SHEET-F ()
+<ROUTINE SHEET-F ("AUX" STATUS)
  <COND (<VERB? EXAMINE READ>
         <TELL "Hero: "> <HERO-PRINT-NAME>
         <COND (<0? ,HERO-CLASS> <TELL CR "No profile registered yet. Choose [[Bulwark]], [[Arc]] or [[Lens]] at the duty board." CR> <RTRUE>)>
-        <TELL " (" > <HERO-PRINT-CLASS> <TELL ")" CR> <HERO-SHEET> <RTRUE>)
-       (<VERB? HERO-NAME>
-        <TELL "Type your hero name (up to 32 plain letters, digits or punctuation)." CR>
-        <READ ,P-INBUF ,P-LEXV>
-        <COND (<0? <HERO-NAME-STATUS>> <TELL "The dispatch board shows only plain letters, digits and punctuation. Your name stays "> <HERO-PRINT-NAME> <TELL "." CR>)
-              (<==? <HERO-NAME-STATUS> 1> <TELL "No name entered. Dispatch will keep calling you "> <HERO-PRINT-NAME> <TELL "." CR>)
-              (T <HERO-COPY-NAME> <TELL "Registered hero name: "> <HERO-PRINT-NAME> <CRLF>)>
+        <TELL " (" > <HERO-PRINT-CLASS> <TELL ")" CR> <PRINT-SHEET ,HERO> <RTRUE>)
+       (<VERB? RPG-NAME>
+        <SET STATUS <ASK-NAME>>
+        <COND (<0? .STATUS> <TELL "The dispatch board shows only plain letters, digits and punctuation. Your name stays "> <HERO-PRINT-NAME> <TELL "." CR>)
+              (<==? .STATUS 1> <TELL "No name entered. Dispatch will keep calling you "> <HERO-PRINT-NAME> <TELL "." CR>)
+              (T <TELL "Registered hero name: "> <HERO-PRINT-NAME> <CRLF>)>
         <RTRUE>)
        (<VERB? DROP PUT PUT-ON GIVE THROW>
         <TELL "You keep your character sheet. Dispatch needs it to know who you are." CR>)
-       (<VERB? HERO-STRIKE> <TELL "Your sheet is the only paperwork you have tonight. Keep it in one piece." CR>)>>
+       (<VERB? RPG-ATTACK> <TELL "Your sheet is the only paperwork you have tonight. Keep it in one piece." CR>)>>
 
-<ROUTINE HERO-RESCUE-RANK ()
- <COND (<==? ,HERO-CLASS 1> <TELL "Strength check. "> ,HERO-STRENGTH)
-       (<==? ,HERO-CLASS 2> <TELL "Agility check. "> ,HERO-AGILITY)
-       (T <TELL "Power check. "> ,HERO-POWER)>>
+<ROUTINE HERO-RESCUE-ATTR ()
+ <COND (<==? ,HERO-CLASS 1> <TELL "Strength check. "> ,A-STRENGTH)
+       (<==? ,HERO-CLASS 2> <TELL "Agility check. "> ,A-AGILITY)
+       (T <TELL "Power check. "> ,A-POWER)>>
 
 <ROUTINE TRAM-F ()
  <COND (<VERB? EXAMINE LOOK-INSIDE>
@@ -199,12 +165,12 @@
         <COND (,RESCUED <TELL "Only the cable, creaking." CR>)
               (T <TELL "Over the rain you hear a child crying and someone counting out loud to stay calm." CR>)>)
        (<VERB? PUSH> <TELL "Push it, and it falls. The passengers need it held, not pushed." CR>)
-       (<VERB? HERO-STRIKE> <TELL "There are people inside it." CR>)
-       (<VERB? HERO-RESCUE PULL MOVE RAISE CLIMB-ON CLIMB-FOO THROUGH TAKE BOOK-USE>
+       (<VERB? RPG-ATTACK> <TELL "There are people inside it." CR>)
+       (<VERB? RPG-RESCUE PULL MOVE RAISE CLIMB-ON CLIMB-FOO THROUGH TAKE BOOK-USE>
         <COND (<0? ,HERO-CLASS> <TELL "Register a profile at dispatch first." CR> <RTRUE>)>
         <COND (,RESCUED <TELL "Everyone is already safe." CR>)
-              (<HERO-CHECK <HERO-RESCUE-RANK> 1>
-               <SETG RESCUED T> <HERO-REWARD 10>
+              (<CHECK ,HERO <HERO-RESCUE-ATTR> 0 1>
+               <SETG RESCUED T> <GAIN ,HERO ,A-KARMA 10>
                <TELL "You steady the carriage and pass the passengers down, one by one, to the crew's net. The last of them, a boy in a yellow raincoat, will not let go of your hand until his feet are on the ground. (Karma +10.) The way [[east]] to the relay station is open." CR>)
               (T <TELL "The cable slips and the carriage lurches. You take a hit, but the crew's net holds below."> <HERO-HURT 5>)>
         <RTRUE>)>>
@@ -217,7 +183,7 @@
         <COND (,RESCUED <TELL "The chief shouts up: \"Everybody's out! That drone came from the relay station. Go and shut it down!\"" CR>)
               (T <TELL "The chief cups her hands: \"We'll catch them, but that cable won't hold for long. Get them out!\"" CR>)>
         <SETG P-CONT <>> <SETG QUOTE-FLAG <>> <RTRUE>)
-       (<VERB? HERO-STRIKE> <TELL "They are on your side." CR>)
+       (<VERB? RPG-ATTACK> <TELL "They are on your side." CR>)
        (<VERB? LISTEN> <TELL "Radios crackle and somebody counts down the strands left on the cable." CR>)>>
 
 <ROUTINE RAILS-F ()
@@ -226,7 +192,7 @@
        (<VERB? CLIMB-ON CLIMB-FOO CLIMB-UP> <TELL "You lean out over the gap. It is a long way down to the river." CR>)
        (<VERB? TAKE PULL MOVE PUSH RAISE> <TELL "The rails are bolted into the bridge and bent past repair." CR>)
        (<VERB? RUB> <TELL "Cold, wet steel, still humming with the strain of the carriage." CR>)
-       (<VERB? HERO-STRIKE> <TELL "The rails have taken enough damage tonight." CR>)>>
+       (<VERB? RPG-ATTACK> <TELL "The rails have taken enough damage tonight." CR>)>>
 
 <ROUTINE CABLE-F ()
  <COND (<VERB? EXAMINE>
@@ -234,17 +200,17 @@
               (T <TELL "The overhead cable sags under the carriage. As you watch, another strand snaps." CR>)>)
        (<VERB? LISTEN> <TELL "It creaks and sings in the wind." CR>)
        (<VERB? RUB> <TELL "It is dead. No power runs through it tonight, which is the one piece of luck in this storm." CR>)
-       (<VERB? HERO-STRIKE> <TELL "That cable is all that holds the tram up." CR>)
-       (<VERB? TAKE PULL MOVE RAISE CLIMB-ON CLIMB-FOO CLIMB-UP HERO-RESCUE>
+       (<VERB? RPG-ATTACK> <TELL "That cable is all that holds the tram up." CR>)
+       (<VERB? TAKE PULL MOVE RAISE CLIMB-ON CLIMB-FOO CLIMB-UP RPG-RESCUE>
         <COND (,RESCUED <TELL "The cable can hang there until the city has power to repair it." CR>)
-              (T <PERFORM ,V?HERO-RESCUE ,TRAM>)>
+              (T <PERFORM ,V?RPG-RESCUE ,TRAM>)>
         <RTRUE>)>>
 
 ;"A failed or answered strike lets the drone counter while it still flies."
 <ROUTINE DRONE-F ()
  <COND (<VERB? EXAMINE>
         <COND (,DISABLED <TELL "The drone lies on its back, rotors still. Its red eye has gone dark." CR>)
-              (T <TELL "A black guard drone the size of a car door, hovering on four rotors. Its red eye tracks every move you make. Integrity " N ,DRONE-HP " of 40." CR>)>)
+              (T <TELL "A black guard drone the size of a car door, hovering on four rotors. Its red eye tracks every move you make. Integrity " N <STAT ,DRONE-STATS ,A-HEALTH> " of " N <MAX-STAT ,DRONE-STATS ,A-HEALTH> "." CR>)>)
        (<VERB? LISTEN>
         <COND (,DISABLED <TELL "Silence." CR>) (T <TELL "Its rotors whine, high and steady." CR>)>)
        (<VERB? TELL HELLO ANSWER YELL>
@@ -254,18 +220,18 @@
        (<VERB? TAKE RUB PUSH PULL MOVE>
         <COND (,DISABLED <TELL "It is heavier than it looks, and the police will want it. Leave it where it fell." CR>)
               (T <TELL "It slides out of reach and its eye flares red. You would have to fight it." CR>)>)
-       (<VERB? HERO-DISABLE>
-        <COND (,DISABLED <TELL "It is already out of action." CR>) (T <PERFORM ,V?HERO-STRIKE ,DRONE>)> <RTRUE>)
-       (<VERB? HERO-STRIKE>
+       (<VERB? RPG-DISABLE>
+        <COND (,DISABLED <TELL "It is already out of action." CR>) (T <PERFORM ,V?RPG-ATTACK ,DRONE>)> <RTRUE>)
+       (<VERB? RPG-ATTACK>
         <COND (<0? ,HERO-CLASS> <TELL "Register a profile at dispatch first." CR> <RTRUE>)>
         <COND (,DISABLED <TELL "The drone is already out of action." CR> <RTRUE>)>
         <TELL "Fighting check. ">
-        <COND (<HERO-CHECK ,HERO-FIGHTING 1>
-               <SETG DRONE-HP <- ,DRONE-HP ,HERO-POWER>>
-               <COND (<NOT <G? ,DRONE-HP 0>>
-                      <SETG DRONE-HP 0> <SETG DISABLED T> <HERO-REWARD 10>
+        <COND (<CHECK ,HERO ,A-FIGHTING 0 1>
+               <LOSE ,DRONE-STATS ,A-HEALTH <STAT ,HERO ,A-POWER>>
+               <COND (<0? <STAT ,DRONE-STATS ,A-HEALTH>>
+                      <SET-STAT ,DRONE-STATS ,A-HEALTH 0> <SETG DISABLED T> <GAIN ,HERO ,A-KARMA 10>
                       <TELL "The drone crashes to the floor and its red eye goes dark. (Karma +10.) The [[console]] is unguarded." CR>)
-                     (T <TELL "Your blow lands and the drone staggers, sparks pouring from one rotor. Integrity " N ,DRONE-HP " of 40." CR>)>)
+                     (T <TELL "Your blow lands and the drone staggers, sparks pouring from one rotor. Integrity " N <STAT ,DRONE-STATS ,A-HEALTH> " of " N <MAX-STAT ,DRONE-STATS ,A-HEALTH> "." CR>)>)
               (T <TELL "The drone slides aside, and your blow meets only air." CR>)>
         <COND (<NOT ,DISABLED> <TELL "Its stun beam catches you."> <HERO-HURT 10>)>
         <RTRUE>)>>
@@ -277,11 +243,11 @@
         <CRLF>)
        (<VERB? RUB LISTEN> <TELL "It is warm and trembling under the load it should not be carrying." CR>)
        (<VERB? TAKE> <TELL "It is bolted into the concrete." CR>)
-       (<VERB? HERO-STRIKE> <TELL "Smash the console and the city stays dark for weeks. The lever will do." CR>)
-       (<VERB? HERO-DISABLE PULL MOVE PUSH TURN OPEN BOOK-USE>
+       (<VERB? RPG-ATTACK> <TELL "Smash the console and the city stays dark for weeks. The lever will do." CR>)
+       (<VERB? RPG-DISABLE PULL MOVE PUSH TURN OPEN BOOK-USE>
         <COND (<0? ,HERO-CLASS> <TELL "Register a profile at dispatch first." CR> <RTRUE>)>
         <COND (<OR ,DISABLED <HERO-CHECK-REASON>>
-               <SETG DISABLED T> <SETG DRONE-HP 0> <HERO-REWARD 20>
+               <SETG DISABLED T> <SET-STAT ,DRONE-STATS ,A-HEALTH 0> <GAIN ,HERO ,A-KARMA 20>
                <TELL "You throw the bypass lever. The hum of the hall drops to a murmur, the screens wake one by one, and the relay returns to local control. Across the river, Meridian lights up street by street. (Karma +20.)" CR CR "Your radio crackles, and dispatch calls your name: ">
                <HERO-PRINT-NAME> <TELL ". Meridian is safe." CR CR "THE END: THE LIGHTS OF MERIDIAN" CR CR>
                <FINISH>)
@@ -290,22 +256,22 @@
 
 <ROUTINE HERO-CHECK-REASON ()
  <TELL "Reason check, strong success needed. ">
- <HERO-CHECK ,HERO-REASON 2>>
+ <CHECK ,HERO ,A-REASON 0 2>>
 
 <ROUTINE KIT-F ()
  <COND (<VERB? EXAMINE>
         <COND (,BOOSTED <TELL "The kit hangs open and empty." CR>)
               (T <TELL "A red emergency recovery kit, clipped to the wall. It works once, costs 10 Karma to activate, and restores up to 20 Health." CR>)>)
        (<VERB? TAKE> <TELL "It is clipped to the wall. Use it where it hangs." CR>)
-       (<VERB? HERO-STRIKE> <TELL "You may need what is inside it." CR>)
-       (<VERB? HERO-FOCUS BOOK-USE OPEN>
+       (<VERB? RPG-ATTACK> <TELL "You may need what is inside it." CR>)
+       (<VERB? RPG-POWER BOOK-USE OPEN>
         <COND (<0? ,HERO-CLASS> <TELL "Register a profile at dispatch first." CR> <RTRUE>)>
         <COND (,BOOSTED <TELL "The kit is empty." CR>)
-              (<NOT <L? ,HERO-HEALTH ,HERO-MAX-HEALTH>> <TELL "You are unhurt. Keep the kit for when you need it." CR>)
-              (<HERO-SPEND 10>
+              (<NOT <L? <STAT ,HERO ,A-HEALTH> <MAX-STAT ,HERO ,A-HEALTH>>> <TELL "You are unhurt. Keep the kit for when you need it." CR>)
+              (<SPEND ,HERO ,A-KARMA 10>
                <SETG BOOSTED T>
-               <TELL "You crack the kit open and press the patch to your ribs. You recover " N <HERO-HEAL 20> " Health. (Health " N ,HERO-HEALTH " of " N ,HERO-MAX-HEALTH ", Karma " N ,HERO-KARMA ".)" CR>)
-              (T <TELL "Activating the kit takes 10 Karma, and you have " N ,HERO-KARMA "." CR>)>
+               <TELL "You crack the kit open and press the patch to your ribs. You recover " N <GAIN ,HERO ,A-HEALTH 20> " Health. (Health " N <STAT ,HERO ,A-HEALTH> " of " N <MAX-STAT ,HERO ,A-HEALTH> ", Karma " N <STAT ,HERO ,A-KARMA> ".)" CR>)
+              (T <TELL "Activating the kit takes 10 Karma, and you have " N <STAT ,HERO ,A-KARMA> "." CR>)>
         <RTRUE>)>>
 
 <ROUTINE RAIN-F ()
@@ -341,7 +307,7 @@
 
 <ROUTINE DISTANT-TRAM-F ()
  <COND (<VERB? EXAMINE> <TELL "From here it is only a red warning light, swinging over the river. The bridge is to the [[north]]." CR>)
-       (<VERB? HERO-RESCUE> <TELL "It is out on the bridge, to the [[north]]." CR>)>>
+       (<VERB? RPG-RESCUE> <TELL "It is out on the bridge, to the [[north]]." CR>)>>
 
 <ROUTINE STATION-F ()
  <COND (<VERB? EXAMINE>

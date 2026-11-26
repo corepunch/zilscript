@@ -231,7 +231,8 @@ test-book-walkthroughs:
 	done
 
 test-pure-zil: test-adventure-packages test-new-books test-book-playtests test-book-walkthroughs
-	@lua5.4 run-zil-test.lua tests/test-superhero-rules
+	@lua5.4 run-zil-test.lua tests/test-rpg-kernel
+	@lua5.4 run-zil-test.lua tests/test-superhero-system
 	@echo "Running pure ZIL tests..."
 	@lua5.4 run-zil-test.lua zil/test-simple-new
 	@lua5.4 run-zil-test.lua zil/test-insert-file
@@ -281,11 +282,12 @@ zip:
 	tmpdir=$$(mktemp -d); \
 	mkdir -p "$$tmpdir"; \
 	cp books/$$game/*.zil "$$tmpdir/"; \
-	mkdir -p "$$tmpdir/core" "$$tmpdir/languages/en" "$$tmpdir/rulesets/classic" "$$tmpdir/rulesets/superhero"; \
+	mkdir -p "$$tmpdir/core" "$$tmpdir/languages/en" "$$tmpdir/rulesets/classic" "$$tmpdir/rulesets/superhero" "$$tmpdir/rulesets/rpg"; \
 	cp core/*.zil core/LICENSE-ZORK-MIT "$$tmpdir/core/"; \
 	cp languages/en/*.zil languages/en/LICENSE-ZORK-MIT "$$tmpdir/languages/en/"; \
 	cp rulesets/classic/en*.zil rulesets/classic/common.zil rulesets/classic/LICENSE-ZORK-MIT "$$tmpdir/rulesets/classic/"; \
-	cp rulesets/superhero/en*.zil rulesets/superhero/percentile.zil "$$tmpdir/rulesets/superhero/"; \
+	cp rulesets/superhero/en.zil rulesets/superhero/system.zil "$$tmpdir/rulesets/superhero/"; \
+	cp rulesets/rpg/kernel.zil rulesets/rpg/en.zil "$$tmpdir/rulesets/rpg/"; \
 	cd "$$tmpdir" && zip -r "$(CURDIR)/publish/$$game.zip" *.zil core languages rulesets; \
 	rm -rf "$$tmpdir"; \
 	echo "Created publish/$$game.zip"
