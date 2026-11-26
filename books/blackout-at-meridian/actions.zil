@@ -1,9 +1,3 @@
-<SYNTAX STRIKE OBJECT = V-HERO-STRIKE>
-<SYNTAX RESCUE OBJECT = V-HERO-RESCUE>
-<SYNTAX DISABLE OBJECT = V-HERO-DISABLE>
-<SYNTAX CHOOSE OBJECT = V-HERO-CHOOSE>
-<SYNTAX FOCUS OBJECT = V-HERO-FOCUS>
-<SYNTAX NAME OBJECT = V-HERO-NAME>
 
 <ROUTINE V-VERSION () <TELL "Blackout at Meridian|Original superhero prototype|Release " N ,RELEASEID CR>>
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? T)) <HERO-SHEET>>
@@ -98,9 +92,4 @@
  <COND (<G? ,HERO-HEALTH ,HERO-MAX-HEALTH> <SETG HERO-HEALTH ,HERO-MAX-HEALTH>)>
  <TELL "You recover up to 20 Health." CR>)
  (T <TELL "Not enough Karma." CR>)> <RTRUE>)>>
-<ROUTINE V-HERO-NAME () <TELL "Use the character sheet to register a name." CR>>
-<ROUTINE V-HERO-STRIKE () <TELL "That is not a target." CR>>
-<ROUTINE V-HERO-RESCUE () <TELL "Nobody needs rescuing there." CR>>
-<ROUTINE V-HERO-DISABLE () <TELL "That is not a control system." CR>>
-<ROUTINE V-HERO-CHOOSE () <TELL "That is not a profile." CR>>
-<ROUTINE V-HERO-FOCUS () <TELL "That does not help." CR>>
+

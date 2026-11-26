@@ -1,4 +1,6 @@
-;"Rank-based superhero rules, independent of the setting or room parser."
+;"Rank-based superhero rules: attributes, percentile checks, health and
+  karma. Numbers only; each language prints them (rulesets/superhero/en-verbs.zil
+  defines HERO-REPORT-CHECK and HERO-SHEET), and no setting is assumed."
 <GLOBAL HERO-FIGHTING 0>
 <GLOBAL HERO-AGILITY 0>
 <GLOBAL HERO-STRENGTH 0>
@@ -48,12 +50,7 @@
  <SETG HERO-ROLL-VALUE <RANDOM 100>>
  <SET TIER <HERO-TIER .RANK ,HERO-ROLL-VALUE>>
  <SETG HERO-LAST-TIER .TIER>
- <TELL "Rank " N .RANK "; d100 " N ,HERO-ROLL-VALUE "; ">
- <COND (<==? .TIER 0> <TELL "failure.">)
-       (<==? .TIER 1> <TELL "success.">)
-       (<==? .TIER 2> <TELL "strong success.">)
-       (T <TELL "exceptional success.">)>
- <CRLF>
+ <HERO-REPORT-CHECK .RANK ,HERO-ROLL-VALUE .TIER>
  <COND (<L? .TIER .REQUIRED> <RFALSE>) (T <RTRUE>)>>
 
 <ROUTINE HERO-DAMAGE (AMOUNT ARMOR "AUX" LOSS)
@@ -70,9 +67,3 @@
  <COND (<OR <L? .AMOUNT 1> <L? ,HERO-KARMA .AMOUNT>> <RFALSE>)
        (T <SETG HERO-KARMA <- ,HERO-KARMA .AMOUNT>> <RTRUE>)>>
 
-<ROUTINE HERO-SHEET ()
- <TELL "Fighting: " N ,HERO-FIGHTING ", Agility: " N ,HERO-AGILITY CR>
- <TELL "Strength: " N ,HERO-STRENGTH ", Endurance: " N ,HERO-ENDURANCE CR>
- <TELL "Reason: " N ,HERO-REASON ", Intuition: " N ,HERO-INTUITION CR>
- <TELL "Psyche: " N ,HERO-PSYCHE ", Power: " N ,HERO-POWER CR>
- <TELL "Health: " N ,HERO-HEALTH "/" N ,HERO-MAX-HEALTH ", Karma: " N ,HERO-KARMA CR>>

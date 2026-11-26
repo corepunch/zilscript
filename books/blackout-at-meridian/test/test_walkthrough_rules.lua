@@ -24,6 +24,14 @@ local function until_success(command, text, tries)
 end
 
 expect("north", "Choose a profile first.")
+-- The superhero rules stand on the English base alone: Zork's verbs are not
+-- vocabulary, and the ruleset's own words answer when no object does.
+expect("dig", 'I don\'t know the word "dig"')
+expect("pray", 'I don\'t know the word "pray"')
+expect("attack sheet", "That is not a target.")
+expect("inventory", "You are carrying:")
+expect("drop sheet", "Dropped.")
+expect("take sheet", "Taken.")
 -- One line per attribute pair: "|" in a ZIL string is a line break, so the
 -- sheet must not use it as a column separator.
 local sheet = expect("choose bulwark", "Fighting: 30, Agility: 10\n")
@@ -35,7 +43,8 @@ expect("examine front carriage", "caught on a cable")
 until_success("rescue passengers", "guide the last passenger", 8)
 expect("rescue tram", "already safe")
 expect("east", "guard drone")
-until_success("strike drone", "The drone drops.", 8)
+expect("diagnose", "Health ")
+until_success("hit drone", "The drone drops.", 8)
 expect("disable console", "Dispatch calls your name: Meridian. Meridian is safe.")
 assert(not w:running(), "the story ends when Meridian is safe")
 print("ok - Blackout at Meridian typed walkthrough")
