@@ -7,7 +7,6 @@
 <CONSTANT RELEASEID 1>
 
 <OBJECT ADVENTURER
-        (DESC "you")
         (SYNONYM ADVENTURER ME SELF)
         (FLAGS)>
 

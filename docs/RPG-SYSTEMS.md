@@ -89,6 +89,13 @@ A book's logic is written once. Each edition adds its words:
   flags. The logic declares location, flags that drive play and the ACTION;
   the edition declares DESC, LDESC, SYNONYM, ADJECTIVE, the grammatical
   gender and any other text property.
+  The declarations may come in either order. FLAGS are unioned, SYNONYM and
+  ADJECTIVE lists are concatenated without duplicates, and every other
+  property may be given once, or again with the same value; two different
+  values raise an error naming the object and property. Object numbers and
+  the object tree follow the first declaration. Because a declaration of a
+  name that a language package already defines (`STAIRS`, `ADVENTURER`)
+  merges into it, a story names its own rooms and objects differently.
 * **Messages are routines.** Logic never prints text directly: it calls
   message routines (`<MSG-TRAM-SAVED>`) that each edition defines. A message
   that needs a noun phrase uses the language's TELL tokens.
