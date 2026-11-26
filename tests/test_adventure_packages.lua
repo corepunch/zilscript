@@ -18,6 +18,43 @@ end
 check("rulesets/classic/en.zil")
 check("rulesets/classic/de.zil")
 check("languages/de/init.zil")
+check("rulesets/superhero/en.zil")
+local superhero = read("books/blackout-at-meridian/blackout-at-meridian.zil")
+assert(superhero:find('<INSERT-FILE "rulesets.superhero.en">',1,true), "superhero book imports its ruleset")
+assert(not superhero:find("infocom/",1,true), "superhero book depends on a historical directory")
+
+-- A top-level form that is the same in both languages belongs in core/.
+-- Forms inside conditional compilation stay with the loop that owns them.
+local nested = {["SETG DEBUG"] = true, ["DEFINE D-APPLY"] = true, ["ROUTINE DD-APPLY"] = true}
+local function forms(path)
+ local src, out, i = read(path), {}, 1
+ while true do
+  local s, _, kind, name = src:find("\n<(%u[%u%-]*)%s+([^%s>]+)", i)
+  if not s then break end
+  local depth, j, instr = 0, s + 1, false
+  while j <= #src do
+   local c = src:sub(j, j)
+   if instr then
+    if c == "\\" then j = j + 1 elseif c == '"' then instr = false end
+   elseif c == '"' then instr = true
+   elseif c == "<" then depth = depth + 1
+   elseif c == ">" then depth = depth - 1; if depth == 0 then break end end
+   j = j + 1
+  end
+  out[kind .. " " .. name] = src:sub(s + 1, j):gsub(';"[^"]*"', ""):gsub("%s+", " ")
+  i = j
+ end
+ return out
+end
+for _, file in ipairs({"parser", "loop"}) do
+ local de = forms("languages/de/" .. file .. ".zil")
+ for key, body in pairs(forms("languages/en/" .. file .. ".zil")) do
+  assert(nested[key] or key:match("^INSERT%-FILE ") or de[key] ~= body, file .. ": " .. key .. " is identical in both languages; move it to core/" .. file .. ".zil")
+ end
+ for _, lang in ipairs({"en", "de"}) do
+  assert(read("languages/" .. lang .. "/" .. file .. ".zil"):find('<INSERT-FILE "core.' .. file .. '">',1,true), lang .. " " .. file .. " inserts core." .. file)
+ end
+end
 local names = {"bell-grew-leaves", "blackwood-horror", "borrowed-tomorrows", "house-of-the-ebb", "last-broadcast", "limehouse-killings", "museum-unsent-signals", "pocket-weather", "silent-vector", "station-minus-one", "the-midnight-ledger", "wondertown"}
 for _, name in ipairs(names) do
  local path = "books/" .. name .. "/" .. name .. ".zil"
@@ -42,7 +79,15 @@ local ok,err=pcall(function()
  local opening=game:start()
  assert(type(opening)=="string" and opening:match("%S"),"empty opening")
  assert(game:is_running(),"story stopped")
+ local heroEnv = runtime.create_game_env()
+ assert(runtime.init(heroEnv,true))
+ heroEnv.require("zilscript")
+ assert(runtime.load_modules(heroEnv,{"books.blackout-at-meridian.blackout-at-meridian"},{silent=true}))
+ local hero=runtime.create_game(heroEnv,true)
+ local heroOpening=hero:start()
+ assert(type(heroOpening)=="string" and heroOpening:match("%S"),"empty superhero opening")
+ assert(hero:is_running(),"superhero story stopped")
 end)
 io.open=originalOpen
 assert(ok,err)
-print("ok - independent package graph and original book startup")
+print("ok - independent package graph, shared core, original and superhero book startup")

@@ -1,0 +1,478 @@
+;"Language-neutral parser state, tables and helpers shared by every language
+  package, extracted unchanged from the identical English and German sources.
+  Each language parser inserts this file first and supplies its own PARSER,
+  CLAUSE, GWIM, ORPHAN-MERGE, part-of-speech offsets and printing routines.
+  (c) Copyright 1983 Infocom, Inc. See LICENSE-ZORK-MIT."
+
+<GLOBAL PRSA <>>
+
+<GLOBAL PRSI <>>
+
+<GLOBAL PRSO <>>
+
+<GLOBAL P-TABLE 0>
+
+<GLOBAL P-ONEOBJ 0>
+
+<GLOBAL P-SYNTAX 0>
+
+<GLOBAL P-CCTBL <TABLE 0 0 0 0>>
+
+;"pointers used by CLAUSE-COPY (source/destination beginning/end pointers)"
+<CONSTANT CC-SBPTR 0>
+
+<CONSTANT CC-SEPTR 1>
+
+<CONSTANT CC-DBPTR 2>
+
+<CONSTANT CC-DEPTR 3>
+
+<GLOBAL P-LEN 0>
+
+<GLOBAL P-DIR 0>
+
+<GLOBAL WINNER 0>
+
+<GLOBAL P-LEXV
+	<ITABLE 59 (LEXV) 0 #BYTE 0 #BYTE 0> ;<ITABLE BYTE 120>>
+
+<GLOBAL AGAIN-LEXV
+	<ITABLE 59 (LEXV) 0 #BYTE 0 #BYTE 0> ;<ITABLE BYTE 120>>
+
+<GLOBAL RESERVE-LEXV
+	<ITABLE 59 (LEXV) 0 #BYTE 0 #BYTE 0> ;<ITABLE BYTE 120>>
+
+<GLOBAL RESERVE-PTR <>>
+
+;"INBUF - Input buffer for READ"
+
+<GLOBAL P-INBUF
+	<ITABLE 120 (BYTE LENGTH) 0>
+	;<ITABLE BYTE 60>>
+
+<GLOBAL OOPS-INBUF
+	<ITABLE 120 (BYTE LENGTH) 0>
+	;<ITABLE BYTE 60>>
+
+<GLOBAL OOPS-TABLE <TABLE <> <> <> <>>>
+
+<CONSTANT O-PTR 0>	"word pointer to unknown token in P-LEXV"
+
+<CONSTANT O-START 1>	"word pointer to sentence start in P-LEXV"
+
+<CONSTANT O-LENGTH 2>	"byte length of unparsed tokens in P-LEXV"
+
+<CONSTANT O-END 3>	"byte pointer to first free byte in OOPS-INBUF"
+
+;"Parse-cont variable"
+
+<GLOBAL P-CONT <>>
+
+;"Orphan flag"
+
+<GLOBAL P-OFLAG <>>
+
+<GLOBAL P-MERGED <>>
+
+<GLOBAL P-ACLAUSE <>>
+
+<GLOBAL P-ANAM <>>
+
+<GLOBAL P-AADJ <>>
+
+;"Byte offset to # of entries in LEXV"
+
+<CONSTANT P-LEXWORDS 1> ;"Word offset to start of LEXV entries"
+
+<CONSTANT P-LEXSTART 1> ;"Number of words per LEXV entry"
+
+<CONSTANT P-LEXELEN 2>
+
+<CONSTANT P-WORDLEN 4> ;"Offset to parts of speech byte"
+
+<CONSTANT P-P1BITS 3>
+
+<CONSTANT P-ITBLLEN 9>
+
+<GLOBAL P-ITBL <TABLE 0 0 0 0 0 0 0 0 0 0>>
+
+<GLOBAL P-OTBL <TABLE 0 0 0 0 0 0 0 0 0 0>>
+
+<GLOBAL P-VTBL <TABLE 0 0 0 0>>
+
+<GLOBAL P-OVTBL <TABLE 0 #BYTE 0 #BYTE 0>>
+
+<GLOBAL P-NCN 0>
+
+<CONSTANT P-VERB 0>
+
+<CONSTANT P-VERBN 1>
+
+<CONSTANT P-PREP1 2>
+
+<CONSTANT P-PREP1N 3>
+
+<CONSTANT P-PREP2 4>
+
+<CONSTANT P-PREP2N 5>
+
+<CONSTANT P-NC1 6>
+
+<CONSTANT P-NC1L 7>
+
+<CONSTANT P-NC2 8>
+
+<CONSTANT P-NC2L 9>
+
+<GLOBAL QUOTE-FLAG <>>
+
+<GLOBAL P-END-ON-PREP <>>
+
+<GLOBAL P-ACT <>>
+
+<GLOBAL P-WALK-DIR <>>
+
+<GLOBAL AGAIN-DIR <>>
+
+;"For AGAIN purposes, put contents of one LEXV table into another."
+<ROUTINE STUFF (SRC DEST "OPTIONAL" (MAX 29) "AUX" (PTR ,P-LEXSTART) (CTR 1)
+						   BPTR)
+	 <PUTB .DEST 0 <GETB .SRC 0>>
+	 <PUTB .DEST 1 <GETB .SRC 1>>
+	 <REPEAT ()
+	  <PUT .DEST .PTR <GET .SRC .PTR>>
+	  <SET BPTR <+ <* .PTR 2> 2>>
+	  <PUTB .DEST .BPTR <GETB .SRC .BPTR>>
+	  <SET BPTR <+ <* .PTR 2> 3>>
+	  <PUTB .DEST .BPTR <GETB .SRC .BPTR>>
+	  <SET PTR <+ .PTR ,P-LEXELEN>>
+	  <COND (<IGRTR? CTR .MAX>
+		 <RETURN>)>>>
+
+;"Put contents of one INBUF into another"
+<ROUTINE INBUF-STUFF (SRC DEST "AUX" CNT)
+	 <SET CNT <- <GETB .SRC 0> 1>>
+	 <REPEAT ()
+		 <PUTB .DEST .CNT <GETB .SRC .CNT>>
+		 <COND (<DLESS? CNT 0> <RETURN>)>>>
+
+;"Put the word in the positions specified from P-INBUF to the end of
+OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
+<ROUTINE INBUF-ADD (LEN BEG SLOT "AUX" DBEG (CTR 0) TMP)
+	 <COND (<SET TMP <GET ,OOPS-TABLE ,O-END>>
+		<SET DBEG .TMP>)
+	       (T
+		<SET DBEG <+ <GETB ,AGAIN-LEXV
+				   <SET TMP <GET ,OOPS-TABLE ,O-LENGTH>>>
+			     <GETB ,AGAIN-LEXV <+ .TMP 1>>>>)>
+	 <PUT ,OOPS-TABLE ,O-END <+ .DBEG .LEN>>
+	 <REPEAT ()
+	  <PUTB ,OOPS-INBUF <+ .DBEG .CTR> <GETB ,P-INBUF <+ .BEG .CTR>>>
+	  <SET CTR <+ .CTR 1>>
+	  <COND (<EQUAL? .CTR .LEN> <RETURN>)>>
+	 <PUTB ,AGAIN-LEXV .SLOT .DBEG>
+	 <PUTB ,AGAIN-LEXV <- .SLOT 1> .LEN>>
+
+<ROUTINE NUMBER? (PTR "AUX" CNT BPTR CHR (SUM 0) (TIM <>))
+	 <SET CNT <GETB <REST ,P-LEXV <* .PTR 2>> 2>>
+	 <SET BPTR <GETB <REST ,P-LEXV <* .PTR 2>> 3>>
+	 <REPEAT ()
+		 <COND (<L? <SET CNT <- .CNT 1>> 0> <RETURN>)
+		       (T
+			<SET CHR <GETB ,P-INBUF .BPTR>>
+			<COND (<EQUAL? .CHR 58>
+			       <SET TIM .SUM>
+			       <SET SUM 0>)
+			      (<G? .SUM 10000> <RFALSE>)
+			      (<AND <L? .CHR 58> <G? .CHR 47>>
+			       <SET SUM <+ <* .SUM 10> <- .CHR 48>>>)
+			      (T <RFALSE>)>
+			<SET BPTR <+ .BPTR 1>>)>>
+	 <PUT ,P-LEXV .PTR ,W?INTNUM>
+	 <COND (<G? .SUM 1000> <RFALSE>)
+	       (.TIM
+		<COND (<L? .TIM 8> <SET TIM <+ .TIM 12>>)
+		      (<G? .TIM 23> <RFALSE>)>
+		<SET SUM <+ .SUM <* .TIM 60>>>)>
+	 <SETG P-NUMBER .SUM>
+	 ,W?INTNUM>
+
+<GLOBAL P-NUMBER 0>
+
+;"New ACLAUSE-WIN for TRAP retrofix 6/21/84"
+
+<ROUTINE ACLAUSE-WIN (ADJ)
+	<PUT ,P-ITBL ,P-VERB <GET ,P-OTBL ,P-VERB>>
+	<PUT ,P-CCTBL ,CC-SBPTR ,P-ACLAUSE>
+	<PUT ,P-CCTBL ,CC-SEPTR <+ ,P-ACLAUSE 1>>
+	<PUT ,P-CCTBL ,CC-DBPTR ,P-ACLAUSE>
+	<PUT ,P-CCTBL ,CC-DEPTR <+ ,P-ACLAUSE 1>>
+	<CLAUSE-COPY ,P-OTBL ,P-OTBL .ADJ>
+	<AND <NOT <EQUAL? <GET ,P-OTBL ,P-NC2> 0>> <SETG P-NCN 2>>
+	<SETG P-ACLAUSE <>>
+	<RTRUE>>
+
+<ROUTINE NCLAUSE-WIN ()
+        <PUT ,P-CCTBL ,CC-SBPTR ,P-NC1>
+	<PUT ,P-CCTBL ,CC-SEPTR ,P-NC1L>
+	<PUT ,P-CCTBL ,CC-DBPTR ,P-ACLAUSE>
+	<PUT ,P-CCTBL ,CC-DEPTR <+ ,P-ACLAUSE 1>>
+	<CLAUSE-COPY ,P-ITBL ,P-OTBL>
+	<AND <NOT <EQUAL? <GET ,P-OTBL ,P-NC2> 0>> <SETG P-NCN 2>>
+	<SETG P-ACLAUSE <>>
+	<RTRUE>>
+
+;" Perform syntax matching operations, using P-ITBL as the source of
+   the verb and adjectives for this input.  Returns false if no
+   syntax matches, and does it's own orphaning.  If return is true,
+   the syntax is saved in P-SYNTAX."
+
+<GLOBAL P-SLOCBITS 0>
+
+<CONSTANT P-SYNLEN 8>
+
+<CONSTANT P-SBITS 0>
+
+<CONSTANT P-SPREP1 1>
+
+<CONSTANT P-SPREP2 2>
+
+<CONSTANT P-SFWIM1 3>
+
+<CONSTANT P-SFWIM2 4>
+
+<CONSTANT P-SLOC1 5>
+
+<CONSTANT P-SLOC2 6>
+
+<CONSTANT P-SACTION 7>
+
+<CONSTANT P-SONUMS 3>
+
+<ROUTINE ORPHAN (D1 D2 "AUX" (CNT -1))
+	<COND (<NOT ,P-MERGED>
+	       <PUT ,P-OCLAUSE ,P-MATCHLEN 0>)>
+	<PUT ,P-OVTBL 0 <GET ,P-VTBL 0>>
+	<PUTB ,P-OVTBL 2 <GETB ,P-VTBL 2>>
+	<PUTB ,P-OVTBL 3 <GETB ,P-VTBL 3>>
+	<REPEAT ()
+		<COND (<IGRTR? CNT ,P-ITBLLEN> <RETURN>)
+		      (T <PUT ,P-OTBL .CNT <GET ,P-ITBL .CNT>>)>>
+	<COND (<EQUAL? ,P-NCN 2>
+	       <PUT ,P-CCTBL ,CC-SBPTR ,P-NC2>
+	       <PUT ,P-CCTBL ,CC-SEPTR ,P-NC2L>
+	       <PUT ,P-CCTBL ,CC-DBPTR ,P-NC2>
+	       <PUT ,P-CCTBL ,CC-DEPTR ,P-NC2L>
+	       <CLAUSE-COPY ,P-ITBL ,P-OTBL>)>
+	<COND (<NOT <L? ,P-NCN 1>>
+	       <PUT ,P-CCTBL ,CC-SBPTR ,P-NC1>
+	       <PUT ,P-CCTBL ,CC-SEPTR ,P-NC1L>
+	       <PUT ,P-CCTBL ,CC-DBPTR ,P-NC1>
+	       <PUT ,P-CCTBL ,CC-DEPTR ,P-NC1L>
+	       <CLAUSE-COPY ,P-ITBL ,P-OTBL>)>
+	<COND (.D1
+	       <PUT ,P-OTBL ,P-PREP1 <GETB .D1 ,P-SPREP1>>
+	       <PUT ,P-OTBL ,P-NC1 1>)
+	      (.D2
+	       <PUT ,P-OTBL ,P-PREP2 <GETB .D2 ,P-SPREP2>>
+	       <PUT ,P-OTBL ,P-NC2 1>)>>
+
+<ROUTINE THING-PRINT (PRSO? "OPTIONAL" (THE? <>) "AUX" BEG END)
+	 <COND (.PRSO?
+		<SET BEG <GET ,P-ITBL ,P-NC1>>
+		<SET END <GET ,P-ITBL ,P-NC1L>>)
+	       (ELSE
+		<SET BEG <GET ,P-ITBL ,P-NC2>>
+		<SET END <GET ,P-ITBL ,P-NC2L>>)>
+	 <BUFFER-PRINT .BEG .END .THE?>>
+
+<ROUTINE CLAUSE-ADD (WRD "AUX" PTR)
+	<SET PTR <+ <GET ,P-OCLAUSE ,P-MATCHLEN> 2>>
+	<PUT ,P-OCLAUSE <- .PTR 1> .WRD>
+	<PUT ,P-OCLAUSE .PTR 0>
+	<PUT ,P-OCLAUSE ,P-MATCHLEN .PTR>>
+
+<ROUTINE PREP-FIND (PREP "AUX" (CNT 0) SIZE)
+	<SET SIZE <* <GET ,PREPOSITIONS 0> 2>>
+	<REPEAT ()
+		<COND (<IGRTR? CNT .SIZE> <RFALSE>)
+		      (<EQUAL? <GET ,PREPOSITIONS .CNT> .PREP>
+		       <RETURN <GET ,PREPOSITIONS <- .CNT 1>>>)>>>
+
+<ROUTINE SYNTAX-FOUND (SYN)
+	<SETG P-SYNTAX .SYN>
+	<SETG PRSA <GETB .SYN ,P-SACTION>>>
+
+<GLOBAL P-GWIMBIT 0>
+
+<ROUTINE SNARF-OBJECTS ("AUX" OPTR IPTR L)
+	 <PUT ,P-BUTS ,P-MATCHLEN 0>
+	 <COND (<NOT <EQUAL? <SET IPTR <GET ,P-ITBL ,P-NC2>> 0>>
+		<SETG P-SLOCBITS <GETB ,P-SYNTAX ,P-SLOC2>>
+		<OR <SNARFEM .IPTR <GET ,P-ITBL ,P-NC2L> ,P-PRSI> <RFALSE>>)>
+	 <COND (<NOT <EQUAL? <SET OPTR <GET ,P-ITBL ,P-NC1>> 0>>
+		<SETG P-SLOCBITS <GETB ,P-SYNTAX ,P-SLOC1>>
+		<OR <SNARFEM .OPTR <GET ,P-ITBL ,P-NC1L> ,P-PRSO> <RFALSE>>)>
+	 <COND (<NOT <ZERO? <GET ,P-BUTS ,P-MATCHLEN>>>
+		<SET L <GET ,P-PRSO ,P-MATCHLEN>>
+		<COND (.OPTR <SETG P-PRSO <BUT-MERGE ,P-PRSO>>)>
+		<COND (<AND .IPTR
+			    <OR <NOT .OPTR>
+				<EQUAL? .L <GET ,P-PRSO ,P-MATCHLEN>>>>
+		       <SETG P-PRSI <BUT-MERGE ,P-PRSI>>)>)>
+	 <RTRUE>>
+
+<ROUTINE BUT-MERGE (TBL "AUX" LEN BUTLEN (CNT 1) (MATCHES 0) OBJ NTBL)
+	<SET LEN <GET .TBL ,P-MATCHLEN>>
+	<PUT ,P-MERGE ,P-MATCHLEN 0>
+	<REPEAT ()
+		<COND (<DLESS? LEN 0> <RETURN>)
+		      (<ZMEMQ <SET OBJ <GET .TBL .CNT>> ,P-BUTS>)
+		      (T
+		       <PUT ,P-MERGE <+ .MATCHES 1> .OBJ>
+		       <SET MATCHES <+ .MATCHES 1>>)>
+		<SET CNT <+ .CNT 1>>>
+	<PUT ,P-MERGE ,P-MATCHLEN .MATCHES>
+	<SET NTBL ,P-MERGE>
+	<SETG P-MERGE .TBL>
+	.NTBL>
+
+<GLOBAL P-NAM <>>
+
+<GLOBAL P-ADJ <>>
+
+<GLOBAL P-ADVERB <>>
+
+<GLOBAL P-PRSO <ITABLE NONE 50>>
+
+<GLOBAL P-PRSI <ITABLE NONE 50>>
+
+<GLOBAL P-BUTS <ITABLE NONE 50>>
+
+<GLOBAL P-MERGE <ITABLE NONE 50>>
+
+<GLOBAL P-OCLAUSE <ITABLE NONE 100>>
+
+<GLOBAL P-MATCHLEN 0>
+
+<GLOBAL P-GETFLAGS 0>
+
+<CONSTANT P-ALL 1>
+
+<CONSTANT P-ONE 2>
+
+<CONSTANT P-INHIBIT 4>
+
+<GLOBAL P-AND <>>
+
+<CONSTANT SH 128>
+
+<CONSTANT SC 64>
+
+<CONSTANT SIR 32>
+
+<CONSTANT SOG 16>
+
+<CONSTANT STAKE 8>
+
+<CONSTANT SMANY 4>
+
+<CONSTANT SHAVE 2>
+
+<GLOBAL P-XNAM <>>
+
+<GLOBAL P-XADJ <>>
+
+<ROUTINE DO-SL (OBJ BIT1 BIT2 "AUX" BTS)
+	<COND (<BTST ,P-SLOCBITS <+ .BIT1 .BIT2>>
+	       <SEARCH-LIST .OBJ ,P-TABLE ,P-SRCALL>)
+	      (T
+	       <COND (<BTST ,P-SLOCBITS .BIT1>
+		      <SEARCH-LIST .OBJ ,P-TABLE ,P-SRCTOP>)
+		     (<BTST ,P-SLOCBITS .BIT2>
+		      <SEARCH-LIST .OBJ ,P-TABLE ,P-SRCBOT>)
+		     (T <RTRUE>)>)>>
+
+<CONSTANT P-SRCBOT 2>
+
+<CONSTANT P-SRCTOP 0>
+
+<CONSTANT P-SRCALL 1>
+
+<ROUTINE SEARCH-LIST (OBJ TBL LVL "AUX" FLS NOBJ)
+	<COND (<SET OBJ <FIRST? .OBJ>>
+	       <REPEAT ()
+		       <COND (<AND <NOT <EQUAL? .LVL ,P-SRCBOT>>
+				   <GETPT .OBJ ,P?SYNONYM>
+				   <THIS-IT? .OBJ .TBL>>
+			      <OBJ-FOUND .OBJ .TBL>)>
+		       <COND (<AND <OR <NOT <EQUAL? .LVL ,P-SRCTOP>>
+				       <FSET? .OBJ ,SEARCHBIT>
+				       <FSET? .OBJ ,SURFACEBIT>>
+				   <SET NOBJ <FIRST? .OBJ>>
+				   <OR <FSET? .OBJ ,OPENBIT>
+				       <FSET? .OBJ ,TRANSBIT>>>
+			      <SET FLS
+				   <SEARCH-LIST .OBJ
+						.TBL
+						<COND (<FSET? .OBJ ,SURFACEBIT>
+						       ,P-SRCALL)
+						      (<FSET? .OBJ ,SEARCHBIT>
+						       ,P-SRCALL)
+						      (T ,P-SRCTOP)>>>)>
+		       <COND (<SET OBJ <NEXT? .OBJ>>) (T <RETURN>)>>)>>
+
+<ROUTINE OBJ-FOUND (OBJ TBL "AUX" PTR)
+	<SET PTR <GET .TBL ,P-MATCHLEN>>
+	<PUT .TBL <+ .PTR 1> .OBJ>
+	<PUT .TBL ,P-MATCHLEN <+ .PTR 1>>>
+
+<ROUTINE TAKE-CHECK ()
+	<AND <ITAKE-CHECK ,P-PRSO <GETB ,P-SYNTAX ,P-SLOC1>>
+	     <ITAKE-CHECK ,P-PRSI <GETB ,P-SYNTAX ,P-SLOC2>>>>
+
+<ROUTINE ZMEMQ (ITM TBL "OPTIONAL" (SIZE -1) "AUX" (CNT 1))
+	<COND (<NOT .TBL> <RFALSE>)>
+	<COND (<NOT <L? .SIZE 0>> <SET CNT 0>)
+	      (ELSE <SET SIZE <GET .TBL 0>>)>
+	<REPEAT ()
+		<COND (<EQUAL? .ITM <GET .TBL .CNT>>
+		       <RETURN <REST .TBL <* .CNT 2>>>)
+		      (<IGRTR? CNT .SIZE> <RFALSE>)>>>
+
+<GLOBAL ALWAYS-LIT <>>
+
+<ROUTINE LIT? (RM "OPTIONAL" (RMBIT T) "AUX" OHERE (LIT <>))
+	<COND (<AND ,ALWAYS-LIT <EQUAL? ,WINNER ,PLAYER>>
+	       <RTRUE>)>
+	<SETG P-GWIMBIT ,ONBIT>
+	<SET OHERE ,HERE>
+	<SETG HERE .RM>
+	<COND (<AND .RMBIT
+		    <FSET? .RM ,ONBIT>>
+	       <SET LIT T>)
+	      (T
+	       <PUT ,P-MERGE ,P-MATCHLEN 0>
+	       <SETG P-TABLE ,P-MERGE>
+	       <SETG P-SLOCBITS -1>
+	       <COND (<EQUAL? .OHERE .RM>
+		      <DO-SL ,WINNER 1 1>
+		      <COND (<AND <NOT <EQUAL? ,WINNER ,PLAYER>>
+				  <IN? ,PLAYER .RM>>
+			     <DO-SL ,PLAYER 1 1>)>)>
+	       <DO-SL .RM 1 1>
+	       <COND (<G? <GET ,P-TABLE ,P-MATCHLEN> 0> <SET LIT T>)>)>
+	<SETG HERE .OHERE>
+	<SETG P-GWIMBIT 0>
+	.LIT>
+
+<ROUTINE META-LOC (OBJ)
+	 <REPEAT ()
+		 <COND (<NOT .OBJ>
+			<RFALSE>)
+		       (<IN? .OBJ ,GLOBAL-OBJECTS>
+			<RETURN ,GLOBAL-OBJECTS>)>
+		 <COND (<IN? .OBJ ,ROOMS>
+			<RETURN .OBJ>)
+		       (T
+			<SET OBJ <LOC .OBJ>>)>>>

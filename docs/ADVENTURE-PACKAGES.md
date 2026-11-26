@@ -6,11 +6,13 @@ The reusable import graph is independent of historical game folders. All 12 orig
 
 * core/clock.zil: shared scheduler (QUEUE, INT, CLOCKER).
 * core/objects.zil: shared SEE-INSIDE?, CCOUNT, WEIGHT and HELD? (identical implementations in the two historical sources).
+* core/parser.zil: parser state, LEXV/INBUF tables, syntax-table offsets and the 20 helper routines (STUFF, INBUF-ADD, NUMBER?, SNARF-OBJECTS, SEARCH-LIST, LIT?, META-LOC and others) that were byte-identical in English and German. Each language parser inserts it first.
+* core/loop.zil: the M-* handler codes, PLAYER, P-WON, P-MULT, P-NOT-HERE and MAIN-LOOP. The debug PERFORM, D-APPLY and DD-APPLY stay in each language loop because they sit inside its conditional-compilation block.
 * languages/en: English syntax, parser, printing macros, loop and transitional classic verbs/globals.
 * languages/de: German syntax, parser, grammatical rendering, loop and transitional classic verbs/globals. See SOURCE-PROVENANCE.md.
 * rulesets/classic/en.zil and de.zil: explicit ordered composition. German story declarations precede classic globals/loop, preserving the historical order.
 
-The parser, loop, verbs and globals remain mixed legacy implementations within the language directories; this is a physical dependency inversion, not a completed semantic separation. Next extract identical language-neutral parser helpers and dispatch, then separate combat and inventory policy from localized messages. Keep object vocabulary in story resources and expose stable action IDs.
+Every top-level parser and loop form that is identical in both languages now lives in core/; test_adventure_packages.lua fails if one is duplicated again. What remains in languages/ differs between English and German: PARSER, CLAUSE, GWIM, ORPHAN-MERGE, WORD-PRINT and the part-of-speech offsets in the parser, MAIN-LOOP-1 and PERFORM in the loop. Some of these differ only in messages or vocabulary words and can be split into a shared algorithm plus language hooks. The classic verbs and globals are still mixed: 51 forms are identical (scoring, deaths, exit-table constants, DO-WALK, DESC-OBJECT), and they belong to the classic ruleset or core rather than to a language. Next separate combat and inventory policy from localized messages. Keep object vocabulary in story resources and expose stable action IDs.
 
 New stories use qualified imports, not path-search injection:
 
@@ -20,7 +22,7 @@ New stories use qualified imports, not path-search injection:
 <INSERT-FILE "dungeon">
 ```
 
-An RPG-specific ruleset should compose these common world/locale components and then register its own character and action-resolution policy. It must not import historical game folders. The superhero PR #90 will be migrated separately.
+An RPG-specific ruleset should compose these common world/locale components and then register its own character and action-resolution policy. It must not import historical game folders. Blackout at Meridian imports rulesets.superhero.en, which still composes rulesets.classic.en and adds rulesets/superhero/percentile.zil; the superhero rules do not yet replace classic combat or scoring.
 
 ## Validation
 
