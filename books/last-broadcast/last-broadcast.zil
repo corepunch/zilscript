@@ -6,12 +6,6 @@
 <PROPDEF CAPACITY 0>
 <PROPDEF VALUE 0>
 <PROPDEF TVALUE 0>
-<INSERT-FILE "main">
-<INSERT-FILE "clock">
-<INSERT-FILE "parser">
-<INSERT-FILE "syntax">
-<INSERT-FILE "macros">
-<INSERT-FILE "verbs">
-<INSERT-FILE "globals">
+<INSERT-FILE "rulesets.classic.en">
 <INSERT-FILE "dungeon">
 <INSERT-FILE "actions">

@@ -11,13 +11,7 @@
 
 ;"Substrate"
 
-<INSERT-FILE "main">
-<INSERT-FILE "clock">
-<INSERT-FILE "parser">
-<INSERT-FILE "syntax">
-<INSERT-FILE "macros">
-<INSERT-FILE "verbs">
-<INSERT-FILE "globals">
+<INSERT-FILE "rulesets.classic.en">
 
 ;"Book-specific overrides"
 
