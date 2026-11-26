@@ -102,7 +102,7 @@ do
 	has(walk:choose("use magnifying glass on secret ledger"), "nothing there that your unaided eye had missed")
 	has(say(walk, "examine fireplace"), "library grate", "the library fire is not the study's")
 	lacks(say(walk, "examine fireplace"), "box")
-	has(say(walk, "examine open ledger"), "UNPAID")
+	has(say(walk, "examine leather-bound ledger"), "UNPAID")
 	has(say(walk, "examine brass handle"), "magnifying glass")
 end
 
@@ -166,6 +166,96 @@ do
 	for _, command in ipairs({ "take oil lantern", "examine wooden trunk", "examine narrow beds" }) do
 		assert(walk:offers(command), "offered: " .. command)
 	end
+end
+
+-- 10. A second QA pass: vocabulary collisions, absent witnesses, natural verbs.
+do
+	local walk = new()
+	-- "i" was a dead word: INVENTORY as a noun of the wine-cabinet entry split
+	-- it from its verb, so "i" printed "There was no verb in that sentence!"
+	has(say(walk, "i"), "You are carrying")
+	has(say(walk, "help"), "Hint:")
+	for _, c in ipairs({ "north" }) do say(walk, c) end
+	-- OPEN was also an adjective, so after the parser asked "unlock ... with
+	-- what?", "open study door" was taken as the answer.
+	has(say(walk, "unlock study door"), "What do you want to unlock")
+	has(say(walk, "open study door"), "study door is locked")
+	for _, c in ipairs({ "east" }) do say(walk, c) end
+	lacks(say(walk, "attack moriarty"), "What do you want", "attacking a witness needs no weapon")
+	has(say(walk, "read titles"), "Gilt titles")
+	has(say(walk, "tell dr moriarty about poison"), "walks out to the entrance hall")
+	-- Moriarty has left; his name still reaches him, not "the Moriarty".
+	has(say(walk, "ask moriarty"), "Dr. Moriarty is not here")
+	for _, c in ipairs({ "read secret ledger" }) do say(walk, c) end
+	has(say(walk, "show secret ledger to moriarty"), "not here to see it")
+	for _, c in ipairs({ "west" }) do say(walk, c) end
+	has(say(walk, "show secret ledger to moriarty"), "Where did you find that")
+	has(say(walk, "ask moriarty about hudson"), "He's a servant")
+	has(say(walk, "ask moriarty about lady ashworth"), "difficult marriage")
+	for _, c in ipairs({ "west" }) do say(walk, c) end
+	has(say(walk, "ask lady ashworth about moriarty"), "owed him money")
+	has(say(walk, "ask lady ashworth about hudson"), "Loyal, but nervous")
+	has(say(walk, "ask lady ashworth about husband"), "easy one to owe")
+	has(say(walk, "ask lady ashworth about poison"), "know nothing of such things")
+	has(say(walk, "accuse hudson"), "Mr. Hudson is not here")
+	for _, c in ipairs({ "north" }) do say(walk, c) end
+	for _, c in ipairs({ "take dried foxglove", "take powdered charcoal" }) do say(walk, c) end
+	has(say(walk, "read foxglove"), "digitalis")
+	has(say(walk, "read charcoal"), "swallowed poisons")
+	for _, c in ipairs({ "south", "east", "down" }) do say(walk, c) end
+	has(say(walk, "ring bell"), "distant bell rings")
+	for _, c in ipairs({ "west", "south" }) do say(walk, c) end
+	-- Folded note and unsent letter no longer share their nouns.
+	for _, c in ipairs({ "examine wooden trunk", "take folded note" }) do say(walk, c) end
+	lacks(say(walk, "read note"), "Which note", "the note is the folded note")
+end
+
+-- 11. The wolfsbane warns plainly before it kills, charcoal recovers, and
+--     a third taste ends the story through FINISH.
+do
+	local walk = new()
+	walk.env.MOVE(walk.env.POISON_BOTTLE, walk.env.WINNER)
+	walk.env.MOVE(walk.env.CHARCOAL, walk.env.WINNER)
+	has(say(walk, "taste poison bottle"), "perhaps that wasn't wise")
+	has(say(walk, "drink poison bottle"), "One more taste")
+	has(say(walk, "eat powdered charcoal"), "dizziness recedes")
+	assert(walk.env.PLAYER_HEALTH == 2, "charcoal restores one step")
+	say(walk, "taste poison bottle")
+	assert(walk:running(), "two tastes after the charcoal are survivable")
+	has(say(walk, "taste poison bottle"), "UNSOLVED")
+	assert(walk.env.GAME_LOST and walk.finishes == 1, "death ends the story")
+end
+
+-- 12. Hints name the next step of the case, not one generic line.
+do
+	local walk = new()
+	has(say(walk, "hint"), "study is locked")
+	walk.env.STUDY_UNLOCKED = true
+	has(say(walk, "hint"), "study desk")
+	walk.env.DEAD_LETTER_FOUND = true
+	walk.env.POISON_IDENTIFIED = true
+	has(say(walk, "hint"), "ask him about poison")
+	walk.env.MORIARTY_INTERVIEWED, walk.env.LADY_INTERVIEWED, walk.env.HUDSON_INTERVIEWED = true, true, true
+	has(say(walk, "hint"), "at least three pieces of evidence")
+	walk.env.INSPECTOR_PRESENT = true
+	has(say(walk, "hint"), "box in the study fireplace")
+	walk.env.BANK_STATEMENT_FOUND = true
+	has(say(walk, "hint"), "show him the threat")
+	walk.env.LETTER_PRESENTED, walk.env.POISON_PRESENTED, walk.env.MOTIVE_PRESENTED = true, true, true
+	has(say(walk, "hint"), "accuse Dr. Moriarty")
+end
+
+-- 13. The right order opens the shelf without the torn page in hand, and the
+--     chair the furrow points to is in the study.
+do
+	local walk = new()
+	for _, c in ipairs({ "north", "east", "push red book", "push yellow book", "push green book" }) do say(walk, c) end
+	has(say(walk, "push blue book"), "shelving slides aside")
+	assert(walk.env.CIPHER_SOLVED, "the cipher is solved by the order alone")
+	for _, c in ipairs({ "east", "up" }) do say(walk, c) end
+	has(say(walk, "examine chair"), "stands by the hearth")
+	has(say(walk, "take chair"), "leave the chair")
+	has(say(walk, "look in fireplace"), "cold ashes")
 end
 
 print("ok - Limehouse Killings link regressions")

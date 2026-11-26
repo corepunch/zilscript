@@ -191,7 +191,7 @@
       (IN STUDY)
       (DESC "unsent letter")
       (LDESC "An unsent [[letter]], its paper yellowed with age, lies here.")
-      (SYNONYM LETTER NOTE PAPER DEAD-LETTER ENVELOPE)
+      (SYNONYM LETTER PAPER DEAD-LETTER ENVELOPE)
       (ADJECTIVE UNSENT DEAD YELLOWED)
       (FLAGS NDESCBIT TAKEBIT READBIT INVISIBLE)
       (ACTION DEAD-LETTER-F)>
@@ -232,7 +232,7 @@
       (DESC "secret ledger")
       (LDESC "A leather-bound [[ledger]] lies here.")
       (SYNONYM LEDGER BOOK ACCOUNT ACCOUNTS)
-      (ADJECTIVE SECRET LEATHER LEATHER-BOUND OPEN)
+      (ADJECTIVE SECRET LEATHER LEATHER-BOUND)
       (FLAGS NDESCBIT TAKEBIT READBIT)
       (ACTION SECRET-LEDGER-F)>
 
@@ -255,7 +255,7 @@
       (FDESC "A [[leather roll->roll]] lies in the open drawer.")
       (LDESC "A [[leather roll->roll]] lies here.")
       (SYNONYM ROLL WRAP)
-      (ADJECTIVE LEATHER OPEN)
+      (ADJECTIVE LEATHER)
       (FLAGS CONTBIT TAKEBIT)
       (CAPACITY 5)
       (SIZE 3)
@@ -286,7 +286,7 @@
       (IN MR-HUDSON)
       (DESC "keyring")
       (LDESC "A [[ring of keys->keyring]] lies here.")
-      (SYNONYM KEYRING KEYS KEY RING)
+      (SYNONYM KEYRING KEYS KEY)
       (ADJECTIVE STUDY WARDED LONG)
       (FLAGS TAKEBIT TOOLBIT)
       (ACTION KEYRING-F)>
@@ -590,7 +590,7 @@
       (IN TRUNK)
       (DESC "folded note")
       (LDESC "A [[folded note->note]], its edges worn, lies here.")
-      (SYNONYM NOTE LETTER MESSAGE)
+      (SYNONYM NOTE MESSAGE WARNING)
       (ADJECTIVE FOLDED WORN)
       (FLAGS TAKEBIT READBIT)
       (TEXT "The letter is addressed to Mr. Hudson from an unknown sender. It reads: “The master's experiments have gone too far. If anything happens to me, the evidence is in the study. Burn this after reading.” The signature is illegible.")
@@ -683,7 +683,7 @@
       (DESC "iron gates")
       (LDESC "The iron gates stand open, their bars red with rust.")
       (SYNONYM GATES GATE BARS LATCH)
-      (ADJECTIVE IRON RUSTED RUSTY STURDY WET OPEN)
+      (ADJECTIVE IRON RUSTED RUSTY STURDY WET)
       (FLAGS NDESCBIT)
       (ACTION GATES-F)>
 
@@ -785,7 +785,7 @@
 <OBJECT MASTER-TOPIC
       (IN GLOBAL-OBJECTS)
       (DESC "master")
-      (SYNONYM MASTER LORD EMPLOYER)
+      (SYNONYM MASTER LORD EMPLOYER HUSBAND)
 
 	  (ACTION CONVERSATION-TOPIC-F)>
 <OBJECT ALIBI-TOPIC
@@ -806,15 +806,17 @@
       (ADJECTIVE DR DOCTOR DR.)
 	  (ACTION CONVERSATION-TOPIC-F)>
 ; The other two names on the locked box's dial. Moriarty's is MORIARTY-TOPIC.
+; All three names are global, like the other topics, so a witness can be asked
+; about someone who is in another room.
 <OBJECT HUDSON-NAME
-      (IN LOCAL-GLOBALS)
+      (IN GLOBAL-OBJECTS)
       (DESC "Mr. Hudson")
       (SYNONYM HUDSON BUTLER)
       (ADJECTIVE MR MISTER)
       (FLAGS NDESCBIT)
 	  (ACTION CONVERSATION-TOPIC-F)>
 <OBJECT ASHWORTH-NAME
-      (IN LOCAL-GLOBALS)
+      (IN GLOBAL-OBJECTS)
       (DESC "Lady Ashworth")
       (SYNONYM ASHWORTH WIDOW)
       (ADJECTIVE LADY)
@@ -893,7 +895,7 @@
     (ACTION PANTRY-DUST-F)>
 
 <OBJECT OUTSIDE-WINDOW (IN GARDEN) (DESC "study window")
-    (SYNONYM WINDOW SILL) (ADJECTIVE STUDY GARDEN OPEN)
+    (SYNONYM WINDOW SILL) (ADJECTIVE STUDY GARDEN)
     (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "The sill is low enough to step over from the flower bed. A rusty crescent shows where the catch scraped across the frame.")
     (ACTION OUTSIDE-WINDOW-F)>
@@ -944,8 +946,14 @@
     (TEXT "The nap lies flat in one direction. At the hearth it bunches up in a ridge, where the chair leg stopped.")
     (ACTION DETAIL-FURROW-F)>
 
-<OBJECT DETAIL-INVENTORY-ENTRY (IN DINING-ROOM) (DESC "inventory entry")
-    (SYNONYM ENTRY INVENTORY HANDWRITING) (ADJECTIVE HANDWRITTEN WINE)
+<OBJECT STUDY-CHAIR (IN STUDY) (DESC "desk chair")
+    (SYNONYM CHAIR LEG LEGS) (ADJECTIVE DESK LEATHER CHAIR)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Lord Ashworth's leather desk chair stands by the hearth, not at the desk. One leg has dragged a furrow through the carpet: someone pulled the chair to the fireplace and did not put it back.")
+    (ACTION STUDY-CHAIR-F)>
+
+<OBJECT DETAIL-INVENTORY-ENTRY (IN DINING-ROOM) (DESC "handwritten entry")
+    (SYNONYM ENTRY HANDWRITING) (ADJECTIVE HANDWRITTEN WINE)
     (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
     (TEXT "The usual wines are entered in ink. Someone squeezed the tincture into the margin in pencil, leaving no room for a quantity.")
     (ACTION DETAIL-INVENTORY-ENTRY-F)>

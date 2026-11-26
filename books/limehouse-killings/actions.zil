@@ -133,14 +133,8 @@
                    <SCORE-UPD 10>
                    <CHECK-CASE-PROGRESS>)>
            <RTRUE>)
-           (<VERB? TASTE>
-            <TELL "A bitter trace touches your tongue. Your vision swims and your pulse stumbles; perhaps that wasn't wise." CR>
-           <SETG PLAYER-HEALTH <- ,PLAYER-HEALTH 1>>
-           <COND (<==? ,PLAYER-HEALTH 0>
-                  <TELL "You collapse. Everything goes dark." CR>
-                  <SETG GAME-LOST T>
-                  <SETG GAME-ENDED T>
-                  <FINISH>)>
+           (<VERB? TASTE EAT DRINK>
+            <TASTE-POISON>
            <RTRUE>)
           (<VERB? SMELL>
            <TELL "Even through the cork comes a faint, sharp smell, like crushed radish. You hold the bottle away from your face." CR>
@@ -192,6 +186,9 @@
            <RTRUE>)
           (<AND <VERB? USE-ON> <EQUAL? ,PRSO ,MAGNIFYING-GLASS>>
            <TELL "The lens shows you nothing there that your unaided eye had missed." CR>
+           <RTRUE>)
+          (<VERB? LOOK-INSIDE>
+           <TELL "Through the lens your own thumb swells into ridges and whorls. It wants something small and particular to look at." CR>
            <RTRUE>)
           (<VERB? RUB>
            <TELL "You polish the lens on your cuff. The brass handle is warm from your hand and fits it well." CR>
@@ -421,7 +418,7 @@ examined or searched."
            <RTRUE>)>>
 
 <ROUTINE FIREPLACE-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? EXAMINE LOOK-INSIDE SEARCH>
            <COND (<EQUAL? ,HERE ,LIBRARY>
                   <TELL "The library grate is swept and cold; no fire has been laid here tonight." CR>)
                  (T
@@ -466,7 +463,10 @@ examined or searched."
            <RTRUE>)>>
 
 <ROUTINE STUDY-DOOR-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<AND <VERB? LOCK> ,STUDY-UNLOCKED>
+           <TELL "You leave the study unlocked. The inquiry is not finished with it." CR>
+           <RTRUE>)
+          (<VERB? EXAMINE>
            <COND (<FSET? ,STUDY-DOOR ,OPENBIT>
                   <TELL "The solid oak study door stands open. A fresh scrape on the keep shows where the bolt slid back." CR>)
                  (,STUDY-UNLOCKED
@@ -523,7 +523,10 @@ examined or searched."
            <RTRUE>)>>
 
 <ROUTINE BOOKSHELF-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? READ>
+           <TELL "Gilt titles in Latin and English: botany, anatomy, chemistry, a long run of sermons nobody has opened. Four spines stand a little proud of the rest, each with a coloured ribbon." CR>
+           <RTRUE>)
+          (<VERB? EXAMINE>
            <TELL "Most books stand flush with the shelves. Four project a little: a [[red book]], a [[blue book]], a [[green book]], and a [[yellow book]], each marked with a ribbon." CR>
            <RTRUE>)
           (<VERB? PUSH>
@@ -584,7 +587,7 @@ examined or searched."
 <ROUTINE WINE-CABINET-F ()
     <COND (<VERB? EXAMINE>
            <SETG CABINET-CLUE-SEEN T>
-           <TELL "The cabinet is unlatched. Dust outlines a missing squat bottle on the medicinal-wine shelf; beside the gap, a handwritten [[inventory entry]] reads “tincture, private laboratory.” Someone removed the delivery bottle without disturbing the dinner wines." CR>
+           <TELL "The cabinet is unlatched. Dust outlines a missing squat bottle on the medicinal-wine shelf; beside the gap, a handwritten inventory [[entry]] reads “tincture, private laboratory.” Someone removed the delivery bottle without disturbing the dinner wines." CR>
            <RTRUE>)
           (<VERB? OPEN>
            <FSET ,WINE-CABINET ,OPENBIT>
@@ -646,7 +649,7 @@ examined or searched."
     <COND (<VERB? EXAMINE>
            <TELL "A brass bell hangs on a coiled spring above the door, with a pull rope beside it. A wire from the bell runs up through the ceiling to the rooms above." CR>
            <RTRUE>)
-          (<VERB? MOVE USE>
+          (<VERB? MOVE USE RING>
            <TELL "You pull the bell rope. A distant bell rings upstairs." CR>
            <RTRUE>)
           (<VERB? LISTEN>
@@ -886,7 +889,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
            <RTRUE>)>>
 
 <ROUTINE FOXGLOVE-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? EXAMINE READ>
            <TELL "The foxglove label names digitalis and gives a narrow medicinal dose, followed by a skull: medicine at one dose, a stopped heart at another." CR>
            <RTRUE>)
           (<VERB? TAKE>
@@ -903,7 +906,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
            <RTRUE>)>>
 
 <ROUTINE CHARCOAL-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? EXAMINE READ>
            <TELL "The powdered charcoal is labeled for immediate use after swallowed poisons. It can limit harm, not identify a culprit." CR>
            <RTRUE>)
           (<VERB? TAKE>
@@ -912,7 +915,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
            <FSET ,CHARCOAL ,TOUCHBIT>
            <FCLEAR ,CHARCOAL ,NDESCBIT>
            <RTRUE>)
-          (<VERB? USE>
+          (<VERB? USE EAT DRINK>
            <COND (<==? ,PLAYER-HEALTH 3>
                   <TELL "You have swallowed no poison. Save the charcoal for an actual emergency." CR>)
                  (T
@@ -1230,10 +1233,10 @@ player has had the lid up, a closed trunk stays closed to a glance."
                  (<EQUAL? ,PRSI ,ROOMS>
                   <TELL "I'm in the servants' quarters." CR>
                   <RTRUE>)
-                 (<EQUAL? ,PRSI ,MR-HUDSON>
+                 (<EQUAL? ,PRSI ,MR-HUDSON ,HUDSON-NAME>
                   <TELL "Yes? What is it?" CR>
                   <RTRUE>)
-                 (<EQUAL? ,PRSI ,LADY-ASHWORTH>
+                 (<EQUAL? ,PRSI ,LADY-ASHWORTH ,ASHWORTH-NAME>
                   <TELL "Lady Ashworth? She was in the drawing room, I believe." CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSI ,DR-MORIARTY>
@@ -1245,7 +1248,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
                  (<EQUAL? ,PRSI ,BLOOD-STAINED-KNIFE>
                   <TELL "A knife? I don't recognize it." CR>
                   <RTRUE>)
-                 (<EQUAL? ,PRSI ,POISON-BOTTLE>
+                 (<EQUAL? ,PRSI ,POISON-BOTTLE ,POISON-TOPIC>
                   <TELL "Poison? I would never touch such things." CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSI ,KEYRING>
@@ -1325,13 +1328,19 @@ player has had the lid up, a closed trunk stays closed to a glance."
                  (<EQUAL? ,PRSI ,ROOMS>
                   <TELL "I was in the drawing room all evening." CR>
                   <RTRUE>)
-                 (<EQUAL? ,PRSI ,LADY-ASHWORTH>
+                 (<EQUAL? ,PRSI ,LADY-ASHWORTH ,ASHWORTH-NAME>
                   <TELL "Yes? What is it?" CR>
                   <RTRUE>)
-                 (<EQUAL? ,PRSI ,DR-MORIARTY>
+                 (<EQUAL? ,PRSI ,MASTER-TOPIC>
+                  <TELL "“My husband was a hard man to love and an easy one to owe,” Lady Ashworth says. “He kept his accounts closer than his wife.”" CR>
+                  <RTRUE>)
+                 (<EQUAL? ,PRSI ,WAX-SEAL>
+                  <TELL "“Moriarty sealed every private delivery with an M,” she says. “My husband hated the theatricality of it.”" CR>
+                  <RTRUE>)
+                 (<EQUAL? ,PRSI ,DR-MORIARTY ,MORIARTY-TOPIC>
                   <TELL "Dr. Moriarty was a frequent guest. My husband owed him money." CR>
                    <RTRUE>)
-                 (<EQUAL? ,PRSI ,MR-HUDSON>
+                 (<EQUAL? ,PRSI ,MR-HUDSON ,HUDSON-NAME>
                   <TELL "Mr. Hudson? He's been with the household for years. Loyal, but nervous." CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSI ,DEAD-LETTER>
@@ -1340,7 +1349,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
                  (<EQUAL? ,PRSI ,BLOOD-STAINED-KNIFE>
                   <TELL "A knife? I don't know anything about it." CR>
                   <RTRUE>)
-                 (<EQUAL? ,PRSI ,POISON-BOTTLE>
+                 (<EQUAL? ,PRSI ,POISON-BOTTLE ,POISON-TOPIC>
                   <TELL "Poison? I know nothing of such things." CR>
                   <RTRUE>)
                  (T
@@ -1416,13 +1425,13 @@ player has had the lid up, a closed trunk stays closed to a glance."
                  (<EQUAL? ,PRSI ,ROOMS>
                   <TELL "I was at my laboratory all evening. Ask my assistant." CR>
                   <RTRUE>)
-                 (<EQUAL? ,PRSI ,DR-MORIARTY>
+                 (<EQUAL? ,PRSI ,DR-MORIARTY ,MORIARTY-TOPIC>
                   <TELL "Yes? What is it?" CR>
                   <RTRUE>)
-                 (<EQUAL? ,PRSI ,LADY-ASHWORTH>
+                 (<EQUAL? ,PRSI ,LADY-ASHWORTH ,ASHWORTH-NAME>
                   <TELL "Lady Ashworth? She's a fine woman, trapped in a difficult marriage." CR>
                   <RTRUE>)
-                 (<EQUAL? ,PRSI ,MR-HUDSON>
+                 (<EQUAL? ,PRSI ,MR-HUDSON ,HUDSON-NAME>
                   <TELL "Mr. Hudson? He's a servant. What about him?" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSI ,DEAD-LETTER>
@@ -1508,13 +1517,13 @@ player has had the lid up, a closed trunk stays closed to a glance."
                  (<EQUAL? ,PRSI ,INSPECTOR>
                   <TELL "Yes? What is it?" CR>
                   <RTRUE>)
-                 (<EQUAL? ,PRSI ,DR-MORIARTY>
+                 (<EQUAL? ,PRSI ,DR-MORIARTY ,MORIARTY-TOPIC>
                   <TELL "Dr. Moriarty? A respected scientist. You'll need strong evidence." CR>
                   <RTRUE>)
-                 (<EQUAL? ,PRSI ,LADY-ASHWORTH>
+                 (<EQUAL? ,PRSI ,LADY-ASHWORTH ,ASHWORTH-NAME>
                   <TELL "Lady Ashworth? She has an alibi. What evidence do you have?" CR>
                   <RTRUE>)
-                 (<EQUAL? ,PRSI ,MR-HUDSON>
+                 (<EQUAL? ,PRSI ,MR-HUDSON ,HUDSON-NAME>
                   <TELL "Mr. Hudson? He was in the servants' quarters. What evidence do you have?" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSI ,DEAD-LETTER>
@@ -1595,6 +1604,21 @@ player has had the lid up, a closed trunk stays closed to a glance."
            <TELL "You don't have that." CR>
            <RTRUE>)>>
 
+"Each taste of the wolfsbane costs health; the warnings grow plainer, the
+pantry charcoal restores a step, and the third taste ends the story."
+
+<ROUTINE TASTE-POISON ()
+    <SETG PLAYER-HEALTH <- ,PLAYER-HEALTH 1>>
+    <COND (<==? ,PLAYER-HEALTH 2>
+           <TELL "A bitter trace touches your tongue. Your vision swims and your pulse stumbles; perhaps that wasn't wise." CR>)
+          (<==? ,PLAYER-HEALTH 1>
+           <TELL "Your lips go numb and your heart knocks unevenly against your ribs. One more taste of this would stop it altogether." CR>)
+          (T
+           <TELL "The numbness spreads from your mouth to your fingers. You sit down hard on the floor, and your heart stumbles, and stumbles again, and stops. Ashworth's murderer will be found by someone else, if he is found at all." CR CR "THE LIMEHOUSE KILLINGS -- UNSOLVED" CR>
+           <SETG GAME-LOST T>
+           <SETG GAME-ENDED T>
+           <FINISH>)>>
+
 <ROUTINE V-USE ()
     <TELL "You can't use that here." CR>
     <RTRUE>>
@@ -1605,20 +1629,17 @@ player has had the lid up, a closed trunk stays closed to a glance."
 
 <ROUTINE V-EAT ()
     <COND (<EQUAL? ,PRSO ,POISON-BOTTLE>
-           <TELL "A bitter trace touches your tongue. Your vision swims and your pulse stumbles; perhaps that wasn't wise." CR>
-           <SETG PLAYER-HEALTH <- ,PLAYER-HEALTH 1>>
-           <COND (<==? ,PLAYER-HEALTH 0>
-                  <TELL "You collapse. Everything goes dark." CR>
-                  <SETG GAME-LOST T>
-                  <SETG GAME-ENDED T>
-                  <FINISH>)>
+           <TASTE-POISON>
            <RTRUE>)
           (T
            <TELL "Tasting the " D ,PRSO " would tell you nothing useful." CR>
            <RTRUE>)>>
 
 <ROUTINE V-SHOW ()
-    <TELL "The " D ,PRSI " doesn't seem interested." CR>
+    <COND (<FSET? ,PRSI ,ACTORBIT>
+           <TELL D ,PRSI " glances at it and says nothing." CR>)
+          (T
+           <TELL "You can only show things to people." CR>)>
     <RTRUE>>
 
 <ROUTINE V-OPEN ()
@@ -1697,8 +1718,8 @@ player has had the lid up, a closed trunk stays closed to a glance."
             <TELL "Mr. Hudson was in the servants' quarters. The knife isn't his." CR>
             <SETG WRONG-ATTEMPTS <+ ,WRONG-ATTEMPTS 1>>
             <RTRUE>)
-           (<EQUAL? ,PRSO ,MORIARTY-TOPIC>
-            <TELL "Dr. Moriarty is not here." CR>
+           (<EQUAL? ,PRSO ,MORIARTY-TOPIC ,HUDSON-NAME ,ASHWORTH-NAME>
+            <PERSON-OF ,PRSO> <TELL " is not here." CR>
             <RTRUE>)
            (T
            <TELL "You must name a specific suspect." CR>
@@ -1728,15 +1749,30 @@ player has had the lid up, a closed trunk stays closed to a glance."
                  <PUTP .OBJ ,P?VALUE 0>
                  <FSET .OBJ ,TOUCHBIT>)>)>>
 
+"Hints follow the case in order and name the next step, never the whole
+solution at once."
+
 <ROUTINE V-HINTS ()
-    <COND (<NOT ,STUDY-UNLOCKED>
-           <TELL "Hint: Mr. Hudson may know how to open the study." CR>)
-          (<NOT ,CIPHER-SOLVED>
-           <TELL "Hint: compare the torn page with the colored markers in the library." CR>)
+    <COND (<AND <NOT ,CIPHER-SOLVED> <NOT ,STUDY-UNLOCKED>>
+           <TELL "Hint: the study is locked from the hall. Mr. Hudson keeps the household keys, and the library may hide another way in: compare the torn page with the ribbons on the marked books." CR>)
+          (<NOT ,DEAD-LETTER-FOUND>
+           <TELL "Hint: go through the papers on the study desk. Lord Ashworth wrote something he never sent." CR>)
           (<NOT ,POISON-IDENTIFIED>
            <TELL "Hint: compare the poison bottle with the labeled greenhouse plants." CR>)
+          (<NOT ,MORIARTY-INTERVIEWED>
+           <TELL "Hint: interview every suspect. Dr. Moriarty will talk about his experiments, but ask him about poison." CR>)
+          (<NOT ,LADY-INTERVIEWED>
+           <TELL "Hint: interview every suspect. Ask Lady Ashworth where she was: her alibi." CR>)
+          (<NOT ,HUDSON-INTERVIEWED>
+           <TELL "Hint: interview every suspect. Ask Mr. Hudson in the servants' quarters for his alibi." CR>)
+          (<NOT ,INSPECTOR-PRESENT>
+           <TELL "Hint: Lestrade comes once every suspect has been interviewed and you hold at least three pieces of evidence. The garden hedges and the library desk both hide some." CR>)
+          (<NOT ,BANK-STATEMENT-FOUND>
+           <TELL "Hint: the box in the study fireplace opens to the one name that connects a letter, a purple flower and a debt." CR>)
+          (<NOT <AND ,LETTER-PRESENTED ,POISON-PRESENTED ,MOTIVE-PRESENTED>>
+           <TELL "Hint: Lestrade wants a chain: show him the threat, the method and the motive, the unsent letter, the poison bottle and the bank statement." CR>)
           (T
-           <TELL "Hint: gather the evidence, interview every suspect, and report to Inspector Lestrade." CR>)>
+           <TELL "Hint: accuse Dr. Moriarty before Lestrade, and lead with the unsent letter or the poison bottle." CR>)>
     <RTRUE>>
 
 ; === HELPER ROUTINES ===
@@ -1771,19 +1807,18 @@ player has had the lid up, a closed trunk stays closed to a glance."
 
 ; === PUZZLE LOGIC ===
 
+"The right order opens the shelf whether or not the reader still carries the
+torn page; it used to refuse with a line about the page, after all four books
+had been pressed correctly."
+
 <ROUTINE SOLVE-CIPHER ()
-    <COND (<AND <IN? ,TORN-PAGE ,WINNER>
-                <==? ,HERE ,LIBRARY>>
-           <TELL "The blue book settles with a final click. A section of shelving slides aside, opening a stone passage to the [[east]]." CR>
-           <SETG CIPHER-SOLVED T>
-           <SETG SECRET-PASSAGE-FOUND T>
-           <SETG SECRET-PASSAGE-OPEN T>
-           <SETG CASE-ACT 2>
-           <TELL CR "Somewhere in the manor a bell wire trembles. Behind the books, a draught reaches you from the study. A hidden stair offers another way into the room." CR>
-           <RTRUE>)
-          (T
-           <TELL "You need the torn page and colored markers to solve the cipher." CR>
-           <RTRUE>)>>
+    <TELL "The blue book settles with a final click. A section of shelving slides aside, opening a stone passage to the [[east]]." CR>
+    <SETG CIPHER-SOLVED T>
+    <SETG SECRET-PASSAGE-FOUND T>
+    <SETG SECRET-PASSAGE-OPEN T>
+    <SETG CASE-ACT 2>
+    <TELL CR "Somewhere in the manor a bell wire trembles. Behind the books, a draught reaches you from the study. A hidden stair offers another way into the room." CR>
+    <RTRUE>>
 
 <ROUTINE IDENTIFY-POISON ()
     <COND (<AND ,POISON-IDENTIFIED
@@ -1820,7 +1855,10 @@ player has had the lid up, a closed trunk stays closed to a glance."
 <SYNTAX SHOW OBJECT (HAVE) TO OBJECT (FIND ACTORBIT) (IN-ROOM) = V-SHOW>
 <SYNTAX ALIGN OBJECT (FIND TURNBIT) (ON-GROUND IN-ROOM) TO OBJECT = V-ALIGN>
 <SYNTAX HINTS = V-HINTS>
-<SYNONYM HINTS HINT>
+<SYNONYM HINTS HINT HELP>
+; The classic rules know ATTACK only WITH a weapon, so a bare "attack hudson"
+; used to ask for one; each witness has its own reply.
+<SYNTAX ATTACK OBJECT (FIND ACTORBIT) (ON-GROUND IN-ROOM) = V-ATTACK>
 <SYNTAX ACCUSE OBJECT (FIND ACTORBIT) (IN-ROOM) = V-ACCUSE>
 <SYNTAX ACCUSE OBJECT (FIND ACTORBIT) (IN-ROOM) WITH OBJECT (HAVE) = V-ACCUSE>
 <SYNTAX LOOK AT OBJECT (HELD CARRIED ON-GROUND IN-ROOM) = V-EXAMINE>
@@ -1960,7 +1998,13 @@ player has had the lid up, a closed trunk stays closed to a glance."
            <RTRUE>)>>
 
 <ROUTINE CONVERSATION-TOPIC-F ("AUX" WHO)
-	<COND (<VERB? EXAMINE>
+	<COND (<AND <VERB? TELL ACCUSE> <EQUAL? ,PRSO ,MORIARTY-TOPIC ,HUDSON-NAME ,ASHWORTH-NAME>>
+		<PERSON-OF ,PRSO> <TELL " is not here. You will have to find "> <PRONOUN-OF ,PRSO> <TELL " to put a question." CR>
+		<RTRUE>)
+	      (<AND <VERB? SHOW GIVE> <EQUAL? ,PRSI ,MORIARTY-TOPIC ,HUDSON-NAME ,ASHWORTH-NAME>>
+		<PERSON-OF ,PRSI> <TELL " is not here to see it." CR>
+		<RTRUE>)
+	      (<VERB? EXAMINE>
 		<COND (<AND <EQUAL? ,HERE ,STUDY>
 			    <EQUAL? ,PRSO ,MORIARTY-TOPIC ,HUDSON-NAME ,ASHWORTH-NAME>>
 			<COND (<EQUAL? ,PRSO ,MORIARTY-TOPIC> <COND (,DEAD-LETTER-FOUND <TELL "Moriarty is the scientist Ashworth meant to expose. His name is also one of the three on the box dial." CR>)
@@ -1972,6 +2016,18 @@ player has had the lid up, a closed trunk stays closed to a glance."
 		      (T
 			<TELL "That is a question for a witness, not a thing to inspect. Put it to someone who was in the house that night." CR>)>
 		<RTRUE>)>>
+
+"The name a topic stands for, and the pronoun for that person, when a
+witness is asked about, shown or accused while they are in another room."
+
+<ROUTINE PERSON-OF (TOPIC)
+	<COND (<EQUAL? .TOPIC ,MORIARTY-TOPIC> <TELL "Dr. Moriarty">)
+	      (<EQUAL? .TOPIC ,HUDSON-NAME> <TELL "Mr. Hudson">)
+	      (T <TELL "Lady Ashworth">)>>
+
+<ROUTINE PRONOUN-OF (TOPIC)
+	<COND (<EQUAL? .TOPIC ,ASHWORTH-NAME> <TELL "her">)
+	      (T <TELL "him">)>>
 
 "The person in this room a question can be put to, if anyone is here."
 
@@ -2136,6 +2192,20 @@ player has had the lid up, a closed trunk stays closed to a glance."
            <RTRUE>)
           (<VERB? LISTEN>
            <TELL "It ticks against its neighbour when the draught moves it." CR>
+           <RTRUE>)>>
+
+<ROUTINE STUDY-CHAIR-F ()
+    <COND (<VERB? TAKE MOVE PUSH PULL>
+           <TELL "You leave the chair where it was found. Lestrade will want to see how far it travelled." CR>
+           <RTRUE>)
+          (<VERB? CLIMB-ON CLIMB-FOO BOARD>
+           <TELL "Sitting in a dead man's chair at the scene of his murder would tell you nothing and annoy Lestrade a great deal." CR>
+           <RTRUE>)
+          (<VERB? LOOK-UNDER>
+           <TELL "Only the ridge of carpet the leg pushed up when it stopped at the hearth." CR>
+           <RTRUE>)
+          (<VERB? RUB>
+           <TELL "The leather is cold and creased where a heavy man sat for years." CR>
            <RTRUE>)>>
 
 <ROUTINE DETAIL-FURROW-F ()
