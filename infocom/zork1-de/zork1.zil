@@ -32,11 +32,6 @@ OFF!-INITIAL   ;"makes dubugging possible -pld"
 
 <INSERT-FILE "languages.de.init">
 <INSERT-FILE "DUNGEON" T>
-<INSERT-FILE "GLOBALS" T>
-
-<INSERT-FILE "core.clock">
-<INSERT-FILE "LOOP" T>
-<INSERT-FILE "PARSER" T>
-<INSERT-FILE "VERBS" T>
+<INSERT-FILE "rulesets.classic.de">
 <INSERT-FILE "ACTIONS" T>
 <INSERT-FILE "HINTS" T>
