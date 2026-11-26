@@ -1,18 +1,30 @@
-"Parser manners: a one-room story for tests/test_parser_manners.lua"
+"Parser manners: a two-room story for tests/test_parser_manners.lua"
 <CONSTANT RELEASEID 1>
 <VERSION ZIP>
 <PROPDEF SIZE 5>
 <PROPDEF CAPACITY 0>
 <PROPDEF VALUE 0>
 <PROPDEF TVALUE 0>
+<DIRECTIONS NORTH SOUTH>
 <INSERT-FILE "rulesets.classic.en">
 
 <ROUTINE V-VERSION () <TELL "Parser manners" CR>>
 
-<ROOM PARLOUR (IN ROOMS) (DESC "Parlour") (FLAGS RLANDBIT ONBIT)
- (LDESC "A small parlour. Ruth Bell sits by the fire, and a tin box rests on the table.")>
+<ROOM PARLOUR (IN ROOMS) (DESC "Parlour") (FLAGS RLANDBIT ONBIT) (NORTH TO GARDEN)
+ (LDESC "A small parlour. Ruth Bell sits by the fire, and a tin box rests on the table. The garden is north.")>
 <OBJECT RUTH (IN PARLOUR) (DESC "Ruth Bell") (SYNONYM RUTH BELL WOMAN) (ADJECTIVE RUTH)
- (FLAGS ACTORBIT NDESCBIT ARTICLEBIT)>
+ (FLAGS ACTORBIT NDESCBIT ARTICLEBIT) (ACTION RUTH-F)>
+<ROUTINE RUTH-F ()
+ <COND (<AND <VERB? TELL> <PRSI? ROSE>> <TELL "\"My roses are the pride of the garden,\" says Ruth." CR>)
+       (<AND <VERB? TELL> <PRSI? ADA>> <TELL "\"Ada keeps the garden,\" says Ruth." CR>)>>
+<ROOM GARDEN (IN ROOMS) (DESC "Garden") (FLAGS RLANDBIT ONBIT) (SOUTH TO PARLOUR)
+ (LDESC "A walled garden. Ada Finch is weeding by a rose bush. The parlour is south.")>
+<OBJECT ADA (IN GARDEN) (DESC "Ada Finch") (SYNONYM ADA FINCH) (ADJECTIVE ADA)
+ (FLAGS ACTORBIT NDESCBIT ARTICLEBIT) (ACTION ADA-F)>
+<ROUTINE ADA-F ()
+ <COND (<VERB? TELL> <TELL "\"Weeds first, talk later,\" says Ada." CR>)>>
+<OBJECT ROSE (IN GARDEN) (DESC "rose") (SYNONYM ROSE BUSH) (ADJECTIVE ROSE) (FLAGS NDESCBIT)>
+<OBJECT SEED (IN BOX) (DESC "seed") (SYNONYM SEED) (FLAGS TAKEBIT)>
 <OBJECT GUARD (IN PARLOUR) (DESC "night guard") (SYNONYM GUARD) (ADJECTIVE NIGHT)
  (FLAGS ACTORBIT NDESCBIT)>
 <OBJECT BOX (IN PARLOUR) (DESC "tin box") (SYNONYM BOX) (ADJECTIVE TIN) (FLAGS TAKEBIT CONTBIT)>

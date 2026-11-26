@@ -156,6 +156,15 @@
 
 
 
+;"The topic of ASK or TELL ... ABOUT may be far away (GLOBAL-CHECK). A
+  topic that is not here does not hear the conversation, so its own action
+  is not asked to answer it; the person asked answers."
+<ROUTINE NEAR? (OBJ "AUX" L)
+	<SET L <META-LOC .OBJ>>
+	<COND (<EQUAL? .L ,GLOBAL-OBJECTS>
+	       <OR <NOT <IN? .OBJ ,LOCAL-GLOBALS>> <GLOBAL-IN? .OBJ ,HERE>>)
+	      (T <EQUAL? .L ,HERE <LOC ,WINNER>>)>>
+
 %<COND (<GASSIGNED? PREDGEN>
 
 '<ROUTINE PERFORM (A "OPTIONAL" (O <>) (I <>) "AUX" V OA OO OI) 
@@ -201,7 +210,9 @@
 		(<SET V <APPLY <GETP ,WINNER ,P?ACTION>>> .V)
 		(<SET V <APPLY <GETP <LOC ,WINNER> ,P?ACTION> ,M-BEG>> .V)
 		(<SET V <APPLY <GET ,PREACTIONS .A>>> .V)
-		(<AND .I <SET V <APPLY <GETP .I ,P?ACTION>>>> .V)
+		(<AND .I
+		      <OR <NOT <EQUAL? .A ,V?TELL>> <NEAR? .I>>
+		      <SET V <APPLY <GETP .I ,P?ACTION>>>> .V)
 		(<AND .O
 		      <NOT <==? .A ,V?WALK>>
 		      <LOC .O>
@@ -267,8 +278,10 @@
 				      ,M-BEG>> .V)
 		     (<SET V <D-APPLY "Preaction"
 				      <GET ,PREACTIONS .A>>> .V)
-		     (<AND .I <SET V <D-APPLY "PRSI"
-					      <GETP .I ,P?ACTION>>>> .V)
+		     (<AND .I
+			   <OR <NOT <EQUAL? .A ,V?TELL>> <NEAR? .I>>
+			   <SET V <D-APPLY "PRSI"
+					   <GETP .I ,P?ACTION>>>> .V)
 		     (<AND .O
 			   <NOT <==? .A ,V?WALK>>
 			   <LOC .O>

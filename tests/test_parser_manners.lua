@@ -1,7 +1,7 @@
--- Shared parser and world-verb behavior on a one-room fixture story:
+-- Shared parser and world-verb behavior on a two-room fixture story:
 -- ALL never reaches the global objects, an empty ALL says why, names keep
 -- no article, break characters are words, and a bare verb asks the right
--- question.
+-- question, and the topic of ASK ... ABOUT may be anywhere.
 local test = require 'tests.test_framework'
 local runtime = require 'zilscript.runtime'
 
@@ -69,6 +69,26 @@ test.describe("Parser manners", function(t)
 		local game = story()
 		game:resume(string.rep("examine box ", 40))
 		assert.assert_match(game:resume("look"), "small parlour")
+	end)
+
+	t.it("asks about people and things that are not here", function(assert)
+		local game = story()
+		assert.assert_match(game:resume("ask ruth about rose"), "pride of the garden")
+		assert.assert_match(game:resume("tell ruth about ada"), "Ada keeps the garden")
+		-- No handler for the topic: the default reply, not "can't see any".
+		local out = game:resume("ask guard about rose")
+		assert.assert_match(out, "^The night guard doesn't answer that%.")
+		-- A topic elsewhere does not overhear: Ada's own handler stays out of it.
+		assert.assert_match(game:resume("ask guard about ada"), "^The night guard doesn't answer that%.")
+		-- Shut away out of sight, still a topic.
+		assert.assert_match(game:resume("ask guard about seed"), "^The night guard doesn't answer that%.")
+		-- The person asked must still be here, and other verbs keep their scope.
+		assert.assert_match(game:resume("ask ada about rose"), "You can't see any ada here!")
+		assert.assert_match(game:resume("examine rose"), "You can't see any rose here!")
+		assert.assert_match(game:resume("take seed"), "You can't see any seed here!")
+		-- Here, the person spoken of still has her say, as before.
+		game:resume("north")
+		assert.assert_match(game:resume("ask ada about ada"), "Weeds first")
 	end)
 
 	t.it("never kills the player in a world verb", function(assert)
