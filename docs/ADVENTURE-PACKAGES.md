@@ -1,52 +1,29 @@
 # Adventure core, languages and rulesets
 
-This is the first extraction, not a completed language-independent parser.
+The reusable import graph is independent of historical game folders. All 12 original book entrypoints explicitly import the English classic composition. English and German Zork I are consumers of the packages, not dependencies of them. No implicit Zork fallback remains in INSERT-FILE. Historical files remain as reference material and for legacy direct-path tests.
 
-## Current structure
+## Package layout
 
-* `core/clock.zil`: shared scheduler (QUEUE, INT, CLOCKER). The English and German historical implementations have identical code after stripping comments and whitespace; the canonical source is the English version. The module expects the host loop's P-WON and MOVES globals.
-* `languages/en/syntax.zil`: the English grammar declarations (BUZZ, SYNONYM and SYNTAX) moved without semantic changes; still contains classic-specific verbs and ZORK-NUMBER conditionals. Split the generic and ruleset-specific vocabulary later.
-* `languages/de/init.zil`: explicit adapter over the existing German TELLS and SYNTAX files, preserving their order. Not yet a generic German language implementation.
-* `rulesets/classic/en.zil`: ordered composition for English Zork-compatible adventures. It explicitly imports mixed legacy modules pending further extraction. It is not the final ruleset API.
-* `infocom/zork1/zork1.zil`, `infocom/zork1-de/zork1.zil` and `books/the-midnight-ledger/the-midnight-ledger.zil` exercise the new entry points. Existing flat clock/syntax import paths for English books/tests remain tiny forwarding modules during migration.
+* core/clock.zil: shared scheduler (QUEUE, INT, CLOCKER).
+* core/objects.zil: shared SEE-INSIDE?, CCOUNT, WEIGHT and HELD? (identical implementations in the two historical sources).
+* languages/en: English syntax, parser, printing macros, loop and transitional classic verbs/globals.
+* languages/de: German syntax, parser, grammatical rendering, loop and transitional classic verbs/globals. See SOURCE-PROVENANCE.md.
+* rulesets/classic/en.zil and de.zil: explicit ordered composition. German story declarations precede classic globals/loop, preserving the historical order.
 
-A book opts into the transitional composition with:
+The parser, loop, verbs and globals remain mixed legacy implementations within the language directories; this is a physical dependency inversion, not a completed semantic separation. Next extract identical language-neutral parser helpers and dispatch, then separate combat and inventory policy from localized messages. Keep object vocabulary in story resources and expose stable action IDs.
+
+New stories use qualified imports, not path-search injection:
 
 ```zil
 <INSERT-FILE "rulesets.classic.en">
 <INSERT-FILE "actions">
 <INSERT-FILE "dungeon">
-<INSERT-FILE "companion">
 ```
 
-The book still supplies its own settings and property defaults before the composition. Qualified package names resolve through the existing ZIL package search path. Other legacy books still use the old unqualified fallback; don't remove it until those books migrate. Do not globally append every language directory to the search path: collisions between syntax or grammar files would silently choose the wrong language.
-
-## Routine-level audit
-
-| Area | English | German | Next extraction |
-| --- | --- | --- | --- |
-| Clock | clock.zil | clock.zil | Extracted; shared byte-equivalent implementation |
-| Game loop | main.zil | loop.zil | separate action dispatch and language-specific prompts |
-| Parser | parser.zil (42 routine/define matches) | parser.zil (49) | split tokenization, noun resolution, grammar, ambiguity messages |
-| Syntax | syntax.zil | syntax.zil | English moved; German adapter only |
-| Verb handlers | verbs.zil | verbs.zil | split semantic operations, rendering and ruleset combat |
-| Object globals | globals.zil | globals.zil | separate generic objects from world and language-specific nouns |
-| Printing | macros.zil / verbs.zil | tells.zil | gender, nominative/accusative/dative, article and pronoun rendering |
-| Game-specific logic | actions.zil / dungeon.zil | actions.zil / dungeon.zil | retain story objects and special interactions in the book |
-
-Counts are lexical inventory, not a claim of semantic equivalence.
-
-## Target boundaries
-
-The next patch should introduce a language-neutral action record (verb/action ID plus resolved object IDs); keep parser text and inflection in language packages. Story noun IDs are stable, with localized synonyms and descriptions in story localization. Ruleset-specific verbs and terminology belong in ruleset locale resources. Keep the compiler/runtime independent of specific story or RPG systems. Extract classic combat only after regression coverage exists, then compose superhero rules without duplicating world logic.
+An RPG-specific ruleset should compose these common world/locale components and then register its own character and action-resolution policy. It must not import historical game folders. The superhero PR #90 will be migrated separately.
 
 ## Validation
 
-* Existing `make test-clock-direct` now imports core.clock explicitly; other clock tests exercise the legacy import path.
-* Existing Zork I walkthrough and Midnight Ledger tests exercise the new composition.
-* `make test-adventure-packages` checks exact moved source provenance and entry point ordering; `make test-german-reference` is an opt-in compile/start probe, not yet a passing compatibility guarantee.
-* Full English and German walkthroughs and native Adventure Arena validation are pending until executed. The historical German source uses distinct ZIL constructs and a different grammar. It is not proven to run on the current Lua runtime.
+make test-adventure-packages checks the dependency graph, all original entrypoints and loads/starts The Midnight Ledger with historical file access blocked. CI runs this target and existing English walkthrough tests. make test-german-reference remains an opt-in probe; German compiler compatibility and complete gameplay are not yet verified. English export packaging includes only the book and independent packages, not Infocom directories. German export remains excluded pending exact source provenance verification.
 
-## Source rights
-
-The English extraction derives from Zork I, released under MIT in November 2025; the original Infocom headers and MIT notice are retained. See https://github.com/historicalsource/zork1/blob/master/LICENSE and https://opensource.microsoft.com/blog/2025/11/20/preserving-code-that-shaped-generations-zork-i-ii-and-iii-go-open-source/ . The German archival repository README explicitly says it is not open-licensed (https://github.com/historicalsource/zork-german). IF Archive lists a German Zork release among the MIT source archives, but this does not independently establish that every file in the separate historical mirror is covered. Do not copy its implementation into reusable packages or distribute it commercially until provenance and permission are verified. The German adapter references already-present files for local research; no German source is newly copied here.
+English source derives from the November 2025 MIT Zork I release; retain the original notices. See https://github.com/historicalsource/zork1/blob/master/LICENSE. German source has been relocated from the existing repository and retains its original notices. See languages/de/SOURCE-PROVENANCE.md.
