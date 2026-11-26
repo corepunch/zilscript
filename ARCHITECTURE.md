@@ -1,5 +1,7 @@
 # Architecture Overview
 
+For the staged extraction of reusable ZIL adventure modules, languages and RPG rules, see [Adventure packages](docs/ADVENTURE-PACKAGES.md).
+
 This repository is a Lua implementation of a ZIL toolchain and runtime for Infocom-style text adventures. It has two main responsibilities:
 
 1. Parse and compile ZIL source into Lua.
