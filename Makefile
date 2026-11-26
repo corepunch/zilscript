@@ -231,7 +231,8 @@ test-book-walkthroughs:
 	done
 
 test-pure-zil: test-adventure-packages test-new-books test-book-playtests test-book-walkthroughs
-	@lua5.4 run-zil-test.lua tests/test-superhero-rules
+	@lua5.4 run-zil-test.lua tests/test-rpg-kernel
+	@lua5.4 run-zil-test.lua tests/test-superhero-system
 	@echo "Running pure ZIL tests..."
 	@lua5.4 run-zil-test.lua zil/test-simple-new
 	@lua5.4 run-zil-test.lua zil/test-insert-file
@@ -256,22 +257,28 @@ test-pure-zil: test-adventure-packages test-new-books test-book-playtests test-b
 	@lua5.4 run-zil-test.lua zil/test-flow-control
 	@echo "All pure ZIL tests completed!"
 
+# Books with one folder name their words in dungeon.zil; a book with
+# editions (logic in books/shared/<book>) has one story folder per language
+# and its words in <lang>.zil.
+EDITION_STORIES := books/en/blackout-at-meridian books/de/blackout-at-meridian
+EDITION_WORDS := books/en/blackout-at-meridian/en.zil books/de/blackout-at-meridian/de.zil
+
 lint-zil:
 	@echo "Checking vocabulary consistency in book adventures..."
-	@lua5.4 scripts/check-vocab.lua $(wildcard books/*/*/dungeon.zil)
+	@lua5.4 scripts/check-vocab.lua $(wildcard books/*/*/dungeon.zil) $(EDITION_WORDS)
 	@echo "Parsing every book object's synonyms and adjectives..."
-	@lua5.4 tests/test_book_vocabulary.lua $(wildcard books/*/*/dungeon.zil)
+	@lua5.4 tests/test_book_vocabulary.lua $(wildcard books/*/*/dungeon.zil) $(EDITION_STORIES)
 	@echo "Checking prose links in book adventures..."
-	@lua5.4 scripts/check-links.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/*/dungeon.zil))
+	@lua5.4 scripts/check-links.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/*/dungeon.zil)) $(EDITION_STORIES)
 	@echo "Examining every prose link through the parser..."
-	@lua5.4 scripts/check-link-targets.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/*/dungeon.zil))
+	@lua5.4 scripts/check-link-targets.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/*/dungeon.zil)) $(EDITION_STORIES)
 	@echo "Playing common verbs on every object..."
-	@lua5.4 scripts/check-responses.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/*/dungeon.zil))
+	@lua5.4 scripts/check-responses.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/*/dungeon.zil)) $(EDITION_STORIES)
 
 .PHONY: test-book-vocabulary
 test-book-vocabulary:
 	@lua5.4 tests/test_check_vocab.lua
-	@lua5.4 tests/test_book_vocabulary.lua $(wildcard books/*/*/dungeon.zil)
+	@lua5.4 tests/test_book_vocabulary.lua $(wildcard books/*/*/dungeon.zil) $(EDITION_STORIES)
 
 zip:
 	@if [ -z "$(filter-out zip,$(MAKECMDGOALS))" ]; then echo "Usage: make zip <gamename>"; echo "Example: make zip limehouse-killings"; exit 1; fi
@@ -281,11 +288,12 @@ zip:
 	tmpdir=$$(mktemp -d); \
 	mkdir -p "$$tmpdir"; \
 	cp books/en/$$game/*.zil "$$tmpdir/"; \
-	mkdir -p "$$tmpdir/core" "$$tmpdir/languages/en" "$$tmpdir/rulesets/classic" "$$tmpdir/rulesets/superhero"; \
+	mkdir -p "$$tmpdir/core" "$$tmpdir/languages/en" "$$tmpdir/rulesets/classic" "$$tmpdir/rulesets/superhero" "$$tmpdir/rulesets/rpg"; \
 	cp core/*.zil core/LICENSE-ZORK-MIT "$$tmpdir/core/"; \
 	cp languages/en/*.zil languages/en/LICENSE-ZORK-MIT "$$tmpdir/languages/en/"; \
 	cp rulesets/classic/en*.zil rulesets/classic/common.zil rulesets/classic/LICENSE-ZORK-MIT "$$tmpdir/rulesets/classic/"; \
-	cp rulesets/superhero/en*.zil rulesets/superhero/percentile.zil "$$tmpdir/rulesets/superhero/"; \
+	cp rulesets/superhero/en.zil rulesets/superhero/system.zil "$$tmpdir/rulesets/superhero/"; \
+	cp rulesets/rpg/kernel.zil rulesets/rpg/en.zil "$$tmpdir/rulesets/rpg/"; \
 	cd "$$tmpdir" && zip -r "$(CURDIR)/publish/$$game.zip" *.zil core languages rulesets; \
 	rm -rf "$$tmpdir"; \
 	echo "Created publish/$$game.zip"

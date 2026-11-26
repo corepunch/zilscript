@@ -1,0 +1,25 @@
+;"A toy d20 system, defined only for tests: it proves the RPG kernel knows
+  nothing of the superhero system. Roll a d20, add the attribute, beat the
+  difficulty; a natural 20 is a critical (tier 2)."
+<CONSTANT A-MIGHT 1>
+<CONSTANT A-LUCK 2>
+<CONSTANT A-HP 3>
+<CONSTANT A-MANA 4>
+
+<GLOBAL SHEET-LAYOUT <LTABLE A-MIGHT A-LUCK A-HP>>
+<GLOBAL STATUS-LAYOUT <LTABLE A-HP A-MANA>>
+
+<ROUTINE SYSTEM-DERIVE (TBL)
+ <SET-RESOURCE .TBL ,A-HP <+ 10 <* 2 <STAT .TBL ,A-MIGHT>>>>
+ <SET-RESOURCE .TBL ,A-MANA <STAT .TBL ,A-LUCK>>>
+
+<ROUTINE SYSTEM-ROLL (TBL ATTR DIFFICULTY) <ROLL 1 20>>
+
+<ROUTINE SYSTEM-GRADE (TBL ATTR DIFFICULTY ROLL)
+ <COND (<==? .ROLL 20> 2)
+       (<G? <+ .ROLL <STAT .TBL .ATTR>> .DIFFICULTY> 1)
+       (T 0)>>
+
+<GLOBAL WARRIOR <LTABLE 4 1>>
+<GLOBAL WIZARD <LTABLE 0 6>>
+<GLOBAL SKELETON-STATS <ITABLE 32 0>>

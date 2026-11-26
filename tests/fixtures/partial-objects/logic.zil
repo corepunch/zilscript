@@ -1,0 +1,11 @@
+;"Logic of the partial-objects story: location, flags and ACTION only. Each
+  edition declares the same objects again with its words."
+<ROOM CELLAR (IN ROOMS) (FLAGS RLANDBIT ONBIT)>
+<ROOM YARD (IN ROOMS) (FLAGS RLANDBIT ONBIT)>
+<OBJECT LAMP (IN CELLAR) (FLAGS TAKEBIT) (ACTION LAMP-F)>
+<OBJECT CHEST (IN CELLAR) (FLAGS CONTBIT NDESCBIT) (CAPACITY 20)>
+<OBJECT COIN (IN CHEST) (FLAGS TAKEBIT)>
+
+<GLOBAL LAMP-TAKEN <>>
+<ROUTINE LAMP-F ()
+ <COND (<VERB? TAKE> <SETG LAMP-TAKEN T> <RFALSE>)>>

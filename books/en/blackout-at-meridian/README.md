@@ -4,19 +4,45 @@ Original setting, characters and prose; no licensed superhero identities.
 
 ## Architecture
 
-The book imports `rulesets.superhero.en`, which composes over the English base
-(`languages/en/base.zil`) without Zork's classic rules: no weapons, score,
-treasure or magic verbs. `rulesets/superhero/percentile.zil` owns the numbers
-(attributes, checks, damage, karma) and knows no room or object;
-`rulesets/superhero/en-verbs.zil` owns the English words (the check report, the
-character sheet) and the hero actions: STRIKE (attack, hit, punch, fight,
-kill; also break and smash), RESCUE, DISABLE (bypass, hack), CHOOSE (select), FOCUS, NAME and
-DIAGNOSE, each with a reply for when no object takes it. The book's objects
-answer them in their ACTION routines.
+One logic, two editions. The story is written once and each language adds
+only its words (see "Editions" in `docs/RPG-SYSTEMS.md`):
+
+* `books/shared/blackout-at-meridian/logic.zil`: rooms, objects (location,
+  play flags, ACTION), state and the actions. It contains no player-visible
+  text: it calls message routines (`<MSG-DRONE-DOWN>`) that each edition
+  defines.
+* `books/shared/blackout-at-meridian/rules.zil`: the routines that replace the
+  world's own (version, score, the opening, USE); they follow the language
+  base in every edition.
+* `books/en/blackout-at-meridian/en.zil`, `books/de/blackout-at-meridian/de.zil`:
+  an edition's words: the same rooms and objects declared again with DESC,
+  SYNONYM, ADJECTIVE, exits and gender flags (the runtime merges the
+  declarations), the `MSG-*` routines, the book's syntax lines and the
+  companion's cards. Each declares `SETUP-EDITION`, `WALK-TO-BRIDGE` and
+  `WALK-TO-RELAY`, the few places where the logic needs a compass word.
+* `books/<lang>/blackout-at-meridian/blackout-at-meridian.zil` is the entry of
+  each edition (module ids `books.en.blackout-at-meridian.blackout-at-meridian`
+  and `books.de.blackout-at-meridian.blackout-at-meridian`, "Stromausfall in
+  Meridian") with its own `game.json`, so each edition has its own app id and
+  saves never cross.
+
+An edition imports `rulesets.superhero.<lang>`, which composes the language
+base, the RPG kernel (`rulesets/rpg/kernel.zil`: characters, resources, dice,
+checks, archetypes, sheet, hero name), the kernel's words in that language
+and the superhero system (`rulesets/superhero/system.zil`: the numbers).
+The hero and the drone are both characters (stat tables); the profiles are
+archetypes (`BULWARK-RANKS`, `ARC-RANKS`, `LENS-RANKS`). The hero actions are
+the kernel's: ATTACK (STRIKE, HIT, ...), RESCUE, DISABLE, CHOOSE, POWER
+(FOCUS), NAME and STATUS (DIAGNOSE), each with a reply for when no object
+takes it; the book's objects answer them in their ACTION routines.
 
 Historical references: TSR Marvel Super Heroes (1984), seven attributes, Health and Karma sums, and percentile checks with four outcome tiers. See https://index.rpg.net/display-generalinfo.phtml?key=system&match=precise&value=Marvel+Super+Heroes . DC Heroes (1985) is a future candidate, not implemented. No source text, characters, artwork or original table graphic copied. Standard-rank percentile thresholds are derived from the historical cumulative probabilities documented at https://www.darkshire.net/~jhkim/rpg/systemdesign/dice-msh.html ; intermediate ranks round down and the extreme shift ranks are not separately modeled. The recovery rule, encounter difficulty and combat loop are independent prototype choices. This is not a complete implementation of the original Karma, FEAT intensity, column-shift or combat rules; do not claim full compatibility.
 
 ## Play
+
+German edition: profiles Fels, Blitz and Luchs (Bulwark, Arc, Lens), verbs
+as imperative stems (SCHLAG, RETT, DEAKTIVIER, WAEHL, KONZENTRIER, NENN,
+ZUSTAND, HILFE; umlaut and ASCII spellings both work), names ASCII only.
 
 Three rooms: Dispatch, Meridian Bridge (north) and the Relay Station (east of
 the bridge). Choose Bulwark, Arc or Lens on the duty board (EXAMINE a card to
@@ -40,10 +66,13 @@ RESTART/RESTORE/QUIT prompt after an ending, arrives as an ordinary command.
 
 ## Validation
 
-`lua5.4 run-zil-test.lua tests/test-superhero-rules` checks the rules: every
+`lua5.4 run-zil-test.lua tests/test-superhero-system` checks the system: every
 rank band's cutoffs at both ends, damage, healing to the maximum and Karma
-that never goes below zero. `make test-book-walkthroughs` runs the book's
-tests in `test/`:
+that never goes below zero; `tests/test-rpg-kernel` checks the kernel against
+a toy d20 system. `make test-book-walkthroughs` runs the book's tests in
+`books/en/blackout-at-meridian/test/` (English) and `books/de/blackout-at-meridian/test/` (German, same files, German words; its
+`hero.lua` also fails a reply that shows an undecoded escape, `nil`, or a word
+of the English edition):
 
 * `test_walkthrough_rules.lua`: a seeded typed walkthrough.
 * `test_walkthrough_endings.lua`: every profile to both victories and to
@@ -56,6 +85,10 @@ tests in `test/`:
   state.
 * `test_walkthrough_links.lua`: every profile by prose-link menus only, and
   the companion's first card to an ending.
+
+* `test_walkthrough_editions.lua`: both editions play the same route on the
+  same seeds and agree after every command on dice, Health, Karma, drone and
+  flags.
 
 `test/hero.lua` holds their shared helpers. The CLI plays the book with
 `lua5.4 llm.lua --new-game --game blackout-at-meridian`. The native build

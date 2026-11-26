@@ -270,7 +270,9 @@ and edits each of these:
 | `globals.zil` | `GLOBAL-OBJECTS` with the grammatical flags, the referent objects, `NOT-HERE-OBJECT` |
 | `verbs.zil` | the world `V-*`/`PRE-*` handlers with their text, `THIS-IS-IT`, `DESCRIBE-OBJECT`, `PRINT-CONT` |
 | `base.zil` | the composition a ruleset builds on |
-| `rulesets/<rules>/<lang>-verbs.zil` | each ruleset's verbs in the language (classic: combat, magic, treasure; superhero: the check report and hero actions) |
+| `rulesets/<rules>/<lang>-verbs.zil` | the classic ruleset's verbs in the language (combat, magic, treasure) |
+| `rulesets/rpg/<lang>.zil` | the RPG kernel's words in the language: action syntax, default replies, naming prompt |
+| `rulesets/<system>/<lang>.zil` | a system's names in the language (`ATTR-NAME`, `TIER-NAME`, `CHECK-TERMS`) and its composition |
 | the story | `<DIRECTIONS>`, grammatical data on every object, inflected synonyms, translated descriptions |
 
 ### 8.3 What to extract before a third language is cheap

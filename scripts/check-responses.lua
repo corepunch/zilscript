@@ -21,13 +21,14 @@ package.path = "./?.lua;./?/init.lua;" .. package.path
 local runtime = require("zilscript.runtime")
 
 local Language = require("zilscript.reader.Language")
+local Story = require("zilscript.reader.Story")
 local lang -- the story's language, from its game.json
 
 local function new_game(story)
 	local env = runtime.create_game_env()
 	assert(runtime.init(env, true))
 	env.require("zilscript")
-	assert(runtime.load_modules(env, { story:gsub("/", ".") .. "." .. story:match("([^/]+)$") }, { silent = true }))
+	assert(runtime.load_modules(env, { Story.of(story).module }, { silent = true }))
 	local game = runtime.create_game(env, true)
 	game:start()
 	return env, game
@@ -35,9 +36,12 @@ end
 
 -- The words a reader would use for each object, from its definition.
 local function nouns(story)
-	local file = assert(io.open(story .. "/dungeon.zil"))
-	local source = file:read("a")
-	file:close()
+	local source = ""
+	for _, path in ipairs(Story.of(story).words) do
+		local file = assert(io.open(path))
+		source = source .. file:read("a") .. "\n"
+		file:close()
+	end
 	local list = {}
 	for name, body in source:gmatch("<OBJECT%s+([%w%-]+)(.-)\n\n") do
 		local noun = body:match("%(SYNONYM%s+([%w%-\\%%]+)")
@@ -65,7 +69,7 @@ end
 
 local problems, checked = 0, 0
 for _, story in ipairs({ ... }) do
-	lang = Language.ofBook(story)
+	lang = Story.of(story).language
 	local env, game = new_game(story)
 	if not env.VERBOSE then
 		problems = problems + 1

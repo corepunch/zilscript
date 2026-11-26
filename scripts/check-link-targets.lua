@@ -5,6 +5,7 @@ package.path = "./?.lua;./?/init.lua;" .. package.path
 local Walk = require("tests.link_walk")
 
 local Language = require("zilscript.reader.Language")
+local Story = require("zilscript.reader.Story")
 -- Set per story from its game.json: compass words, examine verb, failure replies.
 local lang, directions = Language.of(nil), {}
 
@@ -53,9 +54,10 @@ local function checkLinks(story, walk, text, snapshot, parent, nextSnapshot)
 end
 
 for _, story in ipairs(arg) do
-	lang = Language.ofBook(story)
+	local layout = Story.of(story)
+	lang = layout.language
 	directions = Language.compassSet(lang)
-	local walk = Walk.new(story:gsub("/", ".") .. "." .. story:match("([^/]+)$"), nil, lang.code)
+	local walk = Walk.new(layout.module, nil, lang.code)
 	local env = walk.env
 	local initial, snapshot, followup = os.tmpname(), os.tmpname(), os.tmpname()
 	assert(env.SAVE(initial))

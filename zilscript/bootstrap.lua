@@ -1982,7 +1982,60 @@ local function sorted_keys(tbl)
 	return keys
 end
 
+-- Several declarations of one object merge into one (see "Editions" in
+-- docs/RPG-SYSTEMS.md): a logic file gives location, flags and ACTION, an
+-- edition file its words.  The merged source table is kept per object number
+-- and the property table is rebuilt whenever a declaration arrives.  Object
+-- numbers come from DECL_OBJECT (first declaration), so they never change.
+local merged_objects = {}
+local linked_parent = {}
+local UNION_PROPERTIES = {FLAGS = true, SYNONYM = true, ADJECTIVE = true}
+
+local function same_value(a, b)
+	if a == b then return true end
+	if type(a) ~= "table" or type(b) ~= "table" then return false end
+	for k, v in pairs(a) do if not same_value(v, b[k]) then return false end end
+	for k in pairs(b) do if a[k] == nil then return false end end
+	return true
+end
+
+local function union_lists(into, list)
+	local seen = {}
+	for _, v in ipairs(into) do seen[v] = true end
+	for _, v in ipairs(list) do
+		if not seen[v] then seen[v] = true; table.insert(into, v) end
+	end
+end
+
+local function merge_declaration(object)
+	local object_name = object.ZIL_NAME or object.NAME
+	local n = _G[object_name]
+	local merged = merged_objects[n]
+	if not merged then
+		merged = {}
+		merged_objects[n] = merged
+	end
+	for _, k in ipairs(sorted_keys(object)) do
+		local v = object[k]
+		if UNION_PROPERTIES[k] and type(v) == "table" then
+			merged[k] = merged[k] or {}
+			union_lists(merged[k], v)
+		elseif merged[k] == nil then
+			merged[k] = v
+		elseif not same_value(merged[k], v) then
+			error(string.format("Object %s declares property %s twice with different values", tostring(object_name), k), 0)
+		end
+	end
+	return merged
+end
+
+local build_object
+
 function OBJECT(object)
+	build_object(merge_declaration(object), object)
+end
+
+function build_object(object, declaration)
 	local function resolve_global(value)
 		if type(value) == "string" then
 			return rawget(_G, value) or value
@@ -1992,6 +2045,8 @@ function OBJECT(object)
 	local function function_prop(value, property_name, object_id)
 		value = resolve_global(value)
 		if type(value) == "table" and value.__routine_ref then
+			local defined = rawget(_G, value.__routine_ref)
+			if type(defined) == "function" then return mem:stringprop(fn(defined)) end
 			defer_routine_ref(value.__routine_ref, object_id, property_name, "property")
 			return '\0\0'
 		end
@@ -2002,9 +2057,9 @@ function OBJECT(object)
 		if not _G["PQ"..name] then _G["PQ"..name] = num end
 		return string.char(num,#body)..body
 	end
-	if object.DESC then
-		table.insert(DESCS, object.DESC)
-		table.insert(DESCS, object.DESC:lower())
+	if declaration.DESC then
+		table.insert(DESCS, declaration.DESC)
+		table.insert(DESCS, declaration.DESC:lower())
 	end
 	local object_name = object.ZIL_NAME or object.NAME
 	local n = _G[object_name]
@@ -2014,7 +2069,9 @@ function OBJECT(object)
 		if object.DESC then
 			local name = object.DESC:lower()
 			display_names[name] = display_names[name] or {}
-			table.insert(display_names[name], n)
+			local known = false
+			for _, id in ipairs(display_names[name]) do known = known or id == n end
+			if not known then table.insert(display_names[name], n) end
 		end
 		local aliases = {}
 		for _, word in ipairs(object.SYNONYM) do table.insert(aliases, word:lower()) end
@@ -2074,6 +2131,9 @@ function OBJECT(object)
 			local str
 			if v.per then
 				local per = resolve_global(v.per)
+				if type(per) == "table" and per.__routine_ref and type(rawget(_G, per.__routine_ref)) == "function" then
+					per = rawget(_G, per.__routine_ref)
+				end
 				if type(per) == "table" and per.__routine_ref then
 					defer_routine_ref(per.__routine_ref, n, k, "exit")
 					str = makeword(0)..string.char(0) -- deferred FEXIT = 3
@@ -2128,17 +2188,29 @@ function OBJECT(object)
 	mem:write(makeword(tbl_addr), _OTBL + (n-1)*2)
 	-- Initial object trees retain declaration order. Runtime MOVE uses the
 	-- Z-machine rule of inserting the object at the head of its new parent.
+	-- A later declaration may supply the location (an edition file loaded
+	-- before the logic); the object then joins its parent's children in
+	-- object-number order, which is declaration order.
 	local parent = LOC(n)
-	if parent and parent ~= 0 then
+	if parent and parent ~= 0 and not linked_parent[n] then
+		linked_parent[n] = parent
 		local first = mem:word(_CHILD_TBL + parent*2)
 		if first == 0 then
 			mem:write(makeword(n), _CHILD_TBL + parent*2)
+		elseif first > n then
+			mem:write(makeword(n), _CHILD_TBL + parent*2)
+			mem:write(makeword(first), _SIBLING_TBL + n*2)
 		else
 			local sibling = first
-			while mem:word(_SIBLING_TBL + sibling*2) ~= 0 do
-				sibling = mem:word(_SIBLING_TBL + sibling*2)
+			while true do
+				local nxt = mem:word(_SIBLING_TBL + sibling*2)
+				if nxt == 0 or nxt > n then
+					mem:write(makeword(n), _SIBLING_TBL + sibling*2)
+					mem:write(makeword(nxt), _SIBLING_TBL + n*2)
+					break
+				end
+				sibling = nxt
 			end
-			mem:write(makeword(n), _SIBLING_TBL + sibling*2)
 		end
 	end
 end

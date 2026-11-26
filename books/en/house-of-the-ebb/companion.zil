@@ -18,7 +18,7 @@
    <CHOICE "office.1" "Read the tally" "read old sheet" ,CHOICE-INVESTIGATE 99>
    <CHOICE "office.touch" "Run a finger along the struck-out line" "touch old sheet" ,CHOICE-INTERACT 90>
    <CHOICE "office.2" "Return to the hall" "west" ,CHOICE-INVESTIGATE 98>)
-  (<EQUAL? ,HERE ,STAIRS>
+  (<EQUAL? ,HERE ,LANTERN-LANDING>
    <CHOICE "stairs.1" "Read the signal instructions" "read signal plate" ,CHOICE-INVESTIGATE 99>
    <CHOICE "stairs.water" "Touch the water creeping up the wall" "touch water" ,CHOICE-INTERACT 90>
    <CHOICE "stairs.2" "Go up to the lantern" "up" ,CHOICE-INVESTIGATE 98>
