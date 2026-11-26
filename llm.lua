@@ -94,6 +94,9 @@ local GAMES = {
     ["blackout-at-meridian"] = {
         modules = {"books.blackout-at-meridian.blackout-at-meridian"}
     },
+    ["blackout-at-meridian-de"] = {
+        modules = {"books.blackout-at-meridian-de.blackout-at-meridian-de"}
+    },
     ["the-midnight-ledger"] = {
         modules = {"books.the-midnight-ledger.the-midnight-ledger"}
     },
