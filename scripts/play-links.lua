@@ -6,7 +6,7 @@
 package.path = "./?.lua;./?/init.lua;" .. package.path
 local Walk = require("tests.link_walk")
 local name, path, tail, seed = arg[1], arg[2], tonumber(arg[3]) or 1, tonumber(arg[4])
-local walk = Walk.new("books." .. name .. "." .. name, seed)
+local walk = Walk.new("books." .. name .. "." .. name, seed, require("zilscript.reader.Language").ofBook(name).code)
 local shown = { "[start] " .. walk.output }
 local failure
 for raw in io.lines(path) do

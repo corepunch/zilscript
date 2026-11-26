@@ -20,14 +20,8 @@
 package.path = "./?.lua;./?/init.lua;" .. package.path
 local runtime = require("zilscript.runtime")
 
-local VERBS = {
-	"take %s", "drop %s", "climb %s", "push %s", "pull %s", "open %s", "close %s",
-	"read %s", "touch %s", "search %s", "move %s", "kick %s", "eat %s", "smell %s",
-	"listen to %s", "look under %s", "look behind %s", "look in %s", "turn %s",
-	"enter %s", "sit on %s", "break %s", "wear %s", "knock on %s", "light %s",
-}
-
-local ENDED = "RESTART, RESTORE, or QUIT"
+local Language = require("zilscript.reader.Language")
+local lang -- the story's language, from its game.json
 
 local function new_game(story)
 	local env = runtime.create_game_env()
@@ -46,12 +40,12 @@ local function nouns(story)
 	file:close()
 	local list = {}
 	for name, body in source:gmatch("<OBJECT%s+([%w%-]+)(.-)\n\n") do
-		local noun = body:match("%(SYNONYM%s+([%w%-]+)")
-		local adjective = body:match("%(ADJECTIVE%s+([%w%-]+)")
+		local noun = body:match("%(SYNONYM%s+([%w%-\\%%]+)")
+		local adjective = body:match("%(ADJECTIVE%s+([%w%-\\%%]+)")
 		if noun then
 			table.insert(list, {
 				name = name,
-				words = ((adjective and adjective .. " " or "") .. noun):lower(),
+				words = Language.word(lang, (adjective and adjective .. " " or "") .. noun):lower(),
 			})
 		end
 	end
@@ -71,6 +65,7 @@ end
 
 local problems, checked = 0, 0
 for _, story in ipairs({ ... }) do
+	lang = Language.ofBook(story)
 	local env, game = new_game(story)
 	if not env.VERBOSE then
 		problems = problems + 1
@@ -80,7 +75,7 @@ for _, story in ipairs({ ... }) do
 		local object = env[entry.name:gsub("%-", "_")]
 		local room = object and room_of(env, object)
 		if room then
-			for _, verb in ipairs(VERBS) do
+			for _, verb in ipairs(lang.probes) do
 				env.MOVE(env.WINNER, room)
 				env.HERE = room
 				env.LIT = true
@@ -90,8 +85,8 @@ for _, story in ipairs({ ... }) do
 				if not reply:find("%S") then
 					problems = problems + 1
 					print(string.format("%s: %s: %q printed nothing", story, entry.name, command))
-				elseif reply:find(ENDED, 1, true) then
-					game:resume("restart")
+				elseif reply:find(lang.ended, 1, true) then
+					game:resume(lang.restart)
 				end
 			end
 		end

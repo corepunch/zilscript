@@ -85,7 +85,11 @@ return function(root, expect, exhaustive, bookNames)
 		books = selected
 	end
 	local objects, commands = 0, 0
+	local Language = require("zilscript.reader.Language")
 	for book, phrases in pairs(books) do
+		-- The story's language (game.json) decides the verb the parser understands.
+		local lang = Language.ofBook(book, root)
+		local examine = lang.examine
 		local declarations = {}
 		for _, source in ipairs({ "dungeon.zil", "actions.zil" }) do
 			local file = assert(io.open(root .. "/books/" .. book .. "/" .. source))
@@ -197,7 +201,7 @@ return function(root, expect, exhaustive, bookNames)
 						local key = prop[1].value
 						if key == "SYNONYM" or key == "ADJECTIVE" then
 							local words = key == "SYNONYM" and nouns or adjectives
-							for i = 2, #prop do table.insert(words, tostring(prop[i].value):lower()) end
+							for i = 2, #prop do table.insert(words, Language.word(lang, tostring(prop[i].value)):lower()) end
 						end
 					end
 				end
@@ -222,9 +226,9 @@ return function(root, expect, exhaustive, bookNames)
 					phrases[name] = nil
 					for _, phrase in ipairs(probes) do
 						resolved = nil
-						local reply = tostring(game:resume("examine " .. phrase))
+						local reply = tostring(game:resume(examine .. " " .. phrase))
 						commands = commands + 1
-						expect(resolved == object, book .. ": " .. name .. ": examine " .. phrase
+						expect(resolved == object, book .. ": " .. name .. ": " .. examine .. " " .. phrase
 							.. " (wanted " .. object .. ", got " .. tostring(resolved) .. "): " .. reply)
 					end
 					env.REMOVE(object)
