@@ -1,5 +1,5 @@
 <INSERT-FILE "infocom/zork1/globals">
-<INSERT-FILE "infocom/zork1/clock">
+<INSERT-FILE "core.clock">
 <INSERT-FILE "infocom/zork1/verbs">
 <INSERT-FILE "infocom/zork1/main">
 

@@ -73,7 +73,7 @@ test-unit:
 	@echo "Running unit tests..."
 	lua tests/run_all.lua
 
-test-integration: test-new-books test-zork1 test-zork2 test-game-startup test-parser test-horror-all test-limehouse-walkthrough test-wondertown-descriptions test-book-playtests test-book-walkthroughs
+test-integration: test-adventure-packages test-new-books test-zork1 test-zork2 test-game-startup test-parser test-horror-all test-limehouse-walkthrough test-wondertown-descriptions test-book-playtests test-book-walkthroughs
 	@echo "All integration tests completed!"
 
 test-zork1:
@@ -229,7 +229,7 @@ test-book-walkthroughs:
 		lua5.4 "$$test"; \
 	done
 
-test-pure-zil: test-new-books test-book-playtests test-book-walkthroughs
+test-pure-zil: test-adventure-packages test-new-books test-book-playtests test-book-walkthroughs
 	@echo "Running pure ZIL tests..."
 	@lua5.4 run-zil-test.lua zil/test-simple-new
 	@lua5.4 run-zil-test.lua zil/test-insert-file
@@ -285,7 +285,15 @@ zip:
 			cp "$$f" "$$tmpdir/"; \
 		fi; \
 	done; \
-	cd "$$tmpdir" && zip -j "$(CURDIR)/publish/$$game.zip" *.zil; \
+	mkdir -p "$tmpdir/infocom/zork1" "$tmpdir/core" "$tmpdir/languages/en" "$tmpdir/rulesets/classic"; \
+	for f in infocom/zork1/*.zil; do \
+		base=$(basename "$f"); \
+		if [ "$base" != "dungeon.zil" ] && [ "$base" != "actions.zil" ]; then cp "$f" "$tmpdir/infocom/zork1/"; fi; \
+	done; \
+	cp core/clock.zil core/LICENSE-ZORK-MIT "$tmpdir/core/"; \
+	cp languages/en/*.zil languages/en/LICENSE-ZORK-MIT "$tmpdir/languages/en/"; \
+	cp rulesets/classic/*.zil "$tmpdir/rulesets/classic/"; \
+	cd "$tmpdir" && zip -r "$(CURDIR)/publish/$game.zip" *.zil core languages rulesets infocom; \
 	rm -rf "$$tmpdir"; \
 	echo "Created publish/$$game.zip"
 
@@ -303,3 +311,10 @@ test-new-books:
 			lua5.4 "$$test"; \
 		done; \
 	done
+
+.PHONY: test-adventure-packages test-german-reference
+test-adventure-packages:
+	@lua5.4 tests/test_adventure_packages.lua
+
+test-german-reference:
+	@lua5.4 tests/test_german_reference.lua
