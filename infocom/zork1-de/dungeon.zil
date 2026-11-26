@@ -2705,8 +2705,6 @@ Scheinbar ist dieser Raum vor Kurzem gepl%undert worden, denn die meisten wertvo
 	<PUT ,DEF3-RES 3 <REST ,DEF3B 2>>
 	<SETG HERE ,WEST-OF-HOUSE>
 	<THIS-IS-IT ,MAILBOX>
-	<CLEAR -1>
-        <INIT-STATUS-LINE>
 	<CRLF>
 	<COND (<NOT <FSET? ,HERE ,TOUCHBIT>>
 	       <V-VERSION>

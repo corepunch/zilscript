@@ -83,7 +83,6 @@ game position, receive a hint, or end this session of the game?|
 
 <ROUTINE V-RESTORE ()
 	 <COND (<RESTORE>
-		<SETG OHERE <>>
 		<TELL "Ok." CR>
 		<V-FIRST-LOOK>)
 	       (T
@@ -94,10 +93,7 @@ game position, receive a hint, or end this session of the game?|
 	        ;<CHECK-REFRESH>
 		<TELL "Ok." CR>)
 	       (<EQUAL? .SV 2>
-		<SETG OHERE <>>
 		<TELL "Ok." CR>
-		<CLEAR -1>
-		<INIT-STATUS-LINE>
 		<CRLF>
 		<V-LOOK>)
 	       (T
@@ -112,17 +108,15 @@ game position, receive a hint, or end this session of the game?|
 ;"V-SCORE is in ACTIONS.ZIL"
 
 <ROUTINE V-SCRIPT ()
-	;<PUT 0 8 <BOR <GET 0 8> 1>>
+	<PUT 0 8 <BOR <GET 0 8> 1>>
 	<TELL "Hier beginnt eine gedruckte Kopie von: " CR CR>
-        <V-VERSION>
-	<DIROUT ,D-PRINTER-ON>
+	<V-VERSION>
 	<RTRUE>>
 
 <ROUTINE V-UNSCRIPT ()
 	<TELL "Hier endet eine gedruckte Kopie von: " CR CR>
 	<V-VERSION>
-	;<PUT 0 8 <BAND <GET 0 8> -2>>
-	<DIROUT ,D-PRINTER-OFF>
+	<PUT 0 8 <BAND <GET 0 8> -2>>
 	<RTRUE>>
 
 <ROUTINE V-$ID ()
@@ -299,7 +293,6 @@ DER-NOM-CAP ,PRSO " mu%s auf der Erde sein, um bestiegen zu werden." CR>)
 <ROUTINE V-BOARD ("AUX" AV)
 	 ;"Du bist jetzt in dem Zauberboot"
 	 <TELL "Du bist jetzt in " DER-DAT ,PRSO "." CR>
-	 <SETG OHERE <>>
 	 <MOVE ,WINNER ,PRSO>
 	 <APPLY <GETP ,PRSO ,P?ACTION> ,M-ENTER>
 	 <RTRUE>>
@@ -541,7 +534,6 @@ PRONOUN-NOM-CAP ,PRSO " ist schon geschlo%sen." CR>)>)
 		<TELL "Da bist du doch gar nicht drin!" CR>
 		<RFATAL>)
 	       (<FSET? ,HERE ,RLANDBIT>
-		<SETG OHERE <>>
 		<TELL "Du stehst wieder auf eigenen F%u%sen." CR>
 		<MOVE ,WINNER ,HERE>)
 	       (T
@@ -770,7 +762,7 @@ DER-NOM-CAP ,PRSO " floats serenely in midair." CR>)
 <ROUTINE PRE-FILL ("AUX" TX)
 	 <COND (<NOT ,PRSI>
 		<SET TX <GETPT ,HERE ,P?GLOBAL>>
-		<COND (<AND .TX <ZMEMQ ,GLOBAL-WATER .TX <- </ <PTSIZE .TX> 2> 1>>>
+		<COND (<AND .TX <ZMEMQB ,GLOBAL-WATER .TX <- <PTSIZE .TX> 1>>>
 		       <PERFORM ,V?FILL ,PRSO ,GLOBAL-WATER>
 		       <RTRUE>)
 		      (<IN? ,WATER <LOC ,WINNER>>
@@ -1778,7 +1770,7 @@ PRONOUN-NOM ,PRSO " auch nicht losgebunden werden!" CR>>
 		<RTRUE>)
 	       (<SET PT <GETPT ,HERE ,PRSO>>
 		<COND (<EQUAL? <SET PTS <PTSIZE .PT>> ,UEXIT>
-		       <GOTO <GET .PT ,REXIT>>)
+		       <GOTO <GETB .PT ,REXIT>>)
 		      (<EQUAL? .PTS ,NEXIT>
 		       <TELL <GET .PT ,NEXITSTR> CR>
 		       <RFATAL>)
@@ -1794,7 +1786,7 @@ PRONOUN-NOM ,PRSO " auch nicht losgebunden werden!" CR>>
 			      <RFATAL>)>)
 		      (<EQUAL? .PTS ,CEXIT>
 		       <COND (<VALUE <GETB .PT ,CEXITFLAG>> ;"globals can getb"
-			      <GOTO <GET .PT ,REXIT>>)  ;"dir. props can't"
+			      <GOTO <GETB .PT ,REXIT>>)  ;"dir. props can't"
 			     (<SET STR <GET .PT ,CEXITSTR>>
 			      <TELL .STR CR>
 			      <RFATAL>)
@@ -1803,8 +1795,8 @@ PRONOUN-NOM ,PRSO " auch nicht losgebunden werden!" CR>>
 "In die Richtung kannst du nicht gehen." CR>
 			      <RFATAL>)>)
 		      (<EQUAL? .PTS ,DEXIT>
-		       <COND (<FSET? <SET OBJ <GET .PT ,DEXITOBJ>> ,OPENBIT>
-			      <GOTO <GET .PT ,REXIT>>)
+		       <COND (<FSET? <SET OBJ <GETB .PT ,DEXITOBJ>> ,OPENBIT>
+			      <GOTO <GETB .PT ,REXIT>>)
 			     (<SET STR <GET .PT ,DEXITSTR>>
 			      <TELL .STR CR>
 			      <RFATAL>)
@@ -2275,8 +2267,6 @@ disappears!" CR>
 
 
 "Miscellaneous"
-;"when these are referenced, GET (and not GETB) must be used, since it
-takes TWO bytes to represent their values" 
 
 <CONSTANT REXIT 0>
 <CONSTANT UEXIT %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 2) (T 1)>>
@@ -2371,7 +2361,6 @@ DER-NOM-CAP .WLOC " comes to a stop." CR CR>)>)
 				       <TELL
 DER-NOM-CAP .WLOC " comes to a stop." CR CR>)>)>)>
 		<COND (.AV
-		       <SETG OHERE <>>
 		       <MOVE .WLOC .RM>)
 		      (T
 		       <MOVE ,WINNER .RM>)>
@@ -2445,7 +2434,7 @@ stumbled into an authentic grue lair!">))
 
 <ROUTINE GLOBAL-IN? (OBJ1 OBJ2 "AUX" TX)
 	 <COND (<SET TX <GETPT .OBJ2 ,P?GLOBAL>>
-		<ZMEMQ .OBJ1 .TX <- </ <PTSIZE .TX> 2> 1>>)>> 
+		<ZMEMQB .OBJ1 .TX <- <PTSIZE .TX> 1>>)>> 
 
 <ROUTINE FIND-IN (WHERE WHAT "AUX" W)
 	 <SET W <FIRST? .WHERE>>
@@ -2472,7 +2461,7 @@ stumbled into an authentic grue lair!">))
 		       (ELSE
 			<SET TX <GETPT ,HERE .P>>
 			<COND (<AND <EQUAL? <PTSIZE .TX> ,DEXIT>
-				    <EQUAL? <GET ;B .TX ,DEXITOBJ> .DOBJ>>
+				    <EQUAL? <GETB .TX ,DEXITOBJ> .DOBJ>>
 			       <RETURN .P>)>)>>>
 
 <ROUTINE MUNG-ROOM (RM STR)

@@ -4,6 +4,8 @@
   CLAUSE, GWIM, ORPHAN-MERGE, part-of-speech offsets and printing routines.
   (c) Copyright 1983 Infocom, Inc. See LICENSE-ZORK-MIT."
 
+<GLOBAL HERE 0>
+
 <GLOBAL PRSA <>>
 
 <GLOBAL PRSI <>>
@@ -89,6 +91,12 @@
 <CONSTANT P-LEXELEN 2>
 
 <CONSTANT P-WORDLEN 4> ;"Offset to parts of speech byte"
+
+;"The runtime's dictionary entries are the version 3 layout: four bytes of
+  word, then the part-of-speech byte and two values. Every language reads
+  them through these offsets."
+<CONSTANT P-PSOFF 4> ;"Offset to first part of speech"
+<CONSTANT P-P1OFF 5> ;"First part of speech bit mask in PSOFF byte"
 
 <CONSTANT P-P1BITS 3>
 
@@ -430,6 +438,13 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 <ROUTINE TAKE-CHECK ()
 	<AND <ITAKE-CHECK ,P-PRSO <GETB ,P-SYNTAX ,P-SLOC1>>
 	     <ITAKE-CHECK ,P-PRSI <GETB ,P-SYNTAX ,P-SLOC2>>>>
+
+<ROUTINE ZMEMQB (ITM TBL SIZE "AUX" (CNT 0))
+	<REPEAT ()
+		<COND (<EQUAL? .ITM <GETB .TBL .CNT>>
+		       <RTRUE>)
+		      (<IGRTR? CNT .SIZE>
+		       <RFALSE>)>>>
 
 <ROUTINE ZMEMQ (ITM TBL "OPTIONAL" (SIZE -1) "AUX" (CNT 1))
 	<COND (<NOT .TBL> <RFALSE>)>

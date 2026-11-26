@@ -27,6 +27,9 @@ jobs:
     - name: Verify independent adventure packages
       run: make test-adventure-packages
 
+    - name: Play the German Zork I opening on the German language package
+      run: lua5.4 tests/test_german_zork.lua
+
     - name: Run superhero rules assertions
       run: lua5.4 run-zil-test.lua tests/test-superhero-rules
 

@@ -9,22 +9,16 @@
   way.
 "
 
+
 <INSERT-FILE "core.parser">
 
 <SETG SIBREAKS ".,\"">
-
-
-<GLOBAL HERE 0>
 
 
 <GLOBAL P-IT-OBJECT <>>
 ;<GLOBAL LAST-PSEUDO-LOC <>>
 
 ;"Parser variables and temporaries"
-
-
-<CONSTANT P-PSOFF 4> ;"Offset to first part of speech"
-<CONSTANT P-P1OFF 5> ;"First part of speech bit mask in PSOFF byte"
 
 
 " Grovel down the input finding the verb, prepositions, and noun clauses.
@@ -985,12 +979,6 @@ or creatures." CR>
 	      (T)>>
 
 
-<ROUTINE ZMEMQB (ITM TBL SIZE "AUX" (CNT 0))
-	<REPEAT ()
-		<COND (<EQUAL? .ITM <GETB .TBL .CNT>>
-		       <RTRUE>)
-		      (<IGRTR? CNT .SIZE>
-		       <RFALSE>)>>>
 
 
 <ROUTINE THIS-IT? (OBJ TBL "AUX" SYNS)

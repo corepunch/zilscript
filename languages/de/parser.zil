@@ -4,7 +4,6 @@
  
                      -- GERMAN VIA <ZORK1>, pdl's revision"
 
-;"ein, eine, ect. replaces w?one in all cases"
 
 <INSERT-FILE "core.parser">
 
@@ -13,22 +12,8 @@
 
 <CONSTANT LAST-OBJECT 0> ;"zilch automatically sticks number of last obj here"
 
-<GLOBAL HERE:OBJECT WEST-OF-HOUSE>
-
 
 ;<GLOBAL LAST-PSEUDO-LOC <>>
-
-;"Parser variables and temporaries"
-
-
-<CONSTANT P-PSOFF %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 6) (T 4)>>
-			"Offset to parts of speech byte"
-<CONSTANT P-P1OFF %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 7) (T 5)>>
-			"Offset to first part of speech"
-
-;<CONSTANT P-PSOFF 4> ;"Offset to first part of speech"
-;<CONSTANT P-P1OFF 5> ;"First part of speech bit mask in PSOFF byte"
-
 
 " Grovel down the input finding the verb, prepositions, and noun clauses.
    If the input is <direction> or <walk> <direction>, fall out immediately
@@ -1050,9 +1035,9 @@ then you could just check gender of the first object found to determine
 	<SET LEN <GET .TBL ,P-MATCHLEN>>
 	<SET OBITS ,P-SLOCBITS>
 	<COND (<SET RMG <GETPT ,HERE ,P?GLOBAL>>
-	       <SET RMGL <- </ <PTSIZE .RMG> 2> 1>>
+	       <SET RMGL <- <PTSIZE .RMG> 1>>
 	       <REPEAT ()
-		       <COND (<THIS-IT? <SET OBJ <GET .RMG .CNT>> .TBL>
+		       <COND (<THIS-IT? <SET OBJ <GETB .RMG .CNT>> .TBL>
 			      <OBJ-FOUND .OBJ .TBL>)>
 		       <COND (<IGRTR? CNT .RMGL> <RETURN>)>>)>
 	;<COND (<SET RMG <GETPT ,HERE ,P?PSEUDO>>
@@ -1169,14 +1154,6 @@ then you could just check gender of the first object found to determine
 	       <TELL "%< gebrauchen." CR>
 	       <RFALSE>)
 	      (T)>>
-
-
-;<ROUTINE ZMEMQB (ITM TBL SIZE "AUX" (CNT 0))
-	<REPEAT ()
-		<COND (<EQUAL? .ITM <GETB .TBL .CNT>>
-		       <RTRUE>)
-		      (<IGRTR? CNT .SIZE>
-		       <RFALSE>)>>>
 
 
 ;<ROUTINE PRSO-PRINT ("AUX" PTR)

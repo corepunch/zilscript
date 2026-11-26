@@ -73,7 +73,7 @@ test-unit:
 	@echo "Running unit tests..."
 	lua tests/run_all.lua
 
-test-integration: test-adventure-packages test-new-books test-zork1 test-zork2 test-game-startup test-parser test-horror-all test-limehouse-walkthrough test-wondertown-descriptions test-book-playtests test-book-walkthroughs
+test-integration: test-adventure-packages test-german-zork test-new-books test-zork1 test-zork2 test-game-startup test-parser test-horror-all test-limehouse-walkthrough test-wondertown-descriptions test-book-playtests test-book-walkthroughs
 	@echo "All integration tests completed!"
 
 test-zork1:
@@ -303,9 +303,9 @@ test-new-books:
 		done; \
 	done
 
-.PHONY: test-adventure-packages test-german-reference
+.PHONY: test-adventure-packages test-german-zork
 test-adventure-packages:
 	@lua5.4 tests/test_adventure_packages.lua
 
-test-german-reference:
-	@lua5.4 tests/test_german_reference.lua
+test-german-zork:
+	@lua5.4 tests/test_german_zork.lua
