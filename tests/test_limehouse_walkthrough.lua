@@ -119,9 +119,9 @@ test.describe("Limehouse Killings walkthrough", function(t)
 			{"examine fog", "drops gather on the hairs of your wrist"},
 			{"examine gates", "iron gates"},
 			{"examine path", "gravel path"},
-			{"go north", "hall table gleams under the chandelier"},
+			{"go north", "polished hall table stands beneath the light"},
 			{"examine chandelier", "single clean crystal"},
-			{"examine portraits", "Portraits of the Ashworth family"},
+			{"examine portraits", "Generations of Ashworths look down"},
 			{"examine rug", "Persian rug"},
 			{"go down", "cold hearth"},
 			{"pull servant bell", "distant bell rings"},
@@ -168,19 +168,19 @@ test.describe("Limehouse Killings walkthrough", function(t)
 		assert.assert_equal(run_command("lua5.4 llm.lua --new-game" .. suffix), 0)
 
 		local actions = {
-			{"go north", "hall table gleams under the chandelier"},
+			{"go north", "polished hall table stands beneath the light"},
 			{"go down", "cold hearth"},
 			{"go west", "hedges"},
 			{"go south", "narrow beds"},
 			{"ask hudson about key", "hands you the keyring"},
-			{"go north", "dry fountain"},
+			{"go north", "dry stone fountain"},
 			{"go east", "cold hearth"},
-			{"go up", "hall table gleams under the chandelier"},
+			{"go up", "polished hall table stands beneath the light"},
 			{"look", "closed and locked"},
 			{"unlock study door with keyring", "study door is now unlocked"},
 			{"look", "closed but unlocked"},
 			{"open study door", "You open the study door"},
-			{"look", "study door stands open north"},
+			{"look", "study door stands open to the north"},
 			{"go north", "chalk outline"},
 		}
 
