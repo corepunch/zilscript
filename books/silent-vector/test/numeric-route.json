@@ -107,7 +107,7 @@
   [
     4,
     "examine area",
-    "examine examination area"
+    "examine exam bed"
   ],
   [
     20,
@@ -225,22 +225,22 @@
     "east"
   ],
   [
-    7,
+    8,
     "examine senn",
     "examine researcher senn"
   ],
   [
-    14,
+    15,
     "ask senn about signal",
     "tell researcher senn about received signal"
   ],
   [
-    13,
+    14,
     "ask senn about daughter",
     "tell researcher senn about missing daughter"
   ],
   [
-    19,
+    20,
     "north",
     "north"
   ],
@@ -265,7 +265,7 @@
     "south"
   ],
   [
-    15,
+    16,
     "west",
     "west"
   ],
@@ -310,7 +310,7 @@
     "east"
   ],
   [
-    16,
+    17,
     "north",
     "north"
   ],

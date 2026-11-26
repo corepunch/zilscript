@@ -92,11 +92,11 @@ You are in the Habitat Junction, where six ways meet at the centre of the [[stat
 
 
 > north
-You are in the Clinic, a small white room with a single [[examination area->area]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside the bed. [[Mara]], the station physician, looks up and asks whether you have eaten. The junction is back to the [[south]], and the comparison laboratory lies [[north]].
+You are in the Clinic, a small white room with a single [[exam bed->bed]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside it. [[Mara]], the station physician, looks up and asks whether you have eaten. The junction is back to the [[south]], and the comparison laboratory lies [[north]].
 
 
-> examine examination area
-The [[examination area->area]] has been washed with ordinary unscented soap. You remember a fifth patient here, but there is no fifth entry in the [[log]]. A pair of [[ceramic shears->shears]] lies ready for sterile work.
+> examine exam bed
+The [[exam bed->bed]] has been washed with ordinary unscented soap. You remember a fifth patient here, but there is no fifth entry in the [[log]]. A pair of [[ceramic shears->shears]] lies ready for sterile work.
 
 
 > take ceramic shears
@@ -120,7 +120,7 @@ Show the [[strip]] to Ivo. Isolate the incoming bus before entering the cold cor
 
 
 > south
-You are in the Clinic, a small white room with a single [[examination area->area]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside the bed. [[Mara]], the station physician, looks up and asks whether you have eaten. The junction is back to the [[south]], and the comparison laboratory lies [[north]].
+You are in the Clinic, a small white room with a single [[exam bed->bed]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside it. [[Mara]], the station physician, looks up and asks whether you have eaten. The junction is back to the [[south]], and the comparison laboratory lies [[north]].
 
 
 > south
@@ -186,7 +186,7 @@ You are in the Habitat Junction, where six ways meet at the centre of the [[stat
 
 
 > north
-You are in the Clinic, a small white room with a single [[examination area->area]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside the bed. [[Mara]], the station physician, holds her own wrist, counting without looking at the time. The junction is back to the [[south]], and the comparison laboratory lies [[north]].
+You are in the Clinic, a small white room with a single [[exam bed->bed]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside it. [[Mara]], the station physician, holds her own wrist, counting without looking at the time. The junction is back to the [[south]], and the comparison laboratory lies [[north]].
 
 
 > north
@@ -241,7 +241,7 @@ You are in the Comparison Laboratory, a quiet room of steel [[benches]] and bolt
 
 
 > south
-You are in the Clinic, a small white room with a single [[examination area->area]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside the bed. [[Mara]], the station physician, holds her own wrist, counting without looking at the time. The junction is back to the [[south]], and the comparison laboratory lies [[north]].
+You are in the Clinic, a small white room with a single [[exam bed->bed]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside it. [[Mara]], the station physician, holds her own wrist, counting without looking at the time. The junction is back to the [[south]], and the comparison laboratory lies [[north]].
 
 
 > south
@@ -261,7 +261,7 @@ You are in the Habitat Junction, where six ways meet at the centre of the [[stat
 
 
 > north
-You are in the Clinic, a small white room with a single [[examination area->area]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside the bed. Mara has gone to the launch cupola. The junction is back to the [[south]], and the comparison laboratory lies [[north]].
+You are in the Clinic, a small white room with a single [[exam bed->bed]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside it. Mara has gone to the launch cupola. The junction is back to the [[south]], and the comparison laboratory lies [[north]].
 
 
 > north
