@@ -72,12 +72,21 @@ end
 -- The verbs the story accepts for an item that make whole commands on
 -- their own, best known first; verbs outside the common set keep the
 -- story's order after them.
+-- A syntax that needs its object in hand (HAVE) fails with "You don't have
+-- the reed wick." until the reader holds it, unless TAKE lets the parser
+-- pick it up first. A reversed gift names the actor first; its HAVE object
+-- is the partner, which the caller checks.
+function Suggestions.inHand(item, pattern)
+	return not pattern.have or pattern.reverse or item.carried
+		or (pattern.take and item.traits ~= nil and item.traits.pickable) or false
+end
+
 function Suggestions.oneTapVerbs(item)
 	local verbs = {}
 	if item.patterns then
 		local seen = {}
 		for _, pattern in ipairs(item.patterns) do
-			if pattern.join == nil then
+			if pattern.join == nil and Suggestions.inHand(item, pattern) then
 				local verb = pattern.verb .. (pattern.prefix ~= "" and " " .. pattern.prefix or "")
 				if not seen[verb] then
 					seen[verb] = true

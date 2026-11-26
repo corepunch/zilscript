@@ -222,6 +222,7 @@ test-book-playtests:
 test-book-walkthroughs:
 	@lua5.4 tests/test_discovery_actions.lua
 	@lua5.4 tests/test_playtest_link_fixes.lua
+	@lua5.4 tests/test_menu_verbs.lua
 	@set -e; for test in books/*/test/test-walkthrough.zil; do \
 		lua5.4 run-zil-test.lua "$${test%.zil}"; \
 	done
