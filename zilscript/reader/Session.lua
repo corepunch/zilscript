@@ -1,21 +1,10 @@
 local namespace = (...):match("^(.*)%.Session$")
 local Suggestions = require(namespace .. ".Suggestions")
+local Language = require(namespace .. ".Language")
+local Text = require(namespace:match("^(.*)%.reader$") .. ".text")
 
 local Session = {}
 Session.__index = Session
-
-local DIRECTIONS = {
-	n = "north", north = "north",
-	ne = "northeast", northeast = "northeast",
-	e = "east", east = "east",
-	se = "southeast", southeast = "southeast",
-	s = "south", south = "south",
-	sw = "southwest", southwest = "southwest",
-	w = "west", west = "west",
-	nw = "northwest", northwest = "northwest",
-	u = "up", up = "up", d = "down", down = "down",
-	["in"] = "in", out = "out",
-}
 
 -- Re-rendering a transcript costs time proportional to its length, so the
 -- reader keeps the most recent entries; the story itself is unaffected.
@@ -25,6 +14,7 @@ function Session.new(options)
 	options = options or {}
 	local self = setmetatable({
 		engineFactory = options.engineFactory,
+		language = Language.profile(options.language),
 		-- A saved game replays its commands against the same random sequence.
 		newSeed = options.newSeed or function() return os.time() end,
 	}, Session)
@@ -62,7 +52,7 @@ function Session:refreshEngineState()
 		if ok and type(directions) == "table" then
 			self.availableDirections, self.exitList = {}, {}
 			for _, direction in ipairs(directions) do
-				local normalized = DIRECTIONS[tostring(direction):lower()]
+				local normalized = self.language.directions[tostring(direction):lower()]
 				if normalized and not self.availableDirections[normalized] then
 					self.availableDirections[normalized] = true
 					table.insert(self.exitList, normalized)
@@ -70,7 +60,7 @@ function Session:refreshEngineState()
 			end
 			-- The engine walks exits in hash order; players expect a compass.
 			local order = {}
-			for index, direction in ipairs(Suggestions.DIRECTIONS) do order[direction] = index end
+			for index, direction in ipairs(self.language.compass) do order[direction] = index end
 			table.sort(self.exitList, function(a, b) return order[a] < order[b] end)
 		end
 	end
@@ -89,7 +79,7 @@ function Session:refreshEngineState()
 end
 
 function Session:hasExit(direction)
-	local normalized = DIRECTIONS[tostring(direction or ""):lower()]
+	local normalized = self.language.directions[Text.lower(tostring(direction or ""))]
 	return normalized ~= nil and self.availableDirections[normalized] == true
 end
 
@@ -114,9 +104,9 @@ local function paragraphsOf(text)
 	return paragraphs
 end
 
-local function isBanner(paragraph)
-	local release = paragraph:match("\n(Release [^\n]+)$")
-	return release and (release:match("^Release %d+$") or release:match("^Release %d+ / Serial"))
+local function isBanner(paragraph, label)
+	local release = paragraph:match("\n" .. label .. " ([^\n]+)$")
+	return release and (release:match("^%d+$") or release:match("^%d+ / Serial"))
 end
 
 local SMALL_WORDS = {
@@ -161,7 +151,7 @@ function Session.parseLinks(text)
 		if label ~= "" and target ~= "" then
 			table.insert(links, {
 				location = length, length = utf8.len(label) or #label,
-				label = label, target = target:lower(),
+				label = label, target = Text.lower(target),
 			})
 		end
 		keep(label)
@@ -205,7 +195,7 @@ end
 function Session:interactionTargets(includePast)
 	local targets, seen = {}, {}
 	local function add(target, label)
-		if not target or DIRECTIONS[target] or seen[target] then return end
+		if not target or self.language.directions[target] or seen[target] then return end
 		seen[target] = true
 		table.insert(targets, { target = target, label = label })
 	end
@@ -240,7 +230,7 @@ end
 -- commands using things the reader has discovered.
 local function linkedItem(items, target)
 	local words = {}
-	for word in target:gmatch("[%w']+") do words[word] = true end
+	for word in target:gmatch(Text.word) do words[word] = true end
 	local noun = Suggestions.noun(target)
 	local best, bestScore = nil, 0
 	for _, item in ipairs(items) do
@@ -248,7 +238,7 @@ local function linkedItem(items, target)
 		for _, alias in ipairs(item.aliases or {}) do
 			if alias == noun then score = math.max(score, 60) end
 		end
-		for word in item.name:lower():gmatch("[%w']+") do
+		for word in Text.lower(item.name):gmatch(Text.word) do
 			if words[word] and word ~= "the" and word ~= "a" and word ~= "of" and word ~= "to" then
 				score = math.max(score, 20)
 			end
@@ -263,26 +253,27 @@ end
 
 -- Both link-play tools and typed completion consume the same parser actions.
 -- Keep the operands separate so completing a noun never has to parse a label.
-local function visitItemActions(item, partners, visit)
-	visit("examine", item)
+local function visitItemActions(item, partners, visit, language)
+	visit(language.examine, item)
 	for _, verb in ipairs(Suggestions.oneTapVerbs(item)) do
-		if verb ~= "look" and verb ~= "examine" then visit(verb, item) end
+		if verb ~= language.look and verb ~= language.examine then visit(verb, item) end
 	end
 	for _, pattern in ipairs(item.patterns or {}) do
 		if pattern.join ~= nil then
 			local prefix = pattern.verb .. (pattern.prefix ~= "" and " " .. pattern.prefix or "")
 			local paired = {}
-			for _, other in ipairs(partners(pattern.join == "about")) do
+			local topic = pattern.join == "about" or pattern.join == "ueber" or pattern.join == "über"
+			for _, other in ipairs(partners(topic)) do
 				local second = other.item
-				local tool = pattern.join == "with"
+				local tool = pattern.join == "with" or pattern.join == "mit"
 				local traits = second and second.traits or {}
-				local standardGift = pattern.action == nil or pattern.action == "GIVE" or pattern.action == "SHOW"
-				local recipient = standardGift and (pattern.verb == "give" or pattern.verb == "show") and not pattern.reverse
-				local container = pattern.verb == "put"
+				local gift = pattern.action == "GIVE" or pattern.action == "SHOW"
+					or (pattern.action == nil and (pattern.verb == "give" or pattern.verb == "show"))
+				local recipient = gift and not pattern.reverse
+				local container = pattern.action == "PUT" or pattern.action == "PUT-ON"
+					or (pattern.action == nil and pattern.verb == "put")
 				-- Handing over or putting away needs the thing in hand first.
-				local handed = not pattern.reverse
-					and (pattern.action == nil or pattern.action == "PUT" or standardGift)
-					and (pattern.verb == "put" or pattern.verb == "give" or pattern.verb == "show")
+				local handed = not pattern.reverse and (container or gift)
 				local identity = second and (second.identity or second.target or second.noun)
 				if second and identity and not paired[identity]
 						and (not pattern.partners or pattern.partners[identity])
@@ -318,15 +309,19 @@ end
 
 function Session:linkActions(target)
 	if not self.running then return {} end
-	target = trim(target):lower()
+	target = Text.lower(trim(target))
 	if target == "" then return {} end
-	local direction = DIRECTIONS[target]
-	if direction then return { { title = "Go " .. direction, command = direction } } end
+	local language = self.language
+	local direction = language.directions[target]
+	if direction then
+		local title = language.directionTitles and language.directionTitles[direction] or language.goTitle .. direction
+		return { { title = title, command = direction } }
+	end
 	local item = linkedItem(self.items, target)
 	if not item then return {} end
 	local actions, seen = {}, {}
 	visitItemActions(item, partnersFor(self), function(verb, first, join, second, pattern, label)
-		local title = capitalized(verb)
+		local title = language.titles and language.titles[verb] or capitalized(verb)
 		local command = verb .. " " .. (first.target or (first == item and target) or first.noun)
 		if second then
 			local glue = join ~= "" and " " .. join or ""
@@ -337,7 +332,7 @@ function Session:linkActions(target)
 			seen[command] = true
 			table.insert(actions, { title = title, command = command })
 		end
-	end)
+	end, language)
 	return actions
 end
 
@@ -358,7 +353,7 @@ function Session:appendOutput(text, openingTitle)
 		and (not self.scene or self.scene.title ~= (room or openingTitle)) and (room or openingTitle) or nil
 
 	for _, paragraph in ipairs(paragraphs) do
-		if isBanner(paragraph) then
+		if isBanner(paragraph, self.language.release) then
 			local title, rest = splitFirstLine(paragraph)
 			local lines = {}
 			for line in (rest or ""):gmatch("[^\n]+") do table.insert(lines, trim(line)) end
@@ -388,6 +383,7 @@ end
 -- the transcript exactly as the reader first saw it.
 function Session:start(game, saved)
 	if not game then return false, "Adventure not found." end
+	if saved and saved.gameId ~= game.id then return false, "The save belongs to another edition." end
 	if not self.engineFactory then return false, "No session engine configured." end
 	local seed = saved and tonumber(saved.seed) or self.newSeed()
 	local ok, engine, opening = pcall(function()
@@ -395,6 +391,7 @@ function Session:start(game, saved)
 	end)
 	if not ok then return false, tostring(engine) end
 	self:reset()
+	self.language = Language.profile(game.language)
 	self.engine, self.currentGame, self.seed = engine, game, seed
 	self:refreshEngineState()
 	self:appendOutput(opening, game.title)
@@ -447,21 +444,22 @@ end
 
 function Session:suggestions(input)
 	if not self.running then return {} end
+	local language = self.language
 	if not input or not input:find("%S") then
 		return {
-			{ title = "Look around", command = "look" },
-			{ title = "Inventory", command = "inventory" },
+			{ title = language.lookTitle, command = language.look },
+			{ title = language.inventoryTitle, command = language.inventory },
 		}
 	end
 	local partners = partnersFor(self)
 	return Suggestions.forInput(input, self.items, function(offer)
 		-- Complete the verb even in an empty room. After "take " only
 		-- eligible objects from the live parser scope are offered.
-		for _, verb in ipairs({ "look", "inventory", "wait", "take" }) do offer(verb) end
-		for _, exit in ipairs(self.exitList) do offer("go", exit) end
+		for _, verb in ipairs({ language.look, language.inventory, language.wait, language.take }) do offer(verb) end
+		for _, exit in ipairs(self.exitList) do offer(language.go, exit) end
 		for _, item in ipairs(self.items) do
 			if not item.patterns or #item.patterns > 0 then
-				visitItemActions(item, partners, offer)
+				visitItemActions(item, partners, offer, language)
 			end
 		end
 	end)
@@ -495,6 +493,14 @@ end
 -- Infocom status lines: "Score 12 of 350 · 41 moves". Planetfall's MOVES is
 -- the ship's chronometer, so its line reads "Time 4602" as the game's does.
 function Session.statusLine(game, score, maxScore, moves)
+	if game and game.language == "de" then
+		local turns = string.format("%d %s", moves, moves == 1 and "Zug" or "Züge")
+		if game.statusLine == "moves" then return turns end
+		local points = maxScore > 0 and string.format("%d von %d Punkten", score, maxScore)
+			or string.format("%d Punkte", score)
+		if game.statusLine == "time" then return points .. string.format(" · Zeit %d", moves) end
+		return points .. " · " .. turns
+	end
 	if game and game.statusLine == "moves" then return string.format("%d moves", moves) end
 	local scoreText = maxScore > 0
 		and string.format("Score %d of %d", score, maxScore)

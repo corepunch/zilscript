@@ -216,6 +216,7 @@ TopLevel.TOP_LEVEL_COMPILERS = {
 TopLevel.DIRECT_STATEMENTS = {
   COND = true,
   BUZZ = true,
+  LANGUAGE = true,
   SYNONYM = true,
   ["VERB-SYNONYM"] = true,
   ["PREP-SYNONYM"] = true,

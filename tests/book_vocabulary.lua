@@ -88,7 +88,7 @@ return function(root, expect, exhaustive, bookNames)
 	for book, phrases in pairs(books) do
 		local declarations = {}
 		for _, source in ipairs({ "dungeon.zil", "actions.zil" }) do
-			local file = assert(io.open(root .. "/books/" .. book .. "/" .. source))
+			local file = assert(io.open(root .. "/books/en/" .. book .. "/" .. source))
 			for _, node in ipairs(parser.parse(file:read("a"))) do
 				if node.name == "OBJECT" then table.insert(declarations, node) end
 			end
@@ -97,8 +97,8 @@ return function(root, expect, exhaustive, bookNames)
 		local env = runtime.create_game_env()
 		assert(runtime.init(env, true))
 		env.require("zilscript")
-		package.zilpath = root .. "/books/" .. book .. "/?.zil;" .. root .. "/infocom/zork1/?.zil;" .. root .. "/?.zil"
-		assert(runtime.load_zil_files({ root .. "/books/" .. book .. "/" .. book .. ".zil" }, env, { silent = true }))
+		package.zilpath = root .. "/books/en/" .. book .. "/?.zil;" .. root .. "/infocom/zork1/?.zil;" .. root .. "/?.zil"
+		assert(runtime.load_zil_files({ root .. "/books/en/" .. book .. "/" .. book .. ".zil" }, env, { silent = true }))
 		local game = runtime.create_game(env, true)
 		game:start()
 

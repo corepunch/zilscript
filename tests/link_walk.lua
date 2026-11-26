@@ -3,13 +3,13 @@
 -- offers is refused, so a route that passes is a route a player can tap.
 local runtime = require("zilscript.runtime")
 local Session = require("zilscript.reader.Session")
+local Language = require("zilscript.reader.Language")
 
 local Walk = {}
 Walk.__index = Walk
 
-local CONTROLS = { "look", "inventory", "wait" }
-
 function Walk.new(module, seed)
+	local language = module:match("^books%.([^.]+)%.")
 	local env = runtime.create_game_env()
 	assert(runtime.init(env, true))
 	env.require("zilscript")
@@ -31,7 +31,8 @@ function Walk.new(module, seed)
 		return finish(...)
 	end
 	self.game = runtime.create_game(env, true)
-	self.session = Session.new()
+	self.session = Session.new { language = language }
+	self.controls = Language.controls(language)
 	self.items = {}
 	self.session.engine = {
 		roomName = function() return self:room() end,
@@ -72,7 +73,7 @@ function Walk:menu()
 		table.insert(actions, { label = label, command = command, target = target or "" })
 	end
 	if not self:running() then return actions end
-	for _, control in ipairs(CONTROLS) do add(control, control) end
+	for _, control in ipairs(self.controls) do add(control, control) end
 	local active = false
 	for _, entry in ipairs(self.session.entries) do
 		if entry == self.session.scene then active = true end

@@ -2,7 +2,7 @@
 -- Every game command goes through the same link menu as a reader.
 package.path = './?.lua;./?/init.lua;' .. package.path
 local Walk = require('tests.link_walk')
-local function game(name) return Walk.new('books.' .. name .. '.' .. name, 97) end
+local function game(name) return Walk.new('books.en.' .. name .. '.' .. name, 97) end
 local function has(w, label, command)
   for _, a in ipairs(w:menu()) do
     if a.label == label and (not command or a.command == command) then return true end

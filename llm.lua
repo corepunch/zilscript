@@ -11,6 +11,7 @@
 -- outputs plain story text. Both modes keep a VM memory checkpoint.
 
 local runtime = require 'zilscript.runtime'
+local Editions = require 'zilscript.editions'
 
 -- Parse command line arguments
 local args = {}
@@ -26,6 +27,11 @@ while i <= #arg do
     elseif a == "--game" or a == "-g" then
         i = i + 1
         args.game = arg[i]
+    elseif a == "--language" then
+        i = i + 1
+        args.language = assert(arg[i], "--language requires en or de")
+    elseif a:match("^%-%-language=") then
+        args.language = a:match("^%-%-language=(.*)$")
     elseif a == "--new-game" then
         args.new_game = true
     elseif a == "--links" then
@@ -56,7 +62,8 @@ Usage:
 Options:
   --action, -a "cmd"   Execute this command and exit
   --save, -s file      VM checkpoint path
-  --game, -g name      Game to play (default: zork1)
+  --game, -g name      Game to play (English default: zork1)
+  --language en|de     Catalog language (default: en)
   --new-game           Start a new game (even if save file exists)
   --links              List the reader's available actions without a turn
   --choose N           Execute numbered reader action (implies --links)
@@ -80,88 +87,30 @@ Examples:
     os.exit(0)
 end
 
--- Game configurations
-local GAMES = {
-    ["borrowed-tomorrows"] = {
-        modules = {"books.borrowed-tomorrows.borrowed-tomorrows"}
-    },
-    ["bell-grew-leaves"] = {
-        modules = {"books.bell-grew-leaves.bell-grew-leaves"}
-    },
-    ["house-of-the-ebb"] = {
-        modules = {"books.house-of-the-ebb.house-of-the-ebb"}
-    },
-    ["the-midnight-ledger"] = {
-        modules = {"books.the-midnight-ledger.the-midnight-ledger"}
-    },
-    ["station-minus-one"] = {
-        modules = {"books.station-minus-one.station-minus-one"}
-    },
-    ["museum-unsent-signals"] = {
-        modules = {"books.museum-unsent-signals.museum-unsent-signals"}
-    },
-    ["pocket-weather"] = {
-        modules = {"books.pocket-weather.pocket-weather"}
-    },
-    ["silent-vector"] = {
-        modules = {"books.silent-vector.silent-vector"}
-    },
-    ["last-broadcast"] = {
-        modules = {"books.last-broadcast.last-broadcast"}
-    },
-    zork1 = {
-        modules = {
-            "infocom.zork1.globals",
-            "infocom.zork1.clock",
-            "infocom.zork1.parser",
-            "infocom.zork1.verbs",
-            "infocom.zork1.actions",
-            "infocom.zork1.syntax",
-            "infocom.zork1.dungeon",
-            "infocom.zork1.main",
-        }
-    },
-    zork3 = {
-        modules = {
-            "infocom.zork3.gglobals",
-            "infocom.zork3.gclock",
-            "infocom.zork3.gparser",
-            "infocom.zork3.gverbs",
-            "infocom.zork3.gsyntax",
-            "infocom.zork3.3actions",
-            "infocom.zork3.3dungeon",
-            "infocom.zork3.gmain",
-        }
-    },
-    lurkinghorror = {
-        modules = {"infocom.lurkinghorror.h1"}
-    },
-    spellbreaker = {
-        modules = {"infocom.spellbreaker.z6"}
-    },
-    ["limehouse-killings"] = {
-        modules = {"books.limehouse-killings.limehouse-killings"}
-    },
-    ["blackwood-horror"] = {
-        modules = {"books.blackwood-horror.blackwood-horror"}
-    },
-    ["wondertown"] = {
-        modules = {"books.wondertown.wondertown"}
-    },
-    planetfall = {
-        modules = {"infocom.planetfall.planetfall"}
-    },
+-- Imported English classics have their own entry filenames.
+local CLASSICS = {
+	zork1 = "infocom.zork1.zork1",
+	zork2 = "infocom.zork2.zork2",
+	zork3 = "infocom.zork3.zork3",
+	lurkinghorror = "infocom.lurkinghorror.h1",
+	spellbreaker = "infocom.spellbreaker.z6",
+	planetfall = "infocom.planetfall.planetfall",
 }
 
-local game_name = args.game or "zork1"
-local game_config = GAMES[game_name]
-if not game_config then
-    local available = {}
-    for k in pairs(GAMES or {}) do table.insert(available, k) end
-    io.write(string.format('{"ok":false,"error":"Unknown game: %s. Available: %s"}\n',
-        game_name, table.concat(available, ", ")))
-    os.exit(1)
+local language = args.language or "en"
+if not Editions.index(language) then
+	io.stderr:write(("Unknown catalog language %s\n"):format(language))
+	os.exit(1)
 end
+local slug = args.game or (language == "en" and "zork1" or nil)
+local entry = language == "en" and CLASSICS[slug] or Editions.bookModule(language, slug)
+local source = entry and io.open(entry:gsub("%.", "/") .. ".zil", "r")
+if not source then
+	io.stderr:write(("Unknown game %s in catalog %s\n"):format(tostring(slug), language))
+	os.exit(1)
+end
+source:close()
+local game_name = entry:match("^(.+)%.[^.]+$")
 
 -- Capture output function
 local captured_output = {}
@@ -223,7 +172,7 @@ end
 env.require('zilscript')
 
 -- Load game modules
-if not runtime.load_modules(env, game_config.modules, {silent = true}) then
+if not runtime.load_modules(env, { entry }, {silent = true}) then
     io.write('{"ok":false,"error":"Failed to load game modules"}\n')
     os.exit(1)
 end
@@ -323,7 +272,7 @@ end
 -- Main logic
 restore = setup_capture(env)
 
-local savefile = normalize_path(args.savefile or "savefile.sav")
+local savefile = normalize_path(args.savefile or (game_name .. ".sav"))
 local historyfile = savefile .. ".actions"
 local game_started = false
 local resumed_from_dump = false
@@ -436,6 +385,7 @@ if not args.new_game then
             assert(env.RESTORE(savefile), "Could not restore VM snapshot")
         end)
         if ok then
+            if env.PLAY_GAME ~= game_name then write_error_and_exit("Snapshot belongs to another edition") end
             _G._LLM_RESTORED = true
             resumed_from_dump = true
         else
@@ -481,7 +431,7 @@ end
 if args.links then
 		local ok, result = pcall(function()
 		return require("zilscript.link_play").run {
-			args = args, env = env, game = game, gameName = game_name,
+			args = args, env = env, game = game, gameName = game_name, language = language,
 			savefile = savefile, restored = resumed_from_dump,
 			start = start_game, act = execute_action_with_confirmation,
 			room = function() return get_room_name(env) end,
@@ -508,6 +458,7 @@ if args.action then
     local save_err = nil
     local history_err = nil
     local ok, err = pcall(function()
+        env.PLAY_GAME = game_name
         env.SAVE(savefile)
     end)
     if not ok then
@@ -553,6 +504,7 @@ elseif args.new_game then
     -- Save initial state as a raw memory dump. The action history remains available as a backlog and fallback path.
     local save_err = nil
     local ok, err = pcall(function()
+        env.PLAY_GAME = game_name
         env.SAVE(savefile)
     end)
     if not ok then

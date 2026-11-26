@@ -128,7 +128,7 @@ For integration test documentation, see **[tests/TESTS.md](tests/TESTS.md)**.
     - `test_runtime.lua` - Runtime unit tests
     - `run_all.lua` - Unit test runner
 - `infocom/zork1/` - Zork 1 game files
-- `books/blackwood-horror/` - Additional adventure files
+- `books/en/` and `books/de/` - Independent book catalogs. See [Localizing Adventure Arena books](docs/LOCALIZING_BOOKS.md).
 
 ## Configuring ZIL Files
 
@@ -140,7 +140,7 @@ local files = {
   "infocom/zork1/parser.zil",
   "infocom/zork1/verbs.zil",
   "infocom/zork1/syntax.zil",
-  "books/blackwood-horror/horror.zil",
+  "books/en/blackwood-horror/horror.zil",
   "infocom/zork1/main.zil",
 }
 ```

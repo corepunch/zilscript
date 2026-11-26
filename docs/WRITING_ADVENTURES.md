@@ -249,10 +249,10 @@ The working materials are the design; the **walkthrough test** (`walkthrough.zil
 
 ## Game Structure
 
-An adventure lives in its own folder under `books/<name>/` (replace `<name>` with the actual adventure name). The folder contains all related files — source, test, cover, copy, and metadata — so everything ships together:
+An English adventure lives in `books/en/<name>/`. For German editions see [Localizing Adventure Arena books](../docs/LOCALIZING_BOOKS.md). The folder contains all related files — source, test, cover, copy, and metadata — so everything ships together:
 
 ```
-books/<name>/
+books/en/<name>/
   dungeon.zil        # rooms, objects, global flags
   actions.zil        # routines (action handlers, clock daemons, GO entry point)
   walkthrough.zil    # walkthrough test (required — see Testing section)
@@ -271,11 +271,11 @@ This mirrors the Zork I source split: `dungeon.zil` holds static world data (roo
 The walkthrough (`walkthrough.zil`) also serves as the entry point that wires the engine to your game. It assembles everything via `INSERT-FILE`:
 
 ```zil
-; books/<name>/walkthrough.zil
+; books/en/<name>/test/test-walkthrough.zil
 <INSERT-FILE "infocom/zork1/globals">
 <INSERT-FILE "infocom/zork1/clock">
-<INSERT-FILE "books/<name>/dungeon">
-<INSERT-FILE "books/<name>/actions">
+<INSERT-FILE "books/en/<name>/dungeon">
+<INSERT-FILE "books/en/<name>/actions">
 <INSERT-FILE "infocom/zork1/parser">
 <INSERT-FILE "infocom/zork1/verbs">
 <INSERT-FILE "infocom/zork1/syntax">
@@ -1821,7 +1821,7 @@ Here's a minimal but complete adventure demonstrating all major features:
 
 ## Testing Your Adventure
 
-Every adventure must ship with a walkthrough test. It lives at `books/<name>/walkthrough.zil` — in the same folder as all other adventure files.
+Every adventure must ship with a walkthrough test. It lives at `books/en/<name>/test/test-walkthrough.zil` — in the same folder as all other adventure files.
 
 ### Why Walkthrough Tests
 
@@ -1855,11 +1855,11 @@ A walkthrough test is itself a ZIL file. It includes the standard engine files a
 ### Walkthrough Test Structure
 
 ```zil
-; books/<name>/walkthrough.zil
+; books/en/<name>/test/test-walkthrough.zil
 <INSERT-FILE "infocom/zork1/globals">
 <INSERT-FILE "infocom/zork1/clock">
-<INSERT-FILE "books/<name>/dungeon">
-<INSERT-FILE "books/<name>/actions">
+<INSERT-FILE "books/en/<name>/dungeon">
+<INSERT-FILE "books/en/<name>/actions">
 <INSERT-FILE "infocom/zork1/parser">
 <INSERT-FILE "infocom/zork1/verbs">
 <INSERT-FILE "infocom/zork1/syntax">
@@ -1887,7 +1887,7 @@ A walkthrough test is itself a ZIL file. It includes the standard engine files a
 
 ```bash
 # Run your walkthrough test
-lua5.4 run-zil-test.lua books.<name>.walkthrough
+lua5.4 run-zil-test.lua books/en/<name>/test/test-walkthrough
 
 # Run all ZIL tests
 lua5.4 run-zil-test.lua tests.run_all
@@ -1908,8 +1908,8 @@ You do not need a Cartesian test of every verb on every object. You do need lite
 ### Checklist Item
 
 Add to your per-adventure checklist:
-- [ ] Walkthrough test exists at `books/<name>/walkthrough.zil`
-- [ ] Test runs green: `lua5.4 run-zil-test.lua books.<name>.walkthrough`
+- [ ] Walkthrough test exists at `books/en/<name>/test/test-walkthrough.zil`
+- [ ] Test runs green: `lua5.4 run-zil-test.lua books/en/<name>/test/test-walkthrough`
 - [ ] Test covers the complete critical path from start to victory
 
 ---
@@ -2059,8 +2059,8 @@ Use this checklist before submitting your adventure:
 - [ ] All strings end with `CR` when they should produce a newline
 
 ### Testing
-- [ ] `books/<name>/walkthrough.zil` exists and assembles dungeon + actions via INSERT-FILE
-- [ ] Test runs green: `lua5.4 run-zil-test.lua books.<name>.walkthrough`
+- [ ] `books/en/<name>/test/test-walkthrough.zil` exists and assembles dungeon + actions via INSERT-FILE
+- [ ] Test runs green: `lua5.4 run-zil-test.lua books/en/<name>/test/test-walkthrough`
 - [ ] Test covers the complete critical path from start to victory
 
 ### Copy & Assets

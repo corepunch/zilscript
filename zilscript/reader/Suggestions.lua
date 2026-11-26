@@ -1,4 +1,5 @@
 -- Command completion and vocabulary from the running story.
+local Text = require((...):match("^(.*)%.reader%.Suggestions$") .. ".text")
 local Suggestions = {}
 
 local LIMIT = 3
@@ -13,11 +14,6 @@ local VERBS = {
 }
 local VERB_RANK = {}
 for index, verb in ipairs(VERBS) do VERB_RANK[verb] = index end
-
-local DIRECTIONS = {
-	"north", "south", "east", "west", "northeast", "northwest",
-	"southeast", "southwest", "up", "down", "in", "out",
-}
 
 -- Verbs whose object needs a second one make poor one-tap commands.
 local NEEDS_SECOND = { put = true, give = true, tie = true, throw = true, show = true, unlock = true, lock = true }
@@ -34,7 +30,7 @@ end
 -- "small mailbox" is typed as "mailbox": ZIL parsers match the final noun.
 function Suggestions.noun(name)
 	local words = {}
-	for word in tostring(name or ""):lower():gmatch("[%w']+") do table.insert(words, word) end
+	for word in Text.lower(tostring(name or "")):gmatch(Text.word) do table.insert(words, word) end
 	return words[#words]
 end
 
@@ -119,7 +115,7 @@ end
 -- Walk the grammatical slots of a single available command against the
 -- draft. A slot may be an entire noun phrase, such as "brass key".
 function Suggestions.forInput(input, items, visit)
-	local draft = input:lower():gsub("^%s+", ""):gsub("%s+", " ")
+	local draft = Text.lower(input):gsub("^%s+", ""):gsub("%s+", " ")
 	local choices, seen, counts = {}, {}, nounCounts(items)
 	local function offer(verb, first, join, second)
 		if verb == "take" and first and first.traits and first.traits.takeable == false then return end
@@ -164,7 +160,5 @@ function Suggestions.forInput(input, items, visit)
 	end
 	return result
 end
-
-Suggestions.DIRECTIONS = DIRECTIONS
 
 return Suggestions

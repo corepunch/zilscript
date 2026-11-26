@@ -81,7 +81,7 @@ test.describe("LLM Mode", function(t)
 
 		assert.assert_equal(exit_code, 0)
 		assert.assert_match(output, "mailbox")
-		assert.assert_match(history, '"game":"zork1"')
+		assert.assert_match(history, '"game":"infocom%.zork1"')
 		assert.assert_match(history, '"action":"open mailbox"')
 
 		cleanup(savefile)

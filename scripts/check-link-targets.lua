@@ -1,30 +1,30 @@
 #!/usr/bin/env lua
 -- Follow each room link and the links its EXAMINE reply introduces, as a reader and by typing.
--- Usage: lua5.4 scripts/check-link-targets.lua books/blackwood-horror
+-- Usage: lua5.4 scripts/check-link-targets.lua books/en/blackwood-horror
 package.path = "./?.lua;./?/init.lua;" .. package.path
 local Walk = require("tests.link_walk")
-
-local directions = {}
-for word in ("north south east west northeast northwest southeast southwest ne nw se sw up down in out"):gmatch("%S+") do
-	directions[word] = true
-end
+local Text = require("zilscript.text")
 
 local failures = {
 	"can't see any", "don't know the word", "noun missing", "verb missing",
 	"not recognized", "which .- do you mean", "used the word",
 	"sentence isn't one I recognize", "nothing special about",
+	"das hier nicht sehen", "welche.-meinst du", "substantiv zu fehlen",
+	"verstehe das wort", "ich kenne das wort",
 }
 
 local problems, checked, discoveries = 0, 0, 0
 local function checkLinks(story, walk, text, snapshot, parent, nextSnapshot)
 	local env, seen = walk.env, {}
+	local language = walk.session.language
+	local examine = language.examine .. " "
 	walk.session.entries = {}
 	walk:record(text)
 	assert(env.SAVE(snapshot))
 	for link in text:gmatch("%[%[(.-)%]%]") do
 		local label, target = link:match("^(.-)%->(.*)$")
-		target, label = (target or link):lower(), (label or link):lower()
-		if not directions[target] and not seen[link] then
+		target, label = Text.lower(target or link), Text.lower(label or link)
+		if not language.directions[target] and not seen[link] then
 			seen[link] = true
 			if parent then discoveries = discoveries + 1 else checked = checked + 1 end
 			-- A previous link may have revealed an item or changed the reader's menus.
@@ -36,10 +36,13 @@ local function checkLinks(story, walk, text, snapshot, parent, nextSnapshot)
 				print(string.format("%s / %s / %s[[%s]]: %s", story, env.GETP(env.HERE, env.PQDESC),
 					parent and (parent .. " / ") or "", link, reason))
 			end
-			local commands = { ["examine " .. label] = true, ["examine " .. target] = true }
+			local commands = { [examine .. target] = true }
+			-- A German label can be an inflected phrase. The authored target
+			-- is the command noun, even when the visible label differs.
+			if language.examine == "examine" then commands[examine .. label] = true end
 			local menu
 			for _, action in ipairs(walk.session:linkActions(target)) do
-				if action.command:match("^examine ") then menu = action.command; break end
+				if action.command:sub(1, #examine) == examine then menu = action.command; break end
 			end
 			if menu then commands[menu] = true else report("no EXAMINE action in the reader menu") end
 			local object

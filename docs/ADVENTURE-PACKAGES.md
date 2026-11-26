@@ -20,10 +20,10 @@ New stories use qualified imports, not path-search injection:
 <INSERT-FILE "dungeon">
 ```
 
-An RPG-specific ruleset should compose these common world/locale components and then register its own character and action-resolution policy. It must not import historical game folders. The superhero PR #90 will be migrated separately.
+An RPG-specific ruleset should compose these common world/locale components and then register its own character and action-resolution policy. It must not import historical game folders. [Blackout at Meridian](../books/en/blackout-at-meridian/) uses the superhero ruleset.
 
 ## Validation
 
-make test-adventure-packages checks the dependency graph, all original entrypoints and loads/starts The Midnight Ledger with historical file access blocked. CI runs this target and existing English walkthrough tests. make test-german-reference remains an opt-in probe; German compiler compatibility and complete gameplay are not yet verified. English export packaging includes only the book and independent packages, not Infocom directories. German export remains excluded pending exact source provenance verification.
+make test-adventure-packages checks the dependency graph, all original entrypoints and loads/starts The Midnight Ledger with historical file access blocked. CI runs this target and existing English walkthrough tests. make test-german-reference remains an opt-in probe; German compiler compatibility and complete gameplay are not yet verified. English export packaging includes only the book and independent packages, not Infocom directories. The localized German books use a separate adapted substrate described in [Localizing Adventure Arena books](LOCALIZING_BOOKS.md).
 
 English source derives from the November 2025 MIT Zork I release; retain the original notices. See https://github.com/historicalsource/zork1/blob/master/LICENSE. German source has been relocated from the existing repository and retains its original notices. See languages/de/SOURCE-PROVENANCE.md.

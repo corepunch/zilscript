@@ -19,7 +19,7 @@ local function writeFormattedList(buf, node, formatter, compiler)
     table.insert(list, formatter and formatter(child) or compiler.value(child))
   end
   buf.write("{")
-  buf.write(table.concat(list, ", "))
+  buf.write("%s", table.concat(list, ", "))
   buf.write("}")
 end
 

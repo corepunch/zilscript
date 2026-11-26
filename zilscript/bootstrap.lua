@@ -1,5 +1,6 @@
 -- zil_init.lua
 -- Equivalent of zil_newstate() in plain Lua
+local Text = require("zilscript.text")
 
 -- === Object Flags ===
 ZIL_ObjectFlags = {
@@ -9,7 +10,7 @@ ZIL_ObjectFlags = {
   "TURNBIT", "READBIT", "TAKEBIT", "CONTBIT", "ONBIT", "FOODBIT",
   "DRINKBIT", "DOORBIT", "CLIMBBIT", "RMUNGBIT", "FLAMEBIT",
   "BURNBIT", "VEHBIT", "TOOLBIT", "WEAPONBIT", "ACTORBIT",
-  "LIGHTBIT", "MAZEBIT"
+  "LIGHTBIT", "MAZEBIT", "DERBIT", "DIEBIT", "DASBIT", "KLUDGEBIT"
 }
 
 D = 0xBAADF00D
@@ -131,6 +132,7 @@ local _act_fn_to_id = {}  -- build-time reverse-lookup: fn_idx -> action_id
 local _pending_syntax = {}  -- SYNTAX entries deferred until action functions are defined
 local _pending_synonyms = {} -- vocabulary aliases applied after all object words exist
 local action_syntax = {}
+local story_language = "en"
 local object_phrases = {}
 local display_names = {}
 local object_aliases = {}
@@ -219,6 +221,12 @@ local function is_hidden(obj)
 	return invisible ~= nil and FSETQ(obj, invisible)
 end
 
+local german_action_words = {
+	EXAMINE = "untersuch", OPEN = "oeffn", CLOSE = "schliess",
+	TAKE = "nimm", DROP = "lass", READ = "lies", PUT = "leg", ["PUT-ON"] = "leg",
+	LISTEN = "hoer", KNOCK = "klopf an", ["LOOK-INSIDE"] = "schau in", PUSH = "drueck",
+}
+
 local function item_patterns(verbs)
 	local preferred = {
 		["LAMP-ON"] = "turn on", ["LAMP-OFF"] = "turn off",
@@ -229,7 +237,8 @@ local function item_patterns(verbs)
 	local result = {}
 	for _, verb in ipairs(verbs) do
 		local best, scores = {}, {}
-		local wanted = preferred[verb] or (verb == "ASK" and "tell") or verb:lower():gsub("-", " ")
+		local wanted = story_language == "de" and (german_action_words[verb] or "")
+			or preferred[verb] or (verb == "ASK" and "tell") or verb:lower():gsub("-", " ")
 		local available = action_syntax[verb]
 		-- Some action handlers test a delegated action (CLIMB), while the
 		-- parser dispatches CLIMB-FOO first. Match its real input grammar.
@@ -880,6 +889,18 @@ end
 
 local learn
 
+function LANGUAGE(name)
+	assert(name == "GERMAN", "Unsupported ZIL language: " .. tostring(name))
+	story_language = "de"
+end
+
+local function dictionary_key(word)
+	if story_language == "de" then
+		return Text.germanKey(word)
+	end
+	return word:lower():sub(1, 6)
+end
+
 local function merge_dictionary_word(target, source)
 	local old = mem:read(7, target)
 	local new = mem:read(7, source)
@@ -990,14 +1011,14 @@ end
 -- six-character dictionary truncation.  This is useful for the rare case where
 -- a long noun (for example INSPECTOR) collides with a shorter verb (INSPECT).
 function VOC_EXACT(word, target)
-	local target_key = tostring(target):lower():sub(1, 6)
+	local target_key = dictionary_key(tostring(target))
 	local target_word = cache.words[target_key]
 	cache.exact_words[tostring(word):lower()] = target_key
 	return target_word or 0
 end
 
 function VOC_EXACT_FIRST(word, target)
-	local target_key = tostring(target):lower():sub(1, 6)
+	local target_key = dictionary_key(tostring(target))
 	local target_word = cache.words[target_key]
 	cache.exact_words[tostring(word):lower()] = { target = target_key, first = true }
 	return target_word or 0
@@ -1171,6 +1192,17 @@ function RESTART()
 	error(ZIL_CONTROL_SIGNALS.restart, 0)
 end
 
+local tell_tokens = {}
+local tell_printers = {}
+
+function TELL_TOKEN(printer)
+	if not tell_tokens[printer] then
+		local token = {}
+		tell_tokens[printer], tell_printers[token] = token, printer
+	end
+	return tell_tokens[printer]
+end
+
 function TELL(...)
 	local object = false
 	local number = false
@@ -1181,6 +1213,7 @@ function TELL(...)
 		elseif v == TELL_THE then object = "THE"
 		elseif v == TELL_CTHE then object = "CTHE"
 		elseif v == TELL_CA then object = "CA"
+		elseif v ~= nil and tell_printers[v] then object = tell_printers[v]
 		elseif v == N then number = true
 		elseif object then
 			local token = object
@@ -1190,6 +1223,7 @@ function TELL(...)
 					or token == "THE" and rawget(_G, "THE_PRINT")
 					or token == "CTHE" and rawget(_G, "CTHE_PRINT")
 					or token == "D" and rawget(_G, "DPRINT")
+					or (tell_tokens[token] and rawget(_G, token))
 				if printer then
 					APPLY(printer, v)
 				else
@@ -1365,7 +1399,7 @@ function READ(inbuf, parse)
 	if not s then
 		os.exit(0)
 	end
-	if type(s) == "string" then
+	if story_language == "en" and type(s) == "string" then
 		local command, refusal = retrace(s)
 		if not command then
 			s = coroutine.yield(refusal)
@@ -1376,9 +1410,8 @@ function READ(inbuf, parse)
 
 	local p = {}
 	for pos, word in s:gmatch("()(%S+)") do
-		-- Z-machine truncates dictionary words to 6 characters
 		local normalized = word:lower()
-		local truncated = normalized:sub(1, 6)
+		local key = dictionary_key(word)
 		local exact_spec = cache.exact_words[normalized]
 		local exact_target
 		if type(exact_spec) == "table" then
@@ -1386,11 +1419,12 @@ function READ(inbuf, parse)
 		else
 			exact_target = exact_spec
 		end
-		local index = (exact_target and cache.words[exact_target]) or cache.words[truncated] or 0
+		local index = (exact_target and cache.words[exact_target]) or cache.words[key] or 0
 		-- ZIL vocabulary has no apostrophes, so a possessive such as "child's"
 		-- (or a phone keyboard's "child’s") is read as its owner, CHILD.
-		local stem = index == 0 and (normalized:match("^(.+)'s$") or normalized:match("^(.+)\226\128\153s$"))
-		if stem then index = cache.words[stem:sub(1, 6)] or 0 end
+		local stem = story_language == "en" and index == 0
+			and (normalized:match("^(.+)'s$") or normalized:match("^(.+)\226\128\153s$"))
+		if stem then index = cache.words[dictionary_key(stem)] or 0 end
 		table.insert(p, makeword(index).. string.char(#word, pos&0xff))
 	end
 	mem:write(s: lower()..'\0', inbuf+1)
@@ -1574,8 +1608,7 @@ learn = function(word, atom, value)
 	}
 	if not word then return 0 end
 	word = word:lower()
-	-- Z-machine truncates dictionary words to 6 characters
-	local word_key = word:sub(1, 6)
+	local word_key = dictionary_key(word)
 	if type(value) == 'table' then
 		-- Object adjective properties and the dictionary must share one value
 		-- for a six-character word. Registering LEATHER-BOUND after LEATHER
@@ -1612,7 +1645,7 @@ learn = function(word, atom, value)
 		_G['WQ'..upper2(word)] = pos
 	end
 	for _, syn in ipairs(cache.synonyms[word_key] or {}) do
-		local syn_key = syn:lower():sub(1, 6)
+		local syn_key = dictionary_key(syn)
 		if cache.words[syn_key] then
 			merge_dictionary_word(cache.words[syn_key], cache.words[word_key])
 		end
@@ -1852,15 +1885,17 @@ function OBJECT(object)
 	local object_name = object.ZIL_NAME or object.NAME
 	local n = _G[object_name]
 	if object.SYNONYM and object.SYNONYM[1] then
-		local adjective = object.ADJECTIVE and object.ADJECTIVE[1]
-		object_phrases[n] = ((adjective and adjective .. " " or "") .. object.SYNONYM[1]):lower()
+		-- German editions declare an unambiguous canonical noun first. The
+		-- same adjective can require a different ending in a second slot.
+		local adjective = story_language == "en" and object.ADJECTIVE and object.ADJECTIVE[1]
+		object_phrases[n] = Text.lower((adjective and adjective .. " " or "") .. object.SYNONYM[1])
 		if object.DESC then
 			local name = object.DESC:lower()
 			display_names[name] = display_names[name] or {}
 			table.insert(display_names[name], n)
 		end
 		local aliases = {}
-		for _, word in ipairs(object.SYNONYM) do table.insert(aliases, word:lower()) end
+		for _, word in ipairs(object.SYNONYM) do table.insert(aliases, Text.lower(word)) end
 		object_aliases[n] = aliases
 	end
 	local t = {string.char(#object_name), object_name}
@@ -2262,7 +2297,7 @@ end
 function BUZZ(...)
 	for _, buzz in ipairs {...} do
 		learn(buzz, PSQBUZZ_WORD, nil)
-		_G['WQ'..buzz:upper()] = cache.words[buzz:lower():sub(1, 6)]
+		_G['WQ'..buzz:upper()] = cache.words[dictionary_key(buzz)]
 	end
 end
 
@@ -2272,11 +2307,10 @@ function DEFER_SYNONYM(...)
 end
 
 function SYNONYM(verb, ...)
-	verb = verb:lower():sub(1, 6)
+	verb = dictionary_key(verb)
 	cache.synonyms[verb] = {...}
   for _, syn in ipairs {...} do
-		-- Truncate to 6 chars (Z-machine dictionary convention)
-		local syn_key = syn:lower():sub(1, 6)
+		local syn_key = dictionary_key(syn)
 		if cache.words[verb] then
 			if cache.words[syn_key] then
 				merge_dictionary_word(cache.words[syn_key], cache.words[verb])
@@ -2538,7 +2572,6 @@ function INSERT_FILE(filename, source_filename)
 	
 	-- If still not found, try the filename as-is
 	if not file then try_candidate(filename) end
-	
 	
 	if not file then
 		error(string.format("INSERT_FILE: Cannot open '%s' (resolved to '%s', tried package.zilpath and direct paths)", filename, name_path))

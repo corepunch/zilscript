@@ -62,8 +62,8 @@ lua5.4 scripts/play-links.lua wondertown /tmp/route.txt 3
 ```
 
 The route file holds one command per line. Each must be offered by a link
-menu at that moment, or the replay stops and prints the menu. The last
-argument is how many trailing steps to print; the current menu follows. A
+menu at that moment, or the replay stops and prints the menu. The third argument is how many trailing steps to print. The optional fourth
+and fifth arguments specify the seed and catalog language. The current menu follows. A
 line starting with `!` goes straight to the parser, for checking vocabulary
 only. `tests/link_walk.lua` is the module behind it, and behind each book's
 `test/test_walkthrough_links.lua`; `make test-book-walkthroughs` runs those
@@ -162,26 +162,20 @@ See [TESTING.md § How to Play](TESTING.md#how-to-play) for the full command ref
 
 ## Available Games
 
-Pass `--game <name>` to play different games:
+Pass `--game <slug>` to play a book from the English catalog in `books/en/`.
+Add `--language de` to play a German edition from `books/de/`. The available
+titles are the entry files in each catalog. Your default save filename uses
+the full edition ID.
 
-| Game | Module |
-|------|--------|
-| zork1 (default) | `infocom.zork1.zork1` |
-| lurkinghorror | `infocom.lurkinghorror.h1` |
-| spellbreaker | `infocom.spellbreaker.z6` |
-| planetfall | `infocom.planetfall.planetfall` |
-| limehouse-killings | `books.limehouse-killings.limehouse-killings` |
-| blackwood-horror | `books.blackwood-horror.blackwood-horror` |
-| wondertown | `books.wondertown.wondertown` |
-| last-broadcast | `books.last-broadcast.last-broadcast` |
-| pocket-weather | `books.pocket-weather.pocket-weather` |
-| silent-vector | `books.silent-vector.silent-vector` |
-| house-of-the-ebb | `books.house-of-the-ebb.house-of-the-ebb` |
-| the-midnight-ledger | `books.the-midnight-ledger.the-midnight-ledger` |
-| borrowed-tomorrows | `books.borrowed-tomorrows.borrowed-tomorrows` |
-| bell-grew-leaves | `books.bell-grew-leaves.bell-grew-leaves` |
-| station-minus-one | `books.station-minus-one.station-minus-one` |
-| museum-unsent-signals | `books.museum-unsent-signals.museum-unsent-signals` |
+```sh
+lua5.4 llm.lua --language de --game borrowed-tomorrows --new-game --links
+lua5.4 llm.lua --language de --game borrowed-tomorrows --choose 5
+lua5.4 llm.lua --language de --game museum-unsent-signals --new-game
+```
+
+The English catalog also supports `zork1` (default), `zork2`, `zork3`,
+`lurkinghorror`, `spellbreaker`, and `planetfall`. See
+[Localizing Adventure Arena books](docs/LOCALIZING_BOOKS.md).
 
 ## Command-Line Reference
 

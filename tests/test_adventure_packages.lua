@@ -20,7 +20,7 @@ check("rulesets/classic/de.zil")
 check("languages/de/init.zil")
 local names = {"bell-grew-leaves", "blackwood-horror", "borrowed-tomorrows", "house-of-the-ebb", "last-broadcast", "limehouse-killings", "museum-unsent-signals", "pocket-weather", "silent-vector", "station-minus-one", "the-midnight-ledger", "wondertown"}
 for _, name in ipairs(names) do
- local path = "books/" .. name .. "/" .. name .. ".zil"
+ local path = "books/en/" .. name .. "/" .. name .. ".zil"
  local source = read(path)
  assert(source:find('<INSERT-FILE "rulesets.classic.en">',1,true), path)
  assert(not source:find("infocom/zork",1,true), path)
@@ -37,7 +37,7 @@ io.open = function(path, ...)
  return originalOpen(path,...)
 end
 local ok,err=pcall(function()
- assert(runtime.load_modules(env,{"books.the-midnight-ledger.the-midnight-ledger"},{silent=true}))
+ assert(runtime.load_modules(env,{"books.en.the-midnight-ledger.the-midnight-ledger"},{silent=true}))
  local game=runtime.create_game(env,true)
  local opening=game:start()
  assert(type(opening)=="string" and opening:match("%S"),"empty opening")

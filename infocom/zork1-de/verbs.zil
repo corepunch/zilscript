@@ -26,15 +26,16 @@ must be maintained since you can plug in any (THING) into the sentence. ***"
 
 <ROUTINE V-SUPER-BRIEF ()
 	 <SETG SUPER-BRIEF T>
-	 <TELL "Superbrief descriptions." CR>>
+	 <TELL "Sehr kurze Beschreibungen." CR>>
 
 ;"V-DIAGNOSE is in ACTIONS.ZIL"
 
 <ROUTINE V-INVENTORY ()
 	 <COND (<FIRST? ,WINNER> <PRINT-CONT ,WINNER>)
-	       (T <TELL "Dein H%ande sind leer." CR>)>>
+	       (T <TELL "Deine Hände sind leer." CR>)>>
 
 <ROUTINE FINISH ("AUX" WRD)
+	 <COND (,BOOK-MODE <QUIT>)>
 	 <V-SCORE>
 	 <REPEAT ()
 		 <CRLF>
@@ -44,7 +45,7 @@ game position, receive a hint, or end this session of the game?|
 (Type RESTART, RESTORE, HINT, or QUIT):|
 >">
 		 <TELL 
-"M%ochtest du das Spiel neu anfangen, einen gespeicherten Zug wiederherstellen, einen Tip erhalten oder diese Spielrunde beenden?|
+"Möchtest du das Spiel neu anfangen, einen gespeicherten Zug wiederherstellen, einen Tip erhalten oder diese Spielrunde beenden?|
 (Tippe: NEUBEGINN ,WIEDERHERSTELLEN, TIP oder AUFHOEREN: 
 >">
 		 <PUTB ,P-INBUF 1 0>
@@ -67,7 +68,7 @@ game position, receive a hint, or end this session of the game?|
 <ROUTINE V-QUIT ("AUX" SCOR)
 	 <V-SCORE>
 	 <TELL 
-"M%ochtest du aufh%oren zu spielen. (J wenn: Ja): ">
+"Möchtest du aufhören zu spielen. (J wenn: Ja): ">
 	 <COND (<YES?>
 		<QUIT>)
 	       (ELSE 
@@ -75,7 +76,7 @@ game position, receive a hint, or end this session of the game?|
 
 <ROUTINE V-RESTART ()
 	 <V-SCORE T>
-	 <TELL "M%ochtest du neu anfangen? (J wenn: Ja): ">
+	 <TELL "Möchtest du neu anfangen? (J wenn: Ja): ">
 	 <COND (<YES?>
 		<TELL "Neuanfang." CR>
 		<RESTART>
@@ -135,8 +136,8 @@ game position, receive a hint, or end this session of the game?|
 
 <ROUTINE V-VERSION ("AUX" (CNT 17))
 	%<COND (<==? ,ZORK-NUMBER 1>
-		'<TELL "ZORK I: Das Gro%se Unterweltreich|
-Infocom dialogf%ahig Prose - eine Phantasiegeschichte|
+		'<TELL "ZORK I: Das Große Unterweltreich|
+Infocom dialogfähig Prose - eine Phantasiegeschichte|
 Copyright (c) 1981, 1982, 1983, 1984, 1985, 1986">)
 	       (<==? ,ZORK-NUMBER 2>
 		'<TELL "ZORK II: The Wizard of Frobozz|
@@ -150,7 +151,7 @@ Copyright 1982, 1983, 1984, 1986">)>
 Alle Rechte vorbehalten. ZORK ist ein eingetragenes Markenzeichen|
 der Infocom, Inc.|
 BETA RELEASE # 1|
-Ver%offenlichtung ">
+Veröffenlichtung ">
 	<PRINTN <BAND <GET 0 1> *3777*>>
 	<TELL " / Seriennummer ">
 	<REPEAT ()
@@ -163,7 +164,7 @@ Ver%offenlichtung ">
 	<RTRUE>>
 
 <ROUTINE V-VERIFY ()
-	 <TELL "Diskette pr%ufen..." CR>
+	 <TELL "Diskette prüfen..." CR>
 	 <COND (<VERIFY>
 		<TELL "Die Diskette ist in Ordnung." CR>)
 	       (T
@@ -229,7 +230,7 @@ hast." CR>)>)
 		<PERFORM ,V?ALARM ,ME>
 		<RTRUE>)
 	       (T
-		<TELL DER-NOM-CAP ,PRSO " schl%aft nicht!" CR>)>>
+		<TELL DER-NOM-CAP ,PRSO " schläft nicht!" CR>)>>
 
 <ROUTINE V-ANSWER ()
 	 <TELL "Keiner wartet auf deine Antwort." CR>
@@ -240,7 +241,7 @@ hast." CR>)>)
 <ROUTINE V-ATTACK ("AUX" X)
 	 <COND (<NOT <FSET? ,PRSO ,ACTORBIT>>
 		<TELL
-"Nur ein Verr%uckter w%urde " EIN-ACC ,PRSO " angreifen." CR>)
+"Nur ein Verrückter würde " EIN-ACC ,PRSO " angreifen." CR>)
 	       ;"for “greif troll an”"
 	       (<AND <NOT ,PRSI>
 		     <SET X <FIND-IN ,ADVENTURER ,WEAPONBIT>>>
@@ -250,10 +251,10 @@ hast." CR>)>)
 	       (<OR <NOT ,PRSI>
 		    <EQUAL? ,PRSI ,HANDS>>
 		<TELL
-EIN-ACC-CAP ,PRSO " mit den nackten H%anden anzugreifen ist Selbstmord." CR>)
+EIN-ACC-CAP ,PRSO " mit den nackten Händen anzugreifen ist Selbstmord." CR>)
 	       (<NOT <IN? ,PRSI ,WINNER>>
 		<TELL 
-"Du h%alst noch nicht einmal " DER-ACC ,PRSI " in der Hand." CR>)
+"Du hälst noch nicht einmal " DER-ACC ,PRSI " in der Hand." CR>)
 	       (<NOT <FSET? ,PRSI ,WEAPONBIT>>
 		;<TELL
 "Trying to attack " DER-ACC ,PRSO " with " EIN-DAT ,PRSI " is suicidal." CR>
@@ -283,7 +284,7 @@ EIN-ACC-CAP ,PRSO " mit " EIN-DAT ,PRSI " anzugreifen ist Selbstmord." CR>)
 		       ;<TELL
 DER-NOM-CAP ,PRSO " must be on the ground to be boarded." CR>
 		       <TELL
-DER-NOM-CAP ,PRSO " mu%s auf der Erde sein, um bestiegen zu werden." CR>)
+DER-NOM-CAP ,PRSO " muß auf der Erde sein, um bestiegen zu werden." CR>)
 		      (<FSET? .AV ,VEHBIT>
 		       <TELL "Du bist schon in " DER-DAT .AV "!" CR>)
 		      (T
@@ -333,7 +334,7 @@ DER-NOM-CAP ,PRSO " mu%s auf der Erde sein, um bestiegen zu werden." CR>)
 			   <IN? ,WINNER ,PRSO>>
 		       <REMOVE-CAREFULLY ,PRSO>
 		       <TELL
-DER-NOM-CAP ,PRSO " f%angt Feuer. Dummerweise ">
+DER-NOM-CAP ,PRSO " fängt Feuer. Dummerweise ">
 		       <COND (<IN? ,WINNER ,PRSO>
 			      <TELL "warst du gerade darin">)
 			     (T <TELL "hast du ihn gerade festgehalten">)>
@@ -341,7 +342,7 @@ DER-NOM-CAP ,PRSO " f%angt Feuer. Dummerweise ">
 		      (T
 		       <REMOVE-CAREFULLY ,PRSO>
 		       <TELL
-DER-NOM-CAP ,PRSO " f%angt Feuer und verbrennt." CR>)>)
+DER-NOM-CAP ,PRSO " fängt Feuer und verbrennt." CR>)>)
 	       (T
 		<TELL "Du kannst " EIN-ACC ,PRSO " nicht verbrennen." CR>)>>
 
@@ -378,7 +379,7 @@ DER-NOM-CAP ,PRSO " f%angt Feuer und verbrennt." CR>)>)
 		       <COND (<OR <EQUAL? .X ,NEXIT>
 				  <AND <EQUAL? .X ,CEXIT ,DEXIT ,UEXIT>
 				       <NOT <GLOBAL-IN? ,PRSO <GET .TX 0>>>>>
-			      <TELL DER-NOM-CAP .OBJ " f%uhrt nicht nach ">
+			      <TELL DER-NOM-CAP .OBJ " führt nicht nach ">
 			      ;<COND (<NOT <EQUAL? .OBJ ,STAIRS>>
 				     <TELL "es">)>
 			      ;<TELL "n't lead ">
@@ -395,7 +396,7 @@ DER-NOM-CAP ,PRSO " f%angt Feuer und verbrennt." CR>)>)
 			    <- </ <PTSIZE .X> 2> 1>>
 		     ;<ZMEMQ ,W?WALL
 			    <SET X <GETPT ,PRSO ,P?SYNONYM>> <PTSIZE .X>>>
-		<TELL "Die W%ande raufzuklettern ist sinnlos." CR>)
+		<TELL "Die Wände raufzuklettern ist sinnlos." CR>)
 	       (%<COND (<==? ,ZORK-NUMBER 1>
 			'<AND <NOT <EQUAL? ,HERE ,PATH>>
 			      <EQUAL? .OBJ <> ,TREE>
@@ -438,26 +439,26 @@ DER-NOM-CAP ,PRSO " f%angt Feuer und verbrennt." CR>)>)
 	 <COND (<AND <NOT <FSET? ,PRSO ,CONTBIT>>
 		     <NOT <FSET? ,PRSO ,DOORBIT>>>
 		<TELL 
-"Es ist ist einfach unm%oglich " EIN-DAT ,PRSO " zu schlie%sen." CR>)
+"Es ist ist einfach unmöglich " EIN-DAT ,PRSO " zu schließen." CR>)
 	       (<AND <NOT <FSET? ,PRSO ,SURFACEBIT>>
 		     <NOT <EQUAL? <GETP ,PRSO ,P?CAPACITY> 0>>>
 		<COND (<FSET? ,PRSO ,OPENBIT>
 		       <FCLEAR ,PRSO ,OPENBIT>
-		       <TELL "Geschlo%sen." CR>
+		       <TELL "Geschloßen." CR>
 		       <COND (<AND ,LIT <NOT <SETG LIT <LIT? ,HERE>>>>
 			      <TELL "Es ist jetzt stockdunkel." CR>)>
 		       <RTRUE>)
 		      (T
 	 	       <TELL 
-PRONOUN-NOM-CAP ,PRSO " ist schon geschlo%sen." CR>)>)
+PRONOUN-NOM-CAP ,PRSO " ist schon geschloßen." CR>)>)
 	       (<FSET? ,PRSO ,DOORBIT>
 		<COND (<FSET? ,PRSO ,OPENBIT>
 		       <FCLEAR ,PRSO ,OPENBIT>
-		       <TELL DER-NOM-CAP ,PRSO " ist jetzt geschlo%sen." CR>)
+		       <TELL DER-NOM-CAP ,PRSO " ist jetzt geschloßen." CR>)
 		      (T
-	 	       <TELL PRONOUN-NOM-CAP ,PRSO " ist schon geschlo%sen." CR>)>)
+		       <TELL PRONOUN-NOM-CAP ,PRSO " ist schon geschloßen." CR>)>)
 	       (T
-		<TELL "Du kannst das da nicht schlie%sen." CR>)>>
+		<TELL "Du kannst das da nicht schließen." CR>)>>
 
 <ROUTINE V-COMMAND ()
 	 <COND (<FSET? ,PRSO ,ACTORBIT>
@@ -467,22 +468,22 @@ PRONOUN-NOM-CAP ,PRSO " ist schon geschlo%sen." CR>)>)
 
 <ROUTINE V-COUNT ()
 	 ;<COND (<EQUAL? ,PRSO ,BLESSINGS>
-	 	<TELL "Vergi%s nicht, du spielst Zork." CR>)>
-	 <TELL "Du bist verr%uckt." CR>>
+		<TELL "Vergiß nicht, du spielst Zork." CR>)>
+	 <TELL "Du bist verrückt." CR>>
 
 <ROUTINE V-CROSS ()
-	 <TELL "Hier kannst du nicht %uberqueren." CR>>
+	 <TELL "Hier kannst du nicht überqueren." CR>>
 
 <ROUTINE V-CURSES ()
 	 <COND (,PRSO
 		<COND (<FSET? ,PRSO ,ACTORBIT>
 		       <TELL
-"Auf Unh%oflichkeiten dieser Art pflegen wir nicht zu reagieren." CR>)
+"Auf Unhöflichkeiten dieser Art pflegen wir nicht zu reagieren." CR>)
 		      (T
 		       <TELL "Was?!" CR>)>)
 	       (T
 		<TELL
-"Wir benutzen gew%ohnlich eine gepflegtere Sprache." CR>)>>
+"Wir benutzen gewöhnlich eine gepflegtere Sprache." CR>)>>
 
 <ROUTINE V-CUT ()
 	 <COND (<FSET? ,PRSO ,ACTORBIT>
@@ -493,11 +494,11 @@ PRONOUN-NOM-CAP ,PRSO " ist schon geschlo%sen." CR>)>)
 		       ;<TELL
 "Not a bright idea, especially since you're in " PRONOUN-ACC ,PRSO "." CR>
 		       <TELL
-"Nicht die kl%ugste Idee, denn du bist drin." CR>
+"Nicht die klügste Idee, denn du bist drin." CR>
 		       <RTRUE>)>
 		<REMOVE-CAREFULLY ,PRSO>
 		<TELL 
-"Nicht die kl%ugste Idee, denn du bist drin. Deine raffinierte Navigation zermalmt " DER-ACC ,PRSO " in unz%ahlbare Splitter, die wegfliegen." CR>)
+"Nicht die klügste Idee, denn du bist drin. Deine raffinierte Navigation zermalmt " DER-ACC ,PRSO " in unzählbare Splitter, die wegfliegen." CR>)
 	       (<NOT <FSET? ,PRSI ,WEAPONBIT>>
 		;<TELL
 "The %>cutting edge%< of " D ,PRSI " is hardly adequate." CR>
@@ -524,9 +525,9 @@ PRONOUN-NOM-CAP ,PRSO " ist schon geschlo%sen." CR>)>)
 		(ELSE T)>
 	 <COND (<FSET? ,PRSI ,TOOLBIT>
 		<TELL 
- "Mit " DER-DAT ,PRSI " zu graben ist langsam und m%uhsam." CR>)
+ "Mit " DER-DAT ,PRSI " zu graben ist langsam und mühsam." CR>)
 	       (T
-		<TELL "Mit " EIN-DAT ,PRSI " zu graben ist bl%odsinnig." CR>)>>
+		<TELL "Mit " EIN-DAT ,PRSI " zu graben ist blödsinnig." CR>)>>
 
 <ROUTINE V-DIG-WITH ()
 	 <PERFORM ,V?DIG ,GROUND ,SHOVEL>
@@ -542,11 +543,11 @@ PRONOUN-NOM-CAP ,PRSO " ist schon geschlo%sen." CR>)>)
 		<RFATAL>)
 	       (<FSET? ,HERE ,RLANDBIT>
 		<SETG OHERE <>>
-		<TELL "Du stehst wieder auf eigenen F%u%sen." CR>
+		<TELL "Du stehst wieder auf eigenen Füßen." CR>
 		<MOVE ,WINNER ,HERE>)
 	       (T
 		<TELL
-"Du begreifst, da%s es deinen Tod bedeuten w%urde, wenn du hier ausstiegest."
+"Du begreifst, daß es deinen Tod bedeuten würde, wenn du hier ausstiegest."
 CR>
 		<RFATAL>)>>
 
@@ -609,7 +610,7 @@ DER-NOM-CAP ,PRSO " sinks to the ground." CR>)
 "Wie in aller Welt willst du " DER-ACC ,PRSO " denn trinken?">)
 		      (T
 		       <TELL 
-"Es tut gut, l%oscht jeglichen Durst, den du eventuell versp%urt hast.">
+"Es tut gut, löscht jeglichen Durst, den du eventuell verspürt hast.">
 		       <REMOVE-CAREFULLY ,PRSO>)>
 		<CRLF>)
 	       (<FSET? ,PRSO ,DRINKBIT>
@@ -625,23 +626,23 @@ DER-NOM-CAP ,PRSO " sinks to the ground." CR>)
 		      (<AND <ACCESSIBLE? .NOBJ>
 			    <NOT <IN? .NOBJ ,WINNER>>>
 		       <TELL
-"Erst mu%st du doch " DER-ACC .NOBJ " in der Hand halten." CR>
-		       ;"Du mu%st die Gla%sflasche erst in der Hand halten.")
+"Erst mußt du doch " DER-ACC .NOBJ " in der Hand halten." CR>
+		       ;"Du mußt die Glaßflasche erst in der Hand halten.")
 		      (<NOT <FSET? .NOBJ ,OPENBIT>>
 		       <TELL
-"Erst mu%st du doch " DER-ACC .NOBJ " %offnen." CR>)
+"Erst mußt du doch " DER-ACC .NOBJ " öffnen." CR>)
 		      (T
 		       <HIT-SPOT>)>)
 	       (<NOT <OR .EAT? .DRINK?>>
 		<TELL
-"Ich glaube nicht, da%s dir " DER-NOM ,PRSO " bekommt.">)>>
+"Ich glaube nicht, daß dir " DER-NOM ,PRSO " bekommt.">)>>
 
 <ROUTINE HIT-SPOT ()
 	 <COND (<AND <EQUAL? ,PRSO ,WATER>
 		     <NOT <GLOBAL-IN? ,GLOBAL-WATER ,HERE>>>
 		<REMOVE-CAREFULLY ,PRSO>)>
 	 <TELL
-"Es tut gut, l%oscht jeglichen Durst, den du eventuell versp%urt hast." CR>>
+"Es tut gut, löscht jeglichen Durst, den du eventuell verspürt hast." CR>>
 
 <ROUTINE V-ECHO ("AUX" LST MAX (ECH 0) CNT) 
 	 #DECL ((LST) <PRIMTYPE VECTOR> (MAX CNT ECH) FIX)
@@ -765,12 +766,12 @@ DER-NOM-CAP ,PRSO " floats serenely in midair." CR>)
 		<DO-WALK ,P?RAUS>)>>
 
 <ROUTINE V-EXORCISE ()
-	 <TELL "Was f%ur eine Schnappsidee!" CR>>
+	 <TELL "Was für eine Schnappsidee!" CR>>
 
 <ROUTINE PRE-FILL ("AUX" TX)
 	 <COND (<NOT ,PRSI>
 		<SET TX <GETPT ,HERE ,P?GLOBAL>>
-		<COND (<AND .TX <ZMEMQ ,GLOBAL-WATER .TX <- </ <PTSIZE .TX> 2> 1>>>
+		<COND (<AND .TX <ZMEMQB ,GLOBAL-WATER .TX <- <PTSIZE .TX> 1>>>
 		       <PERFORM ,V?FILL ,PRSO ,GLOBAL-WATER>
 		       <RTRUE>)
 		      (<IN? ,WATER <LOC ,WINNER>>
@@ -778,7 +779,7 @@ DER-NOM-CAP ,PRSO " floats serenely in midair." CR>)
 		       <RTRUE>)
 		      (T
 		       <TELL 
-"Da ist nichts, mit dem man " DER-ACC ,PRSO " f%ullen k%onnte." CR>
+"Da ist nichts, mit dem man " DER-ACC ,PRSO " füllen könnte." CR>
 		       <RTRUE>)>)>
 	 <COND (<EQUAL? ,PRSI ,WATER>
 		<RFALSE>)
@@ -796,7 +797,7 @@ DER-NOM-CAP ,PRSO " floats serenely in midair." CR>)
 		       <RTRUE>)
 		      (T
 		       <TELL 
-"Da ist nichts, mit dem man " DER-ACC ,PRSO " f%ullen k%onnte." CR>)>)
+"Da ist nichts, mit dem man " DER-ACC ,PRSO " füllen könnte." CR>)>)
 	       (T
 		<TELL "You may know how to do that, but I don't." CR>)>>
 
@@ -807,7 +808,7 @@ DER-NOM-CAP ,PRSO " floats serenely in midair." CR>)
 "Within six feet of your head, assuming you haven't left that
 somewhere." CR>)
 	       (<EQUAL? ,PRSO ,ME>
-		<TELL "Du bist doch hier irgendwo in der N%ahe." CR>)
+		<TELL "Du bist doch hier irgendwo in der Nähe." CR>)
 	       (<EQUAL? .L ,GLOBAL-OBJECTS>
 		<TELL "Du findest " PRONOUN-ACC ,PRSO "." CR>)
 	       (<IN? ,PRSO ,WINNER>
@@ -830,7 +831,7 @@ somewhere." CR>)
 
 <ROUTINE V-FROBOZZ ()
 	 <TELL
-"Die FROBOZZ FIRMA gr%undete, besitzt und leitet diesen Kerker." CR>>
+"Die FROBOZZ FIRMA gründete, besitzt und leitet diesen Kerker." CR>>
 
 <ROUTINE PRE-GIVE ()
 	 <COND (<NOT <HELD? ,PRSO>>
@@ -845,7 +846,7 @@ DER-ACC ,PRSO "." CR>)>>
 "Du kannst " EIN-DAT ,PRSI " doch nicht " EIN-ACC ,PRSO " geben!">)
 	       (T
 		<TELL 
-DER-NOM-CAP ,PRSI " lehnt " PRONOUN-ACC ,PRSI " h%oflich ab." CR>)>>
+DER-NOM-CAP ,PRSI " lehnt " PRONOUN-ACC ,PRSI " höflich ab." CR>)>>
 
 <ROUTINE V-HATCH ()
 	 <TELL "Bizarre!" CR>>
@@ -857,16 +858,16 @@ DER-NOM-CAP ,PRSI " lehnt " PRONOUN-ACC ,PRSI " h%oflich ab." CR>)>>
 		     <NOT <PRSO? ,ROOMS>>>
 		<COND (<FSET? ,PRSO ,ACTORBIT>
 		       <TELL
-DER-NOM-CAP ,PRSO " gr%u%st dich mit einem Kopfnicken." CR>)
+DER-NOM-CAP ,PRSO " grüßt dich mit einem Kopfnicken." CR>)
 		      (T
 		       <TELL
-"Es ist eine alte Suppe, da%s nur Verr%uckte zu " EIN-DAT ,PRSO ":
+"Es ist eine alte Suppe, daß nur Verrückte zu " EIN-DAT ,PRSO ":
 %>Guten Tag%< sagen." CR>)>)
 	       (T
 		<TELL <PICK-ONE ,HELLOS> CR>)>>
 
 <ROUTINE V-HINTS-OFF ()
-	 <TELL "Tips sind f%uer diese Runde abgestellt." CR>
+	 <TELL "Tips sind füer diese Runde abgestellt." CR>
 	 <SETG HINTS-OFF T>>
 
 <ROUTINE V-INCANT ()
@@ -903,11 +904,11 @@ DER-NOM-CAP ,PRSO " gr%u%st dich mit einem Kopfnicken." CR>)
 
 <ROUTINE V-KICK () 
 	 <TELL 
-DER-ACC-CAP ,PRSO " mit dem Fu%s treten, scheint nicht zu funktionieren." CR>>
+DER-ACC-CAP ,PRSO " mit dem Fuß treten, scheint nicht zu funktionieren." CR>>
 
 <ROUTINE V-KISS ()
 	 <TELL 
-"Da w%urdest du lieber einen Ochs zwischen den H%ornern k%ussen." CR>>
+"Da würdest du lieber einen Ochs zwischen den Hörnern küssen." CR>>
 
 <ROUTINE V-KNOCK ()
 	 <COND (<FSET? ,PRSO ,DOORBIT>
@@ -943,7 +944,7 @@ DER-ACC-CAP ,PRSO " mit dem Fu%s treten, scheint nicht zu funktionieren." CR>>
 			      <V-LOOK>)>)>)
 	       (<FSET? ,PRSO ,BURNBIT>
 		<TELL
-"Wenn du " DER-ACC ,PRSO " verbrennen willst, mu%st du's sagen." CR>)
+"Wenn du " DER-ACC ,PRSO " verbrennen willst, mußt du's sagen." CR>)
 	       (T
 		<TELL "Das kannst du nicht anmachen." CR>)>
 	 <RTRUE>>
@@ -952,36 +953,36 @@ DER-ACC-CAP ,PRSO " mit dem Fu%s treten, scheint nicht zu funktionieren." CR>>
 	 <COND (<FSET? ,PRSO ,VEHBIT>
 		;<TELL "You can't launch that by saying %>launch%<!" CR>
 		<TELL 
-"Du kannst das nicht absto%sen, in dem du %>Absto%sen%<
+"Du kannst das nicht abstoßen, in dem du %>Abstoßen%<
 sagst.">)
 	       (T
 		<TELL "Das ist ziemlich absurd." CR>)>>
 
 <ROUTINE V-LEAN-ON ()
-	 <TELL "Bist du m%ude?" CR>>
+	 <TELL "Bist du müde?" CR>>
 
 <ROUTINE V-LEAP ("AUX" TX S)
 	 <COND (,PRSO
 		<COND (<IN? ,PRSO ,HERE>
 		       <COND (<FSET? ,PRSO ,ACTORBIT>
 			      <TELL
-DER-NOM-CAP ,PRSO " ist zu gro%s, um %uber ihn zu springen." CR>)
+DER-NOM-CAP ,PRSO " ist zu groß, um über ihn zu springen." CR>)
 			     (T
 			      <V-SKIP>)>)
 		      (T
-		       <TELL "Das w%are ein toller Trick." CR>)>)
+		       <TELL "Das wäre ein toller Trick." CR>)>)
 	       (<SET TX <GETPT ,HERE ,P?RUNTER>>
 		<SET S <PTSIZE .TX>>
 		<COND (<OR <EQUAL? .S 3 ;2> ;NEXIT
        			   <AND <EQUAL? .S 5 ;4> ;CEXIT
 				<NOT <VALUE <GETB ;B .TX 1>>>>>
 		       <TELL
-"Das war nicht der sicherste Platz f%ur den Absprung." CR>
+"Das war nicht der sicherste Platz für den Absprung." CR>
 		       <JIGS-UP <PICK-ONE ,JUMPLOSS>>)
 		      %<COND (<==? ,ZORK-NUMBER 1>
 			      '(<EQUAL? ,HERE ,UP-A-TREE>
 		                <TELL
-"In einem Anflug von ungew%ohnlicher Waghalsigkeit, hast du es geschafft, auf beiden F%u%sen zu landen, ohne dich umzubringen." CR CR>
+"In einem Anflug von ungewöhnlicher Waghalsigkeit, hast du es geschafft, auf beiden Füßen zu landen, ohne dich umzubringen." CR CR>
 		                <DO-WALK ,P?RUNTER>
 		                <RTRUE>))
 			     (T '(<NULL-F> T))>
@@ -992,8 +993,8 @@ DER-NOM-CAP ,PRSO " ist zu gro%s, um %uber ihn zu springen." CR>)
 
 <GLOBAL JUMPLOSS
 	<LTABLE 0
-	       "Du h%attest erst mal gucken sollen, ehe du gesprungen bist."
-	       "Im Film w%urde jetzt dein ganzes Leben schnell noch mal an dir vorbeispielen. Hiiiilfe.">>
+	       "Du hättest erst mal gucken sollen, ehe du gesprungen bist."
+	       "Im Film würde jetzt dein ganzes Leben schnell noch mal an dir vorbeispielen. Hiiiilfe.">>
 
 <ROUTINE V-LEAVE ()
 	 <COND (<PRSO? ,ROOMS>
@@ -1019,10 +1020,10 @@ DER-NOM-CAP ,PRSO " ist zu gro%s, um %uber ihn zu springen." CR>)
 	 <COND (<FSET? ,PRSO ,DOORBIT>
 		<COND (<FSET? ,PRSO ,OPENBIT>
 		       <TELL
-DER-NOM-CAP ,PRSO " ist ge%offnet, aber du kannst nicht sehen, was
+DER-NOM-CAP ,PRSO " ist geöffnet, aber du kannst nicht sehen, was
 dahinter ist.">)
 		      (T
-		       <TELL DER-NOM-CAP ,PRSO " ist geschlo%sen.">)>
+		       <TELL DER-NOM-CAP ,PRSO " ist geschloßen.">)>
 		<CRLF>)
 	       (<FSET? ,PRSO ,CONTBIT>
 		<COND (<FSET? ,PRSO ,ACTORBIT>
@@ -1039,7 +1040,7 @@ dahinter ist.">)
 			     (T
 			      <TELL DER-NOM-CAP ,PRSO " ist leer." CR>)>)
 		      (T
-		       <TELL DER-NOM-CAP ,PRSO " ist geschlo%sen." CR>)>)
+		       <TELL DER-NOM-CAP ,PRSO " ist geschloßen." CR>)>)
 	       (T
 		<TELL 
 "Du kannst nicht in " EIN-DAT ,PRSO " hineingucken." CR>)>>
@@ -1062,12 +1063,12 @@ dahinter ist.">)
 
 <ROUTINE V-MELT ()
 	 <TELL 
-"Es ist nicht gesagt, da%s man " EIN-NOM ,PRSO " schmelzen kann." CR>>
+"Es ist nicht gesagt, daß man " EIN-NOM ,PRSO " schmelzen kann." CR>>
 
 <ROUTINE PRE-MOVE ()
 	 <COND (<HELD? ,PRSO>
 		<TELL
-"Deine Jonglierk%unste sind nicht gut genug daf%ur." CR>)>>
+"Deine Jonglierkünste sind nicht gut genug dafür." CR>)>>
 
 <ROUTINE V-MOVE ()
 	 <COND (<FSET? ,PRSO ,TAKEBIT>
@@ -1090,10 +1091,10 @@ DER-ACC-CAP ,PRSO " kann man nicht aus dem Weg schieben." CR>)>>
 		;<TELL "Trying to destroy " DER-ACC ,PRSO " with ">
 		<TELL "Es ist sinnlos, " DER-ACC ,PRSO " mit ">
 		<COND (<NOT ,PRSI>
-		       <TELL "blo%sen F%austen">)
+		       <TELL "bloßen Fäusten">)
 		      (T
 		       <TELL EIN-DAT ,PRSI>)>
-		<TELL " zerst%oren zu wollen." CR>)>>
+		<TELL " zerstören zu wollen." CR>)>>
 
 <ROUTINE V-MUNG ()
 	 <COND (<FSET? ,PRSO ,ACTORBIT>
@@ -1113,7 +1114,7 @@ DER-ACC-CAP ,PRSO " kann man nicht aus dem Weg schieben." CR>)>>
 		         <DISABLE <INT I-CYCLOPS>>
 		         <SETG CYCLOPS-FLAG T>
 		         <TELL 
-"Als der Zyklop von der t%odlichen Strafe seines Vaters h%ort, entflieht er aus dem Zimmer, indem er die Ostwand des Zimmers niederrennt." CR>
+"Als der Zyklop von der tödlichen Strafe seines Vaters hört, entflieht er aus dem Zimmer, indem er die Ostwand des Zimmers niederrennt." CR>
 		        <SETG MAGIC-FLAG T>
 		        <FCLEAR ,CYCLOPS ,FIGHTBIT>
 		        <REMOVE-CAREFULLY ,CYCLOPS>))
@@ -1137,35 +1138,35 @@ DER-ACC-CAP ,PRSO " kann man nicht aus dem Weg schieben." CR>)>>
 		       <FSET ,PRSO ,OPENBIT>
 		       <FSET ,PRSO ,TOUCHBIT>
 		       <COND (<OR <NOT <FIRST? ,PRSO>> <FSET? ,PRSO ,TRANSBIT>>
-			      <TELL "Ge%offnet." CR>)
+			      <TELL "Geöffnet." CR>)
 			     (<AND <SET F <FIRST? ,PRSO>>
 				   <NOT <NEXT? .F>>
 				   <NOT <FSET? .F ,TOUCHBIT>>
 				   <SET STR <GETP .F ,P?FDESC>>>
 			      <TELL 
-DER-NOM-CAP ,PRSO " l%a%st sich %offnen." CR>
+DER-NOM-CAP ,PRSO " läßt sich öffnen." CR>
 			      <TELL .STR CR>)
 			     (T
 			      <TELL 
-DER-NOM-CAP ,PRSO ", der ge%offnet ist, enth%alt ">
+DER-NOM-CAP ,PRSO ", der geöffnet ist, enthält ">
 			      <PRINT-CONTENTS ,PRSO>
 			      <TELL "." CR>)>)>)
 	       (<FSET? ,PRSO ,DOORBIT>
 		<COND (<FSET? ,PRSO ,OPENBIT>
 		       <TELL PRONOUN-NOM-CAP ,PRSO " ist schon offen." CR>)
 		      (T
-		       <TELL DER-NOM-CAP ,PRSO " %offnet." CR>
+		       <TELL DER-NOM-CAP ,PRSO " öffnet." CR>
 		       <FSET ,PRSO ,OPENBIT>)>)
 	       (T
 		<TELL
-"Du scheinst " EIN-ACC ,PRSO " nicht %offnen zu k%onnen." CR>)>>
+"Du scheinst " EIN-ACC ,PRSO " nicht öffnen zu können." CR>)>>
 
 <ROUTINE V-OVERBOARD ("AUX" LOCN)
 	 <COND %<COND (<==? ,ZORK-NUMBER 1>
 		       '(<EQUAL? ,PRSI ,TEETH>
 			 <COND (<FSET? <SET LOCN <LOC ,WINNER>> ,VEHBIT>
 				<MOVE ,PRSO <LOC .LOCN>>
-				<TELL "Ahoy -- " D ,PRSO " %uber Bord!" CR>)
+				<TELL "Ahoy -- " D ,PRSO " über Bord!" CR>)
 			       (T
 				<TELL "You're not in anything!" CR>)>))
 		      (T '(<NULL-F> T))>
@@ -1180,9 +1181,9 @@ DER-NOM-CAP ,PRSO ", der ge%offnet ist, enth%alt ">
 <ROUTINE V-PLAY ()
     <COND (<FSET? ,PRSO ,ACTORBIT>
 	   <TELL
-"Du spielst die Rolle so echt, da%s du dich selber umbringst, genau wie er es h%atte tun k%onnen." CR>
+"Du spielst die Rolle so echt, daß du dich selber umbringst, genau wie er es hätte tun können." CR>
 	   <JIGS-UP "">)
-	  (ELSE <TELL "Das ist bl%od." CR>)>>
+	  (ELSE <TELL "Das ist blöd." CR>)>>
 
 <ROUTINE V-PLUG ()
 	 <TELL "Erfolglos." CR>>
@@ -1200,14 +1201,14 @@ DER-NOM-CAP ,PRSO ", der ge%offnet ist, enth%alt ">
 		       <FCLEAR ,PRSI ,FLAMEBIT>)
 	              (T
 		       <TELL
- "Das Wasser flie%st %uber " DER-ACC ,PRSI " auf den Fu%sboden und verdampft." CR>)>)
+ "Das Wasser fließt über " DER-ACC ,PRSI " auf den Fußboden und verdampft." CR>)>)
 	       %<COND (<==? ,ZORK-NUMBER 1>
 		       '(<EQUAL? ,PRSO ,PUTTY>
 			 <PERFORM ,V?PUT ,PUTTY ,PRSI>))
 		      (T
 		       '(<NULL-F> <RTRUE>))>
 	       (T
-		<TELL "Das l%a%st sich nicht gie%sen." CR>)>>
+		<TELL "Das läßt sich nicht gießen." CR>)>>
 
 <ROUTINE V-PRAY ()
 	 <COND %<COND (<==? ,ZORK-NUMBER 1>
@@ -1217,7 +1218,7 @@ DER-NOM-CAP ,PRSO ", der ge%offnet ist, enth%alt ">
 		       '(<NULL-F> <RTRUE>))>
 	       (T
 		<TELL
-"Wenn du gen%ugend betest, dann werden deine Gebete vielleicht erh%ort." CR>)>>
+"Wenn du genügend betest, dann werden deine Gebete vielleicht erhört." CR>)>>
 
 <ROUTINE V-PUMP ()
 	 <COND %<COND (<==? ,ZORK-NUMBER 1>
@@ -1294,7 +1295,7 @@ DER-NOM-CAP ,PRSO " is already in " DER-DAT ,PRSI "." CR>
 		<V-PUT>)
 	       (T
 		<TELL 
-DER-NOM-CAP ,PRSI " hat keine gute Oberfl%ache." CR>)>>
+DER-NOM-CAP ,PRSI " hat keine gute Oberfläche." CR>)>>
 
 <ROUTINE V-PUT-UNDER ()
 	 <TELL "You can't do that." CR>>
@@ -1307,7 +1308,7 @@ DER-NOM-CAP ,PRSI " hat keine gute Oberfl%ache." CR>)>>
 
 <ROUTINE PRE-READ ()
 	 <COND (<NOT ,LIT>
-		<TELL "Es ist unm%oglich im Dunkeln zu lesen." CR>)
+		<TELL "Es ist unmöglich im Dunkeln zu lesen." CR>)
 	       (<AND ,PRSI <NOT <FSET? ,PRSI ,TRANSBIT>>>
 		<TELL "Wie kann man durch " EIN-ACC ,PRSI " hindurchsehen?" CR>)>>
 
@@ -1323,10 +1324,10 @@ DER-NOM-CAP ,PRSI " hat keine gute Oberfl%ache." CR>)>>
 	 <RTRUE>>
 
 <ROUTINE V-REPENT ()
-	 <TELL "Es k%onnte m%oglicherweise schon zu sp%at sein." CR>>
+	 <TELL "Es könnte möglicherweise schon zu spät sein." CR>>
 
 <ROUTINE V-REPLY ()
-	 <TELL "Es ist unwahrscheinlich, da%s sich " DER-NOM ,PRSO " daf%ur interesiert." CR>
+	 <TELL "Es ist unwahrscheinlich, daß sich " DER-NOM ,PRSO " dafür interesiert." CR>
 	 <SETG P-CONT <>>
 	 <SETG QUOTE-FLAG <>>
 	 <RTRUE>>
@@ -1370,15 +1371,15 @@ oder|
 	       (<NOT <EQUAL? <GET ,P-LEXV ,P-CONT> ;,W?HELLO ,W?HALLO>>
 	        <SETG P-CONT <>>
 		<TELL
-"Selbstgespr%ache deuten auf einen bevorstehenden Nervenzusammenbruch hin." CR>)>
+"Selbstgespräche deuten auf einen bevorstehenden Nervenzusammenbruch hin." CR>)>
 	 <RTRUE>>
 
 <ROUTINE V-SEARCH ()
-	 <TELL "Du findest nichts Ungew%ohnliches." CR>>
+	 <TELL "Du findest nichts Ungewöhnliches." CR>>
 
 <ROUTINE V-SEND ()
 	 <COND (<FSET? ,PRSO ,ACTORBIT>
-		<TELL "Warum w%urdest du " DER-ACC ,PRSO " rufen lassen?" CR>)
+		<TELL "Warum würdest du " DER-ACC ,PRSO " rufen lassen?" CR>)
 	       (T
 		<TELL "Das ist Unsinn." CR>)>>
 
@@ -1408,12 +1409,12 @@ oder|
 	       (<NOT <FSET? ,PRSO ,TAKEBIT>>
 		<TELL 
 "Du kannst " PRONOUN-ACC ,PRSO  " nicht wegnehmen, also kannst du "
-PRONOUN-ACC ,PRSO " auch nicht sch%utteln." CR>)
+PRONOUN-ACC ,PRSO " auch nicht schütteln." CR>)
 	       (<FSET? ,PRSO ,CONTBIT>
 		<COND (<FSET? ,PRSO ,OPENBIT>
 		       <COND (<FIRST? ,PRSO>
 			      <SHAKE-LOOP>
-			      <TELL "Der Inhalt f%allt "> 
+			      <TELL "Der Inhalt fällt ">
 	                      <COND (%<COND (<==? ,ZORK-NUMBER 3>
 					     '<FSET? ,HERE ,NONLANDBIT>)
 					    (ELSE
@@ -1427,10 +1428,10 @@ PRONOUN-ACC ,PRSO " auch nicht sch%utteln." CR>)
 		      (T
 		       <COND (<FIRST? ,PRSO>
 			      <TELL
-"Es h%ort sich an, als w%are da etwas in " DER-DAT ,PRSO "." CR>)
+"Es hört sich an, als wäre da etwas in " DER-DAT ,PRSO "." CR>)
 			     (T
 			      <TELL 
-DER-NOM-CAP ,PRSO " h%ort sich leer an." CR>)>)>)
+DER-NOM-CAP ,PRSO " hört sich leer an." CR>)>)>)
 	       (T
 		<TELL "Shaken." CR>)>>
 
@@ -1466,7 +1467,7 @@ DER-NOM-CAP ,PRSO " h%ort sich leer an." CR>)>)>)
 
 <GLOBAL WHEEEEE
 	<LTABLE 0 "Ausgezeichnet. Du bist in die 4. Klasse versetzt!"
-		  "Macht's dir Spa%s?"
+		  "Macht's dir Spaß?"
 		  "Jaaaaaaaaaa!!!!!"
 		  "Soll ich etwa Beifall klatschen?">>
 
@@ -1507,7 +1508,7 @@ erdolchen." CR>)>>
 		<TELL "Du stehst schon." CR>)>>
 
 <ROUTINE V-STAY ()
-	 <TELL "Du r%uhrst dich nicht." CR>>
+	 <TELL "Du rührst dich nicht." CR>>
 
 ;"WAS USED FOR “SCHLAG OBJECT”"
 ;<ROUTINE V-STRIKE ()
@@ -1515,7 +1516,7 @@ erdolchen." CR>)>>
 		;<TELL
 "Since you aren't versed in hand-to-hand combat, you'd better attack "
 DER-ACC ,PRSO " with a weapon." CR>
-		<TELL "Da du im Faustkampf nicht ge%ubt bist, greifst du " DER-ACC ,PRSO " besser mit einer Waffe an." CR>)
+		<TELL "Da du im Faustkampf nicht geübt bist, greifst du " DER-ACC ,PRSO " besser mit einer Waffe an." CR>)
 	       (T
 		<PERFORM ,V?LAMP-ON ,PRSO>
 		<RTRUE>)>>
@@ -1525,7 +1526,7 @@ DER-ACC ,PRSO " with a weapon." CR>
 			   <==? ,ZORK-NUMBER 2>>
 		       '(<GLOBAL-IN? ,GLOBAL-WATER ,HERE>
 		         <TELL 
-"Schwimmen im Kerker ist gew%ohnlich verboten.">
+"Schwimmen im Kerker ist gewöhnlich verboten.">
 		         ;<COND (<AND ,PRSO
 				     <NOT <EQUAL? ,PRSO ,WATER ,GLOBAL-WATER>>>
 	                        <TELL DER-DAT ,PRSO ".">)
@@ -1571,7 +1572,7 @@ DER-ACC ,PRSO " with a weapon." CR>
 	       (<AND <FSET? <LOC ,PRSO> ,CONTBIT>
 		     <NOT <FSET? <LOC ,PRSO> ,OPENBIT>>>
 		<TELL
-"Was in einem geschlo%senen Beh%alter ist, kannst man nicht anfassen." CR>
+"Was in einem geschloßenen Behälter ist, kannst man nicht anfassen." CR>
 		<RTRUE>)
 	       (,PRSI
 		<COND (<EQUAL? ,PRSI ,GROUND>
@@ -1606,17 +1607,17 @@ DER-NOM-CAP ,PRSO " ist doch garnicht in " DER-DAT ,PRSI "." CR>)
 		       <SETG HERE <LOC ,WINNER>>)
 		      (T
 		       <TELL
-DER-NOM-CAP ,PRSO " stutzt einen Moment. Vielleicht denkt er, da%s du die Spielanleitung noch mal durchlesen solltest." CR>)>)
+DER-NOM-CAP ,PRSO " stutzt einen Moment. Vielleicht denkt er, daß du die Spielanleitung noch mal durchlesen solltest." CR>)>)
 	       (T
-		<TELL "Mit " DER-DAT ,PRSO " l%a%st sich nicht reden!" CR>
+		<TELL "Mit " DER-DAT ,PRSO " läßt sich nicht reden!" CR>
 		<SETG QUOTE-FLAG <>>
 		<SETG P-CONT <>>
 		<RFATAL>)>>
 
 <ROUTINE V-TEST-IT ("AUX" (NUM 1))
-	 <TELL "Da%s ich zu sp%at komme." CR>
-	 <TELL "%Offne den %Ubermensch. %Apfel sind sch%on." CR>
-	 <TELL "Er sagt, %>Und %uber den Mann.%<" CR CR>
+	 <TELL "Daß ich zu spät komme." CR>
+	 <TELL "%Offne den %Ubermensch. %Apfel sind schön." CR>
+	 <TELL "Er sagt, %>Und über den Mann.%<" CR CR>
 	 <REPEAT ()
 		 <COND (<AND <NOT <IN? .NUM ,ROOMS>>
 			     <NOT <EQUAL? .NUM ,ROOMS>>
@@ -1677,9 +1678,9 @@ NF UCO "ffne den " NF UCU "bermench. " NF UCA "pfel sind sch" NF LCO "n." CR>
 			      <RTRUE>)>)
 		      (ELSE '<NULL-F>)>
 	       <TELL
-"Du st%o%st dir den Kopf an " DER-DAT ,PRSO ", wenn du dieses Kunstst%uck ausprobierst." CR>)
+"Du stößt dir den Kopf an " DER-DAT ,PRSO ", wenn du dieses Kunststück ausprobierst." CR>)
 	      (<IN? ,PRSO ,WINNER>
-	       <TELL "Dazu mu%s man sich zu sehr verrenken." CR>)
+	       <TELL "Dazu muß man sich zu sehr verrenken." CR>)
 	      (T
 	       <TELL <PICK-ONE ,YUKS> CR>)>>
 
@@ -1689,10 +1690,10 @@ NF UCO "ffne den " NF UCU "bermench. " NF UCA "pfel sind sch" NF LCO "n." CR>
 		       <TELL
 "Ein toller Wurf! " DER-NOM-CAP ,PRSO>
 		       <SETG WINNER ,PLAYER>
-		       <JIGS-UP " trifft dich genau in den Kopf. Normalerweise w%urde daraus nicht viel Schaden entstehen, aber du hast das unsagbare Pech, hinten%uberzufallen, als du dich ducken willst und brichst dir das Genick. Die Gerechtigkeit kommt schnell und gnadenreich im Gro%sen Land der Unterwelt.">)
+		       <JIGS-UP " trifft dich genau in den Kopf. Normalerweise würde daraus nicht viel Schaden entstehen, aber du hast das unsagbare Pech, hintenüberzufallen, als du dich ducken willst und brichst dir das Genick. Die Gerechtigkeit kommt schnell und gnadenreich im Großen Land der Unterwelt.">)
 		      (<AND ,PRSI <FSET? ,PRSI ,ACTORBIT>>
 		       <TELL DER-NOM-CAP ,PRSI " duckt sich, als "
-DER-ACC ,PRSO " vorbeisaust und zu Boden f%allt." CR>
+DER-ACC ,PRSO " vorbeisaust und zu Boden fällt." CR>
 		       ;<TELL
 DER-NOM-CAP ,PRSI " ducks as " DER-NOM ,PRSO " flies by and crashes to the ground." CR>)
 		      (T <TELL "Geworfen." CR>)>)
@@ -1745,9 +1746,9 @@ DER-ACC-CAP ,PRSO " kannst du damit bestimmt nicht fesseln!" CR>>
 				     <SET X <HELD? ,SCREWDRIVER>>>>>
 		       <PERFORM ,V?TURN ,PRSO .X>
 		       <RTRUE>)>
-		<TELL "Mit nackten H%anden kommst du hier nicht weiter." CR>)
+		<TELL "Mit nackten Händen kommst du hier nicht weiter." CR>)
 	       (<NOT <FSET? ,PRSO ;,TURNBIT ,TAKEBIT>>
-		<PERFORM ,V?MUNG ,PRSO> ;"sto%s object mit object" 
+		<PERFORM ,V?MUNG ,PRSO> ;"stoß object mit object"
 		;<TELL "You can't turn that!" CR>)>>
 
 <ROUTINE V-TURN ()
@@ -1778,7 +1779,7 @@ PRONOUN-NOM ,PRSO " auch nicht losgebunden werden!" CR>>
 		<RTRUE>)
 	       (<SET PT <GETPT ,HERE ,PRSO>>
 		<COND (<EQUAL? <SET PTS <PTSIZE .PT>> ,UEXIT>
-		       <GOTO <GET .PT ,REXIT>>)
+		       <GOTO <GETB .PT ,REXIT>>)
 		      (<EQUAL? .PTS ,NEXIT>
 		       <TELL <GET .PT ,NEXITSTR> CR>
 		       <RFATAL>)
@@ -1794,7 +1795,7 @@ PRONOUN-NOM ,PRSO " auch nicht losgebunden werden!" CR>>
 			      <RFATAL>)>)
 		      (<EQUAL? .PTS ,CEXIT>
 		       <COND (<VALUE <GETB .PT ,CEXITFLAG>> ;"globals can getb"
-			      <GOTO <GET .PT ,REXIT>>)  ;"dir. props can't"
+			      <GOTO <GETB .PT ,REXIT>>)  ;"dir. props can't"
 			     (<SET STR <GET .PT ,CEXITSTR>>
 			      <TELL .STR CR>
 			      <RFATAL>)
@@ -1803,13 +1804,13 @@ PRONOUN-NOM ,PRSO " auch nicht losgebunden werden!" CR>>
 "In die Richtung kannst du nicht gehen." CR>
 			      <RFATAL>)>)
 		      (<EQUAL? .PTS ,DEXIT>
-		       <COND (<FSET? <SET OBJ <GET .PT ,DEXITOBJ>> ,OPENBIT>
-			      <GOTO <GET .PT ,REXIT>>)
+		       <COND (<FSET? <SET OBJ <GETB .PT ,DEXITOBJ>> ,OPENBIT>
+			      <GOTO <GETB .PT ,REXIT>>)
 			     (<SET STR <GET .PT ,DEXITSTR>>
 			      <TELL .STR CR>
 			      <RFATAL>)
 			     (T
-			      <TELL DER-NOM-CAP .OBJ " ist geschlo%sen." CR>
+			      <TELL DER-NOM-CAP .OBJ " ist geschloßen." CR>
 			      <THIS-IS-IT .OBJ>
 			      <RFATAL>)>)>)
 	       (<AND <NOT ,LIT>
@@ -1824,19 +1825,19 @@ direction." CR>
 		      %<COND (<==? ,ZORK-NUMBER 3>
 			      '(<EQUAL? ,HERE ,DARK-1 ,DARK-2>
 		                <JIGS-UP
-"O nein! Du bist in eine H%ohle von hungrigen Greuelen geraten und es ist Essenszeit!">))
+"O nein! Du bist in eine Höhle von hungrigen Greuelen geraten und es ist Essenszeit!">))
 			     (T
 			      '(<NULL-F>
 				<RFALSE>))>
 		      (T
 		       <JIGS-UP
-"O nein! Du bist in die lechzenden F%ange eines lauernden Greuels geraten!">)>)
+"O nein! Du bist in die lechzenden Fänge eines lauernden Greuels geraten!">)>)
 	       (T
 		<TELL "In die Richtung kannst du nicht gehen." CR>
 		<RFATAL>)>>
 
 <ROUTINE V-WALK-AROUND ()
-	 <TELL "Benutze einen Kompa%s f%ur die Richtung." CR>>
+	 <TELL "Benutze einen Kompaß für die Richtung." CR>>
 
 <ROUTINE V-WALK-TO ()
 	 <COND (<EQUAL? ,PRSO ,INTDIR>
@@ -1847,7 +1848,7 @@ direction." CR>
 			 <GLOBAL-IN? ,PRSO ,HERE>>>
 		<TELL PRONOUN-NOM-CAP ,PRSO " ist hier!" CR>)
 	       (T
-		<TELL "Du mu%st eine Richtung angeben!" CR>)>>
+		<TELL "Du mußt eine Richtung angeben!" CR>)>>
 
 <ROUTINE V-WAVE ()
 	 <TELL 
@@ -1870,7 +1871,7 @@ DER-ACC-CAP ,PRSO " wedeln, scheint nicht zu funktionieren." CR>>
 	 %<COND (<==? ,ZORK-NUMBER 2>
 		 '<PERFORM ,V?MAKE ,WISH>)
 		(T
-		 '<TELL "Mit viel Gl%uck, wird dein Wunsch sich erf%ullen." CR>)>>
+		 '<TELL "Mit viel Glück, wird dein Wunsch sich erfüllen." CR>)>>
 
 <ROUTINE V-YELL () <TELL "AAAUUUUUU!" CR>>
 
@@ -1897,7 +1898,7 @@ DER-ACC-CAP ,PRSO " wedeln, scheint nicht zu funktionieren." CR>>
 	 <COND (<NOT ,LIT>
 		<TELL "Es ist stockdunkel."> 
 		<COND (<NOT ,SPRAYED?>
-		       <TELL " Es besteht die M%oglichkeit, da%s du von einem Greuel gefressen wirst.">)>
+		       <TELL " Es besteht die Möglichkeit, daß du von einem Greuel gefressen wirst.">)>
 		<CRLF>
 		%<COND (<==? ,ZORK-NUMBER 3>
 			'<COND (<EQUAL? ,HERE ,DARK-2>
@@ -1943,7 +1944,7 @@ detect a dim light from the east." CR>)>)
 		<COND (<FIRST? ,HERE>
 		       <PRINT-CONT ,HERE <SET V? <OR .V? ,VERBOSE>> -1>)>)
 	       (T
-		<TELL "Nur Flederm%ause k%onnen im Dunkeln sehen. Und du bist keine." CR>)>>
+		<TELL "Nur Fledermäuse können im Dunkeln sehen. Und du bist keine." CR>)>>
 
 "DESCRIBE-OBJECT -- takes object and flag. if flag is true will print a
 long description (fdesc or ldesc), otherwise will print short."
@@ -1982,7 +1983,7 @@ long description (fdesc or ldesc), otherwise will print short."
 	 <COND (<AND <0? .LEVEL>
 		     <SET AV <LOC ,WINNER>>
 		     <FSET? .AV ,VEHBIT>>
-		<TELL " (au%serhalb von " DER-DAT .AV ")">)>
+		<TELL " (außerhalb von " DER-DAT .AV ")">)>
 	 <CRLF>
 	 <COND (<AND <SEE-INSIDE? .OBJ> <FIRST? .OBJ>>
 		<PRINT-CONT .OBJ .V? .LEVEL>)>>
@@ -2083,7 +2084,7 @@ long description (fdesc or ldesc), otherwise will print short."
 		      (T
 		       '(<NULL-F> <RTRUE>))>
 	       (<EQUAL? .OBJ ,WINNER>
-		<TELL "Du tr%agst:" CR>)
+		<TELL "Du trägst:" CR>)
 	       (<NOT <IN? .OBJ ,ROOMS>>
 		<COND (<G? .LEVEL 0>
 		       <TELL <GET ,INDENTS .LEVEL>>)>
@@ -2116,7 +2117,7 @@ long description (fdesc or ldesc), otherwise will print short."
 <ROUTINE SCORE-UPD (NUM)
 	 <SETG BASE-SCORE <+ ,BASE-SCORE .NUM>>
 	 <SETG SCORE <+ ,SCORE .NUM>>
-	 ;<TELL "[Your score g%os up.]" CR>
+	 ;<TELL "[Your score gös up.]" CR>
 	 %<COND (<==? ,ZORK-NUMBER 1>
 		 '<COND (<AND <EQUAL? ,SCORE 350>
 		              <NOT ,WON-FLAG>>
@@ -2124,7 +2125,7 @@ long description (fdesc or ldesc), otherwise will print short."
 		         <FCLEAR ,MAP ,INVISIBLE>
 		         <FCLEAR ,WEST-OF-HOUSE ,TOUCHBIT>
 		         <TELL
-"Eine fast unvernehmbare Stimme fl%ustert dir zu: %>Suche unter den Sch%atzen nach dem letzten Geheimnis.%<" CR>)>)
+"Eine fast unvernehmbare Stimme flüstert dir zu: %>Suche unter den Schätzen nach dem letzten Geheimnis.%<" CR>)>)
 		(T
 		 '<NULL-F>)>
 	 T>
@@ -2237,7 +2238,7 @@ PRONOUN-NOM-CAP ,PRSO "seems rooted to the spot." CR>)>
 		     <G? <SET CNT <CCOUNT ,WINNER>> ,FUMBLE-NUMBER>
 		     <PROB <* .CNT ,FUMBLE-PROB>>>
 		<TELL
-"Du hast deine H%ande schon zu voll!" CR>
+"Du hast deine Hände schon zu voll!" CR>
 		<RFALSE>)
 	       (T
 		<MOVE ,PRSO ,WINNER>
@@ -2262,11 +2263,11 @@ disappears!" CR>
 <ROUTINE IDROP ()
 	 <COND (<AND <NOT <IN? ,PRSO ,WINNER>>
 		     <NOT <IN? <LOC ,PRSO> ,WINNER>>>
-		<TELL "Du tr%agst " DER-ACC ,PRSO " nicht." CR>
+		<TELL "Du trägst " DER-ACC ,PRSO " nicht." CR>
 		<RFALSE>)
 	       (<AND <NOT <IN? ,PRSO ,WINNER>>
 		     <NOT <FSET? <LOC ,PRSO> ,OPENBIT>>>
-		<TELL DER-NOM-CAP ,PRSO " ist geschlo%sen." CR>
+		<TELL DER-NOM-CAP ,PRSO " ist geschloßen." CR>
 		<RFALSE>)
 	       (T
 		<MOVE ,PRSO <LOC ,WINNER>>
@@ -2293,27 +2294,7 @@ disappears!" CR>
 	 <+ .WT <GETP .OBJ ,P?SIZE>>>
 
 "Miscellaneous"
-;"when these are referenced, GET (and not GETB) must be used, since it
-takes TWO bytes to represent their values" 
-
-<CONSTANT REXIT 0>
-<CONSTANT UEXIT %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 2) (T 1)>>
-	"Uncondl EXIT:	(dir TO rm)		 = rm"
-<CONSTANT NEXIT %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 3) (T 2)>>
-	"Non EXIT:	(dir ;SORRY string)	 = str-ing"
-<CONSTANT FEXIT %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 4) (T 3)>>
-	"Fcnl EXIT:	(dir PER rtn)		 = rou-tine, 0"
-<CONSTANT CEXIT %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 5) (T 4)>>
-	"Condl EXIT:	(dir TO rm IF f)	 = rm, f, str-ing"
-<CONSTANT DEXIT %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 6) (T 5)>>
-	"Door EXIT:	(dir TO rm IF dr IS OPEN)= rm, dr, str-ing, 0"
-
-<CONSTANT NEXITSTR 0>
-<CONSTANT FEXITFCN 0>
-<CONSTANT CEXITFLAG %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 4) (T 1)>>	"GET/B"
-<CONSTANT CEXITSTR 1>		"GET"
-<CONSTANT DEXITOBJ 1>		"GET/B"
-<CONSTANT DEXITSTR %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 2) (T 1)>>	"GET"
+;"Exit offsets and widths are provided by the Lua runtime."
 
 <GLOBAL INDENTS
 	<TABLE (PURE)
@@ -2413,7 +2394,7 @@ stumbled into an authentic grue lair!">))
 			      ;<TELL
 "Oh, no! A lurking grue slithered into ">
 			      <TELL
-"Meine G%ute! Ein lauerndes Greuel ist in "> 
+"Meine Güte! Ein lauerndes Greuel ist in ">
 			      <COND (<FSET? <LOC ,WINNER> ,VEHBIT>
 				     <TELL DER-ACC <LOC ,WINNER>>)
 				    (T <TELL "das Zimmer">)>
@@ -2429,7 +2410,7 @@ stumbled into an authentic grue lair!">))
 		<COND (<NOT <EQUAL? ,HERE .RM>> <RTRUE>)
 		      (<AND <NOT <EQUAL? ,ADVENTURER ,WINNER>>
 			    <IN? ,ADVENTURER .OHERE>>
-		       <TELL DER-NOM-CAP ,WINNER " verl%a%st das Zimmer." CR>)
+		       <TELL DER-NOM-CAP ,WINNER " verläßt das Zimmer." CR>)
 		      %<COND (<==? ,ZORK-NUMBER 1>
 			      '(<AND <EQUAL? ,HERE .OHERE>
 				      ;"no double description"
@@ -2463,7 +2444,7 @@ stumbled into an authentic grue lair!">))
 
 <ROUTINE GLOBAL-IN? (OBJ1 OBJ2 "AUX" TX)
 	 <COND (<SET TX <GETPT .OBJ2 ,P?GLOBAL>>
-		<ZMEMQ .OBJ1 .TX <- </ <PTSIZE .TX> 2> 1>>)>> 
+		<ZMEMQB .OBJ1 .TX <- <PTSIZE .TX> 1>>)>>
 
 <ROUTINE FIND-IN (WHERE WHAT "AUX" W)
 	 <SET W <FIRST? .WHERE>>
@@ -2533,7 +2514,7 @@ stumbled into an authentic grue lair!">))
 	<LTABLE 0 "Hallo, ist da jemand?"
 	          "Hallo, Hallo!"
 		  "Guten Tag."
-		  "Sch%ones Wetter haben wir, nicht wahr?"
+		  "Schönes Wetter haben wir, nicht wahr?"
 		  "Auf Wiedersehen.">>
 
 <GLOBAL YUKS
@@ -2541,12 +2522,12 @@ stumbled into an authentic grue lair!">))
 	 0
 "Ein braver Versuch."
 "Das kann doch nicht dein Ernst sein."
-"Das hie%se das Unm%ogliche m%oglich machen."
+"Das hieße das Unmögliche möglich machen."
 "Eine hochinteressante Idee..."
-"Was f%ur ein Plan!">>
+"Was für ein Plan!">>
 
 <GLOBAL DUMMY
 	<LTABLE 0 
-"Pa%s auf."
-"Dazu ist es zu sp%at."
-"La%s dir die Augen checken.">>
+"Paß auf."
+"Dazu ist es zu spät."
+"Laß dir die Augen checken.">>

@@ -5,7 +5,7 @@ How to run QA on any ZIL adventure using the unified tester agent.
 ## Prerequisites
 
 - Adventure has a playable build (compiled ZIL, runnable via `llm.lua`)
-- Adventure folder exists under `books/` or `infocom/` with `dungeon.zil` and `actions.zil`
+- Adventure folder exists under `books/en/`, `books/de/`, or `infocom/` with `dungeon.zil` and `actions.zil`
 - `make test-pure-zil` passes on existing tests (if any)
 - For a new adventure: Stages 1–8 of the game-writer workflow are complete and the adventure is packaged
 

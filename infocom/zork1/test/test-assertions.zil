@@ -1,4 +1,4 @@
-<INSERT-FILE "books/blackwood-horror/blackwood-horror">
+<INSERT-FILE "books/en/blackwood-horror/blackwood-horror">
 
 <CONSTANT RELEASEID 1>
 

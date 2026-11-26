@@ -1,5 +1,5 @@
 # Targets
-.PHONY: test test-all test-unit test-integration test-game-startup test-zork1 test-zork2 test-parser test-containers test-directions test-light test-pronouns test-take test-turnbit test-clock test-clock-direct test-assertions test-check-commands test-read-mailbox test-walk-around-house test-horror-helpers test-horror-partial test-horror test-horror-failures test-horror-playtest-regressions test-horror-all test-limehouse-walkthrough test-wondertown-descriptions test-pure-zil test-simple-new test-insert-file test-let test-save test-llm help llm-new llm-look test-zilch test-flow-control lint-zil zip limehouse-killings blackwood-horror wondertown
+.PHONY: test test-all test-unit test-integration test-game-startup test-zork1 test-zork2 test-parser test-containers test-directions test-light test-pronouns test-take test-turnbit test-clock test-clock-direct test-assertions test-check-commands test-read-mailbox test-walk-around-house test-horror-helpers test-horror-partial test-horror test-horror-failures test-horror-playtest-regressions test-horror-all test-limehouse-walkthrough test-wondertown-descriptions test-pure-zil test-simple-new test-insert-file test-let test-save test-llm help llm-new llm-look test-zilch test-flow-control lint-zil zip
 
 help:
 	@echo "Available targets:"
@@ -50,7 +50,7 @@ help:
 	@echo "  test-horror-all   - Run all horror tests"
 	@echo ""
 	@echo "Packaging targets:"
-	@echo "  zip <gamename>    - Create a zip of a book game's .zil files + zork1 runtime (e.g. make zip limehouse-killings)"
+	@echo "  zip GAME=<slug> [BOOK_LANG=en|de] - Archive a book and its ZIL substrate"
 	@echo ""
 run-text:
 	lua main.lua
@@ -161,15 +161,15 @@ test-llm:
 
 test-limehouse-walkthrough:
 	@echo "Running Limehouse Killings golden-path walkthrough..."
-	@lua5.4 run-zil-test.lua books/limehouse-killings/test/test-report-regressions
-	@lua5.4 run-zil-test.lua books/limehouse-killings/test/test-prose-reveal
+	@lua5.4 run-zil-test.lua books/en/limehouse-killings/test/test-report-regressions
+	@lua5.4 run-zil-test.lua books/en/limehouse-killings/test/test-prose-reveal
 	@lua5.4 tests/test_limehouse_walkthrough.lua
 	@lua5.4 tests/test_limehouse_companion.lua
 
 test-wondertown-descriptions:
 	@echo "Running Wondertown description ownership regressions..."
-	@lua5.4 run-zil-test.lua books/wondertown/test/test-description-ownership
-	@lua5.4 run-zil-test.lua books/wondertown/test/test-prose-reveal
+	@lua5.4 run-zil-test.lua books/en/wondertown/test/test-description-ownership
+	@lua5.4 run-zil-test.lua books/en/wondertown/test/test-prose-reveal
 
 test-zilch:
 	@echo "Running ZILCH feature tests..."
@@ -181,38 +181,38 @@ test-flow-control:
 
 test-horror-helpers:
 	@echo "Running horror test helpers..."
-	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-helpers
+	@lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-helpers
 
 test-horror:
 	@echo "Running horror complete walkthrough tests..."
-	lua5.4 run-zil-test.lua books/blackwood-horror/test/test-walkthrough
+	lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-walkthrough
 
 test-horror-failures:
 	@echo "Running horror failing conditions tests..."
-	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-failures
+	@lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-failures
 
 test-horror-playtest-regressions:
 	@echo "Running isolated Blackwood playtest regressions..."
-	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-report-regressions
-	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-safe-key
-	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-say-ending
-	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-give-relic
-	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-something
-	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-scenery
-	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-lore
-	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-systems
-	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-prose-reveal
-	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-navigation
+	@lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-report-regressions
+	@lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-playtest-safe-key
+	@lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-playtest-say-ending
+	@lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-playtest-give-relic
+	@lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-playtest-something
+	@lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-playtest-scenery
+	@lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-playtest-lore
+	@lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-playtest-systems
+	@lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-prose-reveal
+	@lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-playtest-navigation
 
 test-horror-all: test-horror-helpers test-horror-partial test-horror-failures test-horror-playtest-regressions test-horror
 	@echo "All horror tests completed!"
 
 .PHONY: test-book-playtests
 test-book-playtests:
-	@set -e; for test in books/*/test/test-round*.zil; do \
+	@set -e; for test in books/en/*/test/test-round*.zil; do \
 		lua5.4 run-zil-test.lua "$${test%.zil}"; \
 	done
-	@set -e; for test in books/*/test/test_round*_links.lua; do \
+	@set -e; for test in books/en/*/test/test_round*_links.lua; do \
 		lua5.4 "$$test"; \
 	done
 
@@ -222,10 +222,10 @@ test-book-playtests:
 test-book-walkthroughs:
 	@lua5.4 tests/test_discovery_actions.lua
 	@lua5.4 tests/test_playtest_link_fixes.lua
-	@set -e; for test in books/*/test/test-walkthrough.zil; do \
+	@set -e; for test in books/en/*/test/test-walkthrough.zil books/de/*/test/test-walkthrough.zil; do \
 		lua5.4 run-zil-test.lua "$${test%.zil}"; \
 	done
-	@set -e; for test in books/*/test/test_walkthrough_*.lua; do \
+	@set -e; for test in books/en/*/test/test_walkthrough_*.lua books/de/*/test/test_walkthrough_*.lua; do \
 		lua5.4 "$$test"; \
 	done
 
@@ -247,8 +247,8 @@ test-pure-zil: test-adventure-packages test-new-books test-book-playtests test-b
 	@lua5.4 run-zil-test.lua infocom/zork1/test/test-assertions
 	@lua5.4 run-zil-test.lua infocom/zork1/test/test-check-commands
 	@lua5.4 run-zil-test.lua infocom/zork1/test/test-read-mailbox
-	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-helpers
-	@lua5.4 run-zil-test.lua books/blackwood-horror/test/test-failures
+	@lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-helpers
+	@lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-failures
 	@lua5.4 run-zil-test.lua infocom/zork1/test/zork1-walkthrough
 	@lua5.4 run-zil-test.lua infocom/zork2/test/test-auto-generated
 	@lua5.4 run-zil-test.lua zil/test-zilch
@@ -257,48 +257,48 @@ test-pure-zil: test-adventure-packages test-new-books test-book-playtests test-b
 
 lint-zil:
 	@echo "Checking vocabulary consistency in book adventures..."
-	@lua5.4 scripts/check-vocab.lua $(wildcard books/*/dungeon.zil)
+	@lua5.4 scripts/check-vocab.lua $(wildcard books/en/*/dungeon.zil)
 	@echo "Parsing every book object's synonyms and adjectives..."
-	@lua5.4 tests/test_book_vocabulary.lua $(wildcard books/*/dungeon.zil)
+	@lua5.4 tests/test_book_vocabulary.lua $(wildcard books/en/*/dungeon.zil)
 	@echo "Checking prose links in book adventures..."
-	@lua5.4 scripts/check-links.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/dungeon.zil))
+	@lua5.4 scripts/check-links.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/*/dungeon.zil))
 	@echo "Examining every prose link through the parser..."
-	@lua5.4 scripts/check-link-targets.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/dungeon.zil))
+	@lua5.4 scripts/check-link-targets.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/*/dungeon.zil))
 	@echo "Playing common verbs on every object..."
-	@lua5.4 scripts/check-responses.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/dungeon.zil))
+	@lua5.4 scripts/check-responses.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/*/dungeon.zil))
 
 .PHONY: test-book-vocabulary
 test-book-vocabulary:
 	@lua5.4 tests/test_check_vocab.lua
-	@lua5.4 tests/test_book_vocabulary.lua $(wildcard books/*/dungeon.zil)
+	@lua5.4 tests/test_book_vocabulary.lua $(wildcard books/en/*/dungeon.zil)
+
+BOOK_LANG ?= en
+PUBLISH_DIR ?= $(CURDIR)/publish
 
 zip:
-	@if [ -z "$(filter-out zip,$(MAKECMDGOALS))" ]; then echo "Usage: make zip <gamename>"; echo "Example: make zip limehouse-killings"; exit 1; fi
-	@game=$(filter-out zip,$(MAKECMDGOALS)); \
-	if [ ! -d "books/$$game" ]; then echo "Error: books/$$game not found"; exit 1; fi; \
-	mkdir -p "$(CURDIR)/publish"; \
-	tmpdir=$$(mktemp -d); \
-	mkdir -p "$$tmpdir"; \
-	cp books/$$game/*.zil "$$tmpdir/"; \
-	mkdir -p "$$tmpdir/core" "$$tmpdir/languages/en" "$$tmpdir/rulesets/classic"; \
-	cp core/*.zil core/LICENSE-ZORK-MIT "$$tmpdir/core/"; \
-	cp languages/en/*.zil languages/en/LICENSE-ZORK-MIT "$$tmpdir/languages/en/"; \
-	cp rulesets/classic/en.zil rulesets/classic/LICENSE-ZORK-MIT "$$tmpdir/rulesets/classic/"; \
-	cd "$$tmpdir" && zip -r "$(CURDIR)/publish/$$game.zip" *.zil core languages rulesets; \
-	rm -rf "$$tmpdir"; \
-	echo "Created publish/$$game.zip"
-
-limehouse-killings blackwood-horror wondertown:
-	@true
+	@set -e; \
+	book="books/$(BOOK_LANG)/$(GAME)"; \
+	if [ -z "$(GAME)" ] || [ ! -f "$$book/$(GAME).zil" ]; then \
+		echo "Usage: make zip GAME=<slug> [BOOK_LANG=en|de]"; exit 1; \
+	fi; \
+	case "$(BOOK_LANG)" in \
+		en) set -- "$$book"/*.zil core languages/en rulesets/classic rulesets/superhero;; \
+		de) set -- "$$book"/*.zil infocom/zork1-de/books.zil infocom/zork1-de/tells.zil infocom/zork1-de/syntax.zil infocom/zork1-de/globals.zil infocom/zork1-de/clock.zil infocom/zork1-de/loop.zil infocom/zork1-de/parser.zil infocom/zork1-de/verbs.zil;; \
+		*) exit 1;; \
+	esac; \
+	mkdir -p "$(PUBLISH_DIR)"; \
+	stage=$$(mktemp -d); trap 'rm -rf "$$stage"' EXIT; \
+	zip -qr "$$stage/book.zip" "$$@"; \
+	mv "$$stage/book.zip" "$(PUBLISH_DIR)/$(BOOK_LANG)-$(GAME).zip"
 
 
 .PHONY: test-new-books
 test-new-books:
 	@set -e; for book in pocket-weather silent-vector last-broadcast; do \
-		for test in books/$$book/test/test-*.zil; do \
+		for test in books/en/$$book/test/test-*.zil; do \
 			lua5.4 run-zil-test.lua "$${test%.zil}"; \
 		done; \
-		for test in books/$$book/test/test_*.lua; do \
+		for test in books/en/$$book/test/test_*.lua; do \
 			lua5.4 "$$test"; \
 		done; \
 	done

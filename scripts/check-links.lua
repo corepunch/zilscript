@@ -2,8 +2,8 @@
 -- check-links.lua: Validate prose links ([[label]] and [[label->target]]).
 --
 -- Usage:
---   lua scripts/check-links.lua books/blackwood-horror
---   lua scripts/check-links.lua books/wondertown books/limehouse-killings
+--   lua scripts/check-links.lua books/en/blackwood-horror
+--   lua scripts/check-links.lua books/en/wondertown books/en/limehouse-killings
 --
 -- Every .zil file in each story folder is read (tests excepted). A link's
 -- target is what the reader's tap gives the parser, so it must be words the
@@ -14,12 +14,8 @@
 -- unbalanced "[[" or "]]" in a string.
 -- Exits non-zero when any problem is found.
 
-local DIRECTIONS = {
-	north = true, south = true, east = true, west = true, up = true, down = true,
-	northeast = true, northwest = true, southeast = true, southwest = true,
-	ne = true, nw = true, se = true, sw = true, ["in"] = true, out = true,
-	n = true, s = true, e = true, w = true, u = true, d = true,
-}
+local Language = require("zilscript.reader.Language")
+local Text = require("zilscript.text")
 
 local function read(path)
 	local file = io.open(path, "r")
@@ -45,7 +41,7 @@ local function vocabulary(sources)
 		for kind, list in body:gmatch("%((%u+)%s+([^%)]*)%)") do
 			local target = kind == "SYNONYM" and nouns or kind == "ADJECTIVE" and adjectives or nil
 			if target then
-				for word in list:gmatch("[^%s]+") do target[word:lower()] = true end
+				for word in list:gmatch("[^%s]+") do target[Text.lower(word)] = true end
 			end
 		end
 	end
@@ -64,14 +60,14 @@ local function report(path, body, position, message)
 	print(string.format("%s:%d: %s", path, line_of(body, position), message))
 end
 
-local function check_target(path, body, position, label, target, nouns, adjectives)
+local function check_target(path, body, position, label, target, nouns, adjectives, directions)
 	local words = {}
-	for word in target:lower():gmatch("[%w'%-]+") do table.insert(words, word) end
+	for word in Text.lower(target):gmatch("[%w'%-\128-\255]+") do table.insert(words, word) end
 	if #words == 0 then
 		report(path, body, position, "link [[" .. label .. "]] has no target")
 		return
 	end
-	if #words == 1 and DIRECTIONS[words[1]] then return end
+	if #words == 1 and directions[words[1]] then return end
 	local noun = words[#words]
 	if not nouns[noun] then
 		report(path, body, position, string.format("link [[%s]] targets '%s', which no SYNONYM names", label, target))
@@ -92,6 +88,7 @@ if #dirs == 0 then
 end
 
 for _, dir in ipairs(dirs) do
+	local directions = Language.profile(dir:match("books/([^/]+)/")).directions
 	local files, sources = zil_files(dir), {}
 	for _, path in ipairs(files) do table.insert(sources, read(path) or "") end
 	local nouns, adjectives = vocabulary(sources)
@@ -116,7 +113,7 @@ for _, dir in ipairs(dirs) do
 				links = links + 1
 				local label, target = inner:match("^(.-)%->(.*)$")
 				label, target = label or inner, target or inner
-				check_target(path, body, first, label, target, nouns, adjectives)
+				check_target(path, body, first, label, target, nouns, adjectives, directions)
 			end
 			position = last + 1
 		end

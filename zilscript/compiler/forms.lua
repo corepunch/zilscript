@@ -12,6 +12,12 @@ local utils = require 'zilscript.compiler.utils'
 
 local Forms = {}
 
+local germanTellTokens = {
+  DER_NOM = true, DER_NOM_CAP = true, DER_ACC = true, DER_ACC_CAP = true, DER_DAT = true,
+  EIN_NOM = true, EIN_NOM_CAP = true, EIN_ACC = true, EIN_ACC_CAP = true, EIN_DAT = true,
+  PRONOUN_NOM = true, PRONOUN_NOM_CAP = true, PRONOUN_ACC = true,
+}
+
 -- Helper: Generate error return with specified value
 local function writeErrorReturn(buf, error_value)
   buf.write("\terror(%s)", error_value)
@@ -313,9 +319,12 @@ function Forms.createHandlers(compiler, printNode)
     for i = 1, #node do
       local cond_node = utils.isCond(node[i]) and node[i]
         or (node[i].type == "placeholder" and utils.isCond(node[i][1]) and node[i][1])
-      local token = node[i].type == "ident" and tokens[node[i].value]
+      local name = node[i].type == "ident" and utils.normalizeIdentifier(node[i].value)
+      local token = name and tokens[name]
       if token then
         buf.write(token)
+      elseif germanTellTokens[name] then
+        buf.write("TELL_TOKEN(%q)", name .. "_PRINT")
       elseif node[i].type == "placeholder" and node[i][1] and not cond_node then
         buf.write("D, ")
         printNode(buf, node[i][1], indent + 1)
@@ -478,6 +487,10 @@ function Forms.createHandlers(compiler, printNode)
   -- BUZZ and SYNONYM
   form.BUZZ = function(buf, node, indent)
     writeStringCall(buf, "BUZZ", node)
+  end
+
+  form.LANGUAGE = function(buf, node)
+    writeStringCall(buf, "LANGUAGE", node)
   end
 
   form.SYNONYM = function(buf, node, indent)
