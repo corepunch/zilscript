@@ -582,6 +582,21 @@ function Forms.createHandlers(compiler, printNode)
       buf.write("ITABLE_WORDS(")
       printNode(buf, node[2], 0)
       buf.write(", 1)")
+    elseif node[1] and node[1].type == "number" and node[2] and node[2].type == "list" then
+      -- Flags without LENGTH or LEXV ask for plain zero-filled elements, as
+      -- in ZIL: <ITABLE 33 (BYTE) 0> is 33 bytes with no length prefix.
+      local flags = {}
+      for _, flag in ipairs(node[2]) do flags[utils.safeget(flag, "value") or ""] = true end
+      if flags.LENGTH or flags.LEXV then
+        -- Preserve the established byte/LEXV buffer layout READ expects.
+        buf.write("ITABLE(")
+        printNode(buf, node[1], 0)
+        buf.write(")")
+      elseif flags.BYTE then
+        buf.write("ITABLE_BYTES(%s)", compiler.value(node[1]))
+      else
+        buf.write("ITABLE_WORDS(%s, %d)", compiler.value(node[1]), math.max(1, #node - 2))
+      end
     else
       -- Preserve the established byte/LEXV buffer layout for flagged tables.
       buf.write("ITABLE(")

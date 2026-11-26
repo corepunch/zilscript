@@ -16,4 +16,4 @@ Adventure Arena's command replay saves can reproduce the entered name and random
 
 ## Validation
 
-Run `lua5.4 run-zil-test.lua tests.test-superhero-rules` and test the book with the normal ZIL runtime, seeded link-play and the iOS reader. Neither Lua execution nor native build has been verified when this draft was submitted. No release or catalog registration is claimed.
+Run `lua5.4 run-zil-test.lua tests/test-superhero-rules` for the rules and `lua5.4 books/blackout-at-meridian/test/test_walkthrough_rules.lua` for a seeded typed walkthrough (profile, sheet, rescue, drone, ending); `make test-book-walkthroughs` runs it. The CLI plays it with `lua5.4 llm.lua --new-game --game blackout-at-meridian`. The native build and the iOS reader have not been verified.

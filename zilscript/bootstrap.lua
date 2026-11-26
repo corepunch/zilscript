@@ -2302,6 +2302,10 @@ function ITABLE(size, maybe_size)
 	return address
 end
 
+function ITABLE_BYTES(count)
+	return mem:write(string.rep("\0", count or 0))
+end
+
 function ITABLE_WORDS(count, pattern_width)
 	count = count or 0
 	pattern_width = pattern_width or 1

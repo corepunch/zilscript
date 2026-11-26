@@ -71,8 +71,8 @@
        (T <SETG HERO-KARMA <- ,HERO-KARMA .AMOUNT>> <RTRUE>)>>
 
 <ROUTINE HERO-SHEET ()
- <TELL "Fighting: " N ,HERO-FIGHTING " | Agility: " N ,HERO-AGILITY CR>
- <TELL "Strength: " N ,HERO-STRENGTH " | Endurance: " N ,HERO-ENDURANCE CR>
- <TELL "Reason: " N ,HERO-REASON " | Intuition: " N ,HERO-INTUITION CR>
- <TELL "Psyche: " N ,HERO-PSYCHE " | Power: " N ,HERO-POWER CR>
- <TELL "Health: " N ,HERO-HEALTH "/" N ,HERO-MAX-HEALTH " | Karma: " N ,HERO-KARMA CR>>
+ <TELL "Fighting: " N ,HERO-FIGHTING ", Agility: " N ,HERO-AGILITY CR>
+ <TELL "Strength: " N ,HERO-STRENGTH ", Endurance: " N ,HERO-ENDURANCE CR>
+ <TELL "Reason: " N ,HERO-REASON ", Intuition: " N ,HERO-INTUITION CR>
+ <TELL "Psyche: " N ,HERO-PSYCHE ", Power: " N ,HERO-POWER CR>
+ <TELL "Health: " N ,HERO-HEALTH "/" N ,HERO-MAX-HEALTH ", Karma: " N ,HERO-KARMA CR>>
