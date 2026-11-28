@@ -13,10 +13,7 @@
               (<VERB? KNOCK>
                <TELL "Beim Klopfen klappern die drei Profilkarten. Jemand hat ihre Ecken mit Reißzwecken gesichert; die Leitstelle hat mit Sturm gerechnet." CR>)>)
        (<EQUAL? ,PRSO ,TRAM>
-        <COND (<VERB? TAKE>
-               <COND (,RESCUED <TELL "Die Mannschaft wird die leere Bahn bergen. Für dich ist der Weg zur Relaisstation frei." CR>)
-                     (T <TELL "Den Wagen einfach hochzureißen wäre zu riskant. Wenn du die Fahrgäste rettest, kannst du sie einzeln ins Netz der Mannschaft bringen." CR>)>)
-              (<VERB? KNOCK>
+        <COND (<VERB? KNOCK>
                <COND (,RESCUED <TELL "Im leeren Wagen klappert noch ein Haltegriff. Diesmal muss niemand antworten." CR>)
                      (T <TELL "Aus dem Wagen kommen zwei rasche Schläge zurück. Jemand hat verstanden, dass du da bist." CR>)>)>)
        (<EQUAL? ,PRSO ,RAILS>
@@ -27,10 +24,6 @@
        (<EQUAL? ,PRSO ,CABLE>
         <COND (<VERB? SMELL>
                <TELL "Die Isolierung riecht nach heißem Gummi. Der Regen hat sie längst gekühlt, aber der Brandgeruch sitzt noch darin." CR>)>)
-       (<EQUAL? ,PRSO ,SUPPLIES>
-        <COND (<VERB? OPEN LOOK-INSIDE>
-               <COND (,BOOSTED <TELL "Der Kasten ist offen und leer. Im Deckel steckt noch eine alte Gebrauchsanweisung." CR>)
-                     (T <TELL "Im Kasten stecken ein Kältepack und ein versiegeltes Notfallpflaster. Das Siegel bleibt heil. Mit BENUTZE KASTEN entscheidest du, ob du die 10 Karma ausgeben willst." CR>)>)>)
        (<EQUAL? ,PRSO ,DRONE>
         <COND (<VERB? LOOK-UNDER>
                <COND (,DISABLED <TELL "Fast versteckt unter einem Rotor klebt ein Aufkleber: NUR BEI TROCKENEM WETTER BETREIBEN." CR>)

@@ -220,6 +220,7 @@ test-book-playtests:
 # choosing only the commands the reader's link menus offer (tests/link_walk.lua).
 .PHONY: test-book-walkthroughs
 test-book-walkthroughs:
+	@lua5.4 tests/test_catalog_stress.lua
 	@lua5.4 tests/test_discovery_actions.lua
 	@lua5.4 tests/test_playtest_link_fixes.lua
 	@lua5.4 tests/test_menu_verbs.lua
@@ -232,6 +233,7 @@ test-book-walkthroughs:
 
 test-pure-zil: test-adventure-packages test-new-books test-book-playtests test-book-walkthroughs
 	@lua5.4 run-zil-test.lua tests/test-rpg-kernel
+	@lua5.4 tests/test_rpg_status.lua
 	@lua5.4 run-zil-test.lua tests/test-superhero-system
 	@echo "Running pure ZIL tests..."
 	@lua5.4 run-zil-test.lua zil/test-simple-new

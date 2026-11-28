@@ -7,6 +7,7 @@
 	<SETG HERE ,FOX-DEN>
 	<MOVE ,WINNER ,FOX-DEN>
 	<ASSERT-NOT-TEXT "manual" <CO-RESUME ,CO "tell fox">>
+	<MOVE ,STRING-BALL ,WINNER>
 	<CO-RESUME ,CO "give yarn to fox">
 	<CO-RESUME ,CO "take workshop key">
 	<ASSERT "Key was actually handed over" <IN? ,WORKSHOP-KEY ,WINNER>>

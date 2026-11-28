@@ -19,8 +19,10 @@
 <SYNTAX FOCUS OBJECT = V-RPG-POWER>
 
 <SYNTAX NAME OBJECT = V-RPG-NAME>
-<SYNTAX DIAGNOSE = V-RPG-STATUS>
+<SYNTAX DIAGNOSE = V-RPG-DIAGNOSE>
 <SYNONYM DIAGNOSE HEALTH>
+
+<ROUTINE STATUS-PROFILE () <TELL "Profile: ">>
 
 <ROUTINE SAY-NO-TARGET () <TELL "That is not a target." CR>>
 <ROUTINE SAY-NO-RESCUE () <TELL "Nobody needs rescuing there." CR>>
@@ -29,3 +31,4 @@
 <ROUTINE SAY-NO-POWER () <TELL "That does not help." CR>>
 <ROUTINE SAY-NO-NAME () <TELL "That has no name to give." CR>>
 <ROUTINE SAY-NO-STATUS () <TELL "You have no ranks yet, so there is no Health or Karma to count." CR>>
+<ROUTINE SAY-NO-CHARACTER () <TELL "Choose a character first." CR>>

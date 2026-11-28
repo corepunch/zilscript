@@ -44,8 +44,11 @@
 <SYNTAX NENN OBJECT = V-RPG-NAME>
 <SYNONYM NENN NENNE BENENN BENENNE TAUF TAUFE>
 
-<SYNTAX ZUSTAND = V-RPG-STATUS>
-<SYNONYM ZUSTAND GESUNDHEIT STATUS>
+<SYNTAX ZUSTAND = V-RPG-DIAGNOSE>
+<SYNONYM ZUSTAND GESUNDHEIT>
+<SYNONYM STATUS WERTE CHARAKTERWERTE>
+
+<ROUTINE STATUS-PROFILE () <TELL "Profil: ">>
 
 <ROUTINE SAY-NO-TARGET () <TELL "Das ist kein Ziel." CR>>
 <ROUTINE SAY-NO-RESCUE () <TELL "Dort muss niemand gerettet werden." CR>>
@@ -54,7 +57,8 @@
 <ROUTINE SAY-NO-POWER () <TELL "Das hilft dir nicht." CR>>
 <ROUTINE SAY-NO-NAME () <TELL "Das hat keinen Namen zu vergeben." CR>>
 <ROUTINE SAY-NO-STATUS () <TELL "Du hast noch keine R%ange, also gibt es keine Gesundheit und kein Karma zu z%ahlen." CR>>
+<ROUTINE SAY-NO-CHARACTER () <TELL "W%ahle zuerst eine Figur." CR>>
 
 ;"The world's DIAGNOSE (the word the German syntax defines) reports the
   hero too."
-<ROUTINE V-DIAGNOSE () <V-RPG-STATUS>>
+<ROUTINE V-DIAGNOSE () <V-RPG-DIAGNOSE>>

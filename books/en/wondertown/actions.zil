@@ -1564,7 +1564,12 @@ coat, and the pages in his handwriting."
 <SYNTAX GIVE OBJECT TO OBJECT = V-GIVE-TO>
 
 <ROUTINE V-GIVE-TO ()
-    <COND (<AND <EQUAL? ,PRSO ,BUTTON>
+    <COND (<AND <OR <AND <EQUAL? ,PRSO ,BUTTON> <EQUAL? ,PRSI ,MARZIPAN>>
+                    <AND <EQUAL? ,PRSO ,SCARF ,STRING-BALL> <EQUAL? ,PRSI ,NUTMEG>>
+                    <AND <EQUAL? ,PRSO ,DOLL-HEAD> <EQUAL? ,PRSI ,SCRAP-CART ,HEADLESS-DOLL>>>
+                <NOT <HELD? ,PRSO>>>
+           <TELL "Pip needs to pick up " THE ,PRSO " before offering it." CR>)
+          (<AND <EQUAL? ,PRSO ,BUTTON>
                 <EQUAL? ,PRSI ,MARZIPAN>>
            <COND (,MARZIPAN-BUTTON
                   <TELL "Marzipan already has her second eye. She touches it with a stitched finger and smiles." CR>)

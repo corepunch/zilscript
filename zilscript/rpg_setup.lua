@@ -19,11 +19,12 @@ function Setup.profiles(env)
     seen[id] = true
     list[#list+1] = { id = id, title = title, summary = summary, rows = {} }
   end
-  env.SHEET_ROW = function(label, value, maximum)
+  env.SHEET_ROW = function(label, value, maximum, group, rankLabel)
     local rows = assert(list[#list], "RPG preset row without a preset").rows
     assert(text(label) and type(value) == "number", "Invalid RPG preset value")
     rows[#rows+1] = { label = label, value = value,
-      maximum = type(maximum) == "number" and maximum > 0 and maximum or nil }
+      maximum = type(maximum) == "number" and maximum > 0 and maximum or nil,
+      group = text(group) and group or nil, rankLabel = text(rankLabel) and rankLabel or nil }
   end
   local ok, failure = pcall(env.RPG_EXPORT_PRESETS)
   env.SETUP_PRESET, env.SHEET_ROW = preset, row

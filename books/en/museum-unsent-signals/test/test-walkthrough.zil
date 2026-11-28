@@ -23,6 +23,10 @@
  <ASSERT-TEXT "RETURN ONLY" <CO-RESUME ,CO "tilt lens">>
  <ASSERT "turned lens exposed the legend" ,LENS-READ>
  <CO-RESUME ,CO "west"> <CO-RESUME ,CO "north">
+ <ASSERT-TEXT "whisper of tape" <CO-RESUME ,CO "listen to spool">>
+ <ASSERT-TEXT "spindle is already turning" <CO-RESUME ,CO "turn spool">>
+ <ASSERT "looking for sound did not audition the loaded tape" <NOT ,SIGNAL-HEARD>>
+ <ASSERT-TEXT "The keys stay dark" <CO-RESUME ,CO "push return key">>
  <ASSERT-TEXT "private return register" <CO-RESUME ,CO "push audition stud">>
  <ASSERT "routing is unlocked after replay" ,SIGNAL-HEARD>
  <ASSERT-TEXT "both sending keys go dark" <CO-RESUME ,CO "remove spool from basin">>

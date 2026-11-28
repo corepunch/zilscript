@@ -254,6 +254,9 @@
 <ROUTINE MSG-TRAM-ATTACK ()
  <TELL "Da sind Leute drin." CR>>
 
+<ROUTINE MSG-TRAM-TRY-RESCUE ()
+ <TELL "Den Wagen einfach hochzureißen wäre zu riskant. Wenn du die Fahrgäste rettest, kannst du sie einzeln ins Netz der Mannschaft bringen." CR>>
+
 <ROUTINE MSG-TRAM-RESCUE-UNREGISTERED ()
  <TELL "Melde dich zuerst in der Leitstelle mit einem Profil an." CR>>
 
@@ -313,6 +316,9 @@
 
 <ROUTINE MSG-CABLE-ATTACK ()
  <TELL "Dieses Kabel ist alles, was die Bahn h%alt." CR>>
+
+<ROUTINE MSG-CABLE-TRY-RESCUE ()
+ <TELL "Du lässt die Finger davon. An diesem Seil hängt der ganze Wagen über dem Fluss. Die Mannschaft kann die Fahrgäste auffangen, wenn du sie einzeln hinablässt." CR>>
 
 <ROUTINE MSG-CABLE-TAKE-RESCUED ()
  <TELL "Das Kabel kann dort h%angen, bis die Stadt wieder Strom zum Reparieren hat." CR>>
@@ -400,6 +406,9 @@
 
 <ROUTINE MSG-KIT-EXAMINE ()
  <TELL "Ein roter Notfallkasten, an die Wand geklemmt. Er wirkt nur einmal, kostet 10 Karma und stellt bis zu 20 Gesundheit wieder her." CR>>
+
+<ROUTINE MSG-KIT-OPEN ()
+ <TELL "Im Kasten stecken ein Kältepack und ein versiegeltes Notfallpflaster. Das Siegel bleibt heil. Mit BENUTZE KASTEN entscheidest du, ob du die 10 Karma ausgeben willst." CR>>
 
 <ROUTINE MSG-KIT-TAKE ()
  <TELL "Er ist an die Wand geklemmt. Benutze ihn dort, wo er h%angt." CR>>

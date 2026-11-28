@@ -9,6 +9,12 @@
  <ASSERT-TEXT "never hear it hit the floor" <CO-RESUME ,CO "listen to bag">>
  <CO-RESUME ,CO "climb stairs">
  <ASSERT "climbing the stairs reaches the landing" <EQUAL? ,HERE ,LANTERN-LANDING>>
+ <CO-RESUME ,CO "climb down stairs">
+ <ASSERT "the same wooden stairs descend from the landing" <EQUAL? ,HERE ,HALL>>
+ <CO-RESUME ,CO "climb up stairs">
+ <ASSERT "the hall stairs go back up to the landing" <EQUAL? ,HERE ,LANTERN-LANDING>>
+ <CO-RESUME ,CO "climb up stairs">
+ <ASSERT "going up from the landing refers to the ladder, not the stairs" <EQUAL? ,HERE ,LANTERN-LANDING>>
  <CO-RESUME ,CO "climb down ladder">
  <ASSERT "going down at the foot of a ladder does not go up" <EQUAL? ,HERE ,LANTERN-LANDING>>
  <CO-RESUME ,CO "climb ladder">

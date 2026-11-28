@@ -187,7 +187,9 @@
 		(<VERB? EXAMINE READ>
 		<TELL "Surface tension pins a child's face in clear [[droplets]]. It is beautiful and technically pointless. [[Ivo]] made it for Senn from a family photograph. A fifth adult sometimes seems to stand behind the child; when you count the actual droplets, no such figure is there. Ask Ivo about the [[daughter]]." CR>)>>
 <ROUTINE RECORDER-F ()
-	<COND (<VERB? LISTEN> <TELL "Each step you take sets it ringing, a thin note on its sprung feet. When you stand still, it falls quiet." CR>)
+	<COND (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,RECORDER> <NOT <EQUAL? ,PRSO ,STRIP>>>
+		<TELL "Only the witness strip belongs on the recorder's drum. You keep the other equipment clear of its springs." CR>)
+		(<VERB? LISTEN> <TELL "Each step you take sets it ringing, a thin note on its sprung feet. When you stand still, it falls quiet." CR>)
 		(<VERB? KNOCK> <TELL "The casing rings like a struck glass. Somewhere inside, the drum shivers and records your knock as weight." CR>)
 		(<VERB? RUB> <TELL "The casing is cold, smooth metal with no ports, no lights and no network jack. Nothing in it could be told what to remember." CR>)
 		(<VERB? EXAMINE READ>
@@ -281,6 +283,8 @@
 		<TELL "The [[spool]] locks onto the [[bus]]. The line falls to a lower note. Stored energy now has somewhere to go when you cut the bus with ceramic shears." CR>)>>
 <ROUTINE RECEIVER-F ()
 	<COND
+		(<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,RECEIVER>>
+		<TELL "The receiver is no place to stow equipment. Its spring clips are only for the wafer, and the wafer should go into the cold archive." CR>)
 		(<AND <VERB? CLOSE> <NOT ,ISOLATED>> <TELL "The housing is already shut. The live latch will not give until you isolate the bus." CR>)
 		(<VERB? LOOK-BEHIND> <TELL "The steel back sits almost flush to the bulkhead. A braid runs into the conduit toward the relay." CR>)
 		(<VERB? ATTACK KICK> <TELL "A blow would crack the housing before it reached the connection. The isolation point is in the relay." CR>)
@@ -296,13 +300,16 @@
 			(T <FSET ,RECEIVER ,OPENBIT>
 				<COND (<IN? ,WAFER ,RECEIVER> <TELL "The housing opens on a single [[memory wafer->wafer]], still warm. A cooling crescent remains where it rested against the housing." CR> <THIS-IS-IT ,WAFER>)
 					(T <TELL "The [[receiver]] is open and empty." CR>)>)>)>>
+<ROUTINE WAFER-ORIGIN ()
+	<SETG ORIGIN T>
+	<TELL "A [[memory wafer->wafer]] on a passive substrate. Its [[engraved index]] reads LENA / RESCUE-COMPRESSION / SENN ORLOV. An outer-relay [[return stamp]] crosses Asterion's own outbound serial. There is no independent power source." CR CR
+		"You remember Lena reciting that serial while she worked. You do not remember teaching it to her. Senn can account for the name; cold storage will hold the sample without playback." CR>>
+
 <ROUTINE WAFER-F ()
 	<COND
 		(<VERB? SHAKE> <TELL "Not a rattle. The wafer is one piece, and the names on it do not move." CR>)
 		(<VERB? ATTACK KICK> <TELL "You would break the one thing the others can inspect. The cold core offers a way to decide without guessing." CR>)
-		(<VERB? EXAMINE>
-		<SETG ORIGIN T>
-		<TELL "A [[memory wafer->wafer]] on a passive substrate. Its [[engraved index]] reads LENA / RESCUE-COMPRESSION / SENN ORLOV. An outer-relay [[return stamp]] crosses Asterion's own outbound serial. There is no independent power source." CR CR "You remember Lena reciting that serial while she worked. You do not remember teaching it to her. Senn can account for the name; cold storage will hold the sample without playback." CR>)
+		(<VERB? EXAMINE> <WAFER-ORIGIN>)
 		(<VERB? RUB> <TELL "The engraved index is rough under your thumb; the rest is smooth as glass, and cooler than your skin." CR>)
 		(<VERB? SMELL> <TELL "Faintly of ozone, from the receiver it lay in." CR>)
 		(<VERB? LISTEN> <TELL "The unpowered wafer makes no sound. You remember drawing breath with Lena, waiting through the same pause before each answer. The pause ends only when you breathe." CR>)
@@ -415,7 +422,11 @@
 				(,PROOF <TELL "Senn follows the four resolved traces. “Mine is there. Hers isn't.” He returns the foil. “When the carrier is quiet, ask me about my [[daughter]] again.”" CR>)
 				(T <TELL "Senn turns the foil without reading it. “The comparator will resolve this. I shouldn't be the one to tell you what it says.”" CR>)>)
 		(<AND <EQUAL? ,PRSO ,WAFER> <EQUAL? ,PRSI ,MARA>> <MARA-SAMPLE>)
-		(<AND <EQUAL? ,PRSO ,WAFER> <EQUAL? ,PRSI ,SENN>> <SETG ORIGIN T> <SENN-CONFESSION>)
+		(<AND <EQUAL? ,PRSO ,WAFER> <EQUAL? ,PRSI ,SENN>>
+			<COND (<NOT ,ORIGIN>
+				<TELL "Senn turns the wafer to the light without touching its contacts. Together you read its markings." CR>
+				<WAFER-ORIGIN>)>
+			<SENN-CONFESSION>)
 		(<AND <EQUAL? ,PRSO ,WAFER> <EQUAL? ,PRSI ,IVO>> <IVO-SAMPLE>)
 		(<EQUAL? ,PRSI ,MARA> <TELL "Mara checks the item and hands it back. “You know the tools. I know what happened to our pulse counts.”" CR>)
 		(<EQUAL? ,PRSI ,SENN> <TELL "Senn does not take it. “Keep the engineering equipment. I'll answer for the experiment.”" CR>)

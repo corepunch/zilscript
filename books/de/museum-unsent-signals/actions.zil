@@ -113,7 +113,7 @@
   <SETG SIGNAL-HEARD <>>
   <TELL "Du legst die Spule in die Mulde. Sie rastet ein und beginnt sich zu drehen. Am Rand der Mulde leuchtet der [[Abhörknopf]] auf." CR>)
        (<AND <VERB? TAKE> <IN? ,MESSAGE-SPOOL ,READING-BASIN>>
-        <COND (<ITAKE> <SETG SIGNAL-HEARD <>>
+        <COND (<EQUAL? <ITAKE> T> <SETG SIGNAL-HEARD <>>
                <TELL "Du hebst die Spule heraus. Sie kommt zwischen deinen Fingern zum Stillstand, und beide Sendetasten erlöschen." CR>)
               (T <RTRUE>)>)
        (<VERB? WIND-MUSEUM>
@@ -127,7 +127,9 @@
        (<VERB? SMELL>
   <TELL "Zedernholz und Maschinenöl, und ganz schwach ein Hauch von Handcreme." CR>)
        (<VERB? LISTEN>
-  <TELL "An deinem Ohr bleibt die Spule stumm. Zum Abspielen braucht sie die Lesemulde in der Signalkabine." CR>)
+  <COND (<IN? ,MESSAGE-SPOOL ,READING-BASIN>
+         <TELL "Du hörst nur das leise Rascheln des Bands am Tonkopf. Die Stimme hörst du erst, wenn du den Abhörknopf drückst." CR>)
+        (T <TELL "Selbst ganz aus der Nähe bleibt die Spule stumm. Zum Abspielen braucht sie die Lesemulde in der Signalkabine." CR>)>)
        (<VERB? RUB>
   <TELL "Dein Daumen findet die glatte Vertiefung im Holz. Jemand hat die Spule immer wieder genau so gehalten." CR>)
        (<VERB? SHAKE>

@@ -159,3 +159,5 @@
        (T <SHEET-ROW .LABEL .VALUE
                   <COND (<CEILING? .TBL .ATTR> <MAX-STAT .TBL .ATTR>) (T 0)>
                   "resources">)>>
+
+<SETG RPG-PRESET-ROW ,FASERIP-SHEET-ROW>

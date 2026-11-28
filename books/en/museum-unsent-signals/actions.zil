@@ -110,11 +110,15 @@
                <SETG SIGNAL-HEARD <>>
                <TELL "You lift the spool. The reel stops, the address indicator clears, and both sending keys go dark." CR>)>
         <RTRUE>)
-       (<AND <VERB? MUSEUM-PLAY SPIN> <EQUAL? ,PRSO ,MESSAGE-SPOOL>>
+       (<AND <VERB? MUSEUM-PLAY> <EQUAL? ,PRSO ,MESSAGE-SPOOL>>
         <COND (<IN? ,MESSAGE-SPOOL ,READING-BASIN>
                <PERFORM ,V?PUSH ,AUDITION-STUD>)
               (T <TELL "The reel can turn in your hands, but it can't speak. The reading basin in the signal booth can play it." CR>)>
         <RTRUE>)
+       (<VERB? SPIN>
+        <COND (<IN? ,MESSAGE-SPOOL ,READING-BASIN>
+               <TELL "The spindle is already turning the reel. You can hear the recording at the touch of the audition stud." CR>)
+              (T <TELL "You wind half a turn by hand and see that someone folded the loose end twice to keep it from tearing." CR>)>)
        (<AND <VERB? PUSH> <EQUAL? ,PRSO ,MESSAGE-SPOOL>>
         <TELL "The spool has no switch. It takes a basin and a listening ear to get anything out of it." CR>)
        (<VERB? EXAMINE READ>
@@ -124,7 +128,9 @@
        (<VERB? SMELL>
   <TELL "Cedar wood and machine oil, and very faintly, someone's hand cream." CR>)
        (<VERB? LISTEN>
-  <TELL "Held to your ear, the spool is silent. It needs the reading basin in the signal booth to play." CR>)
+  <COND (<IN? ,MESSAGE-SPOOL ,READING-BASIN>
+         <TELL "There is just the whisper of tape passing over the head. Press the audition stud to hear the voice." CR>)
+        (T <TELL "Even with your ear a finger's width away, the spool is silent. It needs the reading basin in the signal booth to play." CR>)>)
        (<VERB? RUB>
   <TELL "Your thumb finds the smooth hollow worn into the wood. Someone held this spool exactly this way, again and again." CR>)
        (<VERB? SHAKE>

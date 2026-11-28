@@ -130,4 +130,18 @@ do
   })
 end
 
+-- The bell is the source container in these commands, not the thing lifted.
+do
+  local env, game = new_game()
+  play(game, {
+    "east", "take wick", "west", "fit wick in bell",
+    { "take wick from bell", "Taken." },
+  })
+  assert(env.LOC(env.WICK) == env.ADVENTURER, "named source retrieves the wick")
+  play(game, { "fit wick in bell", { "pull wick from bell", "Taken." } })
+  assert(env.LOC(env.WICK) == env.ADVENTURER, "pulling with a source also retrieves the wick")
+  play(game, { "north", "east", { "turn shutter", "swings on hinges" } })
+  assert(not env.FSETQ(env.SHUTTER, env.OPENBIT), "turning cannot raise the peg")
+end
+
 print("ok - bell-grew-leaves QA regressions: " .. checks .. " commands checked")

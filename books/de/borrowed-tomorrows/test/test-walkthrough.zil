@@ -8,7 +8,7 @@
 	<ASSERT "Schrank wurde geöffnet" <FSET? ,CASE ,OPENBIT>>
 	<ASSERT-TEXT "Durch die offene Tür" <CO-RESUME ,CO "lies das Blatt">>
 	<ASSERT "Lesen leiht das Blatt nicht aus" <AND <IN? ,LEAF ,CASE> <NOT ,ON-LOAN>>>
-	<ASSERT-TEXT "trägt das Blatt deinen Namen ein" <CO-RESUME ,CO "nimm das Morgenblatt">>
+	<ASSERT-TEXT "trägt das Blatt deinen Namen ein" <CO-RESUME ,CO "nimm das Morgenblatt aus dem Schrank">>
 	<ASSERT "Blatt ist ausgeliehen" <AND ,ON-LOAN <HELD? ,LEAF>>>
 	<ASSERT-TEXT "Ein Morgenblatt" <CO-RESUME ,CO "inventar">>
 	<ASSERT-TEXT "Jeder Tropfen ist zurückgewichen" <CO-RESUME ,CO "geh nach Norden">>
@@ -25,6 +25,10 @@
 	<ASSERT-TEXT "zurück in sein Kästchen" <CO-RESUME ,CO "falte das Blatt">>
 	<ASSERT "Falten macht das Blatt wieder klein" <AND <NOT ,WIDE-LOAN> <HELD? ,LEAF>>>
 	<ASSERT-TEXT "ausgebreiteten Arme" <CO-RESUME ,CO "glätte das Blatt">>
+	<ASSERT-TEXT "was man wegwirft" <CO-RESUME ,CO "wirf das Blatt">>
+	<ASSERT "Das Blatt bleibt beim Werfen in der Hand" <AND ,WIDE-LOAN <HELD? ,LEAF>>>
+	<ASSERT-TEXT "kein Blatt entfalten" <CO-RESUME ,CO "lege das Blatt unter das Brett">>
+	<ASSERT "Unter das Brett legen ändert die Faltung nicht" <AND ,WIDE-LOAN <HELD? ,LEAF>>>
 	<ASSERT-TEXT "goldener Riss" <CO-RESUME ,CO "zerreiße das Blatt">>
 	<ASSERT "Der Riss zerstört weder Blatt noch Faltung" <AND ,WIDE-LOAN <HELD? ,LEAF>>>
 	<CO-RESUME ,CO "west">
@@ -37,14 +41,17 @@
 	<CO-RESUME ,CO "nimm das Blatt">
 	<CO-RESUME ,CO "lege das Blatt auf das Brett">
 	<CO-RESUME ,CO "nord">
-	<ASSERT-TEXT "Beide Klammern halten" <CO-RESUME ,CO "lege das Blatt in den Rahmen">>
+	<ASSERT-TEXT "Beide Klammern halten" <CO-RESUME ,CO "klemm das Blatt in den Rahmen">>
 	<ASSERT "Blatt steckt im Rahmen" <IN? ,LEAF ,FRAME>>
+	<ASSERT-TEXT "zum Teilen bereit" <CO-RESUME ,CO "punkte">>
+	<ASSERT "Einklemmen veröffentlicht das Blatt nicht" <NOT ,PUBLISHED-LOAN>>
 	<ASSERT-TEXT "Nimm das Blatt erst wieder" <CO-RESUME ,CO "falte das Blatt">>
 	<ASSERT "Eingespanntes Blatt behält seine Form" <AND ,WIDE-LOAN <IN? ,LEAF ,FRAME>>>
-	<ASSERT-TEXT "Eine Klammer nach der anderen" <CO-RESUME ,CO "nimm das Blatt">>
+	<ASSERT-TEXT "Eine Klammer nach der anderen" <CO-RESUME ,CO "nimm das Blatt aus dem Rahmen">>
 	<ASSERT "Blatt lässt sich wieder lösen" <HELD? ,LEAF>>
 	<ASSERT-TEXT "Nur du hörst es" <CO-RESUME ,CO "lies das Blatt">>
 	<CO-RESUME ,CO "lege das Blatt in den Rahmen">
 	<ASSERT "Vorlesen gelingt" <CO-RESUME ,CO "lies den Leserahmen" T>>
+	<ASSERT "Vorlesen teilt den Tag" ,PUBLISHED-LOAN>
 	;"After the ending the story only offers to start again."
 	<ASSERT-TEXT "NEUBEGINN" <CO-RESUME ,CO "schau">>>

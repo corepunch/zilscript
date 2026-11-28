@@ -17,6 +17,7 @@
        (<EQUAL? ,HERE ,LOWER-PLATFORM> <PERFORM ,V?SMELL ,PLATFORM-TRACK>)>
  <RTRUE>>
 <GLOBAL STATION-END 0>
+<GLOBAL STAFF-CHAIR-TUCKED <>>
 
 <ROUTINE STATION-CLOCK-F ()
  <COND (<VERB? EXAMINE READ>
@@ -62,7 +63,8 @@
        (<VERB? EXAMINE>
   <TELL "A scuffed staff table with tea rings all over it. The [[logbook]] lies open in the middle, where whoever is on shift can't miss it." CR>)
        (<VERB? LOOK-UNDER>
-  <TELL "Only dust, and a [[chair]] pushed back as if someone got up in a hurry." CR>)
+  <COND (,STAFF-CHAIR-TUCKED <TELL "The [[chair]] is tucked under the table now. You can see a crescent in the dust where its feet dragged." CR>)
+        (T <TELL "Only dust, and a [[chair]] pushed back as if someone got up in a hurry." CR>)>)
        (<VERB? KNOCK>
   <TELL "It sounds hollow and cheap. Nobody answers, which is a relief." CR>)
        (<VERB? TAKE MOVE PUSH>
@@ -84,11 +86,21 @@
 
 <ROUTINE STAFF-CHAIR-F ()
  <COND (<VERB? EXAMINE>
-  <TELL "A plastic staff chair, pushed back from the table at an angle, as though someone stood up in a hurry. The seat is still faintly warm." CR>)
+  <TELL "A plastic staff chair.">
+  <COND (,STAFF-CHAIR-TUCKED <TELL " It is tucked neatly under the table.">)
+        (T <TELL " It stands at an angle, as though someone stood up in a hurry.">)>
+  <TELL " The seat is still faintly warm." CR>)
        (<VERB? CLIMB-ON CLIMB-FOO>
+  <COND (,STAFF-CHAIR-TUCKED <TELL "You pull the chair out. "> <SETG STAFF-CHAIR-TUCKED <>>)>
   <TELL "You sit for a moment. From here the open logbook is right in front of you. Then the platform bell rings again, faintly, and you get up." CR>)
-       (<VERB? PUSH MOVE>
-  <TELL "You tuck the chair back under the table. It scrapes on the concrete, loud in the empty station." CR>)>>
+       (<VERB? PUSH>
+  <COND (,STAFF-CHAIR-TUCKED <TELL "The chair is already under the table. Its back gives a hollow click against the edge." CR>)
+        (T <SETG STAFF-CHAIR-TUCKED T>
+           <TELL "You tuck the chair back under the table. It scrapes on the concrete, loud in the empty station." CR>)>)
+       (<VERB? MOVE>
+  <COND (,STAFF-CHAIR-TUCKED <SETG STAFF-CHAIR-TUCKED <>>
+         <TELL "You pull the chair out. One foot drags through the dust and catches at just the angle you found it." CR>)
+        (T <TELL "The chair is already pulled out far enough to sit down." CR>)>)>>
 
 <ROUTINE SHIFT-LOG-F ()
  <COND (<VERB? EXAMINE READ>
@@ -140,7 +152,11 @@
 <ROUTINE CALIBRATION-STUD-F ()
  <COND (<VERB? EXAMINE>
   <TELL "A low, square brass button, worn smooth by thumbs. Pressing it makes the gauge weigh whatever is on the track, measured against the weight in the [[cradle]]. A needle and a little readout window sit just above it.">
-  <COND (,LOOP-OBSERVED <TELL " The needle still rests at the full weight of a train." CR>)
+  <COND (,LOOP-OBSERVED
+         <TELL " The needle still rests at the full weight of a train.">
+         <COND (<NOT <IN? ,TEST-PUCK ,RECEIVER-CRADLE>>
+                <TELL " That is the last reading, not a new one; the [[cradle]] is empty now.">)>
+         <CRLF>)
         (T <TELL " The needle rests at zero." CR>)>)
        (<VERB? PUSH>
         <COND (<NOT <IN? ,TEST-PUCK ,RECEIVER-CRADLE>>

@@ -1601,8 +1601,13 @@ player has had the lid up, a closed trunk stays closed to a glance."
                   <TELL "The inspector examines the knife. “The surgeon's blade fits the wound. The engraved M is a lead, but a monogram alone will not secure a conviction.”" CR>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,POISON-BOTTLE>
-                  <SETG POISON-PRESENTED T>
-                  <TELL "The inspector compares the wolfsbane label with your greenhouse notes. “Wolfsbane, which he admits keeping. It could have weakened Ashworth before the blade struck; the secret stair explains access without the hall door. The second link.”" CR>
+                  <COND (<NOT ,POISON-IDENTIFIED>
+                         <TELL "Lestrade reads the label without uncorking the bottle. “A label tells me what someone wrote. Compare it with the greenhouse labels before you ask me to put it in evidence.”" CR>)
+                        (,POISON-PRESENTED
+                         <TELL "Lestrade taps the entry in his notebook. “Wolfsbane. I have the comparison in your own words.”" CR>)
+                        (T
+                         <SETG POISON-PRESENTED T>
+                         <TELL "The inspector compares the wolfsbane label with your greenhouse notes. “Wolfsbane, which he admits keeping. It could have weakened Ashworth before the blade struck. The second link.”" CR>)>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,SECRET-LEDGER>
                   <TELL "The inspector reads the ledger. “The ledger establishes the debt. Now connect it to the threat and the poison.”" CR>
@@ -1735,11 +1740,14 @@ pantry charcoal restores a step, and the third taste ends the story."
                          <TELL "You lead with Ashworth's unsent letter. Moriarty calls it a forgery; then Hudson quietly repeats the hour he delivered it and Lady Ashworth supplies the missing first draft." CR>)
                         (T
                          <TELL "You lead with the wolfsbane. Moriarty names its precise concentration before Lestrade has uncorked it. The accidental confession leaves the hall very still." CR>)>
-                  <TELL CR "You lay out the sequence: wolfsbane to weaken Ashworth, the narrow blade from behind, then escape by the hidden stair while the hall door remained bolted. The bottle and flowers establish the drug; the ledger and concealed bank statement establish the debt Ashworth threatened to expose.">
+                  <TELL CR "You lay out the sequence: wolfsbane to weaken Ashworth, then the narrow blade from behind. The bottle and flowers establish the drug; the ledger and concealed bank statement establish the debt Ashworth threatened to expose.">
+                  <COND (,CIPHER-SOLVED <TELL " The stair you opened explains the escape from a room bolted from within.">)
+                        (T <TELL " The door was found bolted from within. Lestrade keeps the manner of escape separate from what you can prove.">)>
                   <COND (,FOOTPRINT-DETAIL-FOUND
-                         <TELL " The crescent nick you found under the magnifying glass fits Moriarty's right heel; the surgical knife and his attempt to reach the door complete the route.">)
-                        (T
-                         <TELL " The size-ten footprint, the surgical knife, and his attempt to reach the door complete the route.">)>
+                         <TELL " The crescent nick you found under the magnifying glass fits Moriarty's right heel; it places his boot in the garden, not merely a man who wears size ten.">)>
+                  <COND
+                        (,KNIFE-FOUND
+                         <TELL " The surgeon's knife supports the nature of the wound; the monogram alone would not identify the hand.">)>
                   <COND (<IN? ,WAX-SEAL ,WINNER>
                          <TELL " The wax seal ties the private delivery to Moriarty's mark.">)>
                   <COND (<IN? ,TRUNK-LETTER ,WINNER>
@@ -1864,7 +1872,7 @@ had been pressed correctly."
     <SETG CIPHER-SOLVED T>
     <SETG SECRET-PASSAGE-FOUND T>
     <SETG SECRET-PASSAGE-OPEN T>
-    <SETG CASE-ACT 2>
+    <COND (<L? ,CASE-ACT 2> <SETG CASE-ACT 2>)>
     <TELL CR "Somewhere in the manor a bell wire trembles. Behind the books, a draught reaches you from the study. A hidden stair offers another way into the room." CR>
     <RTRUE>>
 

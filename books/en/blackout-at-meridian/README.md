@@ -58,7 +58,9 @@ by profile; a failure costs 5 Health), then either strike the drone
 lever (Reason, strong success needed; a failure costs 10 Health). A downed
 drone leaves the lever unguarded. The emergency kit works once, costs 10
 Karma, restores up to 20 Health and refuses an unhurt hero. Victory and
-defeat (0 Health) both end through FINISH, which prints the hero. HELP
+defeat (0 Health) both end through FINISH, which prints the hero. Taking or
+climbing the tram does not attempt the rescue, and opening the kit or console
+is inspection only. HELP
 explains the rules and the next step.
 
 Adventure Arena and the reader walk (`tests/link_walk.lua`) keep the game

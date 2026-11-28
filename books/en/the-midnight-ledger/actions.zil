@@ -103,6 +103,12 @@
 
 <ROUTINE MORR-F ()
  <COND
+  (<AND <VERB? TELL> <EQUAL? ,PRSI ,MREG>>
+   <COND (,REG-READ
+          <TELL "Orr puts a finger just above his 11:55 signature. “This records when I left the room, not where I went.” He leaves a clean gap between his finger and the line for the missing key." CR>)
+         (T <TELL "Orr turns the shift register to face you. “The entries are public. Read the times for yourself.”" CR>)>)
+  (<AND <VERB? TELL> <EQUAL? ,PRSI ,MSLEEVE>>
+   <TELL "Orr pinches the buckle shut. “Valuations.” Something hard taps the buckle from inside; he does not offer to let you check." CR>)
   (<VERB? EXAMINE TELL> <COND (,CASE-READY <TELL "“I thought you were going to take his word against mine,” Orr says. He has stopped buttoning the cuff." CR>)
   (,REG-READ <TELL "“You'll see I signed out of the registry at eleven fifty-five,” Orr says. “Where I went after that? The register is not a diary.”" CR>)
   (T <TELL "Orr smiles thinly. “The porter had his chalk all over that crate,” he says. “That should be enough for any reasonable person.”" CR>)>)
@@ -113,18 +119,21 @@
 
 <ROUTINE MSCALE-F ()
  <COND
-  (<VERB? EXAMINE READ> <SETG SCALE-SEEN T> <TELL "The scale prints a paper strip for every weighing. Tonight's strip shows the same crate weighed twice, six minutes apart. The second time it was exactly eleven pounds lighter: the weight of the astrolabe and its felt tray. The times on the strip are stamped by a separate pulse sent down the speaking [[tube]], not taken from the wall [[clock]]." CR>)
+  (<VERB? EXAMINE READ SEARCH> <SETG SCALE-SEEN T> <TELL "The scale prints a paper strip for every weighing. Tonight's strip shows the same crate weighed twice, six minutes apart. The second time it was exactly eleven pounds lighter: the weight of the astrolabe and its felt tray. The times on the strip are stamped by a separate pulse sent down the speaking [[tube]], not taken from the wall [[clock]]." CR>)
   (<VERB? TAKE> <TELL "The strip stays on the printer until the clerk tears it off for the record." CR>)
   (<VERB? CLIMB-ON CLIMB-FOO> <TELL "You step onto the platform. The needle swings round to your weight, and you step off again before the printer can make a record of you." CR>)
   (<VERB? PUSH MOVE> <TELL "The platform rocks under your hand; the needle twitches and settles back to zero." CR>)
   (<VERB? LISTEN> <TELL "The speaking tube beside the printer hisses faintly, and once a minute it gives a small click: the pulse that stamps the time." CR>)
   (<VERB? KNOCK> <TELL "The platform gives a hollow note. The printer sits on its own bracket and doesn't even tremble." CR>)
+  (<VERB? LOOK-UNDER>
+   <TELL "Under the platform a spring settles against its stop. There is nowhere to conceal eleven pounds of brass without putting their weight back on the scale." CR>)
   (<VERB? RUB> <TELL "Two bright arcs run across the platform where heavy crates have been dragged on and off." CR>)>>
 
 <ROUTINE MCLOCK-F ()
  <COND
   (<VERB? EXAMINE READ> <SETG CLOCK-SEEN T> <TELL "The second hand still sweeps round, but the minute hand is missing; someone took it off for repairs. Only the hour hand is left, pointing at twelve, so for a whole hour this clock says twelve, whatever the minute. Nobody could tell the time to the minute by it." CR>)
   (<VERB? LISTEN> <TELL "It ticks loudly and steadily, as if nothing were wrong with it at all." CR>)
+  (<VERB? SPIN TURN> <TELL "There is no dial you can turn from the floor. Setting the hour hand would still leave the minute hand missing." CR>)
   (<VERB? WIND> <TELL "It is wound tight. The trouble isn't the spring; it's the missing hand." CR>)
   (<VERB? TAKE MOVE RUB> <TELL "It hangs high on the wall, above the scale, out of easy reach." CR>)>>
 
@@ -233,14 +242,17 @@
   (<VERB? PUSH MOVE LISTEN>
    <COND (,CRATE-INSPECTED <TELL "A loose felt corner scrapes along the boards with a dry whisper." CR>)
          (T <TELL "A dry whisper under the lid. Whatever shifted in there was much lighter than brass." CR>)>)
-  (<VERB? KNOCK> <TELL "You tap a knuckle against the lid. The sound is too hollow for eleven pounds of brass." CR>)
+  (<VERB? KNOCK>
+   <COND (,CRATE-CLOSED <TELL "You tap a knuckle against the lid. The sound is too hollow for eleven pounds of brass." CR>)
+         (T <TELL "You tap a knuckle against the raised lid. The boards sound too hollow for eleven pounds of brass." CR>)>)
   (<VERB? RUB> <TELL "You brush dust from the edge with your sleeve, careful to leave the dispatch chalk alone." CR>)
   (<VERB? KICK ATTACK> <TELL "It is evidence, and there are witnesses." CR>)>>
 
 <ROUTINE MREG-F ()
  <COND
-  (<VERB? EXAMINE READ> <SETG REG-READ T> <TELL "The night's signatures. At 11:55, Orr signs out of the registry; at 12:06, he signs back in. Beside those lines, the crossing guard has initialled Ives as present in the weigh room the whole time. And the assessor's cage key is marked OUT for that same interval. It was not a key the porter could have borrowed." CR>)
+  (<VERB? EXAMINE READ OPEN LOOK-INSIDE SEARCH> <SETG REG-READ T> <TELL "The night's signatures. At 11:55, Orr signs out of the registry; at 12:06, he signs back in. Beside those lines, the crossing guard has initialled Ives as present in the weigh room the whole time. And the assessor's cage key is marked OUT for that same interval. It was not a key the porter could have borrowed." CR>)
   (<VERB? RUB> <TELL "The ink has blurred where wet sleeves dragged across it, but the times can still be read." CR>)
+  (<VERB? CLOSE> <TELL "You hold the covers together for a moment. The wet pages begin to stick, so you leave the signatures open to the air." CR>)
   (<VERB? TAKE> <TELL "The register is chained to its desk, as public registers are." CR>)>>
 
 <ROUTINE MPANEL-F ()
