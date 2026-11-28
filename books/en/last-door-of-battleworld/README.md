@@ -1,44 +1,38 @@
 # The Last Door of Battleworld / Последняя дверь Мира битв
 
-An original, unofficial fan adventure for a family playtest. One person plays
-the hero; the other can narrate, read characters aloud and discuss ideas. Play
-as Spider-Man, Storm or Iron Man. Doctor Doom is the antagonist and Ms. Marvel
-helps the evacuees. This is a complete **short solo adventure**, not a port
-of the TSR campaign. No original module prose, maps, art or stat blocks are
-bundled. See [what we did not carry over](../../shared/last-door-of-battleworld/LIMITS.md).
+An unofficial bilingual family adventure inspired by *Secret Wars*. Pick
+Spider-Man, Storm or Iron Man. When a voice orders Earth's heroes to fight,
+there are people on this new planet who have other things to ask of you.
 
-![The Last Door of Battleworld: a golden door above a broken bridge](cover.jpg)
+## Start a family game
 
-The English-titled cover is shared by both editions.
+From the **lua-objc** checkout run `make battleworld`. For Russian run
+`make battleworld BATTLEWORLD_LANGUAGE=ru`. The first screen offers three
+heroes. Use the arrow keys and press Enter. When the menu shows numbers,
+enter a number instead. One person can be the voice of the world while
+the other decides what the hero tries. Swap jobs when you reach camp.
 
-## Run from the repository / Как запустить
+Read the room aloud, including the exits. If a child has an idea, let them
+try it as a command, even if it isn't on the menu. Try `examine` with a
+noun, `take` a loose object, or `put` one thing `in` another. A failed roll
+leaves another way forward. There is time to go back and try things.
 
-From the repository root with Lua 5.4:
+**Для первой партии** запустите `make battleworld BATTLEWORLD_LANGUAGE=ru`
+из папки lua-objc. Один игрок читает вслух, другой выбирает действие.
+Выбирайте стрелками и нажимайте Enter. Можно также ввести свою команду, например «осмотреть маяк». Если
+бросок не удался, оглядитесь: обычно рядом найдётся другой способ помочь.
+
+From the standalone **ZILScript** checkout, use Lua 5.4:
 
 ```sh
-# Русский, с вариантами действий
-lua5.4 main.lua --companion books.ru.last-door-of-battleworld.last-door-of-battleworld
-
-# English, with numbered prompts
 lua5.4 main.lua --companion books.en.last-door-of-battleworld.last-door-of-battleworld
+lua5.4 main.lua --companion books.ru.last-door-of-battleworld.last-door-of-battleworld
 ```
 
-Use `--text` instead of `--companion` for only typed commands. To try a
-typed command, start with `look` / «осмотреться» or `examine` /
-«осмотреть» and the item. Choose a named hero before the first scene.
-`STATUS` / «СТАТУС» shows the live character values.
+Use `--text` for a typed-only game. `status` / «статус» shows the hero's
+current Health and Karma. This development playtest runs outside the native
+app catalog. The two editions share their game state and rules.
 
-Для первой партии: ребёнок выбирает героя и говорит, что делать; взрослый
-читает за Камалу и Дума. Можно исследовать сколько угодно: реального
-таймера нет. Если бросок не вышел, игра не заканчивается и предлагает
-другой способ. Не подсказывайте решение сразу: сначала спросите, что из
-увиденного могло бы помочь.
+[Campaign scope and adaptation notes](../../shared/last-door-of-battleworld/LIMITS.md) contain spoilers.
 
-This sample is for testing. It is deliberately not in the native
-app catalog and is not part of an App Store build.
-
-## Verify / Проверка
-
-```sh
-lua5.4 books/en/last-door-of-battleworld/test/test_walkthrough_battleworld.lua
-```
+![The Last Door of Battleworld](cover.jpg)

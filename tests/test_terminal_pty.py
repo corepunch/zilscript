@@ -4,6 +4,7 @@ import os
 import pty
 import select
 import subprocess
+import sys
 import termios
 import time
 
@@ -32,6 +33,7 @@ def test_terminal():
     )
     pending = bytearray()
     try:
+        read_until(master, pending, "Use \u2191 or \u2193".encode())
         read_until(master, pending, PROMPT)
         time.sleep(0.5)  # Longer than the old one-tenth-second EOF.
         assert process.poll() is None, "The choice widget treated typing delay as EOF"
@@ -45,7 +47,14 @@ def test_terminal():
         read_until(master, pending, PROMPT + "ü".encode())
         os.write(master, b"\x03")
         assert process.wait(timeout=8) == 0
-        assert termios.tcgetattr(slave) == original, "Terminal settings were not restored"
+        restored = termios.tcgetattr(slave)
+        if sys.platform == "darwin":
+            # Darwin sets PENDIN when ICANON is restored, even when a caller
+            # restores the exact saved termios via tcsetattr. It is a kernel
+            # pending-input flag, not a persistent terminal setting.
+            restored[3] &= ~termios.PENDIN
+            original[3] &= ~termios.PENDIN
+        assert restored == original, "Terminal settings were not restored"
     finally:
         if process.poll() is None:
             process.kill()

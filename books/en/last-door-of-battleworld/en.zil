@@ -2,6 +2,10 @@
   the shared book; this file supplies prose, vocabulary and companion cards."
 
 <SYNTAX USE OBJECT = V-USE>
+<SYNTAX USE OBJECT ON OBJECT = V-BW-FIT>
+<SYNTAX FIT OBJECT IN OBJECT = V-BW-FIT>
+<SYNONYM FIT INSERT>
+<ROUTINE V-BW-FIT () <TELL "Those pieces don't fit together. Try examining them for a mark or a matching shape." CR>>
 <SYNTAX ALIGN OBJECT = V-BW-TURN>
 <SYNTAX TURN OBJECT = V-MOVE>
 
@@ -48,13 +52,8 @@
 <ROUTINE MSG-SETUP ()
  <TELL "Three rescue signals blink on the same scrap of sky. Choose [[Spider-Man->spider-man]], [[Storm->storm]], or [[Iron Man->iron]] to answer. You can examine each profile before you decide." CR>>
 
-<ROUTINE MSG-OPENING ()
- <TELL "Just before dusk, a school bell rings from a street with no school. A whole block slides sideways without making a sound. That's Battleworld now: pieces of different worlds held together by bright seams. A single doorway still leads home." CR CR
-       "Doctor Doom lights up the sky above it. 'My Loom will close the last door. A world with no exits is a world no one can leave in a mess.' His green image disappears, but the door's hinges are already turning to thread." CR CR
-       "Ms. Marvel points north, to a skiff hanging beside the broken span. 'Doom can wait. They can't.'" CR>>
-
 <ROUTINE MSG-CAMP ()
- <TELL "The camp occupies half a schoolyard and the wrong end of a railway platform. The soup pot is on the doubles court. [[Ms. Marvel->marvel]] has the court's chalkboard tipped up on a chair so she can count the people coming in. A [[beacon]] on the bench crackles. The path [[north]] leads down to the Hanging Span." CR>>
+ <TELL "The camp occupies half a schoolyard and the wrong end of a railway platform. The soup pot is on the doubles court. [[Ms. Marvel->marvel]] has the court's chalkboard tipped up on a chair so she can count the people coming in. A [[beacon]] on the bench crackles. The path [[north]] leads down to the Hanging Span. The sheltered path goes [[south]] to the ridge." CR>>
 
 <ROUTINE MSG-SPAN ()
  <TELL "Where the road runs out, the [[skiff]] hangs below you on a line that is unspooling one click at a time. The passengers are sitting very still. A [[hand winch->winch]] is bolted to the stone by your boot. The road to the market runs [[north]] beyond the span, and the camp is [[south]]." CR>>
@@ -63,13 +62,14 @@
  <TELL "The empty [[skiff]] knocks gently against the stones. Someone left a red mitten hooked to its rail. The [[winch]] has stopped clicking. The way is clear [[north]] to the Tilted Market; the camp lies [[south]]." CR>>
 
 <ROUTINE MSG-MARKET ()
+ <MSG-MARKET-SCALES>
  <TELL "The market leans downhill just enough for every loose apple to end up at the same stall. A [[mirror]] on a swivel is catching the last sunlight. Someone has shoved a [[supply chest->cache]] under the stall. The repair shop is [[east]], the tower [[north]], and the span [[south]]." CR>>
 
 <ROUTINE MSG-WORKSHOP ()
  <TELL "Every tool is outlined in chalk on the wall, including the ones someone has borrowed. An [[emergency socket->socket]] juts from a bench under a cable that runs up into the tower. The alley back to the market is [[west]]." CR>>
 
 <ROUTINE MSG-TOWER ()
- <TELL "The open tower has no roof: just a ring of teeth where the sky goes through. The [[Loom->loom]] pulls a bright thread from a half-open doorway, one slow inch at a time. [[Doctor Doom->doom]] stands beside it. Moonlight goes straight through his cape. The stair leads [[south]] to the market." CR>>
+ <TELL "The open tower has no roof: just a ring of teeth where the sky goes through. The [[Loom->loom]] pulls a bright thread from a half-open doorway, one slow inch at a time. [[Doctor Doom->doom]] stands beside it. Moonlight goes straight through his cape. The stair leads [[south]] to the market; a docking bridge reaches [[north]] to the Worldship." CR>>
 
 <ROUTINE MSG-HELPER ()
  <COND (,EVACUATED
@@ -166,6 +166,9 @@
  <TELL "At a seam between worlds, a loose blue thread trembles as if someone on the other side has just drawn a breath." CR>>
 
 <ROUTINE SUGGEST-ACTIONS ()
+ <BW-EARLY-CHOICES>
+ <BW-VILLAGE-CHOICES>
+ <BW-LATE-CHOICES>
  <COND (<AND <NOT ,BW-CHARGED> <IN? ,CELL ,HERE>>
         <CHOICE "bw.cell.retake" "Pick the power cell back up" "take cell" ,CHOICE-PROGRESS 98>)>
  <COND (<==? ,HERE ,SETUP-DESK>
@@ -173,6 +176,7 @@
         <CHOICE "bw.profile.storm" "Start as Storm" "choose storm" ,CHOICE-PROGRESS 99>
         <CHOICE "bw.profile.iron" "Start as Iron Man" "choose iron man" ,CHOICE-PROGRESS 98>)
        (<==? ,HERE ,CAMP>
+        <CHOICE "bw.camp.ridge" "Return to the sheltered ridge" "south" ,CHOICE-RETURN 60>
         <CHOICE "bw.camp.span" "Follow the rescue signal to the span" "north" ,CHOICE-PROGRESS 100>
         <CHOICE "bw.camp.helper" "Check in with Ms. Marvel" "examine marvel" ,CHOICE-INVESTIGATE 90>
         <CHOICE "bw.camp.beacon" "Listen to the brass beacon" "examine beacon" ,CHOICE-INVESTIGATE 80>)

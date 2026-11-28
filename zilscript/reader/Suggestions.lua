@@ -139,7 +139,16 @@ function Suggestions.forInput(input, items, visit, language)
 			end
 			if not name or name == "" then return true end
 			local preferred = short and counts[short] == 1 and short or name
-			for _, spelling in ipairs({ name, preferred }) do
+			local spellings = { name, preferred }
+			-- A player may already have named an object by any synonym the
+			-- parser knows. Continue to the next slot only when that synonym
+			-- identifies one visible object, just as for the short noun.
+			if type(slot) == "table" then
+				for _, alias in ipairs(slot.aliases or {}) do
+					if counts[alias] == 1 then table.insert(spellings, alias) end
+				end
+			end
+			for _, spelling in ipairs(spellings) do
 				if startsWith(rest, spelling .. " ") then
 					rest = rest:sub(#spelling + 2)
 					return true

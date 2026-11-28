@@ -1,38 +1,24 @@
-# Что не перенесли из Secret Wars / Scope and gaps
+# Campaign scope / Границы приключения
 
-**«Последняя дверь Мира битв» не является конверсией Secret Wars.**
-Это отдельная завершённая короткая история с оригинальными сценами.
-В ней есть выбор одного героя, предметы, исследование на английском и
-русском, проверка FASERIP при рискованном спасении, выход после неудачи
-и две развязки с разными последствиями для машины Дума. Следующее
-сравнение описывает разницу, а не предлагает воспроизводить исходник.
+Spoilers for *The Last Door of Battleworld*.
 
-Источник для сравнения: [оригинальный Secret Wars Special Campaign Adventure (TSR MHSP1)](https://mshgamer.com/wp-content/uploads/2013/03/TSR6860.MHSP1_.Secret.Wars_.pdf),
-в частности вводный раздел *The Heroes* и описание комплекта на обложке.
-В оригинале предусмотрены один герой на игрока с остальными под
-управлением ведущего, распределение целых команд и сокращённый режим
-*Little Wars*. Даже сокращённый режим не равен одной одиночной истории.
-
-| Что отсутствует | Почему и что есть вместо этого |
+| Secret Wars campaign element | What the family can play |
 | --- | --- |
-| Полная сюжетная последовательность кампании, её эпизоды, диалоги и оригинальные финалы | **Сознательно не переносили.** У этой истории свой конфликт: Дум пытается закрыть путь домой, герой спасает людей и останавливает станок. Карты, иллюстрации и тексты TSR не входят в проект. |
-| Полный ростер оригинала и его официальные характеристики | **Сознательно не переносили.** Три авторских игровых пресета: Человек-паук, Гроза и Железный человек. Камала и Дум действуют как прописанные персонажи. Здесь Дум противник, но не отдельный тактический босс. |
-| Команда, переключение между героями, параллельные действия и выбор ведущего, кто управляет остальными | **Пробел формата.** Читалка ведёт одного активного героя и одно состояние сцены. Для команды нужны несколько акторов, их независимые действия и сохранения, а не просто больше пресетов. |
-| Настольное сражение с инициативой, расстояниями и позициями, противниками и союзниками со своими ходами | **Не реализовано здесь.** Есть связанные со сценой проверки FASERIP, здоровье и карма. Это не полный боевой движок и не перенос настольной карты. |
-| Свободный арбитраж ведущего: новые применения любой способности, неожиданные цели и последствия за пределами прописанных сцен | **Предел парсера.** Он понимает предусмотренные глаголы, предметы и связи. Взрослый за столом может импровизировать, но игра сама не моделирует произвольный план. |
-| Состояние большой кампании между сессиями и главами: фракции, команды, перенос отношений и последствий по всей карте | **Не нужно для короткого теста.** В пределах приключения состояния совместимы с сохранением и восстановлением CLI; межмодульной кампании нет. |
+| The constructs, the Beyonder's challenge, Magneto on the heroes' side of the landing, Kang's first attack | Reach the heroes' plain, hear Magneto out, and shelter the path across the ridge. |
+| Civilians on an inhabited patchwork planet, Zsaji and her healing gift | Rescue the skiff, visit Zsaji after a failed rescue roll, and help two shepherds find the village by sound. The bell and scales are original puzzles. |
+| Galactus's worldship Taa II, Klaw, the world-converter and Doom's attempt to claim cosmic power | Board the ship from Doom's tower. Free Klaw, read the plans, and reverse the flow so power goes back to the people living on Battleworld. |
+| Doom offers a wish for surrender | Read Doom's terms in the tower. Accepting gets everyone home and places the hero under Doom's orders. Refusing earns Karma and leaves the other routes open. |
+| Finding a way home | The original Loom joins this smaller adventure together. Daylight and emergency power offer two ways through the last door without boarding the ship. |
 
-Если строить следующую игру такого масштаба, я бы сначала проверил
-одно оригинальное столкновение на двух героях с отдельными ходами.
-Это проверит самый большой технический пробел, прежде чем плодить
-сюжетные главы. Для текущей семейной партии этого добавлять не нужно.
+The tabletop Judge assigns teams, controls rival factions and patrols, and
+resolves situations across a campaign calendar and tactical maps. This book
+follows one active hero through authored encounters. A second person can
+read the other roles and discuss choices. The reader resolves the supported
+actions, including risky power checks, and keeps track of objects, Health
+and Karma. The book uses newly written scenes and hero presets.
 
-## English summary
-
-Original, complete small parser adventure, not the complete commercial
-module. Intentionally left out: its campaign sequence, dialogue, maps,
-artwork, full roster and original stat blocks. System gaps for a faithful
-tabletop-scale game: multiple independently acting heroes, tactical turns
-and positions, rival team simulation, arbitrary Judge rulings, and a
-campaign state model. This book has authored object interactions, a
-fail-forward rescue, and two ways to foil Doom.
+**По-русски.** В книге есть отдельные эпизоды кампании: высадка, встреча
+с Магнето, нападение Канга, деревня Зсаджи и корабль Галактуса. Действия
+обоих изданий работают по одним правилам. Мир битв здесь исследует один
+герой; ведущему не нужно вести календарь кампании, перемещать отряды по
+карте или готовить встречи заранее.

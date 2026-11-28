@@ -50,13 +50,16 @@ function Story.of(path, root)
 	local shared = book and ("books/shared/" .. book)
 	if shared and exists(root .. "/" .. shared .. "/logic.zil") then
 		story.edition = true
-		story.words = { dir .. "/" .. language.code .. ".zil" }
-		story.declarations = story.words
-		story.sources = { shared .. "/logic.zil", shared .. "/rules.zil", story.words[1] }
+		story.words = {}
 		for _, file in ipairs(listing(root .. "/" .. dir, 1)) do
-			local relative = file:sub(#root + 2)
-			if relative ~= story.words[1] then table.insert(story.sources, relative) end
+			table.insert(story.words, file:sub(#root + 2))
 		end
+		story.declarations = story.words
+		story.sources = {}
+		for _, file in ipairs(listing(root .. "/" .. shared, 1)) do
+			table.insert(story.sources, file:sub(#root + 2))
+		end
+		for _, file in ipairs(story.words) do table.insert(story.sources, file) end
 	else
 		story.words = { dir .. "/dungeon.zil" }
 		story.declarations = { dir .. "/dungeon.zil", dir .. "/actions.zil" }

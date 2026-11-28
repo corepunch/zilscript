@@ -52,6 +52,7 @@ while i <= #arg do
 end
 
 local story_module = options.story_module or "infocom.zork1.zork1"
+local companion_words = require("zilscript.reader.Language").ofBook(story_module).companion
 
 -- Create game environment
 local env = runtime.create_game_env()
@@ -140,6 +141,10 @@ end
 -- else is typed as a command.
 local interactive = os.execute("test -t 0") == true
 
+if interactive and options.interface == "companion" then
+  io.write("\n" .. companion_words.controls .. "\n")
+end
+
 local function numbered_selector(query)
   local displayed = {}
   local function print_group(title, group)
@@ -155,10 +160,10 @@ local function numbered_selector(query)
   if query.scene and query.scene.alt then
     io.write("\n" .. query.scene.alt .. "\n")
   end
-  io.write("\nWhat will you do?\n")
-  print_group("In this scene", "scene")
-  print_group("Go somewhere", "move")
-  io.write("\nChoose a number, or type any command: ")
+  io.write("\n" .. companion_words.question .. "\n")
+  print_group(companion_words.scene, "scene")
+  print_group(companion_words.move, "move")
+  io.write("\n" .. companion_words.prompt)
   local input = io.read()
   if not input then os.exit(0) end
   local trimmed = input:match("^%s*(.-)%s*$")

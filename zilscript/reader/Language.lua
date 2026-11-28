@@ -7,6 +7,9 @@ local CODES = { en = "en", english = "en", de = "de", german = "de", deutsch = "
 
 local en = {
 	code = "en",
+	companion = { controls = "Use ↑ or ↓ to pick an action and Enter to play it. You can also type a command.",
+		question = "What will you do?", scene = "In this scene", move = "Go somewhere",
+		prompt = "Choose a number, or type any command: " },
 	look = "look", inventory = "inventory", wait = "wait", take = "take", examine = "examine", go = "go",
 	lookTitle = "Look around", inventoryTitle = "Inventory",
 	-- Words that are already complete menu entries elsewhere ("examine" is always first).
@@ -50,6 +53,9 @@ local en = {
 
 local de = {
 	code = "de",
+	companion = { controls = "Wähle mit ↑ oder ↓ eine Aktion und bestätige mit Enter. Du kannst auch einen Befehl eingeben.",
+		question = "Was möchtest du tun?", scene = "An diesem Ort", move = "Weitergehen",
+		prompt = "Wähle eine Nummer oder gib einen Befehl ein: " },
 	charset = "GERMAN",
 	bareNouns = true,
 	look = "schau", inventory = "inventar", wait = "warte", take = "nimm", examine = "untersuch", go = "geh",
@@ -122,6 +128,9 @@ local de = {
 
 local ru = {
 	code = "ru",
+	companion = { controls = "Выберите действие стрелками ↑ или ↓ и нажмите Enter. Можно также ввести команду.",
+		question = "Что вы будете делать?", scene = "Здесь", move = "Отправиться дальше",
+		prompt = "Выберите номер или введите команду: " },
 	look = "осмотреться", inventory = "инвентарь", wait = "ждать", take = "взять",
 	examine = "осмотреть", go = "идти",
 	lookTitle = "Осмотреться", inventoryTitle = "Инвентарь",

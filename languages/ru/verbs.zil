@@ -33,3 +33,23 @@
         (<EQUAL? .WORD ,W?QUIT> <QUIT>)>>>
 
 <ROUTINE V-LISTEN () <TELL "Ни звука." CR>>
+
+;"Room and container listings use Russian phrasing while retaining the base
+  traversal and object-specific descriptions."
+<ROUTINE DESCRIBE-OBJECT (OBJ V? LEVEL "AUX" (STR <>) AV)
+ <SETG DESC-OBJECT .OBJ>
+ <COND (<AND <0? .LEVEL> <APPLY <GETP .OBJ ,P?DESCFCN> ,M-OBJDESC>> <RTRUE>)
+       (<AND <0? .LEVEL>
+             <OR <AND <NOT <FSET? .OBJ ,TOUCHBIT>> <SET STR <GETP .OBJ ,P?FDESC>>>
+                 <SET STR <GETP .OBJ ,P?LDESC>>>> <TELL .STR>)
+       (<0? .LEVEL>
+        <TELL "Здесь: " D .OBJ>
+        <COND (<FSET? .OBJ ,ONBIT> <TELL " (светится)">)>
+        <TELL ".">)
+       (T <TELL <GET ,INDENTS .LEVEL> D .OBJ>
+          <COND (<FSET? .OBJ ,ONBIT> <TELL " (светится)">)
+                (<AND <FSET? .OBJ ,WEARBIT> <IN? .OBJ ,WINNER>> <TELL " (надето)">)>)>
+ <COND (<AND <0? .LEVEL> <SET AV <LOC ,WINNER>> <FSET? .AV ,VEHBIT>>
+        <TELL " (снаружи: " D .AV ")">)>
+ <CRLF>
+ <COND (<AND <SEE-INSIDE? .OBJ> <FIRST? .OBJ>> <PRINT-CONT .OBJ .V? .LEVEL>)>>

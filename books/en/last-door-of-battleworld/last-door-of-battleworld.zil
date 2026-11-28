@@ -10,4 +10,10 @@
 <INSERT-FILE "rulesets.superhero.en">
 <INSERT-FILE "books.shared.last-door-of-battleworld.logic">
 <INSERT-FILE "books.en.last-door-of-battleworld.en">
+<INSERT-FILE "books.shared.last-door-of-battleworld.early">
+<INSERT-FILE "books.en.last-door-of-battleworld.early">
+<INSERT-FILE "books.shared.last-door-of-battleworld.village">
+<INSERT-FILE "books.en.last-door-of-battleworld.village">
+<INSERT-FILE "books.shared.last-door-of-battleworld.late">
+<INSERT-FILE "books.en.last-door-of-battleworld.late">
 <INSERT-FILE "books.shared.last-door-of-battleworld.rules">
