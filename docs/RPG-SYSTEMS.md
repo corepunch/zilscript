@@ -204,3 +204,21 @@ its compatible behavior before GO, including subsequent turns. This keeps
 Meridian's original yellow console check for old runs. New runs use the
 intensity-based check. Command replay is not a general snapshot/migration
 mechanism; gameplay edits still need targeted restore tests.
+
+### Optional portrait on the printed sheet
+
+Books that want a portrait can define `RPG-PORTRAIT()`. It returns a stable
+lowercase ASCII asset ID for the active character (e.g. `arc`), or false
+when none is available. It is called at the sheet-export boundary and must
+not advance a turn, draw a random number, or change the active character.
+Use the preset ID, not a localized display name or player-entered name. A
+book can omit this routine or return false for any individual hero.
+
+Put each original grayscale PNG at `portraits/<id>.png` under the book's
+asset directory. The host may point translated editions at one shared
+catalog asset root. The export embeds only matching, packaged PNG bytes
+(no URL, path supplied by the player, or network request). If the image is
+missing or cannot be read, the same sheet prints without an image or an
+empty portrait column. Artwork does not affect save files or the character
+setup flow. Meridian's three original illustrations are in
+[the English book's asset folder](../books/en/blackout-at-meridian/portraits).
