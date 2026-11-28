@@ -118,10 +118,10 @@
   <SET I <+ .I 2>>>>
 
 ;"The status line shows STATUS-LAYOUT's attributes: 'Health 3 of 10, Karma 7'."
-<ROUTINE PRINT-STATUS (TBL "AUX" (I 1) N A)
- <SET N <GET ,STATUS-LAYOUT 0>>
+<ROUTINE PRINT-STATUS (TBL "AUX" (I 1) COUNT A)
+ <SET COUNT <GET ,STATUS-LAYOUT 0>>
  <REPEAT ()
-  <COND (<G? .I .N> <RETURN>)>
+  <COND (<G? .I .COUNT> <RETURN>)>
   <SET A <GET ,STATUS-LAYOUT .I>>
   <COND (<G? .I 1> <TELL ", ">)>
   <ATTR-NAME .A>
