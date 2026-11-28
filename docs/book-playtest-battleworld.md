@@ -47,3 +47,21 @@ the hero looks around. The Russian failed-rescue response names the same
 five-point Health cost as the English response. A headless regression
 checks the scene dialogue, the narrated damage, and the actual Health
 change in both editions.
+
+## Reading pace for a nine-year-old
+
+The English and Russian Terra testers played with a simulated nine-year-old
+reader's attention span. Both skimmed the original introduction and remembered
+the people who needed help, Magneto and the coil. The Beyonder and Galactus
+were harder to recall. The opening after hero selection now runs 50 words in
+English (previously 136) and 37 in Russian (previously 118), including the
+loose coil's listing. Magneto explains the Beyonder's challenge when spoken
+to. Examining the wreck reveals how Battleworld was made.
+
+A fresh English tester reached the Worldship ending after rescuing the boat,
+repairing the village bell, and freeing Klaw. The Russian retest reached the
+battery ending. Its sign and ship failures did not recur on a fixed copy of
+the edited story. A fresh typed run on that copy read the sign, rang the
+village bell, freed Klaw and reached the Worldship ending. Both playtests were
+simulations. The new walkthrough also checks the opening length, the clues
+behind the wreck and the door, and the commands for the winch, sign and lever.

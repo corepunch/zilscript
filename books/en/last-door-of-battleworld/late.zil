@@ -9,32 +9,39 @@
 <OBJECT BW-PLANS (DESC "Doom's plans") (SYNONYM PLANS PLAN DIAGRAMS DIAGRAM) (ADJECTIVE DOOM REVERSE)>
 <OBJECT BW-REVERSE (DESC "reverse control") (SYNONYM CONTROL LEVER CONVERTER SIPHON) (ADJECTIVE REVERSE)>
 <ROUTINE MSG-BW-OFFER-PRESENCE ()
- <COND (,BW-OFFER-REFUSED <TELL "Doom's offer still flickers beside the Loom, though you have refused it." CR>)
-       (T <TELL "A green inscription beside him invites you to hear Doom's offer." CR>)>>
+ <COND (,BW-OFFER-REFUSED <TELL "Doom's rejected offer still glows." CR>)
+       (T <TELL "Doom's offer glows on a sign." CR>)>>
 <ROUTINE MSG-BW-OFFER ()
- <TELL "Doom promises to grant your wish to return home and send the others back too. In exchange you must surrender your freedom to him: from then on you will obey his orders, even when you disagree. He calls it peace. You can say “accept offer” or “refuse offer”; accepting ends this adventure." CR>>
-<ROUTINE MSG-BW-OFFER-FIRST () <TELL "Read Doom's offer before you decide. Try READ INSCRIPTION." CR>>
+ <TELL "'I can send you all home,' says Doom. 'In return, you must always obey me.'" CR "Type 'accept offer' to take the deal and end the story, or 'refuse offer' to keep looking for your own way." CR>>
+<ROUTINE MSG-BW-OFFER-FIRST ()
+ <TELL "Read Doom's offer before you decide. Try READ INSCRIPTION." CR>>
 <ROUTINE MSG-BW-ALREADY-REFUSED () <TELL "You have already refused to surrender your freedom. Doom has heard your answer." CR>>
 <ROUTINE MSG-BW-REFUSED () <TELL "'Home isn't a gift if you own the people who live there,' you tell him. Doom's image stiffens. 'Then find your own way.' You intend to do just that." CR>>
-<ROUTINE MSG-BW-ACCEPT-END () <TELL "You accept. Doom opens the way to Earth, and the passengers return to their families. He keeps his promise to grant your wish. Then his voice sounds in your ear: your first orders await. Home is familiar, but your choices are no longer your own." CR CR "THE END: DOOM'S BARGAIN" CR>>
+<ROUTINE MSG-BW-ACCEPT-END ()
+ <TELL "Doom sends everyone home. The passengers run to their families. Then his voice crackles in your ear. 'I have your first orders.'" CR CR "THE END: DOOM'S BARGAIN" CR>>
 <ROUTINE MSG-BW-WORLDSHIP ()
- <TELL "A docking bridge has brought you aboard Taa II, Galactus's immense Worldship. The gallery hums like a glass being rubbed around its rim. ">
+ <TELL "Galactus's ship hums like a singing glass. ">
  <COND (,BW-KLAW-FREE <TELL "Klaw stands beside the open prism. ">)
-       (T <TELL "Klaw shimmers inside a sound prism. ">)>
- <TELL "The converter chamber lies north. The tower is south." CR>>
+       (T <TELL "Klaw is trapped in a clear prism. ">)>
+ <TELL "The converter room is north. The tower is south." CR>>
 <ROUTINE MSG-BW-CONVERTER ()
- <TELL "The Worldship's converter chamber is big enough to shelter a town. Its great pipes point down toward Battleworld. Doom's plans lie beside a reverse control. The sound gallery is south." CR>>
+ <TELL "Huge pipes hum in the converter room. Doom's plans lie beside a lever. The sound gallery is south." CR>>
 <ROUTINE MSG-BW-KLAW ()
- <COND (,BW-KLAW-FREE <TELL "Klaw taps a bright rhythm against his palm. 'The converter was meant to take the planet's energy. Doom wanted to steal it for himself. Reverse it, and perhaps this place will get something back instead.'" CR>)
-       (T <TELL "Klaw is made of sound; inside the prism his voice comes out as a squeak. 'Doom let me out once and then put me in here to keep me quiet. Try the catch on the prism. Gently, please.'" CR>)>>
+ <COND (,BW-KLAW-FREE <TELL "'Galactus built the converter to drain the planet,' says Klaw. 'Doom meant to steal that power. You can send it back.'" CR>)
+       (T <TELL "Klaw is made of sound. In the prism he can barely squeak. 'Doom locked me in. Please open the catch!'" CR>)>>
 <ROUTINE MSG-BW-KLAW-STRIKE () <TELL "The prism rings like a struck glass. 'Please don't do that again,' says Klaw. There is a catch on the prism." CR>>
-<ROUTINE MSG-BW-PRISM () <TELL "The clear cage catches every note Klaw makes. A broad catch marked RELEASE is meant to be pushed, not smashed." CR>>
+<ROUTINE MSG-BW-PRISM ()
+ <TELL "The prism traps every sound Klaw makes. Push the catch marked RELEASE to open it." CR>>
 <ROUTINE MSG-BW-PRISM-OPEN () <TELL "The catch is open and Klaw is free. The empty prism gives a tiny, satisfied ping." CR>>
-<ROUTINE MSG-BW-FREE () <TELL "You press the catch. The prism unfolds like a flower and Klaw steps out in a ripple of sound. He listens to the pipes. 'Doom's plans explain the reverse control in the next chamber. Give the power back to the world.' He plays a little fanfare for your trouble." CR>>
-<ROUTINE MSG-BW-PLANS () <TELL "Doom's notes describe stealing power as Galactus's converter drains the planet. In the margin, a repair diagram shows how to reverse the flow: read the scale, then turn the control. The energy will return to Battleworld instead of feeding Doom." CR>>
+<ROUTINE MSG-BW-FREE ()
+ <TELL "The prism opens like a flower. Klaw steps out and plays a thank-you tune. 'Read Doom's plans in the next room. You can give the power back to Battleworld.'" CR>>
+<ROUTINE MSG-BW-PLANS ()
+ <TELL "Doom planned to steal the power that Galactus drained from Battleworld. The drawing shows a way to send it back: turn the lever to RETURN." CR>>
 <ROUTINE MSG-BW-PLANS-HINT () <TELL "The plans are fixed under glass. You can read the diagram without taking them." CR>>
-<ROUTINE MSG-BW-REVERSE () <TELL "The control has a scale with arrows pointing toward and away from the planet. The nearby plans explain which setting returns the energy safely." CR>>
-<ROUTINE MSG-BW-REVERSE-BLOCK () <TELL "The arrows on the scale point both ways. Read Doom's plans first so you know where the power will go." CR>>
+<ROUTINE MSG-BW-REVERSE ()
+ <TELL "One marking points toward the planet, the other away. Read Doom's plans to find the right setting." CR>>
+<ROUTINE MSG-BW-REVERSE-BLOCK ()
+ <TELL "The lever could send the power either way. Read Doom's plans first." CR>>
 <ROUTINE MSG-BW-REVERSE-END ()
  <TELL "You turn the control to RETURN. The pipes sing in reverse; the Loom releases its thread and the last door swings open. Across Battleworld, dark windows glow again as the stolen energy returns to homes and shelters." CR CR>
  <COND (,BW-OFFER-REFUSED <TELL "You kept your answer to Doom, and found a way to help without giving up your freedom. ">)>
@@ -42,10 +49,10 @@
  <TELL "The passengers cross home, while the Worldship's lamps settle to a quiet glow. Doom's promise of wishes has lost its power over them: they have chosen their own way home." CR CR "THE END: THE LAST DOOR STAYS OPEN" CR>>
 <ROUTINE BW-LATE-CHOICES ()
  <COND (<EQUAL? ,HERE ,TOWER>
-        <COND (<NOT ,BW-OFFER-SEEN> <CHOICE "bw.offer.hear" "Hear Doom's offer" "examine offer" ,CHOICE-INVESTIGATE 98>)
+        <COND (<NOT ,BW-OFFER-SEEN> <CHOICE "bw.offer.hear" "Read Doom's offer" "read offer" ,CHOICE-INVESTIGATE 98>)
               (<NOT ,BW-OFFER-REFUSED>
-               <CHOICE "bw.offer.accept" "Accept Doom's bargain and end the adventure" "accept offer" ,CHOICE-PROGRESS 70>
-               <CHOICE "bw.offer.refuse" "Refuse to surrender your freedom" "refuse offer" ,CHOICE-PROGRESS 90>)>
+               <CHOICE "bw.offer.accept" "Take the deal and end the story" "accept offer" ,CHOICE-PROGRESS 70>
+               <CHOICE "bw.offer.refuse" "Refuse Doom's deal" "refuse offer" ,CHOICE-PROGRESS 90>)>
         <CHOICE "bw.tower.ship" "Cross to Galactus's Worldship" "north" ,CHOICE-INVESTIGATE 85>)
        (<EQUAL? ,HERE ,BW-WORLDSHIP>
         <CHOICE "bw.ship.klaw" "Listen to Klaw" "examine klaw" ,CHOICE-INVESTIGATE 90>
@@ -54,5 +61,5 @@
         <CHOICE "bw.ship.tower" "Return to the tower" "south" ,CHOICE-RETURN 80>)
        (<EQUAL? ,HERE ,BW-CONVERTER>
         <COND (<NOT ,BW-PLAN-READ> <CHOICE "bw.converter.plans" "Read Doom's plans" "read plans" ,CHOICE-INVESTIGATE 99>)
-              (T <CHOICE "bw.converter.reverse" "Return the stolen energy" "turn control" ,CHOICE-PROGRESS 100>)>
+              (T <CHOICE "bw.converter.reverse" "Return the stolen energy" "turn lever" ,CHOICE-PROGRESS 100>)>
         <CHOICE "bw.converter.gallery" "Return to the sound gallery" "south" ,CHOICE-RETURN 80>)>>

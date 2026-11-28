@@ -3,11 +3,11 @@ local Walk = require("tests.story_walk")
 local cases = {
 	en = {
 		choose = "choose storm", examine = "examine marvel", north = "north", rescue = "focus skiff",
-		reassurance = "The catch is holding for now", cost = "You lose 5 Health",
+		reassurance = "The rope is holding for now", cost = "You lose 5 Health",
 	},
 	ru = {
 		choose = "выбрать грозу", examine = "осмотреть марвел", north = "север", rescue = "спасти челнок",
-		reassurance = "Стопор пока держит", cost = "Вы теряете 5 очков здоровья",
+		reassurance = "Трос пока держит лодку", cost = "Вы теряете 5 очков здоровья",
 	},
 }
 

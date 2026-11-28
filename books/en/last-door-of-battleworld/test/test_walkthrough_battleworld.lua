@@ -2,11 +2,11 @@ local Walk = require("tests.story_walk")
 local module = ".last-door-of-battleworld.last-door-of-battleworld"
 local words = {
   en = {heroes={"spider-man","storm","iron man"}, choose="choose ", north="north", east="east", west="west", south="south",
-    coil="take coil", relay="put coil in relay", rescue="focus skiff", winch="pull winch", mirror="examine mirror", turn="turn mirror", box="open cache",
+    coil="take coil", relay="put coil in relay", rescue="rescue boat", winch="pull winch", mirror="examine mirror", turn="turn mirror", box="open cache",
     cell="take cell", drop="drop cell", socket="use socket", light="use loom", power="focus loom",
     doom="strike doom", endText="THE LAST DOOR STAYS OPEN"},
   ru = {heroes={"паука","грозу","железного человека"}, choose="выбрать ", north="север", east="восток", west="запад", south="юг",
-    coil="взять катушку", relay="использовать передатчик", rescue="спасти челнок", winch="потянуть лебёдку", mirror="осмотреть зеркало", turn="повернуть зеркало", box="открыть ящик",
+    coil="взять катушку", relay="использовать передатчик", rescue="спасти лодку", winch="потянуть лебёдку", mirror="осмотреть зеркало", turn="повернуть зеркало", box="открыть ящик",
     cell="взять батарею", drop="бросить батарею", socket="применить гнездо", light="использовать станок",
     power="применить станок", doom="ударить дума", endText="ПОСЛЕДНЯЯ ДВЕРЬ"},
 }
