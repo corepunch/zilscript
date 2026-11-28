@@ -36,3 +36,5 @@ app catalog. The two editions share their game state and rules.
 [Campaign scope and adaptation notes](../../shared/last-door-of-battleworld/LIMITS.md) contain spoilers.
 
 ![The Last Door of Battleworld](cover.jpg)
+
+The family playtest’s black-and-white card and sheet portraits are details from the supplied TSR *Secret Wars* module (MHSP1): Spider-Man from printed page 16, Iron Man from roster page 4, and Storm from roster page 7.
