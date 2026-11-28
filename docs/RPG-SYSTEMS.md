@@ -196,3 +196,11 @@ clients without a setup frontend retain the in-VM prompt.
 
 See the [Meridian setup](../books/shared/blackout-at-meridian/rules.zil) for a
 book using the generic API with three authored profiles.
+
+
+A reader passes a legacy-restore flag when opening an existing command-only
+save without a preset record. A book may define `RPG-RESTORE-LEGACY` to select
+its compatible behavior before GO, including subsequent turns. This keeps
+Meridian's original yellow console check for old runs. New runs use the
+intensity-based check. Command replay is not a general snapshot/migration
+mechanism; gameplay edits still need targeted restore tests.
