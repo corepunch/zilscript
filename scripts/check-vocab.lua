@@ -19,6 +19,7 @@
 
 package.path = "./?.lua;./?/init.lua;" .. package.path
 local Language = require("zilscript.reader.Language")
+local Text = require("zilscript.text")
 
 -- The story language (game.json) decides how source escapes read: German
 -- writes T\%UR for Tür. Words compare in one folded form, so DESC "Tür",
@@ -27,7 +28,7 @@ local lang = Language.of(nil)
 local FOLD = { ["ä"] = "ae", ["ö"] = "oe", ["ü"] = "ue", ["ß"] = "ss", ["Ä"] = "ae", ["Ö"] = "oe", ["Ü"] = "ue" }
 local function fold(word)
     word = Language.word(lang, word):gsub("[\195][\128-\191]", function(c) return FOLD[c] or c end)
-    return word:lower()
+    return Text.lower(word)
 end
 
 -- ============================================================

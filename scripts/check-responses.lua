@@ -45,8 +45,8 @@ local function nouns(story)
 	end
 	local list = {}
 	for name, body in source:gmatch("<OBJECT%s+([%w%-]+)(.-)\n\n") do
-		local noun = body:match("%(SYNONYM%s+([%w%-\\%%]+)")
-		local adjective = body:match("%(ADJECTIVE%s+([%w%-\\%%]+)")
+		local noun = body:match("%(SYNONYM%s+([%w%-\\%%\128-\255]+)")
+		local adjective = body:match("%(ADJECTIVE%s+([%w%-\\%%\128-\255]+)")
 		if noun then
 			table.insert(list, {
 				name = name,
