@@ -1111,7 +1111,7 @@
     (IN LOCAL-GLOBALS)
     (SYNONYM CHAPEL ALTAR)
     (DESC "chapel")
-    (FLAGS NDESCBIT) (TEXT "Green wax has pooled in the cuts on the altar stone. From here you can trace the same marks back along the pews.")>
+    (FLAGS NDESCBIT) (TEXT "Green wax has pooled in the cuts on the altar stone. From here you can trace the same marks back along the pews.") (ACTION TOPIC-CHAPEL-F)>
 
 <OBJECT BOTTOM-DRAWER
         (IN OAK-DESK)

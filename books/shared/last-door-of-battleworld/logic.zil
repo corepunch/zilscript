@@ -130,7 +130,9 @@
  <COND (<EQUAL? ,PRSO ,LOOM>
         <COND (<VERB? EXAMINE LISTEN READ OPEN TAKE> <MSG-LOOM> <RTRUE>)
               (<VERB? RPG-POWER>
-               <COND (,BW-CHARGED <BW-FINISH 2>) (T <MSG-LOOM-BLOCK>)> <RTRUE>)
+               <COND (,BW-CHARGED <BW-FINISH 2>)
+                     (,BW-ALIGNED <BW-FINISH 1>)
+                     (T <MSG-LOOM-BLOCK>)> <RTRUE>)
               (<VERB? USE TURN RPG-DISABLE>
                <COND (,BW-ALIGNED <BW-FINISH 1>)
                      (,BW-CHARGED <BW-FINISH 2>)

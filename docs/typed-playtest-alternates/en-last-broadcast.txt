@@ -1,0 +1,474 @@
+The Last Broadcast
+Studio Null, 2026
+Release 1
+
+November 1936. You are an insurance investigator, sent out to Saint Bride, a wireless station on a rock off the coast, to value its transmitter before the owner sells it. Tonight a gale has cut the island off from the mainland, with five people in the station besides yourself.
+At 9:17, from the loudspeaker in the hall, you heard a gull cough twice, then Ada's appeal to save the station: “Even this old island can learn to speak.” Four minutes later Ruth called for help. By then the station's owner, Julian Vane, was dead in his office. You stepped out onto the landing to think, and wrote both times in your casebook.
+
+Saint Bride Landing
+You are on the landing stage below the station, where the mail boat ties up in better weather. Rain drives across the planks, and every few seconds a wave bursts over the breakwater and runs back hissing between them. A salt-crusted station clock is bolted to an iron post at the head of the landing. Ahead, through the station's open door, a hall light swings on its bracket. The station hall lies to the north, and there is nowhere else to go on a night like this.
+
+> north
+This is the hall of the station, a narrow room of varnished pine that smells of paraffin and wet oilskins. Water from the coats on their pegs has made a dark pool on the floor, and a freshly lettered appeal board hangs beside the door. Whoever killed Vane is still shut in here with the people who wanted to save his station. Vane's office is to the north, the studio to the east and the kitchen to the west. Wooden stairs climb up to the bunkroom, and the landing stage is back to the south.
+
+> look
+This is the hall of the station, a narrow room of varnished pine that smells of paraffin and wet oilskins. Water from the coats on their pegs has made a dark pool on the floor, and a freshly lettered appeal board hangs beside the door. Whoever killed Vane is still shut in here with the people who wanted to save his station. Vane's office is to the north, the studio to the east and the kitchen to the west. Wooden stairs climb up to the bunkroom, and the landing stage is back to the south.
+
+> examine board
+The appeal board smells of fresh varnish. It lists tonight's order: 9:12 power test; 9:16 Ruth leaves office; 9:17 Ada speaks; 9:21 Ruth discovers Vane. Ruth wrote the last entry in a hand no longer fit for broadcasting. The two public times agree with your casebook.
+
+> north
+This is Julian Vane's office, so narrow that the filing cabinets crowd anyone standing at the desk. The air is too warm. Under the stale cigar smoke is the smell of old pennies. Vane's body sits slumped in his chair beneath an electric office clock, his back to the door. A square service hatch is set flush in the floor, bolted shut over whatever lies below. The hall is back to the south.
+
+> look
+This is Julian Vane's office, so narrow that the filing cabinets crowd anyone standing at the desk. The air is too warm. Under the stale cigar smoke is the smell of old pennies. Vane's body sits slumped in his chair beneath an electric office clock, his back to the door. A square service hatch is set flush in the floor, bolted shut over whatever lies below. The hall is back to the south.
+
+> examine body
+One blow behind the ear. No struggle, no long chase. The body has stiffened in the attitude of someone signing away another person's future. A crescent of brass dust marks the wound. The crescent is interrupted by one narrow gap. Whatever made it had a matching notch in its edge. The office clock has yet to account for its stopped hands.
+
+> examine clock
+The office clock reads 9:12. Beneath it: SYNCHRONOUS MOVEMENT -- RESTART BY HAND AFTER UNDERVOLTAGE. The winding knob is innocent; this clock never had a spring. Its time needs an independent witness.
+
+> examine hatch
+A flush service hatch with a square spindle. Ordinary fingers cannot turn it. The service spanner in the workshop was made for the job.
+
+> south
+This is the hall of the station, a narrow room of varnished pine that smells of paraffin and wet oilskins. Water from the coats on their pegs has made a dark pool on the floor, and a freshly lettered appeal board hangs beside the door. Whoever killed Vane is still shut in here with the people who wanted to save his station. Vane's office is to the north, the studio to the east and the kitchen to the west. Wooden stairs climb up to the bunkroom, and the landing stage is back to the south.
+
+> east
+This is the broadcast studio, a small square room hung all round with brown felt to deaden the sound. In here the storm is only a pressure against the walls, and your own breathing seems loud. A microphone stands in the middle of the floor, a small red lamp glowing at its collar. Ruth Bell waits beside it, murmuring to herself in the trained voice of an announcer. The hall is back to the west, and a door with a glass panel leads east into the control room.
+
+> look
+This is the broadcast studio, a small square room hung all round with brown felt to deaden the sound. In here the storm is only a pressure against the walls, and your own breathing seems loud. A microphone stands in the middle of the floor, a small red lamp glowing at its collar. Ruth Bell waits beside it, murmuring to herself in the trained voice of an announcer. The hall is back to the west, and a door with a glass panel leads east into the control room.
+
+> talk to Ruth
+“Ask me about the microphone, the broadcast, or Vane. I can tell you what I saw. What I heard appears more troublesome.”
+
+> east
+You are in the control room, next to the studio. Valves glow orange in their racks, and the air smells of warm dust. A small green light burns above them. Nearby stands a spring-driven gramophone, beside the routing switch that chooses what goes out on the air. The studio is back to the west. Doors lead north to the cutting room and south to the workshop.
+
+> look
+You are in the control room, next to the studio. Valves glow orange in their racks, and the air smells of warm dust. A small green light burns above them. Nearby stands a spring-driven gramophone, beside the routing switch that chooses what goes out on the air. The studio is back to the west. Doors lead north to the cutting room and south to the workshop.
+
+> examine equipment
+I don't know the word "equipment".
+
+> examine gramophone
+A spring-driven broadcast gramophone. The transmitter feed is disconnected, so any experiment will stay in this room.
+The pickup is bare; it takes the playback stylus from the workshop.
+The platter is empty; it wants the archive disc.
+
+> examine switch
+The routing switch selects MIC or DISC independently of the microphone's red heater lamp. It was found at DISC. A wax dab under its guard records that position; turning it now would tell you nothing about then. The gramophone supplies the second feed.
+
+> north
+This is where Saint Bride cuts voices into lacquer. The air is warm enough to bring out its pear-drop smell; after the rain it is almost sickly. The cutter stands against the wall under its inspection cover, its heavy arm folded over the turntable. A fine curl of lacquer lies beside it, and the register sits on a sloping stand. The control room is to the south, and a door to the east opens into the archive.
+
+> look
+This is where Saint Bride cuts voices into lacquer. The air is warm enough to bring out its pear-drop smell; after the rain it is almost sickly. The cutter stands against the wall under its inspection cover, its heavy arm folded over the turntable. A fine curl of lacquer lies beside it, and the register sits on a sloping stand. The control room is to the south, and a door to the east opens into the archive.
+
+> south
+You are in the control room, next to the studio. Valves glow orange in their racks, and the air smells of warm dust. A small green light burns above them. Nearby stands a spring-driven gramophone, beside the routing switch that chooses what goes out on the air. The studio is back to the west. Doors lead north to the cutting room and south to the workshop.
+
+> south
+This is the service workshop, a low room that smells of solder and machine oil. Coils of wire and the gutted cases of old receivers crowd the shelves, and burn marks freckle the long workbench. The control room is up a step to the north. An iron ladder goes down to the generator room, and the floor trembles faintly with its engine.
+A service spanner lies here.
+
+> look
+This is the service workshop, a low room that smells of solder and machine oil. Coils of wire and the gutted cases of old receivers crowd the shelves, and burn marks freckle the long workbench. The control room is up a step to the north. An iron ladder goes down to the generator room, and the floor trembles faintly with its engine.
+A service spanner lies here.
+
+> take spanner
+Taken.
+
+> examine bench
+A scrap of black felt covers one corner, well away from the solder burns. A sapphire playback stylus glints against the felt.
+
+> search bench
+A scrap of black felt covers one corner, well away from the solder burns. A sapphire playback stylus glints against the felt.
+
+> down
+You are in the generator room, under the workshop. A diesel generator fills most of the space, thumping steadily, and the smell of hot oil is thick enough to taste. Beside it a small recording instrument ticks over a drum of paper. An iron ladder leads up to the workshop, and the cable passage begins to the north.
+A voltage chart lies here.
+
+> look
+You are in the generator room, under the workshop. A diesel generator fills most of the space, thumping steadily, and the smell of hot oil is thick enough to taste. Beside it a small recording instrument ticks over a drum of paper. An iron ladder leads up to the workshop, and the cable passage begins to the north.
+A voltage chart lies here.
+
+> north
+This is the cable passage, a low brick tunnel that carries the station's wiring beneath the floors. It is damp and close, and your shoulders brush cold pipes sweating with condensation. A dark stain marks the wet stone underfoot. Overhead, a square hatch is shut against the office above. The tunnel runs back south to the generator room.
+
+> examine stain
+Up close the damp stone smells of hot rubber. The stain is a heel print in diluted blood, pointing away from the office hatch. One square repair has been fixed diagonally across its edge, making a distinctive diamond interruption. It is precise enough to test against a real heel, not merely imagine a similar shape.
+
+> examine hatch
+A flush service hatch with a square spindle. Ordinary fingers cannot turn it. The service spanner in the workshop was made for the job.
+
+> south
+You are in the generator room, under the workshop. A diesel generator fills most of the space, thumping steadily, and the smell of hot oil is thick enough to taste. Beside it a small recording instrument ticks over a drum of paper. An iron ladder leads up to the workshop, and the cable passage begins to the north.
+A voltage chart lies here.
+
+> read chart
+(Taken)
+The voltage chart records a brief fall below clock-running voltage at 9:12 and normal supply at 9:13. Every later minute is steady. The mechanical recorder and the station clock agree on the minute. The office hands have a different story to tell.
+
+> up
+This is the service workshop, a low room that smells of solder and machine oil. Coils of wire and the gutted cases of old receivers crowd the shelves, and burn marks freckle the long workbench. The control room is up a step to the north. An iron ladder goes down to the generator room, and the floor trembles faintly with its engine.
+
+> take stylus
+Taken.
+
+> north
+You are in the control room, next to the studio. Valves glow orange in their racks, and the air smells of warm dust. A small green light burns above them. Nearby stands a spring-driven gramophone, beside the routing switch that chooses what goes out on the air. The studio is back to the west. Doors lead north to the cutting room and south to the workshop.
+
+> north
+This is where Saint Bride cuts voices into lacquer. The air is warm enough to bring out its pear-drop smell; after the rain it is almost sickly. The cutter stands against the wall under its inspection cover, its heavy arm folded over the turntable. A fine curl of lacquer lies beside it, and the register sits on a sloping stand. The control room is to the south, and a door to the east opens into the archive.
+
+> read register
+The register sits on a sloping stand beside the cutter. It has two entries: 8:10, R. Bell, B03, two-minute microphone test, destroyed; 8:40, A. Mercer, A17, six-minute appeal, completed. Both were cut before the gale reached the aerial. Compare the actual disc with this register after hearing it.
+
+> east
+This is the record archive, a cold, narrow room that smells of damp cardboard. Shelves of numbered discs run from floor to ceiling on three sides. A draught from under the door stirs a drift of loose papers on the reading table, where a single cardboard sleeve lies apart from the rest. The only way out is back west into the cutting room.
+
+> look
+This is the record archive, a cold, narrow room that smells of damp cardboard. Shelves of numbered discs run from floor to ceiling on three sides. A draught from under the door stirs a drift of loose papers on the reading table, where a single cardboard sleeve lies apart from the rest. The only way out is back west into the cutting room.
+
+> examine sleeve
+A stiff sleeve, marked REHEARSAL in pencil. Its flap is folded tight. Open it to inspect the contents. Beneath the sleeve, the corner of a wage ledger pokes out.
+
+> open sleeve
+Opening the cardboard sleeve reveals a lacquer disc.
+
+> take disc
+Taken.
+
+> west
+This is where Saint Bride cuts voices into lacquer. The air is warm enough to bring out its pear-drop smell; after the rain it is almost sickly. The cutter stands against the wall under its inspection cover, its heavy arm folded over the turntable. A fine curl of lacquer lies beside it, and the register sits on a sloping stand. The control room is to the south, and a door to the east opens into the archive.
+
+> south
+You are in the control room, next to the studio. Valves glow orange in their racks, and the air smells of warm dust. A small green light burns above them. Nearby stands a spring-driven gramophone, beside the routing switch that chooses what goes out on the air. The studio is back to the west. Doors lead north to the cutting room and south to the workshop.
+
+> put stylus in gramophone
+You fit the sapphire stylus to the pickup. It remains mounted on the gramophone until you take it again. The gramophone is ready for the archive disc.
+
+> put disc on gramophone
+Done.
+
+> play gramophone
+The disc turns. Ada's voice asks the mainland for help. A gull coughs twice; she says, “Even this old island can learn to speak.”
+Two coughs, then that sentence: the sequence in your opening note, now turning beneath a needle. A later stutter repeats the first syllable with mechanical patience. This appeal existed in a groove before it was supposedly spoken live.
+At the centre, a pencilled timing mark sets the start at 9:17. Six minutes would carry the voice past 9:22. Ruth in the studio may recognise the rehearsal; the cutting register can authenticate its origin.
+
+> north
+This is where Saint Bride cuts voices into lacquer. The air is warm enough to bring out its pear-drop smell; after the rain it is almost sickly. The cutter stands against the wall under its inspection cover, its heavy arm folded over the turntable. A fine curl of lacquer lies beside it, and the register sits on a sloping stand. The control room is to the south, and a door to the east opens into the archive.
+
+> compare disc with register
+You can't see any disc here!
+
+> south
+You are in the control room, next to the studio. Valves glow orange in their racks, and the air smells of warm dust. A small green light burns above them. Nearby, the gramophone is ready to play, beside the routing switch. The studio is back to the west. Doors lead north to the cutting room and south to the workshop.
+A lacquer disc and a playback stylus are in the gramophone.
+
+> take disc
+Taken.
+
+> north
+This is where Saint Bride cuts voices into lacquer. The air is warm enough to bring out its pear-drop smell; after the rain it is almost sickly. The cutter stands against the wall under its inspection cover, its heavy arm folded over the turntable. A fine curl of lacquer lies beside it, and the register sits on a sloping stand. The control room is to the south, and a door to the east opens into the archive.
+
+> compare disc with register
+A17, six minutes, Ada Mercer, 8:40. Number, duration and the gull cough all agree. Ruth's two-minute test cannot be this disc. The entry attributes this complete appeal to Ada before the scheduled broadcast. The register proves advance preparation; it cannot establish who started playback or where anyone went.
+
+> east
+This is the record archive, a cold, narrow room that smells of damp cardboard. Shelves of numbered discs run from floor to ceiling on three sides. A draught from under the door stirs a drift of loose papers on the reading table, where an open cardboard sleeve lies apart from the rest. The only way out is back west into the cutting room.
+
+> read ledger
+(Taken)
+The wage ledger records eleven years of deductions for transmitter shares that were never issued. Mercer, H.: deceased; balance carried forward. Ada's father died still paying for a station he did not own. Vane has marked the accounts for destruction after tomorrow's sale. Ada is the surviving Mercer. These figures have left her something to answer for her father.
+
+> west
+This is where Saint Bride cuts voices into lacquer. The air is warm enough to bring out its pear-drop smell; after the rain it is almost sickly. The cutter stands against the wall under its inspection cover, its heavy arm folded over the turntable. A fine curl of lacquer lies beside it, and the register sits on a sloping stand. The control room is to the south, and a door to the east opens into the archive.
+
+> examine cutter
+Inside its open cover, a loose brass counterweight rests in a cradle.
+The cutter engraves lacquer on an aluminium base. Its inspection cover lifts without a tool. The register records every cut by edge number and duration.
+
+> open cover
+It is already open.
+
+> take counterweight
+Taken.
+
+> examine counterweight
+A loose brass counterweight, heavy enough to balance the cutting arm. One rim has a broken notch and a damp polished crescent. Something dark remains behind its retaining lug. Its edge has the shape of an incomplete crescent.
+
+> south
+You are in the control room, next to the studio. Valves glow orange in their racks, and the air smells of warm dust. A small green light burns above them. Nearby stands a spring-driven gramophone, beside the routing switch that chooses what goes out on the air. The studio is back to the west. Doors lead north to the cutting room and south to the workshop.
+A playback stylus is in the gramophone.
+
+> west
+This is the broadcast studio, a small square room hung all round with brown felt to deaden the sound. In here the storm is only a pressure against the walls, and your own breathing seems loud. A microphone stands in the middle of the floor, a small red lamp glowing at its collar. Ruth Bell waits beside it, murmuring to herself in the trained voice of an announcer. The hall is back to the west, and a door with a glass panel leads east into the control room.
+
+> ask Ruth about broadcast
+“I heard Ada all through the appeal. Surely that places her?” Ruth folds her injured hand. “If you have the actual recording, let me hear your evidence rather than your conclusion.”
+
+> ask Ruth about rehearsal
+“Ask me about the microphone, the broadcast, or Vane. I can tell you what I saw. What I heard appears more troublesome.”
+
+> west
+This is the hall of the station, a narrow room of varnished pine that smells of paraffin and wet oilskins. Water from the coats on their pegs has made a dark pool on the floor, and a freshly lettered appeal board hangs beside the door. Whoever killed Vane is still shut in here with the people who wanted to save his station. Vane's office is to the north, the studio to the east and the kitchen to the west. Wooden stairs climb up to the bunkroom, and the landing stage is back to the south.
+
+> north
+This is Julian Vane's office, so narrow that the filing cabinets crowd anyone standing at the desk. The air is too warm. Under the stale cigar smoke is the smell of old pennies. Vane's body sits slumped in his chair beneath an electric office clock, his back to the door. A square service hatch is set flush in the floor, bolted shut over whatever lies below. The hall is back to the south.
+
+> open hatch with spanner
+The bolt turns. You lift the hatch on its counterbalanced hinges. Warm air rises, carrying oil and wet brick.
+
+> look
+This is Julian Vane's office, so narrow that the filing cabinets crowd anyone standing at the desk. The air is too warm. Under the stale cigar smoke is the smell of old pennies. Vane's body sits slumped in his chair beneath an electric office clock, his back to the door. A square service hatch in the floor stands open, and warm air rises from the passage below. The hall is back to the south.
+
+> compare counterweight with body
+The crescent on the brass rim fits the wound. A tiny broken notch matches the missing interruption in the bruise; blood remains behind the weight's retaining lug. This is the weapon, carried from the cutting room and put back after the blow. You preserve it in the casebook as a measurement, not a flourish.
+
+> examine desk
+I don't know the word "desk".
+
+> down
+The office and service passage connect directly. Someone could cross between them without setting foot in the studio.
+
+This is the cable passage, a low brick tunnel that carries the station's wiring beneath the floors. It is damp and close, and your shoulders brush cold pipes sweating with condensation. A dark stain marks the wet stone underfoot. Overhead, lamplight falls through the open hatch from Vane's office above. The tunnel runs back south to the generator room.
+
+> examine stain
+Up close the damp stone smells of hot rubber. The stain is a heel print in diluted blood, pointing away from the office hatch. One square repair has been fixed diagonally across its edge, making a distinctive diamond interruption. It is precise enough to test against a real heel, not merely imagine a similar shape.
+
+> south
+You are in the generator room, under the workshop. A diesel generator fills most of the space, thumping steadily, and the smell of hot oil is thick enough to taste. Beside it a small recording instrument ticks over a drum of paper. An iron ladder leads up to the workshop, and the cable passage begins to the north.
+
+> up
+This is the service workshop, a low room that smells of solder and machine oil. Coils of wire and the gutted cases of old receivers crowd the shelves, and burn marks freckle the long workbench. The control room is up a step to the north. An iron ladder goes down to the generator room, and the floor trembles faintly with its engine.
+
+> north
+You are in the control room, next to the studio. Valves glow orange in their racks, and the air smells of warm dust. A small green light burns above them. Nearby stands a spring-driven gramophone, beside the routing switch that chooses what goes out on the air. The studio is back to the west. Doors lead north to the cutting room and south to the workshop.
+A playback stylus is in the gramophone.
+
+> west
+This is the broadcast studio, a small square room hung all round with brown felt to deaden the sound. In here the storm is only a pressure against the walls, and your own breathing seems loud. A microphone stands in the middle of the floor, a small red lamp glowing at its collar. Ruth Bell waits beside it, murmuring to herself in the trained voice of an announcer. The hall is back to the west, and a door with a glass panel leads east into the control room.
+
+> give disc to Ruth
+Ruth repeats the gull cough from memory, then laughs once without pleasure. “The rehearsal. I was in the cutting room at 8:40. Ada recorded all six minutes. She told me to leave the microphone heater on tonight, and I thought that meant she was live. At 9:16 I reached the kitchen, cut my hand on a glass, and stayed with Edith until 9:21. Ada did not need me to lie. She needed me to misunderstand.”
+The tiny glass cut is still visible. You have both a recording witness and a medical witness to test.
+
+> show disc to Ruth
+Ruth repeats the gull cough from memory, then laughs once without pleasure. “The rehearsal. I was in the cutting room at 8:40. Ada recorded all six minutes. She told me to leave the microphone heater on tonight, and I thought that meant she was live. At 9:16 I reached the kitchen, cut my hand on a glass, and stayed with Edith until 9:21. Ada did not need me to lie. She needed me to misunderstand.”
+The tiny glass cut is still visible. You have both a recording witness and a medical witness to test.
+
+> west
+This is the hall of the station, a narrow room of varnished pine that smells of paraffin and wet oilskins. Water from the coats on their pegs has made a dark pool on the floor, and a freshly lettered appeal board hangs beside the door. Whoever killed Vane is still shut in here with the people who wanted to save his station. Vane's office is to the north, the studio to the east and the kitchen to the west. Wooden stairs climb up to the bunkroom, and the landing stage is back to the south.
+
+> west
+You are in the station kitchen, the only warm room in the building. A kettle ticks on the range, and the window over the sink is black with rain. Edith Shaw, the island's doctor, sits at the scrubbed table, where two cups of tea have gone cold. Her medical bag rests at her elbow, its clasp shut. The hall is back to the east, and a door to the west leads to the telegraph room.
+
+> look
+You are in the station kitchen, the only warm room in the building. A kettle ticks on the range, and the window over the sink is black with rain. Edith Shaw, the island's doctor, sits at the scrubbed table, where two cups of tea have gone cold. Her medical bag rests at her elbow, its clasp shut. The hall is back to the east, and a door to the west leads to the telegraph room.
+
+> talk to Edith
+“Ask about the medical bag, the broadcast, or Vane. You may examine the bag. I would prefer a fact to an insinuation.”
+
+> ask Edith about Ruth
+“Ask about the medical bag, the broadcast, or Vane. You may examine the bag. I would prefer a fact to an insinuation.”
+
+> ask Edith about Ada
+“Ask about the medical bag, the broadcast, or Vane. You may examine the bag. I would prefer a fact to an insinuation.”
+
+> up
+You can't go that way.
+
+> look
+You are in the station kitchen, the only warm room in the building. A kettle ticks on the range, and the window over the sink is black with rain. Edith Shaw, the island's doctor, sits at the scrubbed table, where two cups of tea have gone cold. Her medical bag rests at her elbow, its clasp shut. The hall is back to the east, and a door to the west leads to the telegraph room.
+
+> examine bag
+A medical bag, kept private rather than locked. Edith has given permission to inspect it. It is still closed.
+
+> open bag
+Edith turns the clasp for you. Beneath a spare roll of gauze is a bloodied dressing.
+
+> look
+You are in the station kitchen, the only warm room in the building. A kettle ticks on the range, and the window over the sink is black with rain. Edith Shaw, the island's doctor, sits at the scrubbed table, where two cups of tea have gone cold. Her medical bag stands open at her elbow. The hall is back to the east, and a door to the west leads to the telegraph room.
+A bloodied dressing is in the medical bag.
+
+> west
+This is the telegraph room, hardly bigger than a cupboard and crowded with glass batteries and coils of wire. The brass sounder of the telegraph clicks to itself, and Tomas Vale, the operator, sits hunched at the key without a word. The kitchen is back to the east. Iron stairs climb up through a trapdoor to the aerial platform, and cold air comes down them.
+A telegraph receipt lies here.
+
+> look
+This is the telegraph room, hardly bigger than a cupboard and crowded with glass batteries and coils of wire. The brass sounder of the telegraph clicks to itself, and Tomas Vale, the operator, sits hunched at the key without a word. The kitchen is back to the east. Iron stairs climb up through a trapdoor to the aerial platform, and cold air comes down them.
+A telegraph receipt lies here.
+
+> east
+You are in the station kitchen, the only warm room in the building. A kettle ticks on the range, and the window over the sink is black with rain. Edith Shaw, the island's doctor, sits at the scrubbed table, where two cups of tea have gone cold. Her medical bag stands open at her elbow. The hall is back to the east, and a door to the west leads to the telegraph room.
+A bloodied dressing is in the medical bag.
+
+> east
+This is the hall of the station, a narrow room of varnished pine that smells of paraffin and wet oilskins. Water from the coats on their pegs has made a dark pool on the floor, and a freshly lettered appeal board hangs beside the door. Whoever killed Vane is still shut in here with the people who wanted to save his station. Vane's office is to the north, the studio to the east and the kitchen to the west. Wooden stairs climb up to the bunkroom, and the landing stage is back to the south.
+
+> up
+This is the staff bunkroom, under the eaves at the top of the house. Four iron bunks stand against the walls, and the rain is loud just overhead. Ada Mercer, the station engineer, sits very straight on a hard chair beneath a maintenance roster pinned to the wall. The stairs lead down to the hall. A door opens onto the covered walk, which crosses the roof to the aerial platform.
+A pair of leather boots stands here.
+
+> look
+This is the staff bunkroom, under the eaves at the top of the house. Four iron bunks stand against the walls, and the rain is loud just overhead. Ada Mercer, the station engineer, sits very straight on a hard chair beneath a maintenance roster pinned to the wall. The stairs lead down to the hall. A door opens onto the covered walk, which crosses the roof to the aerial platform.
+A pair of leather boots stands here.
+
+> examine boots
+Ada's leather boots, offered without grace. The left heel has a square leather repair set diagonally across the edge. Rust-red moisture remains in its stitching. A deliberate repair, not the shape of an ordinary heel. Ada permits you to carry them; her permission sounds like a challenge.
+
+> take boots
+Taken.
+
+> read roster
+The maintenance roster assigns Ada the 9:15 inspection beneath the office. The service hatch has a square spindle; the workshop spanner operates it from either side. Ada signed the spanner back at 9:20. Ruth and Edith are assigned to the kitchen, Tomas to the landline. This is duty, not proof of obedience.
+
+> talk to Ada
+“Ask about my boots, the roster, the broadcast, or Vane. Please make it a question whose answer you intend to hear.”
+
+> down
+This is the hall of the station, a narrow room of varnished pine that smells of paraffin and wet oilskins. Water from the coats on their pegs has made a dark pool on the floor, and a freshly lettered appeal board hangs beside the door. Whoever killed Vane is still shut in here with the people who wanted to save his station. Vane's office is to the north, the studio to the east and the kitchen to the west. Wooden stairs climb up to the bunkroom, and the landing stage is back to the south.
+
+> west
+You are in the station kitchen, the only warm room in the building. A kettle ticks on the range, and the window over the sink is black with rain. Edith Shaw, the island's doctor, sits at the scrubbed table, where two cups of tea have gone cold. Her medical bag stands open at her elbow. The hall is back to the east, and a door to the west leads to the telegraph room.
+A bloodied dressing is in the medical bag.
+
+> examine dressing
+The bloodied dressing bears the time 9:17 and initials R.B. in Edith's tidy hand. Three tiny glass fragments adhere to it. A surface cut, not a head wound. Show it to Edith and ask whose blood required the discretion.
+
+> ask Edith about dressing
+“The blood in my bag belongs to a patient. You may inspect it. I will not make medical privacy look less suspicious merely to suit you.”
+
+> west
+This is the telegraph room, hardly bigger than a cupboard and crowded with glass batteries and coils of wire. The brass sounder of the telegraph clicks to itself, and Tomas Vale, the operator, sits hunched at the key without a word. The kitchen is back to the east. Iron stairs climb up through a trapdoor to the aerial platform, and cold air comes down them.
+A telegraph receipt lies here.
+
+> read receipt
+(Taken)
+The telegraph receipt carries mainland challenges and Tomas's correct returns at every minute from 9:16 through 9:22. The far-end stamps are intact. Between them, an outgoing message asks a bookmaker for another week. Show it to Tomas; the shame and the alibi are on the same strip.
+
+> talk to Tomas
+“Ask about the receipt, the broadcast, or Vane. I have no talent for looking innocent. The telegraph is better at it.”
+
+> show receipt to Tomas
+Tomas turns the receipt over. “A bookmaker. Forty-seven pounds. Vane was going to tell my mother; you may think that funny if you have not met her.”
+The mainland's unpredictable challenges required his hand at the key every minute, 9:16 to 9:22. No interval remains for the office journey. He has hidden a debt, not a departure.
+
+> east
+You are in the station kitchen, the only warm room in the building. A kettle ticks on the range, and the window over the sink is black with rain. Edith Shaw, the island's doctor, sits at the scrubbed table, where two cups of tea have gone cold. Her medical bag stands open at her elbow. The hall is back to the east, and a door to the west leads to the telegraph room.
+A bloodied dressing is in the medical bag.
+
+> take dressing
+Taken.
+
+> show dressing to Edith
+“Ruth Bell. Three fragments of glass, here, here and here.” Edith points without touching. “She entered at 9:16; I dated the dressing 9:17 while the appeal began. She sat with me until 9:21. We can account for one another throughout the interval. I concealed a patient's name, not Vane's death.”
+The matching little cut on Ruth's hand explains the blood. It does not match the blunt head wound.
+
+> east
+This is the hall of the station, a narrow room of varnished pine that smells of paraffin and wet oilskins. Water from the coats on their pegs has made a dark pool on the floor, and a freshly lettered appeal board hangs beside the door. Whoever killed Vane is still shut in here with the people who wanted to save his station. Vane's office is to the north, the studio to the east and the kitchen to the west. Wooden stairs climb up to the bunkroom, and the landing stage is back to the south.
+
+> up
+This is the staff bunkroom, under the eaves at the top of the house. Four iron bunks stand against the walls, and the rain is loud just overhead. Ada Mercer, the station engineer, sits very straight on a hard chair beneath a maintenance roster pinned to the wall. The stairs lead down to the hall. A door opens onto the covered walk, which crosses the roof to the aerial platform.
+
+> ask Ada about broadcast
+“A reserve,” Ada says. “I cut the appeal in case the live feed failed. Preparing for a fault is my job.” She keeps looking at the label, not at you. “You have proved when that voice was made. You have not proved where I stood when it was played.”
+
+> down
+This is the hall of the station, a narrow room of varnished pine that smells of paraffin and wet oilskins. Water from the coats on their pegs has made a dark pool on the floor, and a freshly lettered appeal board hangs beside the door. Whoever killed Vane is still shut in here with the people who wanted to save his station. Vane's office is to the north, the studio to the east and the kitchen to the west. Wooden stairs climb up to the bunkroom, and the landing stage is back to the south.
+
+> north
+This is Julian Vane's office, so narrow that the filing cabinets crowd anyone standing at the desk. The air is too warm. Under the stale cigar smoke is the smell of old pennies. Vane's body sits slumped in his chair beneath an electric office clock, his back to the door. A square service hatch in the floor stands open, and warm air rises from the passage below. The hall is back to the south.
+
+> down
+This is the cable passage, a low brick tunnel that carries the station's wiring beneath the floors. It is damp and close, and your shoulders brush cold pipes sweating with condensation. A dark stain marks the wet stone underfoot. Overhead, lamplight falls through the open hatch from Vane's office above. The tunnel runs back south to the generator room.
+
+> compare boots with stain
+The square heel repair fills the diamond interruption exactly. Blood is caught inside the repair stitching, not painted on the sole: these boots walked through wet blood away from Vane's office. The matching smear on the hatch is above them. The measurements describe a journey; they do not supply its explanation.
+
+> examine hatch
+The hatch stands open. Fresh blood has dried along the underside of its square spindle, where a hand or a heel brushed it. The passage and office are connected now.
+
+> up
+This is Julian Vane's office, so narrow that the filing cabinets crowd anyone standing at the desk. The air is too warm. Under the stale cigar smoke is the smell of old pennies. Vane's body sits slumped in his chair beneath an electric office clock, his back to the door. A square service hatch in the floor stands open, and warm air rises from the passage below. The hall is back to the south.
+
+> examine clock
+The office clock reads 9:12. Beneath it: SYNCHRONOUS MOVEMENT -- RESTART BY HAND AFTER UNDERVOLTAGE. The winding knob is innocent; this clock never had a spring. Its time needs an independent witness.
+
+> compare clock with chart
+9:12 aligns exactly: voltage fell, the synchronous office clock stalled, and nobody restarted it. The stopped hands date an electrical fault, not a killing. The murder belongs between Ruth leaving Vane alive at 9:16 and finding him at 9:21. You rule a new interval in the casebook.
+
+> south
+This is the hall of the station, a narrow room of varnished pine that smells of paraffin and wet oilskins. Water from the coats on their pegs has made a dark pool on the floor, and a freshly lettered appeal board hangs beside the door. Whoever killed Vane is still shut in here with the people who wanted to save his station. Vane's office is to the north, the studio to the east and the kitchen to the west. Wooden stairs climb up to the bunkroom, and the landing stage is back to the south.
+
+> up
+This is the staff bunkroom, under the eaves at the top of the house. Four iron bunks stand against the walls, and the rain is loud just overhead. Ada Mercer, the station engineer, sits very straight on a hard chair beneath a maintenance roster pinned to the wall. The stairs lead down to the hall. A door opens onto the covered walk, which crosses the roof to the aerial platform.
+
+> show boots to Ada
+“Inside the stitching?” Ada repeats. She begins to say “routine inspection”, then stops. The repair is her own work; now she will not look at it. “You have measured it. I cannot improve a measurement by speaking.”
+
+> accuse Ada
+Ada waits. A theory needs a reconstructed sequence, not a collection of suspicions. Consult your casebook and reconstruct it before making this charge.
+
+> read casebook
+The casebook has two columns: heard and seen. At 9:17 the appeal began; at 9:21 Vane was found. Your auditory note reads: two coughs, then “Even this old island can learn to speak.”
+Measured: the office hands date a voltage fault, not a death.
+Heard again: the appeal survives in a groove.
+Authenticated: edge number, duration and cutting entry identify the recording.
+Traversed: the service route bypasses the studio.
+Matched: a brass rim, its notch and the wound.
+Matched: blood within a repaired heel and the passage print.
+Tested: the announcer mistook a heater lamp for a live feed.
+Tested: the doctor's bloodied dressing and her patient's interval agree.
+Tested: mainland challenges place the operator at his key.
+Notes record observations, not verdicts. Reconstructing the casebook organizes established facts. Its hint gives optional, explicit next-step guidance.
+
+> reconstruct case
+There is still a gap in the reconstruction. The casebook records established observations; an unanswered measurement or untested witness cannot become a fact by being written neatly. The casebook's optional hint gives explicit guidance if you want it.
+
+> reconstruct
+What do you want to reconstruct?
+
+> hint casebook
+Read the archive wage ledger and show it to Ada. Her reply belongs to the case, though a motive alone never does.
+
+> examine casebook
+The casebook has two columns: heard and seen. At 9:17 the appeal began; at 9:21 Vane was found. Your auditory note reads: two coughs, then “Even this old island can learn to speak.”
+Measured: the office hands date a voltage fault, not a death.
+Heard again: the appeal survives in a groove.
+Authenticated: edge number, duration and cutting entry identify the recording.
+Traversed: the service route bypasses the studio.
+Matched: a brass rim, its notch and the wound.
+Matched: blood within a repaired heel and the passage print.
+Tested: the announcer mistook a heater lamp for a live feed.
+Tested: the doctor's bloodied dressing and her patient's interval agree.
+Tested: mainland challenges place the operator at his key.
+Notes record observations, not verdicts. Reconstructing the casebook organizes established facts. Its hint gives optional, explicit next-step guidance.
+
+> hint
+What do you want to hint?
+
+> show ledger to Ada
+Ada touches her father's name. “He promised shares instead of wages. Then sold the station as though none of us had paid for it. Tomorrow he meant to burn the accounts. He told me so at nine-fifteen.”
+Her anger is unmistakable; its existence proves no murder. But the ledger explains why a prepared recording might become more than insurance against a failed microphone. “Do not let them call him a generous man,” she says.
+
+> reconstruct casebook
+You draw two lines in the casebook: SOUND and PERSON.
+Fixed points: the office hands stopped at 9:12 for an electrical reason. Vane was alive at 9:16 and found at 9:21. A six-minute appeal began at 9:17; the sound existed before that interval.
+Physical facts: the notched brass rim matches the wound. Blood crossed the service route, away from the office, inside the stitching of a distinctive repaired heel. The route never enters the studio.
+Witnesses: a dated dressing tests the kitchen pair's account; unpredictable mainland challenges test the operator's. The wage accounts explain what was at stake, but anger does not identify a hand.
+Leave the last line blank. Which claimed presence survives only as sound, while the physical evidence places its owner elsewhere? Decide whose name belongs there. Accuse that person in person; the casebook will not choose for you.
+
+> accuse Ada
+“The voice stayed here,” you say. “You did not.”
+Ada looks once at the heel repair. “I recorded an appeal to save the place. Then he said he would burn my father's name with the accounts. I started the disc because I knew what I was going to do. Not because the machine failed. Because it worked.”
+She describes the counterweight, the hatch, and the spanner returned at nine-twenty. You write the admission beneath the facts which earned it. The ledger will go to the workers; the rest goes to the police. You tear the carbon copy carefully along its perforation, leaving Ada's confession attached to the evidence. Neither fact cancels the other.
+Ruth makes one last announcement. No music, no rehearsal: Julian Vane is dead; the station will remain silent until morning. Outside, the gulls have returned. They have nothing prepared.
+
+THE LAST BROADCAST -- CASE SOLVED.
+
+The case is solved; the evidence and the workers' accounts are preserved.

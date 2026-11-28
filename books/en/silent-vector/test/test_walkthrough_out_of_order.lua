@@ -8,7 +8,7 @@ local function step(command, expected)
 end
 
 for _, action in ipairs({"push breaker", "north", "west", "take wrench", "take spool",
-    "east", "down", "west", "turn pump with wrench", "east", "up", "east", "east",
+    "east", "down", "west", "use wrench on coolant", "east", "up", "east", "east",
     "open recorder", "take strip"}) do step(action) end
 step("put wrench in recorder", "Only the witness strip")
 assert(e.LOC(e.WRENCH) == e.WINNER, "a rejected tool insertion keeps the wrench in hand")

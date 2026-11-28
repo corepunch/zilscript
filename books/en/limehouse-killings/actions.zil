@@ -1891,6 +1891,12 @@ had been pressed correctly."
     <TELL CR "Somewhere in the manor a bell wire trembles. Behind the books, a draught reaches you from the study. A hidden stair offers another way into the room." CR>
     <RTRUE>>
 
+<ROUTINE V-COMPARE-EVIDENCE ()
+    <COND (<OR <AND <EQUAL? ,PRSO ,POISON-BOTTLE> <EQUAL? ,PRSI ,PLANTS ,LABELS>>
+               <AND <EQUAL? ,PRSI ,POISON-BOTTLE> <EQUAL? ,PRSO ,PLANTS ,LABELS>>>
+           <IDENTIFY-POISON>)
+          (T <TELL "You find no useful match between those two." CR>)>>
+
 <ROUTINE IDENTIFY-POISON ()
     <COND (<AND ,POISON-IDENTIFIED
                 <IN? ,POISON-BOTTLE ,WINNER>
@@ -1925,6 +1931,8 @@ had been pressed correctly."
 <SYNTAX USE OBJECT (HELD CARRIED ON-GROUND IN-ROOM) ON OBJECT (HELD CARRIED ON-GROUND IN-ROOM) = V-USE-ON>
 <SYNTAX SHOW OBJECT (HAVE) TO OBJECT (FIND ACTORBIT) (IN-ROOM) = V-SHOW>
 <SYNTAX ALIGN OBJECT (FIND TURNBIT) (ON-GROUND IN-ROOM) TO OBJECT = V-ALIGN>
+<SYNTAX COMPARE OBJECT WITH OBJECT = V-COMPARE-EVIDENCE>
+<SYNTAX COMPARE OBJECT TO OBJECT = V-COMPARE-EVIDENCE>
 <SYNTAX HINTS = V-HINTS>
 <SYNONYM HINTS HINT HELP>
 ; The classic rules know ATTACK only WITH a weapon, so a bare "attack hudson"

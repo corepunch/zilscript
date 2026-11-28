@@ -19,6 +19,8 @@ local retry = Walk.new(story)
 retry:play({
 	{ "hilfe", expect = "UNTERSUCHE" },
 	"ost",
+	{ "lies etikett", expect = "ALS LEER EINGETRAGEN" },
+	{ "lies papieretikett", expect = "ZUR ÜBERPRÜFUNG" },
 	{ "untersuche rand", expect = "Kerben" },
 	{ "untersuche kerben", expect = "Kerben" },
 	"nimm spule", "west", "nord", "leg spule in lesemulde",

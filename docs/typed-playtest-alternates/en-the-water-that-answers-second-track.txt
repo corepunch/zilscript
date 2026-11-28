@@ -1,0 +1,36 @@
+THE WATER THAT ANSWERS
+
+To open the case, type CHOOSE DOCTOR, CHOOSE REPORTER, or CHOOSE MECHANIC.
+
+> choose reporter
+At 02:13 Noor forwarded a call from the old pumping station. The caller asked for someone to open Gate Four. That gate was bricked up nineteen years ago.
+
+Silt has dried in crescents up the pump-room wall. A desk lamp still works. Beside it: a running tape machine and a relay cover bowed around one rusted screw. The passage east leads to the landing and the station telephone. You could call Noor from there, but the tape is still turning, and whatever is on it may be the only warning you get.
+
+> examine tape
+A woman reads a work order in a level voice: 'Gate Four. Counterweight jammed. Isolate circuit C before opening.' You write it down. Her chair scrapes. From much farther away, a second voice gives your name.
+d100; need 55 or less; rolled 1; success.
+You can listen to the second track or carry what you know east to Noor.
+You can study the recording for corroboration. It isn't needed to report the work order.
+
+> study tape
+I don't know the word "study".
+
+> listen to second track
+You wind the spare track back. The voice isn't asking to be let out. It says: 'When she calls, don't say where you are.'
+
+> pry cover
+I don't know the word "pry".
+
+> examine cover
+The bent cover will come away if you pry it. It will also ring against the pipe if you slip.
+
+> east
+The landing smells of cold iron. A telephone with a waxed cord is bolted to the wall. Through the doorway to the west, the tape reels turn in their circle of yellow light.
+
+> use telephone
+You read back the order: Gate Four, circuit C. Noor has enough to shut the line from her end.
+You give her the last warning without telling her where you are.
+In the pump room the reels slow to a stop. For the first time tonight, the telephone has a dial tone.
+CASE CLOSED
+Composure 53 of 55.

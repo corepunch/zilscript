@@ -1,0 +1,94 @@
+Blackout at Meridian
+An original superhero adventure, AdventureArena 2026
+Release 1
+
+Dispatch
+Choose the hero you’ll play as: Bulwark, Arc or Lens. Examine each profile before deciding. You can give your hero a name on the character sheet. Choosing a profile starts the mission.
+
+> examine Lens
+Lens reads machines and bends kinetic fields: high Reason and Intuition, but fragile in a fight. Health 60, Karma 90. To take it on, choose it.
+
+> choose Lens
+Dispatch registers you as Lens. Your ranks:
+Fighting: 10, Agility: 20
+Strength: 10, Endurance: 20
+Reason: 40, Intuition: 30
+Psyche: 20, Power: 30
+Health: 60/60, Karma: 90
+
+At nine o'clock the storm took Meridian's power, and then someone took the relay station that should have brought it back. A guard drone now holds the station, and on Meridian Bridge a tram full of passengers hangs from a broken cable over the river. You are the city's newest hero, and tonight is your first call. Get to the bridge. (Type HELP at any time for how to play.)
+
+Dispatch
+In Meridian's emergency dispatch office, your profile on the duty board now carries the red ACTIVE stamp. Every other building you can see through the window is dark. The street door leads north to Meridian Bridge.
+
+> north
+You are on Meridian Bridge, in the full force of the rain. The front carriage of a tram hangs through the broken rails. Every time it swings, the overhead cable pulls a little straighter. Faces crowd the high end of the tram. Far below, the rescue crew holds a net over the river. The relay station stands at the east end of the bridge, but the passengers come first. Dispatch is back to the south.
+
+> look
+You are on Meridian Bridge, in the full force of the rain. The front carriage of a tram hangs through the broken rails. Every time it swings, the overhead cable pulls a little straighter. Faces crowd the high end of the tram. Far below, the rescue crew holds a net over the river. The relay station stands at the east end of the bridge, but the passengers come first. Dispatch is back to the south.
+
+> help
+Type commands such as LOOK, EXAMINE BOARD or NORTH. Each hero action rolls d100 against one of your ranks, and higher rolls are better. A failure costs Health, and at 0 Health your night is over. READ SHEET shows your ranks, DIAGNOSE your Health and Karma, and NAME SHEET gives your hero a name.
+You are on the bridge. RESCUE the PASSENGERS before going east.
+
+> rescue passengers
+Power check. Rank 30; d100 1; failure.
+Challenge 20; needs success.
+The cable slips and the carriage lurches. A passenger cries out; you take a hit, but the crew braces its net below. You can try the rescue again. (Health 55 of 60.)
+
+> east
+Not while the passengers are hanging over the river. Rescue them first.
+
+> look
+You are on Meridian Bridge, in the full force of the rain. The front carriage of a tram hangs through the broken rails. Every time it swings, the overhead cable pulls a little straighter. Faces crowd the high end of the tram. Far below, the rescue crew holds a net over the river. The relay station stands at the east end of the bridge, but the passengers come first. Dispatch is back to the south.
+
+> help
+Type commands such as LOOK, EXAMINE BOARD or NORTH. Each hero action rolls d100 against one of your ranks, and higher rolls are better. A failure costs Health, and at 0 Health your night is over. READ SHEET shows your ranks, DIAGNOSE your Health and Karma, and NAME SHEET gives your hero a name.
+You are on the bridge. RESCUE the PASSENGERS before going east.
+
+> rescue passengers
+Power check. Rank 30; d100 51; success.
+Challenge 20; needs success.
+You steady the carriage and pass the passengers down, one by one, to the crew's net. The last of them, a boy in a yellow raincoat, will not let go of your hand until his feet are on the ground. (Karma +10.) The way east to the relay station is open.
+
+> rescue passengers
+Everyone is already safe.
+
+> rescue passengers
+Everyone is already safe.
+
+> east
+You are inside the relay station, a concrete hall warm enough to fog your wet sleeves. The relay console at the far end is lit brighter than anything left on the skyline. A guard drone hovers in front of it, its red eye following you. An emergency kit is clipped to the wall beside the door, which leads back west to the bridge.
+
+> look
+You are inside the relay station, a concrete hall warm enough to fog your wet sleeves. The relay console at the far end is lit brighter than anything left on the skyline. A guard drone hovers in front of it, its red eye following you. An emergency kit is clipped to the wall beside the door, which leads back west to the bridge.
+
+> help
+Type commands such as LOOK, EXAMINE BOARD or NORTH. Each hero action rolls d100 against one of your ranks, and higher rolls are better. A failure costs Health, and at 0 Health your night is over. READ SHEET shows your ranks, DIAGNOSE your Health and Karma, and NAME SHEET gives your hero a name.
+Right now: in the relay station, STRIKE the DRONE or DISABLE the CONSOLE. USE KIT restores up to 20 Health once, for 10 Karma.
+
+> disable console
+Reason check. Rank 40; d100 14; failure.
+Challenge 20; needs success.
+The drone's beam catches you before you reach the lever. (Health 45 of 60.)
+
+> disable console
+Reason check. Rank 40; d100 17; failure.
+Challenge 20; needs success.
+The drone's beam catches you before you reach the lever. (Health 35 of 60.)
+
+> disable console
+Reason check. Rank 40; d100 80; strong success.
+Challenge 20; needs success.
+You throw the bypass lever. The hum of the hall drops to a murmur, the screens wake one by one, and the relay returns to local control. Across the river, Meridian lights up street by street. On the bridge, the boy in the yellow raincoat points up at the first lit window, and the rescue crew cheers. (Karma +20.)
+
+Your radio crackles, and dispatch calls your name: Meridian. Meridian is safe.
+
+THE END: THE LIGHTS OF MERIDIAN
+
+Hero: Meridian (Lens)
+Fighting: 10, Agility: 20
+Strength: 10, Endurance: 20
+Reason: 40, Intuition: 30
+Psyche: 20, Power: 30
+Health: 35/60, Karma: 120

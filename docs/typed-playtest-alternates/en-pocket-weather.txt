@@ -1,0 +1,428 @@
+The Pocket Weather Bureau
+Studio Null, 2026
+Release 1
+
+You are the newest apprentice at the Pocket Weather Bureau, in a town so small it measures rain in a thimble. This morning your very first forecast got away from you: Nimbus, the town's only rain cloud, has slipped off to hide. The weather vane will not turn, the garden is thirsty, and the Postmaster wants the cloud brought back before the parade.
+
+Dispatch Post
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> talk to mica
+“The forecast says continuous rain over the parade,” Mica begins. Then: “But observations come first. If the forecast is wrong, we change the forecast.”
+
+> examine forecast
+The official forecast orders continuous rain over the parade. Mica wants it delivered. Nimbus does not. You may need a revised forecast, not a captured cloud.
+
+> north
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> look
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> up
+You are on the Weathercock Perch, a little railed ledge at the very top of the post. The weather vane stands here, a brass rooster riding a long arrow. Far below, the warm tiles of the terrace look like fish scales. The arrow does not move at all; something in the rookery seems to be holding its counterweight. The ladder leads down to the terrace, and the rookery is west.
+
+> look
+You are on the Weathercock Perch, a little railed ledge at the very top of the post. The weather vane stands here, a brass rooster riding a long arrow. Far below, the warm tiles of the terrace look like fish scales. The arrow does not move at all; something in the rookery seems to be holding its counterweight. The ladder leads down to the terrace, and the rookery is west.
+
+> examine vane
+The brass arrow is held perfectly still. Its counterweight reaches into the rookery west, where something is gripping it. Once free, the vane can be turned to test the wind.
+
+> west
+You are in the Button Rookery, a loft lined with untidy nests. Bottle tops and thimbles are wedged into them, and warm puffs of lemony soap drift up from the laundry below. Aster the rook stands with one foot on the vane's counterweight, humming a weather joke he never quite finishes. The vane perch is east, and the laundry is below, to the south.
+
+> look
+You are in the Button Rookery, a loft lined with untidy nests. Bottle tops and thimbles are wedged into them, and warm puffs of lemony soap drift up from the laundry below. Aster the rook stands with one foot on the vane's counterweight, humming a weather joke he never quite finishes. The vane perch is east, and the laundry is below, to the south.
+
+> examine nest
+Twigs and string, woven tight, with every rook's treasures pressed into the sides: bottle tops, thimbles, a bent hairpin.
+
+> talk to aster
+“The forecast says downwind. The vane can't show you downwind while I'm holding it. A promise of a shiny trade might help. Or ask for a joke.”
+
+> south
+You are in the Pocket Laundry, a steamy little room criss-crossed with drying lines. Clothes pegs click in the warm air, and a tub of lemon suds stands underneath. A laundry apron hangs from a hook beside it, its pockets bulging. The kitchen is east, and the rookery is up to the north.
+
+> look
+You are in the Pocket Laundry, a steamy little room criss-crossed with drying lines. Clothes pegs click in the warm air, and a tub of lemon suds stands underneath. A laundry apron hangs from a hook beside it, its pockets bulging. The kitchen is east, and the rookery is up to the north.
+
+> examine apron
+The cloth is stiff with dried soap. You turn out the pockets. A brass button and a soft ribbon tumble free. Neither has an owner now. Pip believes in useful pockets.
+
+> search apron
+The pockets are empty. One has a round sun-faded patch where the button lay, and the other has a loose wool thread caught in its seam.
+
+> north
+You are in the Button Rookery, a loft lined with untidy nests. Bottle tops and thimbles are wedged into them, and warm puffs of lemony soap drift up from the laundry below. Aster the rook stands with one foot on the vane's counterweight, humming a weather joke he never quite finishes. The vane perch is east, and the laundry is below, to the south.
+
+> ask aster for joke
+That sentence isn't one I recognize.
+
+> give button to aster
+You don't have that!
+
+> south
+You are in the Pocket Laundry, a steamy little room criss-crossed with drying lines. Clothes pegs click in the warm air, and a tub of lemon suds stands underneath. A laundry apron hangs from a hook beside it, its pockets flat, a brass button and a soft ribbon at its foot. The kitchen is east, and the rookery is up to the north.
+
+> take button
+Taken.
+
+> take ribbon
+Taken.
+
+> north
+You are in the Button Rookery, a loft lined with untidy nests. Bottle tops and thimbles are wedged into them, and warm puffs of lemony soap drift up from the laundry below. Aster the rook stands with one foot on the vane's counterweight, humming a weather joke he never quite finishes. The vane perch is east, and the laundry is below, to the south.
+
+> give button to aster
+Aster accepts the brass button. He releases the counterweight and hops east to the perch. “A fair exchange! You may turn the vane now.”
+
+> east
+You are on the Weathercock Perch, a little railed ledge at the very top of the post. The weather vane stands here, a brass rooster riding a long arrow. Far below, the warm tiles of the terrace look like fish scales. Aster the rook sits on the rail beside you, admiring his new treasure. The ladder leads down to the terrace, and the rookery is west.
+
+> turn vane
+You turn the vane gently, then let it find its own answer. The breeze runs from the hollow toward the rain garden, away from the parade. You have measured a safe route.
+
+> down
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. A steady breeze blows from the hollow toward the garden, and the vane overhead swings with it. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> east
+You are in the Thimble Rain Garden, a patch of soil no bigger than a tablecloth. In the sun the thirsty seedlings curl their leaves into spoons, with nothing to catch. A narrow gutter winds between them, but a dry crust of soil blocks it. The warm terrace is back to the west, and the seed shed stands to the east.
+
+> look
+You are in the Thimble Rain Garden, a patch of soil no bigger than a tablecloth. In the sun the thirsty seedlings curl their leaves into spoons, with nothing to catch. A narrow gutter winds between them, but a dry crust of soil blocks it. The warm terrace is back to the west, and the seed shed stands to the east.
+
+> north
+You can't go that way.
+
+> look
+You are in the Thimble Rain Garden, a patch of soil no bigger than a tablecloth. In the sun the thirsty seedlings curl their leaves into spoons, with nothing to catch. A narrow gutter winds between them, but a dry crust of soil blocks it. The warm terrace is back to the west, and the seed shed stands to the east.
+
+> east
+You are in the Seed Shed, a cramped wooden hut that smells of seed sacks and dry earth. A large rain chart is pinned to the back wall, its corners curling in the dry air. The only way out is back west to the garden.
+
+> look
+You are in the Seed Shed, a cramped wooden hut that smells of seed sacks and dry earth. A large rain chart is pinned to the back wall, its corners curling in the dry air. The only way out is back west to the garden.
+
+> examine tools
+I don't know the word "tools".
+
+> take trowel
+I don't know the word "trowel".
+
+> west
+You are in the Thimble Rain Garden, a patch of soil no bigger than a tablecloth. In the sun the thirsty seedlings curl their leaves into spoons, with nothing to catch. A narrow gutter winds between them, but a dry crust of soil blocks it. The warm terrace is back to the west, and the seed shed stands to the east.
+
+> clear gutter
+What do you want to clear the gutter with?
+
+> west
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. A steady breeze blows from the hollow toward the garden, and the vane overhead swings with it. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> north
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. It clangs so hard in every gust that words break against it. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> look
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. It clangs so hard in every gust that words break against it. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> tie ribbon to chime
+You tie the soft ribbon around the chime's clapper. CLANG becomes tok. From the east, a small voice says, “Oh. There you are.”
+
+> east
+You are in Cloud Hollow, a round dip in the hillside carpeted with soft moss. It is cool and damp here, like the inside of a watering can. Nimbus the cloud hangs just above your knees, so full of rain that it trembles. The only way out is back west through the whisper arch.
+
+> look
+You are in Cloud Hollow, a round dip in the hillside carpeted with soft moss. It is cool and damp here, like the inside of a watering can. Nimbus the cloud hangs just above your knees, so full of rain that it trembles. The only way out is back west through the whisper arch.
+
+> talk to nimbus
+“The forecast tells me where to go, but never when to listen. Could you listen to me? Then we can talk about yesterday, a pause, and a promise.”
+
+> ask nimbus about yesterday
+“I was good at following the forecast,” Nimbus says. “I wasn't good at listening.” The old report may help you understand.
+
+> ask nimbus about pause
+“If anyone says pause, I stop,” Nimbus says. “Including me. We listen, then decide together whether to continue. Could that be part of the promise?”
+
+> ask nimbus about promise
+Listen to Nimbus first. A promise cannot begin with another instruction.
+
+> help
+I don't know the word "help".
+
+> listen to nimbus
+You let Nimbus finish. “I didn't stop yesterday. They told me not to stop. Then everyone was unhappy. If I stay here, I can't do it wrong again.” The cloud waits. You do not fill the quiet with instructions.
+
+> west
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. With its clapper wrapped in the soft ribbon, it makes only a soft wooden chuckle, and you can hear the breeze again. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> south
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. A steady breeze blows from the hollow toward the garden, and the vane overhead swings with it. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> south
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> south
+You are in the Folded Yesterday Archive, a cool cellar where the Bureau keeps its old weather. It smells of old string and damp stone, and somewhere in the dark a drip keeps time. In the middle of the floor sits a brass weatherbox, its corners cold and beaded with damp. Steps lead back up north to the dispatch post.
+
+> look
+You are in the Folded Yesterday Archive, a cool cellar where the Bureau keeps its old weather. It smells of old string and damp stone, and somewhere in the dark a drip keeps time. In the middle of the floor sits a brass weatherbox, its corners cold and beaded with damp. Steps lead back up north to the dispatch post.
+
+> open weatherbox
+Opening the weatherbox reveals a folded report.
+
+> look
+You are in the Folded Yesterday Archive, a cool cellar where the Bureau keeps its old weather. It smells of old string and damp stone, and somewhere in the dark a drip keeps time. The brass weatherbox stands open in the middle of the floor. Steps lead back up north to the dispatch post.
+A folded report is in the weatherbox.
+
+> read report
+(Taken)
+The fold resists. Warm steam would relax it; dry pulling would tear the old paper.
+
+> north
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> north
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. A steady breeze blows from the hollow toward the garden, and the vane overhead swings with it. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> north
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. With its clapper wrapped in the soft ribbon, it makes only a soft wooden chuckle, and you can hear the breeze again. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> east
+You are in Cloud Hollow, a round dip in the hillside carpeted with soft moss. It is cool and damp here, like the inside of a watering can. Nimbus the cloud hangs just above your knees, so full of rain that it trembles. The only way out is back west through the whisper arch.
+
+> ask nimbus about promise
+Nimbus needs to see that you understand yesterday. Read the old report, then show it to the cloud.
+
+> west
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. With its clapper wrapped in the soft ribbon, it makes only a soft wooden chuckle, and you can hear the breeze again. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> south
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. A steady breeze blows from the hollow toward the garden, and the vane overhead swings with it. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> south
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> west
+You are in the Steam Kitchen, where the Bureau's biscuits are baked. The air is warm and damp, and a fine dust of flour lies over everything. A steaming kettle puffs away on the stove, and Baker Pip hums beside it very badly, with excellent rhythm. The laundry is west, and the dispatch post is back to the east.
+
+> look
+You are in the Steam Kitchen, where the Bureau's biscuits are baked. The air is warm and damp, and a fine dust of flour lies over everything. A steaming kettle puffs away on the stove, and Baker Pip hums beside it very badly, with excellent rhythm. The laundry is west, and the dispatch post is back to the east.
+
+> steam report
+What do you want to steam the report over?
+
+> read report
+The fold resists. Warm steam would relax it; dry pulling would tear the old paper.
+
+> west
+You are in the Pocket Laundry, a steamy little room criss-crossed with drying lines. Clothes pegs click in the warm air, and a tub of lemon suds stands underneath. A laundry apron hangs from a hook beside it, its pockets flat. The kitchen is east, and the rookery is up to the north.
+
+> look
+You are in the Pocket Laundry, a steamy little room criss-crossed with drying lines. Clothes pegs click in the warm air, and a tub of lemon suds stands underneath. A laundry apron hangs from a hook beside it, its pockets flat. The kitchen is east, and the rookery is up to the north.
+
+> east
+You are in the Steam Kitchen, where the Bureau's biscuits are baked. The air is warm and damp, and a fine dust of flour lies over everything. A steaming kettle puffs away on the stove, and Baker Pip hums beside it very badly, with excellent rhythm. The laundry is west, and the dispatch post is back to the east.
+
+> steam report over kettle
+You hold the report in the kettle's gentle steam, safely above the hot metal. The fold uncurls like a waking leaf. Now you can read it.
+
+> read report
+The report says: “Yesterday: continuous rain, as ordered. Ludo asked Nimbus to stop. Nimbus said stopping would mean failing the Bureau. The parade went home. Ludo left this to say he wasn't cross with the cloud.”
+A pressed flower slips free inside the opened report. Someone has flattened each blue petal with care.
+
+> east
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> north
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. A steady breeze blows from the hollow toward the garden, and the vane overhead swings with it. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> north
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. With its clapper wrapped in the soft ribbon, it makes only a soft wooden chuckle, and you can hear the breeze again. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> east
+You are in Cloud Hollow, a round dip in the hillside carpeted with soft moss. It is cool and damp here, like the inside of a watering can. Nimbus the cloud hangs just above your knees, so full of rain that it trembles. The only way out is back west through the whisper arch.
+
+> show report to nimbus
+Nimbus reads the report. “Ludo wasn't cross with me?” The rain inside loosens. You say the Bureau should have listened when Ludo asked. For the first time, Nimbus stops apologizing. “Then we need a different promise. One with a pause.”
+
+> ask nimbus about promise
+How will the roots receive it? Clear the garden's tiny gutter before promising rain.
+
+> west
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. With its clapper wrapped in the soft ribbon, it makes only a soft wooden chuckle, and you can hear the breeze again. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> south
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. A steady breeze blows from the hollow toward the garden, and the vane overhead swings with it. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> east
+You are in the Thimble Rain Garden, a patch of soil no bigger than a tablecloth. In the sun the thirsty seedlings curl their leaves into spoons, with nothing to catch. A narrow gutter winds between them, but a dry crust of soil blocks it. The warm terrace is back to the west, and the seed shed stands to the east.
+
+> east
+You are in the Seed Shed, a cramped wooden hut that smells of seed sacks and dry earth. A large rain chart is pinned to the back wall, its corners curling in the dry air. The only way out is back west to the garden.
+
+> read chart
+The chart shows rain passing downwind into a winding garden channel. One picture has no words at all: a small hand raised, and rain stopping. The vane agrees with the picture: today's wind runs toward the garden.
+
+> west
+You are in the Thimble Rain Garden, a patch of soil no bigger than a tablecloth. In the sun the thirsty seedlings curl their leaves into spoons, with nothing to catch. A narrow gutter winds between them, but a dry crust of soil blocks it. The warm terrace is back to the west, and the seed shed stands to the east.
+
+> clear gutter with flower
+That will not make the narrow, gentle scoop you need. A narrow baking spoon would work. Bring it into reach and hold it before digging.
+
+> clear gutter with hands
+That will not make the narrow, gentle scoop you need. A narrow baking spoon would work. Bring it into reach and hold it before digging.
+
+> west
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. A steady breeze blows from the hollow toward the garden, and the vane overhead swings with it. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> south
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> west
+You are in the Steam Kitchen, where the Bureau's biscuits are baked. The air is warm and damp, and a fine dust of flour lies over everything. A steaming kettle puffs away on the stove, and Baker Pip has stopped humming and is quietly thinking. The laundry is west, and the dispatch post is back to the east.
+
+> talk to pip
+“The rain garden needs a little rain. Not all rain, everywhere.” Pip nods at the spoon. “Small tools. Careful work.”
+
+> look
+You are in the Steam Kitchen, where the Bureau's biscuits are baked. The air is warm and damp, and a fine dust of flour lies over everything. A steaming kettle puffs away on the stove, and Baker Pip has stopped humming and is quietly thinking. The laundry is west, and the dispatch post is back to the east.
+
+> take spoon
+Taken.
+
+> east
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> north
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. A steady breeze blows from the hollow toward the garden, and the vane overhead swings with it. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> east
+You are in the Thimble Rain Garden, a patch of soil no bigger than a tablecloth. In the sun the thirsty seedlings curl their leaves into spoons, with nothing to catch. A narrow gutter winds between them, but a dry crust of soil blocks it. The warm terrace is back to the west, and the seed shed stands to the east.
+
+> clear gutter with spoon
+You scoop the dry soil with the spoon, making a winding gutter around the seedlings. No roots break. A very small amount of rain will now reach them all.
+
+> west
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. A steady breeze blows from the hollow toward the garden, and the vane overhead swings with it. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> north
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. With its clapper wrapped in the soft ribbon, it makes only a soft wooden chuckle, and you can hear the breeze again. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> east
+You are in Cloud Hollow, a round dip in the hillside carpeted with soft moss. It is cool and damp here, like the inside of a watering can. Nimbus the cloud hangs just above your knees, so full of rain that it trembles. The only way out is back west through the whisper arch.
+
+> ask nimbus about promise
+You promise rain for the garden, a clear gutter for the roots, and a pause whenever anyone asks. Including Nimbus. The cloud unfolds. “Then I would like to come back.” It slips west and south to the warm terrace, keeping pace with no one but itself.
+
+> west
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. With its clapper wrapped in the soft ribbon, it makes only a soft wooden chuckle, and you can hear the breeze again. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> south
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. Nimbus the cloud hovers just above them, ready to choose the rain together. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> south
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Mica waits beside the bell for your revised forecast, her fingers still for once. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> east
+You are on the Forecast Balcony, a narrow ledge above the town square. The parade bunting snaps below your knees, where the rows of little roofs begin. A broadcast slot in the railing hums softly, waiting for a forecast. The dispatch post is back through the door to the west.
+
+> look
+You are on the Forecast Balcony, a narrow ledge above the town square. The parade bunting snaps below your knees, where the rows of little roofs begin. A broadcast slot in the railing hums softly, waiting for a forecast. The dispatch post is back through the door to the west.
+
+> west
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Mica waits beside the bell for your revised forecast, her fingers still for once. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> talk to mica
+“The forecast says continuous rain over the parade,” Mica begins. Then: “But observations come first. If the forecast is wrong, we change the forecast.”
+
+> examine forecast
+The official forecast still orders continuous rain over the parade. The promise you made with Nimbus must replace it: written on your card, approved by Mica, and broadcast.
+
+> revise forecast
+I don't know the word "revise".
+
+> east
+You are on the Forecast Balcony, a narrow ledge above the town square. The parade bunting snaps below your knees, where the rows of little roofs begin. A broadcast slot in the railing hums softly, waiting for a forecast. The dispatch post is back through the door to the west.
+
+> put forecast in slot
+You don't have the forecast.
+
+> ring bell
+You can't see any bell here!
+
+> inventory
+You are carrying:
+  A narrow spoon
+  A folded report
+  The folded report contains:
+    A pressed flower
+
+> examine card
+You can't see any card here!
+
+> write card
+You can't see any card here!
+
+> west
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Mica waits beside the bell for your revised forecast, her fingers still for once. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> write card
+Hold the card before writing on it.
+
+> show card to mica
+You don't have the weather card.
+
+> east
+You are on the Forecast Balcony, a narrow ledge above the town square. The parade bunting snaps below your knees, where the rows of little roofs begin. A broadcast slot in the railing hums softly, waiting for a forecast. The dispatch post is back through the door to the west.
+
+> put card in slot
+You don't have that!
+
+> west
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Mica waits beside the bell for your revised forecast, her fingers still for once. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> take card
+Taken.
+
+> write card
+You write the wind route you measured and the gutter you cleared, then the part in the largest letters: PAUSE WHEN ANYONE ASKS. INCLUDING THE CLOUD. Mica should read this card before it goes out.
+
+> show card to mica
+Mica reads every line, approves the card, and hands it back. “I am sorry about yesterday. An instruction should never be louder than someone asking to stop. Put this in the broadcast slot east of the post.”
+
+> east
+You are on the Forecast Balcony, a narrow ledge above the town square. The parade bunting snaps below your knees, where the rows of little roofs begin. Your card grows warm as you near the humming broadcast slot in the railing. The dispatch post is back through the door to the west.
+
+> put card in slot
+You place the card in the slot. Its quiet hum carries the garden route and the pause rule through town. Mica comes to listen beside you. “Now,” she says, “let the weather have the last word.” Nimbus waits on the terrace north of the post.
+
+> west
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. The Postmaster is out just now. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> north
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. Nimbus the cloud hovers just above them as the revised forecast hums overhead. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> talk to nimbus
+“The town has heard us. We can choose a drizzle or a shower, and pause whenever either of us needs.”
+
+> ask nimbus about rain
+“The town has heard us. We can choose a drizzle or a shower, and pause whenever either of us needs.”
+
+> rain
+There was no verb in that sentence!
+
+> ask nimbus about promise
+You have already made the promise. “The town has heard us. We can choose a drizzle or a shower, and pause whenever either of us needs.”
+
+> ask nimbus about shower
+Nimbus bunches up a corner. Heavy drops crowd together there, enough to fill a little hollow in the soil.
+
+> ask nimbus about drizzle
+Nimbus holds out a wispy edge. A few small drops hang far apart, with room for the breeze between them.
+
+> choose shower
+You and Nimbus choose a small shower. Round drops drum the clear gutter; the seedlings drink, and one excellent puddle grows. Halfway through, Nimbus says, “Pause.” The rain stops at once. You both listen. Ludo puts one boot in the puddle and holds out the other, waiting. When Nimbus says “Ready,” you choose one last splash together.
+
+Mica returns to the post and rings the dispatch bell once. Tomorrow's forecast has room for an apprentice's observations, a child's voice, and a cloud that can say no. Nimbus folds itself small enough to rest beside you, and leaves the pocket of air over your shoulder dry.
+
+THE END -- A FORECAST YOU CAN KEEP
+Bureau record: a promise published. No deadline. Good weather work takes listening.

@@ -1,0 +1,42 @@
+The Last Toymaker's Apprentice
+Studio Null, 2024
+Release 1
+
+You are Pip, a teacup-sized gnome and Grandfather Tolliver's apprentice. Every night Wrenfold's toys wake, but tonight they're growing still. Snow gathers on the roofs, Grandfather hasn't come home, and the magic key is gone from its hook. Find it and wind the workshop's heart before dawn.
+
+Workshop Floor
+This is the floor of Grandfather Tolliver's workshop. Soft golden sawdust smells of cedar and comes halfway up Pip’s boots. The brass key hook is empty, and an old cuckoo clock ticks on the wall above the folding loft ladder. The great workbench rises over Pip's head like a house. Something glints in the shadows underneath it. A pet door leads north to the snowy alley, and the tool bench is to the east.
+
+> examine glint
+Tiny tools and half-finished toys crowd the workbench. Pip's broom leans against one leg in the sawdust. Underneath, in the shadows, sits a tiny copper oil can.
+
+> look under bench
+Pip peers under the workbench. Pip's broom leans against one leg in the sawdust. Underneath, in the shadows, sits a tiny copper oil can.
+
+> take glint
+A valiant attempt.
+
+> north
+This is a narrow alley beside the workshop, deep in fresh snow that sparkles under the moon. A flickering streetlamp, made from an old toy lantern, throws a small circle of warm light. Tiny footprints cross the snow and hurry away to the east, toward the clock square. The workshop and its pet door are back to the south.
+
+> look
+This is a narrow alley beside the workshop, deep in fresh snow that sparkles under the moon. A flickering streetlamp, made from an old toy lantern, throws a small circle of warm light. Tiny footprints cross the snow and hurry away to the east, toward the clock square. The workshop and its pet door are back to the south.
+
+> east
+This is Clock Square, in the middle of the little town of Wrenfold. A giant clock tower stands over the cobbles, and its great face counts the hours until dawn. Tin toy lamps flicker weakly beside the winding paths, and a wooden baker stands frozen in the window of the old bakery. Paths lead west to the snowy alley, east to the mailbox corner and south to the scrap-yard.
+At the foot of the tower, a brass winding mechanism is just out of reach.
+
+> look
+This is Clock Square, in the middle of the little town of Wrenfold. A giant clock tower stands over the cobbles, and its great face counts the hours until dawn. Tin toy lamps flicker weakly beside the winding paths, and a wooden baker stands frozen in the window of the old bakery. Paths lead west to the snowy alley, east to the mailbox corner and south to the scrap-yard.
+At the foot of the tower, a brass winding mechanism is just out of reach.
+
+> talk to anyone
+I don't know the word "anyone".
+
+> east
+This is a quiet corner at the east end of the square, where the wind has piled the snow into deep drifts. It is colder here, and the wind whistles softly between the houses. The little fox footprints stop here, turn around and go back the way they came. The only way out is west, back to Clock Square.
+A red mailbox shivers in the snow.
+
+> look
+This is a quiet corner at the east end of the square, where the wind has piled the snow into deep drifts. It is colder here, and the wind whistles softly between the houses. The little fox footprints stop here, turn around and go back the way they came. The only way out is west, back to Clock Square.
+A red mailbox shivers in the snow.

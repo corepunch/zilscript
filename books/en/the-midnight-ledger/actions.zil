@@ -263,7 +263,7 @@
      (<OR <NOT ,SEAL-SEEN> <NOT ,CAB-SEEN>> <TELL "WHERE is incomplete. Find out how the crate could be opened, and why nothing that should have broken did. The records room and the cage beyond it are the place to start." CR>)
      (<NOT ,REG-READ> <TELL "WHO is blank. Find out who signed out, and when, at the registry." CR>)
      (T <SETG CASE-READY T> <FCLEAR ,MIVES-TAB ,INVISIBLE> <FCLEAR ,MORR-TAB ,INVISIBLE>
-      <TELL "You lay the three columns together. WHEN: the crate got eleven pounds lighter between 11:57 and 12:03. WHERE: it was opened through the assay hinge, which needn't disturb a dispatch mark. WHO: that latch needed the assessor's key, and the key was out for the whole interval. Venn slides down two paper tabs, an Ives tab and an Orr tab, each with a mark for your thumb." CR>)>)
+      <TELL "You lay the three columns together. WHEN: the crate got eleven pounds lighter between 11:57 and 12:03. WHERE: it was opened through the assay hinge, which needn't disturb a dispatch mark. WHO: that latch needed the assessor's key, and the key was out for the whole interval. Venn slides down two paper tabs, an Ives tab and an Orr tab, each with a mark for your thumb. Turn the tab you think the evidence supports." CR>)>)
   (<VERB? RUB> <TELL "The hinge is stiff, and the board is warm from the lamp above it." CR>)
   (<VERB? TAKE> <TELL "Venn steadies the board. “The record stays here. If you have enough to make a finding, turn it where we can all see.”" CR>)
   (<VERB? KNOCK> <TELL "Three light knocks, one for each column. Venn sets down her pen, then picks it up again when you don't speak." CR>)
@@ -276,7 +276,7 @@
 
 <ROUTINE MORR-TAB-F ()
  <COND
-  (<VERB? EXAMINE> <TELL "Turning this tab would record that Orr removed the astrolabe. Venn waits for you to turn it, if that is your finding. The mark would put the loss on Ives and make him answer for it." CR>)
+  (<VERB? EXAMINE> <TELL "Turning this tab would record that Orr removed the astrolabe. Venn waits for you to turn it, if that is your finding. The mark would put the loss on Orr and make him answer for it." CR>)
   (<VERB? TURN SPIN> <COND (,CASE-READY <SETG CASE-DONE T>
     <TELL "Orr signing out of the registry proved nothing on its own. The key, the unbroken dispatch mark and the missing eleven pounds prove enough. Without a word, Orr draws the long brass instrument out of his document sleeve and lays it on the table, as neatly as if he were entering it in a column. Ives takes his coat down from the wall at last. He does not thank you until you are both out under the same rain." CR CR "THE END: THE WEIGHT OF THE RECORD" CR> <FINISH>)
     (T <TELL "No finding is available yet." CR>)>)>>

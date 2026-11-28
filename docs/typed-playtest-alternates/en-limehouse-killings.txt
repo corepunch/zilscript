@@ -1,0 +1,483 @@
+The Limehouse Killings
+Studio Null, 2024
+Release 1
+
+London, November 1888. Lord Ashworth was found dead in his study tonight, stabbed in the back, and the study door was still bolted on the inside. You are a private detective, and Lady Ashworth has sent for you to find out how anyone got in or out before Inspector Lestrade of Scotland Yard arrives. The cab has left you at the manor gates, and the fog off the river is thickening. Someone inside may be grieving, someone may be lying, and the same person could be doing both. Lestrade will want more than a suspicion: you will need to establish the way into the room as well as the motive.
+
+Ashworth Manor Gate
+You stand at the open iron gates of Ashworth Manor. Cold river fog drifts between the bars. The cab wheels have fallen silent, and somewhere off the riverbank a ship knocks against its mooring. A raked gravel path leads north to the dark brick house. A single lit window downstairs looks no bigger than a stamp.
+A stone holds down a creased telegram.
+
+> read telegram
+(Taken)
+Lady Ashworth's message reads: “Begin with what the locked room could not hide. Ashworth marked every private mechanism with the name of the person it concerned.” Beneath it she has added, “Hudson has put the kettle on; he insists detection is impossible while cold.”
+
+> north
+You are in the entrance hall of Ashworth Manor. A dusty chandelier hangs over a faded Persian rug, stern family portraits hang all around, and a polished hall table stands beneath the light. A thin bell wire runs up the wall beside the study door. The oak study door to the north is closed and locked. The library is to the east and the dining room to the west; service stairs go down to the kitchen, and the way out leads south to the gate.
+
+> look
+You are in the entrance hall of Ashworth Manor. A dusty chandelier hangs over a faded Persian rug, stern family portraits hang all around, and a polished hall table stands beneath the light. A thin bell wire runs up the wall beside the study door. The oak study door to the north is closed and locked. The library is to the east and the dining room to the west; service stairs go down to the kitchen, and the way out leads south to the gate.
+
+> examine wire
+The servant-bell wire is still beside the study door.
+
+> east
+You are in the library, a long room lined from floor to ceiling with bookshelves. Lamplight catches the gilt titles on the spines, and small coloured ribbons hang from a few of the shelves. A reading desk in the middle of the room is strewn with loose papers. Dr. Moriarty stands by the shelves, tapping one spine with a fingernail. The only way out is back to the entrance hall, to the west.
+
+> look
+You are in the library, a long room lined from floor to ceiling with bookshelves. Lamplight catches the gilt titles on the spines, and small coloured ribbons hang from a few of the shelves. A reading desk in the middle of the room is strewn with loose papers. Dr. Moriarty stands by the shelves, tapping one spine with a fingernail. The only way out is back to the entrance hall, to the west.
+
+> examine books
+Most books stand flush with the shelves. Four project a little: a red book, a blue book, a green book, and a yellow book, each marked with a ribbon.
+
+> talk to Moriarty
+Moriarty closes the folio. “My experiments? Or have you come to ask about poison?” The second word comes rather more sharply.
+
+> examine papers
+Loose papers cover the reading desk. A torn page is covered in handwritten notes. A leather-bound ledger lies open beside the papers.
+
+> examine red book
+A colored ribbon marks this book. Its spine projects just far enough to press.
+
+> west
+You are in the entrance hall of Ashworth Manor. A dusty chandelier hangs over a faded Persian rug, stern family portraits hang all around, and a polished hall table stands beneath the light. A thin bell wire runs up the wall beside the study door. The oak study door to the north is closed and locked. The library is to the east and the dining room to the west; service stairs go down to the kitchen, and the way out leads south to the gate.
+
+> west
+You are in the dining room. A long table is laid for two, though only one of the places has been used. Lady Ashworth sits alone in black before a bowl of untouched soup, turning her wedding ring on her finger. A glass-fronted wine cabinet stands against the wall. Doors lead east to the entrance hall and north to the pantry.
+
+> look
+You are in the dining room. A long table is laid for two, though only one of the places has been used. Lady Ashworth sits alone in black before a bowl of untouched soup, turning her wedding ring on her finger. A glass-fronted wine cabinet stands against the wall. Doors lead east to the entrance hall and north to the pantry.
+
+> talk to Lady Ashworth
+Lady Ashworth looks up. “My marriage, my alibi, or the murder? You may ask. I cannot promise you will like the answers.”
+
+> ask Lady Ashworth about murder
+“Call it a case if that helps you keep your distance,” Lady Ashworth says. “To me it is my husband's murder. Find who crossed that locked door.”
+
+> north
+You are in the narrow pantry. Jars of summer preserves crowd the wooden shelves between packets of spice. Winter apples sweeten the air from their bed of straw. A smear of black charcoal dust is the one thing here no cook would have put away. The dining room is back to the south.
+
+> look
+You are in the narrow pantry. Jars of summer preserves crowd the wooden shelves between packets of spice. Winter apples sweeten the air from their bed of straw. A smear of black charcoal dust is the one thing here no cook would have put away. The dining room is back to the south.
+
+> east
+You can't go that way.
+
+> down
+You can't go that way.
+
+> look
+You are in the narrow pantry. Jars of summer preserves crowd the wooden shelves between packets of spice. Winter apples sweeten the air from their bed of straw. A smear of black charcoal dust is the one thing here no cook would have put away. The dining room is back to the south.
+
+> examine charcoal
+The powdered charcoal is labeled for immediate use after swallowed poisons. It can limit harm, not identify a culprit.
+
+> south
+You are in the dining room. A long table is laid for two, though only one of the places has been used. Lady Ashworth sits alone in black before a bowl of untouched soup, turning her wedding ring on her finger. A glass-fronted wine cabinet stands against the wall. Doors lead east to the entrance hall and north to the pantry.
+
+> east
+You are in the entrance hall of Ashworth Manor. A dusty chandelier hangs over a faded Persian rug, stern family portraits hang all around, and a polished hall table stands beneath the light. A thin bell wire runs up the wall beside the study door. The oak study door to the north is closed and locked. The library is to the east and the dining room to the west; service stairs go down to the kitchen, and the way out leads south to the gate.
+
+> down
+This is the manor kitchen, and the warmth comes as a shock after the hall. The blue enamel kettle trembles on the range beside the cold hearth. Under the tarnished copper pots, a draught makes the servant bell rope sway without ringing. The counter drawer is shut. Stairs lead up to the entrance hall, and the garden lies outside to the west.
+
+> look
+This is the manor kitchen, and the warmth comes as a shock after the hall. The blue enamel kettle trembles on the range beside the cold hearth. Under the tarnished copper pots, a draught makes the servant bell rope sway without ringing. The counter drawer is shut. Stairs lead up to the entrance hall, and the garden lies outside to the west.
+
+> talk to Hudson
+Mr. Hudson is not here. You will have to find him to put a question.
+
+> open drawer
+You open the drawer. Inside is a leather roll.
+
+> examine drawer
+A leather roll fits snugly between the worn wooden runners.
+
+> examine rope
+A brass bell hangs on a coiled spring above the door, with a pull rope beside it. A wire from the bell runs up through the ceiling to the rooms above.
+
+> west
+You are in the walled garden behind the manor. Rain drips from the overgrown hedges, and a dry stone fountain stands at the centre with a few coins in its basin. Something glints deep in the hedges, low down near the fountain. To the northeast, the tall study window is shut. A path leads north to a glass greenhouse and another south to the servants' quarters, and the kitchen is to the east.
+
+> look
+You are in the walled garden behind the manor. Rain drips from the overgrown hedges, and a dry stone fountain stands at the centre with a few coins in its basin. Something glints deep in the hedges, low down near the fountain. To the northeast, the tall study window is shut. A path leads north to a glass greenhouse and another south to the servants' quarters, and the kitchen is to the east.
+
+> search hedge
+A single white rose has survived the rain in these overgrown branches. Deep in the branches something glints: a knife, its blade dark with dried blood.
+
+> take key
+You can't take that.
+
+> south
+You are in the servants' quarters, a low whitewashed room at the bottom of the garden. Three narrow beds stand in a row with their blankets tucked tight, and a heavy wooden trunk sits at the foot of the last. The room smells of boot blacking and coal smoke. Mr. Hudson, the butler, sits on the end of a bed polishing the same silver spoon over and over. The garden is back to the north.
+
+> look
+You are in the servants' quarters, a low whitewashed room at the bottom of the garden. Three narrow beds stand in a row with their blankets tucked tight, and a heavy wooden trunk sits at the foot of the last. The room smells of boot blacking and coal smoke. Mr. Hudson, the butler, sits on the end of a bed polishing the same silver spoon over and over. The garden is back to the north.
+
+> talk to Hudson
+Hudson folds his polishing cloth. “The master, my alibi, the study key, or Dr. Moriarty? Ask what you need, sir.”
+
+> north
+You are in the walled garden behind the manor. Rain drips from the overgrown hedges, and a dry stone fountain stands at the centre with a few coins in its basin. A knife hangs where you parted the branches. To the northeast, the tall study window is shut. A path leads north to a glass greenhouse and another south to the servants' quarters, and the kitchen is to the east.
+
+> north
+You are in a small glass greenhouse at the end of the garden. Rain ticks overhead, and the air is warm and heavy with wet earth. Exotic plants crowd the wooden staging, among them a clump of tall purple flowers beside a wooden potting bench. Each pot carries a small curled paper label. The door back to the garden is to the south.
+
+> look
+You are in a small glass greenhouse at the end of the garden. Rain ticks overhead, and the air is warm and heavy with wet earth. Exotic plants crowd the wooden staging, among them a clump of tall purple flowers beside a wooden potting bench. Each pot carries a small curled paper label. The door back to the garden is to the south.
+
+> read label
+The curled labels on the purple flowers read “Aconitum - Wolfsbane.” A watering date in Hudson's handwriting is underlined twice.
+
+> south
+You are in the walled garden behind the manor. Rain drips from the overgrown hedges, and a dry stone fountain stands at the centre with a few coins in its basin. A knife hangs where you parted the branches. To the northeast, the tall study window is shut. A path leads north to a glass greenhouse and another south to the servants' quarters, and the kitchen is to the east.
+
+> take knife
+You take the knife carefully. This could be important.
+
+> south
+You are in the servants' quarters, a low whitewashed room at the bottom of the garden. Three narrow beds stand in a row with their blankets tucked tight, and a heavy wooden trunk sits at the foot of the last. The room smells of boot blacking and coal smoke. Mr. Hudson, the butler, sits on the end of a bed polishing the same silver spoon over and over. The garden is back to the north.
+
+> ask Hudson about study key
+“You'll need the study key, sir.” He hands you the keyring.
+
+> ask Hudson about alibi
+I was in the servants' quarters all evening. The other staff can confirm it.
+
+> open trunk
+An oil lantern hangs from one of the trunk handles. You open the trunk.
+The trunk contains:
+  A folded note
+
+> north
+You are in the walled garden behind the manor. Rain drips from the overgrown hedges, and a dry stone fountain stands at the centre with a few coins in its basin. To the northeast, the tall study window is shut. A path leads north to a glass greenhouse and another south to the servants' quarters, and the kitchen is to the east.
+
+> east
+This is the manor kitchen, and the warmth comes as a shock after the hall. The blue enamel kettle trembles on the range beside the cold hearth. Under the tarnished copper pots, a draught makes the servant bell rope sway without ringing. The counter drawer is pulled open. Stairs lead up to the entrance hall, and the garden lies outside to the west.
+A leather roll is in the drawer.
+
+> take roll
+You take the leather roll.
+
+> open roll
+You open the leather roll.
+The leather roll contains:
+  A lockpick set
+
+> look
+This is the manor kitchen, and the warmth comes as a shock after the hall. The blue enamel kettle trembles on the range beside the cold hearth. Under the tarnished copper pots, a draught makes the servant bell rope sway without ringing. The counter drawer is pulled open. Stairs lead up to the entrance hall, and the garden lies outside to the west.
+
+> up
+You are in the entrance hall of Ashworth Manor. A dusty chandelier hangs over a faded Persian rug, stern family portraits hang all around, and a polished hall table stands beneath the light. A thin bell wire runs up the wall beside the study door. The oak study door to the north is closed and locked. The library is to the east and the dining room to the west; service stairs go down to the kitchen, and the way out leads south to the gate.
+
+> unlock door with keyring
+The study key turns smoothly in the lock. The study door is now unlocked.
+
+> north
+The study door is closed.
+
+> look
+You are in the entrance hall of Ashworth Manor. A dusty chandelier hangs over a faded Persian rug, stern family portraits hang all around, and a polished hall table stands beneath the light. A thin bell wire runs up the wall beside the study door. The oak study door to the north is closed but unlocked. The library is to the east and the dining room to the west; service stairs go down to the kitchen, and the way out leads south to the gate.
+
+> examine body
+You can't see any body here!
+
+> examine desk
+You can't see any desk here!
+
+> open door
+You open the study door. The study lies north.
+
+> north
+You are in Lord Ashworth's study, a small panelled room that smells of cold ash and lamp oil. A chalk outline on the carpet shows where he fell, face down between the stone fireplace and a mahogany desk heaped with papers. A tall window to the southwest looks out on the garden, its catch rusted shut. The oak door to the entrance hall stands open to the south.
+
+> look
+You are in Lord Ashworth's study, a small panelled room that smells of cold ash and lamp oil. A chalk outline on the carpet shows where he fell, face down between the stone fireplace and a mahogany desk heaped with papers. A tall window to the southwest looks out on the garden, its catch rusted shut. The oak door to the entrance hall stands open to the south.
+
+> examine body
+The chalk follows a body fallen face down. Three blood drops begin behind the shoulders. A chair leg has dragged a short furrow through the carpet toward the fireplace. Nothing in the outline explains the bottle on the mantelpiece.
+
+> examine desk
+The mahogany desk is scarred with use; its three drawers are empty, and papers lie heaped across its top. Among them you turn up a yellowed envelope, addressed in a shaking hand.
+
+> search desk
+The mahogany desk is scarred with use; its three drawers are empty, and papers lie heaped across its top.
+
+> read envelope
+(Taken)
+The letter reads: “My dear Dr. Moriarty, I know what you did. If you do not confess by Friday, I will expose you to Scotland Yard. - Lord Ashworth”
+
+> examine fireplace
+A small box sits in the cold ashes of the study fireplace. A glass bottle stands on the mantelpiece, its paper label curling at one corner.
+
+> examine bottle
+The bottle is labeled: “Aconitum - Wolfsbane. Highly poisonous.”
+
+> examine window
+Rust has seized the window catch. A fine pick could lift its tongue; a key will not fit. Beyond the glass, the garden lies to the southwest.
+
+> south
+You are in the entrance hall of Ashworth Manor. A dusty chandelier hangs over a faded Persian rug, stern family portraits hang all around, and a polished hall table stands beneath the light. A thin bell wire runs up the wall beside the study door. The oak study door stands open to the north. The library is to the east and the dining room to the west; service stairs go down to the kitchen, and the way out leads south to the gate.
+
+> east
+You are in the library, a long room lined from floor to ceiling with bookshelves. Lamplight catches the gilt titles on the spines, and small coloured ribbons hang from a few of the shelves. A reading desk in the middle of the room is strewn with loose papers. Dr. Moriarty stands by the shelves, tapping one spine with a fingernail. The only way out is back to the entrance hall, to the west.
+
+> read ledger
+(Taken)
+Ashworth has entered a loan of £500 against Dr. Moriarty's name. The due date was Friday; beneath it, in a heavier hand, he has written UNPAID.
+
+> read torn page
+(Taken)
+The page reads: “Among the marked books, follow the rainbow order: red, yellow, green, blue. Only then will the way open.”
+
+> press red book
+The red-marked book clicks into place.
+
+> press yellow book
+The yellow-marked book clicks into place.
+
+> press green book
+The green-marked book clicks into place.
+
+> press blue book
+The blue book settles with a final click. A section of shelving slides aside, opening a stone passage to the east.
+
+Somewhere in the manor a bell wire trembles. Behind the books, a draught reaches you from the study. A hidden stair offers another way into the room.
+
+> look
+You are in the library, a long room lined from floor to ceiling with bookshelves. Lamplight catches the gilt titles on the spines, and small coloured ribbons hang from a few of the shelves. A reading desk in the middle of the room is strewn with loose papers. Dr. Moriarty stands by the shelves, tapping one spine with a fingernail. A section of shelving has swung aside, and a dark way leads east into the wall. The entrance hall is back to the west.
+
+> north
+You can't go that way.
+
+> east
+You are in a narrow secret passage behind the library shelves. Damp stone walls press close on either side, grey cobwebs hang in the corners, and the air tastes of soot. A trail of scuffs runs through the dust on the floor. The library is back to the west, and steep study steps climb up inside the chimney breast.
+
+> look
+You are in a narrow secret passage behind the library shelves. Damp stone walls press close on either side, grey cobwebs hang in the corners, and the air tastes of soot. A trail of scuffs runs through the dust on the floor. The library is back to the west, and steep study steps climb up inside the chimney breast.
+
+> east
+You can't go that way.
+
+> look
+You are in a narrow secret passage behind the library shelves. Damp stone walls press close on either side, grey cobwebs hang in the corners, and the air tastes of soot. A trail of scuffs runs through the dust on the floor. The library is back to the west, and steep study steps climb up inside the chimney breast.
+
+> examine mechanism
+I don't know the word "mechanism".
+
+> south
+You can't go that way.
+
+> up
+You are in Lord Ashworth's study, a small panelled room that smells of cold ash and lamp oil. A chalk outline on the carpet shows where he fell, face down between the stone fireplace and a mahogany desk whose papers lie scattered. A tall window to the southwest looks out on the garden, its catch rusted shut. A panel in the chimney breast stands open, and a hidden stair leads down. The oak door to the entrance hall stands open to the south.
+
+> look
+You are in Lord Ashworth's study, a small panelled room that smells of cold ash and lamp oil. A chalk outline on the carpet shows where he fell, face down between the stone fireplace and a mahogany desk whose papers lie scattered. A tall window to the southwest looks out on the garden, its catch rusted shut. A panel in the chimney breast stands open, and a hidden stair leads down. The oak door to the entrance hall stands open to the south.
+
+> examine fireplace
+A small box sits in the cold ashes of the study fireplace. A glass bottle stands on the mantelpiece, its paper label curling at one corner. A panel in the chimney breast stands open on the hidden stair down.
+
+> open box
+There is no keyhole to pick. The name dial is the lock: examine the box, then align its dial to one of the names.
+
+> look
+You are in Lord Ashworth's study, a small panelled room that smells of cold ash and lamp oil. A chalk outline on the carpet shows where he fell, face down between the stone fireplace and a mahogany desk whose papers lie scattered. A tall window to the southwest looks out on the garden, its catch rusted shut. A panel in the chimney breast stands open, and a hidden stair leads down. The oak door to the entrance hall stands open to the south.
+
+> examine box
+The box has no keyhole. A lettered name dial is ringed by tiny engravings: a sealed letter, a purple flower, and columns of debt. The dial can be aligned to any of three names: Lady Ashworth, Mr. Hudson, or Dr. Moriarty. Only the name that connects all three engravings will open it.
+
+> south
+You are in the entrance hall of Ashworth Manor. A dusty chandelier hangs over a faded Persian rug, stern family portraits hang all around, and a polished hall table stands beneath the light. Beside the study door, a thin bell wire is still quivering. The oak study door stands open to the north. The library is to the east and the dining room to the west; service stairs go down to the kitchen, and the way out leads south to the gate.
+
+> west
+You are in the dining room. A long table is laid for two, though only one of the places has been used. Lady Ashworth sits alone in black before a bowl of untouched soup, turning her wedding ring on her finger. A glass-fronted wine cabinet stands against the wall. Doors lead east to the entrance hall and north to the pantry.
+
+> ask Lady Ashworth about marriage
+Our marriage was difficult, but I did not kill my husband.
+
+> ask Lady Ashworth about alibi
+I was in the drawing room all evening. The servants saw me there.
+
+> east
+You are in the entrance hall of Ashworth Manor. A dusty chandelier hangs over a faded Persian rug, stern family portraits hang all around, and a polished hall table stands beneath the light. Beside the study door, a thin bell wire is still quivering. The oak study door stands open to the north. The library is to the east and the dining room to the west; service stairs go down to the kitchen, and the way out leads south to the gate.
+
+> north
+You are in Lord Ashworth's study, a small panelled room that smells of cold ash and lamp oil. A chalk outline on the carpet shows where he fell, face down between the stone fireplace and a mahogany desk whose papers lie scattered. A tall window to the southwest looks out on the garden, its catch rusted shut. A panel in the chimney breast stands open, and a hidden stair leads down. The oak door to the entrance hall stands open to the south.
+
+> turn dial to Moriarty
+The dial resists at the purple-flower engraving. Compare the poison bottle with the labeled greenhouse plants to connect the substance to its source.
+
+> open box
+There is no keyhole to pick. The name dial is the lock: examine the box, then align its dial to one of the names.
+
+> look
+You are in Lord Ashworth's study, a small panelled room that smells of cold ash and lamp oil. A chalk outline on the carpet shows where he fell, face down between the stone fireplace and a mahogany desk whose papers lie scattered. A tall window to the southwest looks out on the garden, its catch rusted shut. A panel in the chimney breast stands open, and a hidden stair leads down. The oak door to the entrance hall stands open to the south.
+
+> take bottle
+You take the poison bottle.
+
+> south
+You are in the entrance hall of Ashworth Manor. A dusty chandelier hangs over a faded Persian rug, stern family portraits hang all around, and a polished hall table stands beneath the light. Beside the study door, a thin bell wire is still quivering. The oak study door stands open to the north. The library is to the east and the dining room to the west; service stairs go down to the kitchen, and the way out leads south to the gate.
+
+> down
+This is the manor kitchen, and the warmth comes as a shock after the hall. The blue enamel kettle trembles on the range beside the cold hearth. Under the tarnished copper pots, a draught makes the servant bell rope sway without ringing. The counter drawer is pulled open. Stairs lead up to the entrance hall, and the garden lies outside to the west.
+
+> west
+You are in the walled garden behind the manor. Rain drips from the overgrown hedges, and a dry stone fountain stands at the centre with a few coins in its basin. To the northeast, the tall study window is shut. A path leads north to a glass greenhouse and another south to the servants' quarters, and the kitchen is to the east.
+
+> north
+You are in a small glass greenhouse at the end of the garden. Rain ticks overhead, and the air is warm and heavy with wet earth. Exotic plants crowd the wooden staging, among them a clump of tall purple flowers beside a wooden potting bench. Each pot carries a small curled paper label. The door back to the garden is to the south.
+
+> compare bottle with plants
+I don't know the word "compare".
+
+> south
+You are in the walled garden behind the manor. Rain drips from the overgrown hedges, and a dry stone fountain stands at the centre with a few coins in its basin. To the northeast, the tall study window is shut. A path leads north to a glass greenhouse and another south to the servants' quarters, and the kitchen is to the east.
+
+> east
+This is the manor kitchen, and the warmth comes as a shock after the hall. The blue enamel kettle trembles on the range beside the cold hearth. Under the tarnished copper pots, a draught makes the servant bell rope sway without ringing. The counter drawer is pulled open. Stairs lead up to the entrance hall, and the garden lies outside to the west.
+
+> up
+You are in the entrance hall of Ashworth Manor. A dusty chandelier hangs over a faded Persian rug, stern family portraits hang all around, and a polished hall table stands beneath the light. Beside the study door, a thin bell wire is still quivering. The oak study door stands open to the north. The library is to the east and the dining room to the west; service stairs go down to the kitchen, and the way out leads south to the gate.
+
+> north
+You are in Lord Ashworth's study, a small panelled room that smells of cold ash and lamp oil. A chalk outline on the carpet shows where he fell, face down between the stone fireplace and a mahogany desk whose papers lie scattered. A tall window to the southwest looks out on the garden, its catch rusted shut. A panel in the chimney breast stands open, and a hidden stair leads down. The oak door to the entrance hall stands open to the south.
+
+> turn dial to Moriarty
+The dial resists at the purple-flower engraving. Compare the poison bottle with the labeled greenhouse plants to connect the substance to its source.
+
+> open box
+There is no keyhole to pick. The name dial is the lock: examine the box, then align its dial to one of the names.
+
+> look
+You are in Lord Ashworth's study, a small panelled room that smells of cold ash and lamp oil. A chalk outline on the carpet shows where he fell, face down between the stone fireplace and a mahogany desk whose papers lie scattered. A tall window to the southwest looks out on the garden, its catch rusted shut. A panel in the chimney breast stands open, and a hidden stair leads down. The oak door to the entrance hall stands open to the south.
+
+> south
+You are in the entrance hall of Ashworth Manor. A dusty chandelier hangs over a faded Persian rug, stern family portraits hang all around, and a polished hall table stands beneath the light. Beside the study door, a thin bell wire is still quivering. The oak study door stands open to the north. The library is to the east and the dining room to the west; service stairs go down to the kitchen, and the way out leads south to the gate.
+
+> down
+This is the manor kitchen, and the warmth comes as a shock after the hall. The blue enamel kettle trembles on the range beside the cold hearth. Under the tarnished copper pots, a draught makes the servant bell rope sway without ringing. The counter drawer is pulled open. Stairs lead up to the entrance hall, and the garden lies outside to the west.
+
+> west
+You are in the walled garden behind the manor. Rain drips from the overgrown hedges, and a dry stone fountain stands at the centre with a few coins in its basin. To the northeast, the tall study window is shut. A path leads north to a glass greenhouse and another south to the servants' quarters, and the kitchen is to the east.
+
+> north
+You are in a small glass greenhouse at the end of the garden. Rain ticks overhead, and the air is warm and heavy with wet earth. Exotic plants crowd the wooden staging, among them a clump of tall purple flowers beside a wooden potting bench. Each pot carries a small curled paper label. The door back to the garden is to the south.
+
+> examine plants
+Exotic plants fill the greenhouse. One plant has distinctive purple flowers - wolfsbane.
+
+> examine bottle
+The bottle is labeled: “Aconitum - Wolfsbane. Highly poisonous.”
+
+> use bottle on plants
+You match the poison bottle label to the wolfsbane plant. The bottle and greenhouse label name the same plant. That identifies the substance; it does not establish who administered it.
+
+> show bottle to plants
+You can only show things to people.
+
+> examine label
+Which label do you mean, the plant labels or the poison bottle?
+
+> look
+You are in a small glass greenhouse at the end of the garden. Rain ticks overhead, and the air is warm and heavy with wet earth. Exotic plants crowd the wooden staging, among them a clump of tall purple flowers beside a wooden potting bench. You have already matched the bottle from the study against their curled paper labels. The door back to the garden is to the south.
+
+> south
+You are in the walled garden behind the manor. Rain drips from the overgrown hedges, and a dry stone fountain stands at the centre with a few coins in its basin. To the northeast, the tall study window is shut. A path leads north to a glass greenhouse and another south to the servants' quarters, and the kitchen is to the east.
+
+> east
+This is the manor kitchen, and the warmth comes as a shock after the hall. The blue enamel kettle trembles on the range beside the cold hearth. Under the tarnished copper pots, a draught makes the servant bell rope sway without ringing. The counter drawer is pulled open. Stairs lead up to the entrance hall, and the garden lies outside to the west.
+
+> up
+You are in the entrance hall of Ashworth Manor. A dusty chandelier hangs over a faded Persian rug, stern family portraits hang all around, and a polished hall table stands beneath the light. Beside the study door, a thin bell wire is still quivering. The oak study door stands open to the north. The library is to the east and the dining room to the west; service stairs go down to the kitchen, and the way out leads south to the gate.
+
+> north
+You are in Lord Ashworth's study, a small panelled room that smells of cold ash and lamp oil. A chalk outline on the carpet shows where he fell, face down between the stone fireplace and a mahogany desk whose papers lie scattered. A tall window to the southwest looks out on the garden, its catch rusted shut. A panel in the chimney breast stands open, and a hidden stair leads down. The oak door to the entrance hall stands open to the south.
+
+> turn dial to Moriarty
+You align the dial to MORIARTY. Letter, wolfsbane, and debt: the three engravings click beneath your fingers. The box opens, revealing a bank statement.
+
+> open box
+The box is already open.
+
+> look
+You are in Lord Ashworth's study, a small panelled room that smells of cold ash and lamp oil. A chalk outline on the carpet shows where he fell, face down between the stone fireplace and a mahogany desk whose papers lie scattered. In the grate, the name-dial box lies open among the cold ashes with a bank statement inside. A tall window to the southwest looks out on the garden, its catch rusted shut. A panel in the chimney breast stands open, and a hidden stair leads down. The oak door to the entrance hall stands open to the south.
+
+> read statement
+(Taken)
+The statement shows Dr. Moriarty's account is overdrawn. He recently withdrew £500 for “experimental supplies.”
+
+> south
+You are in the entrance hall of Ashworth Manor. A dusty chandelier hangs over a faded Persian rug, stern family portraits hang all around, and a polished hall table stands beneath the light. Beside the study door, a thin bell wire is still quivering. The oak study door stands open to the north. The library is to the east and the dining room to the west; service stairs go down to the kitchen, and the way out leads south to the gate.
+
+> east
+You are in the library, a long room lined from floor to ceiling with bookshelves. Lamplight catches the gilt titles on the spines, and small coloured ribbons hang from a few of the shelves. A reading desk in the middle of the room is strewn with loose papers. Dr. Moriarty stands by the shelves, tapping one spine with a fingernail. A section of shelving has swung aside, and a dark way leads east into the wall. The entrance hall is back to the west.
+
+> show statement to Moriarty
+Dr. Moriarty reads the statement. “That's private information!”
+
+> accuse Moriarty
+An accusation with no officer to hear it is only theatre. Lestrade will come when you have interviewed all three suspects and found at least three pieces of evidence.
+Ask Moriarty about the poison used in his experiments.
+
+> ask Moriarty about poison
+Wolfsbane? Aconitum? I keep some for research. That proves nothing.
+He shuts the folio, sets it square on its shelf, and walks out to the entrance hall, where he stands with one eye on the front door.
+
+From the entrance hall comes the slam of the outer door and Lestrade's clipped voice. Scotland Yard has arrived. Around the manor, private masks begin to slip.
+
+> ask Moriarty about experiments
+Dr. Moriarty is not here. You will have to find him to put a question.
+
+> ask Moriarty about murder
+Dr. Moriarty is not here. You will have to find him to put a question.
+
+> accuse Moriarty
+Dr. Moriarty is not here. You will have to find him to put a question.
+
+> look
+You are in the library, a long room lined from floor to ceiling with bookshelves. Lamplight catches the gilt titles on the spines, and small coloured ribbons hang from a few of the shelves. A reading desk in the middle of the room is strewn with loose papers. A section of shelving has swung aside, and a dark way leads east into the wall. The entrance hall is back to the west.
+
+> west
+You are in the entrance hall of Ashworth Manor. A dusty chandelier hangs over a faded Persian rug, stern family portraits hang all around, and a polished hall table stands beneath the light. A thin bell wire runs up the wall beside the study door. The oak study door stands open to the north. The library is to the east and the dining room to the west; service stairs go down to the kitchen, and the way out leads south to the gate. Inspector Lestrade has arrived from Scotland Yard and waits under the chandelier with his notebook open, and Dr. Moriarty stands beside him, hat in hand.
+
+> look
+You are in the entrance hall of Ashworth Manor. A dusty chandelier hangs over a faded Persian rug, stern family portraits hang all around, and a polished hall table stands beneath the light. A thin bell wire runs up the wall beside the study door. The oak study door stands open to the north. The library is to the east and the dining room to the west; service stairs go down to the kitchen, and the way out leads south to the gate. Inspector Lestrade has arrived from Scotland Yard and waits under the chandelier with his notebook open, and Dr. Moriarty stands beside him, hat in hand.
+
+> accuse Moriarty
+Lestrade closes his notebook. “You have discoveries, but not yet an argument. Show me the threat, the poison, and the financial motive.”
+
+> talk to Lestrade
+“Ask me about the case,” says Lestrade. “Then show me what you can prove.”
+
+> accuse Moriarty
+Lestrade closes his notebook. “You have discoveries, but not yet an argument. Show me the threat, the poison, and the financial motive.”
+
+> show letter to Lestrade
+The inspector reads Ashworth's threat and underlines Moriarty's name. “Intent and opportunity to silence him. That is the first link.”
+
+> show bottle to Lestrade
+The inspector compares the wolfsbane label with your greenhouse notes. “Wolfsbane, which he admits keeping. It could have weakened Ashworth before the blade struck. The second link.”
+
+> show ledger to Lestrade
+The inspector reads the ledger. “The ledger establishes the debt. Now connect it to the threat and the poison.”
+
+> show statement to Lestrade
+The inspector lays the statement beside the secret ledger. “The same five hundred pounds in both records. Debt and blackmail: motive. The chain is complete.”
+
+> accuse Moriarty
+Lestrade nods toward your evidence. “Which proof leads the charge? Accuse him with the unsent letter for Ashworth's own voice, or with the poison bottle for the physical case.”
+
+> accuse Moriarty with letter
+You lead with Ashworth's unsent letter. Moriarty calls it a forgery; then Hudson quietly repeats the hour he delivered it and Lady Ashworth supplies the missing first draft.
+
+You lay out the sequence: wolfsbane to weaken Ashworth, then the narrow blade from behind. The bottle and flowers establish the drug; the ledger and concealed bank statement establish the debt Ashworth threatened to expose. The stair you opened explains the escape from a room bolted from within. The surgeon's knife supports the nature of the wound; the monogram alone would not identify the hand.
+
+“Dr. Moriarty,” Lestrade says, closing one cuff around the gloved wrist, “you are under arrest for the murder of Lord Ashworth.”
+
+At dawn, the fog lifts enough to show ships moving on the Thames. Hudson brings tea for four without being asked. Lady Ashworth will testify; Lestrade offers you the next impossible file before the carriage has even taken Moriarty away.
+
+THE LIMEHOUSE KILLINGS -- SOLVED
+Score: 65 of 65 points, in 132 moves.
+Rank: Master Detective.
+Evidence: 5 of 5. Suspects: 3 of 3.

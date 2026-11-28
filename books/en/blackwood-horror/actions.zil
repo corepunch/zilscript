@@ -1346,6 +1346,13 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
                   <TELL " The garden is back outside to the south." CR>)>
            <RTRUE>)>>
 
+<ROUTINE TOPIC-CHAPEL-F ()
+    <COND (<AND <VERB? LOOK-UNDER> <EQUAL? ,HERE ,CHAPEL>>
+           <COND (<AND <IN? ,WOODEN-BOX ,CHAPEL> <FSET? ,WOODEN-BOX ,NDESCBIT>>
+                  <TELL "A wooden box sits in the recess beneath the altar." CR>)
+                 (T <TELL "A clean rectangle interrupts the dust in the recess beneath the altar." CR>)>
+           <RTRUE>)>>
+
 <ROUTINE PEWS-F ()
          <COND (<VERB? EXAMINE>
                 <TELL "The pews are ancient and rotting. Strange symbols are carved into the wood—symbols that hurt to look at.">
@@ -1515,7 +1522,7 @@ lost name."
                      <EQUAL? .TOPIC ,TOPIC-SANITARIUM>>
                 <COND (<NOT <FSET? ,TOPIC-SANITARIUM ,TOUCHBIT>>
                        <FSET ,TOPIC-SANITARIUM ,TOUCHBIT>
-                       <TELL "You speak of the sanitarium and what was done in it. Patient 189 tilts its head toward the chapel ceiling, toward the building beyond. When it looks back at you, there is something new in those green eyes—a plea, perhaps. Or an accusation." CR>
+                       <TELL "You speak of the sanitarium and what was done in it. Patient 189 turns its head toward the sanitarium wards. When it looks back at you, there is something new in those green eyes—a plea, perhaps. Or an accusation." CR>
                        <SETG PATIENT-LORE <+ ,PATIENT-LORE 1>>)
                       (T
                        <TELL "Patient 189's gaze drifts upward, then returns to you. The silent exchange is complete: you both know what this place is." CR>)>
@@ -1525,10 +1532,10 @@ lost name."
                      <EQUAL? .TOPIC ,TOPIC-CHAPEL>>
                 <COND (<NOT <FSET? ,TOPIC-CHAPEL ,TOUCHBIT>>
                        <FSET ,TOPIC-CHAPEL ,TOUCHBIT>
-                       <TELL "You speak of the chapel and its locked door. Patient 189 gestures—the first real movement you've seen—toward the altar and the wooden box that belongs beneath it. The meaning is clear: what that box held matters." CR>
+                       <TELL "You speak of the chapel and its locked door. Patient 189 makes a small gesture, tracing the shape of the box that belongs beneath the chapel altar. The meaning is clear: what that box held matters." CR>
                        <SETG PATIENT-LORE <+ ,PATIENT-LORE 1>>)
                       (T
-                       <TELL "Patient 189's eyes return to the altar. Whatever waits there, it has waited a very long time." CR>)>
+                       <TELL "Patient 189's gaze goes distant. Whatever waits in the chapel has waited a very long time." CR>)>
                 <SETG PATIENT-STATE 2>
                 <RTRUE>)
                (<AND <VERB? TELL>
@@ -1536,7 +1543,7 @@ lost name."
                 <TELL "You repeat Mordecai's words. Patient 189 folds its arms across its chest, the way a patient might hold a hospital gown closed. When you stop reading, it is still waiting." CR>
                 <RTRUE>)
                (<VERB? TELL>
-                <TELL "Patient 189 listens without looking at what you name. Its fingers tighten around the edge of the altar, then slowly release it." CR>
+                <TELL "Patient 189 listens in silence. Its fingers curl as you speak, then slowly uncurl." CR>
                 <RTRUE>)
                (<AND <VERB? ATTACK KILL MUNG KICK>
                      <NOT ,GAME-WON>>

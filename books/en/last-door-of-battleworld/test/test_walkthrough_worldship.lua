@@ -17,7 +17,8 @@ local cases = {
 		klaw = "examine klaw",
 		control = "reverse control",
 		plans = "read plans",
-		offer = "examine offer",
+		offer = "read inscription",
+		offerText = "surrender your freedom",
 		refuse = "refuse offer",
 		accept = "accept offer",
 		returnSouth = "south",
@@ -42,7 +43,8 @@ local cases = {
 		klaw = "осмотреть кло",
 		control = "повернуть рычаг",
 		plans = "читать планы",
-		offer = "осмотреть предложение",
+		offer = "читать надпись",
+		offerText = "отказаться от свободы",
 		refuse = "отклонить предложение",
 		accept = "принять предложение",
 		returnSouth = "юг",
@@ -108,10 +110,21 @@ for language, c in pairs(cases) do
 
 	local bargain = reachMarket(language, c)
 	play(bargain, c.north)
-	play(bargain, c.offer)
+	if language == "ru" then
+		assert(play(bargain, "говорить с думом"):find("Я навожу порядок", 1, true))
+	end
+	assert(play(bargain, c.offer):find(c.offerText, 1, true))
 	local surrender = play(bargain, c.accept)
 	assert(bargain.env.BW_WON == 4 and not bargain:running() and bargain.finishes == 1)
 	assert(surrender:find(c.acceptEnd, 1, true), surrender)
 end
+
+local mirror = reachMarket("ru", cases.ru)
+play(mirror, "осмотреть зеркало")
+play(mirror, "повернуть зеркало")
+play(mirror, "север")
+local reflected = play(mirror, "применить станок")
+assert(reflected:find("Отражённый луч", 1, true), reflected)
+assert(mirror.env.BW_WON == 1 and not mirror:running())
 
 print("ok - Doom's bargain and reverse-converter endings from both editions' opening menus")

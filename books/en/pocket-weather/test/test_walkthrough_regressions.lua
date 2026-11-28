@@ -17,8 +17,8 @@ local function lacks(output, text)
 	check(not output:find(text, 1, true), "\"" .. text .. "\" should not appear in:\n" .. output)
 end
 
--- The card has one name: the opening called it a forecast card, everything else a weather card.
-lacks(walk.output, "weather card")
+-- The dispatch description tells the player what is within reach.
+check(walk.output:find("unused weather card", 1, true), "the card appears on arrival")
 says("examine dispatch bell", "blank weather card")
 lacks(walk.output, "forecast card")
 

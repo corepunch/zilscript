@@ -1,0 +1,17 @@
+The Library of Borrowed Tomorrows
+Studio Null, 2026
+Release 1
+
+“See you tomorrow,” the baker said this morning as she set out the first chair at the market. You promised you'd fetch tomorrow from the library for everyone. It was an easy thing to promise while the ovens were warm and people were still arriving. Now you're in the library, and when you call for a librarian, even the echo fails to come back.
+
+Lending Hall
+You are in the Lending Hall of the library, a hushed room whose shelves climb out of sight into the rafters. Someone has pushed a wooden lending cabinet right up against the big window. Two stripes of sunlight fall across the floor: today's, and beside it a narrow golden stripe that must be tomorrow's. An arch to the east opens into the folding room, and a passage leads north to the dry basin.
+
+> open cabinet
+You open the cabinet's little door. Inside, all alone on the shelf, lies a tomorrow leaf.
+
+> take leaf
+As you lift it out, the leaf records your name: it appears in the little box in gold. At the same moment the narrow stripe of tomorrow's sunlight on the floor goes out, so neatly that for a moment you think you blinked. Tomorrow is on loan now, to you, and only to you.
+
+> read leaf
+In small gold letters it says TOMORROW, just under your name. You read it softly. The word stays here instead of going out over the rooftops. It needs a place where everyone can see the page.

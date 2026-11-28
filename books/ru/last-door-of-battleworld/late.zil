@@ -3,7 +3,7 @@
 <SYNTAX ОТКАЗАТЬСЯ ОТ OBJECT = V-BW-REFUSE>
 <SYNTAX ОТКЛОНИТЬ OBJECT = V-BW-REFUSE>
 <SYNONYM ОТКЛОНИТЬ ОТКЛОНИ>
-<OBJECT BW-OFFER (DESC "предложение") (SYNONYM ПРЕДЛОЖЕНИЕ ПРЕДЛОЖЕНИЯ СДЕЛКА СДЕЛКУ)>
+<OBJECT BW-OFFER (DESC "предложение") (SYNONYM ПРЕДЛОЖЕНИЕ ПРЕДЛОЖЕНИЯ СДЕЛКА СДЕЛКУ НАДПИСЬ ТАБЛИЧКА ТАБЛИЧКУ)>
 <ROOM BW-WORLDSHIP (DESC "Таа II: галерея звука")>
 <ROOM BW-CONVERTER (DESC "Таа II: зал преобразователя")>
 <OBJECT BW-KLAW (DESC "Кло") (SYNONYM КЛО)>

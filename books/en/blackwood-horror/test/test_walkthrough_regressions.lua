@@ -240,7 +240,13 @@ do
 	text = typed("inject patient with syringe")
 	check(has(text, "hold it still"), "without the relic the patient cannot be approached")
 	-- The relic counts while it lies in the box the player carries.
-	walk:play({ "examine wooden pews", { "open wooden box", expect = "ancient relic" }, "take wooden box" })
+	walk:play({
+		"examine wooden pews",
+		{ "look under altar", expect = "wooden box sits in the recess" },
+		{ "open wooden box", expect = "ancient relic" },
+		"take wooden box",
+		{ "look under altar", expect = "clean rectangle" },
+	})
 	check(env.LOC(env.ANCIENT_RELIC) == env.WOODEN_BOX and env.LOC(env.WOODEN_BOX) == env.WINNER, "relic in the carried box")
 	env.MOVE(env.STRANGE_SERUM, env.MORGUE)
 	text = typed("give relic to patient")
@@ -256,6 +262,9 @@ do
 	check(has(text, "Patient 189 stands among the dead roses") or has(walk.output, "Patient 189 stands among the dead roses"),
 		"the garden shows the patient who followed")
 	check(not has(text, "standing at the altar"), "and does not put the altar in the garden")
+	text = typed("talk to figure")
+	check(has(text, "listens in silence") and not has(text, "edge of the altar"),
+		"talking to the patient in the garden describes its response there")
 	carry(env.STRANGE_SERUM, env.ANCIENT_RELIC)
 	text = typed("inject patient with syringe")
 	check(has(text, "at the altar") and not env.GAME_WON, "the ending waits for the chapel")

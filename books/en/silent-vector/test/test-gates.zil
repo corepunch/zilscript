@@ -44,7 +44,7 @@
 	<CO-RESUME ,CO "west" T>
 	<ASSERT-TEXT "calibrated torque wrench" <CO-RESUME ,CO "turn pump with shears">>
 	<ASSERT "wrong tool cannot repair" <NOT ,COOLING>>
-	<ASSERT-TEXT "calibrated click" <CO-RESUME ,CO "turn pump with wrench">>
+	<ASSERT-TEXT "calibrated click" <CO-RESUME ,CO "use wrench on coolant">>
 	<ASSERT-TEXT "already seated" <CO-RESUME ,CO "turn pump with wrench">>
 	<CO-RESUME ,CO "east" T>
 	<CO-RESUME ,CO "east" T>

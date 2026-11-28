@@ -52,7 +52,8 @@ walk:play({
 	{ "examine overgrown hedges", expect = "knife" },
 	{ "take blood-stained knife", expect = "take the knife" },
 	"north",
-	{ "examine plant labels", expect = "match the poison bottle label" },
+	{ "compare bottle with plants", expect = "match the poison bottle label" },
+	{ "compare plant labels to bottle", expect = "once more" },
 })
 assert(env.STUDY_UNLOCKED and env.LADY_INTERVIEWED and env.POISON_IDENTIFIED)
 assert(not env.INSPECTOR_PRESENT, "Lestrade waits for the third interview")

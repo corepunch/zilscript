@@ -1,0 +1,74 @@
+Three rescue signals blink on the same scrap of sky. Choose Spider-Man, Storm, or Iron Man to answer. You can examine each profile before you decide.
+
+> choose Iron Man
+In Central Park, a strange circle of machinery rose among the trees. When you stepped inside, Earth vanished. Through a second circle across the darkness you glimpsed Doctor Doom, Kang and other dangerous figures. Then the stars went out, and pieces of distant worlds came together around a single sun.
+
+The Beyonder spoke from somewhere beyond the sky and offered a reward for destroying your enemies. Galactus and Doom challenged its owner; both were flung away. Now the circle carries you down toward the newly made world. You have another idea: find the people who need help.
+
+You stand on a wide plain where grass ends suddenly at red stone. Magneto watches the ridge. Beside broken machinery lies a copper coil. To the north, a ridge hides the land beyond.
+There is a copper coil here.
+
+> take coil
+Taken.
+
+> north
+From the ridge you can see a makeshift camp to the north. Kang's villains crest another rise, carrying weapons from a fortress they have already found. A shield relay stands by the path. The plain lies south.
+
+> put coil in relay
+The coil clicks into the cradle. A pale shield unfolds across the path as Kang's first shot splashes harmlessly against it. Beyond the glow, people hurry toward the camp. Magneto holds a second piece of debris out of their way. The path north is safe to follow.
+Above the camp, Doom's green image declares that his Loom will close the last door home. The image fades, but the people below still need help.
+
+> north
+The camp occupies half a schoolyard and the wrong end of a railway platform. The soup pot is on the doubles court. Ms. Marvel has the court's chalkboard tipped up on a chair so she can count the people coming in. A beacon on the bench crackles. The path north leads down to the Hanging Span. The sheltered path goes south to the ridge.
+
+> north
+Where the road runs out, the skiff hangs below you on a line that is unspooling one click at a time. The passengers are sitting very still. A hand winch is bolted to the stone by your boot. The road to the market runs north beyond the span, and the camp is south.
+
+> turn winch
+You lean into the handle. It gives an indignant squeak, then winds the skiff up to the road. The girl puts both boots on the stone. 'It didn't even scream.' Behind her the winch squeaks louder, as if it objects to the record.
+
+> north
+Beyond the grocer's stall a lane runs west to Zsaji's village. One pan of the scales tilts against the counter.
+The market leans downhill just enough for every loose apple to end up at the same stall. A mirror on a swivel is catching the last sunlight. Someone has shoved a supply chest under the stall. The repair shop is east, the tower north, and the span south.
+
+> examine chest
+One corner of the chest is stenciled EMERGENCY POWER. Open its lid for a better look.
+
+> open chest
+One corner of the chest is stenciled EMERGENCY POWER. A power cell about the size of a lunchbox fits snugly in its padding.
+
+> take cell
+Taken.
+
+> east
+Every tool is outlined in chalk on the wall, including the ones someone has borrowed. An emergency socket juts from a bench under a cable that runs up into the tower. The alley back to the market is west.
+
+> put cell in socket
+All three ribs slide home. The cable jumps overhead and the bench's little service light glows green. Someone long ago painted a cheerful OK beside it. For once, it is right.
+
+> west
+Beyond the grocer's stall a lane runs west to Zsaji's village. One pan of the scales tilts against the counter.
+The market leans downhill just enough for every loose apple to end up at the same stall. A mirror on a swivel is catching the last sunlight. Someone has shoved a supply chest under the stall. The repair shop is east, the tower north, and the span south.
+
+> north
+The open tower has no roof: just a ring of teeth where the sky goes through. The Loom pulls a bright thread from a half-open doorway, one slow inch at a time. Doctor Doom stands beside it. Moonlight goes straight through his cape. The stair leads south to the market; a docking bridge reaches north to the Worldship.
+A green inscription beside him invites you to hear Doom's offer.
+
+> examine offer
+Doom promises to grant your wish to return home and send the others back too. In exchange you must surrender your freedom to him: from then on you will obey his orders, even when you disagree. He calls it peace. You can say “accept offer” or “refuse offer”; accepting ends this adventure.
+
+> offer Doom
+(to the Doctor Doom)
+You don't have the Doctor Doom.
+
+> listen
+What do you want to listen to?
+
+> talk to Doom
+'When every doorway leads to the same place, nobody gets lost,' says Doom. Behind him the last door offers you a glimpse of a kitchen table, somewhere with ordinary weather. Doom doesn't turn around. 'I fail to see why you object.'
+
+> accept offer
+You accept. Doom opens the way to Earth, and the passengers return to their families. He keeps his promise to grant your wish. Then his voice sounds in your ear: your first orders await. Home is familiar, but your choices are no longer your own.
+
+THE END: DOOM'S BARGAIN
+Health 140 of 140, Karma 90.

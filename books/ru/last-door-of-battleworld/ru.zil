@@ -13,6 +13,7 @@
 <SYNTAX ПОГОВОРИТЬ С OBJECT = V-TALK>
 <SYNTAX ПОГОВОРИТЬ OBJECT = V-TALK>
 <SYNONYM ПОГОВОРИТЬ ПОГОВОРИ>
+<SYNTAX ГОВОРИТЬ С OBJECT = V-TALK>
 <ROUTINE V-TALK () <TELL "Вам не отвечают." CR>>
 
 <ROOM SETUP-DESK (DESC "Стол у последней двери")>
@@ -37,8 +38,8 @@
 <OBJECT CELL (DESC "батарея") (SYNONYM БАТАРЕЯ БАТАРЕЮ БАТАРЕИ ЯЧЕЙКА ЯЧЕЙКУ ЯЧЕЙКИ)>
 <OBJECT SOCKET (DESC "гнездо") (SYNONYM ГНЕЗДО ГНЕЗДА РАЗЪЁМ РАЗЪЕМ)>
 <OBJECT LOOM (DESC "станок") (SYNONYM СТАНОК СТАНКА МАШИНА МАШИНУ) (ADJECTIVE ДУМА)>
-<OBJECT DOOM (DESC "Доктор Дум") (SYNONYM ДУМ ДУМА ПРОЕКЦИЯ ПРОЕКЦИЮ)
- (ADJECTIVE ДОКТОР ДОКТОРА)>
+<OBJECT DOOM (DESC "Доктор Дум") (SYNONYM ДУМ ДУМА ДУМОМ ПРОЕКЦИЯ ПРОЕКЦИЮ)
+ (ADJECTIVE ДОКТОР ДОКТОРА ДОКТОРОМ)>
 
 <ROUTINE RPG-PRESET-TITLE (INDEX)
  <COND (<==? .INDEX 1> <TELL "Человек-паук">)

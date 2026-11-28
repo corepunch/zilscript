@@ -1,0 +1,285 @@
+For three weeks the same dream has woken you before dawn: a pair of iron gates, a dead oak full of silent crows, and a voice in a dark building asking you to remember. Tonight you found the place at the end of a forest road, a sanitarium that has stood empty for longer than anyone in the village can say. You told no one you were coming. The gates were already open.
+
+Sanitarium
+Studio Null, 2024
+Release 1
+
+Sanitarium Gate
+You are standing at the gates of Blackwood Sanitarium. The rusted iron gates hang open. A brass plaque has worked loose at one corner. Crows crowd the dead oak beside it without making a sound. The gravel path stops here; the way in lies open to the north, under rows of black windows.
+
+> north
+You are in the entrance hall of the sanitarium. Half of the grand staircase has fallen in, and the plaster dust on the floor shows no footprints but yours. Black mold has crept up the peeling wallpaper. Reception is to the west, and the patient ward lies to the east. A sagging door stands half-open to the north, narrow stairs go down to the basement, and the gates are back to the south.
+
+> north
+You are in the old operating theater. Empty tiers of wooden benches rise in a ring around a stained operating table, which waits under a dead lamp with its instrument trays beside it. The air still smells faintly of carbolic. A metal cabinet stands beside the tiers, its door slightly ajar. The only way out is the sagging door to the south, back to the entrance hall.
+
+> examine cabinet
+You ease the cabinet door wide on its stiff hinges. The shelves hold rusted medical instruments, and among them a scalpel and a bottle.
+
+> take scalpel
+Taken.
+
+> south
+You are in the entrance hall of the sanitarium. Half of the grand staircase has fallen in, and the plaster dust on the floor shows no footprints but yours. Black mold has crept up the peeling wallpaper. Reception is to the west, and the patient ward lies to the east. A sagging door stands half-open to the north, narrow stairs go down to the basement, and the gates are back to the south.
+
+> down
+You are on a narrow stone staircase that runs from the hall down into the basement. Every step is wet, and each one is colder than the last. From somewhere below comes a slow, steady dripping. The stairs climb up to the entrance hall and go on down to the basement corridor.
+
+> down
+This is the basement corridor, low and dim, with rusty pipes running the length of the ceiling. One pipe ends in a big wheel valve, and cold water drips from the rust. Stone stairs climb up toward the hall. The smell of coal smoke comes from the boiler room to the east, and the stores lie to the west. To the north the floor slopes down out of the light, toward the sound of water dripping into something deep.
+
+> west
+This is a storage room, small and sour-smelling. Sagging wooden shelves stand on every side, heaped with grey, damp linen. Water has crept up the lowest shelves and left a dark tide line on the wood. The basement corridor is back to the east.
+
+> search shelves
+You search through the shelves. Beneath the sour linen, rust has eaten through most of the equipment. Among the debris, you find a lantern and a medical bag and some old medical records.
+
+> take lantern
+Taken.
+
+> light lantern
+You turn the lantern's built-in striker. The wick catches; a warm glow pushes back the darkness.
+
+> east
+This is the basement corridor, low and dim, with rusty pipes running the length of the ceiling. One pipe ends in a big wheel valve, and cold water drips from the rust. Stone stairs climb up toward the hall. The smell of coal smoke comes from the boiler room to the east, and the stores lie to the west. To the north the floor slopes down out of the light, toward the sound of water dripping into something deep.
+
+> east
+This is the boiler room, thick with the old smells of tar and sulphur. Coal dust and soot lie black over everything. A huge iron boiler squats at the back of the room, stone cold. A coal bin stands beside it, and a workbench stands across from it. The only way out is back west to the corridor.
+
+> examine boiler
+The boiler is a hulking iron beast. Its open firebox is black with soot and empty of usable fuel. A coal shovel leans inside its mouth.
+
+> take shovel
+Taken.
+
+> examine bin
+Most of the coal has collapsed into wet black dust, but one solid lump of coal could still burn. A shovel would keep the filthy slack off your hands.
+
+> take coal
+Using the shovel, you pry a solid lump from the compacted coal and take it.
+
+> put coal in boiler
+You place the coal in the boiler's firebox.
+
+> light boiler with lantern
+You hold the lantern flame to the coal. Smoke rolls from the firebox; then orange light catches underneath. The boiler answers with a deep metallic thud as water begins moving through long-dead pipes.
+The boiler gives a rolling cough. One by one, the pipes begin to tick.
+
+> west
+This is the basement corridor, low and dim, with rusty pipes running the length of the ceiling. One pipe ends in a big wheel valve, and cold water drips from the rust. Stone stairs climb up toward the hall. The smell of coal smoke comes from the boiler room to the east, and the stores lie to the west. To the north the floor slopes down out of the light, toward the sound of water dripping into something deep.
+A tremor passes through the pipes. Rust flakes fall as warmth travels east.
+
+> turn valve
+You grip the wheel and turn with all your strength. It resists, then gives way with a shriek of metal. Steam hisses into the pipes beyond the valve.
+Farther along the pipework, ice breaks loose with a brittle crash.
+
+> north
+You are in a vast, flooded chamber. Black water covers the floor to your ankles, so cold it aches, and every sound you make comes back from the dark. In the east wall, a metal door is corroded shut in its frame. The way north narrows into the dark, and the basement corridor is back to the south.
+
+> north
+This is the isolation ward, a narrow hall lined with heavy cell doors, each with a small barred window. Between the doors, thousands of scratches have been cut by fingernails, row upon row. Your lantern light shakes on them. One set of scratches stops at shoulder height; the next begins lower, as if the hand that made it had slid down the wall. To the north lies a room of scorched concrete, and the flooded chamber is back to the south.
+
+> north
+You are in the electroshock theater, a bare room of scorched concrete that still smells faintly of burning. In the middle, a metal chair is bolted to the floor, facing a machine of dials and electrodes. Stone stairs climb east toward an observation deck, and a heavy door stands ajar to the west, on a padded cell. The isolation ward is back to the south.
+
+> east
+You are on the observation deck, a long, narrow room where the doctors once watched their treatments. A one-way mirror fills one side of it, and a narrow desk runs beneath it, worn smooth along its edge. Stone stairs lead down to the west, and a door to the north opens into the administrative wing.
+A clinical logbook lies open on the desk, as if the last observer had only stepped out.
+
+> north
+This is the administrative wing, and it smells of damp paper and old ink. Filing cabinets lie overturned on their sides, and loose papers have spilled from them across the floor like dirty snow. The director’s office is to the east and the staff quarters to the north. The observation deck is back to the south.
+
+> east
+This is the director's office, the only room in the building that still looks cared for. A massive dark desk stands on a worn rug, its wood polished to a shine, and the damp has not been allowed to touch it. Above it hangs a portrait of Dr. Mordecai, whose painted eyes seem to follow you. The felt-lined door to the west leads back to the administrative wing.
+
+> examine desk
+The dark wood is polished to a shine. Empty folders and pens fill the drawers. A row of medical texts lines the back of the desk. One red tome has no title.
+
+> take tome
+Taken.
+
+> open tome
+You flip the brass latch and open the book. The pages are glued solid—it's not a book at all, but a hollow hiding place. Inside you find a small key.
+
+> take safe key
+Taken.
+
+> examine portrait
+The portrait shows Dr. Mordecai, a gaunt man with piercing eyes and a cruel mouth. The nameplate reads: “Dr. Heinrich Mordecai - Director 1935-1952”. His eyes seem to follow you around the room. The frame sits proud of the paneling. You tug its edge, and the portrait swings aside on a hinge, revealing a wall safe.
+
+> unlock safe with safe key
+You unlock the wall safe with the safe key. Inside are Dr. Mordecai's private notes and a chapel key.
+
+> take chapel key
+Taken.
+
+> west
+This is the administrative wing, and it smells of damp paper and old ink. Filing cabinets lie overturned on their sides, and loose papers have spilled from them across the floor like dirty snow. The director’s office is to the east and the staff quarters to the north. The observation deck is back to the south.
+
+> north
+These are the staff quarters, where the night nurses slept between their rounds. Narrow iron beds stand in two rows, stripped down to their springs, and a bank of dented lockers leans crookedly at the far end. The cafeteria is to the west, and the administrative wing is back to the south.
+
+> examine lockers
+Most lockers are empty or hold rotted clothing. One still holds a nurse's uniform, and tucked behind it, a photograph.
+
+> take photograph
+Taken.
+
+> west
+This is the staff cafeteria. A long serving counter runs down one side under a grey skin of dust, and the chairs are stacked upside down on the tables, as if someone meant to come back and mop. A wooden door with a cracked pane leads north into the garden, and the staff quarters are back to the east.
+A small brass service bell sits on the counter.
+
+> north
+You are in an overgrown garden behind the sanitarium. Dead roses and waist-high weeds have swallowed the paths, and broken stone benches lie tipped among them. Over it all, a dead oak holds up its bare branches. At the end of a barely visible path to the north stands a small stone chapel. Its oak door is held shut by a heavy iron lock. The cafeteria is back to the south.
+
+> unlock door with chapel key
+You insert the chapel key into the lock. It turns with a heavy clunk. The door swings open slowly, revealing darkness beyond. A foul wind rushes out, carrying the scent of decay.
+
+> north
+You are inside the chapel. Rows of rotting pews face a stone altar, and green candles burn all around it with flames that give no warmth. The light makes your own hands look dead.
+Something is standing at the altar, perfectly still. The garden is back outside to the south.
+
+> examine pews
+The pews are ancient and rotting. Strange symbols are carved into the wood—symbols that hurt to look at. From the front pew you can just see a wooden box tucked under the altar.
+
+> open box
+You use the scalpel to pry open the rusted clasp. The box opens with a creak, revealing an ancient relic.
+
+> take cross
+Taken.
+A cold draft makes you shiver, though there are no open windows.
+
+> show photograph to figure
+Patient 189 shows no interest in that. It simply watches you with those glowing eyes.
+
+> show cross to figure
+The relic glows warm. Patient 189 shivers, eyes flickering. But something still binds it. The serum—if returned to its source...
+
+> examine photograph
+The photograph shows the sanitarium staff posed outside the building. Dr. Mordecai stands in the center, unsmiling. Written on the back: “Staff photo 1950. Two years before they closed us down. Two years before everything went wrong.”
+A voice, barely audible, rasps: “help... me...”
+
+> south
+You are in an overgrown garden behind the sanitarium. Dead roses and waist-high weeds have swallowed the paths, and broken stone benches lie tipped among them. Over it all, a dead oak holds up its bare branches. At the end of a barely visible path to the north stands a small stone chapel. Its oak door stands open on darkness. The cafeteria is back to the south.
+
+> south
+This is the staff cafeteria. A long serving counter runs down one side under a grey skin of dust, and the chairs are stacked upside down on the tables, as if someone meant to come back and mop. A wooden door with a cracked pane leads north into the garden, and the staff quarters are back to the east.
+A small brass service bell sits on the counter.
+
+> east
+These are the staff quarters, where the night nurses slept between their rounds. Narrow iron beds stand in two rows, stripped down to their springs, and a bank of dented lockers leans crookedly at the far end. The cafeteria is to the west, and the administrative wing is back to the south.
+
+> south
+This is the administrative wing, and it smells of damp paper and old ink. Filing cabinets lie overturned on their sides, and loose papers have spilled from them across the floor like dirty snow. The director’s office is to the east and the staff quarters to the north. The observation deck is back to the south.
+
+> south
+You are on the observation deck, a long, narrow room where the doctors once watched their treatments. A one-way mirror fills one side of it, and a narrow desk runs beneath it, worn smooth along its edge. Stone stairs lead down to the west, and a door to the north opens into the administrative wing.
+A clinical logbook lies open on the desk, as if the last observer had only stepped out.
+
+> west
+You are in the electroshock theater, a bare room of scorched concrete that still smells faintly of burning. In the middle, a metal chair is bolted to the floor, facing a machine of dials and electrodes. Stone stairs climb east toward an observation deck, and a heavy door stands ajar to the west, on a padded cell. The isolation ward is back to the south.
+The building settles with a deep structural groan, as if exhaling.
+
+> south
+This is the isolation ward, a narrow hall lined with heavy cell doors, each with a small barred window. Between the doors, thousands of scratches have been cut by fingernails, row upon row. Your lantern light shakes on them. One set of scratches stops at shoulder height; the next begins lower, as if the hand that made it had slid down the wall. To the north lies a room of scorched concrete, and the flooded chamber is back to the south.
+
+> south
+You are in a vast, flooded chamber. Black water covers the floor to your ankles, so cold it aches, and every sound you make comes back from the dark. In the east wall, a metal door is corroded shut in its frame. The way north narrows into the dark, and the basement corridor is back to the south.
+
+> east
+The metal door to the east is corroded shut.
+
+> open door
+Steam from the valve in the basement corridor has loosened the corrosion. With effort, you wrench the sealed door open. Beyond it, to the east, lies a hydrotherapy room.
+
+> east
+This is the hydrotherapy room. A row of stained porcelain tubs runs down the middle, each with a cracked rubber hose hanging above it, and the white tiles are streaked with rust. Across the room, water runs down a medicine cabinet where its frost has melted. The only way out is west, back to the flooded chamber.
+
+> open cabinet
+You pull the thawed cabinet open. Meltwater patters onto the tile. A glass syringe rests on the shelf.
+
+> take syringe
+Taken.
+
+> west
+You are in a vast, flooded chamber. Black water covers the floor to your ankles, so cold it aches, and every sound you make comes back from the dark. In the east wall, a metal door stands open, steam curling from its edges, and a tiled room lies beyond it to the east. The way north narrows into the dark, and the basement corridor is back to the south.
+
+> south
+This is the basement corridor, low and dim, with rusty pipes running the length of the ceiling. Steam hisses from the pipes around a big wheel valve, and the air is warm and wet. Stone stairs climb up toward the hall. The smell of coal smoke comes from the boiler room to the east, and the stores lie to the west. To the north the floor slopes down out of the light, toward the sound of water dripping into something deep.
+
+> up
+You are on a narrow stone staircase that runs from the hall down into the basement. Every step is wet, and each one is colder than the last. From somewhere below comes a slow, steady dripping. The stairs climb up to the entrance hall and go on down to the basement corridor.
+
+> up
+You are in the entrance hall of the sanitarium. Half of the grand staircase has fallen in, and the plaster dust on the floor shows no footprints but yours. Black mold has crept up the peeling wallpaper. Reception is to the west, and the patient ward lies to the east. A sagging door stands half-open to the north, narrow stairs go down to the basement, and the gates are back to the south.
+
+> east
+This is the patient ward, a long room lined with rusted bed frames. Tattered curtains hang between them, and broken glass crunches under your feet. A child's crayon drawing is pinned to the nearest frame. At the far end, a heavy door is bound shut with chains and a leather strap. The entrance hall is back to the west.
+
+> examine chains
+The iron chain hangs slack: the padlock has rusted through. What holds the handles together is a leather restraint strap, stiff with age and pulled tight around them. A narrow blade could slip beneath it.
+
+> cut strap with scalpel
+You slip the rusty scalpel beneath the leather strap and slice through it. The strap parts; the slack chains fall away with a crash. The heavy door creaks open, revealing a passage north into darkness.
+
+> north
+This is the morgue, colder than any room above it, a cold that bites at your fingers. A steel dissection table stands in the middle of the floor, and banks of refrigerated drawers line the room on both sides. A faint glow leaks from the edge of one drawer. The only way out is back south to the ward.
+
+> open drawer
+The refrigeration units line both walls. Most drawers are empty or hold only bones. You pull out the one left ajar: inside, a vial of glowing serum gives off an eerie luminescence.
+The shadows seem to flicker and move of their own accord.
+
+> take serum
+Taken.
+
+> south
+This is the patient ward, a long room lined with rusted bed frames. Tattered curtains hang between them, and broken glass crunches under your feet. A child's crayon drawing is pinned to the nearest frame. At the far end, the heavy door stands open on darkness to the north. The entrance hall is back to the west.
+The building settles with a deep structural groan, as if exhaling.
+A child's voice whispers something in a language you don't recognize.
+
+> west
+You are in the entrance hall of the sanitarium. Half of the grand staircase has fallen in, and the plaster dust on the floor shows no footprints but yours. Black mold has crept up the peeling wallpaper. Reception is to the west, and the patient ward lies to the east. A sagging door stands half-open to the north, narrow stairs go down to the basement, and the gates are back to the south.
+
+> down
+You are on a narrow stone staircase that runs from the hall down into the basement. Every step is wet, and each one is colder than the last. From somewhere below comes a slow, steady dripping. The stairs climb up to the entrance hall and go on down to the basement corridor.
+
+> down
+This is the basement corridor, low and dim, with rusty pipes running the length of the ceiling. Steam hisses from the pipes around a big wheel valve, and the air is warm and wet. Stone stairs climb up toward the hall. The smell of coal smoke comes from the boiler room to the east, and the stores lie to the west. To the north the floor slopes down out of the light, toward the sound of water dripping into something deep.
+
+> north
+You are in a vast, flooded chamber. Black water covers the floor to your ankles, so cold it aches, and every sound you make comes back from the dark. In the east wall, a metal door stands open, steam curling from its edges, and a tiled room lies beyond it to the east. The way north narrows into the dark, and the basement corridor is back to the south.
+
+> north
+This is the isolation ward, a narrow hall lined with heavy cell doors, each with a small barred window. Between the doors, thousands of scratches have been cut by fingernails, row upon row. Your lantern light shakes on them. One set of scratches stops at shoulder height; the next begins lower, as if the hand that made it had slid down the wall. To the north lies a room of scorched concrete, and the flooded chamber is back to the south.
+
+> north
+You are in the electroshock theater, a bare room of scorched concrete that still smells faintly of burning. In the middle, a metal chair is bolted to the floor, facing a machine of dials and electrodes. Stone stairs climb east toward an observation deck, and a heavy door stands ajar to the west, on a padded cell. The isolation ward is back to the south.
+
+> east
+You are on the observation deck, a long, narrow room where the doctors once watched their treatments. A one-way mirror fills one side of it, and a narrow desk runs beneath it, worn smooth along its edge. Stone stairs lead down to the west, and a door to the north opens into the administrative wing.
+A clinical logbook lies open on the desk, as if the last observer had only stepped out.
+
+> north
+This is the administrative wing, and it smells of damp paper and old ink. Filing cabinets lie overturned on their sides, and loose papers have spilled from them across the floor like dirty snow. The director’s office is to the east and the staff quarters to the north. The observation deck is back to the south.
+
+> north
+These are the staff quarters, where the night nurses slept between their rounds. Narrow iron beds stand in two rows, stripped down to their springs, and a bank of dented lockers leans crookedly at the far end. The cafeteria is to the west, and the administrative wing is back to the south.
+
+> west
+This is the staff cafeteria. A long serving counter runs down one side under a grey skin of dust, and the chairs are stacked upside down on the tables, as if someone meant to come back and mop. A wooden door with a cracked pane leads north into the garden, and the staff quarters are back to the east.
+A small brass service bell sits on the counter.
+
+> north
+You are in an overgrown garden behind the sanitarium. Dead roses and waist-high weeds have swallowed the paths, and broken stone benches lie tipped among them. Over it all, a dead oak holds up its bare branches. At the end of a barely visible path to the north stands a small stone chapel. Its oak door stands open on darkness. The cafeteria is back to the south.
+
+> north
+You are inside the chapel. Rows of rotting pews face a stone altar, and green candles burn all around it with flames that give no warmth. The open box lies at the foot of the altar, beneath a motionless figure. The garden is back outside to the south.
+
+> show cross to figure
+You hold out the relic. Patient 189 stills completely. You draw the serum into the syringe and step forward—every instinct screaming—and inject it.
+The green light in its eyes gutters. Patient 189 shudders, mouth opening in a soundless cry. The green flames around the chapel gutter and die.
+Then it speaks, in a voice like someone remembering how: “I remember... who I was.”
+Its eyes pass over you without recognition. You freed it, but it never knew you. It crumbles to ash.
+The candles go out. In the silence, you hear your own breathing where the voice used to be. The air suddenly smells like rain and grass—ordinary, living air. You're free.
+Score: 58 of 68 points, in 84 moves.
+Rank: Asylum Explorer.

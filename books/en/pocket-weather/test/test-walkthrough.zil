@@ -2,7 +2,7 @@
 <GLOBAL CO <CO-CREATE GO>>
 <ROUTINE RUN-TEST ()
  <CO-RESUME ,CO "look" T>
- <ASSERT-NOT-TEXT "weather card" <CO-RESUME ,CO "look">>
+ <ASSERT-TEXT "unused weather card waits beside the bell" <CO-RESUME ,CO "look">>
  <ASSERT-TEXT "blank weather card" <CO-RESUME ,CO "examine bell">>
  <ASSERT-TEXT "write on it once" <CO-RESUME ,CO "examine card">>
  <CO-RESUME ,CO "take card"> <ASSERT "card held" <HELD? ,CARD>>
@@ -10,7 +10,8 @@
  <ASSERT-TEXT "weather card" <CO-RESUME ,CO "look">>
  <ASSERT-NOT-TEXT "card" <CO-RESUME ,CO "examine bell">>
  <CO-RESUME ,CO "take card">
- <CO-RESUME ,CO "west"> <CO-RESUME ,CO "take spoon"> <CO-RESUME ,CO "west">
+ <ASSERT-TEXT "narrow spoon" <CO-RESUME ,CO "west">>
+ <CO-RESUME ,CO "take spoon"> <CO-RESUME ,CO "west">
  <CO-RESUME ,CO "search apron"> <CO-RESUME ,CO "take button"> <CO-RESUME ,CO "take ribbon">
  <CO-RESUME ,CO "north">
  <ASSERT-TEXT "You may turn the vane now" <CO-RESUME ,CO "give button to rook">>

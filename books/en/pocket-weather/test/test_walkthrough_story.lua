@@ -3,6 +3,8 @@ local Walk = require("tests.story_walk")
 local walk = Walk.new("books.en.pocket-weather.pocket-weather")
 local env = walk.env
 
+assert(walk.output:find("weather card", 1, true), walk.output)
+
 walk:play({
 	{ "examine official forecast", expect = "continuous rain over the parade" },
 	{ "examine postmaster mica", expect = "yesterday" },
@@ -15,7 +17,8 @@ walk:play({
 	{ "take folded report", expect = "Taken" },
 	{ "read folded report", expect = "fold resists" },
 	"north",
-	{ "west", expect = "steaming kettle" },
+	{ "west", expect = "narrow spoon" },
+	{ "look", expect = "narrow spoon" },
 	"examine steaming kettle",
 	{ "take narrow spoon", expect = "Taken" },
 	-- The kettle names the report in hand, which puts its Steam action on screen.

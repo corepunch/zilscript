@@ -54,7 +54,7 @@ for i,p in ipairs(presets) do
   typed(w, "choose " .. p.id, "At 02:13")
   assert(w.env.MOVES == 0)
   w:play({{"examine tape", expect = "Isolate circuit C"},
-    {"search tape", expect = ({"without breathing", "conversation that never took place", "telephone feed"})[i]},
+    {"study recording", expect = ({"without breathing", "conversation that never took place", "telephone feed"})[i]},
     "east", {"use telephone", expect = "CASE CLOSED"}})
   assert(w.finishes == 1 and w.env.REPORT_DETAIL == i)
   count(2)
@@ -79,7 +79,8 @@ assert(w.env.STAT(w.env.HERO, w.env.A_COMPOSURE) == 43)
 assert(not card(w, "open cover") and not card(w, "listen to track"))
 typed(w, "open cover", "no reason to pry")
 typed(w, "listen to second track", "Nothing follows")
-w:play({"east", {"call telephone", expect = "stays on the line"}})
+typed(w, "call Noor", "You need the station telephone")
+w:play({"east", {"call Noor", expect = "stays on the line"}})
 typed(w, "call telephone", "still on the line")
 assert(w.env.STAT(w.env.HERO, w.env.A_COMPOSURE) == 51)
 w:play({{"use telephone", expect = "footsteps stop one stair short"}})
@@ -94,7 +95,7 @@ safeCount(1)
 
 local retry, retryCount = new({1, 100, 80})
 typed(retry, "choose mechanic", "At 02:13")
-retry:play({"examine tape", "search tape", {"open relay cover", expect = "a splice"}, "east", {"use telephone", expect = "photograph the splice"}})
+retry:play({"examine tape", "search tape", {"pry relay cover", expect = "a splice"}, "east", {"use telephone", expect = "photograph the splice"}})
 assert(retry.finishes == 1 and retry.env.REPORT_DETAIL == 4 and not retry.env.LOUD)
 retryCount(3)
 

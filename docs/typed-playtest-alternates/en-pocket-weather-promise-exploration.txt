@@ -1,0 +1,336 @@
+The Pocket Weather Bureau
+Studio Null, 2026
+Release 1
+
+You are the newest apprentice at the Pocket Weather Bureau, in a town so small it measures rain in a thimble. This morning your very first forecast got away from you: Nimbus, the town's only rain cloud, has slipped off to hide. The weather vane will not turn, the garden is thirsty, and the Postmaster wants the cloud brought back before the parade.
+
+Dispatch Post
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> talk to postmaster
+“The forecast says continuous rain over the parade,” Mica begins. Then: “But observations come first. If the forecast is wrong, we change the forecast.”
+
+> examine forecast
+The official forecast orders continuous rain over the parade. Mica wants it delivered. Nimbus does not. You may need a revised forecast, not a captured cloud.
+
+> ring bell
+Ting! Mica bows. “Apprentice present. Cloud absent. See the forecast, then follow your observations.”
+
+> east
+You are on the Forecast Balcony, a narrow ledge above the town square. The parade bunting snaps below your knees, where the rows of little roofs begin. A broadcast slot in the railing hums softly, waiting for a forecast. The dispatch post is back through the door to the west.
+
+> look
+You are on the Forecast Balcony, a narrow ledge above the town square. The parade bunting snaps below your knees, where the rows of little roofs begin. A broadcast slot in the railing hums softly, waiting for a forecast. The dispatch post is back through the door to the west.
+
+> west
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> take forecast
+A valiant attempt.
+
+> east
+You are on the Forecast Balcony, a narrow ledge above the town square. The parade bunting snaps below your knees, where the rows of little roofs begin. A broadcast slot in the railing hums softly, waiting for a forecast. The dispatch post is back through the door to the west.
+
+> put forecast in slot
+You don't have the forecast.
+
+> west
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> north
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> look
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> talk to nimbus
+You can't see any nimbus here!
+
+> look
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> north
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. It clangs so hard in every gust that words break against it. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> look
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. It clangs so hard in every gust that words break against it. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> east
+You are in Cloud Hollow, a round dip in the hillside carpeted with soft moss. It is cool and damp here, like the inside of a watering can. Nimbus the cloud hangs just above your knees, so full of rain that it trembles. The only way out is back west through the whisper arch.
+
+> look
+You are in Cloud Hollow, a round dip in the hillside carpeted with soft moss. It is cool and damp here, like the inside of a watering can. Nimbus the cloud hangs just above your knees, so full of rain that it trembles. The only way out is back west through the whisper arch.
+
+> talk to nimbus
+The chime breaks every sentence. Soften it before a conversation.
+
+> west
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. It clangs so hard in every gust that words break against it. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> take chime
+The chime is fixed here. Its clapper needs padding, not taking away.
+
+> south
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> south
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> west
+You are in the Steam Kitchen, where the Bureau's biscuits are baked. The air is warm and damp, and a fine dust of flour lies over everything. A steaming kettle puffs away on the stove, and Baker Pip hums beside it very badly, with excellent rhythm. The laundry is west, and the dispatch post is back to the east.
+
+> look
+You are in the Steam Kitchen, where the Bureau's biscuits are baked. The air is warm and damp, and a fine dust of flour lies over everything. A steaming kettle puffs away on the stove, and Baker Pip hums beside it very badly, with excellent rhythm. The laundry is west, and the dispatch post is back to the east.
+
+> west
+You are in the Pocket Laundry, a steamy little room criss-crossed with drying lines. Clothes pegs click in the warm air, and a tub of lemon suds stands underneath. A laundry apron hangs from a hook beside it, its pockets bulging. The kitchen is east, and the rookery is up to the north.
+
+> look
+You are in the Pocket Laundry, a steamy little room criss-crossed with drying lines. Clothes pegs click in the warm air, and a tub of lemon suds stands underneath. A laundry apron hangs from a hook beside it, its pockets bulging. The kitchen is east, and the rookery is up to the north.
+
+> take cloth
+I don't know the word "cloth".
+
+> east
+You are in the Steam Kitchen, where the Bureau's biscuits are baked. The air is warm and damp, and a fine dust of flour lies over everything. A steaming kettle puffs away on the stove, and Baker Pip hums beside it very badly, with excellent rhythm. The laundry is west, and the dispatch post is back to the east.
+
+> east
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> north
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> north
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. It clangs so hard in every gust that words break against it. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> put cloth on chime
+I don't know the word "cloth".
+
+> east
+You are in Cloud Hollow, a round dip in the hillside carpeted with soft moss. It is cool and damp here, like the inside of a watering can. Nimbus the cloud hangs just above your knees, so full of rain that it trembles. The only way out is back west through the whisper arch.
+
+> talk to nimbus
+The chime breaks every sentence. Soften it before a conversation.
+
+> west
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. It clangs so hard in every gust that words break against it. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> south
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> south
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> west
+You are in the Steam Kitchen, where the Bureau's biscuits are baked. The air is warm and damp, and a fine dust of flour lies over everything. A steaming kettle puffs away on the stove, and Baker Pip hums beside it very badly, with excellent rhythm. The laundry is west, and the dispatch post is back to the east.
+
+> west
+You are in the Pocket Laundry, a steamy little room criss-crossed with drying lines. Clothes pegs click in the warm air, and a tub of lemon suds stands underneath. A laundry apron hangs from a hook beside it, its pockets bulging. The kitchen is east, and the rookery is up to the north.
+
+> examine apron
+The cloth is stiff with dried soap. You turn out the pockets. A brass button and a soft ribbon tumble free. Neither has an owner now. Pip believes in useful pockets.
+
+> search apron
+The pockets are empty. One has a round sun-faded patch where the button lay, and the other has a loose wool thread caught in its seam.
+
+> take handkerchief
+I don't know the word "handkerchief".
+
+> inventory
+You are empty-handed.
+
+> take ribbon
+Taken.
+
+> east
+You are in the Steam Kitchen, where the Bureau's biscuits are baked. The air is warm and damp, and a fine dust of flour lies over everything. A steaming kettle puffs away on the stove, and Baker Pip hums beside it very badly, with excellent rhythm. The laundry is west, and the dispatch post is back to the east.
+
+> east
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> north
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> north
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. It clangs so hard in every gust that words break against it. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> tie ribbon to chime
+You tie the soft ribbon around the chime's clapper. CLANG becomes tok. From the east, a small voice says, “Oh. There you are.”
+
+> east
+You are in Cloud Hollow, a round dip in the hillside carpeted with soft moss. It is cool and damp here, like the inside of a watering can. Nimbus the cloud hangs just above your knees, so full of rain that it trembles. The only way out is back west through the whisper arch.
+
+> talk to nimbus
+“The forecast tells me where to go, but never when to listen. Could you listen to me? Then we can talk about yesterday, a pause, and a promise.”
+
+> listen to nimbus
+You let Nimbus finish. “I didn't stop yesterday. They told me not to stop. Then everyone was unhappy. If I stay here, I can't do it wrong again.” The cloud waits. You do not fill the quiet with instructions.
+
+> ask nimbus about yesterday
+“I was good at following the forecast,” Nimbus says. “I wasn't good at listening.” The old report may help you understand.
+
+> ask nimbus about pause
+“If anyone says pause, I stop,” Nimbus says. “Including me. We listen, then decide together whether to continue. Could that be part of the promise?”
+
+> ask nimbus about promise
+Nimbus needs to see that you understand yesterday. Read the old report, then show it to the cloud.
+
+> west
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. With its clapper wrapped in the soft ribbon, it makes only a soft wooden chuckle, and you can hear the breeze again. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> south
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> south
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> south
+You are in the Folded Yesterday Archive, a cool cellar where the Bureau keeps its old weather. It smells of old string and damp stone, and somewhere in the dark a drip keeps time. In the middle of the floor sits a brass weatherbox, its corners cold and beaded with damp. Steps lead back up north to the dispatch post.
+
+> look
+You are in the Folded Yesterday Archive, a cool cellar where the Bureau keeps its old weather. It smells of old string and damp stone, and somewhere in the dark a drip keeps time. In the middle of the floor sits a brass weatherbox, its corners cold and beaded with damp. Steps lead back up north to the dispatch post.
+
+> examine report
+You can't see any report here!
+
+> take report
+You can't see any report here!
+
+> north
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> north
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> north
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. With its clapper wrapped in the soft ribbon, it makes only a soft wooden chuckle, and you can hear the breeze again. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> east
+You are in Cloud Hollow, a round dip in the hillside carpeted with soft moss. It is cool and damp here, like the inside of a watering can. Nimbus the cloud hangs just above your knees, so full of rain that it trembles. The only way out is back west through the whisper arch.
+
+> show report to nimbus
+You don't have that!
+
+> ask nimbus about promise
+Nimbus needs to see that you understand yesterday. Read the old report, then show it to the cloud.
+
+> west
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. With its clapper wrapped in the soft ribbon, it makes only a soft wooden chuckle, and you can hear the breeze again. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> south
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> south
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> south
+You are in the Folded Yesterday Archive, a cool cellar where the Bureau keeps its old weather. It smells of old string and damp stone, and somewhere in the dark a drip keeps time. In the middle of the floor sits a brass weatherbox, its corners cold and beaded with damp. Steps lead back up north to the dispatch post.
+
+> examine weatherbox
+A little brass lip fits over the rim like the brim of a hat. Water runs off before it can reach the papers.
+
+> open weatherbox
+Opening the weatherbox reveals a folded report.
+
+> take report
+Taken.
+
+> read report
+The fold resists. Warm steam would relax it; dry pulling would tear the old paper.
+
+> north
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> north
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> north
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. With its clapper wrapped in the soft ribbon, it makes only a soft wooden chuckle, and you can hear the breeze again. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> east
+You are in Cloud Hollow, a round dip in the hillside carpeted with soft moss. It is cool and damp here, like the inside of a watering can. Nimbus the cloud hangs just above your knees, so full of rain that it trembles. The only way out is back west through the whisper arch.
+
+> show report to nimbus
+Read the report first. Nimbus needs you to understand it, not merely hold it up.
+
+> ask nimbus about promise
+Nimbus needs to see that you understand yesterday. Read the old report, then show it to the cloud.
+
+> west
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. With its clapper wrapped in the soft ribbon, it makes only a soft wooden chuckle, and you can hear the breeze again. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> south
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> south
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> west
+You are in the Steam Kitchen, where the Bureau's biscuits are baked. The air is warm and damp, and a fine dust of flour lies over everything. A steaming kettle puffs away on the stove, and Baker Pip hums beside it very badly, with excellent rhythm. The laundry is west, and the dispatch post is back to the east.
+
+> put report on kettle
+There's no good surface on the steaming kettle.
+
+> read report
+The fold resists. Warm steam would relax it; dry pulling would tear the old paper.
+
+> east
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> north
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> north
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. With its clapper wrapped in the soft ribbon, it makes only a soft wooden chuckle, and you can hear the breeze again. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> east
+You are in Cloud Hollow, a round dip in the hillside carpeted with soft moss. It is cool and damp here, like the inside of a watering can. Nimbus the cloud hangs just above your knees, so full of rain that it trembles. The only way out is back west through the whisper arch.
+
+> show report to nimbus
+Read the report first. Nimbus needs you to understand it, not merely hold it up.
+
+> ask nimbus about promise
+Nimbus needs to see that you understand yesterday. Read the old report, then show it to the cloud.
+
+> west
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. With its clapper wrapped in the soft ribbon, it makes only a soft wooden chuckle, and you can hear the breeze again. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> south
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> south
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> west
+You are in the Steam Kitchen, where the Bureau's biscuits are baked. The air is warm and damp, and a fine dust of flour lies over everything. A steaming kettle puffs away on the stove, and Baker Pip hums beside it very badly, with excellent rhythm. The laundry is west, and the dispatch post is back to the east.
+
+> steam report
+What do you want to steam the report over?
+
+> read report
+The fold resists. Warm steam would relax it; dry pulling would tear the old paper.
+
+> steam report over kettle
+You hold the report in the kettle's gentle steam, safely above the hot metal. The fold uncurls like a waking leaf. Now you can read it.
+
+> read report
+The report says: “Yesterday: continuous rain, as ordered. Ludo asked Nimbus to stop. Nimbus said stopping would mean failing the Bureau. The parade went home. Ludo left this to say he wasn't cross with the cloud.”
+A pressed flower slips free inside the opened report. Someone has flattened each blue petal with care.
+
+> east
+You are in the Dispatch Post, a round office barely wider than a garden shed. The letter pigeonholes go right up to the ceiling, and rain beads on the brass dispatch bell on the counter. Postmaster Mica stands beside the bell with an unfinished forecast, tapping one foot. The warm terrace is north, and the kitchen, smelling of baking, is west. The archive is down to the south, and the forecast balcony is east.
+
+> north
+You are on the Warm Tile Terrace, a flat stretch of red roof behind the post. Warm from the morning, the tiles tick and click underfoot. High overhead, the vane is stuck fast, though the air is moving. The dispatch post is back to the south, and the rain garden lies east. The whisper arch is north, and a short ladder climbs up to the vane perch.
+
+> north
+You are beneath the Whisper Arch, a curved stone gateway draped in ivy. A wind chime of hard metal tubes hangs from its keystone. With its clapper wrapped in the soft ribbon, it makes only a soft wooden chuckle, and you can hear the breeze again. Through the arch to the east lies Cloud Hollow, and the path runs back south to the terrace.
+
+> east
+You are in Cloud Hollow, a round dip in the hillside carpeted with soft moss. It is cool and damp here, like the inside of a watering can. Nimbus the cloud hangs just above your knees, so full of rain that it trembles. The only way out is back west through the whisper arch.
+
+> show report to nimbus
+Nimbus reads the report. “Ludo wasn't cross with me?” The rain inside loosens. You say the Bureau should have listened when Ludo asked. For the first time, Nimbus stops apologizing. “Then we need a different promise. One with a pause.”
+
+> ask nimbus about promise
+Where will the rain go? Free and turn the vane above the terrace to measure a safe route.
