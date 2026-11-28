@@ -9,5 +9,6 @@
 <LANGUAGE RUSSIAN>
 <DIRECTIONS NORTH EAST WEST SOUTH NE NW SE SW UP DOWN IN OUT LAND>
 <INSERT-FILE "rulesets.superhero.ru">
-<INSERT-FILE "books.shared.last-door-of-battleworld.world">
+<INSERT-FILE "books.shared.last-door-of-battleworld.logic">
 <INSERT-FILE "books.ru.last-door-of-battleworld.ru">
+<INSERT-FILE "books.shared.last-door-of-battleworld.rules">
