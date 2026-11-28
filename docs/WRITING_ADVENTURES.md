@@ -215,7 +215,7 @@ A grid of which objects deliberately respond to which non-default verbs. Blank c
 | FRESNEL-LENS | ✓ | — | ✓ | — |
 | FIREPLACE | ✓ | — | — | ✓ |
 
-The grid must use the substrate's action names, not just the surface words. For example, Zork I parses `PULL` as the `MOVE` action, so a pullable object's row records `PULL → MOVE`. A `V-*` routine alone does not register vocabulary: every desired typed verb absent from `infocom/zork1/syntax.zil` also needs a narrow game-specific `SYNTAX` declaration and a literal parser test.
+The grid must use the substrate's action names, not just the surface words. For example, Zork I parses `PULL` as the `MOVE` action, so a pullable object's row records `PULL → MOVE`. A `V-*` routine alone does not register vocabulary: every desired typed verb absent from `languages/en/syntax.zil` (world verbs) and the ruleset's syntax (`rulesets/classic/en-syntax.zil`) also needs a narrow game-specific `SYNTAX` declaration and a literal parser test.
 
 For conversation, `ASK` is a parser synonym for the `TELL` action. NPC routines test `<VERB? TELL>`, keep the actor in `PRSO`, and read the topic from `PRSI`. Default verb routines must end in a response; they must never call `PERFORM` with their own action, because `PERFORM` has already tried the object handlers and will recurse back to the same default.
 
@@ -249,10 +249,10 @@ The working materials are the design; the **walkthrough test** (`walkthrough.zil
 
 ## Game Structure
 
-An English adventure lives in `books/en/<name>/`. For German editions see [Localizing Adventure Arena books](../docs/LOCALIZING_BOOKS.md). The folder contains all related files — source, test, cover, copy, and metadata — so everything ships together:
+An adventure lives in its own folder under `books/<name>/` (replace `<name>` with the actual adventure name). The folder contains all related files — source, test, cover, copy, and metadata — so everything ships together:
 
 ```
-books/en/<name>/
+books/<name>/
   dungeon.zil        # rooms, objects, global flags
   actions.zil        # routines (action handlers, clock daemons, GO entry point)
   walkthrough.zil    # walkthrough test (required — see Testing section)
@@ -271,15 +271,10 @@ This mirrors the Zork I source split: `dungeon.zil` holds static world data (roo
 The walkthrough (`walkthrough.zil`) also serves as the entry point that wires the engine to your game. It assembles everything via `INSERT-FILE`:
 
 ```zil
-; books/en/<name>/test/test-walkthrough.zil
-<INSERT-FILE "infocom/zork1/globals">
-<INSERT-FILE "infocom/zork1/clock">
-<INSERT-FILE "books/en/<name>/dungeon">
-<INSERT-FILE "books/en/<name>/actions">
-<INSERT-FILE "infocom/zork1/parser">
-<INSERT-FILE "infocom/zork1/verbs">
-<INSERT-FILE "infocom/zork1/syntax">
-<INSERT-FILE "infocom/zork1/main">
+; books/<name>/test/test-walkthrough.zil
+; The book's entry file imports its ruleset (rulesets.classic.en or
+; rulesets.superhero.en), which composes over languages/en/base.zil.
+<INSERT-FILE "books/<name>/<name>">
 
 <GLOBAL CO <CO-CREATE GO>>
 
@@ -1821,7 +1816,7 @@ Here's a minimal but complete adventure demonstrating all major features:
 
 ## Testing Your Adventure
 
-Every adventure must ship with a walkthrough test. It lives at `books/en/<name>/test/test-walkthrough.zil` — in the same folder as all other adventure files.
+Every adventure must ship with a walkthrough test. It lives at `books/<name>/walkthrough.zil` — in the same folder as all other adventure files.
 
 ### Why Walkthrough Tests
 
@@ -1855,15 +1850,10 @@ A walkthrough test is itself a ZIL file. It includes the standard engine files a
 ### Walkthrough Test Structure
 
 ```zil
-; books/en/<name>/test/test-walkthrough.zil
-<INSERT-FILE "infocom/zork1/globals">
-<INSERT-FILE "infocom/zork1/clock">
-<INSERT-FILE "books/en/<name>/dungeon">
-<INSERT-FILE "books/en/<name>/actions">
-<INSERT-FILE "infocom/zork1/parser">
-<INSERT-FILE "infocom/zork1/verbs">
-<INSERT-FILE "infocom/zork1/syntax">
-<INSERT-FILE "infocom/zork1/main">
+; books/<name>/test/test-walkthrough.zil
+; The book's entry file imports its ruleset (rulesets.classic.en or
+; rulesets.superhero.en), which composes over languages/en/base.zil.
+<INSERT-FILE "books/<name>/<name>">
 
 <GLOBAL CO <CO-CREATE GO>>
 
@@ -1887,7 +1877,7 @@ A walkthrough test is itself a ZIL file. It includes the standard engine files a
 
 ```bash
 # Run your walkthrough test
-lua5.4 run-zil-test.lua books/en/<name>/test/test-walkthrough
+lua5.4 run-zil-test.lua books.<name>.walkthrough
 
 # Run all ZIL tests
 lua5.4 run-zil-test.lua tests.run_all
@@ -1908,8 +1898,8 @@ You do not need a Cartesian test of every verb on every object. You do need lite
 ### Checklist Item
 
 Add to your per-adventure checklist:
-- [ ] Walkthrough test exists at `books/en/<name>/test/test-walkthrough.zil`
-- [ ] Test runs green: `lua5.4 run-zil-test.lua books/en/<name>/test/test-walkthrough`
+- [ ] Walkthrough test exists at `books/<name>/walkthrough.zil`
+- [ ] Test runs green: `lua5.4 run-zil-test.lua books.<name>.walkthrough`
 - [ ] Test covers the complete critical path from start to victory
 
 ---
@@ -2059,8 +2049,8 @@ Use this checklist before submitting your adventure:
 - [ ] All strings end with `CR` when they should produce a newline
 
 ### Testing
-- [ ] `books/en/<name>/test/test-walkthrough.zil` exists and assembles dungeon + actions via INSERT-FILE
-- [ ] Test runs green: `lua5.4 run-zil-test.lua books/en/<name>/test/test-walkthrough`
+- [ ] `books/<name>/walkthrough.zil` exists and assembles dungeon + actions via INSERT-FILE
+- [ ] Test runs green: `lua5.4 run-zil-test.lua books.<name>.walkthrough`
 - [ ] Test covers the complete critical path from start to victory
 
 ### Copy & Assets

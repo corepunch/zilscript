@@ -93,7 +93,7 @@ function M.create_env_require(env)
 			end
 			
 			local basename = 'zil_'..(filepath:match("^.+[/\\](.+)$") or filepath):gsub(".zil", ".lua")
-			local result = compiler.compile(ast, basename)
+			local result = compiler.compile(ast, basename, { session = env.ZIL_COMPILE_SESSION })
 			code = result.combined
 		else
 			-- Load Lua file
@@ -226,7 +226,7 @@ function M.load_zil_files(files, env, options)
 		end
 		
 		local basename = 'zil_'..(f:match("^.+[/\\](.+)$") or f):gsub(".zil", ".lua")
-		local result = compiler.compile(ast, basename)
+		local result = compiler.compile(ast, basename, { session = env.ZIL_COMPILE_SESSION })
 		
 		-- Optionally save the compiled Lua file
 		if options.save_lua then

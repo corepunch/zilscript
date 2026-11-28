@@ -8,8 +8,8 @@ local Language = require("zilscript.reader.Language")
 local Walk = {}
 Walk.__index = Walk
 
-function Walk.new(module, seed)
-	local language = module:match("^books%.([^.]+)%.")
+-- `language` is the story language code of its game.json ("de"); English by default.
+function Walk.new(module, seed, language)
 	local env = runtime.create_game_env()
 	assert(runtime.init(env, true))
 	env.require("zilscript")
@@ -31,12 +31,17 @@ function Walk.new(module, seed)
 		return finish(...)
 	end
 	self.game = runtime.create_game(env, true)
-	self.session = Session.new { language = language }
-	self.controls = Language.controls(language)
+	self.session = Session.new()
+	self.session.language = language and Language.of(language) or Language.ofBook(module)
 	self.items = {}
 	self.session.engine = {
 		roomName = function() return self:room() end,
 		items = function() return self.items end,
+		exits = function()
+			local names = {}
+			for _, exit in ipairs(self.game:resume("room-exits")) do table.insert(names, tostring(exit[1]):lower()) end
+			return names
+		end,
 	}
 	self:record(self.game:start())
 	return self
@@ -73,7 +78,8 @@ function Walk:menu()
 		table.insert(actions, { label = label, command = command, target = target or "" })
 	end
 	if not self:running() then return actions end
-	for _, control in ipairs(self.controls) do add(control, control) end
+	local lang = self.session.language
+	for _, control in ipairs({ lang.look, lang.inventory, lang.wait }) do add(control, control) end
 	local active = false
 	for _, entry in ipairs(self.session.entries) do
 		if entry == self.session.scene then active = true end

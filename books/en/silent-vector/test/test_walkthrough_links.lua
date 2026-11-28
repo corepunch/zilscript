@@ -59,8 +59,8 @@ local function prepare()
 	step(walk, "west")
 
 	-- Clinic and laboratory.
-	step(walk, "north", "examination area")
-	step(walk, "examine examination area", "ceramic shears")
+	step(walk, "north", "exam bed")
+	step(walk, "examine exam bed", "ceramic shears")
 	step(walk, "take ceramic shears", "Taken")
 	step(walk, "north", "comparator")
 	step(walk, "examine optical comparator", "Comparing a witness strip", "COMPARE STRIP")

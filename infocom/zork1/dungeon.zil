@@ -65,7 +65,8 @@
 	(SYNONYM TREE BRANCH)
 	(ADJECTIVE LARGE STORM ;"-TOSSED")
 	(DESC "tree")
-	(FLAGS NDESCBIT CLIMBBIT)>
+	(FLAGS NDESCBIT CLIMBBIT)
+	(ACTION TREE-F)>
 
 <OBJECT MOUNTAIN-RANGE
 	(IN MOUNTAINS)
@@ -2315,7 +2316,8 @@ a passage is partially buried in sand to the northeast.")
 "This is a sand-filled cave whose exit is to the southwest.")
       (DESC "Sandy Cave")
       (SW TO SANDY-BEACH)
-      (FLAGS RLANDBIT)>
+      (FLAGS RLANDBIT)
+      (ACTION SANDY-CAVE-F)>
 
 <ROOM ARAGAIN-FALLS	;"was FALLS"
       (IN ROOMS)

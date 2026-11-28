@@ -1,22 +1,16 @@
 -- Command completion and vocabulary from the running story.
-local Text = require((...):match("^(.*)%.reader%.Suggestions$") .. ".text")
+local namespace = (...):match("^(.*)%.Suggestions$")
+local Language = require(namespace .. ".Language")
+
 local Suggestions = {}
 
 local LIMIT = 3
 
--- Ordered by how often players type them, so "l" offers "look" first.
-local VERBS = {
-	"look", "examine", "open", "take", "inventory", "read", "go", "drop",
-	"close", "enter", "turn on", "turn off", "push", "pull", "move", "put",
-	"give", "unlock", "lock", "climb", "light", "search", "listen", "smell",
-	"wait", "attack", "eat", "drink", "wear", "remove", "throw", "tie",
-	"knock", "jump", "exit", "turn", "ask", "tell", "say", "touch",
+local DIRECTIONS = {
+	"north", "south", "east", "west", "northeast", "northwest",
+	"southeast", "southwest", "up", "down", "in", "out",
 }
-local VERB_RANK = {}
-for index, verb in ipairs(VERBS) do VERB_RANK[verb] = index end
 
--- Verbs whose object needs a second one make poor one-tap commands.
-local NEEDS_SECOND = { put = true, give = true, tie = true, throw = true, show = true, unlock = true, lock = true }
 
 local function startsWith(text, prefix)
 	return prefix == "" or text:sub(1, #prefix) == prefix
@@ -30,7 +24,7 @@ end
 -- "small mailbox" is typed as "mailbox": ZIL parsers match the final noun.
 function Suggestions.noun(name)
 	local words = {}
-	for word in Text.lower(tostring(name or "")):gmatch(Text.word) do table.insert(words, word) end
+	for word in tostring(name or ""):lower():gmatch("[%w'\128-\255]+") do table.insert(words, word) end
 	return words[#words]
 end
 
@@ -68,12 +62,24 @@ end
 -- The verbs the story accepts for an item that make whole commands on
 -- their own, best known first; verbs outside the common set keep the
 -- story's order after them.
-function Suggestions.oneTapVerbs(item)
+-- A syntax that needs its object in hand (HAVE) fails with "You don't have
+-- the reed wick." until the reader holds it, unless TAKE lets the parser
+-- pick it up first. A reversed gift names the actor first; its HAVE object
+-- is the partner, which the caller checks.
+function Suggestions.inHand(item, pattern)
+	return not pattern.have or pattern.reverse or item.carried
+		or (pattern.take and item.traits ~= nil and item.traits.pickable) or false
+end
+
+-- `language` is a Language table (English when omitted).
+function Suggestions.oneTapVerbs(item, language)
+	language = Language.of(language)
+	local VERB_RANK, VERBS = language.rank, language.verbs
 	local verbs = {}
 	if item.patterns then
 		local seen = {}
 		for _, pattern in ipairs(item.patterns) do
-			if pattern.join == nil then
+			if pattern.join == nil and Suggestions.inHand(item, pattern) then
 				local verb = pattern.verb .. (pattern.prefix ~= "" and " " .. pattern.prefix or "")
 				if not seen[verb] then
 					seen[verb] = true
@@ -87,7 +93,7 @@ function Suggestions.oneTapVerbs(item)
 		return names
 	end
 	for index, verb in ipairs(item.verbs or {}) do
-		if not NEEDS_SECOND[verb] then
+		if not language.needsSecond[verb] then
 			table.insert(verbs, { verb = verb, rank = VERB_RANK[verb] or (#VERBS + index) })
 		end
 	end
@@ -114,11 +120,13 @@ end
 
 -- Walk the grammatical slots of a single available command against the
 -- draft. A slot may be an entire noun phrase, such as "brass key".
-function Suggestions.forInput(input, items, visit)
-	local draft = Text.lower(input):gsub("^%s+", ""):gsub("%s+", " ")
+function Suggestions.forInput(input, items, visit, language)
+	language = Language.of(language)
+	local VERB_RANK = language.rank
+	local draft = input:lower():gsub("^%s+", ""):gsub("%s+", " ")
 	local choices, seen, counts = {}, {}, nounCounts(items)
 	local function offer(verb, first, join, second)
-		if verb == "take" and first and first.traits and first.traits.takeable == false then return end
+		if verb == language.take and first and first.traits and first.traits.takeable == false then return end
 		local rest = draft
 		local function match(slot)
 			local name, short
@@ -160,5 +168,7 @@ function Suggestions.forInput(input, items, visit)
 	end
 	return result
 end
+
+Suggestions.DIRECTIONS = DIRECTIONS
 
 return Suggestions

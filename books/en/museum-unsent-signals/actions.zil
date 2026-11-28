@@ -1,4 +1,6 @@
 <SYNTAX TILT OBJECT = V-TILT-LENS>
+<SYNONYM TILT ADJUST ANGLE>
+<SYNTAX TURN OBJECT = V-SPIN>
 
 <GLOBAL LENS-READ <>>
 <GLOBAL SIGNAL-HEARD <>>
@@ -25,7 +27,10 @@
   <TELL "Your knock echoes into the empty museum. Nothing answers, except the relay's hum, which seems to hold its breath for a moment." CR>)>>
 
 <ROUTINE GLASS-CASES-F ()
- <COND (<VERB? EXAMINE LOOK-INSIDE SEARCH>
+ <COND (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,GLASS-CASES>>
+  <TELL "The cases are locked, and the empty one is waiting for a decision, not a spool. Whatever happens to the " D ,PRSO " tonight happens in the signal booth." CR>)
+       (<EQUAL? ,PRSI ,GLASS-CASES> <RFALSE>)
+       (<VERB? EXAMINE LOOK-INSIDE SEARCH>
   <TELL "Each case holds one unsent message with a small card. A wax cylinder: an apology, recorded twice. A phone tape: a proposal, never played. Near the floor, a dozen recordings that begin “Never mind.” One case stands empty, and its card says only BLANK: that's where the wooden spool came from." CR>)
        (<VERB? OPEN>
   <TELL "The cases are locked, and the keys went home with the caretaker. Only the spool marked for review is out." CR>)
@@ -46,7 +51,9 @@
   <TELL "The hum rises and falls very slightly, like slow breathing. After forty years it is the most familiar sound in the building." CR>)>>
 
 <ROUTINE LOBBY-F ()
- <COND (<VERB? EXAMINE>
+ <COND (<VERB? OPEN UNLOCK>
+  <TELL "The front door stays locked. The caretaker left you the keys to see the museum through its last night, not to leave before the relay is switched off." CR>)
+       (<VERB? EXAMINE>
   <TELL "An old-fashioned lobby with a tiled floor and the lights turned down low. The ticket counter and the plaque face the front door, which is locked for the night. Doorways lead east and west, and a short corridor runs north to the signal booth." CR>)
        (<VERB? LISTEN>
   <TELL "Nothing but the hum of the relay and your own footsteps on the tiles." CR>)>>
@@ -77,7 +84,9 @@
  <COND (<VERB? EXAMINE LOOK-INSIDE>
   <COND (,LENS-READ <TELL "Still tilted toward the light, the lens shows the scratched instruction clearly: three cuts on the wooden edge of a spool mean RETURN ONLY. No public forwarding." CR>)
         (T <TELL "Looking straight through, you see the catalogue card of the empty case swim up large and clear. The spool's line says only BLANK. The rim of the lens isn't fixed, though: it hangs loose in its brass collar, and you could tilt it toward the light." CR>)>)
-       (<VERB? TILT-LENS MOVE PUSH>
+       (<AND <VERB? TILT-LENS MOVE PUSH PULL SPIN> ,LENS-READ>
+  <TELL "The lens is already tilted toward the light, and the scratched instruction still shines: three cuts on the wooden edge mean RETURN ONLY." CR>)
+       (<VERB? TILT-LENS MOVE PUSH PULL SPIN>
         <SETG LENS-READ T>
         <TELL "You tilt the lens toward the ceiling light. Fine scratches on the glass, invisible a moment ago, catch the light and shine: an old instruction from the relay staff. Three cuts on the wooden edge mean RETURN ONLY. No public forwarding. Someone has underlined the word edge." CR>)
        (<VERB? RUB>
@@ -111,6 +120,8 @@
   <TELL "The wood is smooth and faintly warm, as if someone got up from it only a moment ago." CR>)
        (<VERB? LISTEN>
   <TELL "You stand still beside the bench and listen. The hall is so quiet you can hear your own heartbeat, and under it, very faintly, the relay humming in the booth." CR>)
+       (<VERB? CLIMB-ON CLIMB-FOO>
+  <TELL "You sit in one of the two hollows. The other stays empty beside you, and the hush settles over both. After a while you get up again; the spool is still waiting to be checked." CR>)
        (<VERB? LOOK-UNDER>
   <TELL "Under the bench, the carpet is hardly worn at all. Everyone who sat here kept their feet very still." CR>)
        (<VERB? TAKE MOVE PUSH>
@@ -143,15 +154,24 @@
         <COND (<NOT <IN? ,MESSAGE-SPOOL ,READING-BASIN>>
                <TELL "The speaker clicks once and goes quiet. Load the wooden spool into the [[basin]] first." CR>)
               (<NOT ,LENS-READ>
-               <TELL "A woman's voice says, “I made it.” Then comes a long silence, and the spool runs out. A small counter on the desk blinks and asks for the kind of address: public or private? You can't tell yet. The relay staff must have marked their spools somehow; the inspection lens in Dead Letters might show more if you tilt it toward the light." CR>)
+               <TELL "A woman's voice says, “I made it.” Then comes a long silence, and the spool runs out. The small [[address indicator->indicator]] on the desk blinks and asks for the kind of address: public or private? You can't tell yet. The relay staff must have marked their spools somehow; the inspection lens in Dead Letters might show more if you tilt it toward the light." CR>)
               (,SIGNAL-HEARD
                <TELL "The woman says, “I made it.” This time you know how much of the message is the minute after she stops." CR>)
               (T <SETG SIGNAL-HEARD T>
-                 <TELL "A woman's voice says, “I made it.” Then, for a whole minute, you hear nothing but her breathing, slow and steady, as if she is waiting for someone to answer. The counter matches the three cuts on the spool to the private return register: this was never a public announcement. She was talking to one person, whoever used to wait up for her. Below the basin, both sending keys light up." CR>)>)
+                 <TELL "A woman's voice says, “I made it.” Then, for a whole minute, you hear nothing but her breathing, slow and steady, as if she is waiting for someone to answer. The address indicator matches the three cuts on the spool to the private return register: this was never a public announcement. She was talking to one person, whoever used to wait up for her. Below the basin, both sending keys light up." CR>)>)
        (<VERB? RUB>
   <TELL "The brass button is worn into a shallow dip by years of thumbs." CR>)
        (<VERB? TAKE>
   <TELL "It's part of the desk. It's for pressing." CR>)>>
+
+<ROUTINE ADDRESS-INDICATOR-F ()
+ <COND (<VERB? EXAMINE READ>
+  <COND (,SIGNAL-HEARD
+         <TELL "The little display reads PRIVATE RETURN REGISTER. It matched the three cuts on the spool to one address, and the sending keys are waiting." CR>)
+        (T
+         <TELL "A small address indicator set into the desk beside the keys. Its display asks PUBLIC OR PRIVATE? and blinks, waiting for a spool to be played and its address marks understood." CR>)>)
+       (<VERB? RUB PUSH>
+  <TELL "Its glass is warm. It only shows what the booth has worked out; it takes no answer from your finger." CR>)>>
 
 <ROUTINE ROUTING-READY ()
  <COND (,SIGNAL-HEARD <RTRUE>)

@@ -230,7 +230,17 @@
 	       (<VERB? THROW>
 		<TELL
 "Das Wasser spritzt auf die W%ande und verdampft sofort." CR>
-		<REMOVE-CAREFULLY ,WATER>)>>
+		<REMOVE-CAREFULLY ,WATER>)
+	       (<VERB? POUR-ON>
+		<REMOVE-CAREFULLY ,PRSO>
+		<COND (<FLAMING? ,PRSI>
+		       <TELL DER-NOM-CAP ,PRSI " ist schon aus." CR>
+		       <FCLEAR ,PRSI ,ONBIT>
+		       <FCLEAR ,PRSI ,FLAMEBIT>)
+		      (T
+		       <TELL
+ "Das Wasser flie%st %uber " DER-ACC ,PRSI " auf den Fu%sboden und verdampft." CR>)>
+		<RTRUE>)>>
 
 <GLOBAL KITCHEN-WINDOW-FLAG <>>
 
@@ -936,7 +946,11 @@ l%oschen." CR>)>>
 "Du bist in einem viereckigen Zimmer mit hohen Decken. An der S%udwand ist ein riesiger Spiegel, der die ganze Wand einnimmt. Es gibt Ausg%ange an den anderen drei Seiten des Zimmers." CR>
 		<COND (,MIRROR-MUNG
 		       <TELL
-"Leider ging der Spiegel durch deine Bl%odheit kaputt." CR>)>)>>
+"Leider ging der Spiegel durch deine Bl%odheit kaputt." CR>)>)
+	       (<AND <EQUAL? .RARG ,M-BEG>
+		     <VERB? EXAMINE>
+		     <EQUAL? ,PRSO ,ME>>
+		<TELL "Dein Spiegelbild sieht m%ude aus." CR>)>>
 
 <GLOBAL MIRROR-MUNG <>>
 <GLOBAL LUCKY T>
@@ -1328,7 +1342,11 @@ Das Tor ist ge%offnet. Gro%se Trostlosigkeit und ein Haufen von zerquetschten K%
 			 <EQUAL? ,PRSI ,PUTTY>>
 		    <AND <VERB? PUT>
 			 <EQUAL? ,PRSO ,PUTTY>>>
-		<TELL "Das Allzweckschmierzeug dient nicht als Schmier%ol." CR>)>>
+		<TELL "Das Allzweckschmierzeug dient nicht als Schmier%ol." CR>)
+	       (<AND <VERB? POUR-ON>
+		     <EQUAL? ,PRSO ,PUTTY>>
+		<PERFORM ,V?PUT ,PUTTY ,PRSI>
+		<RTRUE>)>>
 
 <ROUTINE TUBE-FUNCTION ()
 	 <COND (<AND <VERB? PUT>
@@ -2735,6 +2753,15 @@ best%atigt dein Ertrinken.">)
 
 "SUBTITLE TOITY POIPLE BOIDS A CHOIPIN' AN' A BOIPIN' ... "
 
+;"Only the tree beside the path can be climbed; the forest's trees lead
+  neither up nor down."
+<ROUTINE TREE-F ()
+	 <COND (<AND <VERB? CLIMB-UP CLIMB-DOWN CLIMB-FOO>
+		     <NOT <EQUAL? ,HERE ,PATH>>
+		     <NOT <GETPT ,HERE <COND (<VERB? CLIMB-DOWN> ,P?RUNTER)
+					     (T ,P?RAUF)>>>>
+		<TELL "There are no climbable trees here." CR>)>>
+
 <ROUTINE TREE-ROOM (RARG "AUX" F)
 	 <COND (<EQUAL? .RARG ,M-LOOK>
 		<TELL
@@ -2750,6 +2777,11 @@ best%atigt dein Ertrinken.">)
 		      (<AND <VERB? CLIMB-UP CLIMB-FOO>
 			    <EQUAL? ,PRSO ,TREE>>
 		       <DO-WALK ,P?RAUF>)
+		      (<AND <VERB? LEAP> <NOT ,PRSO>>
+		       <TELL
+"In einem Anflug von ungew%ohnlicher Waghalsigkeit, hast du es geschafft, auf beiden F%u%sen zu landen, ohne dich umzubringen." CR CR>
+		       <DO-WALK ,P?RUNTER>
+		       <RTRUE>)
 		      (<VERB? DROP>
 		       <COND (<NOT <IDROP>> <RTRUE>)
 			     (<AND <EQUAL? ,PRSO ,NEST> <IN? ,EGG ,NEST>>
@@ -2870,7 +2902,10 @@ DER-NOM-CAP ,PRSO " rollt in den Flu%s und gluck-gluck weg ist es." CR>
 "SUBTITLE CHUTES AND LADDERS"
 
 <ROUTINE ROPE-FUNCTION ("AUX" RLOC)
-	 <COND (<NOT <EQUAL? ,HERE ,DOME-ROOM>>
+	 <COND (<VERB? OPEN>
+		<PERFORM ,V?UNTIE ,ROPE>
+		<RTRUE>)
+	       (<NOT <EQUAL? ,HERE ,DOME-ROOM>>
 		<SETG DOME-FLAG <>>
 		<COND (<VERB? TIE>
 		       <TELL "Daran kannst du das Seil nicht binden." CR>)>)
@@ -4160,7 +4195,8 @@ Nur eine au%sergew%ohnliche Person kann get%otet werden, nachdem sie schon tot i
 			;<SETG GWIM-DISABLE T>
 			<SETG ALWAYS-LIT T>
 			<PUTP ,WINNER ,P?ACTION ,DEAD-FUNCTION>
-			<GOTO ,ENTRANCE-TO-HADES>)
+			<GOTO ,ENTRANCE-TO-HADES
+			      <NOT <EQUAL? ,HERE ,ENTRANCE-TO-HADES>>>)
 		       (T
 			<TELL
 "Na, la%s uns noch mal sehen...|
@@ -4258,3 +4294,112 @@ Wir k%onnen es f%ur dich nicht alles in Ordnung bringen, aber man kann ja nicht 
 	 <COND (<AND <EQUAL? .RARG ,M-ENTER>
 		     <IN? ,TROLL ,HERE>>
 		<THIS-IS-IT ,TROLL>)>>
+
+"SUBTITLE ZORK I'S OWN WORLD RULES"
+
+;"Zork I replaces these world routines of languages/de with its own: the
+  rules here name its rooms and objects, which the shared world never does."
+
+;"Reaching 350 points reveals the map to the barrow."
+<ROUTINE SCORE-UPD (NUM)
+	 <SETG BASE-SCORE <+ ,BASE-SCORE .NUM>>
+	 <SETG SCORE <+ ,SCORE .NUM>>
+	 ;<TELL "[Your score g%os up.]" CR>
+	 <COND (<AND <EQUAL? ,SCORE 350>
+		     <NOT ,WON-FLAG>>
+		<SETG WON-FLAG T>
+		<FCLEAR ,MAP ,INVISIBLE>
+		<FCLEAR ,WEST-OF-HOUSE ,TOUCHBIT>
+		<TELL
+"Eine fast unvernehmbare Stimme fl%ustert dir zu: %>Suche unter den Sch%atzen nach dem letzten Geheimnis.%<" CR>)>
+	 T>
+
+
+;"The trophy case lists your treasures."
+<ROUTINE FIRSTER (OBJ LEVEL)
+	 <COND (<EQUAL? .OBJ ,TROPHY-CASE>
+		         <TELL
+"Deine Schatzsammlung besteht aus:" CR>)
+	       (<EQUAL? .OBJ ,WINNER>
+		<TELL "Du tr%agst:" CR>)
+	       (<NOT <IN? .OBJ ,ROOMS>>
+		<COND (<G? .LEVEL 0>
+		       <TELL <GET ,INDENTS .LEVEL>>)>
+		<COND (<FSET? .OBJ ,SURFACEBIT>
+		       <TELL "Auf " DER-DAT .OBJ>
+		       <COND (<G? <CCOUNT .OBJ> 1>
+			      <TELL " ist: " CR>)
+			     (T
+			      <TELL " sind: " CR>)>)
+		      (<FSET? .OBJ ,ACTORBIT>
+		       <TELL DER-NOM-CAP .OBJ 
+" scheint das Folgende zu halten:" CR>)
+		      (T
+		       <TELL DER-NOM-CAP .OBJ " scheint das Folgende zu enthalten:" CR>)>)>>
+
+
+;"Wherever the river and the reservoir are, swimming is forbidden."
+<ROUTINE V-SWIM ()
+	 <COND (<GLOBAL-IN? ,GLOBAL-WATER ,HERE>
+		         <TELL 
+"Schwimmen im Kerker ist gew%ohnlich verboten.">
+		         ;<COND (<AND ,PRSO
+				     <NOT <EQUAL? ,PRSO ,WATER ,GLOBAL-WATER>>>
+	                        <TELL DER-DAT ,PRSO ".">)
+		               (T
+		                <TELL "dungeon.">)>
+		         <CRLF>)
+	       
+	       (T
+		<TELL "Geh baden." CR>)>>
+
+
+
+;"What is shaken out up the tree falls to the path below."
+<ROUTINE SHAKE-LOOP ("AUX" X)
+	 <REPEAT ()
+		 <COND (<SET X <FIRST? ,PRSO>>
+			<FSET .X ,TOUCHBIT>
+			<MOVE .X
+			      <COND (<EQUAL? ,HERE ,UP-A-TREE>
+				              ,PATH)
+				             (<NOT <FSET? ,HERE ,RLANDBIT>>
+				              ;,PSEUD-OBJECT ,STREAM)
+				             (T
+				              ,HERE)>>)
+		       (T
+			<RETURN>)>>>
+
+
+
+;"Turning with bare hands: the bolt and the machine switch want their tools."
+<ROUTINE PRE-TURN ("AUX" X)
+	 T
+	 <COND (<AND <EQUAL? ,PRSI <> ,ROOMS>
+			      <NOT <EQUAL? ,PRSO ,BOOK>>>
+		<COND (<AND <EQUAL? ,PRSI ,ROOMS>
+			    <OR <AND <EQUAL? ,PRSO ,BOLT>
+			             <SET X <HELD? ,WRENCH>>>
+				<AND <EQUAL? ,PRSO ,MACHINE-SWITCH>
+				     <SET X <HELD? ,SCREWDRIVER>>>>>
+		       <PERFORM ,V?TURN ,PRSO .X>
+		       <RTRUE>)>
+		<TELL "Mit nackten H%anden kommst du hier nicht weiter." CR>)
+	       (<NOT <FSET? ,PRSO ;,TURNBIT ,TAKEBIT>>
+		<PERFORM ,V?MUNG ,PRSO> ;"sto%s object mit object" 
+		;<TELL "You can't turn that!" CR>)>>
+
+
+;"The ground of the sandy cave is the sand the scarab is buried in."
+<ROUTINE GROUND-FUNCTION ()
+	 <COND (<AND <VERB? PUT PUT-ON>
+		     <EQUAL? ,PRSI ,GROUND>>
+		<PERFORM ,V?DROP ,PRSO>
+		<RTRUE>)
+	       (<EQUAL? ,HERE ,SANDY-CAVE>
+			 <SAND-FUNCTION>)
+	       (<VERB? DIG>
+		<TELL "Hier ist der Boden zu hart zum Graben." CR>)>>
+
+
+

@@ -38,14 +38,15 @@ function Buffer.new(compiler)
   end
   
   return {
+    -- Text passed without arguments is literal: source strings may hold %.
     write = function(fmt, ...)
-      local text = string.format(fmt, ...)
+      local text = select("#", ...) == 0 and fmt or string.format(fmt, ...)
       table.insert(lines, text)
       processNewlines(text)
     end,
     writeln = function(fmt, ...)
       if fmt then
-        local text = string.format(fmt, ...)
+        local text = select("#", ...) == 0 and fmt or string.format(fmt, ...)
         table.insert(lines, text)
         processNewlines(text)
       end

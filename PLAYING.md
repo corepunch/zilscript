@@ -35,7 +35,9 @@ Next invocation restores these directly, without replay. The save is required;
 there is no history fallback in link mode. Lua coroutine stacks are not
 serialized: play resumes at the ordinary input boundary, and `FINISH` is
 recorded as terminal so a completed/dead story cannot resume normal play.
-Start a fresh game after story/format changes; there are no save migrations.
+A routine's own prompt (a name to type, a yes/no question) cannot be answered
+by choosing a link, so link play answers it with a bare Return in the same
+step. Start a fresh game after story/format changes; there are no save migrations.
 `<save>.transcript` records actual commands and raw prose-link output.
 
 For each QA round, keep the player blind to source, prior reports, maps and
@@ -58,7 +60,7 @@ limits explicitly; an unfinished session does not establish a softlock.
 than one `llm.lua` call per step when exploring a book:
 
 ```bash
-lua5.4 scripts/play-links.lua wondertown /tmp/route.txt 3
+lua5.4 scripts/play-links.lua en/wondertown /tmp/route.txt 3
 ```
 
 The route file holds one command per line. Each must be offered by a link
@@ -107,6 +109,10 @@ The iron gates of Ashworth Manor loom before you...
 2. Each `--action` call restores state from the save file, replays the command, then saves the new state.
 3. A JSONL action history (`<savefile>.sav.actions`) is maintained as a fallback if the binary save is unavailable.
 4. Each invocation is a separate OS process — no Lua state persists between calls.
+5. A command that stops at a routine's own prompt (QUIT's or RESTART's yes/no, a
+   name to type) leaves the save as it was before the command, with the command
+   recorded as pending. The next `--action` replays it to recreate the prompt and
+   delivers itself as the answer.
 
 ## Agent Play Loop
 

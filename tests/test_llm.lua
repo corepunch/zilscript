@@ -45,16 +45,7 @@ local function boot_zork1_env()
 	local env = runtime.create_game_env()
 	assert(runtime.init(env, true))
 	env.require('zilscript')
-	assert(runtime.load_modules(env, {
-		'infocom.zork1.globals',
-		'infocom.zork1.clock',
-		'infocom.zork1.parser',
-		'infocom.zork1.verbs',
-		'infocom.zork1.actions',
-		'infocom.zork1.syntax',
-		'infocom.zork1.dungeon',
-		'infocom.zork1.main',
-	}, {silent = true}))
+	assert(runtime.load_modules(env, {'infocom.zork1.zork1'}, {silent = true}))
 	return env
 end
 
@@ -301,6 +292,109 @@ test.describe("LLM Mode", function(t)
 		assert.assert_true(not yes_output:match("I don't know the word"))
 
 		cleanup(savefile)
+	end)
+
+	t.it("should deliver the answer to a routine's prompt from the next process", function(assert)
+		local savefile = "/tmp/test-llm-blackout-name.sav"
+		cleanup(savefile)
+		local suffix = " --game blackout-at-meridian --save " .. shell_quote(savefile)
+
+		assert.assert_equal(run_command("lua5.4 llm.lua --new-game" .. suffix), 0)
+		local prompt_code, prompt_output = run_command(
+			"lua5.4 llm.lua --action " .. shell_quote("name sheet") .. suffix)
+		assert.assert_equal(prompt_code, 0)
+		assert.assert_match(prompt_output, "Type your hero name")
+		local name_code, name_output = run_command("lua5.4 llm.lua --action Nova" .. suffix)
+		assert.assert_equal(name_code, 0)
+		assert.assert_match(name_output, "Registered hero name: Nova")
+		assert.assert_true(not name_output:match("Type your hero name"))
+		assert.assert_true(not name_output:match("I don't know the word"))
+		-- The prompt is behind us: the next command is parsed as a command.
+		local sheet_code, sheet_output = run_command(
+			"lua5.4 llm.lua --action " .. shell_quote("examine sheet") .. suffix)
+		assert.assert_equal(sheet_code, 0)
+		assert.assert_match(sheet_output, "Hero: Nova")
+
+		cleanup(savefile)
+	end)
+
+	t.it("should recreate a routine's prompt from history without a snapshot", function(assert)
+		local savefile = "/tmp/test-llm-blackout-name-history.sav"
+		cleanup(savefile)
+		local suffix = " --game blackout-at-meridian --save " .. shell_quote(savefile)
+
+		run_command("lua5.4 llm.lua --new-game" .. suffix)
+		run_command("lua5.4 llm.lua --action " .. shell_quote("name sheet") .. suffix)
+		remove_file(savefile)
+		local name_code, name_output = run_command("lua5.4 llm.lua --action Zed" .. suffix)
+		assert.assert_equal(name_code, 0)
+		assert.assert_match(name_output, "Registered hero name: Zed")
+
+		cleanup(savefile)
+	end)
+
+	t.it("should keep playing after declining a quit confirmation", function(assert)
+		local savefile = "/tmp/test-llm-quit-declined.sav"
+		cleanup(savefile)
+		local suffix = " --save " .. shell_quote(savefile)
+
+		run_command("lua5.4 llm.lua --new-game" .. suffix)
+		local quit_code, quit_output = run_command("lua5.4 llm.lua --action quit" .. suffix)
+		assert.assert_equal(quit_code, 0)
+		assert.assert_match(quit_output, "Do you wish to leave the game")
+		local no_code, no_output = run_command("lua5.4 llm.lua --action n" .. suffix)
+		assert.assert_equal(no_code, 0)
+		assert.assert_match(no_output, "Ok%.")
+		assert.assert_true(not no_output:match("Do you wish to leave the game"))
+		local look_code, look_output = run_command("lua5.4 llm.lua --action look" .. suffix)
+		assert.assert_equal(look_code, 0)
+		assert.assert_match(look_output, "open field west of a white house")
+
+		cleanup(savefile)
+	end)
+
+	t.it("should continue a restart confirmation across processes", function(assert)
+		local savefile = "/tmp/test-llm-restart.sav"
+		cleanup(savefile)
+		local suffix = " --save " .. shell_quote(savefile)
+
+		run_command("lua5.4 llm.lua --new-game" .. suffix)
+		run_command("lua5.4 llm.lua --action north" .. suffix)
+		local restart_code, restart_output = run_command("lua5.4 llm.lua --action restart" .. suffix)
+		assert.assert_equal(restart_code, 0)
+		assert.assert_match(restart_output, "Do you wish to restart")
+		local yes_code, yes_output = run_command("lua5.4 llm.lua --action y" .. suffix)
+		assert.assert_equal(yes_code, 0)
+		assert.assert_match(yes_output, "ZORK I")
+		assert.assert_match(yes_output, "open field west of a white house")
+
+		cleanup(savefile)
+	end)
+
+	t.it("should answer a routine's prompt with Return in link play", function(assert)
+		local savefile = "/tmp/test-llm-links-prompt.sav"
+		cleanup(savefile)
+		remove_file(savefile .. ".transcript")
+		local suffix = " --game blackout-at-meridian --save " .. shell_quote(savefile)
+
+		run_command("lua5.4 llm.lua --new-game --links" .. suffix)
+		local _, listing = run_command("lua5.4 llm.lua --links" .. suffix)
+		local index, n = nil, 0
+		for command in listing:match('"actions":(.*)'):gmatch('%["[^"]*","([^"]*)"') do
+			n = n + 1
+			if command == "name character sheet" then index = n end
+		end
+		assert.assert_true(index ~= nil)
+		local name_code, name_output = run_command("lua5.4 llm.lua --choose " .. index .. suffix)
+		assert.assert_equal(name_code, 0)
+		assert.assert_match(name_output, "Type your hero name")
+		assert.assert_match(name_output, "No name entered")
+		local look_code, look_output = run_command("lua5.4 llm.lua --choose 1" .. suffix)
+		assert.assert_equal(look_code, 0)
+		assert.assert_match(look_output, "emergency dispatch office")
+
+		cleanup(savefile)
+		remove_file(savefile .. ".transcript")
 	end)
 
 	t.it("should keep the Lurking Horror dream sequence interactive", function(assert)

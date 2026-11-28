@@ -1,6 +1,33 @@
 <SYNTAX TURN OBJECT = V-SPIN>
+;"Words a child reaches for: the tile shows the wick fitted and dipped."
+<SYNTAX FIT OBJECT (HELD HAVE) IN OBJECT = V-PUT PRE-PUT>
+<SYNTAX FIT OBJECT (HELD HAVE) ON OBJECT = V-PUT PRE-PUT>
+<SYNTAX HANG OBJECT (HELD HAVE) IN OBJECT = V-PUT PRE-PUT>
+<SYNTAX HANG OBJECT (HELD HAVE) ON OBJECT = V-PUT PRE-PUT>
+<SYNTAX DIP OBJECT (HELD HAVE) IN OBJECT = V-PUT PRE-PUT>
+<SYNTAX DIP OBJECT = V-SOAK>
+<SYNONYM DIP SOAK DUNK>
+<SYNTAX ATTACK OBJECT = V-ATTACK>
+<SYNTAX HINT = V-BOOK-HINT>
+<SYNONYM HINT HINTS HELP>
 <ROUTINE V-VERSION ()
  <TELL "The Bell That Grew Leaves|Studio Null, 2026|Release " N ,RELEASEID CR>>
+
+<ROUTINE V-SOAK ()
+ <COND (<NOT <EQUAL? ,PRSO ,WICK>> <TELL "There's no need to get that wet." CR>)
+       (<NOT <HELD? ,WICK>> <TELL "You'd need to be holding the wick first." CR>)
+       (<EQUAL? ,HERE ,SPRING> <PERFORM ,V?PUT ,WICK ,TROUGH> <RTRUE>)
+       (T <TELL "There's no water here. The spring walk is the place for soaking things." CR>)>>
+
+<ROUTINE V-BOOK-HINT ()
+ <COND (<NOT ,PATTERN-KNOWN> <TELL "The painted signal tile in the reed store shows what to do. Go and look at it." CR>)
+       (<AND <NOT ,WET-WICK> <IN? ,WICK ,BELL>> <TELL "The wick in the bell is still dry. Pull it out and give it a drink at the spring first." CR>)
+       (<AND <NOT ,WET-WICK> <NOT <HELD? ,WICK>>> <TELL "Pick up the reed wick. It's the first picture on the tile." CR>)
+       (<AND <NOT ,WET-WICK> <NOT ,FLOWING>> <TELL "On the spring walk, look at where the brass spout points." CR>)
+       (<NOT ,WET-WICK> <TELL "Put the wick in the soaking bowl while the water runs into it." CR>)
+       (<NOT <FSET? ,SHUTTER ,OPENBIT>> <TELL "The leaves will need a way out to the hollow. Open the frost shutter on the shutter landing." CR>)
+       (<NOT <IN? ,WICK ,BELL>> <TELL "Put the wet wick in the root bell." CR>)
+       (T <TELL "Everything is ready. Ring the root bell." CR>)>>
 
 <ROUTINE GO ()
  <V-VERSION> <CRLF>
@@ -40,17 +67,19 @@
         <TELL "The bell is carved from one piece of old wood, not metal, so hitting it hard would only crack it. Pale roots grow down around its rim, dry and thin. One of them has a small round hole in it, just the right size for a wick.">
         <COND (<IN? ,WICK ,BELL> <TELL " The [[reed wick]] sits snugly in the hole.">)
               (<HELD? ,WICK> <TELL " The [[reed wick]] you are carrying would fit.">)>
+        <COND (,LEAF-GROWN <TELL " A tiny pale leaf droops from the rim, still leaning toward the hollow.">)>
         <CRLF>)
        (<VERB? LISTEN>
         <COND (<AND ,WET-WICK <IN? ,WICK ,BELL>> <TELL "You hear water climbing up through the wood, a sound smaller than rain." CR>)
               (T <TELL "With your ear to the wood you hear your own heartbeat, then three very distant taps from across the hollow." CR>)>)
-       (<AND <VERB? PUT> <EQUAL? ,PRSI ,BELL> <EQUAL? ,PRSO ,WICK>>
+       (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,BELL> <EQUAL? ,PRSO ,WICK>>
         <MOVE ,WICK ,BELL> <FSET ,WICK ,NDESCBIT>
         <TELL "You push the [[reed wick]] into the hole, and the root takes hold of it. There's enough left showing to pull it free again." CR>)
        (<VERB? RING>
         <COND (<NOT <IN? ,WICK ,BELL>> <TELL "Tuk. The wooden bell gives one dull knock that doesn't even reach the wall, and a pale root curls away like a dry finger. Ringing harder won't help. This bell will have to speak some other way." CR>)
               (<NOT ,WET-WICK> <TELL "The dry [[reed wick]] rattles in its hole. The wood is thirsty, not loose, and a dry wick has nothing to give it." CR>)
               (<NOT <FSET? ,SHUTTER ,OPENBIT>>
+               <SETG LEAF-GROWN T>
                <TELL "Water climbs up the wet wick into the wood, and with a soft rustle a tiny pale leaf unfolds on the rim. It leans away toward the hollow, then stops and droops. Something square is holding the fog in, and the leaf has nowhere to go." CR>)
               (T <TELL "The bell makes no sound at all. Instead, water climbs the wet wick, and three small leaves grow from the rim, let go, and float away on the draft, out through the open shutter and into the fog. The first turns its white side up, then the second, then the third. A moment later, down in the fog, three white leaves turn over in answer. Someone over there has been standing in the cold as long as you have." CR CR
                        "THE END -- THREE LEAVES FOR YES" CR>
@@ -63,14 +92,23 @@
         <TELL "You knock softly. Tok. The sound is small and flat, and it dies before it reaches the wall. Nobody across the hollow could hear that." CR>)
        (<VERB? MOVE PUSH>
         <TELL "You give the bell a gentle push. It swings a little on its beam and creaks, and a few flakes of dry bark drift down." CR>)
-       (<VERB? LOOK-UNDER>
-        <TELL "You crouch and look up inside the bell. It is hollow and dark in there, and it smells of dust. Roots run all through the wood, like veins in a leaf." CR>)
+       (<VERB? LOOK-UNDER LOOK-INSIDE SEARCH>
+        <TELL "You crouch and look up inside the bell. It is hollow and dark in there, and it smells of dust. Roots run all through the wood, like veins in a leaf.">
+        <COND (<IN? ,WICK ,BELL> <TELL " The [[reed wick]] pokes out of its hole in the root.">)>
+        <CRLF>)
        (<VERB? TAKE>
         <TELL "The bell hangs from a thick beam and is far too big to carry. Besides, it belongs right here." CR>)
-       (<VERB? KICK ATTACK>
-        <TELL "You would never hurt the village bell. It is old and brittle, and it's the only voice the village has." CR>)>>
+       (<VERB? KICK ATTACK STRIKE>
+        <TELL "You would never hurt the village bell. It is so old and brittle that one hard blow would crack it, and it's the only voice the village has." CR>)>>
 <ROUTINE WICK-F ()
  <COND (<AND <VERB? TAKE> <FSET? ,WICK ,NDESCBIT>> <FCLEAR ,WICK ,NDESCBIT> <RFALSE>)
+       (<AND <VERB? MOVE> <IN? ,WICK ,BELL>>
+        <MOVE ,WICK ,WINNER> <FCLEAR ,WICK ,NDESCBIT>
+        <TELL "You pull the [[reed wick]] free of the root. It comes out easily." CR>)
+       (<AND <VERB? MOVE> <HELD? ,WICK>>
+        <TELL "You wave the wick about. It's as light as a feather." CR>)
+       (<VERB? MOVE>
+        <TELL "You nudge the wick with your toe, and it rolls a little way." CR>)
        (<VERB? EXAMINE>
         <COND (,WET-WICK <TELL "The reed is dark and heavy with spring water. If you squeeze it, a little runs over your thumb." CR>)
               (T <TELL "A short, hollow stem of reed, as light as a feather, cut to fit snugly into something small. When one end of a wick stands in water, the water creeps up inside it, even uphill." CR>)>)
@@ -136,7 +174,7 @@
                <COND (<HELD? ,WICK> <TELL " You hold the [[reed wick]] above the water.">)>
                <CRLF>)
               (T <TELL "The stone bowl is empty except for a hairline crack along the bottom. The [[turning spout]] is near enough to fill it, if it pointed this way." CR>)>)
-       (<AND <VERB? PUT> <EQUAL? ,PRSO ,WICK> <EQUAL? ,PRSI ,TROUGH>>
+       (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSO ,WICK> <EQUAL? ,PRSI ,TROUGH>>
         <COND (,FLOWING <SETG WET-WICK T> <TELL "You dip the [[reed wick]] in the water. It goes dark from one end to the other as it drinks. You lift it out before it can float away." CR>)
               (T <TELL "The bowl is empty. The reed wouldn't get any wetter here." CR>)>)
        (<VERB? RUB>
@@ -147,13 +185,16 @@
               (T <TELL "Nothing in there but the hairline crack and a little dry moss." CR>)>)
        (<VERB? SMELL>
         <TELL "It smells of wet stone, like the air after rain." CR>)
+       (<VERB? DRINK DRINK-FROM>
+        <COND (,FLOWING <TELL "You cup your hands in the bowl and drink. The water is so cold it makes your teeth ache." CR>)
+              (T <TELL "The bowl is dry. There's nothing in it to drink." CR>)>)
        (<VERB? TAKE MOVE>
         <TELL "The bowl is carved right out of the rock. It isn't going anywhere." CR>)>>
 <ROUTINE SHUTTER-F ()
  <COND (<VERB? EXAMINE>
         <COND (<FSET? ,SHUTTER ,OPENBIT> <TELL "Fog moves through the open square. Far out beyond it, the neighbors have lit a lamp." CR>)
               (T <TELL "The shutter keeps the frost out in winter. It's held shut by a wooden peg that you can lift from this side." CR>)>)
-       (<OR <VERB? OPEN> <AND <VERB? RAISE> <NOT <FSET? ,SHUTTER ,OPENBIT>>>>
+       (<OR <VERB? OPEN> <AND <VERB? RAISE MOVE> <NOT <FSET? ,SHUTTER ,OPENBIT>>>>
         <COND (<FSET? ,SHUTTER ,OPENBIT> <TELL "It's already open." CR>)
               (T <FSET ,SHUTTER ,OPENBIT> <TELL "You lift the peg and swing the shutter open. Fog comes in as quietly as a cat." CR>)>)
        (<VERB? CLOSE>
@@ -175,7 +216,12 @@
               (T <TELL "Cold wood and frost, like the inside of a winter coat." CR>)>)
        (<VERB? PUSH MOVE>
         <COND (<FSET? ,SHUTTER ,OPENBIT> <TELL "The shutter swings a little on its hinges and stays open." CR>)
-              (T <TELL "It won't budge while the wooden peg holds it. You'd have to lift the peg and open it properly." CR>)>)>>
+              (T <TELL "It won't budge while the wooden peg holds it. You'd have to lift the peg and open it properly." CR>)>)
+       (<VERB? LOOK-INSIDE LOOK-BEHIND>
+        <COND (<FSET? ,SHUTTER ,OPENBIT> <TELL "You look out through the open square. Fog fills the hollow like milk in a bowl, and far across it a small lamp glows where the other village must be." CR>)
+              (T <TELL "The shutter is closed. You'd have to open it to see out." CR>)>)
+       (<VERB? THROUGH CLIMB-ON CLIMB-UP>
+        <TELL "The shutter is a window, not a door. Beyond it the hill drops straight down into the fog, so you stay safely on the landing." CR>)>>
 <ROUTINE FOG-F ()
  <COND (<VERB? EXAMINE>
         <TELL "The fog is thick and white, as soft as wool. It hides the whole hollow, so the other village can't see you and you can't see them." CR>)
@@ -185,7 +231,9 @@
         <TELL "You close your hand around a wisp of fog. When you open it, there is only a cool damp spot on your palm." CR>)>>
 <ROUTINE HOLLOW-F ()
  <COND (<VERB? EXAMINE>
-        <TELL "Below the village the hill drops away into a wide hollow, filled to the brim with fog. The other village is somewhere on the far side, close enough to hear but much too far to shout to." CR>)
+        <TELL "Below the village the hill drops away into a wide hollow, filled to the brim with fog. The other village is somewhere on the far side, close enough to hear but much too far to shout to.">
+        <COND (<AND <EQUAL? ,HERE ,LANDING> <FSET? ,SHUTTER ,OPENBIT>> <TELL " Through the open shutter you can see a small lamp glowing over there.">)>
+        <CRLF>)
        (<VERB? LISTEN>
         <TELL "From across the hollow come three soft taps: tap, tap, tap. They are still waiting for an answer." CR>)
        (<VERB? YELL>
@@ -198,7 +246,10 @@
        (<VERB? SMELL>
         <TELL "Wet stone and moss, the smell of a morning that hasn't warmed up yet." CR>)>>
 <ROUTINE STORE-SHED-F ()
- <COND (<VERB? EXAMINE>
+ <COND (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,STORE-SHED>>
+        <MOVE ,PRSO ,STORE>
+        <TELL "You lay the " D ,PRSO " back on the shelf." CR>)
+       (<VERB? EXAMINE>
         <COND (<IN? ,WICK ,STORE> <TELL "The shed is plain and tidy: wooden walls, a dusty floor, and a shelf under the tile where a short [[reed wick]] has been laid." CR>)
               (T <TELL "The shed is plain and tidy: wooden walls, a dusty floor, and an empty shelf under the tile." CR>)>)
        (<VERB? SMELL>
@@ -213,7 +264,10 @@
        (<VERB? LOOK-UNDER>
         <TELL "You lift a corner of moss. Underneath, a tiny beetle hurries away to find a drier home." CR>)>>
 <ROUTINE WATER-F ()
- <COND (<VERB? EXAMINE>
+ <COND (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,WATER> <EQUAL? ,PRSO ,WICK>>
+        <COND (,FLOWING <PERFORM ,V?PUT ,WICK ,TROUGH> <RTRUE>)
+              (T <TELL "The water splashes past too fast and runs off into the rocks. The wick would soak better standing in a bowl of still water." CR>)>)
+       (<VERB? EXAMINE>
         <COND (,FLOWING <TELL "Clear, cold spring water pours from the spout into the [[soaking bowl]]." CR>)
               (T <TELL "Clear, cold spring water bubbles out of the hillside and through the brass spout, then splashes away into the rocks, missing the [[soaking bowl]] altogether." CR>)>)
        (<VERB? DRINK DRINK-FROM>

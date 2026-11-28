@@ -1,7 +1,8 @@
 local failures = 0
 local books = {}
 for _, path in ipairs(arg) do
-	local name = assert(path:match("books/en/([^/]+)/dungeon%.zil$"), "expected a book dungeon.zil path")
+	-- books/<lang>/<book>/dungeon.zil, or a story folder books/<lang>/<book>
+	local name = path:match("^books/(%a%a/[^/]+)/dungeon%.zil$") or assert(path:match("^books/(%a%a/[^/]+)$"), "expected a book dungeon.zil path or story folder")
 	table.insert(books, name)
 end
 local objects, commands = require("tests.book_vocabulary")(".", function(ok, message)

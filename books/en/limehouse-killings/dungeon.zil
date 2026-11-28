@@ -191,7 +191,7 @@
       (IN STUDY)
       (DESC "unsent letter")
       (LDESC "An unsent [[letter]], its paper yellowed with age, lies here.")
-      (SYNONYM LETTER NOTE PAPER DEAD-LETTER ENVELOPE)
+      (SYNONYM LETTER PAPER DEAD-LETTER ENVELOPE)
       (ADJECTIVE UNSENT DEAD YELLOWED)
       (FLAGS NDESCBIT TAKEBIT READBIT INVISIBLE)
       (ACTION DEAD-LETTER-F)>
@@ -232,7 +232,7 @@
       (DESC "secret ledger")
       (LDESC "A leather-bound [[ledger]] lies here.")
       (SYNONYM LEDGER BOOK ACCOUNT ACCOUNTS)
-      (ADJECTIVE SECRET LEATHER LEATHER-BOUND OPEN)
+      (ADJECTIVE SECRET LEATHER LEATHER-BOUND)
       (FLAGS NDESCBIT TAKEBIT READBIT)
       (ACTION SECRET-LEDGER-F)>
 
@@ -255,7 +255,7 @@
       (FDESC "A [[leather roll->roll]] lies in the open drawer.")
       (LDESC "A [[leather roll->roll]] lies here.")
       (SYNONYM ROLL WRAP)
-      (ADJECTIVE LEATHER OPEN)
+      (ADJECTIVE LEATHER)
       (FLAGS CONTBIT TAKEBIT)
       (CAPACITY 5)
       (SIZE 3)
@@ -286,7 +286,7 @@
       (IN MR-HUDSON)
       (DESC "keyring")
       (LDESC "A [[ring of keys->keyring]] lies here.")
-      (SYNONYM KEYRING KEYS KEY RING)
+      (SYNONYM KEYRING KEYS KEY)
       (ADJECTIVE STUDY WARDED LONG)
       (FLAGS TAKEBIT TOOLBIT)
       (ACTION KEYRING-F)>
@@ -310,7 +310,7 @@
       (LDESC "Small ribbons of color, tied to the bookshelves. Red, blue, green, and yellow markers suggest an organizational system.")
       (SYNONYM RIBBONS MARKERS TAGS MARKER RIBBON TAG)
       (ADJECTIVE COLORED COLOURED SMALL RED BLUE GREEN YELLOW)
-      (FLAGS NDESCBIT)
+      (FLAGS NDESCBIT PLURALBIT)
       (ACTION COLORED-MARKERS-F)>
 
 <OBJECT FOOTPRINT-CAST
@@ -460,7 +460,7 @@
       (LDESC "Copper pots, tarnished with age, hang from the kitchen ceiling. They have cooked many meals, but none recently.")
       (SYNONYM POTS POT PAN PANS RACK)
       (ADJECTIVE COPPER TARNISHED)
-      (FLAGS NDESCBIT)
+      (FLAGS NDESCBIT PLURALBIT)
       (ACTION POTS-F)>
 
 <OBJECT HEARTH
@@ -490,7 +490,7 @@
       (LDESC "A blue enamel kettle waits on the range, warm enough to mist its spout.")
       (SYNONYM KETTLE POT TEA CARD STEAM)
       (ADJECTIVE BLUE ENAMEL WARM HOT)
-      (FLAGS NDESCBIT DRINKBIT READBIT)
+      (FLAGS NDESCBIT READBIT)
       (ACTION KETTLE-F)>
 
 <OBJECT BELL-WIRE
@@ -531,7 +531,7 @@
       (LDESC "Tall hedges, their branches thick and tangled. They hide secrets in their shadows.")
       (SYNONYM HEDGES HEDGE BUSHES BUSH BRANCHES BRANCH GLINT GLINTS)
       (ADJECTIVE OVERGROWN TALL THICK TANGLED BLACK)
-      (FLAGS NDESCBIT)
+      (FLAGS NDESCBIT PLURALBIT)
       (ACTION HEDGES-F)>
 
 <OBJECT PLANTS
@@ -540,7 +540,7 @@
       (LDESC "Exotic plants from around the world, their leaves and flowers a splash of color in the gray manor.")
       (SYNONYM FLOWERS PLANTS PLANT FLOWER WOLFSBANE ACONITUM)
       (ADJECTIVE PURPLE EXOTIC GREENHOUSE LABELED)
-      (FLAGS NDESCBIT)
+      (FLAGS NDESCBIT PLURALBIT)
       (INTERACTIONS "")
       (ACTION PLANTS-F)>
 
@@ -551,7 +551,7 @@
       (LDESC "Small labels marking the plants. They identify species and their properties.")
       (SYNONYM LABELS LABEL)
       (ADJECTIVE PLANT SMALL CURLED PAPER)
-      (FLAGS NDESCBIT)
+      (FLAGS NDESCBIT PLURALBIT)
       (ACTION LABELS-F)>
 
 <OBJECT BENCH
@@ -571,7 +571,7 @@
       (LDESC "Simple beds for the household staff, their sheets worn but clean.")
       (SYNONYM BEDS BED LINEN BLANKETS BLANKET)
       (ADJECTIVE NARROW SERVANT SIMPLE EMPTY)
-      (FLAGS NDESCBIT)
+      (FLAGS NDESCBIT PLURALBIT)
       (ACTION BEDS-F)>
 
 <OBJECT TRUNK
@@ -590,7 +590,7 @@
       (IN TRUNK)
       (DESC "folded note")
       (LDESC "A [[folded note->note]], its edges worn, lies here.")
-      (SYNONYM NOTE LETTER MESSAGE)
+      (SYNONYM NOTE MESSAGE WARNING)
       (ADJECTIVE FOLDED WORN)
       (FLAGS TAKEBIT READBIT)
       (TEXT "The letter is addressed to Mr. Hudson from an unknown sender. It reads: “The master's experiments have gone too far. If anything happens to me, the evidence is in the study. Burn this after reading.” The signature is illegible.")
@@ -603,7 +603,7 @@
       (LDESC "Servant uniforms, their fabric worn from use. They hang on hooks, waiting for their next wearer.")
       (SYNONYM UNIFORMS CLOTHES UNIFORM CLOTHING)
       (ADJECTIVE SERVANT WORN)
-      (FLAGS NDESCBIT)
+      (FLAGS NDESCBIT PLURALBIT)
       (ACTION UNIFORMS-F)>
 
 <OBJECT STONE-WALLS
@@ -613,7 +613,7 @@
       (LDESC "Wet stone walls, slick with moisture. They have stood for centuries.")
       (SYNONYM WALLS WALL MORTAR STEPS STAIRS STAIR CHIMNEY BREAST)
       (ADJECTIVE STONE WET SLICK STUDY CHIMNEY)
-      (FLAGS NDESCBIT)
+      (FLAGS NDESCBIT PLURALBIT)
 	  (ACTION STONE-WALLS-F)>
 
 <OBJECT COBWEBS
@@ -623,7 +623,7 @@
       (LDESC "Dusty cobwebs fill the air, undisturbed for years.")
       (SYNONYM COBWEBS WEB WEBS COBWEB STRANDS)
       (ADJECTIVE DUSTY TORN)
-      (FLAGS NDESCBIT)
+      (FLAGS NDESCBIT PLURALBIT)
 	  (ACTION COBWEBS-F)>
 
 <OBJECT DUST
@@ -643,7 +643,7 @@
       (LDESC "Shelves filled with food and wine. Some items are old, others relatively fresh.")
       (SYNONYM SHELVES SHELF PRESERVES SPICES SPICE JARS JAR PACKETS PACKET)
       (ADJECTIVE PANTRY OLD FRESH)
-      (FLAGS NDESCBIT)
+      (FLAGS NDESCBIT PLURALBIT)
       (ACTION SHELVES-F)>
 
 <OBJECT FOXGLOVE
@@ -683,8 +683,8 @@
       (DESC "iron gates")
       (LDESC "The iron gates stand open, their bars red with rust.")
       (SYNONYM GATES GATE BARS LATCH)
-      (ADJECTIVE IRON RUSTED RUSTY STURDY WET OPEN)
-      (FLAGS NDESCBIT)
+      (ADJECTIVE IRON RUSTED RUSTY STURDY WET)
+      (FLAGS NDESCBIT PLURALBIT)
       (ACTION GATES-F)>
 
 <OBJECT PATH
@@ -720,7 +720,7 @@
       (LDESC "Portraits of the Ashworth family line the walls.")
       (SYNONYM PORTRAITS PAINTINGS PICTURES PORTRAIT PAINTING PICTURE)
       (ADJECTIVE FAMILY ASHWORTH)
-      (FLAGS NDESCBIT)
+      (FLAGS NDESCBIT PLURALBIT)
       (ACTION PORTRAITS-F)>
 
 <OBJECT RUG
@@ -785,7 +785,7 @@
 <OBJECT MASTER-TOPIC
       (IN GLOBAL-OBJECTS)
       (DESC "master")
-      (SYNONYM MASTER LORD EMPLOYER)
+      (SYNONYM MASTER LORD EMPLOYER HUSBAND)
 
 	  (ACTION CONVERSATION-TOPIC-F)>
 <OBJECT ALIBI-TOPIC
@@ -806,15 +806,17 @@
       (ADJECTIVE DR DOCTOR DR.)
 	  (ACTION CONVERSATION-TOPIC-F)>
 ; The other two names on the locked box's dial. Moriarty's is MORIARTY-TOPIC.
+; All three names are global, like the other topics, so a witness can be asked
+; about someone who is in another room.
 <OBJECT HUDSON-NAME
-      (IN LOCAL-GLOBALS)
+      (IN GLOBAL-OBJECTS)
       (DESC "Mr. Hudson")
       (SYNONYM HUDSON BUTLER)
       (ADJECTIVE MR MISTER)
       (FLAGS NDESCBIT)
 	  (ACTION CONVERSATION-TOPIC-F)>
 <OBJECT ASHWORTH-NAME
-      (IN LOCAL-GLOBALS)
+      (IN GLOBAL-OBJECTS)
       (DESC "Lady Ashworth")
       (SYNONYM ASHWORTH WIDOW)
       (ADJECTIVE LADY)
@@ -827,7 +829,7 @@
 	  (ACTION CONVERSATION-TOPIC-F)>
 <OBJECT EXPERIMENTS-TOPIC
       (IN GLOBAL-OBJECTS)
-      (DESC "experiments")
+      (DESC "experiments") (FLAGS PLURALBIT)
       (SYNONYM EXPERIMENTS RESEARCH EXPERIMENT)
       (ADJECTIVE MEDICINAL)
 	  (ACTION CONVERSATION-TOPIC-F)>
@@ -870,7 +872,7 @@
 
 <OBJECT KITCHEN-STAIRS (IN ASHWORTH-ENTRANCE-HALL) (DESC "kitchen stairs")
     (SYNONYM STAIRS STEPS STAIRCASE) (ADJECTIVE KITCHEN SERVICE)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "The narrow treads dip in the middle. Servants carrying trays have taken this way down for years.")
     (ACTION KITCHEN-STAIRS-F)>
 
@@ -882,7 +884,7 @@
 
 <OBJECT PANTRY-APPLES (IN PANTRY) (DESC "stored apples")
     (SYNONYM APPLES APPLE FRUIT STRAW) (ADJECTIVE STORED WRINKLED)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "The winter apples sit apart on straw so a bad one cannot spoil its neighbours. One has shrivelled around its stalk.")
     (ACTION PANTRY-APPLES-F)>
 
@@ -893,7 +895,7 @@
     (ACTION PANTRY-DUST-F)>
 
 <OBJECT OUTSIDE-WINDOW (IN GARDEN) (DESC "study window")
-    (SYNONYM WINDOW SILL) (ADJECTIVE STUDY GARDEN OPEN)
+    (SYNONYM WINDOW SILL) (ADJECTIVE STUDY GARDEN)
     (FLAGS NDESCBIT) (INTERACTIONS "")
     (TEXT "The sill is low enough to step over from the flower bed. A rusty crescent shows where the catch scraped across the frame.")
     (ACTION OUTSIDE-WINDOW-F)>
@@ -944,15 +946,21 @@
     (TEXT "The nap lies flat in one direction. At the hearth it bunches up in a ridge, where the chair leg stopped.")
     (ACTION DETAIL-FURROW-F)>
 
-<OBJECT DETAIL-INVENTORY-ENTRY (IN DINING-ROOM) (DESC "inventory entry")
-    (SYNONYM ENTRY INVENTORY HANDWRITING) (ADJECTIVE HANDWRITTEN WINE)
+<OBJECT STUDY-CHAIR (IN STUDY) (DESC "desk chair")
+    (SYNONYM CHAIR LEG LEGS) (ADJECTIVE DESK LEATHER CHAIR)
+    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (TEXT "Lord Ashworth's leather desk chair stands by the hearth, not at the desk. One leg has dragged a furrow through the carpet: someone pulled the chair to the fireplace and did not put it back.")
+    (ACTION STUDY-CHAIR-F)>
+
+<OBJECT DETAIL-INVENTORY-ENTRY (IN DINING-ROOM) (DESC "handwritten entry")
+    (SYNONYM ENTRY HANDWRITING) (ADJECTIVE HANDWRITTEN WINE)
     (FLAGS NDESCBIT READBIT) (INTERACTIONS "")
     (TEXT "The usual wines are entered in ink. Someone squeezed the tincture into the margin in pencil, leaving no room for a quantity.")
     (ACTION DETAIL-INVENTORY-ENTRY-F)>
 
 <OBJECT DETAIL-COINS (IN GARDEN) (DESC "coins")
     (SYNONYM COINS COIN COPPER) (ADJECTIVE TARNISHED)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "The coins have left green circles on the stone. One landed on its edge and stayed wedged in a crack.")
     (ACTION DETAIL-COINS-F)>
 
@@ -964,7 +972,7 @@
 
 <OBJECT RAKE-MARKS (IN ASHWORTH-MANOR-GATE) (DESC "rake marks")
     (SYNONYM MARKS FAN FANS RAKING) (ADJECTIVE RAKE GRAVEL)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT PLURALBIT) (INTERACTIONS "")
     (TEXT "The other fans have five neat ridges apiece. Here loose gravel has been pushed up against the doorstep.")
     (ACTION RAKE-MARKS-F)>
 

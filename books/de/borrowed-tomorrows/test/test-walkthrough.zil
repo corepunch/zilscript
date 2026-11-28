@@ -36,4 +36,5 @@
 	<ASSERT-TEXT "geschieht nichts" <CO-RESUME ,CO "lies das Blatt">>
 	<CO-RESUME ,CO "lege das Blatt in den Rahmen">
 	<ASSERT "Vorlesen gelingt" <CO-RESUME ,CO "lies den Leserahmen" T>>
-	<ASSERT "Vorlesen beendet das Buch" <NOT <CO-RESUME ,CO "schau" T>>>>
+	;"After the ending the story only offers to start again."
+	<ASSERT-TEXT "NEUBEGINN" <CO-RESUME ,CO "schau">>>

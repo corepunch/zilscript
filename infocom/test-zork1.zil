@@ -1,10 +1,11 @@
 "TEST-ZORK1.ZIL - Test routine for Zork I transcript"
 
 <INSERT-FILE "infocom/zork1/globals">
-<INSERT-FILE "infocom/zork1/clock">
+<INSERT-FILE "core.clock">
 <INSERT-FILE "infocom/zork1/parser">
 <INSERT-FILE "infocom/zork1/verbs">
-<INSERT-FILE "infocom/zork1/syntax">
+<INSERT-FILE "languages.en.syntax">
+<INSERT-FILE "rulesets.classic.en-syntax">
 <INSERT-FILE "infocom/zork1/main">
 
 <CONSTANT RELEASEID 1>

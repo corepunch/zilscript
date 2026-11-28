@@ -86,7 +86,7 @@
 		<RTRUE>)>>
 <ROUTINE CLINIC-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "You are in the Clinic, a small white room with a single [[examination area->area]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside the bed.">
+		<TELL "You are in the Clinic, a small white room with a single [[exam bed->bed]] under a bright lamp. It smells of ordinary [[soap]], and the [[clinical log->log]] lies open beside it.">
 		<COND (<IN? ,MARA ,CLINIC>
 			<COND (,ISOLATED <TELL " [[Mara]], the station physician, holds her own wrist, counting without looking at the time.">)
 				(T <TELL " [[Mara]], the station physician, looks up and asks whether you have eaten.">)>)
@@ -304,6 +304,7 @@
 		(<VERB? LISTEN> <TELL "Mara is counting under her breath. Four. She starts again, and stops at four again." CR>)
 		(<VERB? EXAMINE> <TELL "[[Mara]] has pressed thumbnail marks into her palm. She checks the marks before she answers you: a physical record of how often the same thought returned. Ask her about the [[signal]], the [[crew]], or Senn's [[daughter]]." CR>)
 		(<VERB? SHOW> <V-SHOW>)
+		(<AND <VERB? GIVE> <EQUAL? ,PRSI ,MARA>> <V-SHOW>)
 		(<VERB? TELL>
 		<COND (<EQUAL? ,PRSI ,WAFER> <MARA-SAMPLE>)
 			(<EQUAL? ,PRSI ,TOPIC-SIGNAL>
@@ -326,6 +327,7 @@
 		<COND (,CONSENT <TELL "[[Ivo]] is counting again. Four, and this time he stops. Ask about the [[signal]], the [[crew]], or the [[daughter]]." CR>)
 			(T <TELL "[[Ivo]] keeps rubbing an uninjured knuckle. He remembers Lena splinting it. Ask about the [[signal]], the [[crew]], or the [[daughter]]." CR>)>)
 		(<VERB? SHOW> <V-SHOW>)
+		(<AND <VERB? GIVE> <EQUAL? ,PRSI ,IVO>> <V-SHOW>)
 		(<VERB? TELL>
 		<COND (<EQUAL? ,PRSI ,WAFER> <IVO-SAMPLE>)
 			(<EQUAL? ,PRSI ,TOPIC-SIGNAL>
@@ -347,6 +349,7 @@
 			<COND (<AND ,ISOLATED <NOT ,SENN-DISCLOSED>> <TELL "“My daughter,” he repeats. “You should ask me again now.”" CR>)>
 			<RTRUE>)
 		(<VERB? SHOW> <V-SHOW>)
+		(<AND <VERB? GIVE> <EQUAL? ,PRSI ,SENN>> <V-SHOW>)
 		(<VERB? TELL>
 		<COND (<EQUAL? ,PRSI ,WAFER> <SENN-CONFESSION>)
 			(<EQUAL? ,PRSI ,TOPIC-DAUGHTER>
@@ -493,7 +496,7 @@
 <ROUTINE EXAM-AREA-F ()
 	<COND (<VERB? RUB> <TELL "The paper sheet on the bed is crisp and unwrinkled. Nobody has lain here since it was changed." CR>)
 		(<VERB? CLIMB-ON> <TELL "You sit on the edge of the bed for a moment. Mara glances over, as if about to take your pulse, and does not." CR>)
-		(<VERB? EXAMINE SEARCH SMELL> <TELL "The [[examination area->area]] has been washed with ordinary unscented soap. You remember a fifth patient here, but there is no fifth entry in the [[log]].">
+		(<VERB? EXAMINE SEARCH SMELL> <TELL "The [[exam bed->bed]] has been washed with ordinary unscented soap. You remember a fifth patient here, but there is no fifth entry in the [[log]].">
 		<COND (<AND <IN? ,SHEARS ,CLINIC> <NOT <FSET? ,SHEARS ,TOUCHBIT>>> <TELL " A pair of [[ceramic shears->shears]] lies ready for sterile work.">)>
 		<CRLF> <RTRUE>)>>
 <ROUTINE STARFIELD-F ()
@@ -552,8 +555,8 @@
            <COND (<AND ,PROOF ,ISOLATED> <TELL "The bolt is back. The way into the core is open." CR>)
                  (T <TELL "The bolt holds. You check the flags. "> <PERFORM ,V?READ ,DETAIL-INSPECTION-FLAGS>)>)
           (<VERB? EXAMINE>
-           <COND (<AND ,PROOF ,ISOLATED> <TELL "Both [[inspection flags]] show white: trace verified and receiver isolated. The bolt has drawn back into its sleeve." CR>)
-                 (T <TELL "The bolt crosses two [[inspection flags]]. One needs a verified physical trace, the other a disconnected receiver." CR>)>)>>
+           <COND (<AND ,PROOF ,ISOLATED> <TELL "Both inspection [[flags]] show white: trace verified and receiver isolated. The bolt has drawn back into its sleeve." CR>)
+                 (T <TELL "The bolt crosses two inspection [[flags]]. One needs a verified physical trace, the other a disconnected receiver." CR>)>)>>
 
 <ROUTINE FLAGS-DETAIL-F ()
     <COND (<VERB? EXAMINE READ>
@@ -629,5 +632,6 @@
           (<VERB? RUB> <TELL "The conduit is warm where the cable leaves it, and cool a hand's width away." CR>)>>
 
 <ROUTINE SHIELDING-F ()
-    <COND (<VERB? RUB> <TELL "The shielding is soft and heavy, like a lead apron. It deadens your voice to almost nothing." CR>)
+    <COND (<VERB? CLIMB-ON> <TELL "You sit at the far end of the bench from Senn. The shielding swallows the small sounds you both make, and neither of you hurries to fill the quiet." CR>)
+          (<VERB? RUB> <TELL "The shielding is soft and heavy, like a lead apron. It deadens your voice to almost nothing." CR>)
           (<VERB? KNOCK> <TELL "Your knock makes no sound at all. The room was built to keep signals out, or in." CR>)>>

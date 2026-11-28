@@ -5,12 +5,12 @@
 
 <VERSION YZIP>
 <SETG ZORK-NUMBER 1>
-<SETG PLUS-MODE T>
+;"PLUS-MODE selects Infocom's word-sized exit and GLOBAL layouts. This runtime
+  writes the version 3 byte layouts, which the German verbs read without it."
 <SET REDEFINE T>
 <SETG NEW-VOC? T>
 <FREQUENT-WORDS?>
 
-<LANGUAGE GERMAN>
 
 <PRINC "Renovated ZORK I: The Great Underground Empire
 ">
@@ -31,7 +31,10 @@ OFF!-INITIAL   ;"makes dubugging possible -pld"
 <PROPDEF TVALUE 0>
 
 <INSERT-FILE "languages.de.init">
+;"The dungeon comes first so its rooms keep object numbers below 256, which
+  the version 3 exit layout stores in one byte."
 <INSERT-FILE "DUNGEON" T>
 <INSERT-FILE "rulesets.classic.de">
 <INSERT-FILE "ACTIONS" T>
-<INSERT-FILE "HINTS" T>
+;"HINTS is Infocom's full-screen hint menu (cursor windows and single-key
+  input); hosts here show one text stream, so the game ships without it."

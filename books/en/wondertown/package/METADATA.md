@@ -15,6 +15,6 @@
 - **Tone:** Whimsical, bittersweet, heartwarming
 - **Reference:** Toy Story meets Up meets Planetfall
 - **Core Verbs:** WIND, OIL, LISTEN, EXAMINE, GIVE, ASK, TELL, PLACE
-- **Win Condition:** Rewind the workshop heart before dawn (200 turns)
+- **Win Condition:** Rewind the workshop heart before dawn (an optional 200-turn countdown; type EASY to switch it on)
 - **Endings:** 3 tiered endings based on companions saved
 - **Hint System:** Progressive in-game (HINT command)

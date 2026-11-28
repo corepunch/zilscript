@@ -48,7 +48,7 @@ end
 -- Test 1: Companion loads without errors
 test("companion loads", function()
     local output = run_companion({})
-    assert_contains(output, "Ashworth Manor slips in and out of the fog")
+    assert_contains(output, "Cold river fog drifts between the bars")
     assert_contains(output, "Choose a number")
 end)
 
@@ -73,14 +73,14 @@ end)
 -- Test 5: Entering manor from gate
 test("enter manor works", function()
     local output = run_companion({"1", "3"})
-    assert_contains(output, "hall table gleams under the chandelier")
+    assert_contains(output, "polished hall table stands beneath the light")
 end)
 
 -- Test 6: Library accessible from hall
 test("library accessible", function()
     -- Gate: read telegram(1), enter(3), Hall: try study(1), go library(4)
     local output = run_companion({"1", "3", "1", "4"})
-    assert_contains(output, "gilt titles on the bookshelves")
+    assert_contains(output, "gilt titles on the spines")
 end)
 
 -- Test 7: Library shows torn page choice

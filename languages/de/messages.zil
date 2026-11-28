@@ -39,15 +39,6 @@ must be done in some funny TELL routine."
 the first half of the word, the flavor of umlaut, then the last half
 of the word." 
 
-<ROUTINE DO-CURSET (Y X)
-	 <COND (<EQUAL? 1 ,CWIDTH ,CHEIGHT>
-		<CURSET .Y .X>
-		<RFALSE>)
-	       (T
-		<SET X <* .X ,CWIDTH>>
-		<CURSET <* .Y ,CHEIGHT> .X>
-		<RFALSE>)>>
-
 ;"CASE : DER = NOM / DEN = ACC / DEM = DAT
          EIN = NOM / EINEN = ACC / EINEM = DAT"
 

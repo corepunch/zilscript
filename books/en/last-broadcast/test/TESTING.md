@@ -37,3 +37,5 @@ Final blind2 presentation regressions (RED before the focused fix, GREEN after):
 - `lua5.4 books/en/last-broadcast/test/test_blind2_prose.lua`
 
 The independent 117-choice no-hint completion and fresh-process terminal proof are preserved in qa/BLIND2.md and qa/BLIND2.transcript.jsonl. The later focused copy/state-caption confirmation is source-informed and recorded separately.
+
+QA misbehaviour regressions (`lua5.4 run-zil-test.lua books.en.last-broadcast.test.test-qa-misbehaviour`): ENTER STATION walks into the hall instead of striking the station clock; witnesses answer HELLO, KISS, TAKE, FOLLOW, ATTACK and THROW in the story's voice and GIVE shows the exhibit; TURN reaches the routing switch (TURN is V-SPIN here); TEA names the cups; ASK ABOUT HEATER parses; PUT STYLUS IN/ON the gramophone mounts it and PUT DISC ON loads the platter. `menu_cli.py` rewrites numeric-route.json and numeric-transcript.txt each run.

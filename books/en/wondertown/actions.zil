@@ -51,9 +51,11 @@
     <SETG WINNER ,ADVENTURER>
     <SETG PLAYER ,WINNER>
     <MOVE ,WINNER ,HERE>
+    ;"A book read with children has no countdown unless the reader asks
+      for one: EASY switches the dawn clock on and off."
     <COND (,TIMER-ACTIVE
-           <ENABLE <QUEUE I-TICK 1>>)>
-    <ENABLE <QUEUE I-DAWN-WARNING 25>>
+           <ENABLE <QUEUE I-TICK 1>>
+           <ENABLE <QUEUE I-DAWN-WARNING 25>>)>
     <ENABLE <QUEUE I-NUTMEG-AUTONOMY 8>>
     <TELL "You are Pip, a workshop gnome no taller than a teacup, and the apprentice of Grandfather Tolliver, the last toymaker in Wrenfold. Every night the town's toys wake up and play, but tonight they are growing still. The magic key that keeps them ticking has vanished from its hook, and Grandfather has not come home. You must find the key and wind the workshop's heart before dawn." CR CR>
     <TELL D ,HERE CR>
@@ -67,9 +69,9 @@
     <QUEUE I-TICK 1>
     <COND (,GAME-WON <RTRUE>)>
     <COND (<L? ,TICK-COUNT 1>
-           <TELL "The sun rises over Wrenfold. The last tick fades into silence. The magic is gone. The workshop is still. Pip stands alone -- but Pip tried. Pip tried." CR>
+           <TELL "The sun rises over Wrenfold before the heart is wound. All over town the toys give one great yawn and fall fast asleep, still smiling. They will sleep soundly until somebody winds the heart, and the night can begin again." CR>
            <SETG TICK-COUNT 0>
-           <JIGS-UP "The dawn has come, and the toys have fallen silent forever.">)
+           <JIGS-UP "Morning has come, and the toys are sleeping.">)
           (T
            <SETG TICK-COUNT <- ,TICK-COUNT 1>>)>
     <RTRUE>>
@@ -335,69 +337,87 @@
 
 ; === V-HINTS HANDLER ===
 
-<ROUTINE V-HINTS ()
-    <COND (<AND <EQUAL? ,HERE ,FOX-DEN>
-                <NOT ,KEY-FOUND>
-                <NOT <EQUAL? ,NUTMEG-TRUST -1>>>
-           <COND (<L? ,HINT-LEVEL 4>
-                  <SETG HINT-LEVEL <+ ,HINT-LEVEL 1>>)>
+<ROUTINE V-HINTS ("AUX" STAGE)
+    ;"Each stage starts again at its gentlest hint, so a reader who
+      needed the full answer once is not handed every later answer."
+    <SET STAGE
+         <COND (<AND <EQUAL? ,HERE ,FOX-DEN> <NOT ,KEY-FOUND> <EQUAL? ,NUTMEG-TRUST -1>> 1)
+               (<AND <EQUAL? ,HERE ,FOX-DEN> <NOT ,KEY-FOUND>> 2)
+               (<AND <EQUAL? ,HERE ,SCRAP-YARD> <NOT ,CART-MOVED>> 3)
+               (,KEY-WOUND 4)
+               (<AND ,KEY-FOUND ,STUDY-ACCESS> 5)
+               (<AND ,KEY-FOUND ,LADDER-OILED> 6)
+               (<NOT ,BERTRAND-WOUND> 7)
+               (<NOT ,LADDER-OILED> 8)
+               (<NOT ,KEY-FOUND> 9)
+               (T 10)>>
+    <COND (<NOT <EQUAL? .STAGE ,HINT-KEY>>
+           <SETG HINT-KEY .STAGE>
+           <SETG HINT-LEVEL 0>)>
+    <COND (<L? ,HINT-LEVEL 4>
+           <SETG HINT-LEVEL <+ ,HINT-LEVEL 1>>)>
+    <COND (<EQUAL? .STAGE 1>
+           <COND (<EQUAL? ,HINT-LEVEL 1> <TELL "Nutmeg is frightened. Frightened friends need a gentle word." CR>)
+                 (<EQUAL? ,HINT-LEVEL 2> <TELL "Pip can say sorry. Talking to her is the way to do it." CR>)
+                 (<EQUAL? ,HINT-LEVEL 3> <TELL "Talk to Nutmeg. Saying sorry brings back the trust Pip's gifts had earned." CR>)
+                 (T <TELL "TELL FOX ABOUT TOLLIVER. Then give her a gift if she still needs one." CR>)>)
+          (<EQUAL? .STAGE 2>
            <COND (<EQUAL? ,HINT-LEVEL 1> <TELL "The fox has been alone a very long time. She needs kindness, not demands." CR>)
-                 (<EQUAL? ,HINT-LEVEL 2> <TELL "Try giving her something -- the red scarf from the mailbox corner, or tell her about Tolliver." CR>)
+                 (<EQUAL? ,HINT-LEVEL 2> <TELL "Try giving her something -- the red scarf from the mailbox corner, or the ball of yarn in her den." CR>)
                  (<EQUAL? ,HINT-LEVEL 3> <TELL "Gifts and kind words build trust. She needs to know someone cares." CR>)
-                 (T <TELL "GIVE SCARF TO FOX. TELL FOX ABOUT TOLLIVER. Then ask her for the key." CR>)>
-           <RTRUE>)
-          (<AND <EQUAL? ,HERE ,SCRAP-YARD>
-                <NOT ,CART-MOVED>>
-           <COND (<L? ,HINT-LEVEL 4>
-                  <SETG HINT-LEVEL <+ ,HINT-LEVEL 1>>)>
-           <COND (<EQUAL? ,HINT-LEVEL 1> <TELL "The cart is not hostile. Look at it more carefully." CR>)
+                 (T <TELL "GIVE SCARF TO FOX. TELL FOX ABOUT TOLLIVER. Then TAKE WORKSHOP KEY." CR>)>)
+          (<EQUAL? .STAGE 3>
+           <COND (<EQUAL? ,HINT-LEVEL 1> <TELL "The cart is not unfriendly. Look at it more carefully." CR>)
                  (<EQUAL? ,HINT-LEVEL 2> <TELL "The cart carries broken toys. One doll is missing its head. Search the piles." CR>)
-                 (<EQUAL? ,HINT-LEVEL 3> <TELL "Give the doll head to the cart. Show compassion, not force." CR>)
-                 (T <TELL "TAKE DOLL HEAD. GIVE HEAD TO CART." CR>)>
-           <RTRUE>)
-          (<AND ,KEY-FOUND
-                <NOT ,STUDY-ACCESS>>
-           <COND (<L? ,HINT-LEVEL 4>
-                  <SETG HINT-LEVEL <+ ,HINT-LEVEL 1>>)>
-           <COND (<EQUAL? ,HINT-LEVEL 1> <TELL "Now that you have the key, the cuckoo clock seems different. Try interacting with it." CR>)
-                 (<EQUAL? ,HINT-LEVEL 2> <TELL "Old Tick on the wall spoke of something behind him." CR>)
-                 (<EQUAL? ,HINT-LEVEL 3> <TELL "Wind Old Tick in the workshop. Nutmeg or the tin soldier can reach the hidden latch." CR>)
-                 (T <TELL "WIND CLOCK in the workshop. A small paw or the tin soldier's bayonet can reach the latch behind it." CR>)>
-           <RTRUE>)
-          (,KEY-WOUND
-           <COND (<L? ,HINT-LEVEL 4>
-                  <SETG HINT-LEVEL <+ ,HINT-LEVEL 1>>)>
+                 (<EQUAL? ,HINT-LEVEL 3> <TELL "Give the doll head to the cart. Kindness moves it, not pushing." CR>)
+                 (T <TELL "SEARCH PILES. TAKE DOLL HEAD. GIVE HEAD TO CART." CR>)>)
+          (<EQUAL? .STAGE 4>
            <COND (<EQUAL? ,HINT-LEVEL 1> <TELL "The heart is turning, but it needs more than mechanical power." CR>)
                  (<EQUAL? ,HINT-LEVEL 2> <TELL "The toys you have helped can lend their strength." CR>)
-                 (<EQUAL? ,HINT-LEVEL 3> <TELL "Place your companions around the heart. Each one adds their love to the magic." CR>)
-                 (T <TELL "POSITION TIN SOLDIER. POSITION MUSIC BOX. Nutmeg and Bertrand will help if you were kind to them." CR>)>
-           <RTRUE>)
-          (<NOT ,BERTRAND-WOUND>
-           <COND (<L? ,HINT-LEVEL 4>
-                  <SETG HINT-LEVEL <+ ,HINT-LEVEL 1>>)>
-           <COND (<EQUAL? ,HINT-LEVEL 1> <TELL "That nutcracker is blocking the way. He looks... stuck." CR>)
+                 (<EQUAL? ,HINT-LEVEL 3> <TELL "Place your companions around the heart. Each one adds their love to the magic. The tin soldier, the music box and the porcelain doll arm can all help." CR>)
+                 (T <TELL "POSITION TIN SOLDIER. POSITION MUSIC BOX. POSITION ARM. Nutmeg will join in if you were kind to her." CR>)>)
+          (<EQUAL? .STAGE 5>
+           <COND (<EQUAL? ,HINT-LEVEL 1> <TELL "The study behind the open clock holds Grandfather's plans." CR>)
+                 (<EQUAL? ,HINT-LEVEL 2> <TELL "Read the diagram in the study, then follow the ticking down to the heart." CR>)
+                 (<EQUAL? ,HINT-LEVEL 3> <TELL "In the heart chamber, wind the heart with the workshop key." CR>)
+                 (T <TELL "From the workshop floor go IN, then DOWN, then WIND HEART." CR>)>)
+          (<EQUAL? .STAGE 6>
+           <COND (<EQUAL? ,HINT-LEVEL 1> <TELL "Now that you have the key, the cuckoo clock seems different. The way to the heart is behind it." CR>)
+                 (<EQUAL? ,HINT-LEVEL 2> <TELL "Old Tick, the clock in the storage loft, spoke of a latch behind him." CR>)
+                 (<EQUAL? ,HINT-LEVEL 3> <TELL "Wind Old Tick in the storage loft. Nutmeg can reach the hidden latch, or the tin soldier can if she will not help." CR>)
+                 (T <TELL "Climb UP to the storage loft and WIND CLOCK." CR>)>)
+          (<EQUAL? .STAGE 7>
+           <COND (<EQUAL? ,HINT-LEVEL 1> <TELL "The nutcracker on the tool bench is blocking the steps. He looks... stuck." CR>)
                  (<EQUAL? ,HINT-LEVEL 2> <TELL "Examine the nutcracker closely. He has something in his back." CR>)
-                 (<EQUAL? ,HINT-LEVEL 3> <TELL "Take the winding key from his back, then wind him up." CR>)
-                 (T <TELL "TAKE KEY. WIND NUTCRACKER." CR>)>
-           <RTRUE>)
-          (<NOT ,LADDER-OILED>
-           <COND (<L? ,HINT-LEVEL 4>
-                  <SETG HINT-LEVEL <+ ,HINT-LEVEL 1>>)>
+                 (<EQUAL? ,HINT-LEVEL 3> <TELL "Turn the little key in his back to wind him up." CR>)
+                 (T <TELL "Go EAST to the tool bench and WIND NUTCRACKER." CR>)>)
+          (<EQUAL? .STAGE 8>
            <COND (<EQUAL? ,HINT-LEVEL 1> <TELL "The folding loft ladder will not rise. Something is rusted." CR>)
-                 (<EQUAL? ,HINT-LEVEL 2> <TELL "The lifting mechanism needs oil. Search under the workbench." CR>)
+                 (<EQUAL? ,HINT-LEVEL 2> <TELL "The lifting mechanism needs oil. Look under the workbench." CR>)
                  (<EQUAL? ,HINT-LEVEL 3> <TELL "Take the oil can from under the workbench, then oil the mechanism." CR>)
-                 (T <TELL "LOOK UNDER WORKBENCH. TAKE OIL CAN. OIL MECHANISM." CR>)>
-           <RTRUE>)
-            (T
-             <TELL "The workshop feels different tonight. The key hook on the wall is empty -- its magic gone. Something is wrong. You should investigate." CR>)>>
+                 (T <TELL "LOOK UNDER WORKBENCH. TAKE OIL CAN. LUBRICATE MECHANISM." CR>)>)
+          (<EQUAL? .STAGE 9>
+           <COND (<EQUAL? ,HINT-LEVEL 1> <TELL "Someone small took the key. Look at the empty hook, then follow the trail outside." CR>)
+                 (<EQUAL? ,HINT-LEVEL 2> <TELL "Tiny footprints in the snowy alley lead to Clock Square. The mailbox at the corner saw where they went." CR>)
+                 (<EQUAL? ,HINT-LEVEL 3> <TELL "The fox is hiding past the scrap-yard, south of Clock Square. The scrap cart must be helped out of the way first." CR>)
+                 (T <TELL "Go NORTH, EAST and SOUTH to the scrap-yard. SEARCH PILES, GIVE HEAD TO CART, then go EAST to the fox." CR>)>)
+          (T
+           <TELL "Grandfather's diagram is the best guide now. Every toy Pip has helped can stand by the heart." CR>)>
+    <RTRUE>>
 
 ; === V-EASY-TOGGLE HANDLER ===
 
 <ROUTINE V-EASY-TOGGLE ()
-    <SETG TIMER-ACTIVE <>>
-    <DISABLE <QUEUE I-TICK>>
-    <DISABLE <QUEUE I-DAWN-WARNING>>
-    <TELL "The dawn countdown has been disabled. Explore Wrenfold at your own pace. You can type EASY again to re-enable it if you wish." CR>>
+    <COND (,TIMER-ACTIVE
+           <SETG TIMER-ACTIVE <>>
+           <DISABLE <QUEUE I-TICK>>
+           <DISABLE <QUEUE I-DAWN-WARNING>>
+           <TELL "The dawn countdown is off. Explore Wrenfold at your own pace. Type EASY again to race the dawn." CR>)
+          (T
+           <SETG TIMER-ACTIVE T>
+           <ENABLE <QUEUE I-TICK 1>>
+           <ENABLE <QUEUE I-DAWN-WARNING 25>>
+           <TELL "The dawn countdown is on. Every move brings the morning closer, so wind the heart before the sun comes up. Type EASY again to turn the countdown off." CR>)>>
 
 ; === WORKSHOP-FLOOR OBJECT HANDLERS ===
 
@@ -525,7 +545,9 @@
                  (T
                   <TELL "Pip pushes and pulls, but the clock is held fast against the wall. Something somewhere must be keeping it shut." CR>)>)
           (<VERB? RUB>
-           <TELL "The wood is carved with tiny oak leaves. Pip's fingers find a little gear carved among them -- Grandfather's mark." CR>)>>
+           <TELL "The wood is carved with tiny oak leaves. Pip's fingers find a little gear carved among them -- Grandfather's mark." CR>)
+          (<VERB? WIND SPIN>
+           <TELL "This clock ticks along by itself and has no winding hole Pip can find. Its twin up in the storage loft is the one with a winding hole." CR>)>>
 
 <ROUTINE KEY-STRING-F ()
     <COND (<VERB? EXAMINE>
@@ -588,7 +610,11 @@ coat, and the pages in his handwriting."
         <EQUAL? .OBJ ,TOLLIVER-JOURNAL ,STUDY-JOURNAL>>>
 
 <ROUTINE BERTRAND-F ()
-    <COND (<VERB? WIND> <V-WIND>)
+    <COND (<VERB? PLAY>
+           <COND (,BERTRAND-WOUND
+                  <TELL "“Play? A captain is on duty!” says Bertrand. Then he marches three smart steps up and down the bench anyway, just to show Pip how it is done." CR>)
+                 (T <TELL "Pip tries a game of soldiers, but the frozen captain cannot even blink. He needs winding first." CR>)>)
+          (<VERB? WIND> <V-WIND>)
           (<VERB? EXAMINE>
            <COND (,BERTRAND-WOUND
                   <TELL "Captain Bertrand of the Nutcracker Brigade stands at attention, positively radiating self-importance. His jaw, now fully operational, is clamped in what he probably considers a dignified expression. The way to the countertop is clear." CR>)
@@ -734,7 +760,9 @@ coat, and the pages in his handwriting."
 ; === COUNTERTOP OBJECT HANDLERS ===
 
 <ROUTINE MARZIPAN-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? PLAY>
+           <TELL "Marzipan claps her soft hands and plays pat-a-cake with Pip. She keeps the beat perfectly and giggles every time Pip misses." CR>)
+          (<VERB? EXAMINE>
            <COND (,MARZIPAN-BUTTON
                   <TELL "The rag doll -- Marzipan -- now has both button eyes. They are mismatched, but somehow that makes her expression warmer. She hums softly, a tune full of secrets." CR>)
                  (T
@@ -875,7 +903,11 @@ coat, and the pages in his handwriting."
            <SCORE-UPD 5> <RTRUE>)>>
 
 <ROUTINE OLD-TICK-F ()
-    <COND (<VERB? OPEN PUSH>
+    <COND (<VERB? PLAY>
+           <COND (,OLD-TICK-HEARD
+                  <TELL "Pip plays peekaboo with the little wooden bird. It pops out, says “Cuckoo!”, and pops back in, very pleased with itself." CR>)
+                 (T <TELL "Pip tickles the clock's carved leaves, but nothing happens. The old clock needs winding before it can play." CR>)>)
+          (<VERB? OPEN PUSH>
            <COND (,STUDY-ACCESS <TELL "The latch is up. The study stairs are open behind the other clock downstairs." CR>)
                  (<AND ,OLD-TICK-HEARD <RELEASE-STUDY-LATCH>> <RTRUE>)
                  (<NOT ,OLD-TICK-HEARD> <TELL "The bird is asleep behind its door. Wind Old Tick to wake it." CR>)
@@ -1012,6 +1044,9 @@ coat, and the pages in his handwriting."
                   <TELL "TOCK ... ... TOCK. The tower ticks slowly now, deep and patient, as if time itself has decided to wait for Pip." CR>)
                  (T
                   <TELL "TOCK. TOCK. TOCK. The tower's tick is so deep that Pip feels it in his boots. It sounds as if it is in a hurry." CR>)>)
+          (<VERB? WIND SPIN>
+           <PERFORM ,V?WIND ,CLOCK-WINDING>
+           <RTRUE>)
           (<VERB? KNOCK>
            <TELL "Pip knocks on the cold stone. The tower is far too big to notice." CR>)
           (<VERB? RUB>
@@ -1059,7 +1094,9 @@ coat, and the pages in his handwriting."
 ; === MAILBOX-CORNER OBJECT HANDLERS ===
 
 <ROUTINE MAILBOX-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? PLAY>
+           <TELL "Pip posts a pretend letter through the flap. The mailbox rattles happily and pretends to read it." CR>)
+          (<VERB? EXAMINE>
            <TELL "A red tin mailbox, painted with fading flowers. Its flap hangs open like a mouth, and every now and then it shivers as if trying to speak.">
            <COND (<AND <IN? ,LETTER ,MAILBOX-CORNER> <NOT <FSET? ,LETTER ,TOUCHBIT>>> <TELL " A crumpled [[envelope]] pokes through the snow.">)>
            <COND (<AND <IN? ,SCARF ,MAILBOX-CORNER> <NOT <FSET? ,SCARF ,TOUCHBIT>>> <TELL " A wool [[scarf]] lies at its foot.">)>
@@ -1198,9 +1235,15 @@ coat, and the pages in his handwriting."
 ; === FOX-DEN OBJECT HANDLERS ===
 
 <ROUTINE NUTMEG-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? PLAY>
+           <COND (<EQUAL? ,NUTMEG-TRUST -1>
+                  <TELL "Nutmeg keeps her back to Pip. She is not ready to play. Saying sorry might help." CR>)
+                 (<OR ,KEY-FOUND <G? ,NUTMEG-TRUST 0>>
+                  <TELL "Pip and Nutmeg play chase round and round the little den. She lets Pip catch her tail, then steals Pip's hat and gives it back with a swish." CR>)
+                 (T <TELL "Pip wiggles his fingers like a mouse. Nutmeg's ears flick toward them, but she stays curled up, watching. She does not trust Pip yet." CR>)>)
+          (<VERB? EXAMINE>
            <COND (<NOT <IN? ,NUTMEG ,FOX-DEN>>
-                  <TELL "Nutmeg is not here. Her den feels empty -- just rags and a dying candle." CR>)
+                  <TELL "Nutmeg is not here. Her den feels empty -- just rags and a little candle." CR>)
                  (<EQUAL? ,NUTMEG-TRUST -1>
                   <TELL "Nutmeg is curled in the furthest corner of her den, her back to Pip. Her shoulders tremble slightly.">
                   <COND (<NOT ,KEY-FOUND> <TELL " The key is still around her neck, but she will not let Pip near it.">)>
@@ -1225,7 +1268,8 @@ coat, and the pages in his handwriting."
                   ;"A frightened fox must not strand the story: saying sorry
                     gives back whatever trust Pip's gifts had earned."
                   <TELL "Pip kneels at the edge of the nest. “I am sorry, Nutmeg. I should never have frightened you.” For a long while she says nothing. Then one ear turns toward Pip. “Nobody ever said sorry to me before,” she whispers. She uncurls, just a little, and looks at Pip again." CR>
-                  <SETG NUTMEG-TRUST ,NUTMEG-GIFTS>)
+                  <SETG NUTMEG-TRUST ,NUTMEG-GIFTS>
+                  <RTRUE>)
                  (<OR <EQUAL? ,PRSI ,WORKSHOP-KEY>
                       <EQUAL? ,PRSI ,TOPIC-KEY>>
                   <COND (,KEY-FOUND
@@ -1496,7 +1540,7 @@ coat, and the pages in his handwriting."
            <TELL "Even now, a ghost of cinnamon and warm bread drifts from the bakery door. Pip's tummy rumbles." CR>)
           (<VERB? KNOCK>
            <TELL "Pip knocks on the bakery door. It creaks a little wider, but nobody comes. Inside, everything is dark and still." CR>)
-          (<VERB? ENTER OPEN>
+          (<VERB? ENTER THROUGH OPEN>
            <TELL "The bakery door is stuck with frost, open only a crack. Pip's business tonight is with the key, not the buns." CR>)>>
 
 <ROUTINE COBBLER-F ()
@@ -1638,12 +1682,15 @@ coat, and the pages in his handwriting."
            <SETG ENDING-TIER 3>
            <TELL CR>
            <TELL "The workshop heart beats -- a deep, steady rhythm that echoes through every corner of Wrenfold. The clock tower chimes. Toys stir in shop windows all across the square. Streetlamps flicker to full brightness. The magic is back." CR CR>
-           <TELL "Grandfather Tolliver's voice, somehow, whispers through the gears: “Well done, apprentice. Well done.”" CR CR>
+           <TELL "Far above, the shop door bangs open, and boots stamp off the snow. “Pip?” calls Grandfather Tolliver, out of breath from searching the whole town for another way to the heart. He hurries down the study stairs, sees the gears turning, and laughs. “You found the way yourself. Well done, apprentice. Well done.”" CR CR>
            <COND (,NUTMEG-SAVED
                   <TELL "Nutmeg curls at Pip's feet, her patchy fur warm">
                   <COND (<IN? ,SCARF ,NUTMEG>
                          <TELL " and her new red scarf bright in the candlelight">)>
-                  <TELL ". “You kept your promise,” she says. “Nobody ever kept their promise before.”" CR CR>)>
+                  <TELL ". “You kept your promise,” she says. “Nobody ever kept their promise before.”" CR CR>)
+                 (T
+                  ;"A reader who frightened Nutmeg still ends on a way back."
+                  <TELL "Far away in her den behind the scrap-yard, Nutmeg lifts her head at the sound of the chimes. Tomorrow, Pip decides, he will visit her first thing and say sorry properly." CR CR>)>
            <TELL "The sun rises over Wrenfold, and every toy in town is awake to see it." CR>
            <TELL "The last of the night's cold fades from Pip's bones. At last, Pip is home." CR CR>
            <TELL "*** Pip has restored the heart of Wrenfold ***" CR>)
@@ -1651,7 +1698,7 @@ coat, and the pages in his handwriting."
            <SETG ENDING-TIER 1>
            <TELL CR>
            <TELL "The workshop heart shudders and begins to turn -- weakly, unsteadily, but it turns. A few toys in the nearest shop windows stir and blink. The streetlamps flicker but do not stay lit." CR CR>
-           <TELL "Grandfather Tolliver's voice comes through the gears as a faint whisper, barely audible: “...well done, apprentice... keep trying...”" CR CR>
+           <TELL "Far above, the shop door bangs open, and Grandfather Tolliver hurries down the study stairs, out of breath from searching the town. He listens to the heart and smiles. “Well done, apprentice. We will wake the others together.”" CR CR>
            <TELL "The heart beats, but softly -- too softly to wake every toy. Some are still asleep this morning. But the magic is not gone. It lingers, waiting for someone to bring more love into this world." CR CR>
            <TELL "The sun rises, pale and cold. Pip has done what he could. There is still work ahead." CR CR>
            <TELL "*** Pip has saved what he could of Wrenfold ***" CR>)>

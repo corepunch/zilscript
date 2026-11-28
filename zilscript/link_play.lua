@@ -2,7 +2,6 @@
 -- Only presentation records live beside the world in SAVE's scalar globals;
 -- resuming never replays actions or inspects story routines for a solution.
 local Session = require("zilscript.reader.Session")
-local Language = require("zilscript.reader.Language")
 local M = {}
 
 local function json(value)
@@ -52,7 +51,9 @@ function M.run(options)
 			return finish(...)
 		end
 	end
-	local session = Session.new { language = options.language }
+	local session = Session.new()
+	-- The story names its language in books/<game>/game.json; English otherwise.
+	session.language = require("zilscript.reader.Language").ofBook(options.gameName)
 	local currentRoom, currentItems = "", {}
 	session.engine = {
 		roomName = function() return currentRoom end,
@@ -99,7 +100,7 @@ function M.run(options)
 			table.insert(actions, { label, command, target or "" })
 		end
 		if not running then return actions end
-		for _, control in ipairs(Language.controls(options.language)) do
+		for _, control in ipairs({ session.language.look, session.language.inventory, session.language.wait }) do
 			add(control, control)
 		end
 		local active = false

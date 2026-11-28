@@ -9,14 +9,9 @@
 -- This follows TypeScript's emitter pattern where specialized functions
 -- handle different node types, rather than having nodes emit themselves.
 local utils = require 'zilscript.compiler.utils'
+local toplevel = require 'zilscript.compiler.toplevel'
 
 local Forms = {}
-
-local germanTellTokens = {
-  DER_NOM = true, DER_NOM_CAP = true, DER_ACC = true, DER_ACC_CAP = true, DER_DAT = true,
-  EIN_NOM = true, EIN_NOM_CAP = true, EIN_ACC = true, EIN_ACC_CAP = true, EIN_DAT = true,
-  PRONOUN_NOM = true, PRONOUN_NOM_CAP = true, PRONOUN_ACC = true,
-}
 
 -- Helper: Generate error return with specified value
 local function writeErrorReturn(buf, error_value)
@@ -305,7 +300,8 @@ function Forms.createHandlers(compiler, printNode)
     buf.write(")")
   end
 
-  form.TELL = function(buf, node, indent)
+  -- Writes one TELL call over a run of TELL arguments.
+  local function writeTell(buf, items, indent)
     -- TELL-TOKENS gives these identifiers formatting semantics distinct from
     -- their ordinary globals (THE is also commonly an object flag).
     local tokens = {
@@ -316,28 +312,90 @@ function Forms.createHandlers(compiler, printNode)
       CTHE = "TELL_CTHE",
     }
     buf.write("TELL(")
-    for i = 1, #node do
-      local cond_node = utils.isCond(node[i]) and node[i]
-        or (node[i].type == "placeholder" and utils.isCond(node[i][1]) and node[i][1])
-      local name = node[i].type == "ident" and utils.normalizeIdentifier(node[i].value)
-      local token = name and tokens[name]
+    for i = 1, #items do
+      local item = items[i]
+      local cond_node = utils.isCond(item) and item
+        or (item.type == "placeholder" and utils.isCond(item[1]) and item[1])
+      local token = item.type == "ident" and tokens[item.value]
       if token then
         buf.write(token)
-      elseif germanTellTokens[name] then
-        buf.write("TELL_TOKEN(%q)", name .. "_PRINT")
-      elseif node[i].type == "placeholder" and node[i][1] and not cond_node then
+      elseif item.type == "placeholder" and item[1] and not cond_node then
         buf.write("D, ")
-        printNode(buf, node[i][1], indent + 1)
+        printNode(buf, item[1], indent + 1)
       elseif cond_node then
         buf.write("APPLY(function() ")
         printNode(buf, cond_node, indent + 1)
         buf.write(" return __tmp end)")
       else
-        printNode(buf, node[i], indent + 1)
+        printNode(buf, item, indent + 1)
       end
-      if i < #node then buf.write(", ") end
+      if i < #items then buf.write(", ") end
     end
     buf.write(")")
+  end
+
+  -- A token's form with its arguments in place of .X and .Y.
+  local function tokenForm(template, args)
+    local slots = { [".X"] = args[1], [".Y"] = args[2] }
+    local function fill(node)
+      if type(node) ~= "table" then return node end
+      if (node.type == "symbol" or node.type == "ident") and slots[node.value] then
+        return slots[node.value]
+      end
+      if node.type ~= "expr" and node.type ~= "list" then return node end
+      local copy = setmetatable({ type = node.type, name = node.name }, getmetatable(node))
+      for i = 1, #node do copy[i] = fill(node[i]) end
+      return copy
+    end
+    return fill(template)
+  end
+
+  form.TELL = function(buf, node, indent)
+    local custom = compiler.tell_tokens or {}
+    local uses_custom = false
+    for i = 1, #node do
+      if node[i].type == "ident" and custom[node[i].value] then uses_custom = true break end
+    end
+    if not uses_custom then
+      writeTell(buf, node, indent)
+      return
+    end
+    -- A token the story declared runs its own form between runs of text, so
+    -- the output keeps its order (Lua evaluates every argument of one call
+    -- before the call prints anything).
+    buf.write("APPLY(function() ")
+    local run = {}
+    local function flush()
+      if #run == 0 then return end
+      writeTell(buf, run, indent)
+      buf.write(" ")
+      run = {}
+    end
+    local i = 1
+    while i <= #node do
+      local item = node[i]
+      local variant, args
+      if item.type == "ident" and custom[item.value] then
+        variant, args = toplevel.matchTellToken(custom[item.value], node, i + 1)
+      end
+      if variant then
+        flush()
+        local call = tokenForm(variant.template, args)
+        if utils.isCond(call) then
+          printNode(buf, call, indent + 1, true)
+        else
+          buf.write("local _ = ")
+          printNode(buf, call, indent + 1)
+        end
+        buf.write(" ")
+        i = i + 1 + #variant.patterns
+      else
+        table.insert(run, item)
+        i = i + 1
+      end
+    end
+    flush()
+    buf.write("return true end)")
   end
 
   -- LET - Local variable bindings
@@ -489,10 +547,6 @@ function Forms.createHandlers(compiler, printNode)
     writeStringCall(buf, "BUZZ", node)
   end
 
-  form.LANGUAGE = function(buf, node)
-    writeStringCall(buf, "LANGUAGE", node)
-  end
-
   form.SYNONYM = function(buf, node, indent)
     writeStringCall(buf, "SYNONYM", node)
   end
@@ -595,6 +649,21 @@ function Forms.createHandlers(compiler, printNode)
       buf.write("ITABLE_WORDS(")
       printNode(buf, node[2], 0)
       buf.write(", 1)")
+    elseif node[1] and node[1].type == "number" and node[2] and node[2].type == "list" then
+      -- Flags without LENGTH or LEXV ask for plain zero-filled elements, as
+      -- in ZIL: <ITABLE 33 (BYTE) 0> is 33 bytes with no length prefix.
+      local flags = {}
+      for _, flag in ipairs(node[2]) do flags[utils.safeget(flag, "value") or ""] = true end
+      if flags.LENGTH or flags.LEXV then
+        -- Preserve the established byte/LEXV buffer layout READ expects.
+        buf.write("ITABLE(")
+        printNode(buf, node[1], 0)
+        buf.write(")")
+      elseif flags.BYTE then
+        buf.write("ITABLE_BYTES(%s)", compiler.value(node[1]))
+      else
+        buf.write("ITABLE_WORDS(%s, %d)", compiler.value(node[1]), math.max(1, #node - 2))
+      end
     else
       -- Preserve the established byte/LEXV buffer layout for flagged tables.
       buf.write("ITABLE(")

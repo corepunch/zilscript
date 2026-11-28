@@ -1,5 +1,33 @@
+<SYNTAX UNFOLD OBJECT = V-UNFOLD>
+<SYNONYM UNFOLD SPREAD FLATTEN>
+<SYNTAX FOLD OBJECT = V-FOLD>
+<SYNTAX ATTACK OBJECT = V-ATTACK>
+<SYNTAX HINT = V-BOOK-HINT>
+<SYNONYM HINT HINTS HELP>
 <ROUTINE V-VERSION ()
  <TELL "The Library of Borrowed Tomorrows|Studio Null, 2026|Release " N ,RELEASEID CR>>
+
+<ROUTINE V-UNFOLD ()
+ <COND (<NOT <EQUAL? ,PRSO ,LEAF>> <TELL "That doesn't unfold." CR>)
+       (,WIDE-LOAN <TELL "It's already opened out as wide as your arms." CR>)
+       (<NOT <HELD? ,LEAF>> <TELL "You'd need to be holding the page first." CR>)
+       (<EQUAL? ,HERE ,FOLDING> <PERFORM ,V?PUT-ON ,LEAF ,BOARD> <RTRUE>)
+       (T <TELL "You pick at the folds, but they're old and stiff, and they spring shut again as soon as you let go. The page needs a flat, steady place to be smoothed open." CR>)>>
+
+<ROUTINE V-FOLD ()
+ <COND (<NOT <EQUAL? ,PRSO ,LEAF>> <TELL "That doesn't fold." CR>)
+       (,WIDE-LOAN <TELL "Folded up small again, it would only have room for one name. You leave it open." CR>)
+       (T <TELL "It's already folded as small as it will go." CR>)>>
+
+<ROUTINE V-BOOK-HINT ()
+ <COND (<NOT <FSET? ,CASE ,OPENBIT>> <TELL "The lending cabinet in the hall has a little door. Try opening it." CR>)
+       (<IN? ,LEAF ,CASE> <TELL "Take the tomorrow leaf out of the lending cabinet." CR>)
+       (<NOT ,RECEIPT-READ> <TELL "Read the old loan receipt in the dry basin. It explains what went wrong." CR>)
+       (<IN? ,LEAF ,FRAME> <TELL "Read from the reading frame, out loud, for the whole market." CR>)
+       (<NOT <HELD? ,LEAF>> <TELL "Pick up the tomorrow leaf again. You left it somewhere along the way." CR>)
+       (<AND <NOT ,WIDE-LOAN> <NOT ,BOARD-READ>> <TELL "Read the words carved on the folding board in the folding room." CR>)
+       (<NOT ,WIDE-LOAN> <TELL "Lay the tomorrow leaf on the folding board to open its old folds." CR>)
+       (T <TELL "Take the wide page up to the reading terrace and put it in the reading frame." CR>)>>
 
 <ROUTINE GO ()
  <V-VERSION> <CRLF>
@@ -34,7 +62,7 @@
         <TELL " Stairs lead [[south]] down to the folding room, and a doorway to the [[west]] leads back to the dry basin." CR>)>>
 
 <ROUTINE CASE-F ()
- <COND (<AND <VERB? OPEN> <NOT <FSET? ,CASE ,OPENBIT>>>
+ <COND (<AND <VERB? OPEN SEARCH LOOK-INSIDE> <NOT <FSET? ,CASE ,OPENBIT>>>
         <FSET ,CASE ,OPENBIT>
         <COND (<IN? ,LEAF ,CASE> <TELL "You open the cabinet's little door. Inside, all alone on the shelf, lies a [[tomorrow leaf]]." CR>)
               (T <TELL "You open the empty cabinet." CR>)>)
@@ -58,6 +86,8 @@
               (T <TELL "Nothing. The empty cabinet is as quiet as a closed book." CR>)>)
        (<VERB? SMELL>
         <TELL "Cedar wood and old paper, the smell of a drawer nobody has opened in years." CR>)
+       (<VERB? ATTACK KICK>
+        <TELL "You would never hurt the library's cabinet. It has looked after the last of tomorrow for a long time." CR>)
        (<VERB? MOVE PUSH TAKE>
         <TELL "You lean on the cabinet with all your weight. It's far too heavy to budge, and someone clearly pushed it against the window on purpose." CR>)
        (<VERB? LOOK-UNDER>
@@ -104,7 +134,15 @@
        (<VERB? SMELL>
         <TELL "Damp stone and old ink." CR>)>>
 <ROUTINE RILL-F ()
- <COND (<VERB? EXAMINE>
+ <COND (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,RILL>>
+        <TELL "Paper and water don't mix. You keep the " D ,PRSO " dry." CR>)
+       (<VERB? DRINK DRINK-FROM>
+        <COND (,ON-LOAN <TELL "There isn't a drop left to drink." CR>)
+              (T <TELL "You cup a little water from the trough. It's cool and tastes faintly of stone." CR>)>)
+       (<VERB? TAKE>
+        <COND (,ON-LOAN <TELL "There's nothing to take. The trough is bone dry." CR>)
+              (T <TELL "The water runs through your fingers and hurries on toward the market." CR>)>)
+       (<VERB? EXAMINE>
         <COND (,ON-LOAN <TELL "The trough is completely dry. It looks as if the water stopped, turned around, and went back the way it came." CR>)
               (T <TELL "A long stone channel. Clear water travels along it, out through a gap in the wall and down toward the market." CR>)>)
        (<VERB? LISTEN>
@@ -199,6 +237,9 @@
         <TELL "Held to your ear, the page makes tiny sounds: a rooster, a kettle, someone laughing. Tomorrow's sounds, waiting their turn." CR>)
        (<VERB? RUB>
         <TELL "The paper is warm, as if it has been lying in tomorrow's sun." CR>)
+       (<VERB? OPEN> <PERFORM ,V?UNFOLD ,LEAF> <RTRUE>)
+       (<VERB? THROW THROW-OFF OVERBOARD>
+        <TELL "You hold on tight. Tomorrow isn't something to throw away." CR>)
        (<VERB? SHAKE>
         <COND (,WIDE-LOAN <TELL "The wide page flaps like a little flag, and for a moment you feel a breeze that smells of morning." CR>)
               (T <TELL "The tight little square doesn't flutter at all. It's folded much too firmly for that." CR>)>)>>

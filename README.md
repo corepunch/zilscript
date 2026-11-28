@@ -128,24 +128,20 @@ For integration test documentation, see **[tests/TESTS.md](tests/TESTS.md)**.
     - `test_runtime.lua` - Runtime unit tests
     - `run_all.lua` - Unit test runner
 - `infocom/zork1/` - Zork 1 game files
-- `books/en/` and `books/de/` - Independent book catalogs. See [Localizing Adventure Arena books](docs/LOCALIZING_BOOKS.md).
+- `books/en/blackwood-horror/` - Additional adventure files
 
-## Configuring ZIL Files
+## Choosing a Story
 
-The list of ZIL files to compile is specified in `main.lua`:
+`main.lua` plays one story module, Zork I by default:
 
-```lua
-local files = {
-  "infocom/zork1/globals.zil",
-  "infocom/zork1/parser.zil",
-  "infocom/zork1/verbs.zil",
-  "infocom/zork1/syntax.zil",
-  "books/en/blackwood-horror/horror.zil",
-  "infocom/zork1/main.zil",
-}
+```sh
+lua5.4 main.lua                                   # infocom.zork1.zork1
+lua5.4 main.lua books.en.the-midnight-ledger.the-midnight-ledger
 ```
 
-You can modify this list to load different ZIL files or create your own adventure.
+A story's entry file imports a ruleset, which composes over its language's
+base: `rulesets.classic.en` (Zork's rules) or `rulesets.superhero.en`, both
+over `languages/en/base.zil`. See [docs/ADVENTURE-PACKAGES.md](docs/ADVENTURE-PACKAGES.md).
 
 ## Using the Require System
 

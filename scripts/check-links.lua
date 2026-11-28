@@ -14,8 +14,9 @@
 -- unbalanced "[[" or "]]" in a string.
 -- Exits non-zero when any problem is found.
 
+package.path = "./?.lua;./?/init.lua;" .. package.path
 local Language = require("zilscript.reader.Language")
-local Text = require("zilscript.text")
+local Story = require("zilscript.reader.Story")
 
 local function read(path)
 	local file = io.open(path, "r")
@@ -35,13 +36,13 @@ local function zil_files(dir)
 end
 
 -- Words from every SYNONYM and ADJECTIVE property, lower-cased.
-local function vocabulary(sources)
+local function vocabulary(sources, lang)
 	local nouns, adjectives = {}, {}
 	for _, body in ipairs(sources) do
 		for kind, list in body:gmatch("%((%u+)%s+([^%)]*)%)") do
 			local target = kind == "SYNONYM" and nouns or kind == "ADJECTIVE" and adjectives or nil
 			if target then
-				for word in list:gmatch("[^%s]+") do target[Text.lower(word)] = true end
+				for word in list:gmatch("[^%s]+") do target[Language.word(lang, word):lower()] = true end
 			end
 		end
 	end
@@ -62,7 +63,7 @@ end
 
 local function check_target(path, body, position, label, target, nouns, adjectives, directions)
 	local words = {}
-	for word in Text.lower(target):gmatch("[%w'%-\128-\255]+") do table.insert(words, word) end
+	for word in target:lower():gmatch("[%w'\128-\255%-]+") do table.insert(words, word) end
 	if #words == 0 then
 		report(path, body, position, "link [[" .. label .. "]] has no target")
 		return
@@ -88,10 +89,12 @@ if #dirs == 0 then
 end
 
 for _, dir in ipairs(dirs) do
-	local directions = Language.profile(dir:match("books/([^/]+)/")).directions
-	local files, sources = zil_files(dir), {}
+	local story = Story.of(dir)
+	local files, sources = story.sources, {}
 	for _, path in ipairs(files) do table.insert(sources, read(path) or "") end
-	local nouns, adjectives = vocabulary(sources)
+	local lang = story.language
+	local directions = Language.compassSet(lang)
+	local nouns, adjectives = vocabulary(sources, lang)
 	local links = 0
 	for index, path in ipairs(files) do
 		local body = sources[index]

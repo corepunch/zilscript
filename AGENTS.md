@@ -56,6 +56,16 @@ authoritative workflow is
 and authoring format are specified in
 [Companion ZIL Files](docs/COMPANION-ZIL.md).
 
+## Core, languages and rulesets
+
+A story imports one ruleset (`rulesets.classic.en`, `rulesets.superhero.en`),
+which composes over its language's base (`languages/<lang>/base.zil`), which
+stands on `core/` ([Adventure packages](docs/ADVENTURE-PACKAGES.md)). Core and
+languages never name a story's rooms or objects, and a ruleset never imports
+another ruleset. A form identical in two languages belongs in `core/`;
+`tests/test_adventure_packages.lua` enforces these rules. Before changing a
+language package or adding one, read [Language packages](docs/LANGUAGE-PACKAGES.md).
+
 ## Illustrating Adventures
 
 To turn a playable adventure into a beat-illustrated interactive storybook,

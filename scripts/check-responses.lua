@@ -19,45 +19,37 @@
 
 package.path = "./?.lua;./?/init.lua;" .. package.path
 local runtime = require("zilscript.runtime")
-local Text = require("zilscript.text")
 
-local VERBS = {
-	"take %s", "drop %s", "climb %s", "push %s", "pull %s", "open %s", "close %s",
-	"read %s", "touch %s", "search %s", "move %s", "kick %s", "eat %s", "smell %s",
-	"listen to %s", "look under %s", "look behind %s", "look in %s", "turn %s",
-	"enter %s", "sit on %s", "break %s", "wear %s", "knock on %s", "light %s",
-}
-local GERMAN_VERBS = {
-	"nimm %s", "lass %s", "drück %s", "zieh %s", "öffne %s", "schließe %s",
-	"lies %s", "untersuche %s", "such %s", "beweg %s", "riech %s",
-	"hör %s", "schau unter %s", "schau hinter %s", "schau in %s", "klopf an %s",
-}
-
-local ENDED = "RESTART, RESTORE, or QUIT"
+local Language = require("zilscript.reader.Language")
+local Story = require("zilscript.reader.Story")
+local lang -- the story's language, from its game.json
 
 local function new_game(story)
 	local env = runtime.create_game_env()
 	assert(runtime.init(env, true))
 	env.require("zilscript")
-	assert(runtime.load_modules(env, { story:gsub("/", ".") .. "." .. story:match("([^/]+)$") }, { silent = true }))
+	assert(runtime.load_modules(env, { Story.of(story).module }, { silent = true }))
 	local game = runtime.create_game(env, true)
 	game:start()
 	return env, game
 end
 
 -- The words a reader would use for each object, from its definition.
-local function nouns(story, german)
-	local file = assert(io.open(story .. "/dungeon.zil"))
-	local source = file:read("a")
-	file:close()
+local function nouns(story)
+	local source = ""
+	for _, path in ipairs(Story.of(story).words) do
+		local file = assert(io.open(path))
+		source = source .. file:read("a") .. "\n"
+		file:close()
+	end
 	local list = {}
 	for name, body in source:gmatch("<OBJECT%s+([%w%-]+)(.-)\n\n") do
-		local noun = body:match("%(SYNONYM%s+([%w%-\128-\255]+)")
-		local adjective = body:match("%(ADJECTIVE%s+([%w%-]+)")
+		local noun = body:match("%(SYNONYM%s+([%w%-\\%%]+)")
+		local adjective = body:match("%(ADJECTIVE%s+([%w%-\\%%]+)")
 		if noun then
 			table.insert(list, {
 				name = name,
-				words = Text.lower((not german and adjective and adjective .. " " or "") .. noun),
+				words = Language.word(lang, (adjective and adjective .. " " or "") .. noun):lower(),
 			})
 		end
 	end
@@ -77,17 +69,17 @@ end
 
 local problems, checked = 0, 0
 for _, story in ipairs({ ... }) do
-	local german = story:match("books/de/") ~= nil
+	lang = Story.of(story).language
 	local env, game = new_game(story)
 	if not env.VERBOSE then
 		problems = problems + 1
 		print(story .. ": GO does not set VERBOSE; revisited rooms print only their names")
 	end
-	for _, entry in ipairs(nouns(story, german)) do
+	for _, entry in ipairs(nouns(story)) do
 		local object = env[entry.name:gsub("%-", "_")]
 		local room = object and room_of(env, object)
 		if room then
-			for _, verb in ipairs(german and GERMAN_VERBS or VERBS) do
+			for _, verb in ipairs(lang.probes) do
 				env.MOVE(env.WINNER, room)
 				env.HERE = room
 				env.LIT = true
@@ -97,8 +89,8 @@ for _, story in ipairs({ ... }) do
 				if not reply:find("%S") then
 					problems = problems + 1
 					print(string.format("%s: %s: %q printed nothing", story, entry.name, command))
-				elseif reply:find(ENDED, 1, true) then
-					game:resume("restart")
+				elseif reply:find(lang.ended, 1, true) then
+					game:resume(lang.restart)
 				end
 			end
 		end

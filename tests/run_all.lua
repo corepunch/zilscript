@@ -12,10 +12,13 @@ local test_files = {
 	"tests/test_comprehensive_accuracy.lua",
 	"tests/test_defmac.lua",
 	"tests/test_framework.lua",
+	"tests/test_language_support.lua",
 	"tests/test_line_accuracy.lua",
 	"tests/test_llm.lua",
 	"tests/test_macro_expansion.lua",
 	"tests/test_parser.lua",
+	"tests/test_partial_objects.lua",
+	"tests/test_parser_manners.lua",
 	"tests/test_play_links.lua",
 	"tests/test_require_system.lua",
 	"tests/test_reader_state.lua",
@@ -23,6 +26,7 @@ local test_files = {
 	"tests/test_sourcemap_integration.lua",
 	"tests/test_sourcemap.lua",
 	"tests/test_typescript_modules.lua",
+	"tests/test_zork1_world_rules.lua",
 }
 
 local all_passed = true

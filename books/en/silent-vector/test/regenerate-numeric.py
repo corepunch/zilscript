@@ -28,7 +28,7 @@ with tempfile.TemporaryDirectory(prefix="silent-vector-numeric-") as temporary:
         command = command.lower()
         names = {
             "habitat breaker": "breaker", "torque wrench": "wrench", "null spool": "spool",
-            "tool recesses": "recesses", "examination area": "area",
+            "tool recesses": "recesses", "exam area": "area", "exam bed": "area",
             "protocol card": "protocol", "coolant pump": "pump", "witness recorder": "recorder",
             "witness strip": "strip", "mass ledger": "ledger", "ceramic shears": "shears",
             "clinical log": "log", "optical comparator": "comparator", "incoming bus": "bus",

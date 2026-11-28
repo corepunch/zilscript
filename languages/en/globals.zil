@@ -1,0 +1,195 @@
+			"Generic GLOBALS file for
+			    The ZORK Trilogy
+		       started on 7/28/83 by MARC"
+
+"SUBTITLE GLOBAL OBJECTS"
+
+<OBJECT GLOBAL-OBJECTS
+	(FLAGS RMUNGBIT INVISIBLE TOUCHBIT SURFACEBIT TRYTAKEBIT
+	       OPENBIT SEARCHBIT TRANSBIT ONBIT RLANDBIT FIGHTBIT
+	       STAGGERED WEARBIT)>
+
+<OBJECT LOCAL-GLOBALS
+	(IN GLOBAL-OBJECTS)
+	(SYNONYM ZZMGCK)
+	(DESCFCN PATH-OBJECT)
+        (GLOBAL GLOBAL-OBJECTS)
+	(ADVFCN 0)
+	(FDESC "F")
+	(LDESC "F")
+	(PSEUDO "FOOBAR" V-WALK)
+	(CONTFCN 0)
+	(VTYPE 1)
+	(SIZE 0)
+	(CAPACITY 0)>
+
+;"Yes, this synonym for LOCAL-GLOBALS needs to exist... sigh"
+
+<OBJECT ROOMS
+	(IN TO ROOMS)>
+
+<OBJECT INTNUM
+	(IN GLOBAL-OBJECTS)
+	(SYNONYM INTNUM)
+	(FLAGS TOOLBIT)
+	(DESC "number")>
+
+<OBJECT PSEUDO-OBJECT
+	(IN LOCAL-GLOBALS)
+	(DESC "pseudo")
+	(ACTION CRETIN-FCN)>
+
+<OBJECT IT
+	(IN GLOBAL-OBJECTS)
+	(SYNONYM IT THEM)
+	(DESC "random object")
+	(FLAGS NDESCBIT TOUCHBIT)>
+
+;"HIM and HER mean the last person a command involved (P-HIM-OR-HER), not
+  the last object: \"show the letter to her\" addresses Lady Ashworth."
+<OBJECT HIM-OR-HER
+	(IN GLOBAL-OBJECTS)
+	(SYNONYM HIM HER)
+	(DESC "random person")
+	(FLAGS NDESCBIT TOUCHBIT)>
+
+<OBJECT NOT-HERE-OBJECT
+	(DESC "such thing" ;"[not here]")
+	(ACTION NOT-HERE-OBJECT-F)>
+
+<ROUTINE NOT-HERE-OBJECT-F ("AUX" TBL (PRSO? T) OBJ)
+	 ;"This COND is game independent (except the TELL)"
+	 <COND (<AND <EQUAL? ,PRSO ,NOT-HERE-OBJECT>
+		     <EQUAL? ,PRSI ,NOT-HERE-OBJECT>>
+		<TELL "Those things aren't here!" CR>
+		<RTRUE>)
+	       (<EQUAL? ,PRSO ,NOT-HERE-OBJECT>
+		<SET TBL ,P-PRSO>)
+	       (T
+		<SET TBL ,P-PRSI>
+		<SET PRSO? <>>)>
+	 ;"Here is the default “cant see any” printer"
+	 <SETG P-CONT <>>
+	 <SETG QUOTE-FLAG <>>
+	 <COND (<EQUAL? ,WINNER ,PLAYER>
+		<TELL "You can't see any ">
+		<NOT-HERE-PRINT .PRSO?>
+		<TELL " here!" CR>)
+	       (T
+		<TELL CTHE ,WINNER " seems confused. \"I don't see any ">
+		<NOT-HERE-PRINT .PRSO?>
+		<TELL " here!\"" CR>)>
+	 <RTRUE>>
+
+<ROUTINE NOT-HERE-PRINT (PRSO?)
+ <COND (,P-OFLAG
+	<COND (,P-XADJ <PRINTB ,P-XADJN>)>
+	<COND (,P-XNAM <PRINTB ,P-XNAM>)>)
+       (.PRSO?
+	<BUFFER-PRINT <GET ,P-ITBL ,P-NC1> <GET ,P-ITBL ,P-NC1L> <>>)
+       (T
+	<BUFFER-PRINT <GET ,P-ITBL ,P-NC2> <GET ,P-ITBL ,P-NC2L> <>>)>>
+
+
+/^L
+
+"Objects shared by all three Zorks go here"
+
+
+<OBJECT STAIRS
+	(IN LOCAL-GLOBALS)
+	(SYNONYM STAIRS STEPS STAIRCASE STAIRWAY)
+	(ADJECTIVE STONE DARK MARBLE FORBIDDING STEEP)
+	(DESC "stairs")
+	(FLAGS NDESCBIT CLIMBBIT PLURALBIT)
+	(ACTION STAIRS-F)>
+
+<ROUTINE STAIRS-F ()
+	 <COND (<VERB? THROUGH>
+		<TELL
+"You should say whether you want to go up or down." CR>)>>
+
+
+<OBJECT GROUND
+	(IN GLOBAL-OBJECTS)
+	(SYNONYM GROUND SAND DIRT FLOOR)
+	(DESC "ground")
+	(ACTION GROUND-FUNCTION)>
+
+<ROUTINE GROUND-FUNCTION ()
+	 <COND (<AND <VERB? PUT PUT-ON>
+		     <EQUAL? ,PRSI ,GROUND>>
+		<PERFORM ,V?DROP ,PRSO>
+		<RTRUE>)
+	       (<VERB? DIG>
+		<TELL "The ground is too hard for digging here." CR>)>>
+
+
+<OBJECT LUNGS
+	(IN GLOBAL-OBJECTS)
+	(SYNONYM LUNGS AIR MOUTH BREATH)
+	(DESC "blast of air")
+	(FLAGS NDESCBIT)>
+
+<OBJECT ME
+	(IN GLOBAL-OBJECTS)
+	(SYNONYM ME MYSELF SELF CRETIN)
+	(DESC "yourself")
+	(FLAGS ACTORBIT)
+	(ACTION CRETIN-FCN)>
+
+<ROUTINE CRETIN-FCN ()
+	 <COND (<VERB? TELL>
+		<SETG P-CONT <>>
+		<SETG QUOTE-FLAG <>>
+		<TELL
+"Talking to yourself is said to be a sign of impending mental collapse." CR>)
+	       (<AND <VERB? GIVE>
+		     <EQUAL? ,PRSI ,ME>>
+		<PERFORM ,V?TAKE ,PRSO>
+		<RTRUE>)
+	       (<VERB? MAKE>
+		<TELL "Only you can do that." CR>)
+	       (<VERB? DISEMBARK>
+		<TELL "You'll have to do that on your own." CR>)
+	       (<VERB? EAT>
+		<TELL "Auto-cannibalism is not the answer." CR>)
+	       (<VERB? ATTACK MUNG>
+		<COND (<AND ,PRSI <FSET? ,PRSI ,WEAPONBIT>>
+		       <JIGS-UP "If you insist.... Poof, you're dead!">)
+		      (T
+		       <TELL "Suicide is not the answer." CR>)>)
+	       (<VERB? THROW>
+		<COND (<==? ,PRSO ,ME>
+		       <TELL
+"Why don't you just walk like normal people?" CR>)>)
+	       (<VERB? TAKE>
+		<TELL "How romantic!" CR>)
+	       (<VERB? EXAMINE>
+		<TELL
+"That's difficult unless your eyes are prehensile." CR>)>>
+
+
+<OBJECT ADVENTURER
+	(SYNONYM ADVENTURER)
+	(DESC "yourself")
+	(FLAGS NDESCBIT INVISIBLE SACREDBIT ACTORBIT)
+	(STRENGTH 0)
+	(ACTION 0)>
+
+
+<ROUTINE PATH-OBJECT ()
+	 <COND (<VERB? TAKE FOLLOW>
+		<TELL "You must specify a direction to go." CR>)
+	       (<VERB? FIND>
+		<TELL "I can't help you there...." CR>)
+	       (<VERB? DIG>
+		<TELL "Not a chance." CR>)>>
+
+
+<OBJECT HANDS
+	(IN GLOBAL-OBJECTS)
+	(SYNONYM PAIR HANDS HAND)
+	(ADJECTIVE BARE)
+	(DESC "pair of hands")
+	(FLAGS NDESCBIT TOOLBIT)>

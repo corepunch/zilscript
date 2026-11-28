@@ -4,107 +4,16 @@
  
                      -- GERMAN VIA <ZORK1>, pdl's revision"
 
-;"ein, eine, ect. replaces w?one in all cases"
+
+<INSERT-FILE "core.parser">
 
 <SETG SIBREAKS ".,\"\%<\%>">
 
-<GLOBAL PRSA <>>
-<GLOBAL PRSI <>>
-<GLOBAL PRSO <>>
-
-<GLOBAL P-TABLE 0>
-<GLOBAL P-ONEOBJ 0>
-<GLOBAL P-SYNTAX 0>
-
-<GLOBAL P-CCTBL <TABLE 0 0 0 0>>
-;"pointers used by CLAUSE-COPY (source/destination beginning/end pointers)"
-<CONSTANT CC-SBPTR 0>
-<CONSTANT CC-SEPTR 1>
-<CONSTANT CC-DBPTR 2>
-<CONSTANT CC-DEPTR 3>
 
 <CONSTANT LAST-OBJECT 0> ;"zilch automatically sticks number of last obj here"
 
-<GLOBAL P-LEN 0>
-<GLOBAL P-DIR 0>
-<GLOBAL HERE:OBJECT WEST-OF-HOUSE>
-<GLOBAL WINNER 0>
-
-<GLOBAL P-LEXV
-	<ITABLE 59 (LEXV) 0 #BYTE 0 #BYTE 0> ;<ITABLE BYTE 120>>
-<GLOBAL AGAIN-LEXV
-	<ITABLE 59 (LEXV) 0 #BYTE 0 #BYTE 0> ;<ITABLE BYTE 120>>
-<GLOBAL RESERVE-LEXV
-	<ITABLE 59 (LEXV) 0 #BYTE 0 #BYTE 0> ;<ITABLE BYTE 120>>
-<GLOBAL RESERVE-PTR <>>
-
-;"INBUF - Input buffer for READ"
-
-<GLOBAL P-INBUF
-	<ITABLE 120 (BYTE LENGTH) 0>
-	;<ITABLE BYTE 60>>
-<GLOBAL OOPS-INBUF
-	<ITABLE 120 (BYTE LENGTH) 0>
-	;<ITABLE BYTE 60>>
-<GLOBAL OOPS-TABLE <TABLE <> <> <> <>>>
-<CONSTANT O-PTR 0>	"word pointer to unknown token in P-LEXV"
-<CONSTANT O-START 1>	"word pointer to sentence start in P-LEXV"
-<CONSTANT O-LENGTH 2>	"byte length of unparsed tokens in P-LEXV"
-<CONSTANT O-END 3>	"byte pointer to first free byte in OOPS-INBUF"
-
-;"Parse-cont variable"
-
-<GLOBAL P-CONT <>>
 
 ;<GLOBAL LAST-PSEUDO-LOC <>>
-
-;"Orphan flag"
-
-<GLOBAL P-OFLAG <>>
-<GLOBAL P-MERGED <>>
-<GLOBAL P-ACLAUSE <>>
-<GLOBAL P-ANAM <>>
-<GLOBAL P-AADJ <>>
-;"Parser variables and temporaries"
-
-;"Byte offset to # of entries in LEXV"
-
-<CONSTANT P-LEXWORDS 1> ;"Word offset to start of LEXV entries"
-<CONSTANT P-LEXSTART 1> ;"Number of words per LEXV entry"
-<CONSTANT P-LEXELEN 2>
-<CONSTANT P-WORDLEN 4> ;"Offset to parts of speech byte"
-
-
-<CONSTANT P-PSOFF %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 6) (T 4)>>
-			"Offset to parts of speech byte"
-<CONSTANT P-P1OFF %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 7) (T 5)>>
-			"Offset to first part of speech"
-
-;<CONSTANT P-PSOFF 4> ;"Offset to first part of speech"
-;<CONSTANT P-P1OFF 5> ;"First part of speech bit mask in PSOFF byte"
-<CONSTANT P-P1BITS 3>
-
-<CONSTANT P-ITBLLEN 9>
-<GLOBAL P-ITBL <TABLE 0 0 0 0 0 0 0 0 0 0>>
-<GLOBAL P-OTBL <TABLE 0 0 0 0 0 0 0 0 0 0>>
-<GLOBAL P-VTBL <TABLE 0 0 0 0>>
-<GLOBAL P-OVTBL <TABLE 0 #BYTE 0 #BYTE 0>>
-
-<GLOBAL P-NCN 0>
-
-<CONSTANT P-VERB 0>
-<CONSTANT P-VERBN 1>
-<CONSTANT P-PREP1 2>
-<CONSTANT P-PREP1N 3>
-<CONSTANT P-PREP2 4>
-<CONSTANT P-PREP2N 5>
-<CONSTANT P-NC1 6>
-<CONSTANT P-NC1L 7>
-<CONSTANT P-NC2 8>
-<CONSTANT P-NC2L 9>
-
-<GLOBAL QUOTE-FLAG <>>
-<GLOBAL P-END-ON-PREP <>>
 
 " Grovel down the input finding the verb, prepositions, and noun clauses.
    If the input is <direction> or <walk> <direction>, fall out immediately
@@ -156,12 +65,7 @@
 	       <SETG LIT <LIT? ,HERE>>
 	       <COND (<NOT ,SUPER-BRIEF> 
 		      <CRLF>)>
-	       %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE>
-		       '<PROG ()
-			      <UPDATE-STATUS-LINE>
-			      <TELL ">">>)
-		      (T
-		       '<TELL ">">)>
+	       <TELL ">">
 	       <PUTB ,P-INBUF 1 0>
 	       <READ ,P-INBUF ,P-LEXV>)>
 	<SETG P-LEN <GETB ,P-LEXV ,P-LEXWORDS>>
@@ -399,48 +303,6 @@
 			   <TAKE-CHECK>>
 		      T)>)>>
 
-<GLOBAL P-ACT <>>
-<GLOBAL P-WALK-DIR <>>
-<GLOBAL AGAIN-DIR <>>
-
-;"For AGAIN purposes, put contents of one LEXV table into another."
-<ROUTINE STUFF (SRC DEST "OPTIONAL" (MAX 29) "AUX" (PTR ,P-LEXSTART) (CTR 1)
-						   BPTR)
-	 <PUTB .DEST 0 <GETB .SRC 0>>
-	 <PUTB .DEST 1 <GETB .SRC 1>>
-	 <REPEAT ()
-	  <PUT .DEST .PTR <GET .SRC .PTR>>
-	  <SET BPTR <+ <* .PTR 2> 2>>
-	  <PUTB .DEST .BPTR <GETB .SRC .BPTR>>
-	  <SET BPTR <+ <* .PTR 2> 3>>
-	  <PUTB .DEST .BPTR <GETB .SRC .BPTR>>
-	  <SET PTR <+ .PTR ,P-LEXELEN>>
-	  <COND (<IGRTR? CTR .MAX>
-		 <RETURN>)>>>
-
-;"Put contents of one INBUF into another"
-<ROUTINE INBUF-STUFF (SRC DEST "AUX" CNT)
-	 <SET CNT <- <GETB .SRC 0> 1>>
-	 <REPEAT ()
-		 <PUTB .DEST .CNT <GETB .SRC .CNT>>
-		 <COND (<DLESS? CNT 0> <RETURN>)>>>
-
-;"Put the word in the positions specified from P-INBUF to the end of
-OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
-<ROUTINE INBUF-ADD (LEN BEG SLOT "AUX" DBEG (CTR 0) TMP)
-	 <COND (<SET TMP <GET ,OOPS-TABLE ,O-END>>
-		<SET DBEG .TMP>)
-	       (T
-		<SET DBEG <+ <GETB ,AGAIN-LEXV
-				   <SET TMP <GET ,OOPS-TABLE ,O-LENGTH>>>
-			     <GETB ,AGAIN-LEXV <+ .TMP 1>>>>)>
-	 <PUT ,OOPS-TABLE ,O-END <+ .DBEG .LEN>>
-	 <REPEAT ()
-	  <PUTB ,OOPS-INBUF <+ .DBEG .CTR> <GETB ,P-INBUF <+ .BEG .CTR>>>
-	  <SET CTR <+ .CTR 1>>
-	  <COND (<EQUAL? .CTR .LEN> <RETURN>)>>
-	 <PUTB ,AGAIN-LEXV .SLOT .DBEG>
-	 <PUTB ,AGAIN-LEXV <- .SLOT 1> .LEN>>
 
 ;"Check whether word pointed at by PTR is the correct part of speech.
    The second argument is the part of speech (,PS?<part of speech>). The
@@ -540,31 +402,6 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 		<SET FIRST?? <>>
 		<SET PTR <+ .PTR ,P-LEXELEN>>>>
 
-<ROUTINE NUMBER? (PTR "AUX" CNT BPTR CHR (SUM 0) (TIM <>))
-	 <SET CNT <GETB <REST ,P-LEXV <* .PTR 2>> 2>>
-	 <SET BPTR <GETB <REST ,P-LEXV <* .PTR 2>> 3>>
-	 <REPEAT ()
-		 <COND (<L? <SET CNT <- .CNT 1>> 0> <RETURN>)
-		       (T
-			<SET CHR <GETB ,P-INBUF .BPTR>>
-			<COND (<EQUAL? .CHR 58>
-			       <SET TIM .SUM>
-			       <SET SUM 0>)
-			      (<G? .SUM 10000> <RFALSE>)
-			      (<AND <L? .CHR 58> <G? .CHR 47>>
-			       <SET SUM <+ <* .SUM 10> <- .CHR 48>>>)
-			      (T <RFALSE>)>
-			<SET BPTR <+ .BPTR 1>>)>>
-	 <PUT ,P-LEXV .PTR ,W?INTNUM>
-	 <COND (<G? .SUM 1000> <RFALSE>)
-	       (.TIM
-		<COND (<L? .TIM 8> <SET TIM <+ .TIM 12>>)
-		      (<G? .TIM 23> <RFALSE>)>
-		<SET SUM <+ .SUM <* .TIM 60>>>)>
-	 <SETG P-NUMBER .SUM>
-	 ,W?INTNUM>
-
-<GLOBAL P-NUMBER 0>
 
 <GLOBAL P-DIRECTION <>>
 
@@ -666,28 +503,6 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 		 (T <PUT ,P-ITBL .CNT <GET ,P-OTBL .CNT>>)>>
    T>
 
-;"New ACLAUSE-WIN for TRAP retrofix 6/21/84"
-
-<ROUTINE ACLAUSE-WIN (ADJ)
-	<PUT ,P-ITBL ,P-VERB <GET ,P-OTBL ,P-VERB>>
-	<PUT ,P-CCTBL ,CC-SBPTR ,P-ACLAUSE>
-	<PUT ,P-CCTBL ,CC-SEPTR <+ ,P-ACLAUSE 1>>
-	<PUT ,P-CCTBL ,CC-DBPTR ,P-ACLAUSE>
-	<PUT ,P-CCTBL ,CC-DEPTR <+ ,P-ACLAUSE 1>>
-	<CLAUSE-COPY ,P-OTBL ,P-OTBL .ADJ>
-	<AND <NOT <EQUAL? <GET ,P-OTBL ,P-NC2> 0>> <SETG P-NCN 2>>
-	<SETG P-ACLAUSE <>>
-	<RTRUE>>
-
-<ROUTINE NCLAUSE-WIN ()
-        <PUT ,P-CCTBL ,CC-SBPTR ,P-NC1>
-	<PUT ,P-CCTBL ,CC-SEPTR ,P-NC1L>
-	<PUT ,P-CCTBL ,CC-DBPTR ,P-ACLAUSE>
-	<PUT ,P-CCTBL ,CC-DEPTR <+ ,P-ACLAUSE 1>>
-	<CLAUSE-COPY ,P-ITBL ,P-OTBL>
-	<AND <NOT <EQUAL? <GET ,P-OTBL ,P-NC2> 0>> <SETG P-NCN 2>>
-	<SETG P-ACLAUSE <>>
-	<RTRUE>>
 
 ;"Print undefined word in input.
    PTR points to the unknown word in P-LEXV"
@@ -730,24 +545,6 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 	<SETG QUOTE-FLAG <>>
 	<SETG P-OFLAG <>>>
 
-;" Perform syntax matching operations, using P-ITBL as the source of
-   the verb and adjectives for this input. Returns false if no
-   syntax matches, and does it's own orphaning. If return is true,
-   the syntax is saved in P-SYNTAX."
-
-<GLOBAL P-SLOCBITS 0>
-
-<CONSTANT P-SYNLEN 8>
-
-<CONSTANT P-SBITS 0>
-<CONSTANT P-SPREP1 1>
-<CONSTANT P-SPREP2 2>
-<CONSTANT P-SFWIM1 3>
-<CONSTANT P-SFWIM2 4>
-<CONSTANT P-SLOC1 5>
-<CONSTANT P-SLOC2 6>
-<CONSTANT P-SACTION 7>
-<CONSTANT P-SONUMS 3>
 
 <ROUTINE SYNTAX-CHECK ("AUX" SYN LEN NUM OBJ
 		       	    (DRIVE1 <>) (DRIVE2 <>) PREP VERB TMP THE-PREP)
@@ -764,10 +561,18 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 			    <ZERO? ,P-NCN>
 			    <OR <ZERO? <SET PREP <GET ,P-ITBL ,P-PREP1>>>
 				<EQUAL? .PREP <GETB .SYN ,P-SPREP1>>>>
-		       <SET DRIVE1 .SYN>)
+		       ;"Keep the first candidate unless a later one has exactly the
+			 typed preposition: EXAMINE asks what to examine, not what
+			 to examine ON."
+		       <COND (<OR <NOT .DRIVE1>
+				  <AND <EQUAL? <GETB .SYN ,P-SPREP1> <GET ,P-ITBL ,P-PREP1>>
+				       <NOT <EQUAL? <GETB .DRIVE1 ,P-SPREP1> <GET ,P-ITBL ,P-PREP1>>>>>
+			      <SET DRIVE1 .SYN>)>)
 		      (<EQUAL? <GETB .SYN ,P-SPREP1> <GET ,P-ITBL ,P-PREP1>>
 		       <COND (<AND <EQUAL? .NUM 2> <EQUAL? ,P-NCN 1>>
-			      <SET DRIVE2 .SYN>)
+			      ;"The first declared line asks the natural question:
+				GIVE X TO, PUT X IN."
+			      <COND (<NOT .DRIVE2> <SET DRIVE2 .SYN>)>)
 			     (<EQUAL? <GETB .SYN ,P-SPREP2>
 				   <GET ,P-ITBL ,P-PREP2>>
 			      <SYNTAX-FOUND .SYN>
@@ -868,45 +673,10 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 	 <TELL "%>Ich verstehe das nicht! Worauf beziehst du dich?%<" CR>
 	 <RFALSE>>
 
-<ROUTINE ORPHAN (D1 D2 "AUX" (CNT -1))
-	<COND (<NOT ,P-MERGED>
-	       <PUT ,P-OCLAUSE ,P-MATCHLEN 0>)>
-	<PUT ,P-OVTBL 0 <GET ,P-VTBL 0>>
-	<PUTB ,P-OVTBL 2 <GETB ,P-VTBL 2>>
-	<PUTB ,P-OVTBL 3 <GETB ,P-VTBL 3>>
-	<REPEAT ()
-		<COND (<IGRTR? CNT ,P-ITBLLEN> <RETURN>)
-		      (T <PUT ,P-OTBL .CNT <GET ,P-ITBL .CNT>>)>>
-	<COND (<EQUAL? ,P-NCN 2>
-	       <PUT ,P-CCTBL ,CC-SBPTR ,P-NC2>
-	       <PUT ,P-CCTBL ,CC-SEPTR ,P-NC2L>
-	       <PUT ,P-CCTBL ,CC-DBPTR ,P-NC2>
-	       <PUT ,P-CCTBL ,CC-DEPTR ,P-NC2L>
-	       <CLAUSE-COPY ,P-ITBL ,P-OTBL>)>
-	<COND (<NOT <L? ,P-NCN 1>>
-	       <PUT ,P-CCTBL ,CC-SBPTR ,P-NC1>
-	       <PUT ,P-CCTBL ,CC-SEPTR ,P-NC1L>
-	       <PUT ,P-CCTBL ,CC-DBPTR ,P-NC1>
-	       <PUT ,P-CCTBL ,CC-DEPTR ,P-NC1L>
-	       <CLAUSE-COPY ,P-ITBL ,P-OTBL>)>
-	<COND (.D1
-	       <PUT ,P-OTBL ,P-PREP1 <GETB .D1 ,P-SPREP1>>
-	       <PUT ,P-OTBL ,P-NC1 1>)
-	      (.D2
-	       <PUT ,P-OTBL ,P-PREP2 <GETB .D2 ,P-SPREP2>>
-	       <PUT ,P-OTBL ,P-NC2 1>)>>
 
 ;<ROUTINE CLAUSE-PRINT (BPTR EPTR "OPTIONAL" (THE? T))
 	<BUFFER-PRINT <GET ,P-ITBL .BPTR> <GET ,P-ITBL .EPTR> .THE?>>
 
-<ROUTINE THING-PRINT (PRSO? "OPTIONAL" (THE? <>) "AUX" BEG END)
-	 <COND (.PRSO?
-		<SET BEG <GET ,P-ITBL ,P-NC1>>
-		<SET END <GET ,P-ITBL ,P-NC1L>>)
-	       (ELSE
-		<SET BEG <GET ,P-ITBL ,P-NC2>>
-		<SET END <GET ,P-ITBL ,P-NC2L>>)>
-	 <BUFFER-PRINT .BEG .END .THE?>>
 
 <ROUTINE BUFFER-PRINT (BEG END CP
 		       "AUX" (NOSP T) WRD (FIRST?? T) (PN <>) (Q? <>))
@@ -984,24 +754,6 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 		       <CLAUSE-ADD <GET .BEG 0>>)>
 		<SET BEG <REST .BEG ,P-WORDLEN>>>>
 
-<ROUTINE CLAUSE-ADD (WRD "AUX" PTR)
-	<SET PTR <+ <GET ,P-OCLAUSE ,P-MATCHLEN> 2>>
-	<PUT ,P-OCLAUSE <- .PTR 1> .WRD>
-	<PUT ,P-OCLAUSE .PTR 0>
-	<PUT ,P-OCLAUSE ,P-MATCHLEN .PTR>>
-
-<ROUTINE PREP-FIND (PREP "AUX" (CNT 0) SIZE)
-	<SET SIZE <* <GET ,PREPOSITIONS 0> 2>>
-	<REPEAT ()
-		<COND (<IGRTR? CNT .SIZE> <RFALSE>)
-		      (<EQUAL? <GET ,PREPOSITIONS .CNT> .PREP>
-		       <RETURN <GET ,PREPOSITIONS <- .CNT 1>>>)>>>
-
-<ROUTINE SYNTAX-FOUND (SYN)
-	<SETG P-SYNTAX .SYN>
-	<SETG PRSA <GETB .SYN ,P-SACTION>>>
-
-<GLOBAL P-GWIMBIT 0>
 
 <GLOBAL GWIM-PRSO? <>>
 
@@ -1078,55 +830,10 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 		      .OBJ)>)
 	      (T <SETG P-GWIMBIT 0> <RFALSE>)>>
 
-<ROUTINE SNARF-OBJECTS ("AUX" OPTR IPTR L)
-	 <PUT ,P-BUTS ,P-MATCHLEN 0>
-	 <COND (<NOT <EQUAL? <SET IPTR <GET ,P-ITBL ,P-NC2>> 0>>
-		<SETG P-SLOCBITS <GETB ,P-SYNTAX ,P-SLOC2>>
-		<OR <SNARFEM .IPTR <GET ,P-ITBL ,P-NC2L> ,P-PRSI> <RFALSE>>)>
-	 <COND (<NOT <EQUAL? <SET OPTR <GET ,P-ITBL ,P-NC1>> 0>>
-		<SETG P-SLOCBITS <GETB ,P-SYNTAX ,P-SLOC1>>
-		<OR <SNARFEM .OPTR <GET ,P-ITBL ,P-NC1L> ,P-PRSO> <RFALSE>>)>
-	 <COND (<NOT <ZERO? <GET ,P-BUTS ,P-MATCHLEN>>>
-		<SET L <GET ,P-PRSO ,P-MATCHLEN>>
-		<COND (.OPTR <SETG P-PRSO <BUT-MERGE ,P-PRSO>>)>
-		<COND (<AND .IPTR
-			    <OR <NOT .OPTR>
-				<EQUAL? .L <GET ,P-PRSO ,P-MATCHLEN>>>>
-		       <SETG P-PRSI <BUT-MERGE ,P-PRSI>>)>)>
-	 <RTRUE>>
 
-<ROUTINE BUT-MERGE (TBL "AUX" LEN BUTLEN (CNT 1) (MATCHES 0) OBJ NTBL)
-	<SET LEN <GET .TBL ,P-MATCHLEN>>
-	<PUT ,P-MERGE ,P-MATCHLEN 0>
-	<REPEAT ()
-		<COND (<DLESS? LEN 0> <RETURN>)
-		      (<ZMEMQ <SET OBJ <GET .TBL .CNT>> ,P-BUTS>)
-		      (T
-		       <PUT ,P-MERGE <+ .MATCHES 1> .OBJ>
-		       <SET MATCHES <+ .MATCHES 1>>)>
-		<SET CNT <+ .CNT 1>>>
-	<PUT ,P-MERGE ,P-MATCHLEN .MATCHES>
-	<SET NTBL ,P-MERGE>
-	<SETG P-MERGE .TBL>
-	.NTBL>
-
-<GLOBAL P-NAM <>>
-<GLOBAL P-ADJ <>>
-<GLOBAL P-ADVERB <>>
 ;<GLOBAL P-ADJN <>>
-<GLOBAL P-PRSO <ITABLE NONE 50>>
-<GLOBAL P-PRSI <ITABLE NONE 50>>
-<GLOBAL P-BUTS <ITABLE NONE 50>>
-<GLOBAL P-MERGE <ITABLE NONE 50>>
-<GLOBAL P-OCLAUSE <ITABLE NONE 100>>
-<GLOBAL P-MATCHLEN 0>
-<GLOBAL P-GETFLAGS 0>
-<CONSTANT P-ALL 1>
-<CONSTANT P-ONE 2>
-<CONSTANT P-INHIBIT 4>
 
 
-<GLOBAL P-AND <>>
 
 <ROUTINE SNARFEM (PTR EPTR TBL "AUX" (BUT <>) LEN WV WRD NW (WAS-ALL <>))
    <SETG P-AND <>>
@@ -1185,13 +892,6 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 		  <SET PTR <REST .PTR ,P-WORDLEN>>
 		  <SET WRD .NW>)>>>
 
-<CONSTANT SH 128>
-<CONSTANT SC 64>
-<CONSTANT SIR 32>
-<CONSTANT SOG 16>
-<CONSTANT STAKE 8>
-<CONSTANT SMANY 4>
-<CONSTANT SHAVE 2>
 
 <ROUTINE GET-OBJECT (TBL
 		     "OPTIONAL" (VRB T)
@@ -1287,19 +987,37 @@ OOPS-INBUF, leaving the appropriate pointers in AGAIN-LEXV"
 		      <SETG P-NAM <>>
 		      <SETG P-ADJ <>>
 		      <RFALSE>)
-		     (<ZERO? .LEN> <SET GCHECK T> <AGAIN>)>
+		     ;"ALL means what is here and what you carry; the global objects are
+		       for naming things, so ALL never falls back to them."
+		     (<AND <ZERO? .LEN> <NOT <BTST ,P-GETFLAGS ,P-ALL>>>
+		      <SET GCHECK T> <AGAIN>)>
 	       <SETG P-SLOCBITS .XBITS>
 	       <SETG P-NAM <>>
 	       <SETG P-ADJ <>>
 	       <RTRUE>>>
 
-<GLOBAL P-XNAM <>>
-<GLOBAL P-XADJ <>>
 ;<GLOBAL P-XADJN <>>
 
 ;"If the possible matching syns for an object are all the same gender,
 then you could just check gender of the first object found to determine
 “Welcher, Welches, or Welche”"
+;"The noun phrase the player typed, its last word capitalized: a German noun."
+<ROUTINE NOUN-PHRASE-PRINT (PRSO? "AUX" BEG END LAST)
+	 <COND (.PRSO?
+		<SET BEG <GET ,P-ITBL ,P-NC1>>
+		<SET END <GET ,P-ITBL ,P-NC1L>>)
+	       (ELSE
+		<SET BEG <GET ,P-ITBL ,P-NC2>>
+		<SET END <GET ,P-ITBL ,P-NC2L>>)>
+	 <SET LAST <BACK .END ,P-WORDLEN>>
+	 <COND (<OR <EQUAL? .BEG .END> <EQUAL? <GET .LAST 0> ,W?COMMA ,W?PERIOD ,W?MICH ,W?INTNUM>>
+		<BUFFER-PRINT .BEG .END <>>
+		<RTRUE>)>
+	 <COND (<NOT <EQUAL? .BEG .LAST>>
+		<BUFFER-PRINT .BEG .LAST <>>
+		<TELL " ">)>
+	 <CAPITALIZE .LAST>>
+
 <ROUTINE WHICH-PRINT (TLEN LEN TBL "AUX" OBJ RLEN)
 	 <SET RLEN .LEN>
 	 <TELL "Welche">
@@ -1322,15 +1040,14 @@ then you could just check gender of the first object found to determine
 		      ;(ELSE <PRINTB ,W?ONE>)>)
 	       (ELSE
 		<TELL " ">
-		<THING-PRINT <EQUAL? .TBL ,P-PRSO>>)>
+		<NOUN-PHRASE-PRINT <EQUAL? .TBL ,P-PRSO>>)>
 	 <TELL " meinst du, ">
 	 <REPEAT ()
 		 <TELL DER-ACC .OBJ>
 		 <SET TLEN <+ .TLEN 1>> ;"this and next line used above TELL"
 		 <SET OBJ <GET .TBL .TLEN>>
 		 <COND (<EQUAL? .LEN 2>
-		        <COND (<NOT <EQUAL? .RLEN 2>> <TELL ",">)>
-		        <TELL " or ">)
+		        <TELL " oder ">)
 		       (<G? .LEN 2> <TELL ", ">)>
 		 <COND (<L? <SET LEN <- .LEN 1>> 1>
 		        <TELL "?" CR>
@@ -1340,9 +1057,9 @@ then you could just check gender of the first object found to determine
 	<SET LEN <GET .TBL ,P-MATCHLEN>>
 	<SET OBITS ,P-SLOCBITS>
 	<COND (<SET RMG <GETPT ,HERE ,P?GLOBAL>>
-	       <SET RMGL <- </ <PTSIZE .RMG> 2> 1>>
+	       <SET RMGL <- <PTSIZE .RMG> 1>>
 	       <REPEAT ()
-		       <COND (<THIS-IT? <SET OBJ <GET .RMG .CNT>> .TBL>
+		       <COND (<THIS-IT? <SET OBJ <GETB .RMG .CNT>> .TBL>
 			      <OBJ-FOUND .OBJ .TBL>)>
 		       <COND (<IGRTR? CNT .RMGL> <RETURN>)>>)>
 	;<COND (<SET RMG <GETPT ,HERE ,P?PSEUDO>>
@@ -1369,51 +1086,6 @@ then you could just check gender of the first object found to determine
 			   <EQUAL? ,PRSA ,V?LOOK-INSIDE ,V?SEARCH ,V?EXAMINE>>
 		      <DO-SL ,ROOMS 1 1>)>)>>
 
-<ROUTINE DO-SL (OBJ BIT1 BIT2 "AUX" BTS)
-	<COND (<BTST ,P-SLOCBITS <+ .BIT1 .BIT2>>
-	       <SEARCH-LIST .OBJ ,P-TABLE ,P-SRCALL>)
-	      (T
-	       <COND (<BTST ,P-SLOCBITS .BIT1>
-		      <SEARCH-LIST .OBJ ,P-TABLE ,P-SRCTOP>)
-		     (<BTST ,P-SLOCBITS .BIT2>
-		      <SEARCH-LIST .OBJ ,P-TABLE ,P-SRCBOT>)
-		     (T <RTRUE>)>)>>
-
-<CONSTANT P-SRCBOT 2>
-<CONSTANT P-SRCTOP 0>
-<CONSTANT P-SRCALL 1>
-
-<ROUTINE SEARCH-LIST (OBJ TBL LVL "AUX" FLS NOBJ)
-	<COND (<SET OBJ <FIRST? .OBJ>>
-	       <REPEAT ()
-		       <COND (<AND <NOT <EQUAL? .LVL ,P-SRCBOT>>
-				   <GETPT .OBJ ,P?SYNONYM>
-				   <THIS-IT? .OBJ .TBL>>
-			      <OBJ-FOUND .OBJ .TBL>)>
-		       <COND (<AND <OR <NOT <EQUAL? .LVL ,P-SRCTOP>>
-				       <FSET? .OBJ ,SEARCHBIT>
-				       <FSET? .OBJ ,SURFACEBIT>>
-				   <SET NOBJ <FIRST? .OBJ>>
-				   <OR <FSET? .OBJ ,OPENBIT>
-				       <FSET? .OBJ ,TRANSBIT>>>
-			      <SET FLS
-				   <SEARCH-LIST .OBJ
-						.TBL
-						<COND (<FSET? .OBJ ,SURFACEBIT>
-						       ,P-SRCALL)
-						      (<FSET? .OBJ ,SEARCHBIT>
-						       ,P-SRCALL)
-						      (T ,P-SRCTOP)>>>)>
-		       <COND (<SET OBJ <NEXT? .OBJ>>) (T <RETURN>)>>)>>
-
-<ROUTINE OBJ-FOUND (OBJ TBL "AUX" PTR)
-	<SET PTR <GET .TBL ,P-MATCHLEN>>
-	<PUT .TBL <+ .PTR 1> .OBJ>
-	<PUT .TBL ,P-MATCHLEN <+ .PTR 1>>>
-
-<ROUTINE TAKE-CHECK ()
-	<AND <ITAKE-CHECK ,P-PRSO <GETB ,P-SYNTAX ,P-SLOC1>>
-	     <ITAKE-CHECK ,P-PRSI <GETB ,P-SYNTAX ,P-SLOC2>>>>
 
 <ROUTINE ITAKE-CHECK (TBL IBITS "AUX" PTR OBJ TAKEN)
 	 #DECL ((TBL) TABLE (IBITS PTR) FIX (OBJ) OBJECT
@@ -1493,7 +1165,7 @@ then you could just check gender of the first object found to determine
 "Man kann mehrere "> 
 	       <COND (<EQUAL? .LOSS 2> <TELL "Dative">)
 		     (T
-		      <TELL "Akkusitiv">)>
+		      <TELL "Akkusativ">)>
 	       <TELL " nicht mit %>">
 	       <SET TMP <GET ,P-ITBL ,P-VERBN>>
 	       <COND (<ZERO? .TMP> <TELL "das">)
@@ -1505,47 +1177,6 @@ then you could just check gender of the first object found to determine
 	       <RFALSE>)
 	      (T)>>
 
-<ROUTINE ZMEMQ (ITM TBL "OPTIONAL" (SIZE -1) "AUX" (CNT 1))
-	<COND (<NOT .TBL> <RFALSE>)>
-	<COND (<NOT <L? .SIZE 0>> <SET CNT 0>)
-	      (ELSE <SET SIZE <GET .TBL 0>>)>
-	<REPEAT ()
-		<COND (<EQUAL? .ITM <GET .TBL .CNT>>
-		       <RETURN <REST .TBL <* .CNT 2>>>)
-		      (<IGRTR? CNT .SIZE> <RFALSE>)>>>
-
-;<ROUTINE ZMEMQB (ITM TBL SIZE "AUX" (CNT 0))
-	<REPEAT ()
-		<COND (<EQUAL? .ITM <GETB .TBL .CNT>>
-		       <RTRUE>)
-		      (<IGRTR? CNT .SIZE>
-		       <RFALSE>)>>>
-
-<GLOBAL ALWAYS-LIT <>>
-
-<ROUTINE LIT? (RM "OPTIONAL" (RMBIT T) "AUX" OHERE (LIT <>))
-	<COND (<AND ,ALWAYS-LIT <EQUAL? ,WINNER ,PLAYER>>
-	       <RTRUE>)>
-	<SETG P-GWIMBIT ,ONBIT>
-	<SET OHERE ,HERE>
-	<SETG HERE .RM>
-	<COND (<AND .RMBIT
-		    <FSET? .RM ,ONBIT>>
-	       <SET LIT T>)
-	      (T
-	       <PUT ,P-MERGE ,P-MATCHLEN 0>
-	       <SETG P-TABLE ,P-MERGE>
-	       <SETG P-SLOCBITS -1>
-	       <COND (<EQUAL? .OHERE .RM>
-		      <DO-SL ,WINNER 1 1>
-		      <COND (<AND <NOT <EQUAL? ,WINNER ,PLAYER>>
-				  <IN? ,PLAYER .RM>>
-			     <DO-SL ,PLAYER 1 1>)>)>
-	       <DO-SL .RM 1 1>
-	       <COND (<G? <GET ,P-TABLE ,P-MATCHLEN> 0> <SET LIT T>)>)>
-	<SETG HERE .OHERE>
-	<SETG P-GWIMBIT 0>
-	.LIT>
 
 ;<ROUTINE PRSO-PRINT ("AUX" PTR)
 	 <COND (<OR ,P-MERGED
@@ -1567,13 +1198,11 @@ then you could just check gender of the first object found to determine
 			 <SET SYNS <GETPT .OBJ ,P?SYNONYM>>
 			 <- </ <PTSIZE .SYNS> 2> 1>>>>
 	<RFALSE>)
+       ;"P-ADJ is the typed word; an object lists its adjectives by number."
        (<AND ,P-ADJ
 	     <OR <NOT <SET SYNS <GETPT .OBJ ,P?ADJECTIVE>>>
-		 ;<NOT <ZMEMQB ,P-ADJ .SYNS <- <PTSIZE .SYNS> 1>>>
-		 <NOT %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE>
-			      '<ZMEMQ  ,P-ADJ .SYNS <RMGL-SIZE .SYNS>>)
-			     (T
-			      '<ZMEMQB ,P-ADJ .SYNS <RMGL-SIZE .SYNS>>)>>>>
+		 <NOT <ZMEMQB <WT? ,P-ADJ ,PS?ADJECTIVE ,P1?ADJECTIVE>
+			      .SYNS <- <PTSIZE .SYNS> 1>>>>>
 	<RFALSE>)
        (<AND <NOT <ZERO? ,P-GWIMBIT>> <NOT <FSET? .OBJ ,P-GWIMBIT>>>
 	<RFALSE>)>
@@ -1611,13 +1240,3 @@ then you could just check gender of the first object found to determine
 	       (T
 		<RFALSE>)>>
 
-<ROUTINE META-LOC (OBJ)
-	 <REPEAT ()
-		 <COND (<NOT .OBJ>
-			<RFALSE>)
-		       (<IN? .OBJ ,GLOBAL-OBJECTS>
-			<RETURN ,GLOBAL-OBJECTS>)>
-		 <COND (<IN? .OBJ ,ROOMS>
-			<RETURN .OBJ>)
-		       (T
-			<SET OBJ <LOC .OBJ>>)>>>

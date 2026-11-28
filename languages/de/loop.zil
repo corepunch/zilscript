@@ -3,37 +3,8 @@
 		       started on 7/28/83 by MARC
 		       -- GERMAN EDITION"
 
-<CONSTANT SERIAL 0>
+<INSERT-FILE "core.loop">
 
-<GLOBAL PLAYER <>>
-
-<GLOBAL P-WON <>>
-
-<CONSTANT M-FATAL 2>
- 
-<CONSTANT M-HANDLED 1>   
- 
-<CONSTANT M-NOT-HANDLED <>>   
- 
-<CONSTANT M-OBJECT <>>
-
-<CONSTANT M-BEG 1>  
- 
-<CONSTANT M-END 6> 
- 
-<CONSTANT M-ENTER 2>
- 
-<CONSTANT M-LOOK 3> 
- 
-<CONSTANT M-FLASH 4>
-
-<CONSTANT M-OBJDESC 5>
-
-;"GO now lives in SPECIAL.ZIL"    
-
-<ROUTINE MAIN-LOOP ("AUX" TRASH)
-	 <REPEAT ()
-		 <SET TRASH <MAIN-LOOP-1>>>>
 
 <ROUTINE MAIN-LOOP-1 ("AUX" ICNT OCNT NUM CNT OBJ TBL V PTBL OBJ1 TMP O I) 
      <SET CNT 0>
@@ -71,17 +42,17 @@
 			   <COND (<G? <SET CNT <+ .CNT 1>> .OCNT>
 				  <RETURN>)
 				 (T
-				  <COND (<AND <EQUAL? <GET ,P-PRSI .CNT> ,IT>
+				  <COND (<AND <EQUAL? <GET ,P-PRSO .CNT> ,IT>
 					      ,P-IT-OBJECT>
-					 <PUT ,P-PRSI .CNT ,P-IT-OBJECT>
+					 <PUT ,P-PRSO .CNT ,P-IT-OBJECT>
 					 <RETURN>)
-					(<AND <EQUAL? <GET ,P-PRSI .CNT> ,HIM>
+					(<AND <EQUAL? <GET ,P-PRSO .CNT> ,HIM>
 					      ,P-HIM-OBJECT>
-					 <PUT ,P-PRSI .CNT ,P-HIM-OBJECT>
+					 <PUT ,P-PRSO .CNT ,P-HIM-OBJECT>
 					 <RETURN>)
-					(<AND <EQUAL? <GET ,P-PRSI .CNT> ,HER>
+					(<AND <EQUAL? <GET ,P-PRSO .CNT> ,HER>
 					      ,P-HER-OBJECT>
-					 <PUT ,P-PRSI .CNT ,P-HER-OBJECT>
+					 <PUT ,P-PRSO .CNT ,P-HER-OBJECT>
 					 <RETURN>)>)>>)>
 		   <SET CNT 0>)>
 	    <SET NUM
@@ -107,6 +78,14 @@
 			  <SETG PRSO <>>)
 			 (<NOT ,LIT>
 			  <TELL "Es ist zu dunkel, um etwas zu sehen." CR>)
+			 (<EQUAL? ,P-GETFLAGS ,P-ALL>
+			  ;"ALLES fand nichts: sag es passend zum Verb"
+			  <COND (<BTST <GETB ,P-SYNTAX ,P-SLOC1> ,SH>
+				 <TELL "Du tr%agst nichts bei dir." CR>)
+				(<VERB? TAKE>
+				 <TELL "Es gibt hier nichts, das man nehmen kann." CR>)
+				(T <TELL "Hier gibt es nichts daf%ur." CR>)>
+			  <SET V <>>)
 			 (T
 			  <REFERRING>
 			  <SET V <>>)>)
@@ -194,20 +173,13 @@
 	    <COND (<==? .V ,M-FATAL> <SETG P-CONT <>>)>)
 	   (T
 	    <SETG P-CONT <>>)>
-     %<COND (<==? ,ZORK-NUMBER 3>
-	     '<COND (<NOT ,CLEFT-QUEUED?>
-		     <ENABLE <QUEUE I-CLEFT <+ 70 <RANDOM 70>>>>
-		     <SETG CLEFT-QUEUED? T>)>)
-	    (ELSE '<NULL-F>)>
+     
      <COND (,P-WON
 	    <COND (<VERB? TELL BRIEF SUPER-BRIEF VERBOSE SAVE HINT HINTS-OFF
 			  VERSION
 			  QUIT RESTART SCORE SCRIPT UNSCRIPT RESTORE> T)
 		  (T <SET V <CLOCKER>>)>)>>
- 
-<GLOBAL P-MULT <>>
 
-<GLOBAL P-NOT-HERE 0>
 
 %<COND (<GASSIGNED? PREDGEN>
 

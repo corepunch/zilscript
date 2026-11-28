@@ -2,38 +2,12 @@
 			    The ZORK Trilogy
 		       started on 7/28/83 by MARC"
 
-<CONSTANT SERIAL 0>
+<INSERT-FILE "core.loop">
 
-<GLOBAL PLAYER <>>
-
-<GLOBAL P-WON <>>
-
-<CONSTANT M-FATAL 2>
- 
-<CONSTANT M-HANDLED 1>   
- 
-<CONSTANT M-NOT-HANDLED <>>   
- 
-<CONSTANT M-OBJECT <>>
-
-<CONSTANT M-BEG 1>  
- 
-<CONSTANT M-END 6> 
- 
-<CONSTANT M-ENTER 2>
- 
-<CONSTANT M-LOOK 3> 
- 
-<CONSTANT M-FLASH 4>
-
-<CONSTANT M-OBJDESC 5>
 
 ;"GO now lives in SPECIAL.ZIL"    
 
 
-<ROUTINE MAIN-LOOP ("AUX" TRASH)
-	 <REPEAT ()
-		 <SET TRASH <MAIN-LOOP-1>>>>
 
 <ROUTINE MAIN-LOOP-1 ("AUX" ICNT OCNT NUM CNT OBJ TBL V PTBL OBJ1 TMP O I) 
      <SET CNT 0>
@@ -85,6 +59,14 @@
 			  <SETG PRSO <>>)
 			 (<NOT ,LIT>
 			  <TELL "It's too dark to see." CR>)
+			 (<EQUAL? ,P-GETFLAGS ,P-ALL>
+			  ;"ALL found nothing: say so for the verb"
+			  <COND (<BTST <GETB ,P-SYNTAX ,P-SLOC1> ,SH>
+				 <TELL "You aren't carrying anything." CR>)
+				(<VERB? TAKE>
+				 <TELL "There's nothing here you can take." CR>)
+				(T <TELL "There is nothing here for that." CR>)>
+			  <SET V <>>)
 			 (T
 			  <TELL "It's not clear what you're referring to." CR>
 			  <SET V <>>)>)
@@ -161,21 +143,22 @@
 	    <COND (<==? .V ,M-FATAL> <SETG P-CONT <>>)>)
 	   (T
 	    <SETG P-CONT <>>)>
-     %<COND (<==? ,ZORK-NUMBER 3>
-	     '<COND (<NOT ,CLEFT-QUEUED?>
-		     <ENABLE <QUEUE I-CLEFT <+ 70 <RANDOM 70>>>>
-		     <SETG CLEFT-QUEUED? T>)>)
-	    (ELSE '<NULL-F>)>
      <COND (,P-WON
 	    <COND (<VERB? TELL BRIEF SUPER-BRIEF VERBOSE SAVE VERSION
 			  QUIT RESTART SCORE SCRIPT UNSCRIPT RESTORE> T)
 		  (T <SET V <CLOCKER>>)>)>>
- 
-<GLOBAL P-MULT <>>
 
-<GLOBAL P-NOT-HERE 0>
 
 
+
+;"The topic of ASK or TELL ... ABOUT may be far away (GLOBAL-CHECK). A
+  topic that is not here does not hear the conversation, so its own action
+  is not asked to answer it; the person asked answers."
+<ROUTINE NEAR? (OBJ "AUX" L)
+	<SET L <META-LOC .OBJ>>
+	<COND (<EQUAL? .L ,GLOBAL-OBJECTS>
+	       <OR <NOT <IN? .OBJ ,LOCAL-GLOBALS>> <GLOBAL-IN? .OBJ ,HERE>>)
+	      (T <EQUAL? .L ,HERE <LOC ,WINNER>>)>>
 
 %<COND (<GASSIGNED? PREDGEN>
 
@@ -197,6 +180,17 @@
 	       <RFATAL>)>
 	<COND (<==? .O ,IT> <SET O ,P-IT-OBJECT>)>
 	<COND (<==? .I ,IT> <SET I ,P-IT-OBJECT>)>
+	<COND (<AND <EQUAL? ,HIM-OR-HER .I .O>
+		    <OR <NOT ,P-HIM-OR-HER> <NOT <ACCESSIBLE? ,P-HIM-OR-HER>>>>
+	       <TELL "I don't see who you are referring to." CR>
+	       <RFATAL>)>
+	<COND (<==? .O ,HIM-OR-HER> <SET O ,P-HIM-OR-HER>)>
+	<COND (<==? .I ,HIM-OR-HER> <SET I ,P-HIM-OR-HER>)>
+	<COND (<NOT <EQUAL? .A ,V?WALK>>
+	       <COND (<AND .O <FSET? .O ,ACTORBIT> <NOT <EQUAL? .O ,ME ,ADVENTURER ,WINNER>>>
+		      <SETG P-HIM-OR-HER .O>)
+		     (<AND .I <FSET? .I ,ACTORBIT> <NOT <EQUAL? .I ,ME ,ADVENTURER ,WINNER>>>
+		      <SETG P-HIM-OR-HER .I>)>)>
 	<SETG PRSA .A>
 	<SETG PRSO .O>
 	<COND (<AND ,PRSO <NOT <EQUAL? ,PRSI ,IT>> <NOT <VERB? WALK>>>
@@ -211,7 +205,9 @@
 		(<SET V <APPLY <GETP ,WINNER ,P?ACTION>>> .V)
 		(<SET V <APPLY <GETP <LOC ,WINNER> ,P?ACTION> ,M-BEG>> .V)
 		(<SET V <APPLY <GET ,PREACTIONS .A>>> .V)
-		(<AND .I <SET V <APPLY <GETP .I ,P?ACTION>>>> .V)
+		(<AND .I
+		      <OR <NOT <EQUAL? .A ,V?TELL>> <NEAR? .I>>
+		      <SET V <APPLY <GETP .I ,P?ACTION>>>> .V)
 		(<AND .O
 		      <NOT <==? .A ,V?WALK>>
 		      <LOC .O>
@@ -249,6 +245,17 @@
 	       <RFATAL>)>
 	<COND (<==? .O ,IT> <SET O ,P-IT-OBJECT>)>
 	<COND (<==? .I ,IT> <SET I ,P-IT-OBJECT>)>
+	<COND (<AND <EQUAL? ,HIM-OR-HER .I .O>
+		    <OR <NOT ,P-HIM-OR-HER> <NOT <ACCESSIBLE? ,P-HIM-OR-HER>>>>
+	       <TELL "I don't see who you are referring to." CR>
+	       <RFATAL>)>
+	<COND (<==? .O ,HIM-OR-HER> <SET O ,P-HIM-OR-HER>)>
+	<COND (<==? .I ,HIM-OR-HER> <SET I ,P-HIM-OR-HER>)>
+	<COND (<NOT <EQUAL? .A ,V?WALK>>
+	       <COND (<AND .O <FSET? .O ,ACTORBIT> <NOT <EQUAL? .O ,ME ,ADVENTURER ,WINNER>>>
+		      <SETG P-HIM-OR-HER .O>)
+		     (<AND .I <FSET? .I ,ACTORBIT> <NOT <EQUAL? .I ,ME ,ADVENTURER ,WINNER>>>
+		      <SETG P-HIM-OR-HER .I>)>)>
 	<SETG PRSA .A>
 	<SETG PRSO .O>
 	<COND (<AND ,PRSO <NOT <VERB? WALK>>>
@@ -266,8 +273,10 @@
 				      ,M-BEG>> .V)
 		     (<SET V <D-APPLY "Preaction"
 				      <GET ,PREACTIONS .A>>> .V)
-		     (<AND .I <SET V <D-APPLY "PRSI"
-					      <GETP .I ,P?ACTION>>>> .V)
+		     (<AND .I
+			   <OR <NOT <EQUAL? .A ,V?TELL>> <NEAR? .I>>
+			   <SET V <D-APPLY "PRSI"
+					   <GETP .I ,P?ACTION>>>> .V)
 		     (<AND .O
 			   <NOT <==? .A ,V?WALK>>
 			   <LOC .O>

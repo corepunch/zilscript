@@ -25,4 +25,4 @@ To save Wrenfold, Pip must befriend the fox, unravel the toymaker's disappearanc
 - **Emotional puzzle design** — puzzles ask for compassion, patience, and listening, not just inventory chess
 - **Branching ending** — the finale evaluates how you treated every character
 - **Progressive hint system** — layered hints from Old Tick's riddles keep players moving
-- **Tick-clock urgency** — 200 turns until dawn, visible through atmospheric warnings
+- **Optional tick-clock urgency** — type EASY for a 200-turn race to dawn, with atmospheric warnings; off by default

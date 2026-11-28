@@ -6,9 +6,9 @@ Engineering suspense for teens and adults, around 12 turns on a straight route. 
 
 | Place | Exits | Apparatus / purpose |
 | --- | --- | --- |
-| Ticket Hall | west to Staff Room; east to Gauge Room; north to Platform | Station clock: shows the anomaly |
+| Ticket Hall | west to Staff Room; east to Gauge Room; north or down to Platform | Station clock: shows the anomaly |
 | Staff Room | east to Hall | Logbook explains tomorrow's empty test; ceramic puck is portable |
 | Gauge Room | west to Hall | Receiver cradle, calibration stud: test the insulated puck, compare the live mass |
-| Lower Platform | south to Hall | Rescue switch and quarantine latch; two in-world tradeoffs |
+| Lower Platform | south or up to Hall | Rescue switch and quarantine latch; two in-world tradeoffs |
 
 Calibration requires the puck in the cradle; taking it out doesn't erase already observed comparison. Using a control without the test gives a specific reason, not a hidden door. A second test is safe, and both choices remain visible after proof. Compass links and all visible apparatus are actionable.

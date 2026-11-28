@@ -40,9 +40,17 @@ Find what happened to Grandfather Tolliver, recover the workshop key, and rewind
 
 ## Lose Conditions
 
-1. **Dawn arrives**: Key not rewound by turn 200 — toys fall silent forever
-2. **Nutmeg betrayed**: Player treats Nutmeg cruelly, she destroys the key — player is trapped
-3. **No softlocks**: Player can always recover from setbacks; no unwinnable states
+The book is read with children, so nothing ends the story by surprise.
+
+1. **Dawn arrives (opt-in only)**: the dawn countdown is off until the reader
+   types EASY (which toggles it). If the night then runs out, the toys fall
+   asleep until the heart is wound, and the reader may restart or restore.
+2. **Nutmeg frightened**: attacking Nutmeg makes her turn away, but saying
+   sorry (ASK or TELL her anything) restores the trust Pip's gifts had
+   earned, and the tin soldier can reach Old Tick's latch without her. An
+   ending reached without her still promises Pip will visit her tomorrow.
+3. **No softlocks**: Player can always recover from setbacks; no unwinnable states.
+4. Grandfather Tolliver comes home in both endings.
 
 ## Core Mechanics
 

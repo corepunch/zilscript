@@ -196,6 +196,61 @@ function TopLevel.compileMacro(decl, body, node, compiler)
   -- So we don't write anything to decl or body
 end
 
+-- <TELL-TOKENS name * <form .X> (alias1 alias2) <form> ...> teaches TELL new
+-- tokens. Each name (or list of aliases) is followed by its argument
+-- patterns, then the form TELL runs. A pattern is * (any value, also *:TYPE),
+-- bound in order to .X and .Y, or a literal such as ,PRSO, which that variant
+-- requires: "D ,PRSO <DPRINT-PRSO>" before "D * <DPRINT .X>". Variants of one
+-- token are tried in the order written.
+local function isWildcard(node)
+  return node.type == "ident" and type(node.value) == "string" and node.value:match("^%*") ~= nil
+end
+
+function TopLevel.registerTellTokens(node, compiler)
+  local i = 1
+  while i <= #node do
+    local names = {}
+    local spec = node[i]
+    if spec.type == "list" then
+      for _, alias in ipairs(spec) do table.insert(names, alias.value) end
+    else
+      table.insert(names, spec.value)
+    end
+    i = i + 1
+    local patterns = {}
+    while node[i] and node[i].type ~= "expr" do
+      table.insert(patterns, isWildcard(node[i]) and "*" or node[i].value)
+      i = i + 1
+    end
+    local template = node[i]
+    assert(template, "TELL-TOKENS: " .. tostring(names[1]) .. " needs a form after its arguments")
+    i = i + 1
+    for _, name in ipairs(names) do
+      compiler.tell_tokens[name] = compiler.tell_tokens[name] or {}
+      table.insert(compiler.tell_tokens[name], { patterns = patterns, template = template })
+    end
+  end
+end
+
+-- The first variant of a TELL token whose literal patterns match the
+-- arguments that follow it, and those arguments.
+function TopLevel.matchTellToken(variants, items, start)
+  for _, variant in ipairs(variants) do
+    local args, ok = {}, true
+    for j, pattern in ipairs(variant.patterns) do
+      local item = items[start + j - 1]
+      if not item then ok = false break end
+      if pattern == "*" then
+        table.insert(args, item)
+      elseif item.value ~= pattern then
+        ok = false break
+      end
+    end
+    if ok then return variant, args end
+  end
+  return nil
+end
+
 -- Top-level compiler registry
 TopLevel.TOP_LEVEL_COMPILERS = {
   ROOM = TopLevel.compileObject,
@@ -203,6 +258,11 @@ TopLevel.TOP_LEVEL_COMPILERS = {
   ROUTINE = TopLevel.compileRoutine,
   DEFMAC = TopLevel.compileMacro,
   GDECL = function() end,
+  -- The runtime remembers the language for the files this one inserts; the
+  -- parser has already switched charsets for the rest of this file.
+  LANGUAGE = function(_, buf, node)
+    buf.writeln('LANGUAGE("%s")', tostring(node[1] and node[1].value or ""))
+  end,
   DIRECTIONS = function(_, buf, node)
     buf.write("%s(", node.name)
     for _, dir in ipairs(node) do
@@ -216,7 +276,6 @@ TopLevel.TOP_LEVEL_COMPILERS = {
 TopLevel.DIRECT_STATEMENTS = {
   COND = true,
   BUZZ = true,
-  LANGUAGE = true,
   SYNONYM = true,
   ["VERB-SYNONYM"] = true,
   ["PREP-SYNONYM"] = true,

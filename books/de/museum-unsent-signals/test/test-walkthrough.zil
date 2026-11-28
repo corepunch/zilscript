@@ -28,4 +28,5 @@
 	<ASSERT "Erneutes Abspielen schaltet die Tasten frei" ,SIGNAL-HEARD>
 	<ASSERT "Die private Sendetaste funktioniert" <CO-RESUME ,CO "drück die Rückantworttaste" T>>
 	<ASSERT "Privates Ziel gewählt" <EQUAL? ,MUSEUM-END 1>>
-	<ASSERT "Die Sendung beendet das Buch" <NOT <CO-RESUME ,CO "schau" T>>>>
+	;"After the ending the story only offers to start again."
+	<ASSERT-TEXT "NEUBEGINN" <CO-RESUME ,CO "schau">>>

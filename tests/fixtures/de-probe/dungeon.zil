@@ -1,0 +1,29 @@
+<ROOM WERKSTATT (IN ROOMS) (DESC "Werkstatt") (FLAGS RLANDBIT ONBIT)
+ (NORD TO HOF)
+ (LDESC "Eine enge Werkstatt voller Sp%ane. Nach Norden geht es in den Hof.")>
+<ROOM HOF (IN ROOMS) (DESC "Hof") (FLAGS RLANDBIT ONBIT)
+ (SUED TO WERKSTATT)
+ (LDESC "Ein stiller Hof mit nassem Pflaster. Im S%uden liegt die Werkstatt.")>
+
+;"Masculine, takeable"
+<OBJECT HAMMER (IN WERKSTATT) (DESC "Hammer") (SYNONYM HAMMER) (ADJECTIVE SCHWERE SCHWEREN)
+ (FLAGS TAKEBIT DERBIT) (FDESC "Ein schwerer Hammer liegt auf dem Boden.")>
+;"Feminine, takeable, with an umlaut in its name"
+<OBJECT BUERSTE (IN WERKSTATT) (DESC "B%urste") (SYNONYM BUERSTE B\%URSTE) (ADJECTIVE HARTE)
+ (FLAGS TAKEBIT DIEBIT)>
+;"Neuter, takeable, readable"
+<OBJECT BUCH (IN WERKSTATT) (DESC "Buch") (SYNONYM BUCH HEFT) (ADJECTIVE ALTE ALTES)
+ (FLAGS TAKEBIT READBIT DASBIT) (TEXT "Auf dem Einband steht: %>Alles Gute kommt von unten.%<")>
+;"A closed container that stays where it is"
+<OBJECT KISTE (IN WERKSTATT) (DESC "Kiste") (SYNONYM KISTE TRUHE) (ADJECTIVE HOELZERNE H\%OLZERNE)
+ (FLAGS CONTBIT DIEBIT NDESCBIT) (CAPACITY 20)>
+<OBJECT NAGEL (IN KISTE) (DESC "Nagel") (SYNONYM NAGEL) (FLAGS TAKEBIT DERBIT)>
+<OBJECT TOR (IN HOF) (DESC "Tor") (SYNONYM TOR PFORTE) (ADJECTIVE EISERNE)
+ (FLAGS DOORBIT NDESCBIT DASBIT)>
+
+
+;"Two cards that only their adjective tells apart"
+<OBJECT ROTE-KARTE (IN HOF) (DESC "rote Karte") (SYNONYM KARTE ROT) (ADJECTIVE ROTE ROTEN ROTE)
+ (FLAGS TAKEBIT DIEBIT)>
+<OBJECT BLAUE-KARTE (IN HOF) (DESC "blaue Karte") (SYNONYM KARTE BLAU) (ADJECTIVE BLAUE BLAUEN)
+ (FLAGS TAKEBIT DIEBIT)>

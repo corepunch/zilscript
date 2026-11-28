@@ -1,10 +1,27 @@
 local namespace = (...):match("^(.*)%.Session$")
 local Suggestions = require(namespace .. ".Suggestions")
 local Language = require(namespace .. ".Language")
-local Text = require(namespace:match("^(.*)%.reader$") .. ".text")
 
 local Session = {}
 Session.__index = Session
+
+local DIRECTIONS = {
+	n = "north", north = "north",
+	ne = "northeast", northeast = "northeast",
+	e = "east", east = "east",
+	se = "southeast", southeast = "southeast",
+	s = "south", south = "south",
+	sw = "southwest", southwest = "southwest",
+	w = "west", west = "west",
+	nw = "northwest", northwest = "northwest",
+	u = "up", up = "up", d = "down", down = "down",
+	["in"] = "in", out = "out",
+	-- The German language package names its exits by German compass words.
+	nord = "north", norden = "north", sued = "south", suden = "south", ost = "east", osten = "east", o = "east",
+	no = "northeast", nordost = "northeast", nw = "northwest", nordwest = "northwest",
+	so = "southeast", suedost = "southeast", sw = "southwest", suedwest = "southwest",
+	rauf = "up", ra = "up", runter = "down", ru = "down", rein = "in", hinein = "in", raus = "out",
+}
 
 -- Re-rendering a transcript costs time proportional to its length, so the
 -- reader keeps the most recent entries; the story itself is unaffected.
@@ -13,8 +30,8 @@ local TRANSCRIPT = { limit = 120 }
 function Session.new(options)
 	options = options or {}
 	local self = setmetatable({
+		language = Language.of(nil),
 		engineFactory = options.engineFactory,
-		language = Language.profile(options.language),
 		-- A saved game replays its commands against the same random sequence.
 		newSeed = options.newSeed or function() return os.time() end,
 	}, Session)
@@ -52,7 +69,7 @@ function Session:refreshEngineState()
 		if ok and type(directions) == "table" then
 			self.availableDirections, self.exitList = {}, {}
 			for _, direction in ipairs(directions) do
-				local normalized = self.language.directions[tostring(direction):lower()]
+				local normalized = DIRECTIONS[tostring(direction):lower()]
 				if normalized and not self.availableDirections[normalized] then
 					self.availableDirections[normalized] = true
 					table.insert(self.exitList, normalized)
@@ -60,7 +77,7 @@ function Session:refreshEngineState()
 			end
 			-- The engine walks exits in hash order; players expect a compass.
 			local order = {}
-			for index, direction in ipairs(self.language.compass) do order[direction] = index end
+			for index, direction in ipairs(Suggestions.DIRECTIONS) do order[direction] = index end
 			table.sort(self.exitList, function(a, b) return order[a] < order[b] end)
 		end
 	end
@@ -79,7 +96,7 @@ function Session:refreshEngineState()
 end
 
 function Session:hasExit(direction)
-	local normalized = self.language.directions[Text.lower(tostring(direction or ""))]
+	local normalized = DIRECTIONS[tostring(direction or ""):lower()]
 	return normalized ~= nil and self.availableDirections[normalized] == true
 end
 
@@ -104,21 +121,17 @@ local function paragraphsOf(text)
 	return paragraphs
 end
 
-local function isBanner(paragraph, label)
-	local release = paragraph:match("\n" .. label .. " ([^\n]+)$")
-	return release and (release:match("^%d+$") or release:match("^%d+ / Serial"))
+local function isBanner(paragraph)
+	local release = paragraph:match("\n(Release [^\n]+)$")
+	return release and (release:match("^Release %d+$") or release:match("^Release %d+ / Serial"))
 end
 
-local SMALL_WORDS = {
-	a = true, an = true, ["and"] = true, at = true, by = true, ["for"] = true, ["in"] = true,
-	of = true, on = true, the = true, to = true, under = true, with = true,
-}
-
 -- Without an engine room name, a heading is a short title-cased line.
-local function looksLikeHeading(line)
+local function looksLikeHeading(line, language)
+	local small = language.small
 	if #line > 48 or not line:match("%a") or line:match("[.!?,;:]") then return false end
 	for word in line:gmatch("%S+") do
-		if not SMALL_WORDS[word:lower()] and not word:match("^%u[%w'/-]*$") then return false end
+		if not small[word:lower()] and not word:match("^[%u\128-\255][%w'/\128-\255-]*$") then return false end
 	end
 	return true
 end
@@ -151,7 +164,7 @@ function Session.parseLinks(text)
 		if label ~= "" and target ~= "" then
 			table.insert(links, {
 				location = length, length = utf8.len(label) or #label,
-				label = label, target = Text.lower(target),
+				label = label, target = target:lower(),
 			})
 		end
 		keep(label)
@@ -186,16 +199,12 @@ function Session:appendParagraph(paragraph)
 	end
 end
 
-local function capitalized(text)
-	return (text:gsub("^%l", string.upper))
-end
-
 -- A second object must be something the prose has introduced or the player
 -- carries. This keeps menus from leaking undiscovered puzzle solutions.
 function Session:interactionTargets(includePast)
 	local targets, seen = {}, {}
 	local function add(target, label)
-		if not target or self.language.directions[target] or seen[target] then return end
+		if not target or DIRECTIONS[target] or seen[target] then return end
 		seen[target] = true
 		table.insert(targets, { target = target, label = label })
 	end
@@ -230,7 +239,7 @@ end
 -- commands using things the reader has discovered.
 local function linkedItem(items, target)
 	local words = {}
-	for word in target:gmatch(Text.word) do words[word] = true end
+	for word in target:gmatch("[%w'\128-\255]+") do words[word] = true end
 	local noun = Suggestions.noun(target)
 	local best, bestScore = nil, 0
 	for _, item in ipairs(items) do
@@ -238,7 +247,7 @@ local function linkedItem(items, target)
 		for _, alias in ipairs(item.aliases or {}) do
 			if alias == noun then score = math.max(score, 60) end
 		end
-		for word in Text.lower(item.name):gmatch(Text.word) do
+		for word in item.name:lower():gmatch("[%w'\128-\255]+") do
 			if words[word] and word ~= "the" and word ~= "a" and word ~= "of" and word ~= "to" then
 				score = math.max(score, 20)
 			end
@@ -255,25 +264,26 @@ end
 -- Keep the operands separate so completing a noun never has to parse a label.
 local function visitItemActions(item, partners, visit, language)
 	visit(language.examine, item)
-	for _, verb in ipairs(Suggestions.oneTapVerbs(item)) do
-		if verb ~= language.look and verb ~= language.examine then visit(verb, item) end
+	for _, verb in ipairs(Suggestions.oneTapVerbs(item, language)) do
+		if not language.skip[verb] then visit(verb, item) end
 	end
 	for _, pattern in ipairs(item.patterns or {}) do
-		if pattern.join ~= nil then
+		if pattern.join ~= nil and Suggestions.inHand(item, pattern) then
 			local prefix = pattern.verb .. (pattern.prefix ~= "" and " " .. pattern.prefix or "")
 			local paired = {}
-			local topic = pattern.join == "about" or pattern.join == "ueber" or pattern.join == "über"
-			for _, other in ipairs(partners(topic)) do
+			for _, other in ipairs(partners(pattern.join == "about")) do
 				local second = other.item
-				local tool = pattern.join == "with" or pattern.join == "mit"
+				local tool = pattern.join == "with"
 				local traits = second and second.traits or {}
-				local gift = pattern.action == "GIVE" or pattern.action == "SHOW"
-					or (pattern.action == nil and (pattern.verb == "give" or pattern.verb == "show"))
-				local recipient = gift and not pattern.reverse
-				local container = pattern.action == "PUT" or pattern.action == "PUT-ON"
-					or (pattern.action == nil and pattern.verb == "put")
+				-- These checks name the action, not the verb word: a story's
+				-- synonym ("FIT OBJECT ON OBJECT = V-PUT-ON") puts all the same.
+				-- A pattern built without its action is read by its verb word.
+				local action = pattern.action or (pattern.verb or ""):upper()
+				local standardGift = action == "GIVE" or action == "SHOW"
+				local recipient = standardGift and not pattern.reverse
+				local container = action:match("^[^-]+") == "PUT"
 				-- Handing over or putting away needs the thing in hand first.
-				local handed = not pattern.reverse and (container or gift)
+				local handed = not pattern.reverse and (action == "PUT" or standardGift)
 				local identity = second and (second.identity or second.target or second.noun)
 				if second and identity and not paired[identity]
 						and (not pattern.partners or pattern.partners[identity])
@@ -309,30 +319,49 @@ end
 
 function Session:linkActions(target)
 	if not self.running then return {} end
-	target = Text.lower(trim(target))
+	target = trim(target):lower()
 	if target == "" then return {} end
-	local language = self.language
-	local direction = language.directions[target]
+	local direction = DIRECTIONS[target]
+	local lang = self.language
 	if direction then
-		local title = language.directionTitles and language.directionTitles[direction] or language.goTitle .. direction
-		return { { title = title, command = direction } }
+		return { { title = string.format(lang.goTitle, lang.directionNames and lang.directionNames[direction] or direction),
+			command = Language.direction(lang, direction) } }
 	end
 	local item = linkedItem(self.items, target)
 	if not item then return {} end
 	local actions, seen = {}, {}
+	-- The words that name a thing to the parser. The German parser reads a
+	-- single synonym ("Tafel") where the story's phrase adds an adjective
+	-- ("Einsatz Tafel"), so a language that says so sends the first synonym
+	-- no other visible thing answers to, and the story's phrase otherwise.
+	local uses = {}
+	for _, other in ipairs(self.items) do
+		local words = { [other.noun] = true }
+		for _, alias in ipairs(other.aliases or {}) do words[alias] = true end
+		for word in pairs(words) do uses[word] = (uses[word] or 0) + 1 end
+	end
+	local function name(thing, spoken)
+		if lang.bareNouns and thing.noun then
+			if uses[thing.noun] == 1 then return thing.noun end
+			for _, alias in ipairs(thing.aliases or {}) do
+				if uses[alias] == 1 then return alias end
+			end
+		end
+		return thing.target or spoken or thing.noun
+	end
 	visitItemActions(item, partnersFor(self), function(verb, first, join, second, pattern, label)
-		local title = language.titles and language.titles[verb] or capitalized(verb)
-		local command = verb .. " " .. (first.target or (first == item and target) or first.noun)
+		local title = Language.title(lang, verb)
+		local command = verb .. " " .. name(first, first == item and target or nil)
 		if second then
 			local glue = join ~= "" and " " .. join or ""
-			command = command .. glue .. " " .. (second.target or (second == item and target) or second.noun)
-			title = (join == "about" and "Ask" or title) .. (pattern.reverse and "" or glue) .. " " .. label
+			command = command .. glue .. " " .. name(second, second == item and target or nil)
+			title = (join == "about" and lang.ask or title) .. (pattern.reverse and "" or glue) .. " " .. label
 		end
 		if not seen[command] then
 			seen[command] = true
 			table.insert(actions, { title = title, command = command })
 		end
-	end, language)
+	end, lang)
 	return actions
 end
 
@@ -342,7 +371,7 @@ function Session:appendOutput(text, openingTitle)
 	local headingFound = false
 	for _, paragraph in ipairs(paragraphs) do
 		local first = splitFirstLine(paragraph)
-		if (room and first == room) or (not room and looksLikeHeading(first) and first ~= paragraph) then
+		if (room and first == room) or (not room and looksLikeHeading(first, self.language) and first ~= paragraph) then
 			headingFound = true
 		end
 	end
@@ -353,7 +382,7 @@ function Session:appendOutput(text, openingTitle)
 		and (not self.scene or self.scene.title ~= (room or openingTitle)) and (room or openingTitle) or nil
 
 	for _, paragraph in ipairs(paragraphs) do
-		if isBanner(paragraph, self.language.release) then
+		if isBanner(paragraph) then
 			local title, rest = splitFirstLine(paragraph)
 			local lines = {}
 			for line in (rest or ""):gmatch("[^\n]+") do table.insert(lines, trim(line)) end
@@ -361,7 +390,7 @@ function Session:appendOutput(text, openingTitle)
 			self.openEntry = nil
 		else
 			local first, rest = splitFirstLine(paragraph)
-			local heading = (room and first == room) or (not room and rest and looksLikeHeading(first))
+			local heading = (room and first == room) or (not room and rest and looksLikeHeading(first, self.language))
 			if heading then
 				if not self.scene or self.scene.title ~= first then
 					self:beginScene(first)
@@ -383,7 +412,6 @@ end
 -- the transcript exactly as the reader first saw it.
 function Session:start(game, saved)
 	if not game then return false, "Adventure not found." end
-	if saved and saved.gameId ~= game.id then return false, "The save belongs to another edition." end
 	if not self.engineFactory then return false, "No session engine configured." end
 	local seed = saved and tonumber(saved.seed) or self.newSeed()
 	local ok, engine, opening = pcall(function()
@@ -391,8 +419,9 @@ function Session:start(game, saved)
 	end)
 	if not ok then return false, tostring(engine) end
 	self:reset()
-	self.language = Language.profile(game.language)
 	self.engine, self.currentGame, self.seed = engine, game, seed
+	-- The story names its language in game.json; English otherwise.
+	self.language = Language.of(game.language)
 	self:refreshEngineState()
 	self:appendOutput(opening, game.title)
 	-- Some stories print a cold open. The reader starts with the title page.
@@ -444,25 +473,28 @@ end
 
 function Session:suggestions(input)
 	if not self.running then return {} end
-	local language = self.language
 	if not input or not input:find("%S") then
 		return {
-			{ title = language.lookTitle, command = language.look },
-			{ title = language.inventoryTitle, command = language.inventory },
+			{ title = self.language.lookTitle, command = self.language.look },
+			{ title = self.language.inventoryTitle, command = self.language.inventory },
 		}
 	end
 	local partners = partnersFor(self)
 	return Suggestions.forInput(input, self.items, function(offer)
 		-- Complete the verb even in an empty room. After "take " only
 		-- eligible objects from the live parser scope are offered.
-		for _, verb in ipairs({ language.look, language.inventory, language.wait, language.take }) do offer(verb) end
-		for _, exit in ipairs(self.exitList) do offer(language.go, exit) end
+		local lang = self.language
+		for _, verb in ipairs({ lang.look, lang.inventory, lang.wait, lang.take }) do offer(verb) end
+		-- English walks with "go north"; a language with bare compass words offers them.
+		for _, exit in ipairs(self.exitList) do
+			if next(lang.directions) then offer(Language.direction(lang, exit)) else offer(lang.go, exit) end
+		end
 		for _, item in ipairs(self.items) do
 			if not item.patterns or #item.patterns > 0 then
-				visitItemActions(item, partners, offer, language)
+				visitItemActions(item, partners, offer, lang)
 			end
 		end
-	end)
+	end, lang)
 end
 
 function Session:entryCount()
@@ -493,22 +525,17 @@ end
 -- Infocom status lines: "Score 12 of 350 · 41 moves". Planetfall's MOVES is
 -- the ship's chronometer, so its line reads "Time 4602" as the game's does.
 function Session.statusLine(game, score, maxScore, moves)
-	if game and game.language == "de" then
-		local turns = string.format("%d %s", moves, moves == 1 and "Zug" or "Züge")
-		if game.statusLine == "moves" then return turns end
-		local points = maxScore > 0 and string.format("%d von %d Punkten", score, maxScore)
-			or string.format("%d Punkte", score)
-		if game.statusLine == "time" then return points .. string.format(" · Zeit %d", moves) end
-		return points .. " · " .. turns
+	local lang = Language.of(game and game.language)
+	if game and game.statusLine == "moves" then
+		return string.format(lang.movesOnly, moves)
 	end
-	if game and game.statusLine == "moves" then return string.format("%d moves", moves) end
 	local scoreText = maxScore > 0
-		and string.format("Score %d of %d", score, maxScore)
-		or string.format("Score %d", score)
+		and string.format(lang.score, score, maxScore)
+		or string.format(lang.scoreOnly, score)
 	if game and game.statusLine == "time" then
-		return string.format("%s · Time %d", scoreText, moves)
+		return string.format("%s · " .. lang.time, scoreText, moves)
 	end
-	return string.format("%s · %d %s", scoreText, moves, moves == 1 and "move" or "moves")
+	return string.format("%s · %d %s", scoreText, moves, moves == 1 and lang.move or lang.moves)
 end
 
 function Session:presentation()
@@ -529,6 +556,7 @@ function Session:presentation()
 		progressFraction = self.maxScore > 0 and math.max(0, math.min(1, self.score / self.maxScore)) or 0,
 		progress = Session.statusLine(game, self.score, self.maxScore, self.moves),
 		availableDirections = directions,
+		language = self.language.code,
 	}
 end
 
