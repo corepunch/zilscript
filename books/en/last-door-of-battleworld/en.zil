@@ -2,6 +2,8 @@
   the shared book; this file supplies prose, vocabulary and companion cards."
 
 <SYNTAX USE OBJECT = V-USE>
+<SYNTAX STOP OBJECT = V-BW-STOP>
+<ROUTINE V-BW-STOP () <MSG-THEME>>
 <SYNTAX USE OBJECT ON OBJECT = V-BW-FIT>
 <SYNTAX FIT OBJECT IN OBJECT = V-BW-FIT>
 <SYNONYM FIT INSERT>
@@ -26,7 +28,8 @@
 <OBJECT SKIFF (DESC "rescue skiff")
  (SYNONYM SKIFF BOAT PASSENGERS CIVILIANS) (ADJECTIVE RESCUE STRANDED)>
 <OBJECT WINCH (DESC "hand winch")
- (SYNONYM WINCH CRANK REEL) (ADJECTIVE HAND MANUAL)>
+ (SYNONYM WINCH CRANK REEL HANDLE) (ADJECTIVE HAND MANUAL)>
+<OBJECT MARKET-TAGS (DESC "market tags") (SYNONYM TAG TAGS LABEL LABELS STALL) (ADJECTIVE MARKET)>
 <OBJECT MIRROR (DESC "signal mirror")
  (SYNONYM MIRROR GLASS REFLECTOR) (ADJECTIVE SIGNAL TILTED)>
 <OBJECT CACHE (DESC "supply chest")
@@ -34,9 +37,9 @@
 <OBJECT CELL (DESC "power cell")
  (SYNONYM CELL BATTERY) (ADJECTIVE POWER)>
 <OBJECT SOCKET (DESC "emergency socket")
- (SYNONYM SOCKET PORT) (ADJECTIVE EMERGENCY)>
-<OBJECT BW-HOME-DOOR (DESC "last door") (SYNONYM DOOR DOORWAY) (ADJECTIVE LAST HOME)>
+ (SYNONYM SOCKET PORT) (ADJECTIVE EMERGENCY POWER)>
 <OBJECT LOOM (DESC "Loom") (SYNONYM LOOM MACHINE) (ADJECTIVE STITCHING REALITY)>
+<OBJECT BW-HOME-DOOR (DESC "last door") (SYNONYM DOOR DOORWAY) (ADJECTIVE LAST HOME)>
 <OBJECT DOOM (DESC "Doctor Doom")
  (SYNONYM DOOM PROJECTION) (ADJECTIVE DOCTOR DR)>
 
@@ -51,42 +54,51 @@
        (T <TELL "Put armored flight and precision thrusters to work. There's a tool for almost everything.">)>>
 
 <ROUTINE MSG-SETUP ()
- <TELL "Three rescue signals blink on the same scrap of sky. Choose Spider-Man, Storm, or Iron Man to answer. You can examine each profile before you decide." CR>>
+ <TELL "Pick your hero: Spider-Man, Storm or Iron Man. Type 'choose spider-man' or pick a name from the menu." CR>>
 
 <ROUTINE MSG-CAMP ()
- <TELL "The camp occupies half a schoolyard and the wrong end of a railway platform. The soup pot is on the doubles court. Ms. Marvel has the court's chalkboard tipped up on a chair so she can count the people coming in. A beacon on the bench crackles. The path north leads down to the Hanging Span. The sheltered path goes south to the ridge." CR>>
+ <TELL "Ms. Marvel runs camp in half a schoolyard. A brass beacon crackles beside her. The bridge is north, and the sheltered ridge is south." CR>>
 
 <ROUTINE MSG-SPAN ()
- <TELL "Where the road runs out, the skiff hangs below you on a line that is unspooling one click at a time. The passengers are sitting very still. A hand winch is bolted to the stone by your boot. The road to the market runs north beyond the span, and the camp is south." CR>>
+ <TELL "A small boat hangs below the broken bridge. Its passengers sit very still. A hand winch grips the rope. The boat blocks the way north to market. Camp is south." CR>>
+
+<ROUTINE MSG-SPAN-BLOCK ()
+ <TELL "The boat blocks the bridge. Try ">
+ <COND (<NOT ,BW-RESCUE-TRIED> <TELL "'rescue boat' or ">)>
+ <TELL "'pull winch'." CR>>
 
 <ROUTINE MSG-SPAN-CLEAR ()
- <TELL "The empty skiff knocks gently against the stones. Someone left a red mitten hooked to its rail. The winch has stopped clicking. The way is clear north to the Tilted Market; the camp lies south." CR>>
+ <TELL "The empty boat taps against the bridge. A red mitten hangs from the rail. The market is now open to the north. Camp is south." CR>>
 
 <ROUTINE MSG-MARKET ()
- <MSG-MARKET-SCALES>
- <TELL "The market leans downhill just enough for every loose apple to end up at the same stall. A mirror on a swivel is catching the last sunlight. Someone has shoved a supply chest under the stall. The repair shop is east, the tower north, and the span south." CR>>
+ <TELL "The market tilts downhill. Tags flap above a mirror and supply chest. The repair shop is east, Doom's tower north, and the bridge south." CR>
+ <MSG-MARKET-SCALES>>
+
+<ROUTINE MSG-MARKET-TAGS ()
+ <TELL "One tag says LEFT SOCK. Another says ECHO, BARELY USED. The apples have all rolled into the same corner." CR>>
 
 <ROUTINE MSG-WORKSHOP ()
- <TELL "Every tool is outlined in chalk on the wall, including the ones someone has borrowed. An emergency socket juts from a bench under a cable that runs up into the tower. The alley back to the market is west." CR>>
+ <TELL "Chalk outlines show where the tools hang. By the bench, a cable runs from an empty power socket up to the tower. The market is west." CR>>
 
 <ROUTINE MSG-TOWER ()
- <TELL "The open tower has no roof: just a ring of teeth where the sky goes through. The Loom pulls a bright thread from a half-open doorway, one slow inch at a time. Doctor Doom stands beside it. Moonlight goes straight through his cape. The stair leads south to the market; a docking bridge reaches north to the Worldship." CR>>
+ <TELL "The Loom tugs a bright thread from a half-open door. Doctor Doom flickers beside it. The stairs south lead to market. A bridge north leads to Galactus's ship." CR>>
 
 <ROUTINE MSG-HOME-DOOR ()
  <TELL "Through the crack, you see a kitchen table back on Earth. The Loom's thread holds the door fast." CR>>
 
 <ROUTINE MSG-HELPER ()
  <COND (,EVACUATED
-        <TELL "Ms. Marvel puts three cups of soup on the edge of the bench. 'Everyone's off the span. Doom ran a line from the repair shop into the tower. If the Loom won't listen to you, see what it's connected to.'" CR>)
-       (T <TELL "'No one on that deck can reach the road,' says Ms. Marvel. 'You can reach them with your powers. And if it gets messy, look for the winch where the road ends. The catch is holding for now. Take a moment to look before you move. I'll bring hot soup, which is very useful and doesn't look dramatic at all.'" CR>)>>
+        <TELL "Ms. Marvel pours soup for the passengers. 'Doom ran a cable from the repair shop to the tower. Try it if the Loom gives you trouble.'" CR>)
+       (T <TELL "'The rope is holding for now,' says Ms. Marvel. 'Use your power to rescue the boat, or pull the winch. I'll get the soup ready.'" CR>
+          <TELL "At the bridge, try 'rescue boat' or 'pull winch'." CR>)>>
 
 <ROUTINE MSG-BEACON ()
  <TELL "Someone has penciled RESCUE ONLY on the brass. The speaker hisses. 'This is Doom. I offer one simple choice: agree now or agree later.' You turn the volume down to a much more useful crackle." CR>>
 
 <ROUTINE MSG-SKIFF ()
  <COND (,EVACUATED
-        <TELL "A passenger has tied the red mitten to the rail by its thumb. The skiff is empty; nobody here needs rescuing again." CR>)
-       (T <TELL "The skiff pitches when anyone moves. A little girl is explaining to the others that a boat can't be afraid of heights, because it doesn't have knees. The yellow winch line runs right through the skiff's bow ring." CR>)>>
+        <TELL "The passengers are safe. Someone tied a red mitten to the empty boat's rail." CR>)
+       (T <TELL "The boat tips when anyone moves. 'Boats can't be afraid of heights,' says a girl. 'They don't have knees.' Try 'rescue boat' or 'pull winch'." CR>)>>
 
 <ROUTINE MSG-RESCUE-SUCCESS ()
  <COND (<==? ,RPG-PRESET-INDEX 1>
@@ -96,7 +108,7 @@
        (T <TELL "You match the skiff's swing and take its weight on both gauntlets. A little sideways thrust sets it down at the edge of the road. 'Arrival at Platform One,' you tell the passengers. One of them claps the way people do when a plane lands." CR>)>>
 
 <ROUTINE MSG-RESCUE-FAIL ()
- <TELL "The skiff rolls to one side before you can bring it in. A catch takes the line with a hard click. The line clips your shoulder. You lose 5 Health, but no one falls. The yellow line goes through the bow ring: pull the winch to bring the skiff in close." CR>>
+ <TELL "The boat tips. The rope hits your shoulder. You lose 5 Health, but everyone stays aboard. Try 'pull winch'." CR>>
 
 <ROUTINE MSG-RESCUE-WINCH ()
  <TELL "You lean into the handle. It gives an indignant squeak, then winds the skiff up to the road. The girl puts both boots on the stone. 'It didn't even scream.' Behind her the winch squeaks louder, as if it objects to the record." CR>>
@@ -106,11 +118,11 @@
 
 <ROUTINE MSG-WINCH ()
  <COND (,EVACUATED
-        <TELL "The teeth of the winch are holding the yellow line fast. The rescue is over, but whoever gets this rig next will find it ready." CR>)
-       (T <TELL "The yellow line is still threaded through the skiff. Hand-painted arrows show which way the drum draws it in. No power outlet, no lever puzzle. A firm pull on the handle ought to do it." CR>)>>
+        <TELL "The winch holds the empty boat in place." CR>)
+       (T <TELL "The winch reels in the boat's rope. Try 'pull winch' or 'pull handle'." CR>)>>
 
 <ROUTINE MSG-MIRROR ()
- <TELL "There's a painted sun on the swivel collar and a tiny picture of the Loom tower on its rim. Line those marks up and the mirror will throw the last stripe of daylight into the tower's open top." CR>>
+ <TELL "A sun and a tower are painted on the frame. Turn the mirror to line them up and send daylight into the tower." CR>>
 
 <ROUTINE MSG-MIRROR-CLUE ()
  <TELL "The swivel turns, but you have no idea where to aim it. Two painted marks are almost hidden under its lip. Examine the mirror first." CR>>
@@ -145,10 +157,10 @@
  <TELL "Your blow cuts across Doom's cape and hits nothing. Green light knits back together, button by button. 'If I intended to be punched, I would have attended in person.' The real work is still happening at the Loom." CR>>
 
 <ROUTINE MSG-LOOM ()
- <TELL "Two diagrams are etched on the Loom's plate. The first shows daylight striking the top of the tower: with a signal to follow, the Loom can unwind its last stitch. The second shows a cable from the repair shop: with emergency power, you can force the Loom to cut its thread. Neither diagram has Doom's face on it, which is how you know he didn't draw them." CR>>
+ <TELL "Two drawings show how to free the door:" CR "• Turn the market mirror to send sunlight into the tower." CR "• Put a battery in the repair shop socket." CR>>
 
 <ROUTINE MSG-LOOM-BLOCK ()
- <TELL "The thread is too tight to touch. The Loom needs a signal or backup power. The stair is clear south to the market, where the mirror can catch daylight and the repair shop can supply a charge. The door hasn't closed yet." CR>>
+ <TELL "The thread is too tight. Try the mirror at the market or the power socket in the repair shop. The stairs south are clear." CR>>
 
 <ROUTINE MSG-WIN-MIRROR ()
  <TELL "You feed the bar of daylight into the Loom's eye. Its needles start walking backward. The last stitch slips loose, then the next, and the doorway swings wide without tearing a single edge. On the far side, a kettle begins to whistle. Doom reaches to mute it, but his green fingers go straight through." CR CR
@@ -181,14 +193,14 @@
         <CHOICE "bw.profile.iron" "Start as Iron Man" "choose iron man" ,CHOICE-PROGRESS 98>)
        (<==? ,HERE ,CAMP>
         <CHOICE "bw.camp.ridge" "Return to the sheltered ridge" "south" ,CHOICE-RETURN 60>
-        <CHOICE "bw.camp.span" "Follow the rescue signal to the span" "north" ,CHOICE-PROGRESS 100>
+        <CHOICE "bw.camp.span" "Go to the bridge" "north" ,CHOICE-PROGRESS 100>
         <CHOICE "bw.camp.helper" "Check in with Ms. Marvel" "examine marvel" ,CHOICE-INVESTIGATE 90>
         <CHOICE "bw.camp.beacon" "Listen to the brass beacon" "examine beacon" ,CHOICE-INVESTIGATE 80>)
        (<==? ,HERE ,SPAN>
         <COND (,EVACUATED
                <CHOICE "bw.span.market" "Cross to the tilted market" "north" ,CHOICE-PROGRESS 100>)
               (T <COND (<NOT ,BW-RESCUE-TRIED>
-                          <CHOICE "bw.span.power" "Reach the skiff with your hero's power" "focus skiff" ,CHOICE-PROGRESS 100>)>
+                          <CHOICE "bw.span.power" "Rescue the boat with your power" "rescue boat" ,CHOICE-PROGRESS 100>)>
                  <CHOICE "bw.span.skiff" "Check the passengers and the rescue line" "examine skiff" ,CHOICE-INVESTIGATE 95>
                  <CHOICE "bw.span.winch" "Haul the skiff in with the winch" "pull winch" ,CHOICE-PROGRESS 90>)>
         <CHOICE "bw.span.camp" "Head back to the rescue camp" "south" ,CHOICE-RETURN 60>)

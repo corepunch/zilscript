@@ -5,22 +5,21 @@
 <OBJECT ZSAJI (DESC "Zsaji") (SYNONYM ZSAJI HEALER)>
 
 <ROUTINE MSG-MARKET-SCALES ()
- <TELL "Beyond the grocer's stall a lane runs west to Zsaji's village. ">
- <COND (,BW-WEIGHED <TELL "The scales hang level above the counter." CR>)
-       (T <TELL "One pan of the scales tilts against the counter." CR>)>>
+ <COND (<NOT ,BW-WEIGHED> <TELL "One pan of the market scales hangs crooked. ">)
+       (T <TELL "The market scales hang level. ">)>
+ <TELL "The village lies west." CR>>
 <ROUTINE MSG-FOUND-CLAPPER ()
  <TELL "You lift the crooked pan. A brass clapper rolls out from underneath, wobbling in smaller and smaller circles. Its worn loop is much too big for a grocer's weight." CR>>
 <ROUTINE MSG-EMPTY-SCALES () <TELL "The pans hang level now. A single apple sends the needle bobbing." CR>>
 <ROUTINE MSG-CLAPPER () <TELL "A loop at one end, a polished spot on either cheek. This little tongue has spent years swinging inside something." CR>>
 <ROUTINE MSG-VILLAGE ()
- <TELL "Fine red dust veils the lane. A bell hangs outside the meeting house. Zsaji the healer keeps one hand on the post. The stalls of the market are back east. ">
- <COND (,BW-BELL-RUNG <TELL "Paired muddy boots line the step." CR>)
-       (T <TELL "Two bowls of supper sit untouched on the step." CR>)>>
-<ROUTINE MSG-BELL () <TELL "You pull the rope. The bell swings in perfect silence. Inside, an empty hook shines where its clapper wore the metal smooth." CR>>
+ <TELL "Red dust sweeps through the village. Zsaji stands by a bell. The market is east." CR>>
+<ROUTINE MSG-BELL ()
+ <TELL "The bell hangs silent. Inside is an empty hook where its clapper should hang." CR>>
 <ROUTINE MSG-BELL-FITTED () <TELL "The brass loop sits snug on the hook. The bell is ready for someone to pull its rope." CR>>
 <ROUTINE MSG-ZSAJI ()
  <COND (,BW-BELL-RUNG <TELL "Zsaji shows you how to say welcome in her language. She makes room on the step. That part needs no translation." CR>)
-       (T <TELL "Zsaji draws two small figures in the dust, cups a hand to her ear, then points to the bell. From the red haze on the hillside comes a faint answering whistle." CR>)>>
+       (T <TELL "Zsaji draws two shepherds in the dust. A faint whistle comes from the hill. She points to the bell: they're lost and need a sound to follow." CR>)>>
 <ROUTINE MSG-HEALING () <TELL "Zsaji sees you rubbing the bruise from the skiff line. She offers her hand. Warmth slips under your sleeve and the ache eases. You regain 5 Health." CR>>
 <ROUTINE MSG-ANSWERING-BELLS () <TELL "One pull sends a low note rolling out into the dust. Two high whistles answer. A pair of shepherds appear with their sleeves tied together so they can't lose each other. Zsaji ladles supper into both bowls." CR>>
 <ROUTINE MSG-ALL-HOME () <TELL "The two shepherds tap their spoons against their empty bowls in time with the bell. Everyone is accounted for." CR>>
