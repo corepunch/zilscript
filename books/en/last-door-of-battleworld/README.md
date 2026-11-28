@@ -7,6 +7,10 @@ helps the evacuees. This is a complete **short solo adventure**, not a port
 of the TSR campaign. No original module prose, maps, art or stat blocks are
 bundled. See [what we did not carry over](../../shared/last-door-of-battleworld/LIMITS.md).
 
+![The Last Door of Battleworld: a golden door above a broken bridge](cover.jpg)
+
+The English-titled cover is shared by both editions.
+
 ## Run from the repository / Как запустить
 
 From the repository root with Lua 5.4:
@@ -30,7 +34,7 @@ typed command, start with `look` / «осмотреться» or `examine` /
 другой способ. Не подсказывайте решение сразу: сначала спросите, что из
 увиденного могло бы помочь.
 
-This side branch is for testing. It is deliberately not in the native
+This sample is for testing. It is deliberately not in the native
 app catalog and is not part of an App Store build.
 
 ## Verify / Проверка
