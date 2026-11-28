@@ -29,6 +29,7 @@ assert(env.SYSTEM_GRADE(env.HERO, env.A_INTERVIEW, env.INV_HARD, 36) == 0)
 
 local function new(rolls)
   local w = Walk.new(name)
+  assert(w.output:find("CHOOSE DOCTOR, CHOOSE REPORTER, or CHOOSE MECHANIC", 1, true), w.output)
   local i = 0
   w.env.math = setmetatable({ random = function()
     i = i + 1

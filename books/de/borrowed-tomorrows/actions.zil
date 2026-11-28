@@ -1,5 +1,8 @@
 <SYNTAX FALT OBJECT = V-FOLD-LOAN>
 <SYNTAX KLEMM OBJECT (HELD HAVE) IN OBJECT = V-PUT PRE-PUT>
+<SYNTAX SPANN OBJECT (HELD HAVE) IN OBJECT = V-PUT PRE-PUT>
+<SYNONYM SPANN SPANNE>
+<SYNTAX HILFE = V-BOOK-HINT>
 <SYNONYM KLEMM KLEMME>
 <SYNONYM FALT FALTE>
 <SYNTAX GLAETT OBJECT = V-UNFOLD-LOAN>
@@ -7,6 +10,19 @@
 <SYNONYM GLAETT GLAETTE GL\%ATT GL\%ATTE ENTFALT ENTFALTE>
 <SYNTAX ZERREISS OBJECT = V-TEAR-LOAN>
 <SYNONYM ZERREISS ZERREISSE ZERREI\%S ZERREI\%SE>
+
+<ROUTINE V-BOOK-HINT ()
+ <COND (<AND <IN? ,LEAF ,CASE> <NOT <FSET? ,CASE ,OPENBIT>>>
+        <TELL "Öffne die kleine Tür des Leihschranks in der Ausleihhalle." CR>)
+       (<IN? ,LEAF ,CASE> <TELL "Nimm das Morgenblatt aus dem Leihschrank." CR>)
+       (<IN? ,LEAF ,FRAME> <TELL "Lies das Morgenblatt am Leserahmen laut vor, damit der Markt es hört." CR>)
+       (<AND <NOT ,WIDE-LOAN> <NOT ,RECEIPT-READ>>
+        <TELL "Lies den alten Leihschein in der trockenen Kammer. Dort erfährst du, was schiefgegangen ist." CR>)
+       (<NOT <HELD? ,LEAF>> <TELL "Nimm das Morgenblatt wieder auf. Du hast es unterwegs abgelegt." CR>)
+       (<AND <NOT ,WIDE-LOAN> <NOT ,BOARD-READ>>
+        <TELL "Lies die Anleitung auf dem Faltbrett im Faltraum." CR>)
+       (<NOT ,WIDE-LOAN> <TELL "Leg das Morgenblatt auf das Faltbrett, um seine alten Falten zu glätten." CR>)
+       (T <TELL "Bring das breite Blatt auf die Leseterrasse und spanne es in den Leserahmen." CR>)>>
 
 <ROUTINE V-VERSION ()
  <TELL "Die Bibliothek der geliehenen Morgen|Studio Null, 2026|Ausgabe " N ,RELEASEID CR>>

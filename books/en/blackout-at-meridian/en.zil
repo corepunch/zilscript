@@ -40,8 +40,9 @@
 <ROUTINE MSG-HELP-UNREGISTERED ()
  <TELL "Right now: examine the profiles on the duty board and CHOOSE BULWARK, ARC or LENS." CR>>
 
-<ROUTINE MSG-HELP-RESCUE ()
- <TELL "Right now: go north to the bridge and RESCUE the PASSENGERS." CR>>
+<ROUTINE MSG-HELP-RESCUE (AT-BRIDGE)
+ <COND (.AT-BRIDGE <TELL "You are on the bridge. RESCUE the PASSENGERS before going east." CR>)
+       (T <TELL "Right now: go north to the bridge and RESCUE the PASSENGERS." CR>)>>
 
 <ROUTINE MSG-HELP-RELAY ()
  <TELL "Right now: in the relay station, STRIKE the DRONE or DISABLE the CONSOLE. USE KIT restores up to 20 Health once, for 10 Karma." CR>>

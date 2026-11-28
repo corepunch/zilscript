@@ -15,4 +15,19 @@ for _, ending in ipairs(endings) do
 	assert(walk.output:find(ending[2], 1, true), walk.output)
 	assert(walk.finishes == 1 and not walk:running())
 end
+local retry = Walk.new(story)
+retry:play({
+	{ "hilfe", expect = "UNTERSUCHE" },
+	"ost",
+	{ "untersuche rand", expect = "Kerben" },
+	{ "untersuche kerben", expect = "Kerben" },
+	"nimm spule", "west", "nord", "leg spule in lesemulde",
+	{ "drücke abhörknopf", expect = "Du weißt es noch nicht" },
+	"süd", "ost", "kippe lupe", "west", "nord",
+	{ "drücke rückantworttaste", expect = "Abhörknopf erneut" },
+	{ "drücke gedenktaste", expect = "Abhörknopf erneut" },
+	{ "drücke abhörknopf", expect = "privaten Rückantwortregister" },
+	{ "drücke rückantworttaste", expect = "ENDE – PRIVATE RÜCKANTWORT" },
+})
+assert(retry.finishes == 1 and not retry:running())
 print("Beide deutschsprachigen Museumsenden per Text-Walkthrough bestanden.")

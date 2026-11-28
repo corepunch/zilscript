@@ -2,6 +2,7 @@
 <GLOBAL CO <CO-CREATE GO>>
 <ROUTINE RUN-TEST ()
 	<ASSERT-TEXT "Faltraum" <CO-RESUME ,CO "schau">>
+	<ASSERT-TEXT "kleine Tür des Leihschranks" <CO-RESUME ,CO "hilfe">>
 	<ASSERT-TEXT "Türspalt" <CO-RESUME ,CO "schau in den Schrank">>
 	<ASSERT "Schrank ist geschlossen" <NOT <FSET? ,CASE ,OPENBIT>>>
 	<ASSERT-TEXT "öffnest die kleine Schranktür" <CO-RESUME ,CO "ÖFFNE den hölzernen Leihschrank">>
@@ -16,7 +17,7 @@
 	<ASSERT-TEXT "NIMMT SIE DER STADT WEG" <CO-RESUME ,CO "lies den alten Leihschein">>
 	<CO-RESUME ,CO "ost">
 	<ASSERT-TEXT "brauchst" <CO-RESUME ,CO "glätte das Blatt">>
-	<ASSERT-TEXT "zweiten Klammer" <CO-RESUME ,CO "lege das Blatt in den Rahmen">>
+	<ASSERT-TEXT "zweiten Klammer" <CO-RESUME ,CO "spann das Blatt in den Rahmen">>
 	<ASSERT "Zu kleines Blatt bleibt in der Hand" <HELD? ,LEAF>>
 	<CO-RESUME ,CO "süd">
 	<ASSERT-TEXT "STREICH DIE ALTEN FALTEN GLATT" <CO-RESUME ,CO "lies das Faltbrett">>
@@ -41,9 +42,10 @@
 	<CO-RESUME ,CO "nimm das Blatt">
 	<CO-RESUME ,CO "lege das Blatt auf das Brett">
 	<CO-RESUME ,CO "nord">
-	<ASSERT-TEXT "Beide Klammern halten" <CO-RESUME ,CO "klemm das Blatt in den Rahmen">>
+	<ASSERT-TEXT "Beide Klammern halten" <CO-RESUME ,CO "spanne das Blatt in den Rahmen">>
 	<ASSERT "Blatt steckt im Rahmen" <IN? ,LEAF ,FRAME>>
 	<ASSERT-TEXT "zum Teilen bereit" <CO-RESUME ,CO "punkte">>
+	<ASSERT-TEXT "am Leserahmen laut vor" <CO-RESUME ,CO "hilfe">>
 	<ASSERT "Einklemmen veröffentlicht das Blatt nicht" <NOT ,PUBLISHED-LOAN>>
 	<ASSERT-TEXT "Nimm das Blatt erst wieder" <CO-RESUME ,CO "falte das Blatt">>
 	<ASSERT "Eingespanntes Blatt behält seine Form" <AND ,WIDE-LOAN <IN? ,LEAF ,FRAME>>>

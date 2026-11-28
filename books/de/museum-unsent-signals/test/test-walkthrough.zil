@@ -41,7 +41,7 @@
 	<ASSERT-TEXT "Die Tasten bleiben dunkel" <CO-RESUME ,CO "drück die Gedenktaste">>
 	<ASSERT "Kein Ende ohne Spule" <EQUAL? ,MUSEUM-END 0>>
 	<CO-RESUME ,CO "leg die Spule in die Mulde">
-	<ASSERT-TEXT "Drück zuerst den Abhörknopf" <CO-RESUME ,CO "drück die Gedenktaste">>
+	<ASSERT-TEXT "Drück den Abhörknopf erneut" <CO-RESUME ,CO "drück die Gedenktaste">>
 	<ASSERT "Keine alte Freigabe nach Einlegen" <NOT ,SIGNAL-HEARD>>
 	<ASSERT-TEXT "privaten Rückantwortregister" <CO-RESUME ,CO "drück den Abhörknopf">>
 	<ASSERT "Die private Sendetaste funktioniert" <CO-RESUME ,CO "drück die Rückantworttaste" T>>

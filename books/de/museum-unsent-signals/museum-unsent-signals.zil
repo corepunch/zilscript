@@ -13,3 +13,7 @@
 <INSERT-FILE "dungeon">
 <INSERT-FILE "rulesets.classic.de">
 <INSERT-FILE "actions">
+<SYNTAX TIP = V-MUSEUM-HELP>
+<SYNONYM TIP TIPE TIPS HILFE HILF TIPP TIPPS HINWEIS>
+<ROUTINE V-MUSEUM-HELP ()
+ <TELL "Tippe SCHAU, um dich umzusehen, UNTERSUCHE gefolgt von einem Gegenstand, oder eine Himmelsrichtung wie OST. NIMM und LEG bewegen Gegenstände; INVENTAR zeigt, was du trägst. Lies den Zettel in der Eingangshalle, um zu erfahren, wonach du suchen sollst." CR>>

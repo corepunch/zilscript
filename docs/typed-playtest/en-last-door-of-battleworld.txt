@@ -1,0 +1,242 @@
+Three rescue signals blink on the same scrap of sky. Choose Spider-Man, Storm, or Iron Man to answer. You can examine each profile before you decide.
+
+> examine spider-man
+Catch a falling skiff with web lines. Quick hands and quicker replies.
+
+> examine storm
+Carry people to safety on a current of air. Calm enough to hear the wind change.
+
+> examine iron man
+Put armored flight and precision thrusters to work. There's a tool for almost everything.
+
+> choose spider-man
+In Central Park, a strange circle of machinery rose among the trees. When you stepped inside, Earth vanished. Through a second circle across the darkness you glimpsed Doctor Doom, Kang and other dangerous figures. Then the stars went out, and pieces of distant worlds came together around a single sun.
+
+The Beyonder spoke from somewhere beyond the sky and offered a reward for destroying your enemies. Galactus and Doom challenged its owner; both were flung away. Now the circle carries you down toward the newly made world. You have another idea: find the people who need help.
+
+You stand on a wide plain where grass ends suddenly at red stone. Magneto watches the ridge. Beside broken machinery lies a copper coil. To the north, a ridge hides the land beyond.
+There is a copper coil here.
+
+> look
+You stand on a wide plain where grass ends suddenly at red stone. Magneto watches the ridge. Beside broken machinery lies a copper coil. To the north, a ridge hides the land beyond.
+There is a copper coil here.
+
+> help
+I don't know the word "help".
+
+> inventory
+You are empty-handed.
+
+> take coil
+Taken.
+
+> examine magneto
+Magneto folds his arms. 'The voice chose me as it chose you. That does not mean either of us has to obey it.' A flash passes over the ridge. He turns toward it. 'There are people on the other side. That broken machinery may be useful.'
+
+> talk to magneto
+Magneto folds his arms. 'The voice chose me as it chose you. That does not mean either of us has to obey it.' A flash passes over the ridge. He turns toward it. 'There are people on the other side. That broken machinery may be useful.'
+
+> north
+From the ridge you can see a makeshift camp to the north. Kang's villains crest another rise, carrying weapons from a fortress they have already found. A shield relay stands by the path. The plain lies south.
+
+> look
+From the ridge you can see a makeshift camp to the north. Kang's villains crest another rise, carrying weapons from a fortress they have already found. A shield relay stands by the path. The plain lies south.
+
+> examine relay
+The relay's open panel has an empty cradle marked with a shield. Two contacts wait at either end, just the right distance apart for a small coil. A diagram shows the relay projecting a shelter across the path to the camp.
+
+> put coil in relay
+The coil clicks into the cradle. A pale shield unfolds across the path as Kang's first shot splashes harmlessly against it. Beyond the glow, people hurry toward the camp. Magneto holds a second piece of debris out of their way. The path north is safe to follow.
+Above the camp, Doom's green image declares that his Loom will close the last door home. The image fades, but the people below still need help.
+
+> north
+The camp occupies half a schoolyard and the wrong end of a railway platform. The soup pot is on the doubles court. Ms. Marvel has the court's chalkboard tipped up on a chair so she can count the people coming in. A beacon on the bench crackles. The path north leads down to the Hanging Span. The sheltered path goes south to the ridge.
+
+> look
+The camp occupies half a schoolyard and the wrong end of a railway platform. The soup pot is on the doubles court. Ms. Marvel has the court's chalkboard tipped up on a chair so she can count the people coming in. A beacon on the bench crackles. The path north leads down to the Hanging Span. The sheltered path goes south to the ridge.
+
+> examine beacon
+Someone has penciled RESCUE ONLY on the brass. The speaker hisses. 'This is Doom. I offer one simple choice: agree now or agree later.' You turn the volume down to a much more useful crackle.
+
+> talk to ms marvel
+'No one on that deck can reach the road,' says Ms. Marvel. 'You can reach them with your powers. And if it gets messy, look for the winch where the road ends. The catch is holding for now. Take a moment to look before you move. I'll bring hot soup, which is very useful and doesn't look dramatic at all.'
+
+> north
+Where the road runs out, the skiff hangs below you on a line that is unspooling one click at a time. The passengers are sitting very still. A hand winch is bolted to the stone by your boot. The road to the market runs north beyond the span, and the camp is south.
+
+> look
+Where the road runs out, the skiff hangs below you on a line that is unspooling one click at a time. The passengers are sitting very still. A hand winch is bolted to the stone by your boot. The road to the market runs north beyond the span, and the camp is south.
+
+> examine span
+I don't know the word "span".
+
+> examine winch
+The yellow line is still threaded through the skiff. Hand-painted arrows show which way the drum draws it in. No power outlet, no lever puzzle. A firm pull on the handle ought to do it.
+
+> examine skiff
+The skiff pitches when anyone moves. A little girl is explaining to the others that a boat can't be afraid of heights, because it doesn't have knees. The yellow winch line runs right through the skiff's bow ring.
+
+> rescue passengers
+Rank 40; d100 1; failure.
+Challenge 30; needs success.
+The skiff rolls to one side before you can bring it in. A catch takes the line with a hard click. The line clips your shoulder. You lose 5 Health, but no one falls. The yellow line goes through the bow ring: pull the winch to bring the skiff in close.
+
+> use powers
+I don't know the word "powers".
+
+> use web
+I don't know the word "web".
+
+> web skiff
+I don't know the word "web".
+
+> pull winch
+You lean into the handle. It gives an indignant squeak, then winds the skiff up to the road. The girl puts both boots on the stone. 'It didn't even scream.' Behind her the winch squeaks louder, as if it objects to the record.
+
+> north
+Beyond the grocer's stall a lane runs west to Zsaji's village. One pan of the scales tilts against the counter.
+The market leans downhill just enough for every loose apple to end up at the same stall. A mirror on a swivel is catching the last sunlight. Someone has shoved a supply chest under the stall. The repair shop is east, the tower north, and the span south.
+
+> look
+Beyond the grocer's stall a lane runs west to Zsaji's village. One pan of the scales tilts against the counter.
+The market leans downhill just enough for every loose apple to end up at the same stall. A mirror on a swivel is catching the last sunlight. Someone has shoved a supply chest under the stall. The repair shop is east, the tower north, and the span south.
+
+> examine scales
+You lift the crooked pan. A brass clapper rolls out from underneath, wobbling in smaller and smaller circles. Its worn loop is much too big for a grocer's weight.
+
+> examine mirror
+There's a painted sun on the swivel collar and a tiny picture of the Loom tower on its rim. Line those marks up and the mirror will throw the last stripe of daylight into the tower's open top.
+
+> examine chest
+One corner of the chest is stenciled EMERGENCY POWER. Open its lid for a better look.
+
+> open chest
+One corner of the chest is stenciled EMERGENCY POWER. A power cell about the size of a lunchbox fits snugly in its padding.
+
+> east
+Every tool is outlined in chalk on the wall, including the ones someone has borrowed. An emergency socket juts from a bench under a cable that runs up into the tower. The alley back to the market is west.
+
+> look
+Every tool is outlined in chalk on the wall, including the ones someone has borrowed. An emergency socket juts from a bench under a cable that runs up into the tower. The alley back to the market is west.
+
+> west
+Beyond the grocer's stall a lane runs west to Zsaji's village. The scales hang level above the counter.
+The market leans downhill just enough for every loose apple to end up at the same stall. A mirror on a swivel is catching the last sunlight. Someone has shoved a supply chest under the stall. The repair shop is east, the tower north, and the span south.
+There is a brass clapper here.
+  The supply chest contains:
+    A power cell
+
+> take clapper
+Taken.
+
+> take cell
+Taken.
+
+> turn mirror
+Sun meets tower with a little click. A bar of yellow light springs across the square and holds steady on the teeth at the top of the tower. Way up above, something gives a bright and very definite chime.
+
+> east
+Every tool is outlined in chalk on the wall, including the ones someone has borrowed. An emergency socket juts from a bench under a cable that runs up into the tower. The alley back to the market is west.
+
+> put cell in socket
+All three ribs slide home. The cable jumps overhead and the bench's little service light glows green. Someone long ago painted a cheerful OK beside it. For once, it is right.
+
+> west
+Beyond the grocer's stall a lane runs west to Zsaji's village. The scales hang level above the counter.
+The market leans downhill just enough for every loose apple to end up at the same stall. A mirror on a swivel is catching the last sunlight. Someone has shoved a supply chest under the stall. The repair shop is east, the tower north, and the span south.
+
+> west
+Fine red dust veils the lane. A bell hangs outside the meeting house. Zsaji the healer keeps one hand on the post. The stalls of the market are back east. Two bowls of supper sit untouched on the step.
+
+> look
+Fine red dust veils the lane. A bell hangs outside the meeting house. Zsaji the healer keeps one hand on the post. The stalls of the market are back east. Two bowls of supper sit untouched on the step.
+
+> talk to zsaji
+Zsaji sees you rubbing the bruise from the skiff line. She offers her hand. Warmth slips under your sleeve and the ache eases. You regain 5 Health.
+Zsaji draws two small figures in the dust, cups a hand to her ear, then points to the bell. From the red haze on the hillside comes a faint answering whistle.
+
+> examine bell
+You pull the rope. The bell swings in perfect silence. Inside, an empty hook shines where its clapper wore the metal smooth.
+
+> put clapper in bell
+The brass loop sits snug on the hook. The bell is ready for someone to pull its rope.
+
+> ring bell
+One pull sends a low note rolling out into the dust. Two high whistles answer. A pair of shepherds appear with their sleeves tied together so they can't lose each other. Zsaji ladles supper into both bowls.
+
+> east
+Beyond the grocer's stall a lane runs west to Zsaji's village. The scales hang level above the counter.
+The market leans downhill just enough for every loose apple to end up at the same stall. A mirror on a swivel is catching the last sunlight. Someone has shoved a supply chest under the stall. The repair shop is east, the tower north, and the span south.
+
+> north
+The open tower has no roof: just a ring of teeth where the sky goes through. The Loom pulls a bright thread from a half-open doorway, one slow inch at a time. Doctor Doom stands beside it. Moonlight goes straight through his cape. The stair leads south to the market; a docking bridge reaches north to the Worldship.
+A green inscription beside him invites you to hear Doom's offer.
+
+> look
+The open tower has no roof: just a ring of teeth where the sky goes through. The Loom pulls a bright thread from a half-open doorway, one slow inch at a time. Doctor Doom stands beside it. Moonlight goes straight through his cape. The stair leads south to the market; a docking bridge reaches north to the Worldship.
+A green inscription beside him invites you to hear Doom's offer.
+
+> examine loom
+Two diagrams are etched on the Loom's plate. The first shows daylight striking the top of the tower: with a signal to follow, the Loom can unwind its last stitch. The second shows a cable from the repair shop: with emergency power, you can force the Loom to cut its thread. Neither diagram has Doom's face on it, which is how you know he didn't draw them.
+
+> talk to doom
+'When every doorway leads to the same place, nobody gets lost,' says Doom. Behind him the last door offers you a glimpse of a kitchen table, somewhere with ordinary weather. Doom doesn't turn around. 'I fail to see why you object.'
+
+> read inscription
+I don't know the word "inscription".
+
+> north
+A docking bridge has brought you aboard Taa II, Galactus's immense Worldship. The gallery hums like a glass being rubbed around its rim. Klaw shimmers inside a sound prism. The converter chamber lies north. The tower is south.
+
+> look
+A docking bridge has brought you aboard Taa II, Galactus's immense Worldship. The gallery hums like a glass being rubbed around its rim. Klaw shimmers inside a sound prism. The converter chamber lies north. The tower is south.
+
+> examine klaw
+Klaw is made of sound; inside the prism his voice comes out as a squeak. 'Doom let me out once and then put me in here to keep me quiet. Try the catch on the prism. Gently, please.'
+
+> talk to klaw
+Klaw is made of sound; inside the prism his voice comes out as a squeak. 'Doom let me out once and then put me in here to keep me quiet. Try the catch on the prism. Gently, please.'
+
+> examine prism
+The clear cage catches every note Klaw makes. A broad catch marked RELEASE is meant to be pushed, not smashed.
+
+> north
+The Worldship's converter chamber is big enough to shelter a town. Its great pipes point down toward Battleworld. Doom's plans lie beside a reverse control. The sound gallery is south.
+
+> look
+The Worldship's converter chamber is big enough to shelter a town. Its great pipes point down toward Battleworld. Doom's plans lie beside a reverse control. The sound gallery is south.
+
+> read plans
+Doom's notes describe stealing power as Galactus's converter drains the planet. In the margin, a repair diagram shows how to reverse the flow: read the scale, then turn the control. The energy will return to Battleworld instead of feeding Doom.
+
+> examine control
+The control has a scale with arrows pointing toward and away from the planet. The nearby plans explain which setting returns the energy safely.
+
+> reverse control
+You used the word "reverse" in a way that I don't understand.
+
+> south
+A docking bridge has brought you aboard Taa II, Galactus's immense Worldship. The gallery hums like a glass being rubbed around its rim. Klaw shimmers inside a sound prism. The converter chamber lies north. The tower is south.
+
+> push catch
+You used the word "catch" in a way that I don't understand.
+
+> south
+The open tower has no roof: just a ring of teeth where the sky goes through. The Loom pulls a bright thread from a half-open doorway, one slow inch at a time. Doctor Doom stands beside it. Moonlight goes straight through his cape. The stair leads south to the market; a docking bridge reaches north to the Worldship.
+A green inscription beside him invites you to hear Doom's offer.
+
+> unwind loom
+I don't know the word "unwind".
+
+> turn loom
+You can't move the Loom.
+
+> use loom
+You feed the bar of daylight into the Loom's eye. Its needles start walking backward. The last stitch slips loose, then the next, and the doorway swings wide without tearing a single edge. On the far side, a kettle begins to whistle. Doom reaches to mute it, but his green fingers go straight through.
+
+The Loom goes quiet with its thread still on the spool. Whoever eventually repairs these seams will have something to work with.
+From the village, one low bell rings you safely through.
+At the doorway Ms. Marvel shows you the chalkboard. Under HEROES, a child's hand has written your name and, underneath it, WINCH. 'I gave it a cup of soup,' says Ms. Marvel. 'It made no promises.'
+
+THE END: THE LAST DOOR STAYS OPEN
+Health 120 of 120, Karma 105.

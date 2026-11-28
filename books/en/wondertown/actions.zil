@@ -287,12 +287,12 @@
            <COND (<NOT ,KEY-FOUND>
                   <TELL "The heart mechanism is silent. Its keyhole is dark and empty. The workshop key is needed to bring it back to life." CR>)
                  (,KEY-WOUND
-                  <TELL "The heart is already turning. Its gears are moving -- but too slowly. It needs companions now, not more winding." CR>)
+                  <TELL "The heart is already turning. Its gears are moving -- but too slowly. Place companions beside the heart. Try PLACE TIN SOLDIER BESIDE HEART with a toy Pip is carrying." CR>)
                  (<NOT <IN? ,WORKSHOP-KEY ,WINNER>>
                   <TELL "Pip must be holding the workshop key to wind the heart." CR>)
                  (T
                   <TELL "Pip inserts the workshop key into the brass keyhole. It fits perfectly -- a click, then a deep shudder runs through the chamber. Gears begin to turn, slowly at first, then faster. The heart is beating." CR>
-                   <TELL "But something is still missing. The heart is turning, but it needs more than mechanical power to truly beat. It needs the love the toys carry -- the companions you have made along your journey. Each friend you have helped can lend their strength.">
+                   <TELL "But something is still missing. The heart is turning, but it needs more than mechanical power to truly beat. It needs the love the toys carry -- the companions you have made along your journey. Each friend you have helped can lend their strength. Place each toy you are carrying beside the heart, for example PLACE TIN SOLDIER BESIDE HEART.">
                    ;"Name what Pip carries that can stand by the heart, so the
                      next step is in the prose and not only in the inventory."
                    <COND (<IN? ,TIN-SOLDIER ,WINNER>
@@ -643,6 +643,8 @@ coat, and the pages in his handwriting."
                          <TELL "“The master's key? Gone from its hook, I noticed. Most irregular. I would have investigated myself, but...” He gestures at his wooden legs. “Limited mobility, I am afraid.”" CR>)
                         (<EQUAL? ,PRSI ,BERTRAND-KEY>
                          <TELL "“My winding key! Keep it safe, small apprentice. A captain is only as good as his spring, and the Grandfather is not here to wind me at six.”" CR>)
+                        (<EQUAL? ,PRSI ,HEART-MECH>
+                         <TELL "“The heart needs company when it beats,” says Bertrand. “Grandfather always placed a toy beside it after winding it.”" CR>)
                         (<TOLLIVER-TOPIC? ,PRSI>
                          <TELL "“The Grandfather? Finest toymaker in three counties. He wound me himself, every evening at six.” His voice softens. “He has not come down tonight. I am... concerned.”" CR>)
                         (T
@@ -1634,16 +1636,18 @@ coat, and the pages in his handwriting."
 ; === PLACE HANDLER FOR FINAL REWIND ===
 
 <SYNTAX POSITION OBJECT = V-PLACE-HEART>
+<SYNTAX PUT OBJECT (HELD HAVE) BESIDE OBJECT (IN-ROOM) = V-PLACE-HEART>
 
 <ROUTINE V-PLACE-HEART ()
-    <COND (<NOT <EQUAL? ,HERE ,WORKSHOP-HEART>>
+    <COND (<OR <NOT <EQUAL? ,HERE ,WORKSHOP-HEART>>
+               <AND ,PRSI <NOT <EQUAL? ,PRSI ,HEART-MECH>>>>
            <TELL "There is no reason to place that here." CR>)
           (,GAME-WON
            <TELL "The heart is already beating strongly. There is nothing more to do." CR>)
           (<NOT ,KEY-WOUND>
            <TELL "The heart is not yet wound. Pip must wind it with the key first." CR>)
           (<NOT <IN? ,PRSO ,WINNER>>
-           <COND (<IN? ,PRSO ,WORKSHOP-HEART>
+           <COND (<AND <IN? ,PRSO ,WORKSHOP-HEART> <NOT <FSET? ,PRSO ,TAKEBIT>>>
                   <TELL "That companion is already lending its strength to the heart." CR>)
                  (T
                   <TELL "Pip must carry that companion to the heart first." CR>)>)

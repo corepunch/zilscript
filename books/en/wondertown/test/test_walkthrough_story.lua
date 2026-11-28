@@ -17,6 +17,7 @@ walk:play({
 	-- Tool bench: the key in the nutcracker's back winds him where it sits.
 	{ "east", expect = "in his back" },
 	{ "wind painted nutcracker", expect = "at your service" },
+	{ "ask bertrand about heart", expect = "heart needs company" },
 	{ "climb makeshift steps", expect = "toy display" },
 	"examine rag doll",
 	{ "take spare button", expect = "Taken" },
@@ -58,14 +59,17 @@ walk:play({
 	"examine wooden desk",
 	{ "examine winding diagram", expect = "surround the heart with companions" },
 	{ "down", expect = "keyhole waits" },
-	{ "wind giant mechanism", expect = "The heart is beating" },
+	{ "wind giant mechanism", expect = "PLACE TIN SOLDIER BESIDE HEART" },
 	"look",
 	{ "examine workshop key", expect = "one notch" },
 	{ "position music box", expect = "Let me help" },
 	"look",
 	{ "examine music box", expect = "plucks the next note" },
 	{ "examine brass tooth", expect = "feel it trembling" },
-	{ "position tin soldier", expect = "Pip has restored the heart of Wrenfold" },
+	"drop tin soldier",
+	{ "position tin soldier", expect = "must carry that companion" },
+	"take tin soldier",
+	{ "place tin soldier beside heart", expect = "Pip has restored the heart of Wrenfold" },
 })
 
 local env = walk.env

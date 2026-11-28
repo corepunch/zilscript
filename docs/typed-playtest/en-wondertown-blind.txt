@@ -1,0 +1,634 @@
+The Last Toymaker's Apprentice
+Studio Null, 2024
+Release 1
+
+You are Pip, a teacup-sized gnome and Grandfather Tolliver's apprentice. Every night Wrenfold's toys wake, but tonight they're growing still. Snow gathers on the roofs, Grandfather hasn't come home, and the magic key is gone from its hook. Find it and wind the workshop's heart before dawn.
+
+Workshop Floor
+This is the floor of Grandfather Tolliver's workshop. Soft golden sawdust smells of cedar and comes halfway up Pip’s boots. The brass key hook is empty, and an old cuckoo clock ticks on the wall above the folding loft ladder. The great workbench rises over Pip's head like a house. Something glints in the shadows underneath it. A pet door leads north to the snowy alley, and the tool bench is to the east.
+
+> look
+This is the floor of Grandfather Tolliver's workshop. Soft golden sawdust smells of cedar and comes halfway up Pip’s boots. The brass key hook is empty, and an old cuckoo clock ticks on the wall above the folding loft ladder. The great workbench rises over Pip's head like a house. Something glints in the shadows underneath it. A pet door leads north to the snowy alley, and the tool bench is to the east.
+
+> inventory
+You are empty-handed.
+
+> help
+I don't know the word "help".
+
+> examine shadows
+Tiny tools and half-finished toys crowd the workbench. Pip's broom leans against one leg in the sawdust. Underneath, in the shadows, sits a tiny copper oil can.
+
+> look under workbench
+Pip peers under the workbench. Pip's broom leans against one leg in the sawdust. Underneath, in the shadows, sits a tiny copper oil can.
+
+> examine clock
+An old cuckoo clock hangs on the workshop wall. It ticks softly -- a steady, reassuring sound. The hands show it is nearly midnight.
+
+> east
+This is Grandfather's tool bench, a long, low ledge of scarred wood that smells sharply of varnish. A wooden tool rack covers the wall, full of tools small enough for Pip's hands, and an open varnish pot stands beneath it. Makeshift steps made from a crate, an old chair and a pile of books climb toward the countertop above. The workshop floor is back to the west.
+A painted nutcracker stands frozen on the chair seat, right in the middle of the steps, with a little key in his back.
+
+> look
+This is Grandfather's tool bench, a long, low ledge of scarred wood that smells sharply of varnish. A wooden tool rack covers the wall, full of tools small enough for Pip's hands, and an open varnish pot stands beneath it. Makeshift steps made from a crate, an old chair and a pile of books climb toward the countertop above. The workshop floor is back to the west.
+A painted nutcracker stands frozen on the chair seat, right in the middle of the steps, with a little key in his back.
+
+> examine nutcracker
+A painted wooden nutcracker stands frozen mid-stride, one foot raised. His jaw is clamped tight -- whether in a grimace or a smile, it is hard to say. There is a tiny brass winding key in his back.
+
+> wind nutcracker
+Pip grips the little wings of the brass key in the nutcracker's back and winds. The key comes away in Pip's hand as the spring takes hold. Bertrand's jaw snaps shut with a sharp CLACK, then opens wide. “At last! A proper winding! I have been stuck in this ridiculous pose for hours. Captain Bertrand of the Nutcracker Brigade, at your service!” He clicks his heels and steps aside with a smart salute. The way up is clear.
+
+> examine rack
+Grandfather cut a notch for each tool. Tiny chisels hang in a row. The needle-files share one notch. A jeweller's hammer hangs by its head. An open varnish pot stands beneath the rack.
+
+> examine varnish
+A pot of varnish, left open. The contents have gone thick and tacky -- useless for fine work now. The smell is faintly sweet and chemical.
+
+> west
+This is the floor of Grandfather Tolliver's workshop. Soft golden sawdust smells of cedar and comes halfway up Pip’s boots. The brass key hook is empty, and an old cuckoo clock ticks on the wall above the folding loft ladder. The great workbench rises over Pip's head like a house, and a copper oil can sits in the shadows underneath it. A pet door leads north to the snowy alley, and the tool bench is to the east.
+
+> take oil can
+Taken.
+
+> take broom
+Taken.
+
+> east
+This is Grandfather's tool bench, a long, low ledge of scarred wood that smells sharply of varnish. A wooden tool rack covers the wall, full of tools small enough for Pip's hands, and an open varnish pot stands beneath it. Makeshift steps made from a crate, an old chair and a pile of books climb toward the countertop above. The workshop floor is back to the west.
+Captain Bertrand salutes beside the clear way up.
+
+> oil nutcracker
+That does not need oiling.
+
+> wind nutcracker
+Bertrand is already wound -- and rather full of himself because of it.
+
+> up
+This is the shop countertop, where Grandfather sets out his finest toys for children to admire. Moonlight falls through the frosted shop window and makes the dust sparkle on a glass toy display case. From up here the whole workshop looks small and far away. The makeshift steps lead back down to the tool bench.
+A rag doll with only one button eye sits against the window, humming softly to herself.
+
+> talk to doll
+Marzipan tilts her head and sings: “Fox feet, fox feet, left the shop / Through the door with a hop and a hop / Key round neck and heart so sore / Find her where the broken toys snore.”
+
+> examine case
+A dusty glass display case. Through the glass, you can see a tin soldier and a silver music box. The case has a small brass latch.
+
+> open case
+Pip opens the display case. The tin soldier stands at attention. The silver music box is within reach.
+
+> examine doll
+A rag doll with one button eye and a stitched smile. Her fabric is patched in places, but she is carefully mended -- Tolliver's handiwork. She hums a soft, meandering tune. A spare button lies by her foot.
+
+> down
+This is Grandfather's tool bench, a long, low ledge of scarred wood that smells sharply of varnish. A wooden tool rack covers the wall, full of tools small enough for Pip's hands, and an open varnish pot stands beneath it. Makeshift steps made from a crate, an old chair and a pile of books climb toward the countertop above. The workshop floor is back to the west.
+Captain Bertrand salutes beside the clear way up.
+
+> west
+This is the floor of Grandfather Tolliver's workshop. Soft golden sawdust smells of cedar and comes halfway up Pip’s boots. The brass key hook is empty, and an old cuckoo clock ticks on the wall above the folding loft ladder. The great workbench rises over Pip's head like a house. A pet door leads north to the snowy alley, and the tool bench is to the east.
+
+> north
+This is a narrow alley beside the workshop, deep in fresh snow that sparkles under the moon. A flickering streetlamp, made from an old toy lantern, throws a small circle of warm light. Tiny footprints cross the snow and hurry away to the east, toward the clock square. The workshop and its pet door are back to the south.
+
+> look
+This is a narrow alley beside the workshop, deep in fresh snow that sparkles under the moon. A flickering streetlamp, made from an old toy lantern, throws a small circle of warm light. Tiny footprints cross the snow and hurry away to the east, toward the clock square. The workshop and its pet door are back to the south.
+
+> east
+This is Clock Square, in the middle of the little town of Wrenfold. A giant clock tower stands over the cobbles, and its great face counts the hours until dawn. Tin toy lamps flicker weakly beside the winding paths, and a wooden baker stands frozen in the window of the old bakery. Paths lead west to the snowy alley, east to the mailbox corner and south to the scrap-yard.
+At the foot of the tower, a brass winding mechanism is just out of reach.
+
+> look
+This is Clock Square, in the middle of the little town of Wrenfold. A giant clock tower stands over the cobbles, and its great face counts the hours until dawn. Tin toy lamps flicker weakly beside the winding paths, and a wooden baker stands frozen in the window of the old bakery. Paths lead west to the snowy alley, east to the mailbox corner and south to the scrap-yard.
+At the foot of the tower, a brass winding mechanism is just out of reach.
+
+> examine footprints
+You can't see any footprints here!
+
+> north
+You can't go that way.
+
+> look
+This is Clock Square, in the middle of the little town of Wrenfold. A giant clock tower stands over the cobbles, and its great face counts the hours until dawn. Tin toy lamps flicker weakly beside the winding paths, and a wooden baker stands frozen in the window of the old bakery. Paths lead west to the snowy alley, east to the mailbox corner and south to the scrap-yard.
+At the foot of the tower, a brass winding mechanism is just out of reach.
+
+> south
+This is the scrap-yard, where broken toys end up when nobody wants them any more. Snowy piles of tin, wood and ribbon rise on every side, and something pale shows through the nearest one. Everything smells of rust and cold snow. Clock Square is back to the north. An iron gate leads east, but the way is blocked.
+A scrap-metal cart creaks along a rusted track.
+
+> look
+This is the scrap-yard, where broken toys end up when nobody wants them any more. Snowy piles of tin, wood and ribbon rise on every side, and something pale shows through the nearest one. Everything smells of rust and cold snow. Clock Square is back to the north. An iron gate leads east, but the way is blocked.
+A scrap-metal cart creaks along a rusted track.
+
+> examine fox
+There's nothing special about the fox.
+
+> talk to fox
+You can't talk to the fox!
+
+> examine pile
+A three-legged horse lies on its side. Pip brushes the snow from the nearest pile. Beneath a tangle of tin and ribbon lies a porcelain doll head with painted eyes.
+
+> search pile
+A three-legged horse lies on its side. Only broken things the cart has not reached yet: tin wheels, a snapped drumstick, a kite with no string.
+
+> examine cart
+A scrap-metal cart on rusted wheels, its open bed edged with low iron rails. It creaks along a track, collecting broken toys. But look closer: someone has carefully repaired the cart's wheels, oiled its axles. This cart is not destroying toys. It is rescuing them. A headless porcelain doll lies in its bed, her hands folded in her lap.
+
+> push cart
+The cart is far too heavy for Pip to push. It rumbles softly, almost like a growl -- but it does not move.
+
+> oil cart
+That does not need oiling.
+
+> push cart
+The cart is far too heavy for Pip to push. It rumbles softly, almost like a growl -- but it does not move.
+
+> east
+You can't go that way.
+
+> look
+This is the scrap-yard, where broken toys end up when nobody wants them any more. Snowy piles of tin, wood and ribbon rise on every side, and a porcelain doll head rests on top of the nearest one. Everything smells of rust and cold snow. Clock Square is back to the north. An iron gate leads east, but the way is blocked.
+A scrap-metal cart creaks along a rusted track.
+
+> take head
+Taken.
+
+> examine gate
+A wheel of the scrap cart is wedged against the gatepost. Pushing the gate itself would only push against the wheel.
+
+> open gate
+Pip pushes the gate. It clanks against the cart's wheel and will not open while the cart is in the way.
+
+> put head on doll
+Pip holds up the porcelain doll head. The cart pauses. A mechanical arm -- surprisingly gentle -- extends and takes the head from Pip's hands. It places the head beside the headless doll in its bed. For a moment, the cart is perfectly still. Then it rumbles -- a low, soft sound, like a purr -- and rolls aside, revealing the iron gate to the east.
+
+> give head to doll
+Pip needs to pick up the porcelain doll head before offering it.
+
+> north
+This is Clock Square, in the middle of the little town of Wrenfold. A giant clock tower stands over the cobbles, and its great face counts the hours until dawn. Tin toy lamps flicker weakly beside the winding paths, and a wooden baker stands frozen in the window of the old bakery. Paths lead west to the snowy alley, east to the mailbox corner and south to the scrap-yard.
+At the foot of the tower, a brass winding mechanism is just out of reach.
+
+> east
+This is a quiet corner at the east end of the square, where the wind has piled the snow into deep drifts. It is colder here, and the wind whistles softly between the houses. The little fox footprints stop here, turn around and go back the way they came. The only way out is west, back to Clock Square.
+A red mailbox shivers in the snow.
+
+> look
+This is a quiet corner at the east end of the square, where the wind has piled the snow into deep drifts. It is colder here, and the wind whistles softly between the houses. The little fox footprints stop here, turn around and go back the way they came. The only way out is west, back to Clock Square.
+A red mailbox shivers in the snow.
+
+> examine mailbox
+A red tin mailbox, painted with fading flowers. Its flap hangs open like a mouth, and every now and then it shivers as if trying to speak. A crumpled envelope pokes through the snow. A wool scarf lies at its foot.
+
+> open mailbox
+The mailbox flap is already open. It hangs loose, like a mouth ready to speak.
+
+> west
+This is Clock Square, in the middle of the little town of Wrenfold. A giant clock tower stands over the cobbles, and its great face counts the hours until dawn. Tin toy lamps flicker weakly beside the winding paths, and a wooden baker stands frozen in the window of the old bakery. Paths lead west to the snowy alley, east to the mailbox corner and south to the scrap-yard.
+At the foot of the tower, a brass winding mechanism is just out of reach.
+
+> south
+This is the scrap-yard, where broken toys end up when nobody wants them any more. Snowy piles of tin, wood and ribbon rise on every side. Everything smells of rust and cold snow. Clock Square is back to the north. An iron gate to the east stands open now.
+The scrap cart rests beside the track.
+
+> east
+This is a snug little den hidden among old crates behind the scrap-yard. Rags and twigs have been pulled together into a cosy bed, and a toy candle gives the only light, small and steady. The den smells of cedar shavings, just like the workshop at home. The narrow entrance leads back west to the scrap-yard.
+A patchy toy fox lies curled in the bed, watching Pip with button eyes. The missing workshop key ticks faintly around her neck.
+
+> look
+This is a snug little den hidden among old crates behind the scrap-yard. Rags and twigs have been pulled together into a cosy bed, and a toy candle gives the only light, small and steady. The den smells of cedar shavings, just like the workshop at home. The narrow entrance leads back west to the scrap-yard.
+A patchy toy fox lies curled in the bed, watching Pip with button eyes. The missing workshop key ticks faintly around her neck.
+
+> talk to fox
+“Nutmeg,” she says at last. “That is my name. Please do not take the ticking away. It is cold enough here already.”
+
+> examine fox
+A fox-shaped toy with patchy orange fur. Her button eyes watch Pip warily. The workshop key -- the one from the empty hook -- hangs from a string around her neck. It ticks faintly, its magic growing weaker.
+The fox toy shifts in her nest, watching Pip warily.
+
+> take key
+Nutmeg snatches the key back. “No!” Her voice is sharp, but there is something else underneath -- fear, maybe. “I cannot... I cannot lose it too.”
+
+> ask fox about key
+Which key do you mean, the workshop key or the tiny brass winding key?
+
+> west
+This is the scrap-yard, where broken toys end up when nobody wants them any more. Snowy piles of tin, wood and ribbon rise on every side. Everything smells of rust and cold snow. Clock Square is back to the north. An iron gate to the east stands open now.
+The scrap cart rests beside the track.
+
+> north
+This is Clock Square, in the middle of the little town of Wrenfold. A giant clock tower stands over the cobbles, and its great face counts the hours until dawn. Tin toy lamps flicker weakly beside the winding paths, and a wooden baker stands frozen in the window of the old bakery. Paths lead west to the snowy alley, east to the mailbox corner and south to the scrap-yard.
+At the foot of the tower, a brass winding mechanism is just out of reach.
+
+> east
+This is a quiet corner at the east end of the square, where the wind has piled the snow into deep drifts. It is colder here, and the wind whistles softly between the houses. The little fox footprints stop here, turn around and go back the way they came. The only way out is west, back to Clock Square.
+A red mailbox shivers in the snow.
+
+> take scarf
+Taken.
+
+> take envelope
+Taken.
+
+> read envelope
+A crumpled envelope. Inside is a letter in Tolliver's handwriting: “My dear Pip -- The heart is failing. I must go and mend it myself. Do not worry. Take care of the toys while I am gone. Wind the key at midnight if I do not return. I am proud of you, little apprentice. -- Grandfather Tolliver.” The letter is dated three days ago.
+
+> west
+This is Clock Square, in the middle of the little town of Wrenfold. A giant clock tower stands over the cobbles, and its great face counts the hours until dawn. Tin toy lamps flicker weakly beside the winding paths, and a wooden baker stands frozen in the window of the old bakery. Paths lead west to the snowy alley, east to the mailbox corner and south to the scrap-yard.
+At the foot of the tower, a brass winding mechanism is just out of reach.
+
+> south
+This is the scrap-yard, where broken toys end up when nobody wants them any more. Snowy piles of tin, wood and ribbon rise on every side. Everything smells of rust and cold snow. Clock Square is back to the north. An iron gate to the east stands open now.
+The scrap cart rests beside the track.
+
+> east
+This is a snug little den hidden among old crates behind the scrap-yard. Rags and twigs have been pulled together into a cosy bed, and a toy candle gives the only light, small and steady. The den smells of cedar shavings, just like the workshop at home. The narrow entrance leads back west to the scrap-yard.
+A patchy toy fox lies curled in the bed, watching Pip with button eyes. The missing workshop key ticks faintly around her neck.
+
+> give scarf to fox
+Nutmeg stares at the red scarf in your hand. “For... for me?” She reaches out with a trembling paw and touches the wool. “It is warm. Nobody ever gave me anything warm before.” Her voice cracks on the last word. She wraps the scarf around her neck, beside the little ticking key. “Thank you,” she whispers.
+
+> talk to fox
+Nutmeg uncurls a little. “You can ask me for the key now,” she says. “Or show me something of the toymaker's. I think I can talk about him.”
+
+> ask fox about key
+Which key do you mean, the workshop key or the tiny brass winding key?
+
+> workshop key
+Nutmeg hugs the key closer. “I know it is not mine. But it is the only thing that has ever ticked for me. Do you know what that is like? Being a toy nobody wanted?”
+
+> show letter to fox
+I don't know the word "show".
+
+> take workshop key
+Nutmeg is quiet for a long moment. Then, slowly, she paws the key off her neck and places it before Pip. “Take it,” she says. Her voice cracks. “I am sorry I took it. I just... I did not want to be alone when the ticking stopped. But you came all this way. You really care, do you not?” She looks up at Pip with her mismatched button eyes. “Promise you will come back. Please.”
+
+> west
+This is the scrap-yard, where broken toys end up when nobody wants them any more. Snowy piles of tin, wood and ribbon rise on every side. Everything smells of rust and cold snow. Clock Square is back to the north. An iron gate to the east stands open now.
+The scrap cart rests beside the track.
+
+> north
+This is Clock Square, in the middle of the little town of Wrenfold. A giant clock tower stands over the cobbles, and its great face counts the hours until dawn. Tin toy lamps flicker weakly beside the winding paths, and a wooden baker stands frozen in the window of the old bakery. Paths lead west to the snowy alley, east to the mailbox corner and south to the scrap-yard.
+At the foot of the tower, a brass winding mechanism is just out of reach.
+
+> wind mechanism
+The winding mechanism is just out of reach. Pip needs something tall and sturdy to stand on. Perhaps one of the larger toys could help.
+
+> west
+This is a narrow alley beside the workshop, deep in fresh snow that sparkles under the moon. A flickering streetlamp, made from an old toy lantern, throws a small circle of warm light. Tiny footprints cross the snow and hurry away to the east, toward the clock square. The workshop and its pet door are back to the south.
+
+> south
+This is the floor of Grandfather Tolliver's workshop. Soft golden sawdust smells of cedar and comes halfway up Pip’s boots. The brass key hook is empty, and an old cuckoo clock ticks on the wall above the folding loft ladder. The great workbench rises over Pip's head like a house. A pet door leads north to the snowy alley, and the tool bench is to the east.
+
+> east
+This is Grandfather's tool bench, a long, low ledge of scarred wood that smells sharply of varnish. A wooden tool rack covers the wall, full of tools small enough for Pip's hands, and an open varnish pot stands beneath it. Makeshift steps made from a crate, an old chair and a pile of books climb toward the countertop above. The workshop floor is back to the west.
+Captain Bertrand salutes beside the clear way up.
+
+> talk to bertrand
+“I am Captain Bertrand of the Nutcracker Brigade. State your business, small apprentice.” He salutes, then tips his painted hat toward the stacked books. “The countertop is open for inspection.”
+
+> ask bertrand about mechanism
+Which mechanism do you mean, the rusty ladder mechanism, the brass winding mechanism, or the workshop heart?
+
+> ask bertrand for help
+I don't know the word "help".
+
+> west
+This is the floor of Grandfather Tolliver's workshop. Soft golden sawdust smells of cedar and comes halfway up Pip’s boots. The brass key hook is empty, and an old cuckoo clock ticks on the wall above the folding loft ladder. The great workbench rises over Pip's head like a house. A pet door leads north to the snowy alley, and the tool bench is to the east.
+
+> north
+This is a narrow alley beside the workshop, deep in fresh snow that sparkles under the moon. A flickering streetlamp, made from an old toy lantern, throws a small circle of warm light. Tiny footprints cross the snow and hurry away to the east, toward the clock square. The workshop and its pet door are back to the south.
+
+> east
+This is Clock Square, in the middle of the little town of Wrenfold. A giant clock tower stands over the cobbles, and its great face counts the hours until dawn. Tin toy lamps flicker weakly beside the winding paths, and a wooden baker stands frozen in the window of the old bakery. Paths lead west to the snowy alley, east to the mailbox corner and south to the scrap-yard.
+At the foot of the tower, a brass winding mechanism is just out of reach.
+
+> wind mechanism
+The winding mechanism is just out of reach. Pip needs something tall and sturdy to stand on. Perhaps one of the larger toys could help.
+
+> west
+This is a narrow alley beside the workshop, deep in fresh snow that sparkles under the moon. A flickering streetlamp, made from an old toy lantern, throws a small circle of warm light. Tiny footprints cross the snow and hurry away to the east, toward the clock square. The workshop and its pet door are back to the south.
+
+> south
+This is the floor of Grandfather Tolliver's workshop. Soft golden sawdust smells of cedar and comes halfway up Pip’s boots. The brass key hook is empty, and an old cuckoo clock ticks on the wall above the folding loft ladder. The great workbench rises over Pip's head like a house. A pet door leads north to the snowy alley, and the tool bench is to the east.
+
+> examine ladder
+The ladder folds against the wall beneath the cuckoo clock. Its lifting mechanism is rusted solid. A drop of oil might free it.
+
+> oil ladder
+Pip oils the folding ladder's lifting mechanism. It loosens with a satisfying creak.
+
+> climb ladder
+Pip raises the folding ladder and climbs its broad wooden rungs into the loft.
+This is the storage loft, a low, dusty room tucked under the roof beams. Grey cobwebs hang from the rafters like curtains, and the air smells of old cardboard. A dusty cardboard box sits in the middle of the floor. Pip can climb the ladder back down to the workshop floor.
+An old cuckoo clock hangs on the wall, silent and grey with dust.
+
+> look
+This is the storage loft, a low, dusty room tucked under the roof beams. Grey cobwebs hang from the rafters like curtains, and the air smells of old cardboard. A dusty cardboard box sits in the middle of the floor. Pip can climb the ladder back down to the workshop floor.
+An old cuckoo clock hangs on the wall, silent and grey with dust.
+
+> examine box
+A leather journal lies beside the box. A dusty cardboard box labelled “Broken -- For Repair”. The flaps are tucked shut.
+
+> open box
+Pip opens the cardboard box. Inside are broken toy parts: a porcelain doll arm, a wooden wheel, and some springs. Tolliver always meant to fix them.
+
+> examine clock
+An old cuckoo clock, the twin of the one downstairs. It is dusty and still, its hands frozen at five to midnight. Odd -- it seems to be waiting for Pip to do something.
+
+> sweep cobwebs
+You used the word "sweep" in a way that I don't understand.
+
+> look
+This is the storage loft, a low, dusty room tucked under the roof beams. Grey cobwebs hang from the rafters like curtains. On the wall, an old cuckoo clock sits silent above the open box of broken toy parts. Pip can climb the ladder back down to the workshop floor.
+A porcelain doll arm is in the dusty cardboard box.
+
+> down
+This is the floor of Grandfather Tolliver's workshop. Soft golden sawdust smells of cedar and comes halfway up Pip’s boots. The brass key hook is empty, and an old cuckoo clock ticks on the wall above the folding loft ladder. The great workbench rises over Pip's head like a house. A pet door leads north to the snowy alley, and the tool bench is to the east. The oiled ladder reaches up to the storage loft.
+
+> east
+This is Grandfather's tool bench, a long, low ledge of scarred wood that smells sharply of varnish. A wooden tool rack covers the wall, full of tools small enough for Pip's hands, and an open varnish pot stands beneath it. Makeshift steps made from a crate, an old chair and a pile of books climb toward the countertop above. The workshop floor is back to the west.
+Captain Bertrand salutes beside the clear way up.
+
+> up
+This is the shop countertop, where Grandfather sets out his finest toys for children to admire. Moonlight falls through the frosted shop window and makes the dust sparkle on a glass toy display case. From up here the whole workshop looks small and far away. The makeshift steps lead back down to the tool bench.
+A rag doll with only one button eye sits against the window, humming softly to herself.
+
+> take soldier
+Taken.
+
+> take music box
+Taken.
+
+> take button
+Taken.
+
+> examine soldier
+A brave tin soldier, painted in bright red and blue. There is a spot of rust on his bayonet, but his painted eyes are steady. He stands at attention, as if waiting for orders.
+
+> talk to soldier
+You can't talk to the tin soldier!
+
+> examine music box
+A small silver music box with a tiny crank on its side. It looks like it would play a tune if wound.
+
+> open music box
+You must tell me how to do that to a silver music box.
+
+> down
+This is Grandfather's tool bench, a long, low ledge of scarred wood that smells sharply of varnish. A wooden tool rack covers the wall, full of tools small enough for Pip's hands, and an open varnish pot stands beneath it. Makeshift steps made from a crate, an old chair and a pile of books climb toward the countertop above. The workshop floor is back to the west.
+Captain Bertrand salutes beside the clear way up.
+
+> west
+This is the floor of Grandfather Tolliver's workshop. Soft golden sawdust smells of cedar and comes halfway up Pip’s boots. The brass key hook is empty, and an old cuckoo clock ticks on the wall above the folding loft ladder. The great workbench rises over Pip's head like a house. A pet door leads north to the snowy alley, and the tool bench is to the east. The oiled ladder reaches up to the storage loft.
+
+> up
+This is the storage loft, a low, dusty room tucked under the roof beams. Grey cobwebs hang from the rafters like curtains. On the wall, an old cuckoo clock sits silent above the open box of broken toy parts. Pip can climb the ladder back down to the workshop floor.
+A porcelain doll arm is in the dusty cardboard box.
+
+> read journal
+(Taken)
+Pip opens the leather journal. Tolliver's handwriting is neat but growing shakier with each entry. October 14th -- “The workshop key grows weaker. I must wind it more often now. The magic in this town depends on it.” October 20th -- “Old Tick tells me the heart needs attention. I will see to it tonight.” October 21st -- “I could not reach the heart alone. Something blocks the way. I must find another path. The toys need me. Pip needs me.” The rest of the pages are blank.
+
+> wind clock
+Pip reaches up and winds the old cuckoo clock. Its hands shudder and begin to move. A tiny wooden bird emerges from its door and chimes: “The hour of reckoning comes. My brother on the workshop wall guards the way, but only the fox knows how to open it.”
+Suddenly, Nutmeg pads forward from the shadows. “I can reach it,” she says quietly. “I know the way. I followed him once -- the old man -- when he went upstairs.” She slips behind Old Tick and reaches for a hidden latch. A soft click answers from below. “The other clock,” she whispers. “On the workshop floor. It has swung open. The study stairs are behind it. That is where he went.”
+
+> set clock
+Old Tick chimes again, its wooden bird peering at Pip. “You have wound me twice, small one. Few show such patience. The latch behind me opens my brother downstairs -- but it needs a small paw to reach it. Have you made a fox-friend?”
+
+> use broom
+I don't know the word "use".
+
+> take arm
+Taken.
+
+> down
+This is the floor of Grandfather Tolliver's workshop. Soft golden sawdust smells of cedar and comes halfway up Pip’s boots. The brass key hook is empty, and the old cuckoo clock has swung away from the wall above the folding loft ladder. The great workbench rises over Pip's head like a house. A pet door leads north to the snowy alley, and the tool bench is to the east. The oiled ladder reaches up to the storage loft. Narrow stairs behind the open clock lead into the study.
+
+> examine clock
+An old cuckoo clock hangs on the workshop wall. It ticks softly -- a steady, reassuring sound. The hands show it is nearly midnight. The clock has swung open, revealing a narrow staircase leading into the study.
+
+> enter clock
+Pip slips behind the open clock and climbs the narrow staircase.
+This is Grandfather Tolliver's study, a small secret room above the workshop. It smells of lamp oil and peppermint. His wooden chair stands empty at his cluttered desk, as if he has only just stepped away. A faint ticking rises through the floorboards from somewhere down below, and the narrow stairs lead out to the workshop floor.
+
+> up
+You can't go that way.
+
+> look
+This is Grandfather Tolliver's study, a small secret room above the workshop. It smells of lamp oil and peppermint. His wooden chair stands empty at his cluttered desk, as if he has only just stepped away. A faint ticking rises through the floorboards from somewhere down below, and the narrow stairs lead out to the workshop floor.
+
+> examine desk
+A half-finished sketch of the workshop heart covers the desk. A cup of tea stands nearby. Tolliver's journal lies open. Beside the sketch lies a hand-drawn winding diagram.
+
+> search desk
+You find nothing unusual.
+
+> examine chair
+The chair is pushed back as if Grandfather has only stepped away. His coat still hangs over its back.
+
+> look under desk
+Pip crawls under the desk. Here the ticking from down below is loudest, coming up through the boards.
+
+> examine floorboards
+Pip puts an ear to the floor. This tick comes up through the boards from below the desk.
+
+> open drawer
+I don't know the word "drawer".
+
+> read diagram
+(Taken)
+A hand-drawn diagram of the workshop's inner workings. Tolliver mapped the heart chamber carefully. The instructions read: “Insert key. Turn clockwise. For full rewinding, surround the heart with companions -- the more love present, the stronger the magic. Each toy carries memories of the children who loved them. Those memories are power.”
+
+> examine diagram
+A hand-drawn diagram of the workshop's inner workings. Tolliver mapped the heart chamber carefully. The instructions read: “Insert key. Turn clockwise. For full rewinding, surround the heart with companions -- the more love present, the stronger the magic. Each toy carries memories of the children who loved them. Those memories are power.”
+
+> move desk
+You can't move the cluttered wooden desk.
+
+> push desk
+Pushing the cluttered wooden desk doesn't seem to work.
+
+> open floorboards
+You must tell me how to do that to a distant ticking.
+
+> lift floorboards
+Playing in this way with the distant ticking isn't notably helpful.
+
+> down
+This is the heart chamber, deep beneath the workshop, where all of Wrenfold's magic begins. Brass pipes run along the walls, and the air is cold and very still. Dozens of silent toys stand in a ring around a great brass machine, as if they came here hoping to be wound. The narrow passage leads back up to the study.
+At the centre of the brass heart, a keyhole waits.
+
+> examine heart
+The workshop's heart -- a vast brass mechanism of interlocking gears -- stands silent and still. At its centre, a keyhole waits, dark and empty. Around the walls, dozens of toys stand frozen in the shadows, as if they came here hoping to be rewound.
+
+> insert workshop key in heart
+You can't do that.
+
+> turn key
+Which key do you mean, the workshop key or the tiny brass winding key?
+
+> wind heart
+Pip inserts the workshop key into the brass keyhole. It fits perfectly -- a click, then a deep shudder runs through the chamber. Gears begin to turn, slowly at first, then faster. The heart is beating.
+But something is still missing. The heart is turning, but it needs more than mechanical power to truly beat. It needs the love the toys carry -- the companions you have made along your journey. Each friend you have helped can lend their strength. In Pip's arms the tin soldier straightens, as if he has heard an order. The silver music box gives one soft, hopeful note. The porcelain doll arm feels warm in Pip's pocket. The spare button grows warm too.
+
+> examine heart
+The workshop heart is turning now -- slowly, but steadily. Its brass gears catch the candlelight. A deep, resonant ticking fills the chamber. It sounds like hope. A brass keyhole gleams at its centre -- the workshop key is in place.
+
+> wind heart
+The heart is already turning. Its gears are moving -- but too slowly. It needs companions now, not more winding.
+
+> put soldier on heart
+There's no good surface on the workshop heart.
+
+> put music box on heart
+There's no good surface on the workshop heart.
+
+> play music box
+That's silly!
+
+> talk to fox
+You can't see any fox here!
+
+> wait
+Time passes...
+
+> drop soldier
+Dropped.
+
+> drop music box
+Dropped.
+
+> drop arm
+Dropped.
+
+> drop button
+Dropped.
+
+> look
+This is the heart chamber, deep beneath the workshop, where all of Wrenfold's magic begins. Brass pipes run along the walls, humming now, and the air is growing warm. Dozens of toys stand in a ring around the great brass machine, and here and there one of them twitches. The narrow passage leads back up to the study.
+A spare button, a porcelain doll arm, a silver music box and a tin soldier lie here.
+The brass heart beats with the workshop key in its keyhole.
+
+> wait
+Time passes...
+
+> wind music box
+Pip turns the tiny crank on the music box. A soft melody fills the air -- a lullaby Grandfather Tolliver used to hum while he worked. The sound is sweet and sad. For one brief moment, it feels as if he is standing beside Pip.
+
+> examine toys
+The silent toys around the chamber walls. Their painted eyes seem to follow Pip. They are waiting -- hoping -- that the magic will return.
+
+> talk to toys
+You can't talk to the silent toys!
+
+> up
+This is Grandfather Tolliver's study, a small secret room above the workshop. It smells of lamp oil and peppermint. His wooden chair stands empty at his cluttered desk, as if he has only just stepped away. A faint ticking rises through the floorboards from somewhere down below, and the narrow stairs lead out to the workshop floor.
+
+> down
+This is the heart chamber, deep beneath the workshop, where all of Wrenfold's magic begins. Brass pipes run along the walls, humming now, and the air is growing warm. Dozens of toys stand in a ring around the great brass machine, and here and there one of them twitches. The narrow passage leads back up to the study.
+A spare button, a porcelain doll arm, a silver music box and a tin soldier lie here.
+The brass heart beats with the workshop key in its keyhole.
+
+> west
+You can't go that way.
+
+> north
+You can't go that way.
+
+> south
+You can't go that way.
+
+> east
+You can't go that way.
+
+> talk to bertrand
+You can't see any bertrand here!
+
+> ask bertrand about heart
+You can't see any bertrand here!
+
+> up
+This is Grandfather Tolliver's study, a small secret room above the workshop. It smells of lamp oil and peppermint. His wooden chair stands empty at his cluttered desk, as if he has only just stepped away. A faint ticking rises through the floorboards from somewhere down below, and the narrow stairs lead out to the workshop floor.
+
+> talk to doll
+You can't see any doll here!
+
+> ask doll about heart
+You can't see any doll here!
+
+> out
+This is the floor of Grandfather Tolliver's workshop. Soft golden sawdust smells of cedar and comes halfway up Pip’s boots. The brass key hook is empty, and the old cuckoo clock has swung away from the wall above the folding loft ladder. The great workbench rises over Pip's head like a house. A pet door leads north to the snowy alley, and the tool bench is to the east. The oiled ladder reaches up to the storage loft. Narrow stairs behind the open clock lead into the study.
+
+> east
+This is Grandfather's tool bench, a long, low ledge of scarred wood that smells sharply of varnish. A wooden tool rack covers the wall, full of tools small enough for Pip's hands, and an open varnish pot stands beneath it. Makeshift steps made from a crate, an old chair and a pile of books climb toward the countertop above. The workshop floor is back to the west.
+Captain Bertrand salutes beside the clear way up.
+
+> talk to bertrand
+“I am Captain Bertrand of the Nutcracker Brigade. State your business, small apprentice.” He salutes, then tips his painted hat toward the stacked books. “The countertop is open for inspection.”
+
+> ask bertrand about heart
+Which heart do you mean, the workshop heart or the workshop heart?
+
+> up
+This is the shop countertop, where Grandfather sets out his finest toys for children to admire. Moonlight falls through the frosted shop window and makes the dust sparkle on a glass toy display case. From up here the whole workshop looks small and far away. The makeshift steps lead back down to the tool bench.
+A rag doll with only one button eye sits against the window, humming softly to herself.
+
+> talk to doll
+Marzipan tilts her head and sings: “Fox feet, fox feet, left the shop / Through the door with a hop and a hop / Key round neck and heart so sore / Find her where the broken toys snore.”
+
+> ask doll about heart
+Which heart do you mean, the workshop heart or the workshop heart?
+
+> give button to doll
+You can't see any button here!
+
+> talk to doll
+Marzipan tilts her head and sings: “Fox feet, fox feet, left the shop / Through the door with a hop and a hop / Key round neck and heart so sore / Find her where the broken toys snore.”
+
+> down
+This is Grandfather's tool bench, a long, low ledge of scarred wood that smells sharply of varnish. A wooden tool rack covers the wall, full of tools small enough for Pip's hands, and an open varnish pot stands beneath it. Makeshift steps made from a crate, an old chair and a pile of books climb toward the countertop above. The workshop floor is back to the west.
+Captain Bertrand salutes beside the clear way up.
+
+> west
+This is the floor of Grandfather Tolliver's workshop. Soft golden sawdust smells of cedar and comes halfway up Pip’s boots. The brass key hook is empty, and the old cuckoo clock has swung away from the wall above the folding loft ladder. The great workbench rises over Pip's head like a house. A pet door leads north to the snowy alley, and the tool bench is to the east. The oiled ladder reaches up to the storage loft. Narrow stairs behind the open clock lead into the study.
+
+> enter clock
+Pip slips behind the open clock and climbs the narrow staircase.
+This is Grandfather Tolliver's study, a small secret room above the workshop. It smells of lamp oil and peppermint. His wooden chair stands empty at his cluttered desk, as if he has only just stepped away. A faint ticking rises through the floorboards from somewhere down below, and the narrow stairs lead out to the workshop floor.
+
+> down
+This is the heart chamber, deep beneath the workshop, where all of Wrenfold's magic begins. Brass pipes run along the walls, humming now, and the air is growing warm. Dozens of toys stand in a ring around the great brass machine, and here and there one of them twitches. The narrow passage leads back up to the study.
+A spare button, a porcelain doll arm, a silver music box and a tin soldier lie here.
+The brass heart beats with the workshop key in its keyhole.
+
+> take soldier
+Which soldier do you mean, the tin soldier or the silent toys?
+
+> take music box
+Taken.
+
+> take arm
+Taken.
+
+> take button
+Taken.
+
+> turn heart
+The heart is already turning. Its gears are moving -- but too slowly. It needs companions now, not more winding.
+
+> turn workshop key
+The heart is already turning. Its gears are moving -- but too slowly. It needs companions now, not more winding.
+
+> turn key clockwise
+You can't see any key clockwise here!
+
+> finish
+I don't know the word "finish".
+
+> restore heart
+That sentence isn't one I recognize.
+
+> activate heart
+You can't turn that on.

@@ -63,7 +63,8 @@ walk:play({
 	{ "examine nimbus cloud", expect = "puddle-sized" },
 	{ "examine light drizzle", expect = "drops hang far apart" },
 	{ "examine short shower", expect = "drops crowd together" },
-	{ "drizzle nimbus cloud", expect = "THE END -- A FORECAST YOU CAN KEEP" },
+	{ "ask nimbus about drizzle", expect = "drops hang far apart" },
+	{ "choose a drizzle", expect = "THE END -- A FORECAST YOU CAN KEEP" },
 })
 
 assert(walk.finishes == 1, "the ending enters FINISH exactly once")

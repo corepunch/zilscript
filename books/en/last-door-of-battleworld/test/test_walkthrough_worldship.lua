@@ -13,9 +13,9 @@ local cases = {
 		farewell = "From the village",
 		north = "north",
 		winch = "pull winch",
-		prism = "open prism",
+		prism = "push catch",
 		klaw = "examine klaw",
-		control = "turn control",
+		control = "reverse control",
 		plans = "read plans",
 		offer = "examine offer",
 		refuse = "refuse offer",
@@ -37,7 +37,7 @@ local cases = {
 		east = "восток",
 		farewell = "Из деревни",
 		north = "север",
-		winch = "потянуть лебёдку",
+		winch = "крутить лебёдку",
 		prism = "открыть призму",
 		klaw = "осмотреть кло",
 		control = "повернуть рычаг",
@@ -61,6 +61,11 @@ end
 
 local function reachMarket(language, c)
 	local walk = Walk.new("books." .. language .. ".last-door-of-battleworld.last-door-of-battleworld", 97)
+	if language == "ru" then
+		assert(walk.output:find("«осмотреть паука»", 1, true))
+		assert(play(walk, "помощь"):find("«выбрать грозу»", 1, true))
+		assert(play(walk, "осмотреть паука"):find("Ловкий изобретатель в маске", 1, true))
+	end
 	for _, command in ipairs({c.choose, c.coil, c.north, c.relay, c.north, c.north, c.winch, c.north}) do
 		play(walk, command)
 	end

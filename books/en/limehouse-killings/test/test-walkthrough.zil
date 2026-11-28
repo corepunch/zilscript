@@ -109,6 +109,7 @@
 	<ASSERT "Hall" <==? ,HERE ,ASHWORTH-ENTRANCE-HALL>>
 	<ASSERT "Study" <CO-RESUME ,CO "north" T> <==? ,HERE ,STUDY>>
 	<ASSERT-TEXT "bank statement" <CO-RESUME ,CO "align box to moriarty">>
+	<ASSERT-TEXT "bank statement" <CO-RESUME ,CO "look in box">>
 	<ASSERT "The box is open" <AND ,LOCKED-BOX-OPENED <FSET? ,LOCKED-BOX ,OPENBIT>>>
 
 	;"Closing the solved box used to make the statement irretrievable."
@@ -120,6 +121,10 @@
 	<ASSERT-TEXT "ink feathers" <CO-RESUME ,CO "use magnifying glass on unsent letter">>
 	<ASSERT-TEXT "pale rim" <CO-RESUME ,CO "use magnifying glass on poison bottle">>
 	<ASSERT-TEXT "overdrawn" <CO-RESUME ,CO "read bank statement">>
+	<ASSERT-TEXT "is empty" <CO-RESUME ,CO "look in box">>
+	<CO-RESUME ,CO "put poison bottle in box">
+	<ASSERT-TEXT "poison bottle" <CO-RESUME ,CO "look in box">>
+	<CO-RESUME ,CO "take poison bottle from box">
 	<CO-RESUME ,CO "close study door">
 	<ASSERT-TEXT "hall to the south" <CO-RESUME ,CO "open study door">>
 	<ASSERT "The statement is the fifth piece of evidence" <AND ,BANK-STATEMENT-FOUND <==? ,EVIDENCE-FOUND 5> <==? <LOC ,BANK-STATEMENT> ,ADVENTURER>>>

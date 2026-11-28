@@ -43,8 +43,9 @@
 <ROUTINE MSG-HELP-UNREGISTERED ()
  <TELL "Jetzt gerade: Untersuche die Profile an der Einsatztafel und W%AHLE FELS, BLITZ oder LUCHS." CR>>
 
-<ROUTINE MSG-HELP-RESCUE ()
- <TELL "Jetzt gerade: Geh nach Norden zur Br%ucke und RETTE die FAHRG%ASTE." CR>>
+<ROUTINE MSG-HELP-RESCUE (AT-BRIDGE)
+ <COND (.AT-BRIDGE <TELL "Du bist auf der Br%ucke. RETTE die FAHRG%ASTE, bevor du nach Osten weitergehst." CR>)
+       (T <TELL "Jetzt gerade: Geh nach Norden zur Br%ucke und RETTE die FAHRG%ASTE." CR>)>>
 
 <ROUTINE MSG-HELP-RELAY ()
  <TELL "Jetzt gerade: In der Relaisstation kannst du die DROHNE ANGREIFEN oder das PULT DEAKTIVIEREN. BENUTZE KASTEN stellt einmal bis zu 20 Gesundheit wieder her, f%ur 10 Karma." CR>>

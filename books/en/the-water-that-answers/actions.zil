@@ -39,7 +39,7 @@
 
 <ROUTINE PROFILE-DESK-F (RARG)
  <COND (<==? .RARG ,M-LOOK>
-        <TELL "Choose a doctor, reporter or mechanic to open the case." CR>)>>
+        <TELL "To open the case, type CHOOSE DOCTOR, CHOOSE REPORTER, or CHOOSE MECHANIC." CR>)>>
 
 <ROUTINE CHOOSE-F ("AUX" INDEX)
  <SET INDEX <COND (<==? ,PRSO ,CARD-DOCTOR> 1)

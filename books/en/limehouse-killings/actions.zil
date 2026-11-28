@@ -121,6 +121,13 @@
                  (T
                   <TELL "There is no keyhole to pick. The name dial is the lock: examine the box, then align its dial to one of the names." CR>)>
            <RTRUE>)
+          (<VERB? LOOK-INSIDE>
+           <COND (<NOT <FSET? ,LOCKED-BOX ,OPENBIT>> <TELL "The locked box is closed." CR>)
+                 (<FIRST? ,LOCKED-BOX>
+                  <TELL "The locked box contains:" CR>
+                  <PRINT-CONTENTS ,LOCKED-BOX>)
+                 (T <TELL "The locked box is empty." CR>)>
+           <RTRUE>)
           (<VERB? CLOSE>
            <COND (<FSET? ,LOCKED-BOX ,OPENBIT>
                   <FCLEAR ,LOCKED-BOX ,OPENBIT>

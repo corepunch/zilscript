@@ -5,6 +5,7 @@
 <SYNTAX STEAM OBJECT OVER OBJECT = V-STEAM>
 <SYNTAX CLEAR OBJECT WITH OBJECT (HELD CARRIED HAVE) = V-DIG>
 <SYNTAX WRITE OBJECT = V-WRITE>
+<SYNTAX CHOOSE OBJECT = V-CHOOSE-RAIN>
 <SYNTAX DRIZZLE OBJECT = V-DRIZZLE>
 <SYNTAX SHOWER OBJECT = V-SHOWER>
 
@@ -352,6 +353,8 @@
 	 <TELL "“If anyone says pause, I stop,” Nimbus says. “Including me. We listen, then decide together whether to continue.">
 	 <COND (,AGREED <TELL " That is our promise now.”" CR>)
 	 (T <TELL " Could that be part of the promise?”" CR>)>)
+	 (<AND ,PUBLISHED <EQUAL? ,PRSI ,LIGHT-DRIZZLE ,PUDDLE-SHOWER>>
+	  <PERFORM ,V?EXAMINE ,PRSI> <RTRUE>)
 	 (<EQUAL? ,PRSI ,PROMISE> <MAKE-PROMISE>)
 	 (<EQUAL? ,PRSI ,YESTERDAY> <TELL "“I was good at following the forecast,” Nimbus says. “I wasn't good at listening.”">
 	 <COND (,APOLOGY <TELL " The cloud says it without shrinking now." CR>)
@@ -486,6 +489,10 @@
 	>>
 <ROUTINE V-STEAM () <TELL "Warm damp air is useful for a stubborn paper fold, not for that." CR>>
 <ROUTINE V-WRITE () <TELL "Write your weather card once you and Nimbus have agreed." CR>>
+<ROUTINE V-CHOOSE-RAIN ()
+	<COND (<AND <IN? ,CLOUD ,HERE> <EQUAL? ,PRSO ,LIGHT-DRIZZLE ,PUDDLE-SHOWER>>
+	       <RAIN-ENDING <EQUAL? ,PRSO ,PUDDLE-SHOWER>>)
+	      (T <TELL "Choose a drizzle or a shower with Nimbus on the terrace." CR>)>>
 <ROUTINE V-DRIZZLE () <TELL "Rain is something to choose with Nimbus the cloud." CR>>
 <ROUTINE V-SHOWER () <TELL "Rain is something to choose with Nimbus the cloud." CR>>
 

@@ -195,6 +195,7 @@
  <COND (<SIGNAL-READY?> <RTRUE>)
        (<NOT <IN? ,MESSAGE-SPOOL ,READING-BASIN>>
         <TELL "Die Tasten bleiben dunkel. Leg zuerst die Holzspule zurück in die Mulde und spiele sie erneut ab." CR> <RFALSE>)
+       (,LENS-READ <TELL "Die Tasten bleiben dunkel. Du kennst nun die Bedeutung der Kerben. Drück den Abhörknopf erneut, damit die Kabine die Rückadresse erkennt." CR> <RFALSE>)
        (T <TELL "Die Tasten bleiben dunkel. Drück zuerst den Abhörknopf. Die Kabine sendet nichts, solange die Aufnahme nicht wiedergegeben und ihre Rückadresse nicht erkannt wurde." CR> <RFALSE>)>>
 
 <ROUTINE RETURN-KEY-F ()

@@ -49,3 +49,19 @@ for _, profile in ipairs(profiles) do
 	for _, seed in ipairs({ 3, 11, 29, 97, 1234 }) do play(profile, seed) end
 end
 print("ok - English and German editions play the same route to the same endings")
+
+
+local Walk = require("tests.story_walk")
+for _, c in ipairs({
+	{ "en", "choose lens", "help", "north", "go north to the bridge", "You are on the bridge" },
+	{ "de", "wähle luchs", "hilfe", "nord", "Geh nach Norden zur Brücke", "Du bist auf der Brücke" },
+	{ "ru", "выбрать призму", "помощь", "север", "идите на север к мосту", "Вы уже на мосту" },
+}) do
+	local walk = Walk.new("books." .. c[1] .. ".blackout-at-meridian.blackout-at-meridian")
+	walk:command(c[2])
+	assert(walk:command(c[3]):find(c[5], 1, true))
+	walk:command(c[4])
+	local help = walk:command(c[3])
+	assert(help:find(c[6], 1, true) and not help:find(c[5], 1, true), help)
+end
+print("ok - Meridian rescue help follows the hero in all three editions")
