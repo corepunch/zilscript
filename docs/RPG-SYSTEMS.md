@@ -172,3 +172,27 @@ The kernel uses the system's `SHEET-LAYOUT` and the language's `ATTR-NAME`,
 just as the in-game sheet does. The host receives rows with current values
 and optional maxima. Adventure Arena turns those rows into a printable
 HTML file. Exporting the sheet does not run a parser turn.
+
+### Optional native pre-game selection
+
+A book that has ready-made characters sets `RPG-PRESETS` after its RPG
+ruleset is loaded: an `LTABLE` of two-cell `TABLE` rows, each containing a
+stable ASCII ID and the archetype. The edition supplies
+`RPG-PRESET-TITLE(index)` and `RPG-PRESET-SUMMARY(index)`, which print the
+profile's localized name and approach. For preview, system derivation must
+be deterministic on the supplied scratch table and must not change the
+world, clock, or random generator.
+
+A host loads the VM and calls `zilscript.rpg_setup.profiles(env)` **before
+GO**. An empty list means no picker. Rendering the data is the host's job.
+It calls `select(env, { id = ..., name = ... })` only after explicit
+confirmation. The engine validates the stable ID and optional name, applies
+the archetype exactly once, and gives the story its chosen index to start
+the mission. A native reader saves the selection separately from its
+commands, so neither the choice nor the name appears as a parser command
+or advances a turn. A cancelled selection has no save. Existing saves
+without a selection still replay their old parser commands; parser-only
+clients without a setup frontend retain the in-VM prompt.
+
+See the [Meridian setup](../books/shared/blackout-at-meridian/rules.zil) for a
+book using the generic API with three authored profiles.

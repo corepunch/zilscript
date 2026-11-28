@@ -412,16 +412,34 @@ end
 -- `saved` is a snapshot from `Session:snapshot()`. The story is restored by
 -- replaying its commands against an engine seeded as before, which rebuilds
 -- the transcript exactly as the reader first saw it.
-function Session:start(game, saved)
+-- Build the fresh VM and inspect its book-defined setup without entering GO.
+-- A normal adventure offers no profiles and uses the same prepared VM.
+function Session:prepare(game)
+	if not self.engineFactory then return nil, "No session engine configured." end
+	local ok, prepared = pcall(function()
+		local seed = self.newSeed()
+		local builder = self.engineFactory(game, seed)
+		local profiles = type(builder.setupProfiles) == "function" and builder:setupProfiles() or {}
+		return { gameId = game.id, seed = seed, builder = builder, profiles = profiles }
+	end)
+	if not ok then return nil, tostring(prepared) end
+	return prepared
+end
+
+function Session:start(game, saved, setup, prepared)
 	if not game then return false, "Adventure not found." end
 	if not self.engineFactory then return false, "No session engine configured." end
-	local seed = saved and tonumber(saved.seed) or self.newSeed()
+	local reuse = not saved and prepared and prepared.gameId == game.id and prepared
+	local seed = saved and tonumber(saved.seed) or (reuse and reuse.seed) or self.newSeed()
+	if saved then setup = saved.setup end
 	local ok, engine, opening = pcall(function()
-		return self.engineFactory(game, seed):start()
+		local builder = reuse and reuse.builder or self.engineFactory(game, seed)
+		return builder:start(setup)
 	end)
 	if not ok then return false, tostring(engine) end
 	self:reset()
 	self.engine, self.currentGame, self.seed = engine, game, seed
+	self.setup = setup and { id = setup.id, name = setup.name } or nil
 	-- The story names its language in game.json; English otherwise.
 	self.language = Language.of(game.language)
 	self:refreshEngineState()
@@ -468,6 +486,7 @@ function Session:snapshot()
 	for _, command in ipairs(self.history) do table.insert(commands, command) end
 	return {
 		gameId = game.id, seed = self.seed, commands = commands,
+		setup = self.setup and { id = self.setup.id, name = self.setup.name } or nil,
 		room = self.roomTitle or (self.scene and self.scene.title) or game.title,
 		score = self.score, maxScore = self.maxScore, moves = self.moves,
 	}

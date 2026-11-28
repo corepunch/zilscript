@@ -8,6 +8,7 @@
 <PROPDEF TVALUE 0>
 <DIRECTIONS NORTH EAST WEST SOUTH NE NW SE SW UP DOWN IN OUT LAND>
 <INSERT-FILE "rulesets.superhero.en">
+<INSERT-FILE "books.shared.blackout-at-meridian.presets">
 <INSERT-FILE "books.shared.blackout-at-meridian.logic">
 <INSERT-FILE "books.en.blackout-at-meridian.en">
 <INSERT-FILE "books.shared.blackout-at-meridian.rules">
