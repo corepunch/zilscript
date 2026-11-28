@@ -205,9 +205,9 @@
 		(<SET V <APPLY <GETP ,WINNER ,P?ACTION>>> .V)
 		(<SET V <APPLY <GETP <LOC ,WINNER> ,P?ACTION> ,M-BEG>> .V)
 		(<SET V <APPLY <GET ,PREACTIONS .A>>> .V)
-		(<AND .I
-		      <OR <NOT <EQUAL? .A ,V?TELL>> <NEAR? .I>>
-		      <SET V <APPLY <GETP .I ,P?ACTION>>>> .V)
+		(<AND ,PRSI
+		      <OR <NOT <EQUAL? .A ,V?TELL>> <NEAR? ,PRSI>>
+		      <SET V <APPLY <GETP ,PRSI ,P?ACTION>>>> .V)
 		(<AND .O
 		      <NOT <==? .A ,V?WALK>>
 		      <LOC .O>
@@ -273,10 +273,10 @@
 				      ,M-BEG>> .V)
 		     (<SET V <D-APPLY "Preaction"
 				      <GET ,PREACTIONS .A>>> .V)
-		     (<AND .I
-			   <OR <NOT <EQUAL? .A ,V?TELL>> <NEAR? .I>>
+		     (<AND ,PRSI
+			   <OR <NOT <EQUAL? .A ,V?TELL>> <NEAR? ,PRSI>>
 			   <SET V <D-APPLY "PRSI"
-					   <GETP .I ,P?ACTION>>>> .V)
+					   <GETP ,PRSI ,P?ACTION>>>> .V)
 		     (<AND .O
 			   <NOT <==? .A ,V?WALK>>
 			   <LOC .O>
