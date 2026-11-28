@@ -434,7 +434,7 @@ function Session:start(game, saved, setup, prepared)
 	if saved then setup = saved.setup end
 	local ok, engine, opening = pcall(function()
 		local builder = reuse and reuse.builder or self.engineFactory(game, seed)
-		return builder:start(setup)
+		return builder:start(setup, saved ~= nil and setup == nil)
 	end)
 	if not ok then return false, tostring(engine) end
 	self:reset()
