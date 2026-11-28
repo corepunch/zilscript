@@ -1,0 +1,16 @@
+{
+  "id": "books.ru.last-door-of-battleworld",
+  "title": "Последняя дверь Мира битв",
+  "shortDescription": "Не дай Думу закрыть путь домой.",
+  "description": "Выбери Человека-паука, Грозу или Железного человека. Спаси пассажиров челнока, исследуй расколотый рынок и сорви замысел Доктора Дума в оригинальном любительском приключении.",
+  "author": "Unofficial fan adventure",
+  "year": 2026,
+  "rating": 0,
+  "reviewCount": 0,
+  "reviews": [],
+  "startFile": "last-door-of-battleworld.zil",
+  "genre": "Супергеройская ролевая игра",
+  "language": "ru",
+  "ruleset": "superhero-percentile",
+  "statusLine": "moves"
+}
