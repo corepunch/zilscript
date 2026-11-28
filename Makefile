@@ -263,7 +263,7 @@ test-pure-zil: test-adventure-packages test-new-books test-book-playtests test-b
 # Books with one folder name their words in dungeon.zil; a book with
 # editions (logic in books/shared/<book>) has one story folder per language
 # and its words in <lang>.zil.
-EDITION_STORIES := $(wildcard books/??/blackout-at-meridian)
+EDITION_STORIES := $(wildcard books/??/blackout-at-meridian books/??/last-door-of-battleworld)
 EDITION_WORDS := $(foreach story,$(EDITION_STORIES),$(story)/$(word 2,$(subst /, ,$(story))).zil)
 
 lint-zil:
