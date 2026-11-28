@@ -71,7 +71,7 @@ remain usable. The generic kernel accepts an optional row emitter for rulesets
 that need a richer sheet. Meridian's emitter appends two optional fields:
 
 - `group`: stable ID, `abilities`, `powers` or `resources`.
-- `rankLabel`: localized plain text, attached to rank-based fields only.
+- `rankLabel`: plain text, attached to rank-based fields only.
 
 The sheet shows seven abilities and Power with both titles and numeric values,
 then current and maximum Health and current Karma. Taking a sheet snapshot

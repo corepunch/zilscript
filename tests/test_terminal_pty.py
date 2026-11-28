@@ -28,7 +28,7 @@ def test_terminal():
     master, slave = pty.openpty()
     original = termios.tcgetattr(slave)
     process = subprocess.Popen(
-        [LUA, "main.lua", "books.en.wondertown.wondertown"],
+        [LUA, "main.lua", "books.wondertown.wondertown"],
         stdin=slave, stdout=slave, stderr=slave,
     )
     pending = bytearray()

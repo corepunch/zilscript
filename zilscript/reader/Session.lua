@@ -1,6 +1,6 @@
 local namespace = (...):match("^(.*)%.Session$")
 local Suggestions = require(namespace .. ".Suggestions")
-local Language = require(namespace .. ".Language")
+local Prompts = require(namespace .. ".Prompts")
 
 local Session = {}
 Session.__index = Session
@@ -16,13 +16,7 @@ local DIRECTIONS = {
 	nw = "northwest", northwest = "northwest",
 	u = "up", up = "up", d = "down", down = "down",
 	["in"] = "in", out = "out",
-	-- The German language package names its exits by German compass words.
-	nord = "north", norden = "north", sued = "south", suden = "south", ost = "east", osten = "east", o = "east",
-	no = "northeast", nordost = "northeast", nw = "northwest", nordwest = "northwest",
-	so = "southeast", suedost = "southeast", sw = "southwest", suedwest = "southwest",
-	rauf = "up", ra = "up", runter = "down", ru = "down", rein = "in", hinein = "in", raus = "out",
 }
-for direction, command in pairs(Language.of("ru").directions) do DIRECTIONS[command] = direction end
 
 -- Re-rendering a transcript costs time proportional to its length, so the
 -- reader keeps the most recent entries; the story itself is unaffected.
@@ -31,7 +25,6 @@ local TRANSCRIPT = { limit = 120 }
 function Session.new(options)
 	options = options or {}
 	local self = setmetatable({
-		language = Language.of(nil),
 		engineFactory = options.engineFactory,
 		-- A saved game replays its commands against the same random sequence.
 		newSeed = options.newSeed or function() return os.time() end,
@@ -120,14 +113,14 @@ local function paragraphsOf(text)
 	return paragraphs
 end
 
-local function isBanner(paragraph, language)
-	local release = paragraph:match("\n" .. (language.release or "Release") .. " ([^\n]+)$")
+local function isBanner(paragraph)
+	local release = paragraph:match("\nRelease ([^\n]+)$")
 	return release and (release:match("^%d+$") or release:match("^%d+ / Serial"))
 end
 
 -- Without an engine room name, a heading is a short title-cased line.
-local function looksLikeHeading(line, language)
-	local small = language.small
+local function looksLikeHeading(line)
+	local small = Prompts.smallWords
 	if #line > 48 or not line:match("%a") or line:match("[.!?,;:]") then return false end
 	for word in line:gmatch("%S+") do
 		if not small[word:lower()] and not word:match("^[%u\128-\255][%w'/\128-\255-]*$") then return false end
@@ -166,10 +159,10 @@ function Session:appendParagraph(paragraph)
 end
 
 -- Keep each parser operand separate so typed completion can fill one slot.
-local function visitItemActions(item, partners, visit, language)
-	visit(language.examine, item)
-	for _, verb in ipairs(Suggestions.singleObjectVerbs(item, language)) do
-		if not language.skip[verb] then visit(verb, item) end
+local function visitItemActions(item, partners, visit)
+	visit(Prompts.examine, item)
+	for _, verb in ipairs(Suggestions.singleObjectVerbs(item)) do
+		if not Prompts.skip[verb] then visit(verb, item) end
 	end
 	for _, pattern in ipairs(item.patterns or {}) do
 		if pattern.join ~= nil and Suggestions.inHand(item, pattern) then
@@ -206,7 +199,7 @@ function Session:appendOutput(text, openingTitle)
 	local headingFound = false
 	for _, paragraph in ipairs(paragraphs) do
 		local first = splitFirstLine(paragraph)
-		if (room and first == room) or (not room and looksLikeHeading(first, self.language) and first ~= paragraph) then
+		if (room and first == room) or (not room and looksLikeHeading(first) and first ~= paragraph) then
 			headingFound = true
 		end
 	end
@@ -217,7 +210,7 @@ function Session:appendOutput(text, openingTitle)
 		and (not self.scene or self.scene.title ~= (room or openingTitle)) and (room or openingTitle) or nil
 
 	for _, paragraph in ipairs(paragraphs) do
-		if isBanner(paragraph, self.language) then
+		if isBanner(paragraph) then
 			local title, rest = splitFirstLine(paragraph)
 			local lines = {}
 			for line in (rest or ""):gmatch("[^\n]+") do table.insert(lines, trim(line)) end
@@ -225,7 +218,7 @@ function Session:appendOutput(text, openingTitle)
 			self.openEntry = nil
 		else
 			local first, rest = splitFirstLine(paragraph)
-			local heading = (room and first == room) or (not room and rest and looksLikeHeading(first, self.language))
+			local heading = (room and first == room) or (not room and rest and looksLikeHeading(first))
 			if heading then
 				if not self.scene or self.scene.title ~= first then
 					self:beginScene(first)
@@ -273,8 +266,6 @@ function Session:start(game, saved, setup, prepared)
 	self:reset()
 	self.engine, self.currentGame, self.seed = engine, game, seed
 	self.setup = setup and { id = setup.id, name = setup.name } or nil
-	-- The story names its language in game.json; English otherwise.
-	self.language = Language.of(game.language)
 	self:refreshEngineState()
 	self:appendOutput(opening, game.title)
 	-- Some stories print a cold open. The reader starts with the title page.
@@ -329,25 +320,21 @@ function Session:suggestions(input)
 	if not self.running then return {} end
 	if not input or not input:find("%S") then
 		return {
-			{ title = self.language.lookTitle, command = self.language.look },
-			{ title = self.language.inventoryTitle, command = self.language.inventory },
+			{ title = Prompts.lookTitle, command = Prompts.look },
+			{ title = Prompts.inventoryTitle, command = Prompts.inventory },
 		}
 	end
 	return Suggestions.forInput(input, self.items, function(offer)
 		-- Complete the verb even in an empty room. After "take " only
 		-- eligible objects from the live parser scope are offered.
-		local lang = self.language
-		for _, verb in ipairs({ lang.look, lang.inventory, lang.wait, lang.take }) do offer(verb) end
-		-- English walks with "go north"; a language with bare compass words offers them.
-		for _, exit in ipairs(self.exitList) do
-			if next(lang.directions) then offer(Language.direction(lang, exit)) else offer(lang.go, exit) end
-		end
+		for _, verb in ipairs({ Prompts.look, Prompts.inventory, Prompts.wait, Prompts.take }) do offer(verb) end
+		for _, exit in ipairs(self.exitList) do offer("go", exit) end
 		for _, item in ipairs(self.items) do
 			if not item.patterns or #item.patterns > 0 then
-				visitItemActions(item, self.items, offer, lang)
+				visitItemActions(item, self.items, offer)
 			end
 		end
-	end, lang)
+	end)
 end
 
 function Session:entryCount()
@@ -378,17 +365,16 @@ end
 -- Infocom status lines: "Score 12 of 350 · 41 moves". Planetfall's MOVES is
 -- the ship's chronometer, so its line reads "Time 4602" as the game's does.
 function Session.statusLine(game, score, maxScore, moves)
-	local lang = Language.of(game and game.language)
 	if game and game.statusLine == "moves" then
-		return string.format(lang.movesOnly, moves)
+		return string.format(Prompts.movesOnly, moves)
 	end
 	local scoreText = maxScore > 0
-		and string.format(lang.score, score, maxScore)
-		or string.format(lang.scoreOnly, score)
+		and string.format(Prompts.score, score, maxScore)
+		or string.format(Prompts.scoreOnly, score)
 	if game and game.statusLine == "time" then
-		return string.format("%s · " .. lang.time, scoreText, moves)
+		return string.format("%s · " .. Prompts.time, scoreText, moves)
 	end
-	return string.format("%s · %d %s", scoreText, moves, moves == 1 and lang.move or lang.moves)
+	return string.format("%s · %d %s", scoreText, moves, moves == 1 and Prompts.move or Prompts.moves)
 end
 
 function Session:presentation()
@@ -409,7 +395,6 @@ function Session:presentation()
 		progressFraction = self.maxScore > 0 and math.max(0, math.min(1, self.score / self.maxScore)) or 0,
 		progress = Session.statusLine(game, self.score, self.maxScore, self.moves),
 		availableDirections = directions,
-		language = self.language.code,
 	}
 end
 

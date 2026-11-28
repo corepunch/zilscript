@@ -8,7 +8,6 @@
 --   lua llm.lua --new-game --save game.sav  (start new game and save initial state)
 --
 local runtime = require 'zilscript.runtime'
-local Editions = require 'zilscript.editions'
 
 -- Parse command line arguments
 local args = {}
@@ -24,11 +23,6 @@ while i <= #arg do
     elseif a == "--game" or a == "-g" then
         i = i + 1
         args.game = arg[i]
-    elseif a == "--language" then
-        i = i + 1
-        args.language = assert(arg[i], "--language requires a catalog language")
-    elseif a:match("^%-%-language=") then
-        args.language = a:match("^%-%-language=(.*)$")
     elseif a == "--new-game" then
         args.new_game = true
     elseif a == "--help" or a == "-h" then
@@ -51,8 +45,7 @@ Usage:
 Options:
   --action, -a "cmd"   Execute this command and exit
   --save, -s file      VM checkpoint path
-  --game, -g name      Game to play (English default: zork1)
-  --language en|de|ru  Catalog language (default: en)
+  --game, -g name      Game to play (default: zork1)
   --new-game           Start a new game (even if save file exists)
   --help, -h           Show this help
 
@@ -65,7 +58,7 @@ Examples:
     os.exit(0)
 end
 
--- Imported English classics have their own entry filenames.
+-- Imported classics have their own entry filenames.
 local CLASSICS = {
 	zork1 = "infocom.zork1.zork1",
 	zork2 = "infocom.zork2.zork2",
@@ -75,16 +68,12 @@ local CLASSICS = {
 	planetfall = "infocom.planetfall.planetfall",
 }
 
-local language = args.language or "en"
-if not Editions.index(language) then
-	io.stderr:write(("Unknown catalog language %s\n"):format(language))
-	os.exit(1)
-end
-local slug = args.game or (language == "en" and "zork1" or nil)
-local entry = language == "en" and CLASSICS[slug] or Editions.bookModule(language, slug)
+local slug = args.game or "zork1"
+local entry = CLASSICS[slug]
+if not entry and slug:match("^[a-z0-9][a-z0-9-]*$") then entry = "books." .. slug .. "." .. slug end
 local source = entry and io.open(entry:gsub("%.", "/") .. ".zil", "r")
 if not source then
-	io.stderr:write(("Unknown game %s in catalog %s\n"):format(tostring(slug), language))
+	io.stderr:write(("Unknown game %s\n"):format(slug))
 	os.exit(1)
 end
 source:close()
@@ -376,7 +365,7 @@ if not args.new_game then
             assert(env.RESTORE(savefile), "Could not restore VM snapshot")
         end)
         if ok then
-            if env.PLAY_GAME ~= game_name then write_error_and_exit("Snapshot belongs to another edition") end
+            if env.PLAY_GAME ~= game_name then write_error_and_exit("Snapshot belongs to another game") end
             _G._LLM_RESTORED = true
             resumed_from_dump = true
         else

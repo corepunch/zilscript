@@ -1,0 +1,14 @@
+{
+  "id": "books.station-minus-one",
+  "title": "The Station at Minus One",
+  "shortDescription": "An empty station. A train due yesterday. One stop you can still change.",
+  "description": "A train calls a closed station from the wrong side of midnight. Follow the night operator’s last notes under a frozen moon and decide whether the arrival belongs on the timetable.",
+  "author": "AdventureArena",
+  "year": 2026,
+  "rating": 0,
+  "reviewCount": 0,
+  "reviews": [],
+  "startFile": "station-minus-one.zil",
+  "genre": "Science Fiction",
+  "statusLine": "moves"
+}

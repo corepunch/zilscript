@@ -4,26 +4,23 @@ These are code-informed replay sessions, not independent blind playtests. The
 existing scripted walkthroughs supply the commands; all games ran with
 Lua 5.5.1. No claim of exhaustive coverage follows from a completed route.
 
-## Meridian: English, German, Russian
+## Meridian
 
-- English and German: the walkthrough plays each of the three hero
+- The walkthrough plays each of the three hero
   profiles with fixed seeds 98–100, retries failed rescue and relay checks,
   and reaches FINISH. It also follows the first companion card for six seeds.
-- Russian: the typed-command walkthrough covers all three
-  profiles, both endings, failed rolls, repeat rescue and kit actions,
-  pre-registration commands, long UTF-8 input, and 480 adversarial commands.
 - Finding: at the relay, the choice between attacking the drone and reaching
   past it was mechanically consequential but the examination did not explain
-  either danger or the relevant check. In all three editions the console now
+  either danger or the relevant check. The console now
   names both approaches and their risks. After a failed tram rescue the text
   now makes the passenger's immediate danger tangible and tells the player
   that another attempt is possible. The winning scene brings back the boy
-  rescued on the bridge in all three editions. These changes do not promise that a
+  rescued on the bridge in the walkthroughs. These changes do not promise that a
   failed roll is harmless: health loss and the terminal loss still apply.
 - Result: all three walkthroughs passed after editing. This replay does not
   establish blind discoverability of every alternative command.
 
-## Wondertown: English
+## Wondertown
 
 - Seed 97: an existing 57-step walkthrough reached the best
   ending. The timed ending regression also passed.

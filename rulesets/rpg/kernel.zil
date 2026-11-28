@@ -1,14 +1,4 @@
-;"The RPG kernel: what every tabletop system shares, with no language, no
-  story and no system's numbers. A system (rulesets/<system>/system.zil)
-  supplies the routines SYSTEM-ROLL, SYSTEM-GRADE and SYSTEM-DERIVE, the
-  tables SHEET-LAYOUT and STATUS-LAYOUT and its attribute constants; a
-  language (rulesets/rpg/<lang>.zil and rulesets/<system>/<lang>.zil)
-  supplies the words: ATTR-NAME, TIER-NAME, CHECK-TERMS (the system's names),
-  OF-WORD, NAME-PROMPT, STATUS-PROFILE and the SAY-NO-* replies (the language's).
-
-  A character is a table of CHARACTER-SIZE words. Slot 0 holds the archetype
-  the character became (0: none yet). Attributes are numbered 1 to 15 by the
-  system; attribute A's maximum, if it is a resource, lives in slot A+16."
+;"Shared character, dice, sheet and action machinery for tabletop systems."
 
 <CONSTANT CHARACTER-SIZE 32>
 <CONSTANT MAX-OFFSET 16>
@@ -62,7 +52,7 @@
   <SET COUNT <- .COUNT 1>>>
  .TOTAL>
 
-;"The system rolls and grades; the language reports; the check is true when
+;"The system rolls and grades; the system reports; the check is true when
   the tier reaches REQUIRED. DIFFICULTY means what the system says it means."
 <ROUTINE CHECK (TBL ATTR DIFFICULTY REQUIRED "AUX" ROLL TIER)
  <SET ROLL <SYSTEM-ROLL .TBL .ATTR .DIFFICULTY>>
@@ -72,7 +62,7 @@
  <REPORT-CHECK .TBL .ATTR .DIFFICULTY .ROLL .TIER>
  <COND (<L? .TIER .REQUIRED> <RFALSE>) (T <RTRUE>)>>
 
-;"The language's report of a check, e.g. 'Rank 30; d100 57; success.': the
+;"The system's report of a check, e.g. 'Rank 30; d100 57; success.': the
   system's names for what was rolled against (CHECK-TERMS), the roll, and the
   tier's name (TIER-NAME)."
 <ROUTINE REPORT-CHECK (TBL ATTR DIFFICULTY ROLL TIER)
@@ -98,7 +88,7 @@
 <ROUTINE KIND-OF (TBL) <GET .TBL 0>>
 
 ;"The sheet shows SHEET-LAYOUT's attributes, two to a line, by the
-  language's names. A resource with a ceiling shows 'now/max'."
+  system's names. A resource with a ceiling shows 'now/max'."
 ;"An attribute with a maximum, below NO-LIMIT, is a resource with a ceiling."
 <ROUTINE CEILING? (TBL ATTR)
  <AND <G? <MAX-STAT .TBL .ATTR> 0> <L? <MAX-STAT .TBL .ATTR> ,NO-LIMIT>>>
@@ -170,7 +160,7 @@
  <REPEAT () <SET C <GETB ,HERO-NAME .I>> <COND (<0? .C> <RETURN>)>
   <PRINTC .C> <SET I <+ .I 1>>>>
 
-;"Asks for a name (the language's prompt), stores it, and returns 0 when the
+;"Asks for a name (the system's prompt), stores it, and returns 0 when the
   line was refused, 1 when it was blank and 2 when the name was stored."
 <ROUTINE ASK-NAME ("AUX" STATUS)
  <NAME-PROMPT>
@@ -180,7 +170,7 @@
  .STATUS>
 
 ;"The generic actions. A story's objects answer them in their ACTION
-  routines; these run when no object does, with the language's reply."
+  routines; these run when no object does, with the system's reply."
 <ROUTINE V-RPG-ATTACK () <SAY-NO-TARGET>>
 <ROUTINE V-RPG-POWER () <SAY-NO-POWER>>
 <ROUTINE V-RPG-RESCUE () <SAY-NO-RESCUE>>
@@ -198,7 +188,7 @@
  <COND (<NOT ,CLOCK-PAUSED> <SETG CLOCK-WAIT T>)>
  <V-RPG-STATUS>>
 
-;"The original parser spelling is also accepted in every RPG language."
+;"The original parser spelling is also accepted in an RPG."
 <SYNTAX STATUS = V-RPG-CHARACTER>
 <SYNONYM STATUS STAT STATS>
 
@@ -240,7 +230,7 @@
   <SET I <+ .I 1>>>>
 
 ;"Optional pre-game contract. Books define stable IDs and archetype tables,
-  plus localized title/summary callbacks. Reading the catalog initializes
+  plus display title/summary callbacks. Reading the catalog initializes
   only a scratch character: no player, clocks, world or RNG are touched."
 <GLOBAL RPG-PRESETS 0>
 <GLOBAL RPG-PREVIEW <ITABLE 32 0>>
@@ -279,7 +269,7 @@
  <RPG-CLEAR-PREVIEW>>
 
 ;"Used by a host before GO, and by the parser-only setup for compatibility.
-  The host passes a validated localized name, not a parser command."
+  The host passes a validated display name, not a parser command."
 <ROUTINE RPG-SELECT-PRESET (INDEX "OPTIONAL" NAME "AUX" ENTRY)
  <SET ENTRY <RPG-PRESET-AT .INDEX>>
  <COND (<OR <NOT .ENTRY> ,RPG-STARTED <BECAME? ,HERO>> <RFALSE>)>

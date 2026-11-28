@@ -215,7 +215,7 @@ A grid of which objects deliberately respond to which non-default verbs. Blank c
 | FRESNEL-LENS | ✓ | — | ✓ | — |
 | FIREPLACE | ✓ | — | — | ✓ |
 
-The grid must use the substrate's action names, not just the surface words. For example, Zork I parses `PULL` as the `MOVE` action, so a pullable object's row records `PULL → MOVE`. A `V-*` routine alone does not register vocabulary: every desired typed verb absent from `languages/en/syntax.zil` (world verbs) and the ruleset's syntax (`rulesets/classic/en-syntax.zil`) also needs a narrow game-specific `SYNTAX` declaration and a literal parser test.
+The grid must use the substrate's action names, not just the surface words. For example, Zork I parses `PULL` as the `MOVE` action, so a pullable object's row records `PULL → MOVE`. A `V-*` routine alone does not register vocabulary: every desired typed verb absent from `world/syntax.zil` (world verbs) and the ruleset's syntax (`rulesets/classic/syntax.zil`) also needs a narrow game-specific `SYNTAX` declaration and a literal parser test.
 
 For conversation, `ASK` is a parser synonym for the `TELL` action. NPC routines test `<VERB? TELL>`, keep the actor in `PRSO`, and read the topic from `PRSI`. Default verb routines must end in a response; they must never call `PERFORM` with their own action, because `PERFORM` has already tried the object handlers and will recurse back to the same default.
 
@@ -272,8 +272,8 @@ The walkthrough (`walkthrough.zil`) also serves as the entry point that wires th
 
 ```zil
 ; books/<name>/test/test-walkthrough.zil
-; The book's entry file imports its ruleset (rulesets.classic.en or
-; rulesets.superhero.en), which composes over languages/en/base.zil.
+; The book's entry file imports its ruleset (rulesets.classic.init or
+; rulesets.superhero.init), which composes over world/base.zil.
 <INSERT-FILE "books/<name>/<name>">
 
 <GLOBAL CO <CO-CREATE GO>>
@@ -1801,8 +1801,8 @@ A walkthrough test is itself a ZIL file. It includes the standard engine files a
 
 ```zil
 ; books/<name>/test/test-walkthrough.zil
-; The book's entry file imports its ruleset (rulesets.classic.en or
-; rulesets.superhero.en), which composes over languages/en/base.zil.
+; The book's entry file imports its ruleset (rulesets.classic.init or
+; rulesets.superhero.init), which composes over world/base.zil.
 <INSERT-FILE "books/<name>/<name>">
 
 <GLOBAL CO <CO-CREATE GO>>

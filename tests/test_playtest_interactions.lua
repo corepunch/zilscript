@@ -1,7 +1,7 @@
 -- Regression checks for the reader-visible defects in the six-book playtest.
 package.path = './?.lua;./?/init.lua;' .. package.path
 local Walk = require('tests.story_walk')
-local function game(name) return Walk.new('books.en.' .. name .. '.' .. name, 97) end
+local function game(name) return Walk.new('books.' .. name .. '.' .. name, 97) end
 local w = game('silent-vector')
 w:play({'push habitat breaker','north','north','tell doctor mara'})
 w:command('tell doctor mara about physical crew')

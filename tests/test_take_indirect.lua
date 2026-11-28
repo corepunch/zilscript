@@ -23,6 +23,5 @@ local function try(module, roomName, objectName, sourceName, command)
   assert(attempted == 0 and e.LOC(child) == e.WINNER, module .. ": " .. tostring(output))
 end
 
-try("books.en.bell-grew-leaves.bell-grew-leaves", "COURT", "WICK", "BELL", "take wick from bell")
-try("books.de.borrowed-tomorrows.borrowed-tomorrows", "TERRACE", "LEAF", "FRAME", "nimm blatt aus rahmen")
-print("ok - both language loops dispatch a take to the child, not the validated source")
+try("books.bell-grew-leaves.bell-grew-leaves", "COURT", "WICK", "BELL", "take wick from bell")
+print("ok - the parser dispatches a take to the child, not the validated source")

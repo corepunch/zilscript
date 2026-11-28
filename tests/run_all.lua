@@ -12,7 +12,6 @@ local test_files = {
 	"tests/test_comprehensive_accuracy.lua",
 	"tests/test_defmac.lua",
 	"tests/test_framework.lua",
-	"tests/test_language_support.lua",
 	"tests/test_line_accuracy.lua",
 	"tests/test_llm.lua",
 	"tests/test_macro_expansion.lua",

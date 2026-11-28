@@ -34,7 +34,7 @@ end
 local function run_companion(choices)
     local input = table.concat(choices, "\n") .. "\n"
     local cmd = "echo " .. ("'" .. input:gsub("'", "'\\''") .. "'"):gsub("\n", "\\n") ..
-        " | lua5.4 main.lua --companion books.en.limehouse-killings.limehouse-killings 2>&1"
+        " | lua5.4 main.lua --companion books.limehouse-killings.limehouse-killings 2>&1"
     local handle = io.popen(cmd, "r")
     local output = handle:read("*a")
     handle:close()
@@ -94,7 +94,7 @@ test("kitchen accessible", function()
     -- Kitchen is accessible through garden, which is accessible through kitchen
     -- The kitchen route is represented in the companion content.
     -- Test via companion content instead
-    local f = io.open("books/en/limehouse-killings/companion.zil", "r")
+    local f = io.open("books/limehouse-killings/companion.zil", "r")
     local content = f:read("*a")
     f:close()
     assert_contains(content, "kitchen.go-hall")
@@ -103,7 +103,7 @@ end)
 -- Test 9: Dining room accessible from hall
 test("dining room accessible", function()
     -- Dining room is accessible from hall in Act 1
-    local f = io.open("books/en/limehouse-killings/companion.zil", "r")
+    local f = io.open("books/limehouse-killings/companion.zil", "r")
     local content = f:read("*a")
     f:close()
     assert_contains(content, "dining.go-hall")
@@ -117,7 +117,7 @@ end)
 
 -- Test 11: All 11 rooms have companion routines
 test("all rooms covered", function()
-    local f = io.open("books/en/limehouse-killings/companion.zil", "r")
+    local f = io.open("books/limehouse-killings/companion.zil", "r")
     local content = f:read("*a")
     f:close()
     assert_contains(content, "SUGGEST-GATE")
@@ -135,7 +135,7 @@ end)
 
 -- Test 12: SUGGEST-ACTIONS and SUGGEST-SCENE exist at end of file
 test("entry routines at end of file", function()
-    local f = io.open("books/en/limehouse-killings/companion.zil", "r")
+    local f = io.open("books/limehouse-killings/companion.zil", "r")
     local content = f:read("*a")
     f:close()
     -- Find positions of the ROUTINE definitions (not comments)
@@ -151,7 +151,7 @@ end)
 
 -- Test 13: Choice IDs exist
 test("choice IDs exist", function()
-    local f = io.open("books/en/limehouse-killings/companion.zil", "r")
+    local f = io.open("books/limehouse-killings/companion.zil", "r")
     local content = f:read("*a")
     f:close()
     local count = 0

@@ -83,7 +83,7 @@ NOUN = "NOUN"
 -- are not loading-only data.
 ACTIONS = 0   -- mem address of action dispatch table (action_id → fn_idx)
 PREACTIONS = 0  -- mem address of pre-action dispatch table (action_id → fn_idx)
--- Flags a story introduces (ARTICLEBIT, PLURALBIT, German DERBIT...) are
+-- Flags a story introduces (ARTICLEBIT, PLURALBIT) are
 -- numbered after the built-in ones; numbering them from 1 made DERBIT the
 -- same bit as SACREDBIT.
 FLAGS = {}
@@ -100,7 +100,7 @@ DIRS = {}
 
 _VTBL = {}
 -- Object numbers are words: games compiled for later Z-machine versions (the
--- German Zork I has 256 objects) outgrow the version 3 limit of 255. Fields
+-- some imported games have over 255 objects) outgrow the version 3 limit of 255. Fields
 -- the ZIL itself reads with GETB (exit targets, doors, GLOBAL lists) stay
 -- bytes, and encoding an object above 255 there is an error.
 local MAX_OBJECTS = 1023
@@ -234,7 +234,6 @@ local function is_hidden(obj)
 	return invisible ~= nil and FSETQ(obj, invisible)
 end
 
-local zil_language, fallback_text, story_messages
 
 local function item_patterns(verbs)
 	local preferred = {
@@ -261,18 +260,14 @@ local function item_patterns(verbs)
 		end
 		-- A menu speaks an action by its own spelling ("look in" for
 		-- LOOK-INSIDE), else by the verb the action is named for (PUT for
-		-- PUT-ON), else by the first SYNTAX line declared for it. Languages
-		-- and rulesets load before the story, so a synonym verb a story adds
+		-- PUT-ON), else by the first SYNTAX line declared for it. The ruleset
+		-- loads before the story, so a synonym verb a story adds
 		-- ("FIT OBJECT ON OBJECT = V-PUT-ON") never replaces the base verb.
 		local base = verb:lower():match("^[^-]+")
-		local spoken = (fallback_text().spoken or {})[verb]
 		local function rank(pattern)
 			local prefix = pattern.verb .. (pattern.prefix ~= "" and " " .. pattern.prefix or "")
 			if prefix == wanted then return 0, pattern.order end
-			if pattern.verb == spoken then return 1, 0, pattern.order end
 			if pattern.verb == base then return 1, #prefix, pattern.order end
-			-- A bare verb ("nimm") is the plain spelling of an action a
-			-- language also spells with a particle ("heb auf").
 			return 2, #pattern.prefix, pattern.order
 		end
 		local function better(a, b)
@@ -599,51 +594,16 @@ local function companion_slug(text)
 	return slug ~= "" and slug or "unknown"
 end
 
--- What the fallback menus say, by <LANGUAGE>. Commands are the language's own
--- parser words (ASCII stems), labels read naturally to a child.
 local FALLBACK_TEXT = {
-	ru = {
-		labels = { EXAMINE = "Осмотреть: %s", READ = "Прочитать: %s", OPEN = "Открыть: %s", TAKE = "Взять: %s" },
-		commands = { EXAMINE = "осмотреть", READ = "прочитать", OPEN = "открыть", TAKE = "взять" },
-		climbTo = "Подняться: ", climbBack = "Подняться обратно: ",
-		downTo = "Спуститься: ", downBack = "Спуститься обратно: ",
-		walkTo = "Идти: ", walkBack = "Вернуться: ",
-		directions = { north = "север", south = "юг", east = "восток", west = "запад",
-			northeast = "северо-восток", northwest = "северо-запад", southeast = "юго-восток", southwest = "юго-запад",
-			up = "вверх", down = "вниз", ["in"] = "внутрь", out = "наружу" },
-	},
-	en = {
-		labels = { EXAMINE = "Examine the %s", READ = "Read the %s", OPEN = "Open the %s", TAKE = "Take the %s" },
-		commands = { EXAMINE = "examine", READ = "read", OPEN = "open", TAKE = "take" },
-		lower = true,
-		climbTo = "Climb to ", climbBack = "Climb back to ", downTo = "Down to ", downBack = "Climb back down to ",
-		walkTo = "Walk to ", walkBack = "Walk back to ",
-		directions = {},
-	},
-	de = {
-		labels = { EXAMINE = "%s untersuchen", READ = "%s lesen", OPEN = "%s öffnen", TAKE = "%s nehmen" },
-		commands = { EXAMINE = "untersuch", READ = "lies", OPEN = "oeffn", TAKE = "nimm" },
-		-- The verb a menu speaks for an action the language spells several
-		-- ways ("benutz X fuer Y" and "leg X in Y" are both PUT).
-		spoken = { TAKE = "nimm", PUT = "leg" },
-		-- German nouns are capitalized: keep the story's spelling.
-		lower = false,
-		climbTo = "Hinauf zu ", climbBack = "Zurück hinauf zu ", downTo = "Hinunter zu ", downBack = "Zurück hinunter zu ",
-		walkTo = "Gehe zu ", walkBack = "Zurück zu ",
-		directions = { north = "nord", south = "sued", east = "ost", west = "west",
-			northeast = "nordost", northwest = "nordwest", southeast = "suedost", southwest = "suedwest",
-			up = "rauf", down = "runter", ["in"] = "hinein", out = "raus" },
-	},
+	labels = { EXAMINE = "Examine the %s", READ = "Read the %s", OPEN = "Open the %s", TAKE = "Take the %s" },
+	commands = { EXAMINE = "examine", READ = "read", OPEN = "open", TAKE = "take" },
+	climbTo = "Climb to ", climbBack = "Climb back to ", downTo = "Down to ", downBack = "Climb back down to ",
+	walkTo = "Walk to ", walkBack = "Walk back to ",
+	directions = {},
 }
 
-function fallback_text()
-	local name = tostring(zil_language or ""):lower()
-	if name == "russian" then return FALLBACK_TEXT.ru end
-	return FALLBACK_TEXT[(name == "german" or name == "de") and "de" or "en"]
-end
-
 local function companion_fallback_choices()
-	local say = fallback_text()
+	local say = FALLBACK_TEXT
 	if not HERE or not FIRSTQ or not GETP then return end
 
 	local direct = {}
@@ -693,7 +653,7 @@ local function companion_fallback_choices()
 
 		local words = {}
 		for word in item:gmatch("%S+") do
-			table.insert(words, say.lower and word:lower() or word)
+			table.insert(words, word:lower())
 		end
 		local item_name = table.concat(words, " ")
 		if item_name == "" then goto fallback_next end
@@ -738,7 +698,7 @@ local function companion_fallback_choices()
 			CHOICE(
 				"fallback.exit." .. companion_slug(dir_lower),
 				label,
-				say.directions[dir_lower] or dir_lower,
+				dir_lower,
 				CHOICE_RETURN,
 				30
 			)
@@ -845,18 +805,8 @@ local function companion_route_select(id)
 	return COMPANION_SELECT(id)
 end
 
--- Lowercase for input and vocabulary: ASCII plus the Latin-1 capitals
--- (À–Þ, U+00C0–U+00DE, but not ×), so "Öffne" finds the word öffne.
-local function lower_text(s)
-	return (s:lower():gsub("\195([\128-\158])", function(c)
-		if c == "\151" then return nil end
-		return "\195" .. string.char(c:byte() + 32)
-	end))
-end
-
 local function dictionary_key(word)
-	if zil_language == "RUSSIAN" then return Text.russianKey(word) end
-	return lower_text(word):sub(1, 6)
+	return Text.lower(word):sub(1, 6)
 end
 
 local function encode_fptr(n)
@@ -1294,10 +1244,6 @@ function RESTART()
 	error(ZIL_CONTROL_SIGNALS.restart, 0)
 end
 
-local function localized(text)
-	return story_messages and story_messages[text] or text
-end
-
 function TELL(...)
 	local object = false
 	local number = false
@@ -1323,7 +1269,7 @@ function TELL(...)
 					local desc = GETP(v, _G["PQDESC"]) or ""
 					-- A story marks people and other proper names with
 					-- ARTICLEBIT: "Ruth Bell", never "the Ruth Bell".
-					local named = zil_language == "RUSSIAN" or (rawget(_G, "ARTICLEBIT") and FSETQ(v, ARTICLEBIT))
+					local named = rawget(_G, "ARTICLEBIT") and FSETQ(v, ARTICLEBIT)
 					-- A plural noun marked with PLURALBIT ("cobwebs",
 					-- "copper pots") takes "some", never "a".
 					local plural = rawget(_G, "PLURALBIT") and FSETQ(v, PLURALBIT)
@@ -1344,9 +1290,9 @@ function TELL(...)
 			end
 		elseif number then number = false io_write(tostring(v))
 		elseif v == nil or v == false then -- FALSE expressions print nothing
-		elseif type(v) == "number" then io_write(localized(mem:string(v)))
+		elseif type(v) == "number" then io_write(mem:string(v))
 		elseif v == '>' then -- skip
-		else io_write(localized(tostring(v))) end
+		else io_write(tostring(v)) end
 	end
 	return true
 end
@@ -1479,12 +1425,6 @@ local function resolve_display_name(input)
 end
 
 -- Modified READ to yield with output
-local RUSSIAN_INPUT_WORDS = {
-	["да"] = "yes", ["нет"] = "no", ["потом"] = "then", ["и"] = "and",
-	["всё"] = "all", ["все"] = "all", ["снова"] = "again", ["повтори"] = "again",
-	["начать"] = "restart", ["загрузить"] = "restore", ["выйти"] = "quit",
-}
-
 function READ(inbuf, parse, nameLimit)
 	remember_room()
 	-- for k, v in pairs(_G) do
@@ -1511,12 +1451,6 @@ function READ(inbuf, parse, nameLimit)
 		mem:write(s:sub(1, stop - 1) .. '\0', inbuf)
 		return 2
 	end
-	if zil_language == "RUSSIAN" then
-		s = Text.lower(s):gsub("^(%s*[^%s]+)%s+на%s+", function(verb)
-			local word = verb:match("%S+")
-			if word == "иди" or word == "идти" or word == "пойти" then return verb .. " " end
-		end):gsub("[%s%.!?]+$", "")
-	end
 	if type(s) == "string" then
 		local command, refusal = retrace(s)
 		if not command then
@@ -1535,8 +1469,7 @@ function READ(inbuf, parse, nameLimit)
 		while cut > 0 and (s:byte(cut + 1) or 0) >= 0x80 and (s:byte(cut + 1) or 0) < 0xC0 do cut = cut - 1 end
 		s = s:sub(1, cut)
 	end
-	-- Like the Z-machine, the story's break characters (SIBREAKS: . , " and,
-	-- in German, « ») are words of their own, so "kit, follow me" addresses
+	-- Like the Z-machine, the story's break characters (SIBREAKS: . , ") are words of their own, so "kit, follow me" addresses
 	-- Kit and "look. take lamp" is two commands.
 	local breaks = {}
 	for ch in tostring(rawget(_G, "SIBREAKS") or ".,\""):gmatch(UTF8_CHAR) do breaks[ch] = true end
@@ -1562,9 +1495,8 @@ function READ(inbuf, parse, nameLimit)
 	for _, token in ipairs(tokens) do
 		local pos, word = token[1], token[2]
 		-- Z-machine truncates dictionary words to 6 characters
-		local normalized = Text.lower(lower_text(word))
-		local inputWord = zil_language == "RUSSIAN" and RUSSIAN_INPUT_WORDS[normalized] or word
-		local truncated = dictionary_key(inputWord)
+		local normalized = Text.lower(word)
+		local truncated = dictionary_key(word)
 		local exact_spec = cache.exact_words[normalized]
 		local exact_target
 		if type(exact_spec) == "table" then
@@ -1579,7 +1511,7 @@ function READ(inbuf, parse, nameLimit)
 		if stem then index = cache.words[dictionary_key(stem)] or 0 end
 		table.insert(p, makeword(index).. string.char(#word, pos&0xff))
 	end
-	mem:write(Text.lower(lower_text(s))..'\0', inbuf+1)
+	mem:write(Text.lower(s)..'\0', inbuf+1)
 	mem:write(string.char(#p)..table.concat(p), parse+1)
 end
 
@@ -1759,7 +1691,7 @@ learn = function(word, atom, value)
 		[PSQBUZZ_WORD]=P1QNONE,
 	}
 	if not word then return 0 end
-	word = lower_text(word)
+	word = Text.lower(word)
 	-- Z-machine truncates dictionary words to 6 characters
 	local word_key = dictionary_key(word)
 	if type(value) == 'table' then
@@ -2001,11 +1933,8 @@ local function sorted_keys(tbl)
 	return keys
 end
 
--- Several declarations of one object merge into one (see "Editions" in
--- docs/RPG-SYSTEMS.md): a logic file gives location, flags and ACTION, an
--- edition file its words.  The merged source table is kept per object number
--- and the property table is rebuilt whenever a declaration arrives.  Object
--- numbers come from DECL_OBJECT (first declaration), so they never change.
+-- Multiple declarations of an object merge its fields and rebuild its
+-- property table. Its first declaration assigns the object number.
 local merged_objects = {}
 local linked_parent = {}
 local UNION_PROPERTIES = {FLAGS = true, SYNONYM = true, ADJECTIVE = true}
@@ -2084,7 +2013,7 @@ function build_object(object, declaration)
 	local n = _G[object_name]
 	if object.SYNONYM and object.SYNONYM[1] then
 		local noun = Text.lower(object.SYNONYM[1])
-		local adjective = zil_language ~= "RUSSIAN" and object.ADJECTIVE and Text.lower(object.ADJECTIVE[1])
+		local adjective = object.ADJECTIVE and Text.lower(object.ADJECTIVE[1])
 		object_phrases[n] = adjective and adjective ~= noun and adjective .. " " .. noun or noun
 		if object.DESC then
 			local name = object.DESC:lower()
@@ -2208,7 +2137,7 @@ function build_object(object, declaration)
 	mem:write(makeword(tbl_addr), _OTBL + (n-1)*2)
 	-- Initial object trees retain declaration order. Runtime MOVE uses the
 	-- Z-machine rule of inserting the object at the head of its new parent.
-	-- A later declaration may supply the location (an edition file loaded
+	-- A later declaration may supply the location (an object detail file loaded
 	-- before the logic); the object then joins its parent's children in
 	-- object-number order, which is declaration order.
 	local parent = LOC(n)
@@ -2482,7 +2411,7 @@ function SYNTAX(syn)
 			action
 		)
 	end
-	-- A verb's syntax lines may come from several files (a language's world
+	-- A verb's syntax lines may come from several files (the shared world
 	-- verbs, then a ruleset's), so its block grows: when it is full it moves
 	-- to a larger block instead of writing over the next allocation.
 	local bytecode = encode(syn)
@@ -2755,17 +2684,9 @@ local function try_open(path)
 	return nil, nil
 end
 
--- <LANGUAGE name> in effect for files inserted after it (see charsets.lua);
--- declared with the companion labels, which speak it.
-
 -- This game's compile session: macros and TELL tokens one file defines reach
 -- the files it inserts, and never another game loaded in the same process.
 ZIL_COMPILE_SESSION = require("zilscript.compiler").newSession()
-
-function LANGUAGE(name)
-	zil_language = name
-	story_messages = name == "RUSSIAN" and require("zilscript.russian_messages") or nil
-end
 
 -- INSERT_FILE loads and executes a ZIL file
 -- This is used by INSERT-FILE directive to include other files
@@ -2835,7 +2756,7 @@ function INSERT_FILE(filename, source_filename)
 	local compiler = require 'zilscript.compiler'
 	local sourcemap = require 'zilscript.sourcemap'
 	
-	local ok, ast = pcall(parser.parse, content, filepath, { language = zil_language })
+	local ok, ast = pcall(parser.parse, content, filepath)
 	if not ok then
 		error(string.format("%s: Failed to parse: %s", filepath, ast))
 	end

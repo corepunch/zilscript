@@ -91,7 +91,7 @@ The walkthrough grows with the game. At every commit-sized milestone, all implem
 
 **These caused broken games. Read before implementing.**
 
-1. **No `<SYNTAX ...>` in dungeon.zil and no redefinition of standard syntax** — standard SYNTAX comes from the language and ruleset (`languages/en/syntax.zil`, `rulesets/classic/en-syntax.zil`). A genuinely new verb may add one narrow declaration in `actions.zil`.
+1. **No `<SYNTAX ...>` in dungeon.zil and no redefinition of standard syntax** — standard SYNTAX comes from the shared world and ruleset (`world/syntax.zil`, `rulesets/classic/syntax.zil`). A genuinely new verb may add one narrow declaration in `actions.zil`.
 2. **No `<ROUTINE V-LOOK ...>` in actions.zil** — V-LOOK comes from substrate. Redefining it breaks room descriptions.
 3. **Room descriptions use `P?LDESC` not `P?DESC`** — `P?DESC` is the room name, `P?LDESC` is the full description.
 4. **Every `<TELL>` must close with `>`** — unclosed TELL swallows subsequent code.

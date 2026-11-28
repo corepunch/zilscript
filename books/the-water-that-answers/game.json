@@ -1,0 +1,15 @@
+{
+  "id": "books.the-water-that-answers",
+  "title": "The Water That Answers",
+  "shortDescription": "One night shift, one impossible recording, three ways to read the evidence.",
+  "description": "A night operator calls for help from a pump station that has been empty for nineteen years. Choose a doctor, a reporter or a mechanic, then find out why the station's outgoing line still carries a voice. A short investigative horror RPG.",
+  "author": "AdventureArena",
+  "year": 2026,
+  "rating": 0,
+  "reviewCount": 0,
+  "startFile": "the-water-that-answers.zil",
+  "ruleset": "investigator-percentile",
+  "reviews": [],
+  "genre": "Horror RPG",
+  "statusLine": "moves"
+}

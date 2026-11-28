@@ -4234,7 +4234,7 @@ here is too friendly anyhow. Gulp!" CR>)>>
 
 "SUBTITLE ZORK I'S OWN WORLD RULES"
 
-;"Zork I replaces these world routines of languages/en with its own: the
+;"Zork I replaces these world routines of world with its own: the
   rules here name its rooms and objects, which the shared world never does."
 
 ;"Reaching 350 points reveals the map to the barrow."

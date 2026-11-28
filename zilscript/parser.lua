@@ -1,5 +1,4 @@
 local evaluate = require "zilscript.evaluate"
-local Charsets = require "zilscript.charsets"
 
 local ZIL = {}
 
@@ -84,10 +83,7 @@ local function string_stream(str, filename)
 end
 
 -- Parser implementation
--- options.language names the <LANGUAGE> already in effect when this file is
--- inserted; a <LANGUAGE> form in the file switches it for the forms after it.
-function ZIL.parser(stream_or_string, filename, options)
-  local state = { charset = Charsets.find(options and options.language) }
+function ZIL.parser(stream_or_string, filename)
   local stream = type(stream_or_string) == "string" 
     and string_stream(stream_or_string, filename)
     or stream_or_string
@@ -123,17 +119,9 @@ function ZIL.parser(stream_or_string, filename, options)
           table.insert(chars, stream.getchar())
         end
       elseif ch == "\\" then
-        -- A backslash makes the next character part of the atom. Under a
-        -- <LANGUAGE> charset, \%X is an escaped letter (VERLA\%S, \%\<).
         stream.getchar()
         local quoted = stream.getchar()
-        if quoted == "%" and state.charset and not stream.at_end() then
-          local letter = stream.getchar()
-          if letter == "\\" and not stream.at_end() then letter = stream.getchar() end
-          table.insert(chars, state.charset.atoms[letter] or ("%" .. letter))
-        elseif quoted then
-          table.insert(chars, quoted)
-        end
+        if quoted then table.insert(chars, quoted) end
       else
         table.insert(chars, stream.getchar())
       end
@@ -316,7 +304,6 @@ function ZIL.parser(stream_or_string, filename, options)
     
     if stream.peek() == '"' then stream.getchar() end
     local text = table.concat(chars)
-    if state.charset then text = Charsets.decodeString(state.charset, text) end
     return String(text, src)
   end
   
@@ -345,9 +332,6 @@ function ZIL.parser(stream_or_string, filename, options)
   -- Return iterator function
   return function()
     local ok, form = pcall(parse_form)
-    if ok and type(form) == "table" and form.type == "expr" and form.name == "LANGUAGE" and form[1] then
-      state.charset = Charsets.find(form[1].value)
-    end
     if ok and (form or form == false) then
       return true, form
     elseif not ok then
@@ -358,9 +342,9 @@ function ZIL.parser(stream_or_string, filename, options)
 end
 
 -- Convenience functions
-function ZIL.parse(input, filename, options)
+function ZIL.parse(input, filename)
   local root = List({line = 1, col = 0, file = filename})
-  local parse_iter = ZIL.parser(input, filename, options)
+  local parse_iter = ZIL.parser(input, filename)
   
   for ok, form in parse_iter do
     if ok and form then
@@ -382,7 +366,7 @@ function ZIL.parse_file(filename, options)
   local content = file:read("*all")
   file:close()
   
-  return ZIL.parse(content, filename, options)
+  return ZIL.parse(content, filename)
 end
 
 -- Pretty printer

@@ -1,6 +1,6 @@
 # Architecture Overview
 
-For the staged extraction of reusable ZIL adventure modules, languages and RPG rules, see [Adventure packages](docs/ADVENTURE-PACKAGES.md).
+For the staged extraction of reusable ZIL adventure modules and RPG rules, see [Adventure packages](docs/ADVENTURE-PACKAGES.md).
 
 This repository is a Lua implementation of a ZIL toolchain and runtime for Infocom-style text adventures. It has two main responsibilities:
 
@@ -122,16 +122,16 @@ The repository contains both engine code and adventure content.
 
 ### Adventure content
 
-- [books/en](books/en), [books/de](books/de) and [books/ru](books/ru) are independent title catalogs. Each game's entry file loads its ruleset or substrate before the local world and actions.
-- The English books use explicit packages in [rulesets](rulesets), [languages](languages), and [core](core).
-- The localized German books load the adapted substrate in [infocom/zork1-de/books.zil](infocom/zork1-de/books.zil).
-- [infocom](infocom) holds the imported games and their tests.
-- [Blackwood Horror](books/en/blackwood-horror/blackwood-horror.zil) loads the [horror ruleset](rulesets/horror/en.zil). The [cold exposure routine](rulesets/horror/exposure.zil) handles accumulation, staged warnings, recovery and the fatal threshold. The book schedules exposure checks and supplies room conditions, thresholds and localized messages.
-
-Edition IDs include the catalog language, so a save from one edition belongs
-to that edition even when two books have the same slug. See
-[Localizing Adventure Arena books](docs/LOCALIZING_BOOKS.md) for the source
-differences and the conversion workflow.
+- [books](books) holds the original adventures. Each book loads its ruleset
+  before its own rooms and actions, and carries its catalog ID in `game.json`.
+- [rulesets](rulesets), [world](world), and [core](core) provide reusable
+  mechanics and commands.
+- [infocom](infocom) holds imported games and their tests.
+- [Blackwood Horror](books/blackwood-horror/blackwood-horror.zil) loads the
+  [horror ruleset](rulesets/horror/init.zil). The
+  [cold exposure routine](rulesets/horror/exposure.zil) handles accumulation,
+  warnings, recovery, and the fatal threshold. The book supplies conditions,
+  thresholds, and the warning text.
 
 ## Testing Architecture
 

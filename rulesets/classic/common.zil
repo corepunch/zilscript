@@ -1,7 +1,4 @@
-;"Classic rules without text, shared by every language: death and treasure
-  counting, spraying, and verbs whose code is the same in English and German.
-  Rules with player-facing text are in rulesets/classic/<language>-verbs.zil.
-  (c) Copyright 1983 Infocom, Inc. See LICENSE-ZORK-MIT."
+;"Death, treasure counting and other classic rules."
 
 <GLOBAL HS 0> ;"counts occurences of HELLO, SAILOR"
 

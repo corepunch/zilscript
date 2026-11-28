@@ -1,11 +1,11 @@
 ;"The RPG kernel against a toy d20 system (tests/fixtures/rpg/toy-d20.zil):
   characters, resources, dice, checks, archetypes, the sheet and the hero's
-  name, with the system's numbers and the language's words supplied by the
+  name, with the system's numbers and the system's words supplied by the
   test. Nothing here names the superhero system."
 <INSERT-FILE "rulesets.rpg.kernel">
 <INSERT-FILE "tests.fixtures.rpg.toy-d20">
 
-;"The words a language supplies, recorded rather than printed."
+;"The words a system supplies, recorded rather than printed."
 <GLOBAL REPORTED-TIER -1>
 <GLOBAL REPORTED-DIFFICULTY -1>
 <ROUTINE CHECK-TERMS (TBL ATTR DIFFICULTY) <SETG REPORTED-DIFFICULTY .DIFFICULTY>>
@@ -60,9 +60,9 @@
  <ASSERT "no dice roll nothing" <==? <ROLL 0 6> 0>>
  <ASSERT "d1 is always one" <==? <ROLL 4 1> 4>>
 
- ;"Checks: the system rolls and grades, the language reports, the tier decides"
+ ;"Checks: the system rolls and grades, the system reports, the tier decides"
  <ASSERT "a check below the difficulty fails" <NOT <CHECK ,HERO ,A-MIGHT 99 1>>>
-  <ASSERT "the check records the tier for the language" <==? ,REPORTED-TIER ,LAST-TIER>>
+  <ASSERT "the check records the tier for the report" <==? ,REPORTED-TIER ,LAST-TIER>>
  <ASSERT "the check passes the difficulty to the report" <==? ,REPORTED-DIFFICULTY 99>>
  <ASSERT "the roll is a d20" <AND <NOT <L? ,LAST-ROLL 1>> <NOT <G? ,LAST-ROLL 20>>>>
  <ASSERT "a check an easy difficulty passes succeeds" <CHECK ,HERO ,A-MIGHT 1 1>>
@@ -83,7 +83,7 @@
  <ASSERT "a resource at NO-LIMIT has none" <NOT <CEILING? ,HERO ,A-MANA>>>
  <ASSERT "gain on an unbounded resource is not capped" <==? <GAIN ,HERO ,A-MANA 500> 0>>
 
- ;"The sheet and the status line come from the system's layouts and the language's names"
+ ;"The sheet and the status line come from the system's layouts and the system's names"
  <SET-STAT ,HERO ,A-HP 12>
  <PRINT-SHEET ,HERO>
  <PRINT-STATUS ,HERO>

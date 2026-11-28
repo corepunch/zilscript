@@ -3,7 +3,7 @@
 --
 -- Usage:
 --   lua scripts/check-vocab.lua <file.zil> [file2.zil ...]
---   lua scripts/check-vocab.lua books/en/limehouse-killings/dungeon.zil
+--   lua scripts/check-vocab.lua books/limehouse-killings/dungeon.zil
 --
 -- What it checks:
 --   CRITICAL: Player-addressable objects have a DESC.
@@ -18,18 +18,7 @@
 -- and made the repository's own lint target unusable.
 
 package.path = "./?.lua;./?/init.lua;" .. package.path
-local Language = require("zilscript.reader.Language")
 local Text = require("zilscript.text")
-
--- The story language (game.json) decides how source escapes read: German
--- writes T\%UR for Tür. Words compare in one folded form, so DESC "Tür",
--- SYNONYM TUER and SYNONYM T\%UR all name the same noun.
-local lang = Language.of(nil)
-local FOLD = { ["ä"] = "ae", ["ö"] = "oe", ["ü"] = "ue", ["ß"] = "ss", ["Ä"] = "ae", ["Ö"] = "oe", ["Ü"] = "ue" }
-local function fold(word)
-    word = Language.word(lang, word):gsub("[\195][\128-\191]", function(c) return FOLD[c] or c end)
-    return Text.lower(word)
-end
 
 -- ============================================================
 -- Parse ZIL OBJECT definitions
@@ -85,7 +74,7 @@ local function parse_zil_objects(content)
                     if words_str then
                         local words = {}
                         for w in words_str:gmatch("(%S+)") do
-                            table.insert(words, fold(w))
+                            table.insert(words, Text.lower(w))
                         end
                         return words
                     end
@@ -139,7 +128,7 @@ local function tokenize_desc(text)
     for w in cleaned:gmatch("%S+") do
         local clean = w:match("^[%p]*(.-)[%p]*$")
         if clean and #clean > 0 then
-            table.insert(words, fold(clean))
+            table.insert(words, Text.lower(clean))
         end
     end
     return words
@@ -259,7 +248,6 @@ local function main()
         end
         local content = f:read("*a")
         f:close()
-        lang = Language.ofBook(filepath)
 
         local objects = parse_zil_objects(content)
         local file_issues = {}

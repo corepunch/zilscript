@@ -18,7 +18,7 @@
 
 ;"Substrate"
 
-<INSERT-FILE "rulesets.classic.en">
+<INSERT-FILE "rulesets.classic.init">
 
 ;"Script"
 

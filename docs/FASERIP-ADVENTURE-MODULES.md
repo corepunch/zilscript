@@ -92,8 +92,8 @@ lever needs no further roll. The guarded technical option previews its
 required FEAT tier. Both successful routes converge on the same ending;
 they do not preserve an evidence outcome or an independent rescue-method
 flag. The kit is single-use and can exchange Karma for recovery. Compare [setup and sheet
-export](../books/shared/blackout-at-meridian/rules.zil), [encounter
-logic](../books/shared/blackout-at-meridian/logic.zil), and [edition and
+export](../books/blackout-at-meridian/rules.zil), [encounter
+logic](../books/blackout-at-meridian/logic.zil), and [objects and
 ruleset boundaries](RPG-SYSTEMS.md).
 
 This resembles the chapter structure of *After Midnight* and *Kang*:
@@ -110,7 +110,7 @@ licensed setting material.
    Record a stable ID, entry prerequisites, first-view clues, supported
    approaches, ability/power and difficulty per approach, result tiers,
    one-time rewards, state changes, alternate exits and debrief flags. Keep
-   localized prose independent of this state. Don't make players see internal
+   prose independent of this state. Don't make players see internal
    notes.
 2. **Prototype one fail-forward beat, not another rules engine.** If the
    bridge attempt fails, change the situation and expose a clue or safer
@@ -131,7 +131,7 @@ licensed setting material.
 An acceptance test for the first aligned encounter: each profile can finish
 the primary route and at least one bad-roll route; the reader's visible
 choices explain the changed situation; retries cannot farm rewards; and
-save/reload plus EN/DE/RU replays preserve the same outcomes. This is a design
+save/reload and seeded replays preserve the same outcomes. This is a design
 recommendation, not a claim that the mission already implements these changes.
 
 
@@ -172,8 +172,7 @@ new scene or rule:
 ### Ownership
 
 - **Book:** cue, authored approaches, NPC reactions, evidence, outcomes,
-  reward conditions, and debrief. Share the logic across EN/DE/RU; localize
-  prose and command aliases in the editions.
+  reward conditions, and debrief. Keep prose and command aliases with the story.
 - **Ruleset:** FEATs, stat labels and resource arithmetic. Do not hard-code
   this mission's evidence or contacts into FASERIP.
 - **Reader:** accept typed commands. The reader should not invent or award outcomes.
@@ -187,7 +186,7 @@ new scene or rule:
 | First rescue fails | Immediate consequence and new option are visible; player can advance without repeating the same roll. Merely inspecting the scene does not reroll or change the rescue state. |
 | Assisted rescue succeeds | Same primary objective completed, different recorded method. Repeating it the action cannot farm the rescue reward. |
 | Relay defeated by either approach, record found or missed | Each route can win; debrief truthfully reflects the independent evidence result. |
-| Resume after setback and before debrief | Same outcomes and available actions in EN/DE/RU; old saves are either reproduced or explicitly migrated. They must not silently replay into a new outcome. |
+| Resume after setback and before debrief | Reloading the same run on the same build preserves outcomes and actions. |
 
 ## Parent-and-child test before expanding
 

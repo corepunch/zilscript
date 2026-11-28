@@ -47,6 +47,6 @@ for distinguishing the consequences of a shock roll. The scenario, prose and
 Composure design here are original. No Infocom source is imported by the book.
 
 ```sh
-lua5.4 main.lua --companion books.en.the-water-that-answers.the-water-that-answers
-lua5.4 books/en/the-water-that-answers/test/test_walkthrough_investigation.lua
+lua5.4 main.lua --companion books.the-water-that-answers.the-water-that-answers
+lua5.4 books/the-water-that-answers/test/test_walkthrough_investigation.lua
 ```

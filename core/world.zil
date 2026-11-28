@@ -1,7 +1,4 @@
-;"The world every adventure shares, whatever its rules or language: the exit
-  table layout and DO-WALK, room and object description state, verbosity,
-  moves, and the verb code identical in every language.
-  (c) Copyright 1983 Infocom, Inc. See LICENSE-ZORK-MIT."
+;"Shared movement, room state, scoring and verb routines."
 
 <GLOBAL VERBOSE <>>
 

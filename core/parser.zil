@@ -1,8 +1,4 @@
-;"Language-neutral parser state, tables and helpers shared by every language
-  package, extracted unchanged from the identical English and German sources.
-  Each language parser inserts this file first and supplies its own PARSER,
-  CLAUSE, GWIM, ORPHAN-MERGE, part-of-speech offsets and printing routines.
-  (c) Copyright 1983 Infocom, Inc. See LICENSE-ZORK-MIT."
+;"Parser state, dictionary layout and shared helpers."
 
 <GLOBAL HERE 0>
 
@@ -93,7 +89,7 @@
 <CONSTANT P-WORDLEN 4> ;"Offset to parts of speech byte"
 
 ;"The runtime's dictionary entries are the version 3 layout: four bytes of
-  word, then the part-of-speech byte and two values. Every language reads
+  word, then the part-of-speech byte and two values. The parser reads
   them through these offsets."
 <CONSTANT P-PSOFF 4> ;"Offset to first part of speech"
 <CONSTANT P-P1OFF 5> ;"First part of speech bit mask in PSOFF byte"

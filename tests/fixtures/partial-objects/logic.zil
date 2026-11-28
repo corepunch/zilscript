@@ -1,5 +1,3 @@
-;"Logic of the partial-objects story: location, flags and ACTION only. Each
-  edition declares the same objects again with its words."
 <ROOM CELLAR (IN ROOMS) (FLAGS RLANDBIT ONBIT)>
 <ROOM YARD (IN ROOMS) (FLAGS RLANDBIT ONBIT)>
 <OBJECT LAMP (IN CELLAR) (FLAGS TAKEBIT) (ACTION LAMP-F)>

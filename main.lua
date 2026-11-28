@@ -52,7 +52,7 @@ while i <= #arg do
 end
 
 local story_module = options.story_module or "infocom.zork1.zork1"
-local companion_words = require("zilscript.reader.Language").ofBook(story_module).companion
+local companion_words = require("zilscript.reader.Prompts").companion
 
 -- Create game environment
 local env = runtime.create_game_env()
