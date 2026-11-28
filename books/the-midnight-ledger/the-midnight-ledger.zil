@@ -1,0 +1,12 @@
+"The Midnight Ledger"
+<CONSTANT RELEASEID 1>
+<VERSION ZIP>
+<FREQUENT-WORDS?>
+<PROPDEF SIZE 5>
+<PROPDEF CAPACITY 0>
+<PROPDEF VALUE 0>
+<PROPDEF TVALUE 0>
+<INSERT-FILE "rulesets.classic.init">
+<INSERT-FILE "actions">
+<INSERT-FILE "dungeon">
+<INSERT-FILE "companion">

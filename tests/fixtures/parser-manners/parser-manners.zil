@@ -6,7 +6,7 @@
 <PROPDEF VALUE 0>
 <PROPDEF TVALUE 0>
 <DIRECTIONS NORTH SOUTH>
-<INSERT-FILE "rulesets.classic.en">
+<INSERT-FILE "rulesets.classic.init">
 
 <ROUTINE V-VERSION () <TELL "Parser manners" CR>>
 

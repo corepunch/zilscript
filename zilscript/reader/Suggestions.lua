@@ -1,11 +1,12 @@
 local Text = require((...):match("^(.*)%.reader%.Suggestions$") .. ".text")
 -- Command completion and vocabulary from the running story.
-local namespace = (...):match("^(.*)%.Suggestions$")
-local Language = require(namespace .. ".Language")
+local Prompts = require((...):match("^(.*)%.Suggestions$") .. ".Prompts")
 
 local Suggestions = {}
 
 local LIMIT = 3
+local VERBS, VERB_RANK = Prompts.verbs, {}
+for i, verb in ipairs(VERBS) do VERB_RANK[verb] = i end
 
 local DIRECTIONS = {
 	"north", "south", "east", "west", "northeast", "northwest",
@@ -72,10 +73,7 @@ function Suggestions.inHand(item, pattern)
 		or (pattern.take and item.traits ~= nil and item.traits.pickable) or false
 end
 
--- `language` is a Language table (English when omitted).
-function Suggestions.singleObjectVerbs(item, language)
-	language = Language.of(language)
-	local VERB_RANK, VERBS = language.rank, language.verbs
+function Suggestions.singleObjectVerbs(item)
 	local verbs = {}
 	if item.patterns then
 		local seen = {}
@@ -94,7 +92,7 @@ function Suggestions.singleObjectVerbs(item, language)
 		return names
 	end
 	for index, verb in ipairs(item.verbs or {}) do
-		if not language.needsSecond[verb] then
+		if not Prompts.needsSecond[verb] then
 			table.insert(verbs, { verb = verb, rank = VERB_RANK[verb] or (#VERBS + index) })
 		end
 	end
@@ -121,13 +119,11 @@ end
 
 -- Walk the grammatical slots of a single available command against the
 -- draft. A slot may be an entire noun phrase, such as "brass key".
-function Suggestions.forInput(input, items, visit, language)
-	language = Language.of(language)
-	local VERB_RANK = language.rank
+function Suggestions.forInput(input, items, visit)
 	local draft = Text.lower(input):gsub("^%s+", ""):gsub("%s+", " ")
 	local choices, seen, counts = {}, {}, nounCounts(items)
 	local function offer(verb, first, join, second)
-		if verb == language.take and first and first.traits and first.traits.takeable == false then return end
+		if verb == Prompts.take and first and first.traits and first.traits.takeable == false then return end
 		local rest = draft
 		local function match(slot)
 			local name, short

@@ -10,7 +10,7 @@ local function enter(walk, room)
 end
 
 local function book(name)
-	return Walk.new("books.en." .. name .. "." .. name)
+	return Walk.new("books." .. name .. "." .. name)
 end
 
 local function expect(text, fragment)

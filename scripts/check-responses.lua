@@ -2,7 +2,7 @@
 -- check-responses.lua: Every command gets an answer, and every visit a room.
 --
 -- Usage:
---   lua5.4 scripts/check-responses.lua books/en/blackwood-horror
+--   lua5.4 scripts/check-responses.lua books/blackwood-horror
 --
 -- A reader who types a command and sees nothing believes the app is broken.
 -- Two story defects produce that silence:
@@ -21,9 +21,8 @@ package.path = "./?.lua;./?/init.lua;" .. package.path
 local runtime = require("zilscript.runtime")
 
 local Text = require("zilscript.text")
-local Language = require("zilscript.reader.Language")
+local Prompts = require("zilscript.reader.Prompts")
 local Story = require("zilscript.reader.Story")
-local lang -- the story's language, from its game.json
 
 local function new_game(story)
 	local env = runtime.create_game_env()
@@ -50,7 +49,7 @@ local function nouns(story)
 		if noun then
 			table.insert(list, {
 				name = name,
-				words = Text.lower(Language.word(lang, (adjective and adjective .. " " or "") .. noun)),
+				words = Text.lower((adjective and adjective .. " " or "") .. noun),
 			})
 		end
 	end
@@ -70,7 +69,6 @@ end
 
 local problems, checked = 0, 0
 for _, story in ipairs({ ... }) do
-	lang = Story.of(story).language
 	local env, game = new_game(story)
 	if not env.VERBOSE then
 		problems = problems + 1
@@ -80,7 +78,7 @@ for _, story in ipairs({ ... }) do
 		local object = env[entry.name:gsub("%-", "_")]
 		local room = object and room_of(env, object)
 		if room then
-			for _, verb in ipairs(lang.probes) do
+			for _, verb in ipairs(Prompts.probes) do
 				env.MOVE(env.WINNER, room)
 				env.HERE = room
 				env.LIT = true
@@ -90,8 +88,8 @@ for _, story in ipairs({ ... }) do
 				if not reply:find("%S") then
 					problems = problems + 1
 					print(string.format("%s: %s: %q printed nothing", story, entry.name, command))
-				elseif reply:find(lang.ended, 1, true) then
-					game:resume(lang.restart)
+				elseif reply:find(Prompts.ended, 1, true) then
+					game:resume(Prompts.restart)
 				end
 			end
 		end

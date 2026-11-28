@@ -6,7 +6,7 @@
 <PROPDEF VALUE 0>
 <PROPDEF TVALUE 0>
 <DIRECTIONS NORTH EAST WEST SOUTH NE NW SE SW UP DOWN IN OUT LAND>
-<INSERT-FILE "rulesets.classic.en">
+<INSERT-FILE "rulesets.classic.init">
 <INSERT-FILE "logic" T>
 <OBJECT LAMP (DESC "brass lamp") (SYNONYM LAMP)>
 <OBJECT LAMP (DESC "iron lamp")>

@@ -1,6 +1,6 @@
 ;"Escalating cold exposure, inspired by The Lurking Horror's blizzard.
    Call once per exposure tick. The book owns the clock schedule and supplies
-   an LTABLE of (turn, text) tables, a fatal threshold and localized prose.
+   an LTABLE of (turn, text) tables, a fatal threshold and story prose.
    Return true only for player-visible events so WAIT can continue on quiet ticks."
 <GLOBAL COLD-EXPOSURE 0>
 

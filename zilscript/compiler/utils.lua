@@ -16,7 +16,7 @@ function Utils.digitsToLetters(str)
   end)
 end
 
--- Lua names are ASCII: each byte of a UTF-8 character (a German atom such
+-- Lua names are ASCII: each byte of a UTF-8 character (a non-ASCII atom such
 -- as W?HÄNDE) becomes _XX. The runtime names dictionary globals the same way.
 function Utils.asciiName(str)
   return (str:gsub("[\128-\255]", function(c) return string.format("_%02X", c:byte()) end))

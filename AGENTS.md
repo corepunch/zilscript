@@ -56,15 +56,13 @@ authoritative workflow is
 and authoring format are specified in
 [Companion ZIL Files](docs/COMPANION-ZIL.md).
 
-## Core, languages and rulesets
+## Core, world and rulesets
 
-A story imports one ruleset (`rulesets.classic.en`, `rulesets.superhero.en`),
-which composes over its language's base (`languages/<lang>/base.zil`), which
-stands on `core/` ([Adventure packages](docs/ADVENTURE-PACKAGES.md)). Core and
-languages never name a story's rooms or objects, and a ruleset never imports
-another ruleset. A form identical in two languages belongs in `core/`;
-`tests/test_adventure_packages.lua` enforces these rules. Before changing a
-language package or adding one, read [Language packages](docs/LANGUAGE-PACKAGES.md).
+Stories import a ruleset such as `rulesets.classic.init` or
+`rulesets.superhero.init`. A ruleset loads the shared world in
+`world/base.zil`, which uses the engine routines in `core/`. Keep rooms and
+objects specific to a story in its own folder. See
+[Adventure packages](docs/ADVENTURE-PACKAGES.md) for the package boundaries.
 
 ## Illustrating Adventures
 

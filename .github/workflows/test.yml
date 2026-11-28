@@ -27,9 +27,6 @@ jobs:
     - name: Verify independent adventure packages
       run: make test-adventure-packages
 
-    - name: Play the German Zork I opening on the German language package
-      run: lua5.4 tests/test_german_zork.lua
-
     - name: Run RPG kernel and superhero system assertions
       run: |
         lua5.4 run-zil-test.lua tests/test-rpg-kernel
@@ -50,13 +47,13 @@ jobs:
       run: lua5.4 run-zil-test.lua infocom/zork1/test/zork1-walkthrough
 
     - name: Run Horror walkthrough tests
-      run: lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-walkthrough
+      run: lua5.4 run-zil-test.lua books/blackwood-horror/test/test-walkthrough
 
     - name: Run horror failing conditions tests
-      run: lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-failures
+      run: lua5.4 run-zil-test.lua books/blackwood-horror/test/test-failures
 
     - name: Run horror test helpers
-      run: lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-helpers
+      run: lua5.4 run-zil-test.lua books/blackwood-horror/test/test-helpers
 
     - name: Run parser/runtime tests - simple assertions
       run: lua5.4 run-zil-test.lua zil/test-simple-new

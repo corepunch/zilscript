@@ -4,8 +4,8 @@
 <INSERT-FILE "core.clock">
 <INSERT-FILE "infocom/zork1/parser">
 <INSERT-FILE "infocom/zork1/verbs">
-<INSERT-FILE "languages.en.syntax">
-<INSERT-FILE "rulesets.classic.en-syntax">
+<INSERT-FILE "world.syntax">
+<INSERT-FILE "rulesets.classic.syntax">
 <INSERT-FILE "infocom/zork1/main">
 
 <CONSTANT RELEASEID 1>

@@ -1,70 +1,35 @@
--- Where a story's files are, for the lint scripts and the vocabulary tests.
---
--- A story folder is books/<lang>/<book> and holds a game.json. Most books are
--- that one folder (dungeon.zil, actions.zil, <book>.zil). A book with
--- editions keeps its logic once in books/shared/<book> (logic.zil, rules.zil)
--- and each language's words in its own folder (books/<lang>/<book>/<lang>.zil,
--- beside the edition's entry file and game.json).
-local Language = require("zilscript.reader.Language")
-
+-- Resolve a story entry point and the sources used by the lint tools.
 local Story = {}
 
-local function exists(path)
-	local file = io.open(path, "r")
-	if not file then return false end
-	local _, err = file:read(0)
-	file:close()
-	return err == nil
-end
-
-local function listing(dir, depth)
-	local files = {}
-	local pipe = io.popen(string.format('find "%s" -maxdepth %d -name "*.zil" -not -path "*/test/*" 2>/dev/null', dir, depth))
-	for line in pipe:lines() do table.insert(files, line) end
-	pipe:close()
-	table.sort(files)
-	return files
-end
-
-local function read(path)
-	local file = io.open(path, "r")
-	if not file then return nil end
-	local body = file:read("*a")
-	file:close()
-	return body
-end
-
--- `path` is a story folder such as books/en/wondertown. Returns
--- { dir, module, language, edition, words, sources, declarations }: `words`
--- the files that declare objects with their words, `sources` every file
--- whose prose and vocabulary the story's player sees, `declarations` the
--- files the vocabulary tests read objects from.
 function Story.of(path, root)
 	root = root or "."
-	local dir = tostring(path):gsub("/$", "")
-	local json = read(root .. "/" .. dir .. "/game.json") or ""
+	local dir = path:gsub("/$", "")
+	local manifest = io.open(root .. "/" .. dir .. "/game.json", "r")
+	local json = ""
+	if manifest then
+		json = manifest:read("a")
+		manifest:close()
+	end
 	local start = json:match('"startFile"%s*:%s*"([^"]*)"') or (dir:match("([^/]+)$") .. ".zil")
-	local language = Language.ofBook(dir)
-	local story = { dir = dir, language = language, module = dir:gsub("/", ".") .. "." .. start:gsub("%.zil$", "") }
-	local book = dir:match("^books/%a%a/([^/]+)$")
-	local shared = book and ("books/shared/" .. book)
-	if shared and exists(root .. "/" .. shared .. "/logic.zil") then
-		story.edition = true
-		story.words = {}
-		for _, file in ipairs(listing(root .. "/" .. dir, 1)) do
-			table.insert(story.words, file:sub(#root + 2))
+	local story = { dir = dir, module = dir:gsub("/", ".") .. "." .. start:gsub("%.zil$", ""),
+		words = {}, sources = {}, declarations = {} }
+	local sourceDir = "'" .. (root .. "/" .. dir):gsub("'", "'\\''") .. "'"
+	local pipe = assert(io.popen('find ' .. sourceDir .. ' -maxdepth 1 -name "*.zil" 2>/dev/null'))
+	for file in pipe:lines() do
+		local relative = file:sub(#root + 2)
+		table.insert(story.sources, relative)
+	end
+	pipe:close()
+	table.sort(story.sources)
+	for _, file in ipairs(story.sources) do
+		-- Role-playing stories describe objects across several scene files.
+		local name = file:match("([^/]+)$")
+		if name == "dungeon.zil" or name:match("^dungeon%-") then
+			table.insert(story.words, file)
+			table.insert(story.declarations, file)
+		elseif name == "actions.zil" then
+			table.insert(story.declarations, file)
 		end
-		story.declarations = story.words
-		story.sources = {}
-		for _, file in ipairs(listing(root .. "/" .. shared, 1)) do
-			table.insert(story.sources, file:sub(#root + 2))
-		end
-		for _, file in ipairs(story.words) do table.insert(story.sources, file) end
-	else
-		story.words = { dir .. "/dungeon.zil" }
-		story.declarations = { dir .. "/dungeon.zil", dir .. "/actions.zil" }
-		story.sources = {}
-		for _, file in ipairs(listing(root .. "/" .. dir, 8)) do table.insert(story.sources, file:sub(#root + 2)) end
 	end
 	return story
 end

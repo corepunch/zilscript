@@ -34,21 +34,19 @@ exact reconstruction of every shipping build.
 | Feature | Adventure Arena policy |
 | --- | --- |
 | Ready-made default | The first authored profile is the recommended or initially selected profile where the host offers a quick path. Starting still takes explicit confirmation; highlighting it does not begin play. Parser-only editions require the player to choose a profile. |
-| Curated profile selection | Preview the localized profile, play style, and starting values before confirming. *Blackout at Meridian* has three fixed hero profiles; *The Water That Answers* has three fixed investigator profiles. Keep optional character name separate from profile. |
+| Curated profile selection | Preview the profile, play style, and starting values before confirming. *Blackout at Meridian* has three fixed hero profiles; *The Water That Answers* has three fixed investigator profiles. Keep optional character name separate from profile. |
 | Random or manual allocation | Not offered in these books. Their encounters are tuned for three known profiles. Add other creation modes only if the book and its ruleset define valid ranges, budgets, and preview/confirmation behavior. |
 | During play | Keep the complete sheet a deliberate request and the live monitor a small, optional reader control. The monitor follows the system's bounded pool (Health or Composure here), not a hard-coded attribute named Endurance. A pool displays its current and maximum values, while ranks and uncapped Karma display a single value. |
 | Resume | Restore the saved character and current values; do not show character setup again or rederive values from the starting profile. |
 
 We borrow the interaction pattern, not Infocom's narrative text, art, window
-layout, or stats. The native reader can present localized controls from
+layout, or stats. The native reader can present controls from
 structured ZIL data; parser-only users can inspect the same current ranks
 without a dedicated screen.
 
-| Edition | Full character status | Compact diagnosis |
+| Book | Full character status | Compact diagnosis |
 | --- | --- | --- |
-| English | `STATUS`, `STAT`, `STATS` | `DIAGNOSE`, `HEALTH` |
-| German | `STATUS`, `STAT`, `STATS`, `WERTE`, `CHARAKTERWERTE` | `ZUSTAND`, `GESUNDHEIT`, `DIAGNOSE` |
-| Russian | `СТАТУС`, `СТАТЫ`, `ХАРАКТЕРИСТИКИ` (also the Latin spellings) | `СОСТОЯНИЕ`, `ЗДОРОВЬЕ`, `ДИАГНОЗ` |
+| RPG adventures | `STATUS`, `STAT`, `STATS` | `DIAGNOSE`, `HEALTH` |
 
 Full status shows a chosen character name (if entered), a separate profile
 label, and the ruleset's ordered rows. Both commands leave the world, turn
@@ -61,9 +59,9 @@ reports are unchanged.
 Books declare their presets and starting scenes. The
 [RPG kernel](../rulesets/rpg/kernel.zil) previews from a scratch character and
 reads live values from the active character; system layouts define which
-values are reported and language packs provide localized verbs and labels.
+values are reported and the RPG actions provide verbs and labels.
 Preview and live export share the ruleset's row formatter, including
-groups, localized rank names and optional maxima. Name validation, layout
+groups, rank names and optional maxima. Name validation, layout
 and printing in the host do not invent or change ranks, roll dice, or
 submit a parser action just to obtain data.
 
@@ -74,7 +72,7 @@ In a running story, **Character Stats** opens the live sheet and print
 action. The running header shows the first bounded resource, or it reverts
 to the normal score/turn line when the player hides the monitor.
 
-Run `lua5.4 tests/test_rpg_status.lua` for typed EN/DE/RU status and diagnosis
+Run `lua5.4 tests/test_rpg_status.lua` for typed status and diagnosis
 after taking damage, including a scheduled event that must not fire until the
 next real action. The test also checks the investigator ruleset and its
 existing score command.

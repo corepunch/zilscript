@@ -1,0 +1,26 @@
+{
+    "id": "books.blackwood-horror",
+    "title": "Sanitarium",
+    "shortDescription": "Investigate an abandoned sanitarium closed by order in 1952.",
+    "description": "The gates of Blackwood Sanitarium stand open. A corroded brass plaque says the institution was closed by order in 1952. Inside, a broken staircase leads to deserted wards, an operating theater, and the rooms where the staff left their records.\n\nSearch the building and piece together what happened to the patients. The notes describe a treatment that never should have gone ahead. The marks left on the walls suggest its consequences are still here.",
+    "author": "Studio Null",
+    "year": 2024,
+    "rating": 4.5,
+    "reviewCount": 183,
+    "startFile": "blackwood-horror.zil",
+    "reviews": [
+        {
+            "author": "horrorFan99",
+            "rating": 5,
+            "title": "Genuinely unsettling",
+            "body": "I had to stop playing at night. The atmosphere is so thick you can feel it. One of the best horror text adventures I've played."
+        },
+        {
+            "author": "interactive_fiction_nerd",
+            "rating": 4,
+            "title": "Slow start, incredible payoff",
+            "body": "Give it an hour before judging. The first chapter is setting up something deeply twisted, and when it all clicks, it's unforgettable."
+        }
+    ],
+    "genre": "Psychological Horror"
+}

@@ -1,6 +1,6 @@
 ;"The superhero system's numbers: seven rank attributes and power, health
   from the physical ranks, karma from the mental ones, and a percentile rank
-  table. No words and no setting; rulesets/superhero/<lang>.zil names them."
+  table. No words and no setting; rulesets/superhero/init.zil names them."
 
 <CONSTANT A-FIGHTING 1>
 <CONSTANT A-AGILITY 2>

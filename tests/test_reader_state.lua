@@ -2,7 +2,7 @@
 local Walk = require("tests.story_walk")
 
 -- Taking an object with a VALUE scores it once (ITAKE's compile-time OR).
-local ward = Walk.new("books.en.blackwood-horror.blackwood-horror")
+local ward = Walk.new("books.blackwood-horror.blackwood-horror")
 local env = ward.env
 env.MOVE(env.PATIENT_FILE, env.HERE)
 local before, value = env.SCORE, env.GETP(env.PATIENT_FILE, env.PQVALUE)

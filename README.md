@@ -128,7 +128,7 @@ For integration test documentation, see **[tests/TESTS.md](tests/TESTS.md)**.
     - `test_runtime.lua` - Runtime unit tests
     - `run_all.lua` - Unit test runner
 - `infocom/zork1/` - Zork 1 game files
-- `books/en/blackwood-horror/` - Additional adventure files
+- `books/blackwood-horror/` - Additional adventure files
 
 ## Choosing a Story
 
@@ -136,12 +136,12 @@ For integration test documentation, see **[tests/TESTS.md](tests/TESTS.md)**.
 
 ```sh
 lua5.4 main.lua                                   # infocom.zork1.zork1
-lua5.4 main.lua books.en.the-midnight-ledger.the-midnight-ledger
+lua5.4 main.lua books.the-midnight-ledger.the-midnight-ledger
 ```
 
-A story's entry file imports a ruleset, which composes over its language's
-base: `rulesets.classic.en` (Zork's rules) or `rulesets.superhero.en`, both
-over `languages/en/base.zil`. See [docs/ADVENTURE-PACKAGES.md](docs/ADVENTURE-PACKAGES.md).
+A story's entry file imports a ruleset, which composes over the shared
+world: `rulesets.classic.init` (Zork's rules) or `rulesets.superhero.init`, both
+over `world/base.zil`. See [docs/ADVENTURE-PACKAGES.md](docs/ADVENTURE-PACKAGES.md).
 
 ## Using the Require System
 

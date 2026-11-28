@@ -1,6 +1,4 @@
--- Objects merge: one story's logic is written once and each language edition
--- declares the same rooms and objects again with its words (docs/RPG-SYSTEMS.md,
--- "Editions: one story, many languages"). Fixture: tests/fixtures/partial-objects.
+-- Partial object declarations merge the world layout and object details.
 local runtime = require("zilscript.runtime")
 
 local function load(module)
@@ -44,38 +42,25 @@ end
 
 local function hasFlag(env, object, flag) return env.FSETQ(env[object], env[flag]) end
 
--- English: logic first, words after.
-local en, game = play("tests.fixtures.partial-objects.en-story")
+-- Load the world layout first and the object details after.
+local story, game = play("tests.fixtures.partial-objects.story")
 check("opening", game:start(), { "A damp cellar", "A brass lamp sits on the floor." })
 check("examine", game:resume("examine lamp"), {})
-check("take by edition synonym", game:resume("take lantern"), { "Taken." })
-assert(en.LAMP_TAKEN == true or en["LAMP-TAKEN"] == true, "the logic's ACTION ran in the English edition")
+check("take by merged synonym", game:resume("take lantern"), { "Taken." })
+assert(story.LAMP_TAKEN == true or story["LAMP-TAKEN"] == true, "the logic's ACTION ran after the merge")
 check("adjective", game:resume("examine brass lamp"), {})
 check("open chest", game:resume("look in oak chest"), { "gold coin" })
 check("take coin", game:resume("take coin"), { "Taken." })
 check("north", game:resume("north"), { "A quiet yard" })
 -- Flags from both declarations
-assert(hasFlag(en, "LAMP", "TAKEBIT"), "logic flag TAKEBIT kept")
-assert(hasFlag(en, "CHEST", "CONTBIT") and hasFlag(en, "CHEST", "OPENBIT") and hasFlag(en, "CHEST", "NDESCBIT"), "container flags from both files are unioned")
-assert(en.GETP(en.LAMP, en.PQACTION) ~= 0, "the logic ACTION survives the merge")
-assert(en.GETP(en.CHEST, en.PQLOC) == en.CELLAR, "location comes from the logic")
-assert(en.GETP(en.CHEST, en.PQCAPACITY) == 20, "logic property kept")
-
--- German: words first, logic after.
-local de, dgame = play("tests.fixtures.partial-objects.de-story")
-check("opening", dgame:start(), { "Ein feuchter Keller", "Eine Lampe steht auf dem Boden." })
-check("take by edition synonym", dgame:resume("nimm die Laterne"), { "Genommen." })
-assert(de["LAMP-TAKEN"] == true or de.LAMP_TAKEN == true, "the logic's ACTION ran in the German edition")
-check("examine", dgame:resume("untersuche die Lampe"), { "Lampe" })
-check("look in chest", dgame:resume("schau in die Truhe"), { "Münze" })
-check("umlaut synonym", dgame:resume("nimm die muenze"), { "Genommen." })
-check("north", dgame:resume("nord"), { "Ein stiller Hof" })
-assert(hasFlag(de, "LAMP", "TAKEBIT") and hasFlag(de, "LAMP", "DIEBIT"), "logic and edition flags are unioned")
-assert(hasFlag(de, "CHEST", "CONTBIT") and hasFlag(de, "CHEST", "OPENBIT") and hasFlag(de, "CHEST", "DIEBIT"))
-assert(de.GETP(de.CHEST, de.PQLOC) == de.CELLAR, "location comes from the logic although the edition came first")
+assert(hasFlag(story, "LAMP", "TAKEBIT"), "logic flag TAKEBIT kept")
+assert(hasFlag(story, "CHEST", "CONTBIT") and hasFlag(story, "CHEST", "OPENBIT") and hasFlag(story, "CHEST", "NDESCBIT"), "container flags from both files are unioned")
+assert(story.GETP(story.LAMP, story.PQACTION) ~= 0, "the logic ACTION survives the merge")
+assert(story.GETP(story.CHEST, story.PQLOC) == story.CELLAR, "location comes from the logic")
+assert(story.GETP(story.CHEST, story.PQCAPACITY) == 20, "logic property kept")
 
 -- Tree order is declaration order, whichever file gave the location
-for _, module in ipairs({ "en-story", "de-story" }) do
+for _, module in ipairs({ "story", "details-first" }) do
 	local fresh = load("tests.fixtures.partial-objects." .. module)
 	local kids = children(fresh, fresh.CELLAR)
 	assert(#kids == 2 and kids[1] == fresh.LAMP and kids[2] == fresh.CHEST, module .. ": cellar children follow object numbers")
@@ -83,11 +68,8 @@ for _, module in ipairs({ "en-story", "de-story" }) do
 end
 
 -- Deterministic numbering across loads
-local again = load("tests.fixtures.partial-objects.en-story")
-assert(numbering(again) == numbering(en), "object numbers are identical between two loads")
-local dagain = load("tests.fixtures.partial-objects.de-story")
-assert(numbering(dagain) == numbering(de), "German object numbers are identical between two loads")
-
+local again = load("tests.fixtures.partial-objects.story")
+assert(numbering(again) == numbering(story), "object numbers are identical between two loads")
 -- Two files may not disagree
 local env = runtime.create_game_env()
 assert(runtime.init(env, true), "bootstrap failed")

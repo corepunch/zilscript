@@ -79,26 +79,16 @@ return function(root, expect, exhaustive, bookNames)
 			COBBLER = "cobbler's shop",
 		},
 	}
-	-- Books are named by edition, "en/wondertown"; the phrases above are
-	-- the English editions'.
-	local selected = {}
 	if bookNames and #bookNames > 0 then
-		for _, name in ipairs(bookNames) do
-			local lang, slug = name:match("^(%a%a)/(.+)$")
-			selected[name] = lang == "en" and books[slug] or {}
-		end
-	else
-		for slug, phrases in pairs(books) do selected["en/" .. slug] = phrases end
+		local selected = {}
+		for _, name in ipairs(bookNames) do selected[name] = books[name] or {} end
+		books = selected
 	end
-	books = selected
 	local objects, commands = 0, 0
-	local Language = require("zilscript.reader.Language")
 	local Story = require("zilscript.reader.Story")
 	for book, phrases in pairs(books) do
-		-- The story's language (game.json) decides the verb the parser understands.
 		local story = Story.of("books/" .. book, root)
-		local lang = story.language
-		local examine = lang.examine
+		local examine = "examine"
 		local declarations = {}
 		for _, source in ipairs(story.declarations) do
 			local file = assert(io.open(root .. "/" .. source))
@@ -117,8 +107,8 @@ return function(root, expect, exhaustive, bookNames)
 
 		-- Keep action behavior in this regression: EXAMINE teaches the phrase,
 		-- and RING must reach the bell handler and produce its actual reply.
-		if book == "en/pocket-weather" or book == "en/blackwood-horror" then
-			local room = book == "en/pocket-weather" and env.DISPATCH or env.CAFETERIA
+		if book == "pocket-weather" or book == "blackwood-horror" then
+			local room = book == "pocket-weather" and env.DISPATCH or env.CAFETERIA
 			env.MOVE(env.WINNER, room)
 			env.HERE, env.LIT = room, true
 			env.FSET(room, env.ONBIT)
@@ -126,11 +116,11 @@ return function(root, expect, exhaustive, bookNames)
 			expect(description:lower():find("small", 1, true) ~= nil, book .. ": EXAMINE teaches small")
 			for _, phrase in ipairs({ "small bell", "small brass bell" }) do
 				local reply = tostring(game:resume("ring " .. phrase))
-				local expected = book == "en/pocket-weather" and "Ting!" or "You ring the bell"
+				local expected = book == "pocket-weather" and "Ting!" or "You ring the bell"
 				expect(reply:find(expected, 1, true) ~= nil, book .. ": ring " .. phrase .. ": " .. reply)
 			end
 		end
-		if book == "en/blackwood-horror" then
+		if book == "blackwood-horror" then
 			-- Both keys are described as small and brass. Their distinguishing
 			-- names must still work once the player carries them together.
 			env.MOVE(env.BRASS_KEY, env.WINNER)
@@ -160,7 +150,7 @@ return function(root, expect, exhaustive, bookNames)
 			expect(reply:find("crumpled envelope", 1, true) ~= nil,
 				"the loose envelope remains distinct from the open mailbox's bundle: " .. reply)
 		end
-		if book == "en/limehouse-killings" then
+		if book == "limehouse-killings" then
 			env.MOVE(env.INSPECTOR, env.HERE)
 			for _, verb in ipairs({ "examine", "inspect" }) do
 				local reply = tostring(game:resume(verb .. " inspector lestrade"))
@@ -210,7 +200,7 @@ return function(root, expect, exhaustive, bookNames)
 						local key = prop[1].value
 						if key == "SYNONYM" or key == "ADJECTIVE" then
 							local words = key == "SYNONYM" and nouns or adjectives
-							for i = 2, #prop do table.insert(words, Language.word(lang, tostring(prop[i].value)):lower()) end
+							for i = 2, #prop do table.insert(words, tostring(prop[i].value):lower()) end
 						end
 					end
 				end
@@ -219,7 +209,7 @@ return function(root, expect, exhaustive, bookNames)
 					-- Limehouse also declares the substrate's global container and
 					-- quotation tokens in actions.zil. These are parser internals,
 					-- not things the story describes or the player can examine.
-					expect(book == "en/limehouse-killings" and object ~= nil,
+					expect(book == "limehouse-killings" and object ~= nil,
 						"only known parser internals are exempt from world-object probes")
 				else
 					expect(type(object) == "number", book .. ": vocabulary for " .. name)

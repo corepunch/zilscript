@@ -1,8 +1,4 @@
-;"Language-neutral main loop: the M-* handler codes, player and turn globals,
-  and MAIN-LOOP, extracted unchanged from the identical English and German
-  sources. Each language loop inserts this file first and supplies MAIN-LOOP-1,
-  PERFORM and its D-APPLY dispatch.
-  (c) Copyright 1983 Infocom, Inc. See LICENSE-ZORK-MIT."
+;"Main loop, handler codes and player turn state."
 
 <CONSTANT SERIAL 0>
 

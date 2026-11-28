@@ -1,7 +1,7 @@
 "Completion fixture: verbs that require the object to be in hand."
 <CONSTANT RELEASEID 1>
 <VERSION ZIP>
-<INSERT-FILE "rulesets.classic.en">
+<INSERT-FILE "rulesets.classic.init">
 
 ;"FIX is shorter than nothing, but as long as PUT: a story synonym must not
 replace the ruleset's own verb for V-PUT-ON in completion."

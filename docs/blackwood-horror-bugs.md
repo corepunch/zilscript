@@ -54,8 +54,8 @@ None found.
 - **Expected:** `safe key` or the complete follow-up `take safe key` should resolve the pending clarification and take the safe key.
 - **Reproduction:** Take the brass key in Reception, reach the Director's Office, take and open the red leather book, then try the commands above.
 - **Workaround confirmed:** Leave the Director's Office, drop the brass key in the Administrative Wing, return, and enter `take key`.
-- **Regression Test:** `books/en/blackwood-horror/test/test-playtest-safe-key.zil`
-- **Test Command:** `lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-playtest-safe-key`
+- **Regression Test:** `books/blackwood-horror/test/test-playtest-safe-key.zil`
+- **Test Command:** `lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-safe-key`
 - **Regression Status:** `PASS — SMALL now identifies the brass key, and the exact follow-up "take safe key" takes the safe key without entering a clarification loop`
 - **Severity:** High
 
@@ -70,8 +70,8 @@ None found.
 - **Output:** `You used the word "something" in a way that I don't understand.`
 - **Expected:** Either “something” should resolve to Patient 189, or the arrival/first examination prose should name the patient and hint that communication is possible.
 - **Reproduction:** Enter the Chapel for the first time and respond naturally to “something stands perfectly still” with `examine something`.
-- **Regression Test:** `books/en/blackwood-horror/test/test-playtest-something.zil`
-- **Test Command:** `lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-playtest-something`
+- **Regression Test:** `books/blackwood-horror/test/test-playtest-something.zil`
+- **Test Command:** `lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-something`
 - **Regression Status:** `PASS — "something" resolves to Patient 189, and the Chapel description now hints that speaking may matter`
 - **Severity:** Medium
 
@@ -86,8 +86,8 @@ None found.
 - **Output:** `You used the word "drawing" in a way that I don't understand.`
 - **Expected:** The drawing should be a separately examinable object, even if it repeats or expands the room prose.
 - **Reproduction:** Enter the Patient Ward and examine the drawing.
-- **Regression Test:** `books/en/blackwood-horror/test/test-playtest-scenery.zil`
-- **Test Command:** `lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-playtest-scenery`
+- **Regression Test:** `books/blackwood-horror/test/test-playtest-scenery.zil`
+- **Test Command:** `lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-scenery`
 - **Regression Status:** `PASS — the drawing is a separately examinable object with authored prose`
 - **Severity:** Low
 
@@ -98,8 +98,8 @@ None found.
 - **Output:** `You can't see any cabinets here!`
 - **Expected:** The cabinets should be recognized as scenery and provide a short response.
 - **Reproduction:** Enter Reception and examine the cabinets.
-- **Regression Test:** `books/en/blackwood-horror/test/test-playtest-scenery.zil`
-- **Test Command:** `lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-playtest-scenery`
+- **Regression Test:** `books/blackwood-horror/test/test-playtest-scenery.zil`
+- **Test Command:** `lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-scenery`
 - **Regression Status:** `PASS — cabinets respond with room-specific prose in Reception and the Administrative Wing`
 - **Severity:** Low
 
@@ -110,8 +110,8 @@ None found.
 - **Output:** `Taken.`
 - **Expected:** The plaque should be fixed in place, or removing it should have bespoke prose and a purpose.
 - **Reproduction:** At the starting gate, take the plaque.
-- **Regression Test:** `books/en/blackwood-horror/test/test-playtest-scenery.zil`
-- **Test Command:** `lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-playtest-scenery`
+- **Regression Test:** `books/blackwood-horror/test/test-playtest-scenery.zil`
+- **Test Command:** `lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-scenery`
 - **Regression Status:** `PASS — the plaque refuses removal and remains at the gate`
 - **Severity:** Low
 
@@ -130,8 +130,8 @@ None found.
 
 - **Expected:** These explicitly mentioned nouns should be recognized and redirect to the relevant descriptions.
 - **Reproduction:** In the Padded Cell, try the two commands above after reading the room and straitjacket descriptions.
-- **Regression Test:** `books/en/blackwood-horror/test/test-playtest-scenery.zil`
-- **Test Command:** `lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-playtest-scenery`
+- **Regression Test:** `books/blackwood-horror/test/test-playtest-scenery.zil`
+- **Test Command:** `lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-scenery`
 - **Regression Status:** `PASS — both "writing" and "name tag" resolve to their authored responses`
 - **Severity:** Low
 
@@ -141,8 +141,8 @@ None found.
 - **Command:** `give relic to patient`
 - **Expected:** The relic should be moved to the Chapel floor as the ending prose states.
 - **Reproduction:** In the Chapel, carry the ancient relic and give it to Patient 189, then inspect the relic's location.
-- **Regression Test:** `books/en/blackwood-horror/test/test-playtest-give-relic.zil`
-- **Test Command:** `lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-playtest-give-relic`
+- **Regression Test:** `books/blackwood-horror/test/test-playtest-give-relic.zil`
+- **Test Command:** `lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-give-relic`
 - **Regression Status:** `PASS — mercy prose, GAME-WON, patient removal, and the relic's Chapel-floor location all pass`
 - **Severity:** Low
 
@@ -162,14 +162,14 @@ None found.
 
 ### Automated SAY HELLO verification
 
-- **Regression Test:** `books/en/blackwood-horror/test/test-playtest-say-ending.zil`
-- **Test Command:** `lua5.4 run-zil-test.lua books/en/blackwood-horror/test/test-playtest-say-ending`
+- **Regression Test:** `books/blackwood-horror/test/test-playtest-say-ending.zil`
+- **Test Command:** `lua5.4 run-zil-test.lua books/blackwood-horror/test/test-playtest-say-ending`
 - **Regression Status:** `PASS — bare HELLO variants do not win; SAY HELLO produces the distinctive "I remember... who I was" prose, sets GAME-WON, removes Patient 189, and leaves the player in the post-ending Chapel`
-- **Load-order note:** Every Blackwood test inserts `books/en/blackwood-horror/blackwood-horror.zil` itself, matching production. Blackwood does not redefine or route `V-HELLO`; it adds the content-local `SAY HELLO` phrase and `V-SAY-HELLO` action.
+- **Load-order note:** Every Blackwood test inserts `books/blackwood-horror/blackwood-horror.zil` itself, matching production. Blackwood does not redefine or route `V-HELLO`; it adds the content-local `SAY HELLO` phrase and `V-SAY-HELLO` action.
 
 ### Additional review regressions
 
-- `books/en/blackwood-horror/test/test-playtest-lore.zil` verifies that taking the patient file or straitjacket before examining it no longer suppresses lore discovery.
+- `books/blackwood-horror/test/test-playtest-lore.zil` verifies that taking the patient file or straitjacket before examining it no longer suppresses lore discovery.
 - The same test verifies both sides of the mirror-reflection transition at zero and positive lore.
 - All isolated tests contain comments preserving the exact organic command and bad output/state that motivated the synthetic setup.
 

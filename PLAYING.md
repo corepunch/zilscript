@@ -98,19 +98,14 @@ See [TESTING.md § How to Play](TESTING.md#how-to-play) for the full command ref
 
 ## Available Games
 
-Pass `--game <slug>` to play a book from the English catalog in `books/en/`.
-Add `--language de` to play a German edition from `books/de/`. The available
-titles are the entry files in each catalog. Your default save filename uses
-the full edition ID.
+Pass `--game <slug>` to play a book from `books/`.
 
 ```sh
-lua5.4 llm.lua --language de --game borrowed-tomorrows --new-game
-lua5.4 llm.lua --language de --game museum-unsent-signals --new-game
+lua5.4 llm.lua --game borrowed-tomorrows --new-game
 ```
 
-The English catalog also supports `zork1` (default), `zork2`, `zork3`,
-`lurkinghorror`, `spellbreaker`, and `planetfall`. See
-[Localizing Adventure Arena books](docs/LOCALIZING_BOOKS.md).
+The imported games are `zork1` (the default), `zork2`, `zork3`,
+`lurkinghorror`, `spellbreaker`, and `planetfall`.
 
 ## Command-Line Reference
 

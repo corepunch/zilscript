@@ -1,4 +1,4 @@
-;"Skill percentages and bounded composure. No room, language or story policy."
+;"Skill percentages and bounded composure. System rules only."
 <CONSTANT A-MEDICINE 1>
 <CONSTANT A-INTERVIEW 2>
 <CONSTANT A-REPAIR 3>

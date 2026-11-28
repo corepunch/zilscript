@@ -258,11 +258,6 @@ TopLevel.TOP_LEVEL_COMPILERS = {
   ROUTINE = TopLevel.compileRoutine,
   DEFMAC = TopLevel.compileMacro,
   GDECL = function() end,
-  -- The runtime remembers the language for the files this one inserts; the
-  -- parser has already switched charsets for the rest of this file.
-  LANGUAGE = function(_, buf, node)
-    buf.writeln('LANGUAGE("%s")', tostring(node[1] and node[1].value or ""))
-  end,
   DIRECTIONS = function(_, buf, node)
     buf.write("%s(", node.name)
     for _, dir in ipairs(node) do
