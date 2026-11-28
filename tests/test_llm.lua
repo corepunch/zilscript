@@ -391,7 +391,7 @@ test.describe("LLM Mode", function(t)
 		assert.assert_match(name_output, "No name entered")
 		local look_code, look_output = run_command("lua5.4 llm.lua --choose 1" .. suffix)
 		assert.assert_equal(look_code, 0)
-		assert.assert_match(look_output, "emergency dispatch office")
+		assert.assert_match(look_output, "Choose the hero")
 
 		cleanup(savefile)
 		remove_file(savefile .. ".transcript")

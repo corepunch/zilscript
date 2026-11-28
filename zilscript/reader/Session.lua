@@ -1,6 +1,7 @@
 local namespace = (...):match("^(.*)%.Session$")
 local Suggestions = require(namespace .. ".Suggestions")
 local Language = require(namespace .. ".Language")
+local Text = require(namespace:match("^(.*)%.reader$") .. ".text")
 
 local Session = {}
 Session.__index = Session
@@ -22,6 +23,7 @@ local DIRECTIONS = {
 	so = "southeast", suedost = "southeast", sw = "southwest", suedwest = "southwest",
 	rauf = "up", ra = "up", runter = "down", ru = "down", rein = "in", hinein = "in", raus = "out",
 }
+for direction, command in pairs(Language.of("ru").directions) do DIRECTIONS[command] = direction end
 
 -- Re-rendering a transcript costs time proportional to its length, so the
 -- reader keeps the most recent entries; the story itself is unaffected.
@@ -121,9 +123,9 @@ local function paragraphsOf(text)
 	return paragraphs
 end
 
-local function isBanner(paragraph)
-	local release = paragraph:match("\n(Release [^\n]+)$")
-	return release and (release:match("^Release %d+$") or release:match("^Release %d+ / Serial"))
+local function isBanner(paragraph, language)
+	local release = paragraph:match("\n" .. (language.release or "Release") .. " ([^\n]+)$")
+	return release and (release:match("^%d+$") or release:match("^%d+ / Serial"))
 end
 
 -- Without an engine room name, a heading is a short title-cased line.
@@ -164,7 +166,7 @@ function Session.parseLinks(text)
 		if label ~= "" and target ~= "" then
 			table.insert(links, {
 				location = length, length = utf8.len(label) or #label,
-				label = label, target = target:lower(),
+				label = label, target = Text.lower(target),
 			})
 		end
 		keep(label)
@@ -319,7 +321,7 @@ end
 
 function Session:linkActions(target)
 	if not self.running then return {} end
-	target = trim(target):lower()
+	target = Text.lower(trim(target))
 	if target == "" then return {} end
 	local direction = DIRECTIONS[target]
 	local lang = self.language
@@ -382,7 +384,7 @@ function Session:appendOutput(text, openingTitle)
 		and (not self.scene or self.scene.title ~= (room or openingTitle)) and (room or openingTitle) or nil
 
 	for _, paragraph in ipairs(paragraphs) do
-		if isBanner(paragraph) then
+		if isBanner(paragraph, self.language) then
 			local title, rest = splitFirstLine(paragraph)
 			local lines = {}
 			for line in (rest or ""):gmatch("[^\n]+") do table.insert(lines, trim(line)) end

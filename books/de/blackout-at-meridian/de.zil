@@ -35,7 +35,7 @@
  <TELL ")" CR>>
 
 <ROUTINE MSG-OPENING ()
- <TELL "Um neun Uhr nahm der Sturm Meridian den Strom, und dann besetzte jemand die Relaisstation, die ihn zur%uckbringen sollte. Eine Wachdrohne h%alt die Station nun besetzt, und auf der Meridian-Br%ucke h%angt eine Stra%senbahn voller Fahrg%aste an einem gerissenen Kabel %uber dem Fluss. Du bist der neueste Held der Stadt, und heute Nacht ist dein erster Einsatz. Melde dich in der Leitstelle mit einem Profil an und geh dann zur Br%ucke. (Tippe jederzeit HILFE, um zu erfahren, wie das Spiel geht.)" CR CR>>
+ <TELL "Um neun Uhr nahm der Sturm Meridian den Strom, und dann besetzte jemand die Relaisstation, die ihn zur%uckbringen sollte. Eine Wachdrohne h%alt die Station nun besetzt, und auf der Meridian-Br%ucke h%angt eine Stra%senbahn voller Fahrg%aste an einem gerissenen Kabel %uber dem Fluss. Du bist der neueste Held der Stadt, und heute Nacht ist dein erster Einsatz. Geh jetzt zur Br%ucke. (Tippe jederzeit HILFE, um zu erfahren, wie das Spiel geht.)" CR CR>>
 
 <ROUTINE MSG-HELP-HOW ()
  <TELL "Tippe Befehle wie SCHAU, UNTERSUCHE TAFEL oder NORD, oder w%ahle die verlinkten W%orter. Jede Heldentat w%urfelt W100 gegen einen deiner R%ange, und h%ohere W%urfe sind besser. Ein Fehlschlag kostet Gesundheit, und bei 0 Gesundheit ist deine Nacht vorbei. LIES BOGEN zeigt deine R%ange, ZUSTAND deine Gesundheit und dein Karma, und NENNE BOGEN gibt deinem Helden einen Namen." CR>>
@@ -94,8 +94,8 @@
 <ROUTINE MSG-LEAP-IDLE ()
  <TELL "Du wippst auf den Fersen, zu allem bereit." CR>>
 
-<ROUTINE MSG-DISPATCH-LOOK-UNREGISTERED ()
- <TELL "Du stehst in der Notleitstelle von Meridian, einem engen Raum, der mit Batteriestrom l%auft. Regen l%auft in silbernen Streifen am [[Fenster]] hinunter, und dahinter liegt die ganze [[Stadt]] im Dunkeln. An der [[Einsatztafel->tafel]] h%angen drei Heldenprofile: [[Fels]], [[Blitz]] und [[Luchs]]. W%ahle eines, und gib deinem Helden auf deinem [[Heldenbogen->bogen]] einen Namen, wenn du magst. Die T%ur zur Stra%se f%uhrt nach [[Norden->nord]] zur Meridian-Br%ucke.">>
+<ROUTINE MSG-SETUP ()
+ <TELL "Wähle deinen Helden: [[Fels]], [[Blitz]] oder [[Luchs]]. Du kannst die Profile zuerst untersuchen und deinem Helden auf dem [[Heldenbogen->bogen]] einen Namen geben. Mit der Wahl eines Profils beginnt der Einsatz." CR>>
 
 <ROUTINE MSG-DISPATCH-LOOK-REGISTERED ()
  <TELL "Du stehst in der Notleitstelle von Meridian, einem engen Raum, der mit Batteriestrom l%auft. Regen l%auft in silbernen Streifen am [[Fenster]] hinunter, und dahinter liegt die ganze [[Stadt]] im Dunkeln. Dein Profil ist auf der [[Einsatztafel->tafel]] als aktiv markiert. Die T%ur zur Stra%se f%uhrt nach [[Norden->nord]] zur Meridian-Br%ucke.">>
@@ -157,8 +157,6 @@
 <ROUTINE MSG-CHOOSE-REGISTERED-2 ()
  <TELL " an. Deine R%ange:" CR>>
 
-<ROUTINE MSG-CHOOSE-REGISTERED-3 ()
- <TELL "Die Br%ucke liegt im [[Norden->nord]]." CR>>
 
 <ROUTINE MSG-PROFILE-ATTACK ()
  <TELL "Die Einsatztafel zu zerrei%sen holt niemanden von der Br%ucke." CR>>

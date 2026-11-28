@@ -141,6 +141,7 @@ function M.create_game_env()
 		tonumber = tonumber,
 		type = type,
 		string = string,
+		utf8 = utf8,
 		pcall = pcall,
 		load = load,
 		rawget = rawget,

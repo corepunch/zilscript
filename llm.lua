@@ -29,7 +29,7 @@ while i <= #arg do
         args.game = arg[i]
     elseif a == "--language" then
         i = i + 1
-        args.language = assert(arg[i], "--language requires en or de")
+        args.language = assert(arg[i], "--language requires a catalog language")
     elseif a:match("^%-%-language=") then
         args.language = a:match("^%-%-language=(.*)$")
     elseif a == "--new-game" then
@@ -63,7 +63,7 @@ Options:
   --action, -a "cmd"   Execute this command and exit
   --save, -s file      VM checkpoint path
   --game, -g name      Game to play (English default: zork1)
-  --language en|de     Catalog language (default: en)
+  --language en|de|ru  Catalog language (default: en)
   --new-game           Start a new game (even if save file exists)
   --links              List the reader's available actions without a turn
   --choose N           Execute numbered reader action (implies --links)

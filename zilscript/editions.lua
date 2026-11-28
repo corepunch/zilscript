@@ -5,6 +5,7 @@ local Editions = {}
 Editions.languages = {
 	{ id = "en", title = "English" },
 	{ id = "de", title = "Deutsch", speechLocale = "de-DE" },
+	{ id = "ru", title = "Русский", speechLocale = "ru-RU" },
 }
 
 function Editions.index(language)

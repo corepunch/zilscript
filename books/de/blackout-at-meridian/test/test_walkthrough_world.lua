@@ -7,7 +7,7 @@ local h = Hero.new()
 h:force(100)
 
 -- Before a profile: no way out, no ranks, and every hero action refuses.
-h:expect("schau", "drei Heldenprofile")
+h:expect("schau", "Wähle deinen Helden")
 h:expect("nord", "Wähle zuerst ein Profil")
 h:expect("raus", "Wähle zuerst ein Profil")
 for _, dir in ipairs({ "sued", "süden", "ost", "west", "rauf", "runter" }) do h:expect(dir, "kannst du nicht gehen") end

@@ -15,6 +15,7 @@
 -- Exits non-zero when any problem is found.
 
 package.path = "./?.lua;./?/init.lua;" .. package.path
+local Text = require("zilscript.text")
 local Language = require("zilscript.reader.Language")
 local Story = require("zilscript.reader.Story")
 
@@ -42,7 +43,7 @@ local function vocabulary(sources, lang)
 		for kind, list in body:gmatch("%((%u+)%s+([^%)]*)%)") do
 			local target = kind == "SYNONYM" and nouns or kind == "ADJECTIVE" and adjectives or nil
 			if target then
-				for word in list:gmatch("[^%s]+") do target[Language.word(lang, word):lower()] = true end
+				for word in list:gmatch("[^%s]+") do target[Text.lower(Language.word(lang, word))] = true end
 			end
 		end
 	end
@@ -63,7 +64,7 @@ end
 
 local function check_target(path, body, position, label, target, nouns, adjectives, directions)
 	local words = {}
-	for word in target:lower():gmatch("[%w'\128-\255%-]+") do table.insert(words, word) end
+	for word in Text.lower(target):gmatch("[%w'\128-\255%-]+") do table.insert(words, word) end
 	if #words == 0 then
 		report(path, body, position, "link [[" .. label .. "]] has no target")
 		return

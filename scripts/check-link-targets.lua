@@ -4,6 +4,7 @@
 package.path = "./?.lua;./?/init.lua;" .. package.path
 local Walk = require("tests.link_walk")
 
+local Text = require("zilscript.text")
 local Language = require("zilscript.reader.Language")
 local Story = require("zilscript.reader.Story")
 -- Set per story from its game.json: compass words, examine verb, failure replies.
@@ -17,7 +18,7 @@ local function checkLinks(story, walk, text, snapshot, parent, nextSnapshot)
 	assert(env.SAVE(snapshot))
 	for link in text:gmatch("%[%[(.-)%]%]") do
 		local label, target = link:match("^(.-)%->(.*)$")
-		target, label = (target or link):lower(), (label or link):lower()
+		target, label = Text.lower(target or link), Text.lower(label or link)
 		if not directions[target] and not seen[link] then
 			seen[link] = true
 			if parent then discoveries = discoveries + 1 else checked = checked + 1 end

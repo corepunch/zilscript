@@ -315,6 +315,8 @@
 
 ;" Scan through a noun clause, leave a pointer to its starting location"
 
+<GLOBAL P-POSTNOMINAL-ADJECTIVE <>>
+
 <ROUTINE CLAUSE (PTR VAL WRD "AUX" OFF NUM (ANDFLG <>) (FIRST?? T) NW (LW 0))
 	<SET OFF <* <- ,P-NCN 1> 2>>
 	<COND (<NOT <EQUAL? .VAL 0>>
@@ -359,6 +361,10 @@
 					       ,P1?ADJECTIVE>
 					  <NOT <EQUAL? .NW 0>>
 					  <WT? .NW ,PS?OBJECT>>)
+				    (<AND ,P-POSTNOMINAL-ADJECTIVE
+					  <NOT <EQUAL? .NW 0>>
+					  <WT? .NW ,PS?ADJECTIVE>
+					  <NOT <WT? .NW ,PS?OBJECT>>>)
 				    (<AND <NOT .ANDFLG>
 					  <NOT <EQUAL? .NW ,W?BUT ,W?EXCEPT>>
 					  <NOT <EQUAL? .NW ,W?AND ,W?COMMA>>>
