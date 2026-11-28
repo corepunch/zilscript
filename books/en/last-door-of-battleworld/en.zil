@@ -74,7 +74,7 @@
 <ROUTINE MSG-HELPER ()
  <COND (,EVACUATED
         <TELL "Ms. Marvel puts three cups of soup on the edge of the bench. 'Everyone's off the span. Doom ran a line from the repair shop into the tower. If the Loom won't listen to you, see what it's connected to.'" CR>)
-       (T <TELL "'No one on that deck can reach the road,' says Ms. Marvel. 'You can reach them with your powers. And if it gets messy, look for the winch where the road ends. I'll bring hot soup, which is very useful and doesn't look dramatic at all.'" CR>)>>
+       (T <TELL "'No one on that deck can reach the road,' says Ms. Marvel. 'You can reach them with your powers. And if it gets messy, look for the winch where the road ends. The catch is holding for now. Take a moment to look before you move. I'll bring hot soup, which is very useful and doesn't look dramatic at all.'" CR>)>>
 
 <ROUTINE MSG-BEACON ()
  <TELL "Someone has penciled RESCUE ONLY on the brass. The speaker hisses. 'This is Doom. I offer one simple choice: agree now or agree later.' You turn the volume down to a much more useful crackle." CR>>
