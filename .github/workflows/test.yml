@@ -30,8 +30,10 @@ jobs:
     - name: Play the German Zork I opening on the German language package
       run: lua5.4 tests/test_german_zork.lua
 
-    - name: Run superhero rules assertions
-      run: lua5.4 run-zil-test.lua tests/test-superhero-rules
+    - name: Run RPG kernel and superhero system assertions
+      run: |
+        lua5.4 run-zil-test.lua tests/test-rpg-kernel
+        lua5.4 run-zil-test.lua tests/test-superhero-system
 
     - name: Run new book regressions and numeric reader routes
       run: make test-new-books
