@@ -2,6 +2,8 @@
 <SYNONYM UNFOLD SPREAD FLATTEN>
 <SYNTAX FOLD OBJECT = V-FOLD>
 <SYNTAX UNCLIP OBJECT = V-UNCLIP>
+<SYNTAX CLIP OBJECT (HELD HAVE) IN OBJECT = V-PUT PRE-PUT>
+<SYNTAX CLIP OBJECT (HELD HAVE) TO OBJECT = V-PUT PRE-PUT>
 <SYNTAX ATTACK OBJECT = V-ATTACK>
 <SYNTAX HINT = V-BOOK-HINT>
 <SYNONYM HINT HINTS HELP>
@@ -101,8 +103,10 @@
         <TELL "Cedar wood and old paper, the smell of a drawer nobody has opened in years." CR>)
        (<VERB? ATTACK KICK>
         <TELL "You would never hurt the library's cabinet. It has looked after the last of tomorrow for a long time." CR>)
-       (<VERB? MOVE PUSH TAKE>
+       (<AND <VERB? MOVE PUSH TAKE> <EQUAL? ,PRSO ,CASE>>
         <TELL "You lean on the cabinet with all your weight. It's far too heavy to budge, and someone clearly pushed it against the window on purpose." CR>)
+       (<VERB? LOOK-BEHIND>
+        <TELL "You peer into the gap. A pencil mark on the sill shows exactly where the cabinet had to stand to catch tomorrow’s light." CR>)
        (<VERB? LOOK-UNDER>
         <TELL "Only dust, and four long scrapes on the floor where the cabinet's feet were dragged to the window." CR>)>>
 <ROUTINE STRIPES-F ()
@@ -203,7 +207,7 @@
         <TELL "The frame swivels a little on its base, then swings back to face the market. It knows who it's meant for." CR>)
        (<VERB? KNOCK>
         <TELL "Ting! The brass rings out over the railing, and far below a pigeon looks up." CR>)
-       (<VERB? TAKE>
+       (<AND <VERB? TAKE> <EQUAL? ,PRSO ,FRAME>>
         <TELL "The frame is bolted to the terrace. It belongs up here, where everyone below can see it." CR>)>>
 <ROUTINE MARKET-F ()
  <COND (<AND <VERB? EXAMINE> <NOT <EQUAL? ,HERE ,TERRACE>>>

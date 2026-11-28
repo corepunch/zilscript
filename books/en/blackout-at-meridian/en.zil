@@ -251,6 +251,9 @@
 <ROUTINE MSG-TRAM-ATTACK ()
  <TELL "There are people inside it." CR>>
 
+<ROUTINE MSG-TRAM-TRY-RESCUE ()
+ <TELL "The whole carriage would lurch. RESCUE THE PASSENGERS and hand them down to the crew one at a time." CR>>
+
 <ROUTINE MSG-TRAM-RESCUE-UNREGISTERED ()
  <TELL "Register a profile at dispatch first." CR>>
 
@@ -310,6 +313,9 @@
 
 <ROUTINE MSG-CABLE-ATTACK ()
  <TELL "That cable is all that holds the tram up." CR>>
+
+<ROUTINE MSG-CABLE-TRY-RESCUE ()
+ <TELL "You don't take hold. The cable is keeping an entire carriage out of the river. The rescue crew can catch the passengers if you pass them down." CR>>
 
 <ROUTINE MSG-CABLE-TAKE-RESCUED ()
  <TELL "The cable can hang there until the city has power to repair it." CR>>
@@ -397,6 +403,9 @@
 
 <ROUTINE MSG-KIT-EXAMINE ()
  <TELL "A red emergency recovery kit, clipped to the wall. It works once, costs 10 Karma to activate, and restores up to 20 Health." CR>>
+
+<ROUTINE MSG-KIT-OPEN ()
+ <TELL "Through the clear flap you can see a single dose. You can inspect it without breaking the seal. USE KIT when you're ready to spend 10 Karma." CR>>
 
 <ROUTINE MSG-KIT-TAKE ()
  <TELL "It is clipped to the wall. Use it where it hangs." CR>>
@@ -523,9 +532,6 @@
        (<AND <EQUAL? ,PRSO ,TRAM> <VERB? KNOCK>>
         <COND (,RESCUED <TELL "You knock once. The empty tram answers like an enormous tin drum." CR>)
               (T <TELL "A child in a yellow coat taps back twice. Then a grown-up puts a steadying hand on his shoulder." CR>)>)
-       (<AND <EQUAL? ,PRSO ,SUPPLIES> <VERB? SEARCH LOOK-INSIDE>>
-        <COND (,BOOSTED <TELL "Only the clip and an empty foil sleeve remain. There isn't another dose." CR>)
-              (T <TELL "Through the clear flap you can see a single dose. You can inspect it without breaking the seal." CR>)>)
        (<AND <EQUAL? ,PRSO ,SUPPLIES> <VERB? SMELL>>
         <TELL "The case smells like disinfectant and wet concrete. It isn't an improvement on either." CR>)>>
 

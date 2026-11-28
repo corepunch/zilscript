@@ -51,8 +51,12 @@
 	<FSET ,LB-BAG ,OPENBIT>
 	<CO-RESUME ,CO "use hatch with spanner">
 	<ASSERT "Open nested held tool operates hatch" <FSET? ,LB-HATCH ,OPENBIT>>
+	<ASSERT "Opening alone does not establish the route" <NOT ,LB-ROUTE>>
+	<ASSERT-NOT-TEXT "Traversed:" <CO-RESUME ,CO "read casebook">>
 	<CO-RESUME ,CO "down">
 	<ASSERT "Open descent reaches passage" <EQUAL? ,HERE ,LB-PASSAGE>>
+	<ASSERT "A physical crossing establishes the route" ,LB-ROUTE>
+	<ASSERT-TEXT "Traversed:" <CO-RESUME ,CO "read casebook">>
 	<ASSERT-TEXT "open hatch" <CO-RESUME ,CO "look">>
 	<CO-RESUME ,CO "close hatch">
 	<CO-RESUME ,CO "up">

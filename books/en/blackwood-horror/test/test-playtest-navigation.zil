@@ -50,6 +50,8 @@
     ;"Observed: dying printed its message and play simply continued."
     ;"Expected: a death ends the story with the RESTART, RESTORE, or QUIT prompt."
     <MOVE ,SYRINGE ,WINNER>
+    <ASSERT-TEXT "The syringe is empty" <CO-RESUME ,CO "inject me with syringe">>
+    <MOVE ,STRANGE-SERUM ,WINNER>
     <ASSERT-TEXT "RESTART, RESTORE, or QUIT" <CO-RESUME ,CO "inject me with syringe">>
     <ASSERT-TEXT "RESTART, RESTORE, or QUIT" <CO-RESUME ,CO "north">>
     <CO-RESUME ,CO "restart">

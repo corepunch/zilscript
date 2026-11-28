@@ -1127,13 +1127,16 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
           (<VERB? RUB>
            <TELL "The oak is cold, and the iron straps are colder." CR>)>>
 
+<ROUTINE BLACKWOOD-AT-HAND? (OBJ)
+    <AND <HELD? .OBJ> <ACCESSIBLE? .OBJ>>>
+
 <ROUTINE PATIENT-189-RESOLUTION-F ()
     <COND (<NOT <IN? ,PATIENT-189 ,CHAPEL>>
            <TELL "Patient 189 drifts back a pace for each one you take, always toward the chapel door. Whatever is to be done will be done at the altar." CR>
            <RTRUE>)
-          (<AND <HELD? ,ANCIENT-RELIC>
-                <HELD? ,STRANGE-SERUM>
-                <HELD? ,SYRINGE>>
+          (<AND <BLACKWOOD-AT-HAND? ,ANCIENT-RELIC>
+                <BLACKWOOD-AT-HAND? ,STRANGE-SERUM>
+                <BLACKWOOD-AT-HAND? ,SYRINGE>>
            <TELL "You hold out the relic. Patient 189 stills completely. You draw the serum into the syringe and step forward—every instinct screaming—and inject it." CR>
            <TELL "The green light in its eyes gutters. Patient 189 shudders, mouth opening in a soundless cry. The green flames around the chapel gutter and die." CR>
            <TELL "Then it speaks, in a voice like someone remembering how: “I remember... who I was.”" CR>
@@ -1149,10 +1152,10 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
            <SCORE-UPD 5> ;"rooms 43 + things 20 + this = SCORE-MAX"
            <REMOVE ,PATIENT-189>
            <FINISH>)
-          (<AND <HELD? ,ANCIENT-RELIC> <HELD? ,STRANGE-SERUM>>
+          (<AND <BLACKWOOD-AT-HAND? ,ANCIENT-RELIC> <BLACKWOOD-AT-HAND? ,STRANGE-SERUM>>
            <TELL "The relic glows warm and Patient 189 stills, its eyes on the vial of serum. But you have nothing to deliver the dose with." CR>
            <RTRUE>)
-          (<HELD? ,ANCIENT-RELIC>
+          (<BLACKWOOD-AT-HAND? ,ANCIENT-RELIC>
            <TELL "The relic glows warm. Patient 189 shivers, eyes flickering. But something still binds it. The serum—if returned to its source..." CR>
            <RTRUE>)
           (<G? ,PATIENT-STATE 1>
@@ -1232,17 +1235,19 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
 <ROUTINE V-INJECT ()
     <COND (<NOT <EQUAL? ,PRSI ,SYRINGE>>
            <TELL "That is not suitable for an injection." CR>)
-          (<EQUAL? ,PRSO ,WINNER ,ME>
-           <JIGS-UP "The serum enters your vein like ice. For one lucid instant you remember the chapel from inside its locked door; then a green light opens behind your eyes and never closes.">)
-          (<NOT <EQUAL? ,PRSO ,PATIENT-189>>
+          (<NOT <EQUAL? ,PRSO ,WINNER ,ME ,PATIENT-189>>
            <TELL "You have no reason to inject " THE ,PRSO "." CR>)
-          (<NOT <HELD? ,SYRINGE>>
+          (<NOT <BLACKWOOD-AT-HAND? ,SYRINGE>>
            <TELL "You need to be holding the syringe." CR>)
+          (<EQUAL? ,PRSO ,WINNER ,ME>
+           <COND (<BLACKWOOD-AT-HAND? ,STRANGE-SERUM>
+                  <JIGS-UP "The serum enters your vein like ice. For one lucid instant you remember the chapel from inside its locked door; then a green light opens behind your eyes and never closes.">)
+                 (T <TELL "The syringe is empty. You lower it without using it." CR>)>)
           (<NOT <IN? ,PATIENT-189 ,CHAPEL>>
            <PATIENT-189-RESOLUTION-F>)
-          (<NOT <HELD? ,STRANGE-SERUM>>
+          (<NOT <BLACKWOOD-AT-HAND? ,STRANGE-SERUM>>
            <TELL "The syringe's glass chamber is empty. You have nothing to fill it with." CR>)
-          (<NOT <HELD? ,ANCIENT-RELIC>>
+          (<NOT <BLACKWOOD-AT-HAND? ,ANCIENT-RELIC>>
            <TELL "You raise the needle. Green light flares in Patient 189's eyes and the cold drives you back before you are within arm's reach. Something must hold it still first." CR>)
           (T
            <PATIENT-189-RESOLUTION-F>)>
@@ -1990,41 +1995,44 @@ lost name."
 
 ; === CLOCK-DRIVEN ATMOSPHERIC ROUTINES ===
 
+;"CLOCKER stops a multi-turn WAIT at the first reported event. Silent
+   rescheduling or a change the player cannot perceive is not an event."
+
 <ROUTINE I-WHISPER ()
 	<QUEUE I-WHISPER 8>
 	<COND (<AND <NOT ,GAME-WON>
 	            <EQUAL? ,HERE ,SANITARIUM-ENTRANCE ,PATIENT-WARD ,MORGUE ,CHAPEL>>
-	       <TELL <PICK-ONE ,WHISPER-TABLE> CR>)>
-	<RTRUE>>
+	       <TELL <PICK-ONE ,WHISPER-TABLE> CR> <RTRUE>)>
+    <RFALSE>>
 
 <ROUTINE I-FOOTSTEPS ()
 	<QUEUE I-FOOTSTEPS 12>
 	<COND (<AND <NOT ,GAME-WON>
 	            <EQUAL? ,HERE ,SANITARIUM-ENTRANCE ,RECEPTION-ROOM ,OPERATING-THEATER>>
-	       <TELL "Distant footsteps echo from somewhere above you." CR>)>
-	<RTRUE>>
+	       <TELL "Distant footsteps echo from somewhere above you." CR> <RTRUE>)>
+    <RFALSE>>
 
 <ROUTINE I-FLICKERING ()
 	<QUEUE I-FLICKERING 10>
 	<COND (<AND <NOT ,GAME-WON>
 	            ,LIT
 	            <EQUAL? ,HERE ,BASEMENT-STAIRS ,BOILER-ROOM ,MORGUE>>
-	       <TELL "The shadows seem to flicker and move of their own accord." CR>)>
-	<RTRUE>>
+	       <TELL "The shadows seem to flicker and move of their own accord." CR> <RTRUE>)>
+    <RFALSE>>
 
 <ROUTINE I-COLD-DRAFT ()
 	<QUEUE I-COLD-DRAFT 15>
 	<COND (<AND <NOT ,GAME-WON>
 	            <EQUAL? ,HERE ,MORGUE ,CHAPEL ,PATIENT-WARD>>
-	       <TELL "A cold draft makes you shiver, though there are no open windows." CR>)>
-	<RTRUE>>
+	       <TELL "A cold draft makes you shiver, though there are no open windows." CR> <RTRUE>)>
+    <RFALSE>>
 
 <ROUTINE I-CREAKING ()
     <QUEUE I-CREAKING 9>
     <COND (<AND <NOT ,GAME-WON>
                 <EQUAL? ,HERE ,OPERATING-THEATER ,PATIENT-WARD ,ELECTROSHOCK-THEATER>>
-           <TELL "The building settles with a deep structural groan, as if exhaling." CR>)>
-    <RTRUE>>
+           <TELL "The building settles with a deep structural groan, as if exhaling." CR> <RTRUE>)>
+    <RFALSE>>
 
 <ROUTINE I-BOILER-HEAT ()
     <QUEUE I-BOILER-HEAT 1>
@@ -2032,17 +2040,17 @@ lost name."
            <SETG BOILER-HEAT <+ ,BOILER-HEAT 1>>
            <COND (<EQUAL? ,BOILER-HEAT 1>
                   <COND (<EQUAL? ,HERE ,BOILER-ROOM>
-                         <TELL "The boiler gives a rolling cough. One by one, the pipes begin to tick." CR>)>)
+                         <TELL "The boiler gives a rolling cough. One by one, the pipes begin to tick." CR> <RTRUE>)>)
                  (<EQUAL? ,BOILER-HEAT 2>
                   <COND (<EQUAL? ,HERE ,BASEMENT-CORRIDOR ,FLOODING-CHAMBER>
-                         <TELL "A tremor passes through the pipes. Rust flakes fall as warmth travels east." CR>)>)
+                         <TELL "A tremor passes through the pipes. Rust flakes fall as warmth travels east." CR> <RTRUE>)>)
                  (<EQUAL? ,BOILER-HEAT 3>
                   <SETG CABINET-THAWED T>
                   <COND (<EQUAL? ,HERE ,HYDROTHERAPY-ROOM>
-                         <TELL "Behind the wall, a pipe clangs. Frost slides from the medicine cabinet in translucent sheets." CR>)
+                         <TELL "Behind the wall, a pipe clangs. Frost slides from the medicine cabinet in translucent sheets." CR> <RTRUE>)
                         (<EQUAL? ,HERE ,BOILER-ROOM ,BASEMENT-CORRIDOR ,FLOODING-CHAMBER>
-                         <TELL "Farther along the pipework, ice breaks loose with a brittle crash." CR>)>)>)>
-    <RTRUE>>
+                         <TELL "Farther along the pipework, ice breaks loose with a brittle crash." CR> <RTRUE>)>)>)>
+    <RFALSE>>
 
 <GLOBAL BLACKWOOD-COLD-WARNINGS
     <LTABLE <TABLE 8 "The cold has worked through your clothes. Your fingers are beginning to stiffen.">
@@ -2057,10 +2065,11 @@ lost name."
         ,BLACKWOOD-COLD-WARNINGS 25
         "The shivering stops. The tiles against your cheek feel almost warm; that is how you know the cold has won."
         <COND (<AND <EQUAL? ,HERE ,BOILER-ROOM> ,BOILER-LIT>
-               "Heat from the boiler works the numbness from your hands.")>>
-    <RTRUE>>
+               "Heat from the boiler works the numbness from your hands.")
+              (<NOT <L? ,COLD-EXPOSURE 8>>
+               "Out of the worst of the cold, feeling slowly returns to your fingers.")>>>
 
-<ROUTINE I-PATIENT-AUTONOMY ()
+<ROUTINE I-PATIENT-AUTONOMY ("AUX" (SPOKE <>))
     <QUEUE I-PATIENT-AUTONOMY 4>
     <COND (<AND <NOT ,GAME-WON>
                 <G? ,PATIENT-STATE 0>
@@ -2069,19 +2078,22 @@ lost name."
                        <G? ,PATIENT-LORE 2>>
                   <SETG PATIENT-STATE 2>
                   <COND (<IN? ,PATIENT-189 ,HERE>
-                         <TELL "[[Patient 189->patient]]'s gaze sharpens. Something you uncovered elsewhere has reached it; recognition flickers behind the green light." CR>)>)>
+                         <TELL "[[Patient 189->patient]]'s gaze sharpens. Something you uncovered elsewhere has reached it; recognition flickers behind the green light." CR>
+                         <SET SPOKE T>)>)>
            <COND (<AND <IN? ,PATIENT-189 ,CHAPEL>
                        <EQUAL? ,HERE ,OVERGROWN-GARDEN>>
                   <MOVE ,PATIENT-189 ,OVERGROWN-GARDEN>
-                  <TELL "Bare feet whisper over stone behind you. [[Patient 189->patient]] has followed you into the garden." CR>)
+                  <TELL "Bare feet whisper over stone behind you. [[Patient 189->patient]] has followed you into the garden." CR>
+                  <SET SPOKE T>)
                  (<AND <IN? ,PATIENT-189 ,OVERGROWN-GARDEN>
                        <EQUAL? ,HERE ,CHAPEL>>
                   <MOVE ,PATIENT-189 ,CHAPEL>
-                  <TELL "[[Patient 189->patient]] glides past you and resumes its place before the altar." CR>)
+                  <TELL "[[Patient 189->patient]] glides past you and resumes its place before the altar." CR>
+                  <SET SPOKE T>)
                  (<AND <IN? ,PATIENT-189 ,OVERGROWN-GARDEN>
                        <NOT <EQUAL? ,HERE ,OVERGROWN-GARDEN ,CHAPEL>>>
                   <MOVE ,PATIENT-189 ,CHAPEL>)>)>
-    <RTRUE>>
+    .SPOKE>
 
 ; === SCORING ===
 

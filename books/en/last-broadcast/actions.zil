@@ -393,7 +393,7 @@
 	<COND (<NOT <AND <HELD? ,LB-SPANNER> <ACCESSIBLE? ,LB-SPANNER> <ACCESSIBLE? ,LB-HATCH>>>
 		<TELL "Hold the service spanner within reach of the [[hatch]]." CR>)
 		(<FSET? ,LB-HATCH ,OPENBIT> <TELL "The [[hatch]] is already open." CR>)
-		(T <SETG LB-ROUTE T> <FSET ,LB-HATCH ,OPENBIT> <TELL "The bolt turns. You lift the [[hatch]] on its counterbalanced hinges. Warm air rises through a route that never enters the studio." CR>)>
+		(T <FSET ,LB-HATCH ,OPENBIT> <TELL "The bolt turns. You lift the [[hatch]] on its counterbalanced hinges. Warm air rises, carrying oil and wet brick." CR>)>
 	<RTRUE>>
 
 ;"Both direct and indirect evidence objects expose the verb for reader menus."
@@ -525,7 +525,7 @@
 	<COND (<NOT ,LB-CLOCK> <TELL "The office clock may date a power fault. Bring the generator room's voltage chart to it and compare them." CR>)
 		(<NOT ,LB-SOUND> <TELL "Test the voice. Open the archive sleeve; take its disc and the workshop stylus to the control room. Fit the stylus, put the disc in the gramophone, and play it." CR>)
 		(<NOT ,LB-PROVENANCE> <TELL "Authenticate the heard recording: take the disc to the cutting register and compare them." CR>)
-		(<NOT ,LB-ROUTE> <TELL "Test the service route. The workshop spanner opens the office hatch from either side." CR>)
+		(<NOT ,LB-ROUTE> <TELL "Test the service route. Use the workshop spanner on the office hatch, then go through it to verify where the passage leads." CR>)
 		(<NOT ,LB-WEAPON> <TELL "Examine the disc cutter and take its loose counterweight to the body. Compare the brass rim with the wound." CR>)
 		(<NOT ,LB-TRACE> <TELL "Examine the passage stain. Bring Ada's boots there and compare their heel repair with the print." CR>)
 		(<NOT ,LB-RUTH-CLEARED> <TELL "Show the heard disc to Ruth. Test her interpretation of the microphone's red lamp." CR>)
@@ -567,14 +567,24 @@
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? <>))
 	<COND (,LB-WON <TELL "The case is solved; the evidence and the workers' accounts are preserved." CR>)
 		(T <TELL "The case is open. Your casebook records observations; optional hints require HINT CASEBOOK." CR>)>>
+<ROUTINE LB-RECORD-CROSSING ()
+	<COND (<NOT ,LB-ROUTE>
+		<SETG LB-ROUTE T>
+		<TELL "The office and service passage connect directly. Someone could cross between them without setting foot in the studio." CR CR>)>
+	<RFALSE>>
+
 <ROUTINE LB-OFFICE-F (RARG)
-	<COND (<EQUAL? .RARG ,M-LOOK>
+	<COND (<AND <EQUAL? .RARG ,M-ENTER> <VERB? WALK> <EQUAL? ,PRSO ,P?UP>>
+		<LB-RECORD-CROSSING>)
+		(<EQUAL? .RARG ,M-LOOK>
 		<TELL "This is Julian Vane's office, so narrow that the [[filing cabinets]] crowd anyone standing at the desk. The air is too warm. Under the stale cigar smoke is the smell of old pennies. Vane's [[body]] sits slumped in his chair beneath an electric [[office clock]], his back to the door. ">
 		<COND (<FSET? ,LB-HATCH ,OPENBIT> <TELL "A square service [[hatch]] in the floor stands open, and warm air rises from the [[passage below->down]].">)
 			(T <TELL "A square service [[hatch]] is set flush in the floor, bolted shut over whatever lies [[below->down]].">)>
 		<TELL " The hall is back to the [[south]]." CR> <RTRUE>)>>
 <ROUTINE LB-PASSAGE-F (RARG)
-	<COND (<EQUAL? .RARG ,M-LOOK>
+	<COND (<AND <EQUAL? .RARG ,M-ENTER> <VERB? WALK> <EQUAL? ,PRSO ,P?DOWN>>
+		<LB-RECORD-CROSSING>)
+		(<EQUAL? .RARG ,M-LOOK>
 		<TELL "This is the cable passage, a low brick tunnel that carries the station's wiring beneath the floors. It is damp and close, and your shoulders brush cold [[pipes]] sweating with condensation. A dark [[stain]] marks the wet stone underfoot. ">
 		<COND (<FSET? ,LB-HATCH ,OPENBIT> <TELL "Overhead, lamplight falls through the open [[hatch]] from Vane's [[office above->up]].">)
 			(T <TELL "Overhead, a square [[hatch]] is shut against the [[office above->up]].">)>

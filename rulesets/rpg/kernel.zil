@@ -4,7 +4,7 @@
   tables SHEET-LAYOUT and STATUS-LAYOUT and its attribute constants; a
   language (rulesets/rpg/<lang>.zil and rulesets/<system>/<lang>.zil)
   supplies the words: ATTR-NAME, TIER-NAME, CHECK-TERMS (the system's names),
-  OF-WORD, NAME-PROMPT and the SAY-NO-* replies (the language's).
+  OF-WORD, NAME-PROMPT, STATUS-PROFILE and the SAY-NO-* replies (the language's).
 
   A character is a table of CHARACTER-SIZE words. Slot 0 holds the archetype
   the character became (0: none yet). Attributes are numbered 1 to 15 by the
@@ -191,6 +191,27 @@
  <COND (<BECAME? ,HERO> <PRINT-STATUS ,HERO> <CRLF>)
        (T <SAY-NO-STATUS>)>>
 
+;"Use the clock's one-shot bypass only from parser verbs. V-RPG-STATUS
+  itself is also called by SCORE in some books; SCORE already bypasses the
+  clock and would otherwise carry the flag over to the next real action."
+<ROUTINE V-RPG-DIAGNOSE ()
+ <COND (<NOT ,CLOCK-PAUSED> <SETG CLOCK-WAIT T>)>
+ <V-RPG-STATUS>>
+
+;"The original parser spelling is also accepted in every RPG language."
+<SYNTAX STATUS = V-RPG-CHARACTER>
+<SYNONYM STATUS STAT STATS>
+
+;"An on-demand sheet, not a new turn. Read from the same tables as combat
+  and sheet export; never derive the stats again from the chosen preset."
+<ROUTINE V-RPG-CHARACTER ()
+ <COND (<NOT ,CLOCK-PAUSED> <SETG CLOCK-WAIT T>)>
+ <COND (<NOT <BECAME? ,HERO>> <SAY-NO-CHARACTER>)
+       (T <COND (<NAMED?> <PRINT-NAME> <CRLF>)>
+          <COND (<G? ,RPG-PRESET-INDEX 0>
+                 <STATUS-PROFILE> <RPG-PRESET-TITLE ,RPG-PRESET-INDEX> <CRLF>)>
+          <PRINT-SHEET ,HERO>)>>
+
 ;"The story calls this once, after it has accepted the player's character.
   Selection, previews and naming are setup, so play starts at turn zero."
 <GLOBAL RPG-STARTED <>>
@@ -239,6 +260,10 @@
   <PUT ,RPG-PREVIEW .I 0>
   <SET I <+ .I 1>>>>
 
+;"Systems can override this callback to give the preview the same
+  grouping and rank descriptions as the live sheet."
+<GLOBAL RPG-PRESET-ROW <>>
+
 <ROUTINE RPG-EXPORT-PRESETS ("AUX" (I 1) ENTRY ID TITLE DESC)
  <REPEAT ()
   <SET ENTRY <RPG-PRESET-AT .I>>
@@ -249,7 +274,7 @@
   <SETUP-PRESET .ID .TITLE .DESC>
   <RPG-CLEAR-PREVIEW>
   <BECOME ,RPG-PREVIEW <GET .ENTRY 1>>
-  <EXPORT-SHEET-RANKS ,RPG-PREVIEW>
+  <EXPORT-SHEET-RANKS ,RPG-PREVIEW ,RPG-PRESET-ROW>
   <SET I <+ .I 1>>>
  <RPG-CLEAR-PREVIEW>>
 

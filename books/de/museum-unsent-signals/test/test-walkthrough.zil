@@ -29,6 +29,9 @@
 	<ASSERT "Die Lupe zeigt die Markierung" ,LENS-READ>
 	<CO-RESUME ,CO "west">
 	<CO-RESUME ,CO "nord">
+	<ASSERT-TEXT "Rascheln des Bands" <CO-RESUME ,CO "höre die Spule">>
+	<ASSERT-TEXT "nimm die Spule erst heraus" <CO-RESUME ,CO "drehe die Spule">>
+	<ASSERT "Bloßes Hören oder Drehen schaltet nichts frei" <NOT ,SIGNAL-HEARD>>
 	<ASSERT-TEXT "privaten Rückantwortregister" <CO-RESUME ,CO "DRÜCK DEN ABHÖRKNOPF">>
 	<ASSERT "Erneutes Abspielen schaltet die Tasten frei" ,SIGNAL-HEARD>
 	<ASSERT-TEXT "beide Sendetasten erlöschen" <CO-RESUME ,CO "nimm die Spule">>

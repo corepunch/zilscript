@@ -3005,6 +3005,73 @@ function SAVE(filename)
 	return true
 end
 
+-- Decode first. A rejected or incomplete snapshot must not change rooms,
+-- held objects, word addresses, string handles or globals in the running VM.
+-- Retain compatibility with earlier v3 files whose dictionary tail omitted
+-- the optional exact-input aliases section.
+local function decode_save(file)
+	local remaining = assert(file:seek("end"))
+	assert(file:seek("set", 0))
+	local function read(n)
+		if n == 0 then return "" end
+		if n > remaining then error("Truncated save file", 0) end
+		local bytes = file:read(n)
+		remaining = remaining - n
+		if not bytes or #bytes ~= n then error("Truncated save file", 0) end
+		return bytes
+	end
+	local function byte() return read(1):byte() end
+	local function word()
+		local lo, hi = read(2):byte(1, 2)
+		return lo | (hi << 8)
+	end
+	local function u32() return read_int32(read(4)) end
+	local function s8() return read(byte()) end
+
+	if read(#SAVE_MAGIC) ~= SAVE_MAGIC then error("Invalid save file", 0) end
+	local function read_words()
+		local entries = {}
+		for _ = 1, word() do
+			local name = s8()
+			entries[name] = read_int64(read(8))
+		end
+		return entries
+	end
+	local data = read(u32())
+	local pool, globals, words, exact_words = {}, {}, nil, nil
+	for i = 1, u32() do pool[i] = read(u32()) end
+	for _ = 1, word() do
+		local name, kind = s8(), byte()
+		if name == "" or globals[name] ~= nil then error("Invalid saved global", 0) end
+		if kind == 1 then globals[name] = read_int64(read(8))
+		elseif kind == 2 then
+			local flag = byte()
+			if flag > 1 then error("Invalid saved boolean", 0) end
+			globals[name] = flag == 1
+		elseif kind == 3 then globals[name] = read(u32())
+		elseif kind == 4 then words = read_words()
+		else error("Invalid saved global type", 0) end
+	end
+	local function section_tag()
+		if remaining > 0 then return read(1) end
+	end
+	local section = section_tag()
+	if section == "\4" then
+		words = read_words()
+		section = section_tag()
+	end
+	if section == "\5" then
+		exact_words = {}
+		for _ = 1, word() do
+			local source, target, flags = s8(), s8(), byte()
+			exact_words[source] = flags & 1 ~= 0 and { target = target, first = true } or target
+		end
+		section = section_tag()
+	end
+	if section then error("Invalid save section", 0) end
+	return data, pool, globals, words, exact_words
+end
+
 function RESTORE(filename)
 	filename = filename or "savefile.sav"
 	local file = io.open(filename, "rb")
@@ -3012,161 +3079,24 @@ function RESTORE(filename)
 		TELL("Cannot open save file.", CR)
 		return false
 	end
-
-	-- Verify header
-	local magic = file:read(#SAVE_MAGIC)
-	if magic ~= SAVE_MAGIC then
-		TELL("Invalid save file.", CR)
-		file:close()
+	local ok, data, pool, globals, words, exact_words = pcall(decode_save, file)
+	file:close()
+	if not ok then
+		TELL("Invalid or incomplete save file.", CR)
 		return false
 	end
 
-	-- Restore mem
-	local sb = file:read(4)
-	if not sb or #sb < 4 then file:close(); return false end
-	local size = read_int32(sb)
-	local data = file:read(size)
-	if not data or #data < size then file:close(); return false end
-	for i = 1, size do mem[i] = data:byte(i) end
-	mem.size = size
-
-	local cb = file:read(4)
-	if not cb or #cb < 4 then file:close(); return false end
-	local pool = {}
-	for _ = 1, read_int32(cb) do
-		local lb = file:read(4)
-		if not lb or #lb < 4 then file:close(); return false end
-		local length = read_int32(lb)
-		local str = length > 0 and file:read(length) or ""
-		if not str or #str < length then file:close(); return false end
-		table.insert(pool, str)
-	end
+	for i = #data + 1, mem.size do mem[i] = nil end
+	for i = 1, #data do mem[i] = data:byte(i) end
+	mem.size = #data
 	truncate_strings(0)
 	for _, str in ipairs(pool) do intern(str) end
-
-	-- Restore ZIL globals
-	local restored_globals = {}
-	local gc = file:read(2)
-	if gc and #gc >= 2 then
-		local num_globals = gc:byte(1) | (gc:byte(2) << 8)
-		for _ = 1, num_globals do
-			local nl = file:read(1)
-			if not nl then break end
-			local name = file:read(nl:byte())
-			if not name then break end
-			local gtype = file:read(1)
-			if not gtype then break end
-			if gtype:byte() == 1 then
-				local vb = file:read(8)
-				if vb and #vb >= 8 then
-					_G[name] = read_int64(vb)
-					restored_globals[name] = true
-				end
-			elseif gtype:byte() == 2 then
-				local vb = file:read(1)
-				if vb then
-					_G[name] = vb:byte() ~= 0
-					restored_globals[name] = true
-				end
-			elseif gtype:byte() == 3 then
-				local len_bytes = file:read(4)
-				if not len_bytes or #len_bytes < 4 then break end
-				local len = read_int32(len_bytes)
-				local vb = file:read(len)
-				if vb and #vb >= len then
-					_G[name] = vb
-					restored_globals[name] = true
-				end
-			elseif gtype:byte() == 4 then
-				-- type 4 = cache_words: count(2) + pairs of (namelen(1) + name + address(8))
-				local count_bytes = file:read(2)
-				if count_bytes and #count_bytes >= 2 then
-					local cw_count = count_bytes:byte(1) | (count_bytes:byte(2) << 8)
-					for _ = 1, cw_count do
-						local nl = file:read(1)
-						if not nl then break end
-						local wname = file:read(nl:byte())
-						if not wname then break end
-						local addr_bytes = file:read(8)
-						if addr_bytes and #addr_bytes >= 8 then
-							cache.words[wname] = read_int64(addr_bytes)
-						end
-					end
-				end
-			end
-		end
+	for name, value in pairs(_G) do
+		if is_state_global(value) and globals[name] == nil then _G[name] = nil end
 	end
-
-	-- The vocabulary address map follows the scalar globals.
-	-- Dictionary storage is rebuilt whenever a game process starts, and its
-	-- addresses are not guaranteed to match those in the process that wrote the
-	-- save.  Restore the saved map so READ and parser word lookups point into the
-	-- memory image we just loaded.
-	do
-		local section_type = file:read(1)
-		if section_type and section_type:byte() == 4 then
-			local count_bytes = file:read(2)
-			if not count_bytes or #count_bytes < 2 then
-				file:close()
-				return false
-			end
-			local cw_count = count_bytes:byte(1) | (count_bytes:byte(2) << 8)
-			local restored_words = {}
-			for _ = 1, cw_count do
-				local nl = file:read(1)
-				if not nl then
-					file:close()
-					return false
-				end
-				local word = file:read(nl:byte())
-				local addr_bytes = file:read(8)
-				if not word or not addr_bytes or #addr_bytes < 8 then
-					file:close()
-					return false
-				end
-				restored_words[word] = read_int64(addr_bytes)
-			end
-			cache.words = restored_words
-		end
-
-		local exact_section_type = file:read(1)
-		if exact_section_type and exact_section_type:byte() == 5 then
-			local count_bytes = file:read(2)
-			if not count_bytes or #count_bytes < 2 then
-				file:close()
-				return false
-			end
-			local exact_count = count_bytes:byte(1) | (count_bytes:byte(2) << 8)
-			local restored_exact_words = {}
-			for _ = 1, exact_count do
-				local source_len = file:read(1)
-				if not source_len then file:close(); return false end
-				local source = file:read(source_len:byte())
-				local target_len = file:read(1)
-				if not source or not target_len then file:close(); return false end
-				local target = file:read(target_len:byte())
-				local flags = file:read(1)
-				if not target or not flags then file:close(); return false end
-				if flags:byte() & 1 ~= 0 then
-					restored_exact_words[source] = { target = target, first = true }
-				else
-					restored_exact_words[source] = target
-				end
-			end
-			cache.exact_words = restored_exact_words
-		end
-	end
-
-	-- Clean up state globals in the game environment (env) that weren't in the save file.
-	-- _G inside the bootstrap IS the env table (env._G = env).
-	local game_env = _G
-	for name, value in pairs(game_env) do
-		if is_state_global(value) and not restored_globals[name] then
-			game_env[name] = nil
-		end
-	end
-
-	file:close()
+	for name, value in pairs(globals) do _G[name] = value end
+	if words then cache.words = words end
+	if exact_words then cache.exact_words = exact_words end
 	return true
 end
 

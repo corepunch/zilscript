@@ -1,4 +1,5 @@
 <SYNTAX TURN OBJECT = V-SPIN>
+<SYNTAX PULL OBJECT FROM OBJECT = V-TAKE PRE-TAKE>
 ;"Words a child reaches for: the tile shows the wick fitted and dipped."
 <SYNTAX FIT OBJECT (HELD HAVE) IN OBJECT = V-PUT PRE-PUT>
 <SYNTAX FIT OBJECT (HELD HAVE) ON OBJECT = V-PUT PRE-PUT>
@@ -106,7 +107,7 @@
         <TELL "You crouch and look up inside the bell. It is hollow and dark in there, and it smells of dust. Roots run all through the wood, like veins in a leaf.">
         <COND (<IN? ,WICK ,BELL> <TELL " The [[reed wick]] pokes out of its hole in the root.">)>
         <CRLF>)
-       (<VERB? TAKE>
+       (<AND <VERB? TAKE> <EQUAL? ,PRSO ,BELL>>
         <TELL "The bell hangs from a thick beam and is far too big to carry. Besides, it belongs right here." CR>)
        (<VERB? KICK ATTACK STRIKE>
         <TELL "You would never hurt the village bell. It is so old and brittle that one hard blow would crack it, and it's the only voice the village has." CR>)>>
@@ -208,7 +209,7 @@
        (<VERB? DRINK DRINK-FROM>
         <COND (,FLOWING <TELL "You cup your hands in the bowl and drink. The water is so cold it makes your teeth ache." CR>)
               (T <TELL "The bowl is dry. There's nothing in it to drink." CR>)>)
-       (<VERB? TAKE MOVE>
+       (<AND <VERB? TAKE MOVE> <EQUAL? ,PRSO ,TROUGH>>
         <TELL "The bowl is carved right out of the rock. It isn't going anywhere." CR>)>>
 <ROUTINE SHUTTER-F ()
  <COND (<VERB? EXAMINE>
@@ -217,6 +218,8 @@
        (<OR <VERB? OPEN> <AND <VERB? RAISE MOVE> <NOT <FSET? ,SHUTTER ,OPENBIT>>>>
         <COND (<FSET? ,SHUTTER ,OPENBIT> <TELL "It's already open." CR>)
               (T <FSET ,SHUTTER ,OPENBIT> <TELL "You lift the peg and swing the shutter open. Fog comes in as quietly as a cat." CR>)>)
+       (<VERB? SPIN>
+        <TELL "The shutter swings on hinges. The little peg is what keeps it shut." CR>)
        (<VERB? CLOSE>
         <COND (<FSET? ,SHUTTER ,OPENBIT>
                <FCLEAR ,SHUTTER ,OPENBIT> <TELL "You swing it closed. The shutter fits snugly in its frame again." CR>)

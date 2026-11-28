@@ -222,10 +222,17 @@
 
 <ROUTINE ESTAIRS-F ()
  <COND
-  (<VERB? EXAMINE> <TELL "Steep wooden stairs, worn hollow in the middle, leading up toward the lantern. The landing at the top is in shadow." CR>)
+  (<VERB? EXAMINE>
+   <COND (<EQUAL? ,HERE ,HALL> <TELL "Steep wooden stairs, worn hollow in the middle. The landing at the top is in shadow." CR>)
+         (T <TELL "The wooden stairs drop to the hall to the south. The separate iron [[ladder]] takes you up." CR>)>)
   (<VERB? LISTEN> <TELL "A boot, set down very carefully, on a stair you cannot see. Then nothing." CR>)
-  (<VERB? CLIMB-FOO CLIMB-ON CLIMB-UP> <DO-WALK ,P?NORTH> <RTRUE>)
-  (<VERB? CLIMB-DOWN> <TELL "From here the stairs only go up, to the landing." CR>)>>
+  (<VERB? CLIMB-FOO CLIMB-ON CLIMB-UP CLIMB-DOWN>
+   <COND (<EQUAL? ,HERE ,HALL>
+          <COND (<VERB? CLIMB-DOWN> <TELL "From here the stairs only go up, to the landing." CR>)
+                (T <DO-WALK ,P?NORTH>)>)
+         (<VERB? CLIMB-UP> <TELL "The stairs go back to the hall. To go higher, use the [[ladder]]." CR>)
+         (T <DO-WALK ,P?SOUTH>)>
+   <RTRUE>)>>
 
 <ROUTINE ELADDER-F ()
  <COND

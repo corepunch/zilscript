@@ -1,6 +1,7 @@
 <SYNTAX SHOW OBJECT (HAVE) TO OBJECT (FIND ACTORBIT) = V-SHOW>
 <SYNTAX HINT = V-WEATHER-HINT>
 <SYNTAX TURN OBJECT = V-SPIN>
+<SYNTAX WRAP OBJECT AROUND OBJECT = V-TIE>
 <SYNTAX STEAM OBJECT OVER OBJECT = V-STEAM>
 <SYNTAX CLEAR OBJECT WITH OBJECT (HELD CARRIED HAVE) = V-DIG>
 <SYNTAX WRITE OBJECT = V-WRITE>
@@ -179,16 +180,21 @@
 	 (<VERB? TIE> <PAD-CHIME>)
 	 (<VERB? UNTIE> <UNPAD-CHIME>)>>
 <ROUTINE PAD-CHIME ()
-	<COND (<NOT <OR <AND <EQUAL? ,PRSO ,RIBBON> <EQUAL? ,PRSI ,CHIME>>
-	 <AND <EQUAL? ,PRSO ,CHIME> <EQUAL? ,PRSI ,RIBBON>>>>
-	 <TELL "The ribbon can pad the [[wind chime->chime]] if you tie those two together." CR>)
+	<COND (<NOT <OR <AND <EQUAL? ,PRSO ,RIBBON> <EQUAL? ,PRSI ,CHIME ,CHIME-CLAPPER>>
+	 <AND <EQUAL? ,PRSO ,CHIME ,CHIME-CLAPPER> <EQUAL? ,PRSI ,RIBBON>>>>
+	 <TELL "The ribbon can pad the wind chime if you tie those two together." CR>)
 	 (<NOT <EQUAL? ,HERE ,ARCH>> <TELL "You need to be beside the chime." CR>)
 	 (<IN? ,RIBBON ,CHIME> <TELL "The clapper is already padded. Its soft chuckle leaves room for words." CR>)
 	 (<NOT <AND <HELD? ,RIBBON> <ACCESSIBLE? ,RIBBON>>> <TELL "You need the ribbon in your hands." CR>)
 	 (T <MOVE ,RIBBON ,CHIME> <FSET ,RIBBON ,NDESCBIT> <TELL "You tie the [[soft ribbon->ribbon]] around the [[chime]]'s clapper. CLANG becomes tok. From the [[east]], a small voice says, “Oh. There you are.”" CR>)>
 	<RTRUE>>
 <ROUTINE UNPAD-CHIME ()
-	<COND (<AND <EQUAL? ,HERE ,ARCH> <IN? ,RIBBON ,CHIME>>
+	<COND (<AND <VERB? UNTIE>
+                    <NOT <OR <AND <NOT ,PRSI> <EQUAL? ,PRSO ,RIBBON ,CHIME ,CHIME-CLAPPER>>
+                             <AND <EQUAL? ,PRSO ,RIBBON> <EQUAL? ,PRSI ,CHIME ,CHIME-CLAPPER>>
+                             <AND <EQUAL? ,PRSO ,CHIME ,CHIME-CLAPPER> <EQUAL? ,PRSI ,RIBBON>>>>>
+               <TELL "Only the ribbon is tied around the clapper. That wouldn't loosen it." CR>)
+              (<AND <EQUAL? ,HERE ,ARCH> <IN? ,RIBBON ,CHIME>>
 	 <MOVE ,RIBBON ,WINNER> <FCLEAR ,RIBBON ,NDESCBIT> <TELL "You untie the [[ribbon]] and take it back. The [[chime]] clangs again. You can pad it again whenever you like." CR>)
 	 (T <TELL "There is no padded clapper here to untie." CR>)> <RTRUE>>
 <ROUTINE CHIME-F ()
@@ -200,7 +206,7 @@
 	 (T <TELL "The hard [[clapper]] strikes with a CLANG. Something soft tied around it would let you hear the voice beyond, to the [[east]]." CR>)>)
 	 (<VERB? TIE> <PAD-CHIME>)
 	 (<VERB? UNTIE> <UNPAD-CHIME>)
-	 (<VERB? TAKE> <TELL "The chime is fixed here. Its clapper needs padding, not taking away." CR>)
+	 (<AND <VERB? TAKE> <EQUAL? ,PRSO ,CHIME>> <TELL "The chime is fixed here. Its clapper needs padding, not taking away." CR>)
 	 (<VERB? RUB> <COND (<IN? ,RIBBON ,CHIME> <TELL "You still the tubes with your hand. Under the wool, the clapper gives a muffled bump." CR>) (T <TELL "You steady the tubes with your hand. They go quiet for a moment, then the next gust sets them clanging again." CR>)>)
 	 (<VERB? PUSH KICK> <PERFORM ,V?RING ,CHIME>)>>
 <ROUTINE GUTTER-F ()
@@ -501,9 +507,8 @@
            <COND (<IN? ,RIBBON ,CHIME> <TELL "A dent has formed in the wool where it meets the rim. Even at the end of a swing, only the ribbon touches metal." CR>)
                  (T <TELL "The tip is as shiny as a newly polished spoon. It has worn a matching bright spot inside the rim." CR>)>)
           (<VERB? LISTEN> <PERFORM ,PRSA ,CHIME>)
-          (<VERB? TIE UNTIE>
-           <COND (<EQUAL? ,PRSO ,CHIME-CLAPPER> <PERFORM ,PRSA ,CHIME ,PRSI>)
-                 (T <PERFORM ,PRSA ,PRSO ,CHIME>)>)>>
+          (<VERB? TIE> <PAD-CHIME>)
+          (<VERB? UNTIE> <UNPAD-CHIME>)>>
 
 <ROUTINE PICTURE-F ()
     <COND (<VERB? READ> <PERFORM ,PRSA ,CHART>)>>

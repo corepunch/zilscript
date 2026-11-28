@@ -19,7 +19,12 @@
 <SYNONYM ПРИМЕНИТЬ ПРИМЕНИ>
 <SYNTAX НАЗВАТЬ OBJECT = V-RPG-NAME>
 <SYNONYM НАЗВАТЬ НАЗОВИ>
-<SYNTAX СОСТОЯНИЕ = V-RPG-STATUS>
+<SYNTAX СОСТОЯНИЕ = V-RPG-DIAGNOSE>
+<SYNONYM СОСТОЯНИЕ ЗДОРОВЬЕ ДИАГНОЗ>
+<SYNTAX СТАТУС = V-RPG-CHARACTER>
+<SYNONYM СТАТУС СТАТЫ ХАРАКТЕРИСТИКИ>
+
+<ROUTINE STATUS-PROFILE () <TELL "Профиль: ">>
 
 <ROUTINE SAY-NO-TARGET () <TELL "Эту цель нельзя атаковать." CR>>
 <ROUTINE SAY-NO-RESCUE () <TELL "Здесь некого спасать." CR>>
@@ -28,3 +33,4 @@
 <ROUTINE SAY-NO-POWER () <TELL "Это не поможет." CR>>
 <ROUTINE SAY-NO-NAME () <TELL "Имя героя можно задать в карточке героя." CR>>
 <ROUTINE SAY-NO-STATUS () <TELL "Сначала выберите героя." CR>>
+<ROUTINE SAY-NO-CHARACTER () <SAY-NO-STATUS>>

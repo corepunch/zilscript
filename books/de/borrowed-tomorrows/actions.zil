@@ -1,4 +1,6 @@
 <SYNTAX FALT OBJECT = V-FOLD-LOAN>
+<SYNTAX KLEMM OBJECT (HELD HAVE) IN OBJECT = V-PUT PRE-PUT>
+<SYNONYM KLEMM KLEMME>
 <SYNONYM FALT FALTE>
 <SYNTAX GLAETT OBJECT = V-UNFOLD-LOAN>
 <SYNTAX FALT AUF OBJECT = V-UNFOLD-LOAN>
@@ -72,8 +74,10 @@
               (T <TELL "Nichts. Der leere Schrank ist so still wie ein geschlossenes Buch." CR>)>)
        (<VERB? SMELL>
         <TELL "Zedernholz und altes Papier. So riecht eine Schublade, die jahrelang niemand geöffnet hat." CR>)
-       (<VERB? MOVE PUSH TAKE>
+       (<AND <VERB? MOVE PUSH TAKE> <EQUAL? ,PRSO ,CASE>>
         <TELL "Du stemmst dich mit deinem ganzen Gewicht gegen den Schrank. Er ist viel zu schwer, und jemand hat ihn offensichtlich mit Absicht vors Fenster geschoben." CR>)
+       (<VERB? LOOK-BEHIND>
+        <TELL "Im Spalt entdeckst du einen Bleistiftstrich auf der Fensterbank. Genau hier musste der Schrank stehen, um das Licht von morgen aufzufangen." CR>)
        (<VERB? LOOK-UNDER>
         <TELL "Nur Staub und vier lange Schrammen von den Schrankfüßen, die bis zum Fenster führen." CR>)>>
 <ROUTINE STRIPES-F ()
@@ -88,7 +92,9 @@
        (<VERB? LOOK-INSIDE OPEN CLOSE>
         <TELL "Das große Fenster geht nicht auf. Dahinter siehst du die Dächer der Stadt, die alle zu warten scheinen." CR>)>>
 <ROUTINE BOARD-F ()
- <COND (<VERB? EXAMINE READ>
+ <COND (<AND <VERB? PUT-UNDER> <EQUAL? ,PRSO ,LEAF> <EQUAL? ,PRSI ,BOARD>>
+        <TELL "Unter dem Brett kann sich kein Blatt entfalten. Du behältst das Morgenblatt in der Hand." CR>)
+       (<VERB? EXAMINE READ>
         <SETG BOARD-READ T>
         <TELL "Ins Brett ist eingeritzt: LEG EIN BLATT MIT DER GOLDSEITE NACH OBEN AUF DAS BRETT. WENN DU DEINEN TAG TEILEN WILLST, STREICH DIE ALTEN FALTEN GLATT. Nirgends steht, dass du das nicht darfst.">
         <COND (<HELD? ,LEAF> <TELL " Du hältst das [[Morgenblatt]] in der Hand.">)>
@@ -154,7 +160,7 @@
        (<VERB? LOOK-INSIDE SEARCH>
         <COND (<IN? ,LEAF ,FRAME> <TELL "Die Klammern fassen nur die Ecken. Die goldene Mitte des Blatts bleibt frei; von unten können alle mitlesen." CR>)
               (T <TELL "Du beugst dich vor. Durch den leeren Rahmen ist der ganze Markt so klein wie ein gemaltes Bild." CR>)>)
-       (<VERB? TAKE>
+       (<AND <VERB? TAKE> <EQUAL? ,PRSO ,FRAME>>
         <TELL "Der Rahmen ist an der Terrasse festgeschraubt. Er gehört hierher, wo ihn unten alle sehen können." CR>)>>
 <ROUTINE MARKET-F ()
  <COND (<AND <VERB? EXAMINE> <NOT <EQUAL? ,HERE ,TERRACE>>>
@@ -218,6 +224,8 @@
               (,WIDE-LOAN <SETG WIDE-LOAN <>>
                <TELL "Du folgst den alten Falten. Kaum ist das Blatt wieder klein, rückt dein Name zurück in sein Kästchen." CR>)
               (T <TELL "Kleiner wird es nicht, ohne dass du auch deinen Namen zusammenfalten müsstest." CR>)>)
+       (<VERB? THROW THROW-OFF OVERBOARD>
+        <TELL "Du hältst das Blatt lieber fest. Morgen ist nichts, was man wegwirft." CR>)
        (<VERB? TEAR-LOAN>
         <TELL "An der Kante zittert ein goldener Riss. Du lässt los. Einen ganzen Tag klebt man nicht mit Klebeband wieder zusammen." CR>)
        (<AND <VERB? TAKE> <IN? ,LEAF ,CASE>>
@@ -241,11 +249,13 @@
         <COND (,WIDE-LOAN <TELL "Das breite Blatt flattert wie eine kleine Fahne. Für einen Augenblick spürst du einen Windhauch, der nach Morgen riecht." CR>)
               (T <TELL "Das feste kleine Quadrat flattert überhaupt nicht. Es ist viel zu straff gefaltet." CR>)>)>>
 <ROUTINE PUBLISH-LOAN ()
+ <SETG PUBLISHED-LOAN T>
  <TELL "Am Rahmen liest du das eine Wort auf dem Blatt laut vor, so deutlich du kannst: MORGEN. Das breite Blatt leuchtet. Unten auf dem Markt antworten hundert Namen, einer nach dem anderen, bis kein Platz mehr neben deinem Namen frei ist. Die Schatten werden wieder länger. Vor der Bäckerei stellt jemand einen Stuhl zurück, den er gerade wegräumen wollte." CR CR
        "ENDE – PLATZ FÜR JEDEN NAMEN" CR>
  <FINISH> <RTRUE>>
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? T))
- <COND (<IN? ,LEAF ,FRAME> <TELL "Ausleihbuch: Ein Tag wurde geteilt." CR>)
+ <COND (,PUBLISHED-LOAN <TELL "Ausleihbuch: Ein Tag wurde geteilt." CR>)
+       (<IN? ,LEAF ,FRAME> <TELL "Ausleihbuch: Ein Tag ist zum Teilen bereit. Lies ihn am Leserahmen vor." CR>)
        (,ON-LOAN <TELL "Ausleihbuch: Ein Tag ist ausgeliehen." CR>)
        (T <TELL "Ausleihbuch: Zurzeit ist nichts ausgeliehen." CR>)>>
 
