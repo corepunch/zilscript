@@ -1,7 +1,11 @@
 <SETG HERO-NAME <ITABLE 130 (BYTE) 0>>
 <ROUTINE OF-WORD () <TELL " из ">>
 <ROUTINE NAME-PROMPT () <TELL "Введите имя героя. Оно может содержать до 32 символов." CR>>
-<ROUTINE ASK-NAME () <NAME-PROMPT> <READ ,HERO-NAME <> 32>>
+<ROUTINE ASK-NAME ("AUX" STATUS)
+ <NAME-PROMPT>
+ <SET STATUS <READ ,HERO-NAME <> 32>>
+ <COND (<==? .STATUS 2> <SETG RPG-PRESET-NAME <>>)>
+ .STATUS>
 
 <SYNTAX УДАРИТЬ OBJECT = V-RPG-ATTACK>
 <SYNONYM УДАРИТЬ УДАРЬ АТАКОВАТЬ АТАКУЙ>

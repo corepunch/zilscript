@@ -163,9 +163,10 @@
  <COND (<AND <G? .J 0> <==? <GETB ,HERO-NAME <- .J 1>> 32>> <SET J <- .J 1>>)>
  <PUTB ,HERO-NAME .J 0>>
 
-<ROUTINE NAMED? () <NOT <0? <GETB ,HERO-NAME 0>>>>
+<ROUTINE NAMED? () <OR ,RPG-PRESET-NAME <NOT <0? <GETB ,HERO-NAME 0>>>>>
 
 <ROUTINE PRINT-NAME ("AUX" (I 0) C)
+ <COND (,RPG-PRESET-NAME <PRINT ,RPG-PRESET-NAME> <RTRUE>)>
  <REPEAT () <SET C <GETB ,HERO-NAME .I>> <COND (<0? .C> <RETURN>)>
   <PRINTC .C> <SET I <+ .I 1>>>>
 
@@ -175,7 +176,7 @@
  <NAME-PROMPT>
  <READ ,P-INBUF ,P-LEXV>
  <SET STATUS <NAME-STATUS>>
- <COND (<==? .STATUS 2> <COPY-NAME>)>
+ <COND (<==? .STATUS 2> <COPY-NAME> <SETG RPG-PRESET-NAME <>>)>
  .STATUS>
 
 ;"The generic actions. A story's objects answer them in their ACTION
@@ -216,3 +217,48 @@
            <SHEET-ROW <TAKE-OUTPUT> <STAT .TBL .A>
              <COND (<CEILING? .TBL .A> <MAX-STAT .TBL .A>) (T 0)>>)>
   <SET I <+ .I 1>>>>
+
+;"Optional pre-game contract. Books define stable IDs and archetype tables,
+  plus localized title/summary callbacks. Reading the catalog initializes
+  only a scratch character: no player, clocks, world or RNG are touched."
+<GLOBAL RPG-PRESETS 0>
+<GLOBAL RPG-PREVIEW <ITABLE 32 0>>
+<GLOBAL RPG-PRESET-INDEX 0>
+<GLOBAL RPG-PRESET-NAME <>>
+
+<ROUTINE RPG-PRESET-COUNT ()
+ <COND (<0? ,RPG-PRESETS> 0) (T <GET ,RPG-PRESETS 0>)>>
+
+<ROUTINE RPG-PRESET-AT (INDEX)
+ <COND (<OR <L? .INDEX 1> <G? .INDEX <RPG-PRESET-COUNT>>> <RFALSE>)
+       (T <GET ,RPG-PRESETS .INDEX>)>>
+
+<ROUTINE RPG-CLEAR-PREVIEW ("AUX" (I 0))
+ <REPEAT ()
+  <COND (<==? .I ,CHARACTER-SIZE> <RETURN>)>
+  <PUT ,RPG-PREVIEW .I 0>
+  <SET I <+ .I 1>>>>
+
+<ROUTINE RPG-EXPORT-PRESETS ("AUX" (I 1) ENTRY ID TITLE DESC)
+ <REPEAT ()
+  <SET ENTRY <RPG-PRESET-AT .I>>
+  <COND (<NOT .ENTRY> <RETURN>)>
+  <TELL <GET .ENTRY 0>> <SET ID <TAKE-OUTPUT>>
+  <RPG-PRESET-TITLE .I> <SET TITLE <TAKE-OUTPUT>>
+  <RPG-PRESET-SUMMARY .I> <SET DESC <TAKE-OUTPUT>>
+  <SETUP-PRESET .ID .TITLE .DESC>
+  <RPG-CLEAR-PREVIEW>
+  <BECOME ,RPG-PREVIEW <GET .ENTRY 1>>
+  <EXPORT-SHEET-RANKS ,RPG-PREVIEW>
+  <SET I <+ .I 1>>>
+ <RPG-CLEAR-PREVIEW>>
+
+;"Used by a host before GO, and by the parser-only setup for compatibility.
+  The host passes a validated localized name, not a parser command."
+<ROUTINE RPG-SELECT-PRESET (INDEX "OPTIONAL" NAME "AUX" ENTRY)
+ <SET ENTRY <RPG-PRESET-AT .INDEX>>
+ <COND (<OR <NOT .ENTRY> ,RPG-STARTED <BECAME? ,HERO>> <RFALSE>)>
+ <BECOME ,HERO <GET .ENTRY 1>>
+ <SETG RPG-PRESET-INDEX .INDEX>
+ <SETG RPG-PRESET-NAME .NAME>
+ <RTRUE>>

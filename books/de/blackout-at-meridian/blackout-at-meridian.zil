@@ -13,6 +13,7 @@
   (German); the story's logic and words follow the ruleset."
 <INSERT-FILE "languages.de.init">
 <INSERT-FILE "books.de.blackout-at-meridian.de">
+<INSERT-FILE "books.shared.blackout-at-meridian.presets">
 <INSERT-FILE "books.shared.blackout-at-meridian.logic">
 <INSERT-FILE "rulesets.superhero.de">
 <INSERT-FILE "books.shared.blackout-at-meridian.rules">
