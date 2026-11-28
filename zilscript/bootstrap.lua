@@ -1,3 +1,4 @@
+local Text = require("zilscript.text")
 -- zil_init.lua
 -- Equivalent of zil_newstate() in plain Lua
 
@@ -233,7 +234,7 @@ local function is_hidden(obj)
 	return invisible ~= nil and FSETQ(obj, invisible)
 end
 
-local zil_language, fallback_text
+local zil_language, fallback_text, story_messages
 
 local function item_patterns(verbs)
 	local preferred = {
@@ -601,6 +602,16 @@ end
 -- What the fallback menus say, by <LANGUAGE>. Commands are the language's own
 -- parser words (ASCII stems), labels read naturally to a child.
 local FALLBACK_TEXT = {
+	ru = {
+		labels = { EXAMINE = "Осмотреть: %s", READ = "Прочитать: %s", OPEN = "Открыть: %s", TAKE = "Взять: %s" },
+		commands = { EXAMINE = "осмотреть", READ = "прочитать", OPEN = "открыть", TAKE = "взять" },
+		climbTo = "Подняться: ", climbBack = "Подняться обратно: ",
+		downTo = "Спуститься: ", downBack = "Спуститься обратно: ",
+		walkTo = "Идти: ", walkBack = "Вернуться: ",
+		directions = { north = "север", south = "юг", east = "восток", west = "запад",
+			northeast = "северо-восток", northwest = "северо-запад", southeast = "юго-восток", southwest = "юго-запад",
+			up = "вверх", down = "вниз", ["in"] = "внутрь", out = "наружу" },
+	},
 	en = {
 		labels = { EXAMINE = "Examine the %s", READ = "Read the %s", OPEN = "Open the %s", TAKE = "Take the %s" },
 		commands = { EXAMINE = "examine", READ = "read", OPEN = "open", TAKE = "take" },
@@ -627,6 +638,7 @@ local FALLBACK_TEXT = {
 
 function fallback_text()
 	local name = tostring(zil_language or ""):lower()
+	if name == "russian" then return FALLBACK_TEXT.ru end
 	return FALLBACK_TEXT[(name == "german" or name == "de") and "de" or "en"]
 end
 
@@ -840,6 +852,11 @@ local function lower_text(s)
 		if c == "\151" then return nil end
 		return "\195" .. string.char(c:byte() + 32)
 	end))
+end
+
+local function dictionary_key(word)
+	if zil_language == "RUSSIAN" then return Text.russianKey(word) end
+	return lower_text(word):sub(1, 6)
 end
 
 local function encode_fptr(n)
@@ -1110,14 +1127,14 @@ end
 -- six-character dictionary truncation.  This is useful for the rare case where
 -- a long noun (for example INSPECTOR) collides with a shorter verb (INSPECT).
 function VOC_EXACT(word, target)
-	local target_key = tostring(target):lower():sub(1, 6)
+	local target_key = dictionary_key(tostring(target))
 	local target_word = cache.words[target_key]
 	cache.exact_words[tostring(word):lower()] = target_key
 	return target_word or 0
 end
 
 function VOC_EXACT_FIRST(word, target)
-	local target_key = tostring(target):lower():sub(1, 6)
+	local target_key = dictionary_key(tostring(target))
 	local target_word = cache.words[target_key]
 	cache.exact_words[tostring(word):lower()] = { target = target_key, first = true }
 	return target_word or 0
@@ -1293,6 +1310,10 @@ function RESTART()
 	error(ZIL_CONTROL_SIGNALS.restart, 0)
 end
 
+local function localized(text)
+	return story_messages and story_messages[text] or text
+end
+
 function TELL(...)
 	local object = false
 	local number = false
@@ -1318,7 +1339,7 @@ function TELL(...)
 					local desc = GETP(v, _G["PQDESC"]) or ""
 					-- A story marks people and other proper names with
 					-- ARTICLEBIT: "Ruth Bell", never "the Ruth Bell".
-					local named = rawget(_G, "ARTICLEBIT") and FSETQ(v, ARTICLEBIT)
+					local named = zil_language == "RUSSIAN" or (rawget(_G, "ARTICLEBIT") and FSETQ(v, ARTICLEBIT))
 					-- A plural noun marked with PLURALBIT ("cobwebs",
 					-- "copper pots") takes "some", never "a".
 					local plural = rawget(_G, "PLURALBIT") and FSETQ(v, PLURALBIT)
@@ -1339,9 +1360,9 @@ function TELL(...)
 			end
 		elseif number then number = false io_write(tostring(v))
 		elseif v == nil or v == false then -- FALSE expressions print nothing
-		elseif type(v) == "number" then io_write(mem:string(v))
+		elseif type(v) == "number" then io_write(localized(mem:string(v)))
 		elseif v == '>' then -- skip
-		else io_write(tostring(v)) end
+		else io_write(localized(tostring(v))) end
 	end
 	return true
 end
@@ -1481,7 +1502,13 @@ local function resolve_display_name(input)
 end
 
 -- Modified READ to yield with output
-function READ(inbuf, parse)
+local RUSSIAN_INPUT_WORDS = {
+	["да"] = "yes", ["нет"] = "no", ["потом"] = "then", ["и"] = "and",
+	["всё"] = "all", ["все"] = "all", ["снова"] = "again", ["повтори"] = "again",
+	["начать"] = "restart", ["загрузить"] = "restore", ["выйти"] = "quit",
+}
+
+function READ(inbuf, parse, nameLimit)
 	remember_room()
 	-- for k, v in pairs(_G) do
 	-- 	if type(v) == 'boolean' then print(k, type(v)) end
@@ -1498,6 +1525,20 @@ function READ(inbuf, parse)
 	-- Handle nil input (e.g., EOF)
 	if not s then
 		os.exit(0)
+	end
+	if nameLimit then
+		if not utf8.len(s) or s:find("%c") then return 0 end
+		s = s:match("^%s*(.-)%s*$")
+		if s == "" then return 1 end
+		local stop = utf8.offset(s, math.min(utf8.len(s), nameLimit) + 1)
+		mem:write(s:sub(1, stop - 1) .. '\0', inbuf)
+		return 2
+	end
+	if zil_language == "RUSSIAN" then
+		s = Text.lower(s):gsub("^(%s*[^%s]+)%s+на%s+", function(verb)
+			local word = verb:match("%S+")
+			if word == "иди" or word == "идти" or word == "пойти" then return verb .. " " end
+		end):gsub("[%s%.!?]+$", "")
 	end
 	if type(s) == "string" then
 		local command, refusal = retrace(s)
@@ -1544,8 +1585,9 @@ function READ(inbuf, parse)
 	for _, token in ipairs(tokens) do
 		local pos, word = token[1], token[2]
 		-- Z-machine truncates dictionary words to 6 characters
-		local normalized = lower_text(word)
-		local truncated = normalized:sub(1, 6)
+		local normalized = Text.lower(lower_text(word))
+		local inputWord = zil_language == "RUSSIAN" and RUSSIAN_INPUT_WORDS[normalized] or word
+		local truncated = dictionary_key(inputWord)
 		local exact_spec = cache.exact_words[normalized]
 		local exact_target
 		if type(exact_spec) == "table" then
@@ -1557,10 +1599,10 @@ function READ(inbuf, parse)
 		-- ZIL vocabulary has no apostrophes, so a possessive such as "child's"
 		-- (or a phone keyboard's "child’s") is read as its owner, CHILD.
 		local stem = index == 0 and (normalized:match("^(.+)'s$") or normalized:match("^(.+)\226\128\153s$"))
-		if stem then index = cache.words[stem:sub(1, 6)] or 0 end
+		if stem then index = cache.words[dictionary_key(stem)] or 0 end
 		table.insert(p, makeword(index).. string.char(#word, pos&0xff))
 	end
-	mem:write(lower_text(s)..'\0', inbuf+1)
+	mem:write(Text.lower(lower_text(s))..'\0', inbuf+1)
 	mem:write(string.char(#p)..table.concat(p), parse+1)
 end
 
@@ -1742,7 +1784,7 @@ learn = function(word, atom, value)
 	if not word then return 0 end
 	word = lower_text(word)
 	-- Z-machine truncates dictionary words to 6 characters
-	local word_key = word:sub(1, 6)
+	local word_key = dictionary_key(word)
 	if type(value) == 'table' then
 		-- Object adjective properties and the dictionary must share one value
 		-- for a six-character word. Registering LEATHER-BOUND after LEATHER
@@ -1779,7 +1821,7 @@ learn = function(word, atom, value)
 		_G['WQ'..upper2(word)] = pos
 	end
 	for _, syn in ipairs(cache.synonyms[word_key] or {}) do
-		local syn_key = syn:lower():sub(1, 6)
+		local syn_key = dictionary_key(syn)
 		if cache.words[syn_key] then
 			merge_dictionary_word(cache.words[syn_key], cache.words[word_key])
 		end
@@ -2064,8 +2106,9 @@ function build_object(object, declaration)
 	local object_name = object.ZIL_NAME or object.NAME
 	local n = _G[object_name]
 	if object.SYNONYM and object.SYNONYM[1] then
-		local adjective = object.ADJECTIVE and object.ADJECTIVE[1]
-		object_phrases[n] = ((adjective and adjective .. " " or "") .. object.SYNONYM[1]):lower()
+		local noun = Text.lower(object.SYNONYM[1])
+		local adjective = zil_language ~= "RUSSIAN" and object.ADJECTIVE and Text.lower(object.ADJECTIVE[1])
+		object_phrases[n] = (adjective and adjective .. " " or "") .. noun
 		if object.DESC then
 			local name = object.DESC:lower()
 			display_names[name] = display_names[name] or {}
@@ -2074,7 +2117,7 @@ function build_object(object, declaration)
 			if not known then table.insert(display_names[name], n) end
 		end
 		local aliases = {}
-		for _, word in ipairs(object.SYNONYM) do table.insert(aliases, word:lower()) end
+		for _, word in ipairs(object.SYNONYM) do table.insert(aliases, Text.lower(word)) end
 		object_aliases[n] = aliases
 	end
 	local t = {string.char(#object_name), object_name}
@@ -2416,7 +2459,7 @@ function SYNTAX(syn)
 		ACTIONS = mem:write(string.rep('\0\0', 256))
 		PREACTIONS = mem:write(string.rep('\0\0', 256))
 	end
-	local name = syn.VERB:lower()
+	local name = Text.lower(syn.VERB)
 	if not syn.order then
 		syntax_order = syntax_order + 1
 		syn.order = syntax_order
@@ -2436,9 +2479,9 @@ function SYNTAX(syn)
 		action_syntax[key] = patterns
 		table.insert(patterns, {
 			action = key,
-			verb = syn.VERB:lower(),
-			prefix = syn.PREFIX and syn.PREFIX:lower() or "",
-			join = syn.SUBJECT and (syn.JOIN and syn.JOIN:lower() or "") or nil,
+			verb = Text.lower(syn.VERB),
+			prefix = syn.PREFIX and Text.lower(syn.PREFIX) or "",
+			join = syn.SUBJECT and (syn.JOIN and Text.lower(syn.JOIN) or "") or nil,
 			held = syn.SUBJECT and syn.SUBJECT.WHERE
 				and ((syn.SUBJECT.WHERE & (SH + SC)) ~= 0)
 				and ((syn.SUBJECT.WHERE & (SOG + SIR)) == 0) or false,
@@ -2509,7 +2552,7 @@ end
 function BUZZ(...)
 	for _, buzz in ipairs {...} do
 		learn(buzz, PSQBUZZ_WORD, nil)
-		_G['WQ'..asciiName(buzz:upper())] = cache.words[buzz:lower():sub(1, 6)]
+		_G['WQ'..asciiName(buzz:upper())] = cache.words[dictionary_key(buzz)]
 	end
 end
 
@@ -2519,11 +2562,11 @@ function DEFER_SYNONYM(...)
 end
 
 function SYNONYM(verb, ...)
-	verb = verb:lower():sub(1, 6)
+	verb = dictionary_key(verb)
 	cache.synonyms[verb] = {...}
   for _, syn in ipairs {...} do
 		-- Truncate to 6 chars (Z-machine dictionary convention)
-		local syn_key = syn:lower():sub(1, 6)
+		local syn_key = dictionary_key(syn)
 		if cache.words[verb] then
 			if cache.words[syn_key] then
 				merge_dictionary_word(cache.words[syn_key], cache.words[verb])
@@ -2744,6 +2787,7 @@ ZIL_COMPILE_SESSION = require("zilscript.compiler").newSession()
 
 function LANGUAGE(name)
 	zil_language = name
+	story_messages = name == "RUSSIAN" and require("zilscript.russian_messages") or nil
 end
 
 -- INSERT_FILE loads and executes a ZIL file

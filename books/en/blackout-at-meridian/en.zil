@@ -31,7 +31,7 @@
  <TELL ")" CR>>
 
 <ROUTINE MSG-OPENING ()
- <TELL "At nine o'clock the storm took Meridian's power, and then someone took the relay station that should have brought it back. A guard drone now holds the station, and on Meridian Bridge a tram full of passengers hangs from a broken cable over the river. You are the city's newest hero, and tonight is your first call. Register a profile at dispatch, then get to the bridge. (Type HELP at any time for how to play.)" CR CR>
+ <TELL "At nine o'clock the storm took Meridian's power, and then someone took the relay station that should have brought it back. A guard drone now holds the station, and on Meridian Bridge a tram full of passengers hangs from a broken cable over the river. You are the city's newest hero, and tonight is your first call. Get to the bridge. (Type HELP at any time for how to play.)" CR CR>
  <TELL D ,HERE CR>>
 
 <ROUTINE MSG-HELP-HOW ()
@@ -91,8 +91,8 @@
 <ROUTINE MSG-LEAP-IDLE ()
  <TELL "You bounce on your heels, ready for anything." CR>>
 
-<ROUTINE MSG-DISPATCH-LOOK-UNREGISTERED ()
- <TELL "You are in Meridian's emergency dispatch office, a cramped room running on battery power. Rain runs in silver lines down the [[window]], and beyond it the whole [[city]] is dark. Three hero profiles are pinned to the [[duty board->board]]: [[Bulwark]], [[Arc]] and [[Lens]]. Choose one, and give your hero a name on your [[character sheet->sheet]] if you like. The street door leads [[north]] to Meridian Bridge.">>
+<ROUTINE MSG-SETUP ()
+ <TELL "Choose the hero you’ll play as: [[Bulwark]], [[Arc]] or [[Lens]]. Examine each profile before deciding. You can give your hero a name on the [[character sheet->sheet]]. Choosing a profile starts the mission." CR>>
 
 <ROUTINE MSG-DISPATCH-LOOK-REGISTERED ()
  <TELL "You are in Meridian's emergency dispatch office, a cramped room running on battery power. Rain runs in silver lines down the [[window]], and beyond it the whole [[city]] is dark. Your profile is marked active on the [[duty board->board]]. The street door leads [[north]] to Meridian Bridge.">>
@@ -154,8 +154,6 @@
 <ROUTINE MSG-CHOOSE-REGISTERED-2 ()
  <TELL ". Your ranks:" CR>>
 
-<ROUTINE MSG-CHOOSE-REGISTERED-3 ()
- <TELL "The bridge is to the [[north]]." CR>>
 
 <ROUTINE MSG-PROFILE-ATTACK ()
  <TELL "Tearing up the duty board will not get anyone off the bridge." CR>>

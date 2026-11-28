@@ -152,3 +152,21 @@ books/<lang>/<book>/game.json              the edition's own app id and language
 ```
 
 Each edition has its own id, so saves never cross.
+
+## Character creation and printable sheets
+
+A story that offers character creation calls `RPG-PREPARE` in its `GO`
+routine before presenting the available profiles. Running the world parser
+during setup lets players examine profiles and enter a name. The clock stays
+paused. The story owns the profiles and validates the selection. Once it has
+initialized its character, it calls `RPG-BEGIN` with the story's opening
+routine. This resumes the clock and runs the opening once. Both the character
+and the setup state live in the normal ZIL game state.
+
+A story can offer a printable sheet by defining `RPG-EXPORT-SHEET`. Return
+false if there is no sheet yet. Send the character's name and profile to
+`SHEET-IDENTITY`, then call `EXPORT-SHEET-RANKS` with the character table.
+The kernel uses the system's `SHEET-LAYOUT` and the language's `ATTR-NAME`,
+just as the in-game sheet does. The host receives rows with current values
+and optional maxima. Adventure Arena turns those rows into a printable
+HTML file. Exporting the sheet does not run a parser turn.

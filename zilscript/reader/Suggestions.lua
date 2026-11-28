@@ -1,3 +1,4 @@
+local Text = require((...):match("^(.*)%.reader%.Suggestions$") .. ".text")
 -- Command completion and vocabulary from the running story.
 local namespace = (...):match("^(.*)%.Suggestions$")
 local Language = require(namespace .. ".Language")
@@ -24,7 +25,7 @@ end
 -- "small mailbox" is typed as "mailbox": ZIL parsers match the final noun.
 function Suggestions.noun(name)
 	local words = {}
-	for word in tostring(name or ""):lower():gmatch("[%w'\128-\255]+") do table.insert(words, word) end
+	for word in Text.lower(tostring(name or "")):gmatch("[%w'\128-\255]+") do table.insert(words, word) end
 	return words[#words]
 end
 
@@ -123,7 +124,7 @@ end
 function Suggestions.forInput(input, items, visit, language)
 	language = Language.of(language)
 	local VERB_RANK = language.rank
-	local draft = input:lower():gsub("^%s+", ""):gsub("%s+", " ")
+	local draft = Text.lower(input):gsub("^%s+", ""):gsub("%s+", " ")
 	local choices, seen, counts = {}, {}, nounCounts(items)
 	local function offer(verb, first, join, second)
 		if verb == language.take and first and first.traits and first.traits.takeable == false then return end

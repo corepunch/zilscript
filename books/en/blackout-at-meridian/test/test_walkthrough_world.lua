@@ -7,7 +7,7 @@ local h = Hero.new()
 h:force(100)
 
 -- Before a profile: no way out, no ranks, and every hero action refuses.
-h:expect("look", "Three hero profiles are pinned")
+h:expect("look", "Choose the hero you’ll play as")
 h:expect("north", "Choose a profile first")
 h:expect("out", "Choose a profile first")
 for _, dir in ipairs({ "south", "east", "west", "up", "down" }) do h:expect(dir, "You can't go that way.") end

@@ -20,6 +20,7 @@
 package.path = "./?.lua;./?/init.lua;" .. package.path
 local runtime = require("zilscript.runtime")
 
+local Text = require("zilscript.text")
 local Language = require("zilscript.reader.Language")
 local Story = require("zilscript.reader.Story")
 local lang -- the story's language, from its game.json
@@ -49,7 +50,7 @@ local function nouns(story)
 		if noun then
 			table.insert(list, {
 				name = name,
-				words = Language.word(lang, (adjective and adjective .. " " or "") .. noun):lower(),
+				words = Text.lower(Language.word(lang, (adjective and adjective .. " " or "") .. noun)),
 			})
 		end
 	end
