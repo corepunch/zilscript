@@ -220,6 +220,7 @@ test-book-playtests:
 # choosing only the commands the reader's link menus offer (tests/link_walk.lua).
 .PHONY: test-book-walkthroughs
 test-book-walkthroughs:
+	@lua5.4 tests/test_take_indirect.lua
 	@lua5.4 tests/test_catalog_stress.lua
 	@lua5.4 tests/test_discovery_actions.lua
 	@lua5.4 tests/test_playtest_link_fixes.lua
