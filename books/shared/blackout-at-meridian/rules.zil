@@ -36,3 +36,12 @@
  <RTRUE>>
 
 <ROUTINE V-USE () <MSG-USE>>
+
+;"Optional portrait asset key. Use the book's stable preset ID rather
+  than its translated class name or the player's custom character name."
+<ROUTINE RPG-PORTRAIT ("AUX" ENTRY)
+ <COND (<NOT ,RPG-STARTED> <RFALSE>)>
+ <SET ENTRY <RPG-PRESET-AT ,HERO-CLASS>>
+ <COND (<NOT .ENTRY> <RFALSE>)>
+ <TELL <GET .ENTRY 0>>
+ <TAKE-OUTPUT>>
