@@ -1,10 +1,6 @@
--- Regressions from a QA playthrough of The Midnight Ledger: nouns the prose
--- names answer as objects, natural verbs reach the book's replies, and a
--- restored game keeps the evidence it had.
--- Run from the zilscript directory:
---   lua5.4 books/en/the-midnight-ledger/test/test_walkthrough_regressions.lua
+-- Story and companion regressions.
 package.path = "./?.lua;./?/init.lua;" .. package.path
-local Walk = require("tests.link_walk")
+local Walk = require("tests.story_walk")
 local MODULE = "books.en.the-midnight-ledger.the-midnight-ledger"
 
 local function say(walk, command) return tostring(walk.game:resume(command)) end
@@ -26,7 +22,7 @@ has(walk, "east", "Porter Ives")
 -- Radiator had the pegs' text; the pocket things were unknown words.
 has(walk, "examine radiator", "iron radiator")
 has(walk, "examine chalk", "can't see any chalk")
-has(walk, "search coat", "dispatch [[chalk]]")
+has(walk, "search coat", "dispatch chalk")
 has(walk, "examine chalk", "tram ticket")
 has(walk, "eat sweet", "Leave a man his sweet")
 has(walk, "ask ives about chalk", "One piece of chalk")
@@ -70,7 +66,7 @@ has(walk, "west", "weigh room")
 has(walk, "take strip", "stays on the printer")
 has(walk, "examine tube", "speaking tube")
 has(walk, "east", "hearing chamber")
-has(walk, "north", "document [[sleeve]]")
+has(walk, "north", "document sleeve")
 has(walk, "examine sleeve", "fatter than valuations")
 has(walk, "take sleeve", "stay with me")
 has(walk, "listen to sleeve", "little clink")

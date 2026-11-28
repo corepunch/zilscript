@@ -1187,30 +1187,14 @@ function ZIL_UNWRAP_RETURN(value)
 	return value
 end
 
--- Prose links. A story marks the words a reader may act on, Twine-style:
--- "[[crayon drawing]]", or "[[heavy door->door]]" when the parser's word for
--- the thing differs from the prose. A host that renders links sets
--- PROSE_LINKS and receives the markup; every other host, and every
--- transcript test, reads the plain label.
-local function prose_links(text)
-	if rawget(_G, "PROSE_LINKS") or not text:find("[[", 1, true) then return text end
-	return (text:gsub("%[%[(.-)%]%]", function(link)
-		return link:match("^(.-)%->") or link
-	end))
-end
-
 local function io_write(...)
 	-- Check if io_write was overridden globally (for tests)
 	if _G.io_write then
-		local parts = table.pack(...)
-		for i = 1, parts.n do
-			if type(parts[i]) == "string" then parts[i] = prose_links(parts[i]) end
-		end
-		return _G.io_write(table.unpack(parts, 1, parts.n))
+		return _G.io_write(...)
 	end
 	-- Default: buffered mode for coroutine-based games
 	for i = 1, select("#", ...) do
-		table.insert(output_buffer, prose_links(tostring(select(i, ...))))
+		table.insert(output_buffer, tostring(select(i, ...)))
 	end
 end
 
@@ -1373,14 +1357,7 @@ function PRINT(n)
 	return true
 end
 function PRINTD(ptr)
-	local desc = GETP(ptr, _G["PQDESC"]) or ""
-	-- Native inventory/container lists name real objects, so their names are
-	-- actionable too. Room headings must remain headings, not object links.
-	if rawget(_G, "PROSE_LINKS") and GETP(ptr, PQLOC) ~= ROOMS then
-		io_write("[[" .. desc .. "->" .. (object_noun(ptr) or desc) .. "]]")
-	else
-		io_write(desc)
-	end
+	io_write(GETP(ptr, PQDESC) or "")
 	return true
 end
 function PRINTR(ptr) io_write(GETP(ptr, _G["PQLDESC"])) return true end

@@ -25,7 +25,7 @@
 
 <OBJECT WICK (IN STORE) (DESC "reed wick") (SYNONYM WICK WICKS REED)
  (ADJECTIVE REED DRY WET DAMP)
- (FDESC "A short [[reed wick]] has been laid on the shelf underneath the tile.")
+ (FDESC "A short reed wick has been laid on the shelf underneath the tile.")
  (FLAGS TAKEBIT) (SIZE 4)
  (INTERACTIONS "wave,smell;PUT:TROUGH,BELL") (ACTION WICK-F)>
 

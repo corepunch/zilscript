@@ -1,7 +1,4 @@
--- Plays Stromausfall in Meridian (the German Blackout at Meridian) with typed
--- commands on the seeded generator link_walk.lua installs, so every d100 roll
--- replays. Umlaut and ASCII spellings, articles by case, and pronouns by
--- gender are all typed the way a child would.
+-- Story and companion regressions.
 local Hero = require("books.de.blackout-at-meridian.test.hero")
 
 local h = Hero.new()

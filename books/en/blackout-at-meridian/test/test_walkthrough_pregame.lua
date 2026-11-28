@@ -12,7 +12,6 @@ for language, words in pairs(ways) do
   assert(runtime.init(env, true))
   env.require("zilscript")
   assert(runtime.load_modules(env, { "books." .. language .. ".blackout-at-meridian.blackout-at-meridian" }, { silent = true }))
-  env.PROSE_LINKS = true
   local draws = 0
   env.math = setmetatable({ random = function() draws = draws + 1; return 42 end }, { __index = math })
   local original = env.HERE
@@ -28,7 +27,7 @@ for language, words in pairs(ways) do
   assert(not ok and why == "invalid_preset")
   ok, why = Setup.select(env, { id = "arc", name = ("Я"):rep(33) })
   assert(not ok and why == "invalid_name")
-  ok, why = Setup.select(env, { id = "arc", name = "[[fake exit]]" })
+  ok, why = Setup.select(env, { id = "arc", name = "bad\nname" })
   assert(not ok and why == "invalid_name")
   assert(Setup.select(env, { id = "arc", name = "  Алёна %u & Гром  " }))
   assert(not Setup.select(env, { id = "lens" }))

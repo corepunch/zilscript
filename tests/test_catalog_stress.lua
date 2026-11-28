@@ -1,6 +1,6 @@
 -- A deterministic hostile reader session, not a winning walkthrough. Run
--- every edition through live menus, stale clicked actions and parser typos.
-local Walk = require("tests.link_walk")
+-- every edition through its current choices, prior commands and parser typos.
+local Walk = require("tests.story_walk")
 local Story = require("zilscript.reader.Story")
 
 local function catalog()
@@ -8,7 +8,7 @@ local function catalog()
   local dirs = {}
   for line in pipe:lines() do
     local dir = line:match("^(books/%a%a/[^/]+)/game%.json$")
-    if dir then dirs[#dirs + 1] = dir end
+    if dir then table.insert(dirs, dir) end
   end
   assert(pipe:close())
   return dirs
@@ -27,30 +27,29 @@ local function check(dir, seed)
   for turn = 1, 80 do
     if not walk:running() then return turn - 1 end
     local beforeRoom, beforeMoves, beforeRoll = env.HERE, env.MOVES, env.LAST_ROLL
-    local menu = walk:menu()
     walk.game:resume("room-items")
     walk.game:resume("inventory-items")
     local proposals = walk.game:resume("choices")
     assert(type(proposals) == "table", dir)
     assert(env.HERE == beforeRoom and env.MOVES == beforeMoves and env.LAST_ROLL == beforeRoll,
       dir .. ": preview changed the story")
-    assert(#menu > 0, dir .. ": running reader has no recovery action")
-    local seen = {}
-    for _, item in ipairs(menu) do
-      assert(type(item.command) == "string" and item.command:match("%S") and not seen[item.command], dir)
+    local menu, seen = { lang.look, lang.inventory, lang.wait }, {}
+    for _, item in ipairs(proposals.choices or {}) do
+      assert(type(item.command) == "string" and item.command:match("%S"), dir)
+      if not seen[item.command] then table.insert(menu, item.command) end
       seen[item.command] = true
     end
 
-    local command = menu[pick(#menu)].command
-    -- Prefer actual location and object actions over generic controls.
-    if #menu > 3 and turn % 5 < 3 then command = menu[3 + pick(#menu - 3)].command end
+    local command = menu[pick(#menu)]
+    -- Prefer story actions over generic controls.
+    if #menu > 3 and turn % 5 < 3 then command = menu[3 + pick(#menu - 3)] end
     if turn % 7 == 0 and stale then command = stale end
     if turn % 11 == 0 then command = "éж" .. tostring(seed) .. "☂" end
     if turn % 13 == 0 then command = lang.look end
     if turn % 17 == 0 then command = lang.wait end
     if turn % 4 == 0 then stale = command end
 
-    recent[#recent + 1] = command
+    table.insert(recent, command)
     if #recent > 10 then table.remove(recent, 1) end
     local ok, why = pcall(function()
       local output = walk.game:resume(command)

@@ -13,5 +13,5 @@ Portable puzzle items: wrench, ceramic shears, null spool, witness strip, memory
 Living NPCs: Mara Vale, Ivo Chen, Senn Orlov
 Endings: The Unplayed Witness; Four Pulses
 Content: bereavement, death of a child in backstory, involuntary autobiographical memory, psychological distress, isolation, moral uncertainty. No gore or jump scares.
-Accessibility: English ASCII parser, prose-link controls, no color/audio-only clues, no real-time deadline, verbose revisits, repeatable evidence, reversible preparation, explicit final commitments, contextual three-level HINT. All information needed to finish is in the game; the feelie is optional.
+Accessibility: English ASCII parser, no color/audio-only clues, no real-time deadline, verbose revisits, repeatable evidence, reversible preparation, explicit final commitments, contextual three-level HINT. All information needed to finish is in the game; the feelie is optional.
 Public ratings/reviews: none.

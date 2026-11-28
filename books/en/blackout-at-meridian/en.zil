@@ -35,7 +35,7 @@
  <TELL D ,HERE CR>>
 
 <ROUTINE MSG-HELP-HOW ()
- <TELL "Type commands such as LOOK, EXAMINE BOARD or NORTH, or choose the linked words. Each hero action rolls d100 against one of your ranks, and higher rolls are better. A failure costs Health, and at 0 Health your night is over. READ SHEET shows your ranks, DIAGNOSE your Health and Karma, and NAME SHEET gives your hero a name." CR>>
+ <TELL "Type commands such as LOOK, EXAMINE BOARD or NORTH. Each hero action rolls d100 against one of your ranks, and higher rolls are better. A failure costs Health, and at 0 Health your night is over. READ SHEET shows your ranks, DIAGNOSE your Health and Karma, and NAME SHEET gives your hero a name." CR>>
 
 <ROUTINE MSG-HELP-UNREGISTERED ()
  <TELL "Right now: examine the profiles on the duty board and CHOOSE BULWARK, ARC or LENS." CR>>
@@ -92,37 +92,37 @@
  <TELL "You bounce on your heels, ready for anything." CR>>
 
 <ROUTINE MSG-SETUP ()
- <TELL "Choose the hero you’ll play as: [[Bulwark]], [[Arc]] or [[Lens]]. Examine each profile before deciding. You can give your hero a name on the [[character sheet->sheet]]. Choosing a profile starts the mission." CR>>
+ <TELL "Choose the hero you’ll play as: Bulwark, Arc or Lens. Examine each profile before deciding. You can give your hero a name on the character sheet. Choosing a profile starts the mission." CR>>
 
 <ROUTINE MSG-DISPATCH-LOOK-REGISTERED ()
- <TELL "In Meridian's emergency dispatch office, your profile on the [[duty board->board]] now carries the red ACTIVE stamp. Every other building you can see through the [[window]] is dark. The [[street door]] leads [[north]] to Meridian Bridge.">>
+ <TELL "In Meridian's emergency dispatch office, your profile on the duty board now carries the red ACTIVE stamp. Every other building you can see through the window is dark. The street door leads north to Meridian Bridge.">>
 
 <ROUTINE MSG-BRIDGE-LOOK-START ()
  <TELL "You are on Meridian Bridge, in the full force of the rain. ">>
 
 <ROUTINE MSG-BRIDGE-LOOK-RESCUED ()
- <TELL "The empty [[tram]] still hangs through the broken [[rails]] from its overhead [[cable]], but its passengers are safe with the rescue [[crew]] below. The [[relay station->station]] stands at the east end of the bridge, its [[door]] forced open, and the way [[east]] is clear.">>
+ <TELL "The empty tram still hangs through the broken rails from its overhead cable, but its passengers are safe with the rescue crew below. The relay station stands at the east end of the bridge, its door forced open, and the way east is clear.">>
 
 <ROUTINE MSG-BRIDGE-LOOK-HANGING ()
- <TELL "The front carriage of a [[tram]] hangs through the broken [[rails]]. Every time it swings, the overhead [[cable]] pulls a little straighter. Faces crowd the high end of the tram. Far below, the rescue [[crew]] holds a net over the [[river]]. The [[relay station->station]] stands at the east end of the bridge, but the passengers come first.">>
+ <TELL "The front carriage of a tram hangs through the broken rails. Every time it swings, the overhead cable pulls a little straighter. Faces crowd the high end of the tram. Far below, the rescue crew holds a net over the river. The relay station stands at the east end of the bridge, but the passengers come first.">>
 
 <ROUTINE MSG-BRIDGE-LOOK-END ()
- <TELL " Dispatch is back to the [[south]]." CR>>
+ <TELL " Dispatch is back to the south." CR>>
 
 <ROUTINE MSG-RELAY-LOOK-START ()
- <TELL "You are inside the relay station, a concrete hall warm enough to fog your wet sleeves. The [[relay console->console]] at the far end is lit brighter than anything left on the skyline. ">>
+ <TELL "You are inside the relay station, a concrete hall warm enough to fog your wet sleeves. The relay console at the far end is lit brighter than anything left on the skyline. ">>
 
 <ROUTINE MSG-RELAY-LOOK-DRONE-DOWN ()
- <TELL "The [[guard drone->drone]] lies dark on the floor in front of it. ">>
+ <TELL "The guard drone lies dark on the floor in front of it. ">>
 
 <ROUTINE MSG-RELAY-LOOK-DRONE-UP ()
- <TELL "A [[guard drone->drone]] hovers in front of it, its red eye following you. ">>
+ <TELL "A guard drone hovers in front of it, its red eye following you. ">>
 
 <ROUTINE MSG-RELAY-LOOK-KIT-EMPTY ()
- <TELL "The [[emergency kit->kit]] hangs open and empty beside the [[door]], which leads back [[west]] to the bridge." CR>>
+ <TELL "The emergency kit hangs open and empty beside the door, which leads back west to the bridge." CR>>
 
 <ROUTINE MSG-RELAY-LOOK-KIT-FULL ()
- <TELL "An [[emergency kit->kit]] is clipped to the wall beside the [[door]], which leads back [[west]] to the bridge." CR>>
+ <TELL "An emergency kit is clipped to the wall beside the door, which leads back west to the bridge." CR>>
 
 <ROUTINE MSG-PROFILE-VANGUARD ()
  <TELL "Bulwark is built for heavy rescue and close combat: great Strength and Endurance, but little Reason. Health 120, Karma 26.">>
@@ -159,16 +159,16 @@
  <TELL "Tearing up the duty board will not get anyone off the bridge." CR>>
 
 <ROUTINE MSG-BOARD-LOOK-UNREGISTERED ()
- <TELL "Three profile cards are pinned to the board, one for each kind of hero dispatch can send: [[Bulwark]], [[Arc]] and [[Lens]]." CR>>
+ <TELL "Three profile cards are pinned to the board, one for each kind of hero dispatch can send: Bulwark, Arc and Lens." CR>>
 
 <ROUTINE MSG-BOARD-LOOK-BULWARK ()
- <TELL "The [[Bulwark]] card is marked ACTIVE in red pen. The [[Arc]] and [[Lens]] cards wait for another night." CR>>
+ <TELL "The Bulwark card is marked ACTIVE in red pen. The Arc and Lens cards wait for another night." CR>>
 
 <ROUTINE MSG-BOARD-LOOK-ARC ()
- <TELL "The [[Arc]] card is marked ACTIVE in red pen. The [[Bulwark]] and [[Lens]] cards wait for another night." CR>>
+ <TELL "The Arc card is marked ACTIVE in red pen. The Bulwark and Lens cards wait for another night." CR>>
 
 <ROUTINE MSG-BOARD-LOOK-LENS ()
- <TELL "The [[Lens]] card is marked ACTIVE in red pen. The [[Bulwark]] and [[Arc]] cards wait for another night." CR>>
+ <TELL "The Lens card is marked ACTIVE in red pen. The Bulwark and Arc cards wait for another night." CR>>
 
 <ROUTINE MSG-DUTY-BOARD-TAKE ()
  <TELL "The board is screwed to the wall. The cards are what matter." CR>>
@@ -177,7 +177,7 @@
  <TELL "Tearing up the duty board will not get anyone off the bridge." CR>>
 
 <ROUTINE MSG-WINDOW-EXAMINE ()
- <TELL "Through the streaked glass the city is a black shape under the clouds. Out over the river, the red warning light of a stalled [[tram]] swings in the wind." CR>>
+ <TELL "Through the streaked glass the city is a black shape under the clouds. Out over the river, the red warning light of a stalled tram swings in the wind." CR>>
 
 <ROUTINE MSG-WINDOW-OPEN ()
  <TELL "The window is painted shut, and the storm can stay outside." CR>>
@@ -195,7 +195,7 @@
  <TELL "Hero: ">>
 
 <ROUTINE MSG-SHEET-UNREGISTERED ()
- <TELL CR "No profile registered yet. Choose [[Bulwark]], [[Arc]] or [[Lens]] at the duty board." CR>>
+ <TELL CR "No profile registered yet. Choose Bulwark, Arc or Lens at the duty board." CR>>
 
 <ROUTINE MSG-SHEET-OPEN-CLASS ()
  <TELL " (">>
@@ -237,7 +237,7 @@
  <TELL "The empty carriage creaks on its cable. Nobody is inside now." CR>>
 
 <ROUTINE MSG-TRAM-EXAMINE ()
- <TELL "The front carriage has jumped the rails and hangs nose-down over the river. Only the [[cable]] holds it. People are still inside, waving at you." CR>>
+ <TELL "The front carriage has jumped the rails and hangs nose-down over the river. Only the cable holds it. People are still inside, waving at you." CR>>
 
 <ROUTINE MSG-TRAM-LISTEN-RESCUED ()
  <TELL "Only the cable, creaking." CR>>
@@ -261,7 +261,7 @@
  <TELL "Everyone is already safe." CR>>
 
 <ROUTINE MSG-TRAM-RESCUED-NOW ()
- <TELL "You steady the carriage and pass the passengers down, one by one, to the crew's net. The last of them, a boy in a yellow raincoat, will not let go of your hand until his feet are on the ground. (Karma +10.) The way [[east]] to the relay station is open." CR>>
+ <TELL "You steady the carriage and pass the passengers down, one by one, to the crew's net. The last of them, a boy in a yellow raincoat, will not let go of your hand until his feet are on the ground. (Karma +10.) The way east to the relay station is open." CR>>
 
 <ROUTINE MSG-TRAM-RESCUE-FAILED ()
  <TELL "The cable slips and the carriage lurches. A passenger cries out; you take a hit, but the crew braces its net below. You can try the rescue again.">>
@@ -357,7 +357,7 @@
  <TELL "Fighting check. ">>
 
 <ROUTINE MSG-DRONE-DOWN ()
- <TELL "The drone crashes to the floor and its red eye goes dark. (Karma +10.) The [[console]] is unguarded." CR>>
+ <TELL "The drone crashes to the floor and its red eye goes dark. (Karma +10.) The console is unguarded." CR>>
 
 <ROUTINE MSG-DRONE-HIT (INTEGRITY MAX)
  <TELL "Your blow lands and the drone staggers, sparks pouring from one rotor. Integrity " N .INTEGRITY " of " N .MAX "." CR>>
@@ -477,16 +477,16 @@
  <TELL "You are standing on it." CR>>
 
 <ROUTINE MSG-DISTANT-TRAM-EXAMINE ()
- <TELL "From here it is only a red warning light, swinging over the river. The bridge is to the [[north]]." CR>>
+ <TELL "From here it is only a red warning light, swinging over the river. The bridge is to the north." CR>>
 
 <ROUTINE MSG-DISTANT-TRAM-RESCUE ()
- <TELL "It is out on the bridge, to the [[north]]." CR>>
+ <TELL "It is out on the bridge, to the north." CR>>
 
 <ROUTINE MSG-STATION-INSIDE ()
  <TELL "You are inside it. All of the city's power runs through this hall." CR>>
 
 <ROUTINE MSG-STATION-EXAMINE ()
- <TELL "A squat concrete building at the east end of the bridge, humming with power it should not have. Its steel [[door]] has been forced open." CR>>
+ <TELL "A squat concrete building at the east end of the bridge, humming with power it should not have. Its steel door has been forced open." CR>>
 
 <ROUTINE MSG-STATION-ALREADY-INSIDE ()
  <TELL "You are already inside." CR>>

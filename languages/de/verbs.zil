@@ -31,7 +31,7 @@ must be maintained since you can plug in any (THING) into the sentence. ***"
 
 <ROUTINE FINISH ("AUX" WRD)
 	 <V-SCORE>
-	 <COND (,PROSE-LINKS <QUIT>)>
+	 <COND (,END-WITHOUT-PROMPT <QUIT>)>
 	 <REPEAT ()
 		 <CRLF>
 		 <TELL 

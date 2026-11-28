@@ -35,7 +35,7 @@ end
 
 function Setup.normalizeName(value)
   if value == nil then return "" end
-  if type(value) ~= "string" or #value > 128 or value:find("[%z%c]") or value:find("[[", 1, true) or value:find("]]", 1, true) then return nil end
+  if type(value) ~= "string" or #value > 128 or value:find("[%z%c]") then return nil end
   value = value:match("^%s*(.-)%s*$")
   local length = utf8.len(value)
   if not length or length > 32 then return nil end

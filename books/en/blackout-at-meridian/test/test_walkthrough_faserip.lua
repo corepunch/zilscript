@@ -1,7 +1,5 @@
--- The same authored challenge passes on different colors for different
--- profiles, with an advance warning in each edition. Sheet export is read-only,
--- uses live values, and passes actual strings rather than ZIL string handles.
-local Walk = require("tests.link_walk")
+-- Story and companion regressions.
+local Walk = require("tests.story_walk")
 
 local editions = {
   en = {

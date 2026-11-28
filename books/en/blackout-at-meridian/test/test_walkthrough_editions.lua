@@ -1,7 +1,4 @@
--- One logic, two editions: the English and the German edition play the same
--- route on the same seed and must agree after every command on the dice
--- (rank, roll, tier), Health, Karma, the drone, the story flags and whether
--- the story is still running.
+-- Story and companion regressions.
 local English = require("books.en.blackout-at-meridian.test.hero")
 local German = require("books.de.blackout-at-meridian.test.hero")
 

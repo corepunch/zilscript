@@ -1,5 +1,5 @@
 -- Exercise typed status through the real parser, not just the sheet renderer.
-local Walk = require("tests.link_walk")
+local Walk = require("tests.story_walk")
 
 local function expect(walk, command, expected, absent)
 	local output = assert(walk.game:resume(command))

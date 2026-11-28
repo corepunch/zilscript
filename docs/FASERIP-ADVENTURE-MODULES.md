@@ -116,8 +116,7 @@ licensed setting material.
    bridge attempt fails, change the situation and expose a clue or safer
    alternative, instead of requiring the same roll until Health runs out.
    Example: rescue immediately, or stabilize the tram and coordinate a slower
-   rescue with the crew. Keep both routes visible through parser and companion
-   links.
+   rescue with the crew. Keep both routes visible through parser commands and companion choices.
 3. **Make the relay choice matter in the debrief.** Distinguish the public
    benefit of restoring power from how it was done. Successful technical
    control might preserve evidence; force might be faster but damage it.
@@ -177,8 +176,7 @@ new scene or rule:
   prose and command aliases in the editions.
 - **Ruleset:** FEATs, stat labels and resource arithmetic. Do not hard-code
   this mission's evidence or contacts into FASERIP.
-- **Reader:** expose the same eligible actions through links and typed
-  commands, using stable IDs. The reader should not invent or award outcomes.
+- **Reader:** accept typed commands. The reader should not invent or award outcomes.
 - **Author notes and regression cases:** record the table below before a
   second module needs it. No new scenario data format, campaign tracking,
   expandable faction simulation, or global Popularity stat for this change.
@@ -187,9 +185,9 @@ new scene or rule:
 | --- | --- |
 | Immediate rescue passes for each profile | Passengers saved, east exit available, reward awarded once. |
 | First rescue fails | Immediate consequence and new option are visible; player can advance without repeating the same roll. Merely inspecting the scene does not reroll or change the rescue state. |
-| Assisted rescue succeeds | Same primary objective completed, different recorded method. Repeating it or using an old link cannot farm the rescue reward. |
+| Assisted rescue succeeds | Same primary objective completed, different recorded method. Repeating it the action cannot farm the rescue reward. |
 | Relay defeated by either approach, record found or missed | Each route can win; debrief truthfully reflects the independent evidence result. |
-| Resume after setback and before debrief | Same outcomes and available links in EN/DE/RU; old saves are either reproduced or explicitly migrated. They must not silently replay into a new outcome. |
+| Resume after setback and before debrief | Same outcomes and available actions in EN/DE/RU; old saves are either reproduced or explicitly migrated. They must not silently replay into a new outcome. |
 
 ## Parent-and-child test before expanding
 

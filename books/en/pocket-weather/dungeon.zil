@@ -169,7 +169,7 @@
 <OBJECT ROOKERY-SOAP (IN ROOKERY) (DESC "laundry soap")
     (SYNONYM SOAP SUDS) (ADJECTIVE LAUNDRY LEMON)
     (FLAGS NDESCBIT) (INTERACTIONS "")
-    (TEXT "Little [[bubbles]] catch on the perch when a warm puff comes up from the laundry. They smell of lemon peel.")
+    (TEXT "Little bubbles catch on the perch when a warm puff comes up from the laundry. They smell of lemon peel.")
     (ACTION ROOKERY-SOAP-F)>
 
 <OBJECT HOLLOW-BREEZE (IN TERRACE) (DESC "hollow breeze")

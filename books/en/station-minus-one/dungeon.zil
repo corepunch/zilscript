@@ -2,16 +2,16 @@
 
 <ROOM TICKET-HALL (IN ROOMS) (DESC "Ticket Hall") (FLAGS RLANDBIT ONBIT)
  (WEST TO STAFF-ROOM) (EAST TO GAUGE-ROOM) (NORTH TO LOWER-PLATFORM) (DOWN TO LOWER-PLATFORM)
- (LDESC "You stand in the ticket hall, a box of concrete under the ice. The ceiling lamps are off; green [[glow strips]] light your breath from below. Above the ticket [[wickets]], the [[station clock->clock]] keeps creeping toward midnight. The staff room is to the [[west]] and the track instruments are in the gauge room to the [[east]]. [[Steps]] lead [[north]] to the lower platform.")>
+ (LDESC "You stand in the ticket hall, a box of concrete under the ice. The ceiling lamps are off; green glow strips light your breath from below. Above the ticket wickets, the station clock keeps creeping toward midnight. The staff room is to the west and the track instruments are in the gauge room to the east. Steps lead north to the lower platform.")>
 <ROOM STAFF-ROOM (IN ROOMS) (DESC "Staff Room") (FLAGS RLANDBIT ONBIT)
  (EAST TO TICKET-HALL)
- (LDESC "This is the staff room, a narrow, warm room that smells of stewed tea. There is a scuffed [[table]], and beside it a little [[sink]], where two [[cups]] stand upside down on the drainer, both rinsed, though tonight was a one-person shift. The night operator's [[logbook]] lies open on the table. The ticket hall is back to the [[east]].")>
+ (LDESC "This is the staff room, a narrow, warm room that smells of stewed tea. There is a scuffed table, and beside it a little sink, where two cups stand upside down on the drainer, both rinsed, though tonight was a one-person shift. The night operator's logbook lies open on the table. The ticket hall is back to the east.")>
 <ROOM GAUGE-ROOM (IN ROOMS) (DESC "Gauge Room") (FLAGS RLANDBIT ONBIT)
  (WEST TO TICKET-HALL)
- (LDESC "This is the gauge room, where the station weighs whatever stands on its track. It is bitterly cold, and the floor hums at the edge of hearing. [[Frost]] furs the old [[dials]] and pipes. Only two things on the [[console]] are clear of it: a round [[receiver cradle->cradle]], and a square [[calibration stud->stud]] beside it. The ticket hall is back to the [[west]]. The cradle and stud offer a way to weigh the caller before you commit the platform controls.")>
+ (LDESC "This is the gauge room, where the station weighs whatever stands on its track. It is bitterly cold, and the floor hums at the edge of hearing. Frost furs the old dials and pipes. Only two things on the console are clear of it: a round receiver cradle, and a square calibration stud beside it. The ticket hall is back to the west. The cradle and stud offer a way to weigh the caller before you commit the platform controls.")>
 <ROOM LOWER-PLATFORM (IN ROOMS) (DESC "Lower Platform") (FLAGS RLANDBIT ONBIT)
  (SOUTH TO TICKET-HALL) (UP TO TICKET-HALL)
- (LDESC "You are on the lower platform. The [[track]] comes out of one black [[tunnel]] and runs into another, and there is no train in sight. Even so, a little warmth rises off the rails, like breath on your wrist. Two controls stand on a [[post]] at the platform edge: a red [[rescue switch->switch]] and a grey [[quarantine latch->latch]]. The [[steps->stone steps]] back up to the ticket hall are to the [[south]].")>
+ (LDESC "You are on the lower platform. The track comes out of one black tunnel and runs into another, and there is no train in sight. Even so, a little warmth rises off the rails, like breath on your wrist. Two controls stand on a post at the platform edge: a red rescue switch and a grey quarantine latch. The steps back up to the ticket hall are to the south.")>
 
 <OBJECT STATION-CLOCK (IN TICKET-HALL) (DESC "station clock") (SYNONYM CLOCK HAND CABLE) (ADJECTIVE STATION SECOND FAT GREY)
  (FLAGS NDESCBIT) (ACTION STATION-CLOCK-F)>
@@ -20,8 +20,8 @@
  (FLAGS NDESCBIT) (ACTION SHIFT-LOG-F)>
 
 <OBJECT TEST-PUCK (IN STAFF-ROOM) (DESC "ceramic puck") (SYNONYM PUCK DISC WEIGHT) (ADJECTIVE CERAMIC TEST WHITE STANDARD)
- (FLAGS TAKEBIT READBIT) (FDESC "A white [[ceramic puck->puck]] sits on the table beside the logbook.")
- (LDESC "The [[ceramic puck->puck]] is here.") (ACTION TEST-PUCK-F)>
+ (FLAGS TAKEBIT READBIT) (FDESC "A white ceramic puck sits on the table beside the logbook.")
+ (LDESC "The ceramic puck is here.") (ACTION TEST-PUCK-F)>
 
 <OBJECT RECEIVER-CRADLE (IN GAUGE-ROOM) (DESC "receiver cradle") (SYNONYM CRADLE RECEIVER) (ADJECTIVE RECEIVER)
  (FLAGS NDESCBIT CONTBIT OPENBIT SEARCHBIT) (CAPACITY 15) (ACTION RECEIVER-CRADLE-F)>

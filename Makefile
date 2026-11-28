@@ -38,8 +38,8 @@ help:
 	@echo "  test-llm          - Run LLM persistence tests"
 	@echo "  test-limehouse-walkthrough - Run Limehouse golden-path LLM test"
 	@echo "  test-wondertown-descriptions - Run Wondertown rendered description regressions"
-	@echo "  test-book-walkthroughs - Win every book by typed commands and by link menus only"
-	@echo "  lint-zil          - Check vocabulary, prose links, and that every command answers"
+	@echo "  test-book-walkthroughs - Run story walkthroughs and companion tests"
+	@echo "  lint-zil          - Check vocabulary and command responses"
 	@echo ""
 	@echo "Horror game tests:"
 	@echo "  test-horror-helpers - Run horror test helpers"
@@ -212,19 +212,17 @@ test-book-playtests:
 	@set -e; for test in books/*/*/test/test-round*.zil; do \
 		lua5.4 run-zil-test.lua "$${test%.zil}"; \
 	done
-	@set -e; for test in books/*/*/test/test_round*_links.lua; do \
+	@set -e; for test in books/*/*/test/test_round*_story.lua; do \
 		lua5.4 "$$test"; \
 	done
 
-# Every book is won twice: by typed commands with state assertions, and by
-# choosing only the commands the reader's link menus offer (tests/link_walk.lua).
 .PHONY: test-book-walkthroughs
 test-book-walkthroughs:
 	@lua5.4 tests/test_take_indirect.lua
 	@lua5.4 tests/test_catalog_stress.lua
 	@lua5.4 tests/test_discovery_actions.lua
-	@lua5.4 tests/test_playtest_link_fixes.lua
-	@lua5.4 tests/test_menu_verbs.lua
+	@lua5.4 tests/test_playtest_interactions.lua
+	@lua5.4 tests/test_completion_verbs.lua
 	@set -e; for test in books/*/*/test/test-walkthrough.zil; do \
 		lua5.4 run-zil-test.lua "$${test%.zil}"; \
 	done
@@ -270,10 +268,6 @@ lint-zil:
 	@lua5.4 scripts/check-vocab.lua $(wildcard books/*/*/dungeon.zil) $(EDITION_WORDS)
 	@echo "Parsing every book object's synonyms and adjectives..."
 	@lua5.4 tests/test_book_vocabulary.lua $(wildcard books/*/*/dungeon.zil) $(EDITION_STORIES)
-	@echo "Checking prose links in book adventures..."
-	@lua5.4 scripts/check-links.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/*/dungeon.zil)) $(EDITION_STORIES)
-	@echo "Examining every prose link through the parser..."
-	@lua5.4 scripts/check-link-targets.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/*/dungeon.zil)) $(EDITION_STORIES)
 	@echo "Playing common verbs on every object..."
 	@lua5.4 scripts/check-responses.lua $(patsubst %/dungeon.zil,%,$(wildcard books/*/*/dungeon.zil)) $(EDITION_STORIES)
 
@@ -322,6 +316,5 @@ test-adventure-packages:
 
 test-german-zork:
 	@lua5.4 tests/test_german_reader.lua
-	@lua5.4 tests/test_german_menus.lua
 	@lua5.4 tests/test_german_zork.lua
 	@lua5.4 tests/test_german_world.lua

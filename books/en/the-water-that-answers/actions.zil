@@ -39,7 +39,7 @@
 
 <ROUTINE PROFILE-DESK-F (RARG)
  <COND (<==? .RARG ,M-LOOK>
-        <TELL "Choose a [[doctor]], [[reporter]] or [[mechanic]] to open the case." CR>)>>
+        <TELL "Choose a doctor, reporter or mechanic to open the case." CR>)>>
 
 <ROUTINE CHOOSE-F ("AUX" INDEX)
  <SET INDEX <COND (<==? ,PRSO ,CARD-DOCTOR> 1)
@@ -56,13 +56,13 @@
 
 <ROUTINE PUMP-ROOM-F (RARG)
  <COND (<==? .RARG ,M-LOOK>
-        <TELL "Silt has dried in crescents up the pump-room wall. A desk lamp still works. Beside it: a running [[tape]] machine and a [[relay cover->cover]] bowed around one rusted screw. The passage [[east]] leads to the landing and the station telephone. You could call Noor from there, but the tape is still turning, and whatever is on it may be the only warning you get." CR>
+        <TELL "Silt has dried in crescents up the pump-room wall. A desk lamp still works. Beside it: a running tape machine and a relay cover bowed around one rusted screw. The passage east leads to the landing and the station telephone. You could call Noor from there, but the tape is still turning, and whatever is on it may be the only warning you get." CR>
         <COND (<AND ,HEARD-TRACK <NOT ,RESPONSE-LOGGED>>
-               <TELL "The [[second track->track]] is still playing." CR>)> <RTRUE>)>>
+               <TELL "The second track is still playing." CR>)> <RTRUE>)>>
 
 <ROUTINE LANDING-F (RARG)
  <COND (<==? .RARG ,M-LOOK>
-        <TELL "The landing smells of cold iron. A [[telephone]] with a waxed cord is bolted to the wall. Through the doorway to the [[west]], the tape reels turn in their circle of yellow light." CR>
+        <TELL "The landing smells of cold iron. A telephone with a waxed cord is bolted to the wall. Through the doorway to the west, the tape reels turn in their circle of yellow light." CR>
         <COND (,LOUD <TELL "From below the stairs comes a slow scrape, as if someone is locating each step with a pole." CR>)> <RTRUE>)>>
 
 <ROUTINE TAPE-F ()
@@ -74,17 +74,17 @@
                <SETG HEARD-TRACK T>
                <INV-SHOCK ,HERO 2 17>
                <COND (<L? <STAT ,HERO ,A-COMPOSURE> 50>
-                      <TELL "You take your fingers off the machine. Either step [[east]] to call Noor, or [[stay and listen; lose 5 Composure->track]]." CR>)
-                     (T <TELL "You can [[listen to the second track->track]] or carry what you know [[east]] to Noor." CR>)>)
+                      <TELL "You take your fingers off the machine. Either step east to call Noor, or stay and listen; lose 5 Composure." CR>)
+                     (T <TELL "You can listen to the second track or carry what you know east to Noor." CR>)>)
               (T <TELL "Your notes still say: Gate Four, circuit C. The work order does not change." CR>)>
         <COND (<0? <GET ,EVIDENCE-CHECK 0>>
-               <TELL "You can [[study the recording for corroboration->tape]]. It isn't needed to report the work order." CR>)>
+               <TELL "You can study the recording for corroboration. It isn't needed to report the work order." CR>)>
         <RTRUE>)
        (<VERB? SEARCH>
         <COND (<NOT ,HAVE-MARKER> <TELL "Listen to the tape once before trying to pull it apart." CR>)
               (<NOT <0? <GET ,EVIDENCE-CHECK 0>>> <TELL "You've already taken what you can from a clean listen." CR>)
               (<==? <INV-ATTEMPT ,EVIDENCE-CHECK ,HERO <FIELD-SKILL> ,INV-HARD <>> 1> <CORROBORATE>)
-              (T <TELL "There isn't enough separation between the two voices. You can leave with the work order, or [[pry the relay cover; a failure will be heard downstairs->cover]]." CR>)>
+              (T <TELL "There isn't enough separation between the two voices. You can leave with the work order, or pry the relay cover; a failure will be heard downstairs." CR>)>
         <RTRUE>)
        (<VERB? TAKE REMOVE TOUCH> <TELL "The reels are turning. Better to leave the tape on its spindles." CR>)>>
 
@@ -105,7 +105,7 @@
  <COND (<VERB? EXAMINE SEARCH TOUCH>
         <TELL "The bent cover will come away if you pry it. It will also ring against the pipe if you slip." CR>
         <COND (<==? <GET ,EVIDENCE-CHECK 0> ,INV-FAILED>
-               <TELL "[[Pry the cover; a failure will be heard downstairs->cover]]." CR>)> <RTRUE>)
+               <TELL "Pry the cover; a failure will be heard downstairs." CR>)> <RTRUE>)
        (<VERB? OPEN PUSH PULL TAKE>
         <COND (<==? <GET ,EVIDENCE-CHECK 0> ,INV-FAILED>
                <COND (<==? <INV-ATTEMPT ,EVIDENCE-CHECK ,HERO ,A-REPAIR ,INV-REGULAR T> 1>
@@ -131,19 +131,19 @@
 
 <ROUTINE PHONE-F ()
  <COND (<VERB? EXAMINE LISTEN>
-        <TELL "Noor rigged the [[telephone]] to her desk. Call for support, or use the telephone to report the work order." CR>)
+        <TELL "Noor rigged the telephone to her desk. Call for support, or use the telephone to report the work order." CR>)
        (<VERB? CALL-PARTNER>
         <COND (<NOT ,HAVE-MARKER>
                <TELL "Noor picks up. 'Listen to the tape first. I'll be here when you need me.'" CR>)
               (<NOT ,CALLED-PARTNER>
                <SETG CALLED-PARTNER T>
                <GAIN ,HERO ,A-COMPOSURE 8>
-               <TELL "Noor asks for the time, then for one thing you can see. The wax on the cord is green. You tell her. She stays on the line while you decide whether to go [[back to the tape->west]] or use the [[telephone]] to report the work order." CR>)
+               <TELL "Noor asks for the time, then for one thing you can see. The wax on the cord is green. You tell her. She stays on the line while you decide whether to go back to the tape or use the telephone to report the work order." CR>)
               (T <TELL "Noor is still on the line. Take the time you need." CR>)>
         <RTRUE>)
        (<VERB? USE>
         <COND (<NOT ,HAVE-MARKER>
-               <TELL "'I need the work order,' Noor says. The tape machine is [[west]]." CR>)
+               <TELL "'I need the work order,' Noor says. The tape machine is west." CR>)
               (T
                <TELL "You read back the order: Gate Four, circuit C. Noor has enough to shut the line from her end." CR>
                <COND (<G? ,REPORT-DETAIL 0> <TELL "She logs your corroborating detail as a separate piece of evidence, leaving the original work order intact for the crew." CR>

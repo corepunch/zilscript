@@ -1,4 +1,4 @@
-local Walk = require("tests.link_walk")
+local Walk = require("tests.story_walk")
 local walk = Walk.new("books.en.museum-unsent-signals.museum-unsent-signals"):play({
   "read museum plaque", "east", "examine inspection lens",
   {"tilt inspection lens", expect="RETURN ONLY"}, "take wooden spool",
@@ -9,4 +9,4 @@ local walk = Walk.new("books.en.museum-unsent-signals.museum-unsent-signals"):pl
   {"push return key", expect="ENDING: PRIVATE RETURN"},
 })
 assert(walk.finishes == 1 and walk.env.MUSEUM_END == 1)
-print("museum-unsent-signals: portable reader links reached private ending")
+print("museum-unsent-signals: typed commands reached private ending")

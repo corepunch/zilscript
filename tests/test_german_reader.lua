@@ -1,8 +1,7 @@
--- The reader speaks the story's language: menus, completions and status
+-- The reader speaks the story's language: completions and status
 -- lines for a German story are German, and every command they send is one the
 -- German parser understands. Plays infocom.zork1-de, which is a German story.
-package.path = "./tests/?.lua;" .. package.path
-local Walk = require("link_walk")
+local Walk = require("tests.story_walk")
 local Language = require("zilscript.reader.Language")
 local Session = require("zilscript.reader.Session")
 
@@ -10,12 +9,6 @@ local function titles(list)
 	local out = {}
 	for _, entry in ipairs(list) do table.insert(out, entry.title) end
 	return table.concat(out, "|")
-end
-
-local function commands(list)
-	local out = {}
-	for _, entry in ipairs(list) do out[entry.command] = entry.title end
-	return out
 end
 
 -- English stays the default.
@@ -31,11 +24,19 @@ assert(Session.statusLine({ language = "de", statusLine = "moves" }, 0, 0, 5) ==
 assert(Session.statusLine({ language = "de" }, 3, 10, 1) == "Punkte 3 von 10 · 1 Zug")
 assert(Session.statusLine({ language = "de" }, 3, 0, 4) == "Punkte 3 · 4 Züge")
 
-local walk = Walk.new("infocom.zork1-de.zork1", 97, "de")
-walk:record(walk.game:resume("nord"))
-local session = walk.session
-assert(session.language.code == "de")
-session.running = true
+local walk = Walk.new("infocom.zork1-de.zork1")
+walk:command("nord")
+local session = Session.new()
+session.language = Language.of("de")
+session.engine = {
+	items = function() return walk.game:resume("room-items") end,
+	exits = function()
+		local directions = {}
+		for _, exit in ipairs(walk.game:resume("room-exits")) do table.insert(directions, tostring(exit[1]):lower()) end
+		return directions
+	end,
+}
+session:refreshEngineState()
 -- The German package names exits in German; the reader reads them all.
 assert(session.availableDirections.north and session.availableDirections.east, "German exits are directions")
 assert(session.availableDirections.southwest and session.availableDirections.southeast)
@@ -44,23 +45,6 @@ table.insert(session.exitList, "up")
 
 assert(titles(session:suggestions("")) == "Umsehen|Inventar", "German default titles")
 assert(session:presentation().language == "de")
-
--- Item menus: German titles, German commands, never English words.
-local actions = commands(session:linkActions("brett"))
-assert(actions["untersuch brett"] == "Untersuchen", "examine in German: " .. titles(session:linkActions("brett")))
-assert(actions["nimm brett"] == "Nehmen", "take is nimm, not heb auf: " .. titles(session:linkActions("brett")))
-for command in pairs(actions) do
-	assert(not command:match("^examine") and not command:match("^take"), "English command offered: " .. command)
-	local output = walk.game:resume(command)
-	assert(type(output) == "string" and output ~= "", command .. " printed nothing")
-	assert(not output:find("nicht verstanden", 1, true) and not output:find("kenne das Wort", 1, true),
-		command .. " was not understood:\n" .. output)
-end
-
--- Directions: compass words of the German parser, German titles.
-local north = session:linkActions("north")
-assert(north[1].command == "nord" and north[1].title == "Geh nach Norden", titles(north))
-assert(session:linkActions("up")[1].command == "rauf")
 
 -- Completions: German verbs and compass words, not "go north".
 local function completes(input, command)
@@ -73,6 +57,12 @@ assert(completes("n", "nord"), "n completes to nord: " .. titles(session:suggest
 assert(completes("nim", "nimm"), "nim completes to nimm: " .. titles(session:suggestions("nim")))
 assert(not completes("go", "go"), "no English go")
 assert(completes("sch", "schau"), "sch completes to schau")
+
+assert(completes("nimm br", "nimm brett"), "object names complete in German")
+for _, command in ipairs({ "untersuch brett", "nimm brett" }) do
+	local output = walk:command(command)
+	assert(not output:find("nicht verstanden", 1, true) and not output:find("kenne das Wort", 1, true), output)
+end
 
 for _, direction in ipairs({ "nord", "ost", "rauf", "runter" }) do
 	assert(not walk.game:resume(direction):find("kenne das Wort", 1, true), direction .. " is not a word")
@@ -89,7 +79,7 @@ for command, label in pairs(found) do
 	assert(not command:find("north") and not command:find("south"), "English command: " .. command)
 end
 
-print("ok - German reader: menus, completions and status lines")
+print("ok - German reader: completions, status lines and companion choices")
 
 -- Umlauts and ß are letters: "Straßenbahn" is one noun, not "enbahn".
 local Suggestions = require("zilscript.reader.Suggestions")

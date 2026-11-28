@@ -1,7 +1,7 @@
 -- PRE-TAKE validates an explicitly named source, then clears PRSI so the
 -- same take path as a bare command can run. A scenery TAKE handler on the
 -- source must never intercept the child's command after that decision.
-local Walk = require("tests.link_walk")
+local Walk = require("tests.story_walk")
 
 local function try(module, roomName, objectName, sourceName, command)
   local walk = Walk.new(module)

@@ -48,26 +48,26 @@
 
 <ROUTINE LENDING-F (R)
  <COND (<EQUAL? .R ,M-LOOK>
-        <TELL "You are in the Lending Hall of the library, a hushed room whose shelves climb out of sight into the rafters. Someone has pushed a wooden [[lending cabinet]] right up against the big window. ">
-        <COND (,ON-LOAN <TELL "Only one stripe of [[sunlight]] falls across the floor now, today's, and beside it the boards have gone grey and still.">)
-              (T <TELL "Two stripes of [[sunlight]] fall across the floor: today's, and beside it a narrow golden stripe that must be tomorrow's.">)>
-        <TELL " An arch to the [[east]] opens into the folding room, and a passage leads [[north]] to the dry basin." CR>)>>
+        <TELL "You are in the Lending Hall of the library, a hushed room whose shelves climb out of sight into the rafters. Someone has pushed a wooden lending cabinet right up against the big window. ">
+        <COND (,ON-LOAN <TELL "Only one stripe of sunlight falls across the floor now, today's, and beside it the boards have gone grey and still.">)
+              (T <TELL "Two stripes of sunlight fall across the floor: today's, and beside it a narrow golden stripe that must be tomorrow's.">)>
+        <TELL " An arch to the east opens into the folding room, and a passage leads north to the dry basin." CR>)>>
 <ROUTINE FOLDING-F (R)
  <COND (<EQUAL? .R ,M-LOOK>
-        <TELL "This is the Folding Room, a bright room barely wider than its long wooden [[folding board]]. Sunlight picks out the furrows in the grain. The edges shine from years of elbows; the middle looks almost untouched. The lending hall is back through the arch to the [[west]], and a staircase climbs [[north]] to the reading terrace." CR>)>>
+        <TELL "This is the Folding Room, a bright room barely wider than its long wooden folding board. Sunlight picks out the furrows in the grain. The edges shine from years of elbows; the middle looks almost untouched. The lending hall is back through the arch to the west, and a staircase climbs north to the reading terrace." CR>)>>
 <ROUTINE BASIN-F (R)
  <COND (<EQUAL? .R ,M-LOOK>
-        <TELL "You are in the Dry Basin, a cool stone room where a long [[stone trough]] runs along one wall and out through a gap toward the market.">
+        <TELL "You are in the Dry Basin, a cool stone room where a long stone trough runs along one wall and out through a gap toward the market.">
         <COND (,ON-LOAN <TELL " The trough is empty now. Every drop has backed out of it, even the one that was falling, and the room is silent.">)
               (T <TELL " A thin stream of water edges along the trough toward the market with a soft, busy trickle.">)>
-        <TELL " An old [[loan receipt]] has been pressed flat against the stone wall. The lending hall is back to the [[south]], and a doorway to the [[east]] opens onto the reading terrace." CR>)>>
+        <TELL " An old loan receipt has been pressed flat against the stone wall. The lending hall is back to the south, and a doorway to the east opens onto the reading terrace." CR>)>>
 <ROUTINE TERRACE-F (R)
  <COND (<EQUAL? .R ,M-LOOK>
-        <TELL "You are on the Reading Terrace, a stone balcony high above the town. Far below, the striped awnings in the [[market]] look like squares cut from a quilt. A brass [[reading frame]] stands at the railing, facing out over the market.">
-        <COND (<IN? ,LEAF ,FRAME> <TELL " The [[tomorrow leaf]] is clipped in the frame, lifting at both corners like a child getting ready to jump.">)
+        <TELL "You are on the Reading Terrace, a stone balcony high above the town. Far below, the striped awnings in the market look like squares cut from a quilt. A brass reading frame stands at the railing, facing out over the market.">
+        <COND (<IN? ,LEAF ,FRAME> <TELL " The tomorrow leaf is clipped in the frame, lifting at both corners like a child getting ready to jump.">)
               (,ON-LOAN <TELL " Down below, the shadows have stopped getting longer under the stalls, and a fruit seller holds a basket halfway to her cart, waiting for an evening that isn't coming.">)
               (T <TELL " Down below, the afternoon shadows are slowly growing longer.">)>
-        <TELL " Stairs lead [[south]] down to the folding room, and a doorway to the [[west]] leads back to the dry basin." CR>)>>
+        <TELL " Stairs lead south down to the folding room, and a doorway to the west leads back to the dry basin." CR>)>>
 
 <ROUTINE CASE-F ()
  <COND
@@ -79,11 +79,11 @@
         <TELL "Your finger follows a polished crescent in the wood. Many other thumbs have waited right there before opening the door." CR>)
        (<AND <VERB? OPEN SEARCH LOOK-INSIDE> <NOT <FSET? ,CASE ,OPENBIT>>>
         <FSET ,CASE ,OPENBIT>
-        <COND (<IN? ,LEAF ,CASE> <TELL "You open the cabinet's little door. Inside, all alone on the shelf, lies a [[tomorrow leaf]]." CR>)
+        <COND (<IN? ,LEAF ,CASE> <TELL "You open the cabinet's little door. Inside, all alone on the shelf, lies a tomorrow leaf." CR>)
               (T <TELL "You open the empty cabinet." CR>)>)
        (<VERB? EXAMINE SEARCH>
         <COND (<FSET? ,CASE ,OPENBIT>
-               <COND (<IN? ,LEAF ,CASE> <TELL "One [[tomorrow leaf]] lies on the shelf of the open cabinet. There's room for many more, but there is only one." CR>)
+               <COND (<IN? ,LEAF ,CASE> <TELL "One tomorrow leaf lies on the shelf of the open cabinet. There's room for many more, but there is only one." CR>)
                      (T <TELL "The open cabinet holds only a pale, page-shaped patch where a piece of paper used to lie." CR>)>)
               (T <TELL "The cabinet is made of dark wood, with a little door that is closed. A brass label on the front says ONE DAY PER BORROWER." CR>)>)
        (<AND <VERB? PUT> <EQUAL? ,PRSI ,CASE> <EQUAL? ,PRSO ,LEAF>>
@@ -129,12 +129,12 @@
        (<VERB? EXAMINE READ>
         <SETG BOARD-READ T>
         <TELL "Words are carved into the wood of the board: LAY A LEAF ON THE BOARD, GOLD SIDE UP. TO SHARE YOUR DAY, OPEN THE OLD FOLDS. Nothing anywhere says you aren't allowed to.">
-        <COND (<HELD? ,LEAF> <TELL " You have the [[tomorrow leaf]] in your hand.">)>
+        <COND (<HELD? ,LEAF> <TELL " You have the tomorrow leaf in your hand.">)>
         <CRLF>)
        (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,BOARD> <EQUAL? ,PRSO ,LEAF>>
         <COND (,WIDE-LOAN <TELL "You've already opened every fold." CR>)
               (T <SETG WIDE-LOAN T>
-                 <TELL "You lay the [[tomorrow leaf]] on the board, gold side up, and smooth the old folds open with your palm. Fold after fold lets go, and the little square opens out to the width of your arms. Your name is still there in its corner, with plenty of room alongside it now. You lift it back up carefully." CR>)>)
+                 <TELL "You lay the tomorrow leaf on the board, gold side up, and smooth the old folds open with your palm. Fold after fold lets go, and the little square opens out to the width of your arms. Your name is still there in its corner, with plenty of room alongside it now. You lift it back up carefully." CR>)>)
        (<VERB? RUB>
         <TELL "The edges are worn smooth by a thousand hands, but the middle still feels rough and new. People have folded things here for years. Hardly anyone has unfolded anything." CR>)
        (<VERB? KNOCK>
@@ -192,14 +192,14 @@
         <TELL "From the market side the frame would look like a little window. Anyone below will see the whole page at once." CR>)
        (<VERB? EXAMINE>
         <TELL "A brass stand with two clips, made to hold a page up for the whole market to see. The clips are set very far apart, much too far for an ordinary little folded page.">
-        <COND (<IN? ,LEAF ,FRAME> <TELL " The [[tomorrow leaf]] fits them both.">)
-              (<AND <HELD? ,LEAF> ,WIDE-LOAN> <TELL " The wide [[tomorrow leaf]] might fit them both.">)>
+        <COND (<IN? ,LEAF ,FRAME> <TELL " The tomorrow leaf fits them both.">)
+              (<AND <HELD? ,LEAF> ,WIDE-LOAN> <TELL " The wide tomorrow leaf might fit them both.">)>
         <CRLF>)
        (<VERB? READ>
         <COND (<IN? ,LEAF ,FRAME> <PUBLISH-LOAN>)
               (T <TELL "There isn't a page in the frame yet." CR>)>)
        (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSO ,LEAF> <EQUAL? ,PRSI ,FRAME>>
-        <COND (,WIDE-LOAN <MOVE ,LEAF ,FRAME> <FSET ,LEAF ,NDESCBIT> <TELL "You clip the wide page in. Both clips hold, and the [[tomorrow leaf]] points out toward the roofs of the town." CR>)
+        <COND (,WIDE-LOAN <MOVE ,LEAF ,FRAME> <FSET ,LEAF ,NDESCBIT> <TELL "You clip the wide page in. Both clips hold, and the tomorrow leaf points out toward the roofs of the town." CR>)
               (T <TELL "You try to clip the leaf in, but folded up like this it is far too small: it won't reach the second clip. You keep hold of it." CR>)>)
        (<VERB? RUB>
         <TELL "The brass is warm from the sun, and the clips snap shut with a cheerful click." CR>)

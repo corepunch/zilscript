@@ -21,7 +21,7 @@
 
 <ROUTINE STATION-CLOCK-F ()
  <COND (<VERB? EXAMINE READ>
-  <TELL "The second hand sweeps up toward twelve, and every time it crosses, the clock jerks back and comes out one second behind midnight again. It has been one second to midnight for an hour. Beneath it hangs the [[arrivals board->board]]." CR>)
+  <TELL "The second hand sweeps up toward twelve, and every time it crosses, the clock jerks back and comes out one second behind midnight again. It has been one second to midnight for an hour. Beneath it hangs the arrivals board." CR>)
        (<VERB? LISTEN>
   <TELL "It ticks steadily, and then, just at the top of the minute, there is a double tick, like a heel caught on a stair." CR>)
        (<VERB? RUB TAKE MOVE>
@@ -61,10 +61,10 @@
         (T <TELL "You aren't holding that." CR>)>)
        (<EQUAL? ,PRSI ,STAFF-TABLE> <RFALSE>)
        (<VERB? EXAMINE>
-  <TELL "A scuffed staff table with tea rings all over it. The [[logbook]] lies open in the middle, where whoever is on shift can't miss it." CR>)
+  <TELL "A scuffed staff table with tea rings all over it. The logbook lies open in the middle, where whoever is on shift can't miss it." CR>)
        (<VERB? LOOK-UNDER>
-  <COND (,STAFF-CHAIR-TUCKED <TELL "The [[chair]] is tucked under the table now. You can see a crescent in the dust where its feet dragged." CR>)
-        (T <TELL "Only dust, and a [[chair]] pushed back as if someone got up in a hurry." CR>)>)
+  <COND (,STAFF-CHAIR-TUCKED <TELL "The chair is tucked under the table now. You can see a crescent in the dust where its feet dragged." CR>)
+        (T <TELL "Only dust, and a chair pushed back as if someone got up in a hurry." CR>)>)
        (<VERB? KNOCK>
   <TELL "It sounds hollow and cheap. Nobody answers, which is a relief." CR>)
        (<VERB? TAKE MOVE PUSH>
@@ -117,7 +117,7 @@
 <ROUTINE TEST-PUCK-F ()
  <COND (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,RECEIVER-CRADLE> <HELD? ,TEST-PUCK>>
   <MOVE ,TEST-PUCK ,RECEIVER-CRADLE>
-  <TELL "The puck settles into the cradle with a ceramic click. Beside it, the [[calibration stud->stud]] glows once: the gauge has its reference weight." CR>)
+  <TELL "The puck settles into the cradle with a ceramic click. Beside it, the calibration stud glows once: the gauge has its reference weight." CR>)
        (<VERB? EXAMINE>
   <TELL "A white ceramic disc the size of your palm, heavier than it looks and faintly warm, even here. STANDARD LOAD is stamped around its rim, and one side is notched to fit the receiver cradle in the gauge room." CR>)
        (<VERB? SMELL>
@@ -137,8 +137,8 @@
 <ROUTINE RECEIVER-CRADLE-F ()
  <COND (<VERB? EXAMINE SEARCH LOOK-INSIDE>
   <COND (<IN? ,TEST-PUCK ,RECEIVER-CRADLE>
-         <TELL "The [[ceramic puck->puck]] sits flush in the cradle. Push the [[stud]] and the gauge will weigh whatever is on the track against it." CR>)
-        (T <TELL "A round hollow in the console with one notch in its rim, sized for a standard ceramic weight. The [[stud]] beside it can't run a test until the cradle holds one." CR>)>)
+         <TELL "The ceramic puck sits flush in the cradle. Push the stud and the gauge will weigh whatever is on the track against it." CR>)
+        (T <TELL "A round hollow in the console with one notch in its rim, sized for a standard ceramic weight. The stud beside it can't run a test until the cradle holds one." CR>)>)
        (<VERB? CLOSE> <TELL "The cradle has no lid. The puck sits in the open." CR>)
        (<VERB? RUB>
   <TELL "Unlike everything else in the room, the metal is warm, as if it has been used recently." CR>)
@@ -151,16 +151,16 @@
 
 <ROUTINE CALIBRATION-STUD-F ()
  <COND (<VERB? EXAMINE>
-  <TELL "A low, square brass button, worn smooth by thumbs. Pressing it makes the gauge weigh whatever is on the track, measured against the weight in the [[cradle]]. A needle and a little readout window sit just above it.">
+  <TELL "A low, square brass button, worn smooth by thumbs. Pressing it makes the gauge weigh whatever is on the track, measured against the weight in the cradle. A needle and a little readout window sit just above it.">
   <COND (,LOOP-OBSERVED
          <TELL " The needle still rests at the full weight of a train.">
          <COND (<NOT <IN? ,TEST-PUCK ,RECEIVER-CRADLE>>
-                <TELL " That is the last reading, not a new one; the [[cradle]] is empty now.">)>
+                <TELL " That is the last reading, not a new one; the cradle is empty now.">)>
          <CRLF>)
         (T <TELL " The needle rests at zero." CR>)>)
        (<VERB? PUSH>
         <COND (<NOT <IN? ,TEST-PUCK ,RECEIVER-CRADLE>>
-               <TELL "EMPTY REFERENCE, says the little window over the stud. The gauge has nothing to measure against; you need to seat a ceramic puck in the [[cradle]] first." CR>)
+               <TELL "EMPTY REFERENCE, says the little window over the stud. The gauge has nothing to measure against; you need to seat a ceramic puck in the cradle first." CR>)
               (,LOOP-OBSERVED
                <TELL "Again the needle climbs to a train's weight, and again it wavers as someone aboard shifts from one foot to the other." CR>)
               (T <SETG LOOP-OBSERVED T>
@@ -219,7 +219,7 @@
 
 <ROUTINE STAFF-SINK-F ()
  <COND (<VERB? EXAMINE>
-  <TELL "A little steel sink with a dripping tap and a wire drainer. The two rinsed [[cups]] stand upside down on the drainer." CR>)
+  <TELL "A little steel sink with a dripping tap and a wire drainer. The two rinsed cups stand upside down on the drainer." CR>)
        (<VERB? LISTEN>
   <TELL "The tap drips, slowly, about once a second. Then twice, quickly, as though it has lost count." CR>)
        (<VERB? TURN SPIN OPEN CLOSE>
@@ -235,7 +235,7 @@
 
 <ROUTINE GAUGE-CONSOLE-F ()
  <COND (<VERB? EXAMINE>
-  <TELL "A long steel console under the frosted dials. Set into it are the round [[receiver cradle->cradle]] and the square [[calibration stud->stud]], both clear of frost." CR>)
+  <TELL "A long steel console under the frosted dials. Set into it are the round receiver cradle and the square calibration stud, both clear of frost." CR>)
        (<VERB? RUB>
   <TELL "The metal is cold everywhere except around the cradle and the stud." CR>)
        (<VERB? LOOK-UNDER>
@@ -253,7 +253,7 @@
 
 <ROUTINE PLATFORM-POST-F ()
  <COND (<VERB? EXAMINE>
-  <TELL "A squat steel post at the platform edge, with the platform bell bolted to its top. It bears two controls: the red [[rescue switch->switch]] and the grey [[quarantine latch->latch]]. Only one of them can be used tonight." CR>)
+  <TELL "A squat steel post at the platform edge, with the platform bell bolted to its top. It bears two controls: the red rescue switch and the grey quarantine latch. Only one of them can be used tonight." CR>)
        (<VERB? RING>
   <TELL "You ring one dull note. The rails carry it off into the dark, but a bell from this end is only a test; neither control has moved." CR>)
        (<VERB? LISTEN>
@@ -270,14 +270,14 @@
   <COND (,LOOP-OBSERVED
          <TELL "You still can't see it. But the gauge has weighed it: a whole train, with someone aboard, standing just beyond the edge of the platform, waiting for a signal." CR>)
         (T
-         <TELL "There is no train in sight, only the warmth on the [[track]] and the bell's call. An echo on the rail would look just the same. The instruments in the gauge room could tell you whether anything is really there." CR>)>)
+         <TELL "There is no train in sight, only the warmth on the track and the bell's call. An echo on the rail would look just the same. The instruments in the gauge room could tell you whether anything is really there." CR>)>)
        (<VERB? LISTEN>
   <PERFORM ,V?LISTEN ,PLATFORM-TRACK>
   <RTRUE>)
        (<VERB? BOARD THROUGH WAVE TAKE PUSH>
-  <TELL "There is nothing on the track your hands can reach. The only way to answer the train is with the controls on the [[post]]." CR>)
+  <TELL "There is nothing on the track your hands can reach. The only way to answer the train is with the controls on the post." CR>)
        (<VERB? TELL HELLO>
-  <COND (,LOOP-OBSERVED <TELL "You call, and wait long enough for a reply. Whoever is aboard can hear the rail, not your voice. The controls on the [[post]] will carry an answer." CR>)
+  <COND (,LOOP-OBSERVED <TELL "You call, and wait long enough for a reply. Whoever is aboard can hear the rail, not your voice. The controls on the post will carry an answer." CR>)
         (T <TELL "Your voice comes back from both tunnels. Neither echo is quite in time with the other." CR>)>)>>
 
 <ROUTINE PLATFORM-EDGE-F ()

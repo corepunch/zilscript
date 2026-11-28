@@ -1,6 +1,4 @@
--- The world around the rules: the typed hero name, actions before a profile
--- and on wrong targets, every exit, the scenery the prose names, and every
--- prose link in every state resolving through the parser.
+-- Story and companion regressions.
 local Hero = require("books.en.blackout-at-meridian.test.hero")
 
 local h = Hero.new()
@@ -30,7 +28,7 @@ h:expect("use kit", "You can't see")
 h:expect("take bulwark", "stays pinned to the board")
 assert(h:state().class == 0, "taking a card does not choose it")
 h:expect("examine profile", "Which profile do you mean")
-assert(not h.output:find("bulwark bulwark", 1, true), "a disambiguation link names the profile once:\n" .. h.output)
+assert(not h.output:find("bulwark bulwark", 1, true), "disambiguation names the profile once:\n" .. h.output)
 for _, card in ipairs({ "bulwark", "arc", "lens" }) do h:expect("examine " .. card, "To take it on, choose it.") end
 
 -- The typed name: READ lowercases it, so words are capitalised; spaces are
@@ -61,7 +59,7 @@ h:expect("choose bulwark", "already registered as Lens")
 local s = h:state()
 assert(s.class == 3 and s.max == 60 and s.karma == 90, "a second choice changes nothing")
 h:expect("examine lens", "This is your profile.")
-h:expect("examine board", "The [[Lens]] card is marked ACTIVE")
+h:expect("examine board", "The Lens card is marked ACTIVE")
 h:expect("look", "red ACTIVE stamp")
 h:expect("help", "RESCUE the PASSENGERS")
 
@@ -120,20 +118,6 @@ h:expect("out", "passengers are safe")
 h:expect("east", "concrete hall")
 assert(h:running() and h:state().health == 60, "nothing in the station hurts until the hero acts")
 
--- Every link in every state names something the parser finds here.
-local function check_links(where)
-	local text = h:send("look")
-	for link in text:gmatch("%[%[([^%]]+)%]%]") do
-		local target = link:match("%->(.+)$") or link
-		local dirs = { north = 1, south = 1, east = 1, west = 1 }
-		if not dirs[target:lower()] then
-			local out = h:send("examine " .. target)
-			assert(not out:find("can't see", 1, true) and not out:find("don't know", 1, true) and not out:find("Which", 1, true),
-				where .. ": link " .. target .. " does not resolve:\n" .. out)
-		end
-	end
-end
-check_links("relay, drone up")
 h:expect("disable console", "Meridian is safe.")
 assert(not h:running(), "the lever ends the story")
 
@@ -142,17 +126,14 @@ h = Hero.new()
 h:force(100)
 h:start("arc")
 h:send("rescue tram")
-check_links("bridge, rescued")
 h:send("east")
 h:force(1)
 h:send("strike drone")
 h:send("use kit")
 h:force(100)
 h:send("strike drone")
-check_links("relay, drone down, kit used")
 h:expect("south", "You can't go that way.")
 h:expect("west", "passengers are safe")
 h:send("south")
-check_links("dispatch, registered")
 
-print("ok - Blackout at Meridian world, names and links")
+print("ok - Blackout at Meridian world and names")

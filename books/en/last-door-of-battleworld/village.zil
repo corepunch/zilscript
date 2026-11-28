@@ -5,15 +5,15 @@
 <OBJECT ZSAJI (DESC "Zsaji") (SYNONYM ZSAJI HEALER)>
 
 <ROUTINE MSG-MARKET-SCALES ()
- <TELL "Beyond the grocer's stall a lane runs [[west]] to Zsaji's village. ">
- <COND (,BW-WEIGHED <TELL "The [[scales]] hang level above the counter." CR>)
-       (T <TELL "One pan of the [[scales]] tilts against the counter." CR>)>>
+ <TELL "Beyond the grocer's stall a lane runs west to Zsaji's village. ">
+ <COND (,BW-WEIGHED <TELL "The scales hang level above the counter." CR>)
+       (T <TELL "One pan of the scales tilts against the counter." CR>)>>
 <ROUTINE MSG-FOUND-CLAPPER ()
- <TELL "You lift the crooked pan. A brass [[clapper]] rolls out from underneath, wobbling in smaller and smaller circles. Its worn loop is much too big for a grocer's weight." CR>>
+ <TELL "You lift the crooked pan. A brass clapper rolls out from underneath, wobbling in smaller and smaller circles. Its worn loop is much too big for a grocer's weight." CR>>
 <ROUTINE MSG-EMPTY-SCALES () <TELL "The pans hang level now. A single apple sends the needle bobbing." CR>>
 <ROUTINE MSG-CLAPPER () <TELL "A loop at one end, a polished spot on either cheek. This little tongue has spent years swinging inside something." CR>>
 <ROUTINE MSG-VILLAGE ()
- <TELL "Fine red dust veils the lane. A [[bell]] hangs outside the meeting house. [[Zsaji]] the healer keeps one hand on the post. The stalls of the market are back [[east]]. ">
+ <TELL "Fine red dust veils the lane. A bell hangs outside the meeting house. Zsaji the healer keeps one hand on the post. The stalls of the market are back east. ">
  <COND (,BW-BELL-RUNG <TELL "Paired muddy boots line the step." CR>)
        (T <TELL "Two bowls of supper sit untouched on the step." CR>)>>
 <ROUTINE MSG-BELL () <TELL "You pull the rope. The bell swings in perfect silence. Inside, an empty hook shines where its clapper wore the metal smooth." CR>>

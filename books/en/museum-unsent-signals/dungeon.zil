@@ -2,16 +2,16 @@
 
 <ROOM ADMISSIONS (IN ROOMS) (GLOBAL RELAY) (DESC "Admissions") (FLAGS RLANDBIT ONBIT)
  (EAST TO DEAD-LETTERS) (WEST TO QUIET-HALL) (NORTH TO SIGNAL-BOOTH)
- (LDESC "You're in the admissions lobby. Only one light is still on, above the [[ticket counter->counter]] and a brass [[plaque]]. Beneath the hum of the [[relay]], you can hear each of your own steps on the tiles. The Dead Letters gallery lies [[east]], the Quiet Hall [[west]], and the signal booth [[north]].")>
+ (LDESC "You're in the admissions lobby. Only one light is still on, above the ticket counter and a brass plaque. Beneath the hum of the relay, you can hear each of your own steps on the tiles. The Dead Letters gallery lies east, the Quiet Hall west, and the signal booth north.")>
 <ROOM DEAD-LETTERS (IN ROOMS) (GLOBAL RELAY) (DESC "Dead Letters") (FLAGS RLANDBIT ONBIT)
  (WEST TO ADMISSIONS)
- (LDESC "You're in the Dead Letters gallery. The [[glass cases->cases]] run down both walls. At first the dark glass shows you only your own reflection; the [[inspection lens->lens]] on its stand was put there for a closer look. The door back to admissions is [[west]].")>
+ (LDESC "You're in the Dead Letters gallery. The glass cases run down both walls. At first the dark glass shows you only your own reflection; the inspection lens on its stand was put there for a closer look. The door back to admissions is west.")>
 <ROOM QUIET-HALL (IN ROOMS) (GLOBAL RELAY) (DESC "Quiet Hall") (FLAGS RLANDBIT ONBIT)
  (EAST TO ADMISSIONS)
- (LDESC "This is the Quiet Hall, the one room in the museum built for listening to nothing. The thick carpet stops your footsteps so suddenly that you hear the sleeve of your coat brush your wrist. A straight wooden [[bench]] faces the far wall, where an old [[service diagram->diagram]] shows how the relay used to work. Admissions is back to the [[east]].")>
+ (LDESC "This is the Quiet Hall, the one room in the museum built for listening to nothing. The thick carpet stops your footsteps so suddenly that you hear the sleeve of your coat brush your wrist. A straight wooden bench faces the far wall, where an old service diagram shows how the relay used to work. Admissions is back to the east.")>
 <ROOM SIGNAL-BOOTH (IN ROOMS) (GLOBAL RELAY) (DESC "Signal Booth") (FLAGS RLANDBIT ONBIT)
  (SOUTH TO ADMISSIONS)
- (LDESC "You are in the signal booth, a small glass room at the heart of the relay. The [[relay]] hums under your feet. The glass is warm enough to lean your forehead against. Set into the desk is a shallow [[reading basin->basin]] for playing spools, with a round [[audition stud->stud]] beside it. Below them are two sending keys: the [[return key]] on the left and the [[memorial key]] on the right, with a little [[address indicator->indicator]] above them. The corridor leads back [[south]] to admissions.")>
+ (LDESC "You are in the signal booth, a small glass room at the heart of the relay. The relay hums under your feet. The glass is warm enough to lean your forehead against. Set into the desk is a shallow reading basin for playing spools, with a round audition stud beside it. Below them are two sending keys: the return key on the left and the memorial key on the right, with a little address indicator above them. The corridor leads back south to admissions.")>
 
 <OBJECT MUSEUM-PLAQUE (IN ADMISSIONS) (DESC "plaque") (SYNONYM PLAQUE NOTE STRIP PAPER LETTERS RULE) (ADJECTIVE MUSEUM BRASS RAISED CARETAKER)
  (FLAGS NDESCBIT) (ACTION MUSEUM-PLAQUE-F)>
@@ -20,8 +20,8 @@
  (FLAGS NDESCBIT) (ACTION RETURN-LENS-F)>
 
 <OBJECT MESSAGE-SPOOL (IN DEAD-LETTERS) (DESC "wooden spool") (SYNONYM SPOOL TAG REEL TAPE CUTS CUT MARKS MARK EDGE) (ADJECTIVE WOODEN PAPER RECORDING)
- (FLAGS TAKEBIT) (FDESC "One [[wooden spool->spool]] has been taken out of its case and left beside the lens, with a paper tag tied to it.")
- (LDESC "The [[wooden spool->spool]] is here.") (ACTION MESSAGE-SPOOL-F)>
+ (FLAGS TAKEBIT) (FDESC "One wooden spool has been taken out of its case and left beside the lens, with a paper tag tied to it.")
+ (LDESC "The wooden spool is here.") (ACTION MESSAGE-SPOOL-F)>
 
 <OBJECT HALL-BENCH (IN QUIET-HALL) (DESC "bench") (SYNONYM BENCH SEAT HOLLOWS) (ADJECTIVE HALL STRAIGHT PLAIN SHALLOW WOODEN)
  (FLAGS NDESCBIT) (ACTION HALL-BENCH-F)>

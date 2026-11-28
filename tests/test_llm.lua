@@ -394,32 +394,6 @@ test.describe("LLM Mode", function(t)
 		cleanup(savefile)
 	end)
 
-	t.it("should answer a routine's prompt with Return in link play", function(assert)
-		local savefile = "/tmp/test-llm-links-prompt.sav"
-		cleanup(savefile)
-		remove_file(savefile .. ".transcript")
-		local suffix = " --game blackout-at-meridian --save " .. shell_quote(savefile)
-
-		run_command("lua5.4 llm.lua --new-game --links" .. suffix)
-		local _, listing = run_command("lua5.4 llm.lua --links" .. suffix)
-		local index, n = nil, 0
-		for command in listing:match('"actions":(.*)'):gmatch('%["[^"]*","([^"]*)"') do
-			n = n + 1
-			if command == "name character sheet" then index = n end
-		end
-		assert.assert_true(index ~= nil)
-		local name_code, name_output = run_command("lua5.4 llm.lua --choose " .. index .. suffix)
-		assert.assert_equal(name_code, 0)
-		assert.assert_match(name_output, "Type your hero name")
-		assert.assert_match(name_output, "No name entered")
-		local look_code, look_output = run_command("lua5.4 llm.lua --choose 1" .. suffix)
-		assert.assert_equal(look_code, 0)
-		assert.assert_match(look_output, "Choose the hero")
-
-		cleanup(savefile)
-		remove_file(savefile .. ".transcript")
-	end)
-
 	t.it("should keep the Lurking Horror dream sequence interactive", function(assert)
 		local savefile = "/tmp/test-llm-lurking-horror-dream.sav"
 		cleanup(savefile)

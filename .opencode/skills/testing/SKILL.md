@@ -68,10 +68,9 @@ Prove completion path, catch regressions, and close parser/content gaps.
     unclear wording, spoilers, and missing recovery. Use deterministic tooling
     for room enumeration and exhaustive card execution; a successful model
     route is not a completeness proof.
-33. **Prefer the persistent companion host path:** use
-    `llm.lua --choices/--choose` when implemented. Until then, a focused Lua
-    runner may call `COMPANION_QUERY` and `COMPANION_SELECT` directly, but it
-    must isolate checkpoints and emit equivalent structured evidence.
+33. **Validate companion choices:** a focused Lua runner may call
+    `COMPANION_QUERY` and `COMPANION_SELECT` directly; it must isolate
+    checkpoints and emit structured evidence.
 
 ## Play-As-You-Build Loop
 

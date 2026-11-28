@@ -2,7 +2,7 @@
 
 1936. A gale has isolated the island transmitting station of Saint Bride. During a supposedly live appeal, station owner Julian Vane is killed in his office. Everyone heard engineer Ada Mercer speaking continuously from the studio. The sound itself is her alibi, and its manufacture is the crime's useful weakness.
 
-The player is a visiting insurance investigator. Core fantasy: put hands on the machinery that made a convincing lie, and distinguish what people heard from what physically happened. Target: adult and teenage fair-play mystery readers; roughly 50-70 purposeful actions, no time pressure or irreversible failure. Compact physical prose, dry humor, melancholy rather than gore. ASCII English parser with clickable noun and exit links.
+The player is a visiting insurance investigator. Core fantasy: put hands on the machinery that made a convincing lie, and distinguish what people heard from what physically happened. Target: adult and teenage fair-play mystery readers; roughly 50-70 purposeful actions, no time pressure or irreversible failure. Compact physical prose, dry humor, melancholy rather than gore. ASCII English parser.
 
 Thirteen meaningful rooms: arrival, hall, office, studio, control room, cutting room, archive, workshop, generator, aerial platform, kitchen, bunkroom, telegraph room. Four suspects: Ada (engineer and killer), Ruth Bell (announcer protecting a colleague), Tomas Vale (operator concealing gambling debt), Dr Edith Shaw (physician protecting an exposed patient). Each has a true secret that explains misleading evidence. Vane intended to sell the island and destroy records proving stolen wages; Ada's fear became a deliberate killing.
 

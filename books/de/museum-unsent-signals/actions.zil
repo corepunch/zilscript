@@ -111,7 +111,7 @@
  <COND (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,READING-BASIN> <HELD? ,MESSAGE-SPOOL>>
   <MOVE ,MESSAGE-SPOOL ,READING-BASIN>
   <SETG SIGNAL-HEARD <>>
-  <TELL "Du legst die Spule in die Mulde. Sie rastet ein und beginnt sich zu drehen. Am Rand der Mulde leuchtet der [[Abhörknopf]] auf." CR>)
+  <TELL "Du legst die Spule in die Mulde. Sie rastet ein und beginnt sich zu drehen. Am Rand der Mulde leuchtet der Abhörknopf auf." CR>)
        (<AND <VERB? TAKE> <IN? ,MESSAGE-SPOOL ,READING-BASIN>>
         <COND (<EQUAL? <ITAKE> T> <SETG SIGNAL-HEARD <>>
                <TELL "Du hebst die Spule heraus. Sie kommt zwischen deinen Fingern zum Stillstand, und beide Sendetasten erlöschen." CR>)
@@ -162,7 +162,7 @@
 <ROUTINE READING-BASIN-F ()
  <COND (<VERB? EXAMINE SEARCH LOOK-INSIDE>
   <COND (<IN? ,MESSAGE-SPOOL ,READING-BASIN>
-         <TELL "Die [[Spule->holzspule]] dreht sich langsam in der Mulde. Drück den [[Abhörknopf]], um sie hier in der Kabine zu hören. Über den Gedenkkanal geht dabei nichts hinaus." CR>)
+         <TELL "Die Spule dreht sich langsam in der Mulde. Drück den Abhörknopf, um sie hier in der Kabine zu hören. Über den Gedenkkanal geht dabei nichts hinaus." CR>)
         (T <TELL "Eine flache Schale aus schwarzem Glas, die beim Abspielen eine Spule aufnimmt. Sie ist leer. Leg zum Abspielen eine Holzspule hinein." CR>)>)
        (<VERB? CLOSE> <TELL "Die Mulde hat keinen Deckel. Der Ton bleibt in der Kabine, solange du nichts sendest." CR>)
        (<VERB? RUB>
@@ -173,10 +173,10 @@
 
 <ROUTINE AUDITION-STUD-F ()
  <COND (<VERB? EXAMINE>
-  <TELL "Ein runder Messingknopf neben der Mulde. Wenn du ihn drückst, spielt ein kleiner Lautsprecher hier in der Kabine ab, was in der [[Lesemulde]] liegt. Was du hier hörst, verlässt den Raum nicht." CR>)
+  <TELL "Ein runder Messingknopf neben der Mulde. Wenn du ihn drückst, spielt ein kleiner Lautsprecher hier in der Kabine ab, was in der Lesemulde liegt. Was du hier hörst, verlässt den Raum nicht." CR>)
        (<VERB? PUSH>
         <COND (<NOT <IN? ,MESSAGE-SPOOL ,READING-BASIN>>
-               <TELL "Der Lautsprecher knackt einmal und verstummt. Leg zuerst die Holzspule in die [[Lesemulde]]." CR>)
+               <TELL "Der Lautsprecher knackt einmal und verstummt. Leg zuerst die Holzspule in die Lesemulde." CR>)
               (<NOT ,LENS-READ>
                <TELL "Eine Frauenstimme sagt: „Ich bin angekommen.“ Dann folgt langes Schweigen, bis das Band ausläuft. Eine kleine Anzeige am Pult blinkt und fragt: Öffentliche oder private Adresse? Du weißt es noch nicht. Das Relaispersonal muss seine Spulen irgendwie gekennzeichnet haben. Wenn du die Lupe in der Galerie zum Licht hin kippst, könnte sie dir mehr verraten." CR>)
               (,SIGNAL-HEARD

@@ -54,8 +54,7 @@ local function parse_zil_objects(content)
             local depth = 1
             local obj_end = nil
 
-            -- Brackets inside strings are prose, such as the "->" of a
-            -- [[label->target]] link, not structure.
+            -- Angle brackets inside strings are text, so they do not change the object depth.
             local in_string = false
             for i = obj_start + 1, len do
                 local c = content:sub(i, i)

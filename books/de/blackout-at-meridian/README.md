@@ -30,7 +30,6 @@ hero; names are ASCII only. The unnamed hero is called Meridian.
 `make test-book-walkthroughs` runs `test/test_walkthrough_*.lua`: a typed
 seeded walkthrough, every ending for every profile with forced dice, real
 seeded dice checked against an independent percentile table, the world
-(exits, scenery, names, every prose link) and the link-menu route with the
-companion. `test/hero.lua` also fails a reply that shows an undecoded escape,
+(exits, scenery and names) and the companion route. `test/hero.lua` also fails a reply that shows an undecoded escape,
 `nil`, or a word of the English edition. The English test directory's
 `test_walkthrough_editions.lua` plays both editions on the same seeds.

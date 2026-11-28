@@ -1,15 +1,15 @@
 # Meridian and Wondertown playtest, 2026-11-28
 
 These are code-informed replay sessions, not independent blind playtests. The
-existing reader-driven walkthroughs supply the commands; all games ran with
+existing scripted walkthroughs supply the commands; all games ran with
 Lua 5.5.1. No claim of exhaustive coverage follows from a completed route.
 
 ## Meridian: English, German, Russian
 
-- English and German: the link-menu walkthrough plays each of the three hero
+- English and German: the walkthrough plays each of the three hero
   profiles with fixed seeds 98–100, retries failed rescue and relay checks,
   and reaches FINISH. It also follows the first companion card for six seeds.
-- Russian: the reader and typed-command walkthrough covers all three
+- Russian: the typed-command walkthrough covers all three
   profiles, both endings, failed rolls, repeat rescue and kit actions,
   pre-registration commands, long UTF-8 input, and 480 adversarial commands.
 - Finding: at the relay, the choice between attacking the drone and reaching
@@ -25,7 +25,7 @@ Lua 5.5.1. No claim of exhaustive coverage follows from a completed route.
 
 ## Wondertown: English
 
-- Seed 97: the existing 57-step reader-link walkthrough reached the best
+- Seed 97: an existing 57-step walkthrough reached the best
   ending. The timed ending regression also passed.
 - Adversarial reproduction: start the game, issue `easy`, then `wait` until
   sunrise. Before the fix the last warning was at turn 174, with 25 ticks
@@ -38,7 +38,7 @@ Lua 5.5.1. No claim of exhaustive coverage follows from a completed route.
   countdown remains opt-in; the opening also gives the distant toys a personal
   stake in Pip's errand. The full ending now responds to each offering at the
   heart: a music box, tin soldier, doll arm, or button earns its own image.
-  The link walkthrough verifies the music box and soldier payoffs.
+  The walkthrough verified the music box and soldier payoffs.
 - Result: the full-countdown regression, timed-ending regression, and 57-step
   best-ending reader walkthrough passed. This does not exercise every object
   interaction or every possible timer toggle sequence.

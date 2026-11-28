@@ -38,7 +38,7 @@
  <TELL "Um neun Uhr ist in Meridian der Strom ausgefallen. Zehn Minuten sp%ater meldet der Verkehrsfunk eine Stra%senbahn, die an einem einzigen Kabel %uber dem Fluss h%angt. In der Relaisstation, von der aus sich das Netz wieder einschalten l%asst, steht jetzt eine fremde Wachdrohne. Du hast noch nie einen Einsatz geleitet. Geh jetzt zur Br%ucke. (Tippe jederzeit HILFE, um zu erfahren, wie das Spiel geht.)" CR CR>>
 
 <ROUTINE MSG-HELP-HOW ()
- <TELL "Tippe Befehle wie SCHAU, UNTERSUCHE TAFEL oder NORD, oder w%ahle die verlinkten W%orter. Jede Heldentat w%urfelt W100 gegen einen deiner R%ange, und h%ohere W%urfe sind besser. Ein Fehlschlag kostet Gesundheit, und bei 0 Gesundheit ist deine Nacht vorbei. LIES BOGEN zeigt deine R%ange, ZUSTAND deine Gesundheit und dein Karma, und NENNE BOGEN gibt deinem Helden einen Namen." CR>>
+ <TELL "Tippe Befehle wie SCHAU, UNTERSUCHE TAFEL oder NORD. Jede Heldentat w%urfelt W100 gegen einen deiner R%ange, und h%ohere W%urfe sind besser. Ein Fehlschlag kostet Gesundheit, und bei 0 Gesundheit ist deine Nacht vorbei. LIES BOGEN zeigt deine R%ange, ZUSTAND deine Gesundheit und dein Karma, und NENNE BOGEN gibt deinem Helden einen Namen." CR>>
 
 <ROUTINE MSG-HELP-UNREGISTERED ()
  <TELL "Jetzt gerade: Untersuche die Profile an der Einsatztafel und W%AHLE FELS, BLITZ oder LUCHS." CR>>
@@ -95,37 +95,37 @@
  <TELL "Du wippst auf den Fersen, zu allem bereit." CR>>
 
 <ROUTINE MSG-SETUP ()
- <TELL "Wähle deinen Helden: [[Fels]], [[Blitz]] oder [[Luchs]]. Du kannst die Profile zuerst untersuchen und deinem Helden auf dem [[Heldenbogen->bogen]] einen Namen geben. Mit der Wahl eines Profils beginnt der Einsatz." CR>>
+ <TELL "Wähle deinen Helden: Fels, Blitz oder Luchs. Du kannst die Profile zuerst untersuchen und deinem Helden auf dem Heldenbogen einen Namen geben. Mit der Wahl eines Profils beginnt der Einsatz." CR>>
 
 <ROUTINE MSG-DISPATCH-LOOK-REGISTERED ()
- <TELL "In Meridians enger Notleitstelle brennt nur noch eine Batterielampe. Der Regen zieht silberne Streifen %ubers [[Fenster]], dahinter ist die [[Stadt]] dunkel. Dein Profil ist auf der [[Einsatztafel->tafel]] als aktiv markiert. Hinter der [[Ausgangst%ur->tuer]] geht es nach [[Norden->nord]] zur Meridian-Br%ucke.">>
+ <TELL "In Meridians enger Notleitstelle brennt nur noch eine Batterielampe. Der Regen zieht silberne Streifen %ubers Fenster, dahinter ist die Stadt dunkel. Dein Profil ist auf der Einsatztafel als aktiv markiert. Hinter der Ausgangst%ur geht es nach Norden zur Meridian-Br%ucke.">>
 
 <ROUTINE MSG-BRIDGE-LOOK-START ()
  <TELL "Auf der Meridian-Br%ucke treibt dir der Wind den Regen quer ins Gesicht. ">>
 
 <ROUTINE MSG-BRIDGE-LOOK-RESCUED ()
- <TELL "Die leere [[Stra%senbahn->bahn]] h%angt noch an ihrem [[Kabel]] durch die aufgerissenen [[Schienen]], aber ihre Fahrg%aste sind bei der [[Rettungsmannschaft->mannschaft]] unten in Sicherheit. Die [[Relaisstation->station]] steht am %ostlichen Ende der Br%ucke, ihre [[T%ur->tuer]] ist aufgebrochen, und der Weg nach [[Osten->ost]] ist frei.">>
+ <TELL "Die leere Stra%senbahn h%angt noch an ihrem Kabel durch die aufgerissenen Schienen, aber ihre Fahrg%aste sind bei der Rettungsmannschaft unten in Sicherheit. Die Relaisstation steht am %ostlichen Ende der Br%ucke, ihre T%ur ist aufgebrochen, und der Weg nach Osten ist frei.">>
 
 <ROUTINE MSG-BRIDGE-LOOK-HANGING ()
- <TELL "Auf halber Strecke ist der vordere Wagen einer [[Stra%senbahn->bahn]] durch die [[Schienen]] gebrochen und h%angt %uber dem [[Fluss]], gehalten nur von einem durchh%angenden [[Kabel]]. Es sind noch Menschen darin. Unten wartet eine [[Rettungsmannschaft->mannschaft]] mit einem Netz. Die [[Relaisstation->station]] steht am %ostlichen Ende der Br%ucke, aber zuerst kommen die Fahrg%aste.">>
+ <TELL "Auf halber Strecke ist der vordere Wagen einer Stra%senbahn durch die Schienen gebrochen und h%angt %uber dem Fluss, gehalten nur von einem durchh%angenden Kabel. Es sind noch Menschen darin. Unten wartet eine Rettungsmannschaft mit einem Netz. Die Relaisstation steht am %ostlichen Ende der Br%ucke, aber zuerst kommen die Fahrg%aste.">>
 
 <ROUTINE MSG-BRIDGE-LOOK-END ()
- <TELL " Die Leitstelle liegt im [[S%uden->sued]]." CR>>
+ <TELL " Die Leitstelle liegt im S%uden." CR>>
 
 <ROUTINE MSG-RELAY-LOOK-START ()
- <TELL "In der Betonhalle der Relaisstation sp%urst du das Brummen durch deine nassen Sohlen. Das [[Schaltpult->pult]] am hinteren Ende leitet Meridians Strom um. ">>
+ <TELL "In der Betonhalle der Relaisstation sp%urst du das Brummen durch deine nassen Sohlen. Das Schaltpult am hinteren Ende leitet Meridians Strom um. ">>
 
 <ROUTINE MSG-RELAY-LOOK-DRONE-DOWN ()
- <TELL "Die [[Wachdrohne->drohne]] liegt dunkel davor am Boden. ">>
+ <TELL "Die Wachdrohne liegt dunkel davor am Boden. ">>
 
 <ROUTINE MSG-RELAY-LOOK-DRONE-UP ()
- <TELL "Eine [[Wachdrohne->drohne]] schwebt davor, ihr rotes Auge folgt dir. ">>
+ <TELL "Eine Wachdrohne schwebt davor, ihr rotes Auge folgt dir. ">>
 
 <ROUTINE MSG-RELAY-LOOK-KIT-EMPTY ()
- <TELL "Der [[Notfallkasten->kasten]] h%angt offen und leer neben der [[T%ur->tuer]], die nach [[Westen->west]] zur%uck zur Br%ucke f%uhrt." CR>>
+ <TELL "Der Notfallkasten h%angt offen und leer neben der T%ur, die nach Westen zur%uck zur Br%ucke f%uhrt." CR>>
 
 <ROUTINE MSG-RELAY-LOOK-KIT-FULL ()
- <TELL "Neben der [[T%ur->tuer]] im [[Westen->west]] h%angt ein [[Notfallkasten->kasten]]. Hinter der T%ur liegt die Br%ucke." CR>>
+ <TELL "Neben der T%ur im Westen h%angt ein Notfallkasten. Hinter der T%ur liegt die Br%ucke." CR>>
 
 <ROUTINE MSG-PROFILE-VANGUARD ()
  <TELL "Fels ist f%ur schwere Rettungen und den Nahkampf gebaut: viel St%arke und Ausdauer, aber wenig Verstand. Gesundheit 120, Karma 26.">>
@@ -162,16 +162,16 @@
  <TELL "Die Einsatztafel zu zerrei%sen holt niemanden von der Br%ucke." CR>>
 
 <ROUTINE MSG-BOARD-LOOK-UNREGISTERED ()
- <TELL "An der Tafel h%angen drei Profilkarten, eine f%ur jede Art von Held, die die Leitstelle schicken kann: [[Fels]], [[Blitz]] und [[Luchs]]." CR>>
+ <TELL "An der Tafel h%angen drei Profilkarten, eine f%ur jede Art von Held, die die Leitstelle schicken kann: Fels, Blitz und Luchs." CR>>
 
 <ROUTINE MSG-BOARD-LOOK-BULWARK ()
- <TELL "Die [[Fels]]-Karte ist mit rotem Stift als AKTIV markiert. Die Karten [[Blitz]] und [[Luchs]] warten auf eine andere Nacht." CR>>
+ <TELL "Die Fels-Karte ist mit rotem Stift als AKTIV markiert. Die Karten Blitz und Luchs warten auf eine andere Nacht." CR>>
 
 <ROUTINE MSG-BOARD-LOOK-ARC ()
- <TELL "Die [[Blitz]]-Karte ist mit rotem Stift als AKTIV markiert. Die Karten [[Fels]] und [[Luchs]] warten auf eine andere Nacht." CR>>
+ <TELL "Die Blitz-Karte ist mit rotem Stift als AKTIV markiert. Die Karten Fels und Luchs warten auf eine andere Nacht." CR>>
 
 <ROUTINE MSG-BOARD-LOOK-LENS ()
- <TELL "Die [[Luchs]]-Karte ist mit rotem Stift als AKTIV markiert. Die Karten [[Fels]] und [[Blitz]] warten auf eine andere Nacht." CR>>
+ <TELL "Die Luchs-Karte ist mit rotem Stift als AKTIV markiert. Die Karten Fels und Blitz warten auf eine andere Nacht." CR>>
 
 <ROUTINE MSG-DUTY-BOARD-TAKE ()
  <TELL "Die Tafel ist an die Wand geschraubt. Auf die Karten kommt es an." CR>>
@@ -180,7 +180,7 @@
  <TELL "Die Einsatztafel zu zerrei%sen holt niemanden von der Br%ucke." CR>>
 
 <ROUTINE MSG-WINDOW-EXAMINE ()
- <TELL "Durch das regennasse Glas ist die Stadt ein schwarzer Schatten unter den Wolken. Drau%sen %uber dem Fluss schwingt das rote [[Warnlicht->warnlicht]] einer festgefahrenen Stra%senbahn im Wind." CR>>
+ <TELL "Durch das regennasse Glas ist die Stadt ein schwarzer Schatten unter den Wolken. Drau%sen %uber dem Fluss schwingt das rote Warnlicht einer festgefahrenen Stra%senbahn im Wind." CR>>
 
 <ROUTINE MSG-WINDOW-OPEN ()
  <TELL "Das Fenster ist zugestrichen, und der Sturm kann drau%sen bleiben." CR>>
@@ -198,7 +198,7 @@
  <TELL "Held: ">>
 
 <ROUTINE MSG-SHEET-UNREGISTERED ()
- <TELL CR "Noch kein Profil angemeldet. W%ahle an der Einsatztafel [[Fels]], [[Blitz]] oder [[Luchs]]." CR>>
+ <TELL CR "Noch kein Profil angemeldet. W%ahle an der Einsatztafel Fels, Blitz oder Luchs." CR>>
 
 <ROUTINE MSG-SHEET-OPEN-CLASS ()
  <TELL " (">>
@@ -240,7 +240,7 @@
  <TELL "Der leere Wagen knarrt an seinem Kabel. Es ist niemand mehr darin." CR>>
 
 <ROUTINE MSG-TRAM-EXAMINE ()
- <TELL "Der vordere Wagen ist aus den Schienen gesprungen und h%angt mit der Nase nach unten %uber dem Fluss. Nur das [[Kabel]] h%alt ihn. Es sind noch Menschen darin, die dir zuwinken." CR>>
+ <TELL "Der vordere Wagen ist aus den Schienen gesprungen und h%angt mit der Nase nach unten %uber dem Fluss. Nur das Kabel h%alt ihn. Es sind noch Menschen darin, die dir zuwinken." CR>>
 
 <ROUTINE MSG-TRAM-LISTEN-RESCUED ()
  <TELL "Nur das Kabel, das knarrt." CR>>
@@ -264,7 +264,7 @@
  <TELL "Alle sind schon in Sicherheit." CR>>
 
 <ROUTINE MSG-TRAM-RESCUED-NOW ()
- <TELL "Du stabilisierst den Wagen und reichst die Fahrg%aste einen nach dem anderen hinunter ins Netz der Mannschaft. Der Letzte, ein Junge im gelben Regenmantel, l%asst deine Hand erst los, als er wieder festen Boden unter den F%u%sen hat. (Karma +10.) Der Weg nach [[Osten->ost]] zur Relaisstation ist frei." CR>>
+ <TELL "Du stabilisierst den Wagen und reichst die Fahrg%aste einen nach dem anderen hinunter ins Netz der Mannschaft. Der Letzte, ein Junge im gelben Regenmantel, l%asst deine Hand erst los, als er wieder festen Boden unter den F%u%sen hat. (Karma +10.) Der Weg nach Osten zur Relaisstation ist frei." CR>>
 
 <ROUTINE MSG-TRAM-RESCUE-FAILED ()
  <TELL "Das Kabel rutscht, und der Wagen ruckt. Ein Fahrgast schreit auf; du steckst einen Schlag ein, aber unten spannt die Mannschaft ihr Netz. Du kannst die Rettung erneut versuchen.">>
@@ -360,7 +360,7 @@
  <TELL "Kampfprobe. ">>
 
 <ROUTINE MSG-DRONE-DOWN ()
- <TELL "Die Drohne kracht auf den Boden, und ihr rotes Auge geht aus. (Karma +10.) Das [[Pult]] ist unbewacht." CR>>
+ <TELL "Die Drohne kracht auf den Boden, und ihr rotes Auge geht aus. (Karma +10.) Das Pult ist unbewacht." CR>>
 
 <ROUTINE MSG-DRONE-HIT (INTEGRITY MAX)
  <TELL "Dein Schlag sitzt, und die Drohne taumelt, aus einem Rotor spr%uhen Funken. Panzerung " N .INTEGRITY " von " N .MAX "." CR>>
@@ -480,16 +480,16 @@
  <TELL "Du stehst darauf." CR>>
 
 <ROUTINE MSG-DISTANT-TRAM-EXAMINE ()
- <TELL "Von hier aus ist es nur ein rotes Warnlicht, das %uber dem Fluss schwingt. Die Br%ucke liegt im [[Norden->nord]]." CR>>
+ <TELL "Von hier aus ist es nur ein rotes Warnlicht, das %uber dem Fluss schwingt. Die Br%ucke liegt im Norden." CR>>
 
 <ROUTINE MSG-DISTANT-TRAM-RESCUE ()
- <TELL "Sie ist drau%sen auf der Br%ucke, im [[Norden->nord]]." CR>>
+ <TELL "Sie ist drau%sen auf der Br%ucke, im Norden." CR>>
 
 <ROUTINE MSG-STATION-INSIDE ()
  <TELL "Du bist drin. Der ganze Strom der Stadt l%auft durch diese Halle." CR>>
 
 <ROUTINE MSG-STATION-EXAMINE ()
- <TELL "Ein gedrungenes Betongeb%aude am %ostlichen Ende der Br%ucke, das vor Strom brummt, den es nicht haben d%urfte. Seine [[Stahlt%ur->tuer]] wurde aufgebrochen." CR>>
+ <TELL "Ein gedrungenes Betongeb%aude am %ostlichen Ende der Br%ucke, das vor Strom brummt, den es nicht haben d%urfte. Seine Stahlt%ur wurde aufgebrochen." CR>>
 
 <ROUTINE MSG-STATION-ALREADY-INSIDE ()
  <TELL "Du bist schon drin." CR>>

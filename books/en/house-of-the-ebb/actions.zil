@@ -40,41 +40,41 @@
 
 <ROUTINE CAUSEWAY-F (RARG)
  <COND (<AND <EQUAL? .RARG ,M-ENTER> <NOT ,LENS-READY>> <MOVE ,EKIT ,CAUSEWAY> <RFALSE>)
-  (<EQUAL? .RARG ,M-LOOK> <TELL "You are on the [[causeway]], a raised stone road across the tidal flats that the [[sea]] covers twice a day. Seaweed has dried into the mortar between the stones in little commas, and the water sucks at them on either side.">
+  (<EQUAL? .RARG ,M-LOOK> <TELL "You are on the causeway, a raised stone road across the tidal flats that the sea covers twice a day. Seaweed has dried into the mortar between the stones in little commas, and the water sucks at them on either side.">
  <COND (,LENS-READY <TELL " Only your own boots answer the stones now.">)
-       (T <TELL " [[Kit]] walks a pace behind you, close enough to touch.">)>
- <TELL " Ahead to the [[north]] stands the tide-[[house]] where you grew up, and someone has left a light burning in a house that has never had electricity." CR>)>>
+       (T <TELL " Kit walks a pace behind you, close enough to touch.">)>
+ <TELL " Ahead to the north stands the tide-house where you grew up, and someone has left a light burning in a house that has never had electricity." CR>)>>
 
 <ROUTINE HALL-F (RARG)
  <COND (<AND <EQUAL? .RARG ,M-ENTER> <NOT ,LENS-READY> <NOT <IN? ,EKIT ,HALL>>>
         <MOVE ,EKIT ,HALL>
         <TELL "Kit sets his bag beside the bench." CR>
         <RFALSE>)
-  (<EQUAL? .RARG ,M-LOOK> <TELL "This is the waiting hall, where ferry passengers once sat out the weather until the boat came. Rain has blown in through a broken [[pane]] and settles in the crease of a long wooden [[bench]].">
- <COND (<IN? ,EKIT ,HALL> <TELL " Your brother [[Kit]] stands by the bench, watching rainwater creep toward his [[bag]].">)
+  (<EQUAL? .RARG ,M-LOOK> <TELL "This is the waiting hall, where ferry passengers once sat out the weather until the boat came. Rain has blown in through a broken pane and settles in the crease of a long wooden bench.">
+ <COND (<IN? ,EKIT ,HALL> <TELL " Your brother Kit stands by the bench, watching rainwater creep toward his bag.">)
        (T <TELL " Kit's bag is gone, but the bench is dry where it sat.">)>
- <TELL " [[Stairs->hall stairs]] lead [[north]] and up into the house, and from them comes the sound of a boot being set down very carefully. The cold [[kitchen->west]] is to the west, and the [[tally office->east]], which smells of vinegar, is to the east. The [[causeway->south]] is back to the south." CR>)>>
+ <TELL " Stairs lead north and up into the house, and from them comes the sound of a boot being set down very carefully. The cold kitchen is to the west, and the tally office, which smells of vinegar, is to the east. The causeway is back to the south." CR>)>>
 
 <ROUTINE KITCHEN-F (RARG)
- <COND (<EQUAL? .RARG ,M-LOOK> <TELL "In the kitchen, a strip of [[moonlight]] crosses the black iron [[range->iron range]] where there used to be a fire. One small white [[child's mug->mug]] sits on the [[ledge]], clean around the lip; the rest of the shelf is furred with dust. The hall, a little warmer, is back to the [[east]]." CR>)>>
+ <COND (<EQUAL? .RARG ,M-LOOK> <TELL "In the kitchen, a strip of moonlight crosses the black iron range where there used to be a fire. One small white child's mug sits on the ledge, clean around the lip; the rest of the shelf is furred with dust. The hall, a little warmer, is back to the east." CR>)>>
 
 <ROUTINE OFFICE-F (RARG)
- <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the tally office, where the keeper counted every passenger out on the ferry and every passenger back. It smells sharply of vinegar, and the damp has got into everything. An old [[tally sheet->sheet]] is pinned to a board on the wall, its corners curled with damp. The only way out is back [[west]] to the hall." CR>)>>
+ <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the tally office, where the keeper counted every passenger out on the ferry and every passenger back. It smells sharply of vinegar, and the damp has got into everything. An old tally sheet is pinned to a board on the wall, its corners curled with damp. The only way out is back west to the hall." CR>)>>
 
 <ROUTINE STAIRS-F (RARG)
- <COND (<EQUAL? .RARG ,M-LOOK> <TELL "You are on the landing at the top of the stairs. Drops of [[water]] are creeping UP the wall here, one bead at a time, against all sense. A brass [[signal plate->plate]] of instructions is screwed to the wall. The [[stairs->landing stairs]] go back down to the hall to the [[south]], and a short [[ladder]] climbs [[up]] to the lantern room." CR>)>>
+ <COND (<EQUAL? .RARG ,M-LOOK> <TELL "You are on the landing at the top of the stairs. Drops of water are creeping UP the wall here, one bead at a time, against all sense. A brass signal plate of instructions is screwed to the wall. The stairs go back down to the hall to the south, and a short ladder climbs up to the lantern room." CR>)>>
 
 <ROUTINE LANTERN-F (RARG)
- <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the lantern room at the top of the house, a small glass room built to signal the ferry. In the middle stands the great [[signal lens->lens]], and it turns the rain on the [[windows]] violet.">
- <COND (<FSET? ,ESHUT ,OPENBIT> <TELL " The narrow [[shutter]] in the seaward wall stands open to the wind.">)
-       (T <TELL " A narrow [[shutter]] in the seaward wall is shut tight against the sea.">)>
+ <COND (<EQUAL? .RARG ,M-LOOK> <TELL "This is the lantern room at the top of the house, a small glass room built to signal the ferry. In the middle stands the great signal lens, and it turns the rain on the windows violet.">
+ <COND (<FSET? ,ESHUT ,OPENBIT> <TELL " The narrow shutter in the seaward wall stands open to the wind.">)
+       (T <TELL " A narrow shutter in the seaward wall is shut tight against the sea.">)>
  <COND (,LENS-READY <TELL " The lens holds its beam on one empty place out on the water, for a boat that never came back.">)>
- <TELL " You can climb back [[down]] to the landing, and the outside gallery runs off to the [[east]]." CR>)>>
+ <TELL " You can climb back down to the landing, and the outside gallery runs off to the east." CR>)>>
 
 <ROUTINE GALLERY-F (RARG)
- <COND (<EQUAL? .RARG ,M-LOOK> <TELL "You are on the outside [[gallery]], a narrow walkway that runs around the top of the house under a little roof. The wind up here sounds almost homely, like someone humming to themselves in the next room. A brass [[witness bell->bell]] hangs just within reach.">
- <COND (,LENS-READY <TELL " Beside it stands [[Kit]], his thumb resting on the bell's [[clapper brake->brake]].">)>
- <TELL " The lantern room is back to the [[west]]." CR>)>>
+ <COND (<EQUAL? .RARG ,M-LOOK> <TELL "You are on the outside gallery, a narrow walkway that runs around the top of the house under a little roof. The wind up here sounds almost homely, like someone humming to themselves in the next room. A brass witness bell hangs just within reach.">
+ <COND (,LENS-READY <TELL " Beside it stands Kit, his thumb resting on the bell's clapper brake.">)>
+ <TELL " The lantern room is back to the west." CR>)>>
 
 <ROUTINE EBENCH-F ()
  <COND
@@ -142,8 +142,8 @@
 
 <ROUTINE ESHUT-F ()
  <COND
-  (<VERB? EXAMINE> <COND (<FSET? ,ESHUT ,OPENBIT> <TELL "The [[shutter]] is wedged open. Beyond it there is only the dark sea, waiting for a light." CR>)
-    (T <TELL "A narrow iron [[shutter]] in the seaward wall, held flush with its frame by a simple catch. Nothing is locked; it only needs opening." CR>)>)
+  (<VERB? EXAMINE> <COND (<FSET? ,ESHUT ,OPENBIT> <TELL "The shutter is wedged open. Beyond it there is only the dark sea, waiting for a light." CR>)
+    (T <TELL "A narrow iron shutter in the seaward wall, held flush with its frame by a simple catch. Nothing is locked; it only needs opening." CR>)>)
   (<VERB? OPEN> <COND (<FSET? ,ESHUT ,OPENBIT> <TELL "It is already open." CR>)
     (T <FSET ,ESHUT ,OPENBIT> <TELL "You lift the catch and swing the shutter out. The wind steps into the room like somebody late for dinner. It smells of Kit's wet coat." CR>)>)
   (<VERB? CLOSE> <COND (,LENS-READY <TELL "The light needs the sea now. You leave the shutter open." CR>)
@@ -159,11 +159,11 @@
  <COND
   (<VERB? EXAMINE> <TELL "The signal lens is a great ring of violet glass, turned by hand by a finger-shaped hollow in its rim. Instead of compass points, the rim is marked with the ferry's berths, the places out on the water where each boat should be. The maker cut one extra notch at the very end." CR>)
   (<VERB? TURN SPIN> <COND (,LENS-READY <TELL "You won't turn it away now. That would erase his name a second time." CR>)
-    (<NOT <FSET? ,ESHUT ,OPENBIT>> <TELL "The beam breaks on the closed [[shutter]]. The light needs somewhere to go first." CR>)
+    (<NOT <FSET? ,ESHUT ,OPENBIT>> <TELL "The beam breaks on the closed shutter. The light needs somewhere to go first." CR>)
     (<OR <NOT ,MUG-SEEN> <NOT ,TALLY-READ> <NOT ,PLATE-READ>>
-     <TELL "You turn it a notch, then stop. Which berth was left empty? You don't know yet. The [[signal instructions->down]] on the landing, and the records and keepsakes in the rooms below, would tell you; a lucky turn won't." CR>)
+     <TELL "You turn it a notch, then stop. Which berth was left empty? You don't know yet. The signal instructions on the landing, and the records and keepsakes in the rooms below, would tell you; a lucky turn won't." CR>)
     (T <SETG LENS-READY T> <FCLEAR ,EBRAKE ,INVISIBLE> <MOVE ,EKIT ,GALLERY> <REMOVE ,EBAG>
-     <TELL "You turn the glass to the extra notch at the end of the rim. The beam swings out over the water and settles on an empty berth, where no boat is. On the stair below you hear the boot buckle you heard on the causeway, and you realize Kit is no longer with you. Out on the gallery to the [[east]], someone is calling his name in your voice." CR>)>)
+     <TELL "You turn the glass to the extra notch at the end of the rim. The beam swings out over the water and settles on an empty berth, where no boat is. On the stair below you hear the boot buckle you heard on the causeway, and you realize Kit is no longer with you. Out on the gallery to the east, someone is calling his name in your voice." CR>)>)
   (<VERB? RUB> <TELL "The glass is warm, as if a light were already burning inside it." CR>)
   (<VERB? LISTEN> <TELL "Your ear catches a sustained note from the glass. It is the note the ferryman used to hum while he wound the lamp." CR>)
   (<VERB? LOOK-INSIDE> <TELL "Through the violet glass, the rain on the windows looks like a crowd of small, waiting lights." CR>)
@@ -171,9 +171,9 @@
 
 <ROUTINE EBELL-F ()
  <COND
-  (<VERB? EXAMINE> <TELL "A brass [[bell]] bolted to its bracket, with a long clapper worn bright where hands have reached for it. The keeper rang it to call people from the shore to come and witness a search." CR>)
+  (<VERB? EXAMINE> <TELL "A brass bell bolted to its bracket, with a long clapper worn bright where hands have reached for it. The keeper rang it to call people from the shore to come and witness a search." CR>)
   (<VERB? TAKE> <TELL "It is bolted to the house. You could ring it here." CR>)
-  (<VERB? RING> <COND (<NOT ,LENS-READY> <TELL "Not into a dark sea. Light the missing berth with the lens first; the lantern room is back to the [[west]]." CR>)
+  (<VERB? RING> <COND (<NOT ,LENS-READY> <TELL "Not into a dark sea. Light the missing berth with the lens first; the lantern room is back to the west." CR>)
     (T <SETG EBB-ENDING T> <TELL "The first note is ugly. The second wakes a light across the water. Between the second note and the third you shout, “Kit Rook was aboard! I let you write him out.” You stay on the gallery until the first lantern ashore turns this way. Someone on shore will have to open the tally and find the space where his name was scraped away." CR CR "THE END: THE SHORE HEARS" CR> <FINISH>)>)
   (<VERB? RUB> <TELL "The brass is wet and cold, and it hums under your hand with the wind." CR>)
   (<VERB? LISTEN> <TELL "Even unrung, the bell gives off a faint, high note as the wind crosses its mouth." CR>)
@@ -181,7 +181,7 @@
 
 <ROUTINE EBRAKE-F ()
  <COND
-  (<VERB? EXAMINE> <TELL "A brass [[brake]] that draws the clapper back from the bell and holds it there. With the bell silenced, no one ashore would hear anything, but no one here would have to wait for an answer either. It is a way to keep watch in private." CR>)
+  (<VERB? EXAMINE> <TELL "A brass brake that draws the clapper back from the bell and holds it there. With the bell silenced, no one ashore would hear anything, but no one here would have to wait for an answer either. It is a way to keep watch in private." CR>)
   (<VERB? MOVE PULL> <COND (,LENS-READY <SETG EBB-ENDING T>
    <TELL "You draw the clapper back and hold it. In the silence where the bell would have rung, you say his name, once. The lens holds its light on the empty berth until morning. You will carry his name back over the causeway yourself, without asking the shore to witness it. To take his memory home is not to leave him here." CR CR "THE END: THE LIGHT STAYS" CR> <FINISH>) (T <TELL "The light must be ready first." CR>)>)
   (<VERB? RUB> <TELL "Kit's thumb is already on it. His hand is as cold as the brass, and it does not move away." CR>)
@@ -227,13 +227,13 @@
  <COND
   (<VERB? EXAMINE>
    <COND (<EQUAL? ,HERE ,HALL> <TELL "Steep wooden stairs, worn hollow in the middle. The landing at the top is in shadow." CR>)
-         (T <TELL "The wooden stairs drop to the hall to the south. The separate iron [[ladder]] takes you up." CR>)>)
+         (T <TELL "The wooden stairs drop to the hall to the south. The separate iron ladder takes you up." CR>)>)
   (<VERB? LISTEN> <TELL "A boot, set down very carefully, on a stair you cannot see. Then nothing." CR>)
   (<VERB? CLIMB-FOO CLIMB-ON CLIMB-UP CLIMB-DOWN>
    <COND (<EQUAL? ,HERE ,HALL>
           <COND (<VERB? CLIMB-DOWN> <TELL "From here the stairs only go up, to the landing." CR>)
                 (T <DO-WALK ,P?NORTH>)>)
-         (<VERB? CLIMB-UP> <TELL "The stairs go back to the hall. To go higher, use the [[ladder]]." CR>)
+         (<VERB? CLIMB-UP> <TELL "The stairs go back to the hall. To go higher, use the ladder." CR>)
          (T <DO-WALK ,P?SOUTH>)>
    <RTRUE>)>>
 

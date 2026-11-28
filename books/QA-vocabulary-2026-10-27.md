@@ -52,7 +52,6 @@ than a word quota. No imported Infocom story source was modified.
   The scenery's soldiers and the trunk's letter remain legitimate vocabulary.
   Literal tests prove both carried letters resolve with their distinguishing
   modifiers.
-- Reader menu tests follow the newly qualified emitted commands; parser-driven
   gameplay transcripts still exercise bare nouns and ordinary existing forms.
 
 ## Durable gates
@@ -71,8 +70,6 @@ use an isolated lit room; they complement real-scope gameplay tests rather than
 proving puzzle availability. Static lint checks printed-name modifiers; it does
 not attempt to infer every adjective in arbitrary prose.
 
-`make lint-zil` includes this gate, then checks link vocabulary, examines every
-prose link in real scope, and plays common verbs on story objects. The root
 `tests/adventure_arena_vocabulary.test.lua` supplies the fast headless bell,
 literal-phrase and dictionary regression for `make test`.
 
@@ -81,7 +78,6 @@ literal-phrase and dictionary regression for `make test`.
 - Vocabulary checker: 14 assertions pass; six book definitions have no critical
   printed-name issues.
 - Vocabulary matrix: 317 story objects, 2,272 parser commands, zero failures.
-- Full lint: 221 prose-link targets resolve; 5,875 common object commands answer.
 - Unit suite, new-book walkthroughs and numeric reader routes, book playtest
   regressions, and the original Zork I/II pure-ZIL suite pass.
 - Blackwood's complete walkthrough, Limehouse's cross-process walkthrough

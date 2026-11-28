@@ -1,8 +1,5 @@
--- Shared helpers for the German Blackout at Meridian tests: a typed session on
--- the seeded reader walk, forced dice, and an independent copy of the
--- percentile table in rulesets/superhero/system.zil to check every
--- reported roll.
-local Walk = require("tests.link_walk")
+-- Story and companion regressions.
+local Walk = require("tests.story_walk")
 
 local Hero = {}
 Hero.module = "books.de.blackout-at-meridian.blackout-at-meridian"

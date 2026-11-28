@@ -19,7 +19,6 @@ local test_files = {
 	"tests/test_parser.lua",
 	"tests/test_partial_objects.lua",
 	"tests/test_parser_manners.lua",
-	"tests/test_play_links.lua",
 	"tests/test_require_system.lua",
 	"tests/test_reader_state.lua",
 	"tests/test_runtime.lua",

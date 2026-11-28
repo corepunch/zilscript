@@ -1,6 +1,4 @@
--- The world around the rules: the typed hero name, actions before a profile
--- and on wrong targets, every exit, the scenery the prose names, and every
--- prose link in every state resolving through the German parser.
+-- Story and companion regressions.
 local Hero = require("books.de.blackout-at-meridian.test.hero")
 
 local h = Hero.new()
@@ -51,7 +49,7 @@ h:expect("wähle fels", "bereits als Luchs angemeldet")
 local s = h:state()
 assert(s.class == 3 and s.max == 60 and s.karma == 90, "a second choice changes nothing")
 h:expect("untersuche luchs", "Das ist dein Profil.")
-h:expect("untersuche die tafel", "Die [[Luchs]]-Karte ist mit rotem Stift als AKTIV markiert")
+h:expect("untersuche die tafel", "Die Luchs-Karte ist mit rotem Stift als AKTIV markiert")
 h:expect("schau", "Dein Profil ist auf der")
 h:expect("hilfe", "RETTE die FAHRGÄSTE")
 
@@ -104,22 +102,6 @@ h:expect("raus", "Fahrgäste sind bei der")
 h:expect("ost", "Betonhalle")
 assert(h:running() and h:state().health == 60, "nothing in the station hurts until the hero acts")
 
--- Every link in every state names something the German parser finds here.
-local DIRS = { nord = 1, sued = 1, ost = 1, west = 1 }
-local function check_links(where)
-	local text = h:send("schau")
-	for link in text:gmatch("%[%[([^%]]+)%]%]") do
-		local target = link:match("%->(.+)$") or link
-		if not DIRS[target:lower()] then
-			local out = h:send("untersuche " .. target)
-			assert(not out:find("nicht sehen", 1, true) and not out:find("verstanden", 1, true) and not out:find("meinst du", 1, true),
-				where .. ": link " .. target .. " does not resolve:\n" .. out)
-		end
-	end
-end
--- Links are printed raw only with prose links on; the reader walk sets that.
-assert(h.env.PROSE_LINKS, "links are on")
-check_links("relay, drone up")
 h:expect("deaktiviere das pult", "Meridian ist gerettet.")
 assert(not h:running(), "the lever ends the story")
 
@@ -128,17 +110,14 @@ h = Hero.new()
 h:force(100)
 h:start("blitz")
 h:send("rette die bahn")
-check_links("bridge, rescued")
 h:send("ost")
 h:force(1)
 h:send("schlag die drohne")
 h:send("benutze den kasten")
 h:force(100)
 h:send("schlag die drohne")
-check_links("relay, drone down, kit used")
 h:expect("sued", "kannst du nicht gehen")
 h:expect("west", "Fahrgäste sind bei der")
 h:send("sued")
-check_links("dispatch, registered")
 
-print("ok - Stromausfall in Meridian world, names and links")
+print("ok - Stromausfall in Meridian world and names")

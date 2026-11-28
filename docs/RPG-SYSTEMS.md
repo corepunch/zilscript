@@ -129,7 +129,6 @@ A book's logic is written once. Each edition adds its words:
 * **Messages are routines.** Logic never prints text directly: it calls
   message routines (`<MSG-TRAM-SAVED>`) that each edition defines. A message
   that needs a noun phrase uses the language's TELL tokens.
-* **Prose links** live in the edition's text and name the edition's words.
 * **Tests** play the logic through each edition with the same seeded route,
   so both editions reach the same endings with the same dice.
 

@@ -1,5 +1,5 @@
--- Off-route antics and a plausible alternate command for the yard puzzle.
-local Walk = require("tests.link_walk")
+-- Story and companion regressions.
+local Walk = require("tests.story_walk")
 local walk = Walk.new("books.en.wondertown.wondertown", 97)
 local function says(command, fragment)
   local reply = walk.game:resume(command)
@@ -34,10 +34,3 @@ assert(walk.env.CART_MOVED and walk.env.LOC(walk.env.DOLL_HEAD) == walk.env.SCRA
 says("east", "snug little den")
 assert(walk.env.HERE == walk.env.FOX_DEN)
 print("ok - Wondertown object play, envelope and alternate cart solution")
-
--- The illustrated menu also exposes the optional interactions without typing.
-local links = Walk.new("books.en.wondertown.wondertown", 97)
-links:play({ "climb enormous bench", "examine half-finished toys" })
-assert(links:choose("play wooden sailboat"):find("imaginary sea", 1, true))
-assert(links:choose("listen to wooden train"):find("whistle", 1, true))
-assert(links:choose("knock on wooden duck"):find("wooden cluck", 1, true))

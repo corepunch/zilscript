@@ -22,7 +22,7 @@
 
 <ROUTINE FINISH ("AUX" WORD)
  <V-SCORE>
- <COND (,PROSE-LINKS <QUIT>)>
+ <COND (,END-WITHOUT-PROMPT <QUIT>)>
  <REPEAT ()
   <TELL "Начать заново, загрузить сохранение или выйти?" CR>
   <TELL "Введите «начать», «загрузить» или «выйти»." CR>

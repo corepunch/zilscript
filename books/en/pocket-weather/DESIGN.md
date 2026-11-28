@@ -11,4 +11,4 @@ Opening: brass dispatch bell; apprentice's forecast card; a silent vane and runa
 
 Win: restore the cloud's confidence, route rain into the garden, publish an approved forecast, then choose a soft drizzle or a puddle-making shower. Both endings honor the pause rule. No lose state. Optional: recover the old report's pressed flower, hear the rook's weather joke, and learn the baker's emergency biscuit policy.
 
-Fairness: all special verbs exposed on actual objects, concrete nouns linked, short sentences, ASCII parser vocabulary, progressive HINT control. Standard syntax reused. Every tool is unique; wrong explicit tools never borrow a correct carried tool. No extra scene engine or timers: characters react/move on meaningful events.
+Fairness: special verbs work on the relevant objects, concrete nouns, short sentences, ASCII parser vocabulary, progressive HINT control. Standard syntax reused. Every tool is unique; wrong explicit tools never borrow a correct carried tool. No extra scene engine or timers: characters react/move on meaningful events.

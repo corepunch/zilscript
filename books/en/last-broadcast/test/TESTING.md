@@ -4,14 +4,11 @@ Run from apps/adventure-arena/zilscript with PATH=/tmp:$PATH on this workstation
 - `lua5.4 run-zil-test.lua books.en.last-broadcast.test.test-walkthrough`
 - `lua5.4 run-zil-test.lua books.en.last-broadcast.test.test-regressions`
 - `lua5.4 run-zil-test.lua books.en.last-broadcast.test.test-exits`
-- `lua5.4 books/en/last-broadcast/test/test_last_broadcast_links.lua`
 - `python3 books/en/last-broadcast/test/menu_cli.py`
 - `lua5.4 scripts/check-vocab.lua books/en/last-broadcast/dungeon.zil`
-- `lua5.4 scripts/check-links.lua books/en/last-broadcast`
-- `lua5.4 scripts/check-link-targets.lua books/en/last-broadcast`
 - `lua5.4 scripts/check-responses.lua books/en/last-broadcast`
 
-The 80-command parser route is route.json; it includes optional scenic evidence, a deliberately blocked exit, and a recoverable wrong accusation. Standard READ implicitly picks up some portable evidence, so the three subsequent TAKE attempts in that diagnostic route are harmless repeats. The numeric route omits those repeats and must select actual emitted menu numbers. The numeric route also includes three optional, earned confrontations with Ada (disc, boots, weapon). The source-informed Lua menu regression and the cross-process CLI proof are author verification, not blind QA. The CLI proof persists every choice, reaches FINISH, restores the ending and verifies running=false.
+The 80-command parser route is route.json; it includes optional scenic evidence, a deliberately blocked exit, and a recoverable wrong accusation. Standard READ implicitly picks up some portable evidence, so the three subsequent TAKE attempts in that diagnostic route are harmless repeats.
 
 Focused regressions verify hidden container contents, default TAKE/DROP/CLOSE behavior, mutable descriptions, physical mounting/removal of the needle, explicit wrong-tool rejection, closed versus open nested held containers, both states and directions of the service hatch, retained route knowledge, premature reconstruction/accusation refusal and recovery after a wrong charge. The exit test traverses all 30 directed edges and their reverse through the parser. The full route verifies real evidence flags independently of command transport.
 

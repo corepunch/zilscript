@@ -17,7 +17,7 @@
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM WORKSHOP (IN ROOMS) (DESC "Torque Shop")
-	(LDESC "You are in the Torque Shop, where the station's hand tools are kept. The walls are covered in warm [[insulation]], and shaped [[tool recesses->recesses]] are cut into it below a laminated [[protocol card->protocol]]. Everything smells faintly of machine oil. The only way out is [[east]], back to the junction.")
+	(LDESC "You are in the Torque Shop, where the station's hand tools are kept. The walls are covered in warm insulation, and shaped tool recesses are cut into it below a laminated protocol card. Everything smells faintly of machine oil. The only way out is east, back to the junction.")
 	(EAST TO HUB)
 	(FLAGS RLANDBIT ONBIT)>
 
@@ -46,7 +46,7 @@
 	(FLAGS RLANDBIT ONBIT)>
 
 <ROOM SERVICE (IN ROOMS) (DESC "Service Spine")
-	(LDESC "You are in the Service Spine, a cramped crawlway of pipes and cable trays beneath the habitat. A steady draught rattles a ventilation [[grille]], and the [[pipes]] tick softly overhead. To the [[west]] lies the coolant well, and the receive relay is to the [[east]]. A [[ladder]] climbs [[up]] to the junction.")
+	(LDESC "You are in the Service Spine, a cramped crawlway of pipes and cable trays beneath the habitat. A steady draught rattles a ventilation grille, and the pipes tick softly overhead. To the west lies the coolant well, and the receive relay is to the east. A ladder climbs up to the junction.")
 	(WEST TO COOLANT)
 	(EAST TO RELAY)
 	(UP TO HUB)
@@ -98,26 +98,26 @@
 	(INTERACTIONS "PUT:COLD-ARCHIVE") (IN WORKSHOP) (DESC "torque wrench")
 	(SYNONYM WRENCH DRIVER GRIP SPANNER) (ADJECTIVE TORQUE CALIBRATED WORN SQUARE)
 	(FLAGS NDESCBIT TAKEBIT TOOLBIT) (ACTION WRENCH-F)
-	(LDESC "A [[torque wrench->wrench]] lies here.")>
+	(LDESC "A torque wrench lies here.")>
 
 <OBJECT SPOOL
 	(INTERACTIONS "FIT:BUS;PUT:BUS") (IN WORKSHOP) (DESC "null spool")
 	(SYNONYM SPOOL TERMINATOR) (ADJECTIVE NULL PASSIVE MATCHED)
 	(FLAGS NDESCBIT TAKEBIT) (ACTION SPOOL-F)
-	(LDESC "A [[null spool->spool]] lies here.")>
+	(LDESC "A null spool lies here.")>
 
 <OBJECT SPINE-GRILLE
 	(IN SERVICE) (DESC "ventilation grille")
 	(SYNONYM GRILLE VENT GRATE DRAUGHT DRAFT) (ADJECTIVE VENTILATION METAL)
 	(INTERACTIONS "") (FLAGS NDESCBIT)
-	(TEXT "One screw has shaken loose. A narrow [[strip of foil->foil streamer]] tied to the grille lifts in the draught toward the habitat above.")
+	(TEXT "One screw has shaken loose. A narrow strip of foil tied to the grille lifts in the draught toward the habitat above.")
 	(ACTION GRILLE-F)>
 
 <OBJECT SHEARS
 	(INTERACTIONS "") (IN CLINIC) (DESC "pair of ceramic shears")
 	(SYNONYM SHEARS CUTTER BLADES EDGES PAIR SHEAR SCISSORS) (ADJECTIVE CERAMIC NONCONDUCTIVE STERILE)
 	(FLAGS NDESCBIT TAKEBIT TOOLBIT WEAPONBIT) (ACTION SHEARS-F)
-	(LDESC "A pair of [[ceramic shears->shears]] lies here.")>
+	(LDESC "A pair of ceramic shears lies here.")>
 
 <OBJECT PROTOCOL
 	(INTERACTIONS "") (IN WORKSHOP) (DESC "protocol card")
@@ -140,7 +140,7 @@
 	(INTERACTIONS "COMPARE:COMPARATOR,PUMP;SHOW:MARA,IVO,SENN;PUT:RECORDER,COLD-ARCHIVE") (IN RECORDER) (DESC "witness strip")
 	(SYNONYM STRIP FOIL REFERENCE TRACE TRACES HANDSTAMP) (ADJECTIVE WITNESS PHYSICAL FOIL MEASURED ORIGINAL OPTICAL)
 	(FLAGS TAKEBIT READBIT) (ACTION STRIP-F)
-	(LDESC "A [[witness strip->strip]] lies here.")>
+	(LDESC "A witness strip lies here.")>
 
 <OBJECT LEDGER
 	(INTERACTIONS "") (IN RECORDS) (DESC "mass ledger")
@@ -178,7 +178,7 @@
 	(INTERACTIONS "PUT:COLD-ARCHIVE,RECEIVER;SHOW:MARA,IVO,SENN") (IN RECEIVER) (DESC "memory wafer")
 	(SYNONYM WAFER SAMPLE MEMORY DOMAINS SPECIMEN) (ADJECTIVE MEMORY PASSIVE UNPOWERED ENGRAVED)
 	(FLAGS TAKEBIT OPENBIT SEARCHBIT) (ACTION WAFER-F)
-	(LDESC "A [[memory wafer->wafer]] lies here.")>
+	(LDESC "A memory wafer lies here.")>
 
 <OBJECT COLD-ARCHIVE
 	(INTERACTIONS "") (IN CORE) (DESC "cold archive")

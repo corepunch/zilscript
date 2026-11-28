@@ -21,31 +21,31 @@
 
 <ROUTINE LENDING-F (R)
  <COND (<EQUAL? .R ,M-LOOK>
-        <TELL "In der Ausleihhalle glänzen die Dielen wie frisch gewachst. Vor dem hohen Fenster steht ein dunkler [[Leihschrank]]. ">
-        <COND (,ON-LOAN <TELL "Nur noch ein Streifen [[Sonnenlicht]] fällt über den Boden, der von heute. Daneben liegen die grauen Dielen reglos da.">)
-              (T <TELL "Zwei Streifen [[Sonnenlicht]] liegen auf den Dielen. Der breite wandert mit der Sonne. Der schmale leuchtet goldgelb und ist ihr schon ein Stück voraus.">)>
-        <TELL " Ein Bogen im [[Osten->ost]] öffnet sich zum Faltraum, und ein Gang führt nach [[Norden->nord]] in die trockene Kammer." CR>)>>
+        <TELL "In der Ausleihhalle glänzen die Dielen wie frisch gewachst. Vor dem hohen Fenster steht ein dunkler Leihschrank. ">
+        <COND (,ON-LOAN <TELL "Nur noch ein Streifen Sonnenlicht fällt über den Boden, der von heute. Daneben liegen die grauen Dielen reglos da.">)
+              (T <TELL "Zwei Streifen Sonnenlicht liegen auf den Dielen. Der breite wandert mit der Sonne. Der schmale leuchtet goldgelb und ist ihr schon ein Stück voraus.">)>
+        <TELL " Ein Bogen im Osten öffnet sich zum Faltraum, und ein Gang führt nach Norden in die trockene Kammer." CR>)>>
 <ROUTINE FOLDING-F (R)
  <COND (<EQUAL? .R ,M-LOOK>
-        <TELL "Im Faltraum steht nur das lange hölzerne [[Faltbrett]]. In die hellen Wände fallen Schatten von Zweigen. Die Kanten des Bretts sind glatt von vielen Händen, die Mitte ist noch rau. Durch den Bogen im [[Westen->west]] geht es zurück zur Ausleihhalle, eine Treppe führt nach [[Norden->nord]] hinauf zur Leseterrasse." CR>)>>
+        <TELL "Im Faltraum steht nur das lange hölzerne Faltbrett. In die hellen Wände fallen Schatten von Zweigen. Die Kanten des Bretts sind glatt von vielen Händen, die Mitte ist noch rau. Durch den Bogen im Westen geht es zurück zur Ausleihhalle, eine Treppe führt nach Norden hinauf zur Leseterrasse." CR>)>>
 <ROUTINE BASIN-F (R)
  <COND (<EQUAL? .R ,M-LOOK>
-        <TELL "Du bist in der trockenen Kammer, einem kühlen Steinraum. Eine lange [[Steinrinne]] verläuft an der Wand entlang und durch einen Spalt hinaus in Richtung Markt.">
+        <TELL "Du bist in der trockenen Kammer, einem kühlen Steinraum. Eine lange Steinrinne verläuft an der Wand entlang und durch einen Spalt hinaus in Richtung Markt.">
         <COND (,ON-LOAN <TELL " Die Rinne ist jetzt leer. Jeder Tropfen ist zurückgewichen, sogar der, der gerade fiel. Im Raum herrscht Stille.">)
               (T <TELL " Ein dünner Wasserfaden zieht leise murmelnd durch die Rinne dem Markt entgegen.">)>
-        <TELL " Ein alter [[Leihschein]] klebt flach an der Steinwand. Im [[Süden->sued]] geht es zurück zur Ausleihhalle, und eine Tür im [[Osten->ost]] führt auf die Leseterrasse." CR>)>>
+        <TELL " Ein alter Leihschein klebt flach an der Steinwand. Im Süden geht es zurück zur Ausleihhalle, und eine Tür im Osten führt auf die Leseterrasse." CR>)>>
 <ROUTINE TERRACE-F (R)
  <COND (<EQUAL? .R ,M-LOOK>
-        <TELL "Auf der Leseterrasse reicht dir das Geländer bis zur Brust. Tief unten auf dem [[Markt]] stehen die gestreiften Dächer der Buden neben der kleinen Backstube. Am Geländer steht ein [[Leserahmen]] aus Messing, zum Markt hin ausgerichtet.">
-        <COND (<IN? ,LEAF ,FRAME> <TELL " Das [[Morgenblatt]] steckt im Rahmen. Beide Ecken heben sich wie bei einem Kind, das gleich losspringen will.">)
+        <TELL "Auf der Leseterrasse reicht dir das Geländer bis zur Brust. Tief unten auf dem Markt stehen die gestreiften Dächer der Buden neben der kleinen Backstube. Am Geländer steht ein Leserahmen aus Messing, zum Markt hin ausgerichtet.">
+        <COND (<IN? ,LEAF ,FRAME> <TELL " Das Morgenblatt steckt im Rahmen. Beide Ecken heben sich wie bei einem Kind, das gleich losspringen will.">)
               (,ON-LOAN <TELL " Unten unter den Ständen sind die Schatten stehen geblieben. Eine Obstverkäuferin hält ihren Korb in der Luft, schon halb auf dem Weg zum Karren. Sie wartet auf einen Abend, der nicht kommt.">)
               (T <TELL " Unten werden die Nachmittagsschatten langsam länger.">)>
-        <TELL " Eine Treppe führt nach [[Süden->sued]] hinab zum Faltraum. Durch eine Tür im [[Westen->west]] kommst du zurück zur trockenen Kammer." CR>)>>
+        <TELL " Eine Treppe führt nach Süden hinab zum Faltraum. Durch eine Tür im Westen kommst du zurück zur trockenen Kammer." CR>)>>
 
 <ROUTINE CASE-F ()
  <COND (<AND <VERB? OPEN> <NOT <FSET? ,CASE ,OPENBIT>>>
         <FSET ,CASE ,OPENBIT>
-        <COND (<IN? ,LEAF ,CASE> <TELL "Du öffnest die kleine Schranktür. Drinnen liegt ganz allein auf dem Regalboden ein [[Morgenblatt]]." CR>)
+        <COND (<IN? ,LEAF ,CASE> <TELL "Du öffnest die kleine Schranktür. Drinnen liegt ganz allein auf dem Regalboden ein Morgenblatt." CR>)
               (T <TELL "Du öffnest die Schranktür. Auf dem Regalboden bleibt nur ein heller Fleck in Form eines Blatts." CR>)>)
        (<VERB? CLOSE>
         <COND (<FSET? ,CASE ,OPENBIT>
@@ -56,7 +56,7 @@
         <TELL "Durch den Türspalt fällt kein Licht. Öffne die kleine Tür, statt dich durchs Schlüsselloch zu quetschen." CR>)
        (<VERB? EXAMINE SEARCH>
         <COND (<FSET? ,CASE ,OPENBIT>
-               <COND (<IN? ,LEAF ,CASE> <TELL "Ein [[Morgenblatt]] liegt im offenen Schrank. Hier wäre Platz für viele Blätter, aber es gibt nur dieses eine." CR>)
+               <COND (<IN? ,LEAF ,CASE> <TELL "Ein Morgenblatt liegt im offenen Schrank. Hier wäre Platz für viele Blätter, aber es gibt nur dieses eine." CR>)
                      (T <TELL "Im offenen Schrank bleibt nur ein heller, blattförmiger Fleck, wo einmal ein Stück Papier lag." CR>)>)
               (T <TELL "Der Schrank ist aus dunklem Holz und hat eine kleine, geschlossene Tür. Vorne steht auf einem Messingschild: EIN TAG PRO PERSON." CR>)>)
        (<AND <VERB? PUT> <EQUAL? ,PRSI ,CASE> <EQUAL? ,PRSO ,LEAF>>
@@ -97,7 +97,7 @@
        (<VERB? EXAMINE READ>
         <SETG BOARD-READ T>
         <TELL "Ins Brett ist eingeritzt: LEG EIN BLATT MIT DER GOLDSEITE NACH OBEN AUF DAS BRETT. WENN DU DEINEN TAG TEILEN WILLST, STREICH DIE ALTEN FALTEN GLATT. Nirgends steht, dass du das nicht darfst.">
-        <COND (<HELD? ,LEAF> <TELL " Du hältst das [[Morgenblatt]] in der Hand.">)>
+        <COND (<HELD? ,LEAF> <TELL " Du hältst das Morgenblatt in der Hand.">)>
         <CRLF>)
        (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,BOARD> <EQUAL? ,PRSO ,LEAF>>
         <UNFOLD-LOAN>)
@@ -142,14 +142,14 @@
 <ROUTINE FRAME-F ()
  <COND (<VERB? EXAMINE>
         <TELL "Ein Gestell aus Messing mit zwei Klammern. Es hält ein Blatt so hoch, dass alle auf dem Markt es sehen können. Die Klammern stehen weit auseinander. Ein gewöhnliches gefaltetes Blatt ist viel zu klein dafür.">
-        <COND (<IN? ,LEAF ,FRAME> <TELL " Das [[Morgenblatt]] reicht bis zu beiden.">)
-              (<AND <HELD? ,LEAF> ,WIDE-LOAN> <TELL " Das breite [[Morgenblatt]] könnte bis zu beiden reichen.">)>
+        <COND (<IN? ,LEAF ,FRAME> <TELL " Das Morgenblatt reicht bis zu beiden.">)
+              (<AND <HELD? ,LEAF> ,WIDE-LOAN> <TELL " Das breite Morgenblatt könnte bis zu beiden reichen.">)>
         <CRLF>)
        (<VERB? READ>
         <COND (<IN? ,LEAF ,FRAME> <PUBLISH-LOAN>)
               (T <TELL "Im Rahmen steckt noch kein Blatt." CR>)>)
        (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSO ,LEAF> <EQUAL? ,PRSI ,FRAME>>
-        <COND (,WIDE-LOAN <MOVE ,LEAF ,FRAME> <FSET ,LEAF ,NDESCBIT> <TELL "Du klemmst das breite Blatt ein. Beide Klammern halten, und das [[Morgenblatt]] zeigt hinaus über die Dächer der Stadt." CR>)
+        <COND (,WIDE-LOAN <MOVE ,LEAF ,FRAME> <FSET ,LEAF ,NDESCBIT> <TELL "Du klemmst das breite Blatt ein. Beide Klammern halten, und das Morgenblatt zeigt hinaus über die Dächer der Stadt." CR>)
               (T <TELL "Du versuchst, das Blatt einzuklemmen. So zusammengefaltet ist es viel zu klein: Es reicht nicht bis zur zweiten Klammer. Du behältst es in der Hand." CR>)>)
        (<VERB? RUB>
         <TELL "Das Messing ist sonnenwarm, und die Klammern schnappen mit einem munteren Klick zu." CR>)
@@ -208,7 +208,7 @@
 <ROUTINE UNFOLD-LOAN ()
  <COND (,WIDE-LOAN <TELL "Du hast schon alle Falten geglättet." CR>)
        (T <SETG WIDE-LOAN T>
-          <TELL "Auf dem [[Faltbrett]] streichst du die alten Falten aus dem [[Morgenblatt]]. Eine nach der anderen gibt nach, bis das kleine Quadrat so breit ist wie deine ausgebreiteten Arme. Dein Name steht noch in seiner Ecke, und daneben ist jetzt reichlich Platz. Du hebst das Blatt wieder hoch." CR>)>>
+          <TELL "Auf dem Faltbrett streichst du die alten Falten aus dem Morgenblatt. Eine nach der anderen gibt nach, bis das kleine Quadrat so breit ist wie deine ausgebreiteten Arme. Dein Name steht noch in seiner Ecke, und daneben ist jetzt reichlich Platz. Du hebst das Blatt wieder hoch." CR>)>>
 
 <ROUTINE LEAF-F ()
  <COND (<AND <VERB? TAKE> <IN? ,LEAF ,FRAME>>

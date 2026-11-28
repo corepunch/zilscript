@@ -1,5 +1,4 @@
--- Exercise every offered card at each checkpoint from an isolated save.
--- The winning route selects numbered entries; no winning step injects parser text.
+-- Story and companion regressions.
 local runtime = require("zilscript.runtime")
 local env = runtime.create_game_env()
 assert(runtime.init(env, true))

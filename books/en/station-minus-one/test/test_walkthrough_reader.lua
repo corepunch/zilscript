@@ -1,4 +1,4 @@
-local Walk = require("tests.link_walk")
+local Walk = require("tests.story_walk")
 local walk = Walk.new("books.en.station-minus-one.station-minus-one"):play({
   "examine station clock", "west", "read shift logbook",
   "take ceramic puck", "east", "east", "inventory",
@@ -8,4 +8,4 @@ local walk = Walk.new("books.en.station-minus-one.station-minus-one"):play({
   {"push quarantine latch", expect="ENDING: OUTSIDE THE TIMETABLE"},
 })
 assert(walk.finishes == 1 and walk.env.STATION_END == 2)
-print("station-minus-one: portable reader links reached quarantine ending")
+print("station-minus-one: typed commands reached quarantine ending")

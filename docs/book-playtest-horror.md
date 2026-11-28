@@ -1,6 +1,6 @@
 # Horror book playtest, 2026-11-28
 
-Initial exploratory sessions used the link reader with seed 97 and separate saves; transcripts are in [playtest-horror-transcripts](playtest-horror-transcripts/). After selecting Wait, subsequent focused probes used typed commands. These sessions are opening-area samples, not blind completions; they do not establish that later rooms or endings are reachable. The house regression below separately executes a code-informed route to an ending. Lua 5.5.1 was used because `lua5.4` is not installed.
+Exploratory sessions used seed 97 and separate saves; subsequent focused probes used typed commands. These sessions are opening-area samples, not blind completions; they do not establish that later rooms or endings are reachable. The house regression below separately executes a code-informed route to an ending. Lua 5.5.1 was used because `lua5.4` is not installed.
 
 - **Blackwood Horror:** Gate → north → down → down reaches the basement corridor, with explicit exits and a hint of the flooded wing. Waiting did not trap the player. The lower-wing isolation room received a concrete trace of suffering; the playtest did not reach it.
 - **House of the Ebb:** Causeway → north → kick Kit → open bag. Kit refuses violence in character and guards the bag. On each LOOK the hall said he *sets* it down again, narrating the same physical action repeatedly. Changed this to a stable description and added repeat-LOOK assertions to `test-round2-interactions.zil`; that test also reaches the brake ending.
@@ -8,7 +8,7 @@ Initial exploratory sessions used the link reader with seed 97 and separate save
 - **The Station at Minus One:** Ticket hall → north → push switch → pull latch → push latch. Both premature decisions are blocked and direct the player to the gauge room; pulling distinguishes the latch's direction. Added a prompt describing the cradle and stud as a way to weigh the caller. The comparison and endings remain untested in this session.
 - **The Water That Answers:** Examined doctor, chose doctor, listened to tape, then opened cover before corroborating. The work order and a warning appeared; the cover explained the prerequisite instead of silently failing. Added a clear reason to weigh calling Noor against staying with the tape. The checks and endings remain untested in this session.
 
-No softlock was established in these abbreviated sessions. More independent link-only play, all outcomes, and adversarial testing remain necessary before claiming full coverage.
+No softlock was established in these abbreviated sessions. Independent play, all outcomes, and adversarial testing remain necessary before claiming full coverage.
 
 ## Code-informed complete-route verification
 

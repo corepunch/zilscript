@@ -69,7 +69,7 @@ if not runtime.load_modules(env, { story_module }, {save_lua = true}) then
 end
 
 local is_book = story_module:match("^books%.%a%a%.") ~= nil
-if is_book then env.PROSE_LINKS = true end
+if is_book then env.END_WITHOUT_PROMPT = true end
 
 local story_prefix = story_module:match("^(.*)%.")
 local companion_module = (story_prefix or story_module) .. ".companion"
@@ -91,7 +91,7 @@ if options.interface == "companion" then
 end
 
 local function highlight(text)
-  if is_book then return terminal.bold_links(text) end
+  if is_book then return text end
   text = terminal.bold_words(text, env.DESCS)
   text = terminal.bold_words(text, env.DIRS)
   return text

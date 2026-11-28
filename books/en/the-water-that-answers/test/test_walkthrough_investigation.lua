@@ -1,4 +1,4 @@
-local Walk = require("tests.link_walk")
+local Walk = require("tests.story_walk")
 local runtime = require("zilscript.runtime")
 local Setup = require("zilscript.rpg_setup")
 local name = "books.en.the-water-that-answers.the-water-that-answers"
@@ -97,4 +97,4 @@ retry:play({"examine tape", "search tape", {"open relay cover", expect = "a spli
 assert(retry.finishes == 1 and retry.env.REPORT_DETAIL == 4 and not retry.env.LOUD)
 retryCount(3)
 
-print("ok - engine preset roster, exact d100 boundaries, three link routes, safe recovery and both pushed outcomes")
+print("ok - engine preset roster, exact d100 boundaries, three investigation routes, safe recovery and both pushed outcomes")

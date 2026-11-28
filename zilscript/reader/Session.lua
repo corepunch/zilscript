@@ -1,7 +1,6 @@
 local namespace = (...):match("^(.*)%.Session$")
 local Suggestions = require(namespace .. ".Suggestions")
 local Language = require(namespace .. ".Language")
-local Text = require(namespace:match("^(.*)%.reader$") .. ".text")
 
 local Session = {}
 Session.__index = Session
@@ -106,8 +105,6 @@ end
 -- The engine prints plain text. Books give the reader structure, so the
 -- transcript is parsed into a title-page banner, scenes (a new room opens
 -- one under the room's name), the player's own commands, and narration.
--- Stories mark the words a reader can act on as "[[label]]" or
--- "[[label->target]]"; paragraphs keep the label and carry the links apart.
 
 local function trim(text)
 	return (tostring(text or ""):gsub("^%s+", ""):gsub("%s+$", ""))
@@ -145,39 +142,8 @@ local function splitFirstLine(paragraph)
 	return trim(first), rest ~= "" and rest or nil
 end
 
--- Splits link markup from prose. Returns the text as the reader sees it and
--- its links, each { location, length, label, target }: `location` counts
--- characters from 0 as `utf8.len` does, and `target` is the parser's word
--- for the thing (the label itself when the story names no other).
-function Session.parseLinks(text)
-	text = tostring(text or "")
-	local plain, links, position = {}, {}, 1
-	local length = 0
-	local function keep(piece)
-		table.insert(plain, piece)
-		length = length + (utf8.len(piece) or #piece)
-	end
-	while true do
-		local first, last, body = text:find("%[%[(.-)%]%]", position)
-		if not first then break end
-		keep(text:sub(position, first - 1))
-		local label, target = body:match("^(.-)%->(.*)$")
-		label, target = trim(label or body), trim(target or body)
-		if label ~= "" and target ~= "" then
-			table.insert(links, {
-				location = length, length = utf8.len(label) or #label,
-				label = label, target = Text.lower(target),
-			})
-		end
-		keep(label)
-		position = last + 1
-	end
-	keep(text:sub(position))
-	return table.concat(plain), links
-end
-
 function Session:beginScene(title)
-	local scene = { kind = "scene", title = title, paragraphs = {}, links = {} }
+	local scene = { kind = "scene", title = title, paragraphs = {} }
 	table.insert(self.entries, scene)
 	self.scene, self.openEntry = scene, scene
 	return scene
@@ -185,7 +151,7 @@ end
 
 function Session:appendParagraph(paragraph)
 	if not self.openEntry then
-		self.openEntry = { kind = "narration", paragraphs = {}, links = {} }
+		self.openEntry = { kind = "narration", paragraphs = {} }
 		table.insert(self.entries, self.openEntry)
 	end
 	-- A story's CR ends a prose paragraph, including the object descriptions
@@ -194,177 +160,44 @@ function Session:appendParagraph(paragraph)
 	for raw in tostring(paragraph):gmatch("[^\r\n]+") do
 		local line = trim(raw)
 		if line ~= "" then
-			local text, links = Session.parseLinks(line)
-			table.insert(self.openEntry.paragraphs, text)
-			self.openEntry.links[#self.openEntry.paragraphs] = links
+			table.insert(self.openEntry.paragraphs, line)
 		end
 	end
 end
 
--- A second object must be something the prose has introduced or the player
--- carries. This keeps menus from leaking undiscovered puzzle solutions.
-function Session:interactionTargets(includePast)
-	local targets, seen = {}, {}
-	local function add(target, label)
-		if not target or DIRECTIONS[target] or seen[target] then return end
-		seen[target] = true
-		table.insert(targets, { target = target, label = label })
-	end
-	-- Prefer the current scene's labels when a remembered target also resolves
-	-- to a different local object (for example, two rooms' tables).
-	local active = false
-	for _, entry in ipairs(self.entries) do
-		if entry == self.scene then active = true end
-		if active then
-			for _, links in ipairs(entry.links or {}) do
-				for _, link in ipairs(links) do add(link.target, link.label) end
-			end
-		end
-	end
-	if includePast then
-		for _, entry in ipairs(self.entries) do
-			if entry == self.scene then break end
-			for _, links in ipairs(entry.links or {}) do
-				for _, link in ipairs(links) do add(link.target, link.label) end
-			end
-		end
-	end
-	for _, item in ipairs(self.items) do
-		if item.carried then add(item.target or item.noun, item.name) end
-	end
-	return targets
-end
-
--- What a reader can do with a linked word, as { title, command } in the
--- order they are likeliest to want. A direction walks; an object offers
--- "examine" and the verbs the story accepts, including complete two-object
--- commands using things the reader has discovered.
-local function linkedItem(items, target)
-	local words = {}
-	for word in target:gmatch("[%w'\128-\255]+") do words[word] = true end
-	local noun = Suggestions.noun(target)
-	local best, bestScore = nil, 0
-	for _, item in ipairs(items) do
-		local score = item.target == target and 100 or (item.noun == noun and 80 or 0)
-		for _, alias in ipairs(item.aliases or {}) do
-			if alias == noun then score = math.max(score, 60) end
-		end
-		for word in item.name:lower():gmatch("[%w'\128-\255]+") do
-			if words[word] and word ~= "the" and word ~= "a" and word ~= "of" and word ~= "to" then
-				score = math.max(score, 20)
-			end
-		end
-		-- Vocabulary-only topics must not mask a real actor or object
-		-- with the same noun ("fox" as a topic versus Nutmeg herself).
-		if item.patterns and #item.patterns == 0 then score = score - 100 end
-		if score > bestScore then best, bestScore = item, score end
-	end
-	return best
-end
-
--- Both link-play tools and typed completion consume the same parser actions.
--- Keep the operands separate so completing a noun never has to parse a label.
+-- Keep each parser operand separate so typed completion can fill one slot.
 local function visitItemActions(item, partners, visit, language)
 	visit(language.examine, item)
-	for _, verb in ipairs(Suggestions.oneTapVerbs(item, language)) do
+	for _, verb in ipairs(Suggestions.singleObjectVerbs(item, language)) do
 		if not language.skip[verb] then visit(verb, item) end
 	end
 	for _, pattern in ipairs(item.patterns or {}) do
 		if pattern.join ~= nil and Suggestions.inHand(item, pattern) then
 			local prefix = pattern.verb .. (pattern.prefix ~= "" and " " .. pattern.prefix or "")
-			local paired = {}
-			for _, other in ipairs(partners(pattern.join == "about")) do
-				local second = other.item
-				local tool = pattern.join == "with"
-				local traits = second and second.traits or {}
-				-- These checks name the action, not the verb word: a story's
-				-- synonym ("FIT OBJECT ON OBJECT = V-PUT-ON") puts all the same.
-				-- A pattern built without its action is read by its verb word.
-				local action = pattern.action or (pattern.verb or ""):upper()
-				local standardGift = action == "GIVE" or action == "SHOW"
-				local recipient = standardGift and not pattern.reverse
-				local container = action:match("^[^-]+") == "PUT"
-				-- Handing over or putting away needs the thing in hand first.
-				local handed = not pattern.reverse and (action == "PUT" or standardGift)
-				local identity = second and (second.identity or second.target or second.noun)
-				if second and identity and not paired[identity]
-						and (not pattern.partners or pattern.partners[identity])
-						and second ~= item
+			local tool = pattern.join == "with"
+			-- The syntax action still identifies PUT even when a book uses a synonym.
+			local action = pattern.action or pattern.verb:upper()
+			local standardGift = action == "GIVE" or action == "SHOW"
+			local recipient = standardGift and not pattern.reverse
+			local container = action:match("^[^-]+") == "PUT"
+			local handed = not pattern.reverse and (action == "PUT" or standardGift)
+			for _, second in ipairs(partners) do
+				local traits = second.traits or {}
+				if second ~= item
+						and (not pattern.partners or pattern.partners[second.identity])
 						and (not recipient or traits.actor)
 						and (not container or traits.container or traits.surface)
 						and (not handed or item.carried)
-						and (not (pattern.held or tool or pattern.reverse) or (second and second.carried)) then
-					paired[identity] = true
+						and (not (pattern.held or tool or pattern.reverse) or second.carried) then
 					if pattern.reverse then
-						visit(prefix, second, pattern.join, item, pattern, other.label)
+						visit(prefix, second, pattern.join, item)
 					else
-						visit(prefix, item, pattern.join, second, pattern, other.label)
+						visit(prefix, item, pattern.join, second)
 					end
 				end
 			end
 		end
 	end
-end
-
--- Resolve discovered partners once per query, even if several actions use them.
-local function partnersFor(session)
-	local lists = {}
-	return function(includePast)
-		if not lists[includePast] then
-			local list = session:interactionTargets(includePast)
-			for _, other in ipairs(list) do other.item = linkedItem(session.items, other.target) end
-			lists[includePast] = list
-		end
-		return lists[includePast]
-	end
-end
-
-function Session:linkActions(target)
-	if not self.running then return {} end
-	target = Text.lower(trim(target))
-	if target == "" then return {} end
-	local direction = DIRECTIONS[target]
-	local lang = self.language
-	if direction then
-		return { { title = string.format(lang.goTitle, lang.directionNames and lang.directionNames[direction] or direction),
-			command = Language.direction(lang, direction) } }
-	end
-	local item = linkedItem(self.items, target)
-	if not item then return {} end
-	local actions, seen = {}, {}
-	-- The words that name a thing to the parser. The German parser reads a
-	-- single synonym ("Tafel") where the story's phrase adds an adjective
-	-- ("Einsatz Tafel"), so a language that says so sends the first synonym
-	-- no other visible thing answers to, and the story's phrase otherwise.
-	local uses = {}
-	for _, other in ipairs(self.items) do
-		local words = { [other.noun] = true }
-		for _, alias in ipairs(other.aliases or {}) do words[alias] = true end
-		for word in pairs(words) do uses[word] = (uses[word] or 0) + 1 end
-	end
-	local function name(thing, spoken)
-		if lang.bareNouns and thing.noun then
-			if uses[thing.noun] == 1 then return thing.noun end
-			for _, alias in ipairs(thing.aliases or {}) do
-				if uses[alias] == 1 then return alias end
-			end
-		end
-		return thing.target or spoken or thing.noun
-	end
-	visitItemActions(item, partnersFor(self), function(verb, first, join, second, pattern, label)
-		local title = Language.title(lang, verb)
-		local command = verb .. " " .. name(first, first == item and target or nil)
-		if second then
-			local glue = join ~= "" and " " .. join or ""
-			command = command .. glue .. " " .. name(second, second == item and target or nil)
-			title = (join == "about" and lang.ask or title) .. (pattern.reverse and "" or glue) .. " " .. label
-		end
-		if not seen[command] then
-			seen[command] = true
-			table.insert(actions, { title = title, command = command })
-		end
-	end, lang)
-	return actions
 end
 
 function Session:appendOutput(text, openingTitle)
@@ -500,7 +333,6 @@ function Session:suggestions(input)
 			{ title = self.language.inventoryTitle, command = self.language.inventory },
 		}
 	end
-	local partners = partnersFor(self)
 	return Suggestions.forInput(input, self.items, function(offer)
 		-- Complete the verb even in an empty room. After "take " only
 		-- eligible objects from the live parser scope are offered.
@@ -512,7 +344,7 @@ function Session:suggestions(input)
 		end
 		for _, item in ipairs(self.items) do
 			if not item.patterns or #item.patterns > 0 then
-				visitItemActions(item, partners, offer, lang)
+				visitItemActions(item, self.items, offer, lang)
 			end
 		end
 	end, lang)

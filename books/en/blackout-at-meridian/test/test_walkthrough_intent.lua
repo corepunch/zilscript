@@ -1,5 +1,4 @@
--- Costs belong to what the player actually chose, not the indirect object
--- or a harmless attempt to inspect/take a prop.
+-- Story and companion regressions.
 local Hero = require("books.en.blackout-at-meridian.test.hero")
 local h = Hero.new()
 h:force(1)

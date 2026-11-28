@@ -16,7 +16,7 @@
     <ASSERT "Patient 189 remains before the full solution"
             <IN? ,PATIENT-189 ,CHAPEL>>
 
-    ;"With all three linked objects, GIVE remains a natural solution command."
+    ;"With all three objects present, GIVE remains a natural solution command."
     <MOVE ,STRANGE-SERUM ,WINNER>
     <MOVE ,SYRINGE ,WINNER>
     <ASSERT-TEXT "I remember... who I was"

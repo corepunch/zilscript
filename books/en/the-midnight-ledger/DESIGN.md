@@ -6,4 +6,4 @@ Map: Vestibule ↔ Cloakroom, Vestibule ↔ Hearing Chamber. The hearing joins W
 
 The main evidence can be read in any order. Turning the panel early identifies the missing category without declaring guilt. Both named choices appear only after the reconstruction. An unsupported finding against Ives neither consumes evidence nor ends the story; it identifies its contradiction. The ending demonstrates the missing object physically returned to the room.
 
-Optional investigations of the stopped clock, the transit crate and the witnesses add texture and a second lead but do not substitute for primary evidence. Link tests check early rejection, all seven rooms and a recoverable false accusation before the supported finding.
+Optional investigations of the stopped clock, the transit crate and the witnesses add texture and a second lead but do not substitute for primary evidence. Walkthroughs check early rejection, all seven rooms and a recoverable false accusation before the supported finding.

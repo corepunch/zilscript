@@ -12,7 +12,6 @@
     <SETG HERE ,STUDY> <MOVE ,WINNER ,STUDY>
     <ASSERT-TEXT "heaped with papers" <CO-RESUME ,CO "look">>
     <ASSERT-NOT-TEXT "envelope" <CO-RESUME ,CO "look">>
-    <ASSERT-NOT-TEXT "[[" <CO-RESUME ,CO "look">>
     <ASSERT "The letter cannot be taken unseen" <CO-RESUME ,CO "take letter" T> <==? <LOC ,DEAD-LETTER> ,STUDY>>
     <ASSERT-TEXT "envelope" <CO-RESUME ,CO "search desk">>
     <ASSERT-TEXT "envelope" <CO-RESUME ,CO "look">>

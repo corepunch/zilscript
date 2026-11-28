@@ -1,7 +1,4 @@
--- Real dice on the seeded generator: each profile plays several seeds by two
--- plans (lever only; strike until the drone falls, with the kit when hurt).
--- Every reported roll is checked against the percentile table, and every
--- check costs and pays exactly what the rules say.
+-- Story and companion regressions.
 local Hero = require("books.en.blackout-at-meridian.test.hero")
 
 local outcomes = { victory = 0, defeat = 0 }

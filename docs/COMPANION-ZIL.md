@@ -1973,11 +1973,7 @@ state-family manifest generation for every reachable room remain future work.
 
 Extend `llm.lua` with conceptual operations:
 
-```bash
-lua5.4 llm.lua --new-game --save /tmp/zork1.sav
-lua5.4 llm.lua --choices --save /tmp/zork1.sav
-lua5.4 llm.lua --choose west-house.open-mailbox --save /tmp/zork1.sav
-```
+A future persistent host should provide structured companion query and selection operations.
 
 Add:
 

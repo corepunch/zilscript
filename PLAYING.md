@@ -4,86 +4,7 @@ This document explains how agents (or scripts) can play ZIL games to evaluate pl
 
 ## Overview
 
-Use `llm.lua` to interact with games one action at a time. For blind testing,
-use the reader's prose links and numbered menus, not invented parser commands.
-The same `Session.parseLinks` and `Session:linkActions` methods power Adventure
-Arena and this interface.
-
-## Blind Link Play
-
-Run from this repository's directory:
-
-```bash
-lua llm.lua --new-game --links --game wondertown --save /tmp/play.sav --seed 97
-lua llm.lua --links --game wondertown --save /tmp/play.sav
-lua llm.lua --choose 4 --game wondertown --save /tmp/play.sav
-```
-
-Use a compatible Lua executable (`lua5.4` on some machines; `lua` was Lua 5.5 here). Check `lua -v` first. Output is JSON: `{output, room, running, actions}`. Each action is an array
-`[label, command, linkTarget]`; `--choose N` selects its **1-based position in
-the current list**. Read the result before choosing again. `--links` alone
-observes menus without advancing a turn or rewriting the save. Look, inventory
-and wait are explicit reader controls; inventory and native container lists
-expose links to their real objects. Object menus use actual parser syntax,
-including second objects and conversation topics introduced in prose. No
-hidden-room inspection, source-derived hints or companion walkthrough is
-added. Missing links or missing object actions are bugs to report.
-
-Every chosen action writes the full world-memory image and scalar VM globals,
-including the private random-generator state and reader presentation records.
-Next invocation restores these directly, without replay. The save is required;
-there is no history fallback in link mode. Lua coroutine stacks are not
-serialized: play resumes at the ordinary input boundary, and `FINISH` is
-recorded as terminal so a completed/dead story cannot resume normal play.
-A routine's own prompt (a name to type, a yes/no question) cannot be answered
-by choosing a link, so link play answers it with a bare Return in the same
-step. Start a fresh game after story/format changes; there are no save migrations.
-`<save>.transcript` records actual commands and raw prose-link output.
-
-For each QA round, keep the player blind to source, prior reports, maps and
-walkthroughs until observations and transcript are frozen. Only then inspect
-and fix the book. Label subsequent code-informed verification separately.
-
-Use a separate save and a fixed recorded seed for each book. Each `--choose`
-number belongs only to the immediately preceding menu; read the new menu after
-every action. The inventory control reveals carried-item actions and binary
-combinations; revisit it after changing rooms or taking items. To reproduce a
-missing menu option, record the room, preceding action, visible prose and the
-complete relevant menu. Copy `<save>.transcript` to durable project evidence
-before deleting temporary saves. It records commands and prose, not every menu,
-so include menu evidence in the report. Record ending status and coverage
-limits explicitly; an unfinished session does not establish a softlock.
-
-On a terminal, the companion menu waits for input and accepts typed
-UTF-8 commands as an alternative to the arrow keys. Backspace removes one
-character; Ctrl+U clears typed input and Ctrl+C exits the menu.
-
-For regression coverage of editor and terminal input, run
-`lua5.4 tests/test_choice_widget.lua` and (on POSIX)
-`python3 tests/test_terminal_pty.py`. To exercise every catalog edition
-through saved reader sessions, run `python3 tests/test_book_reader_persistence.py`.
-
-## Replaying a Link Route
-
-`scripts/play-links.lua` plays a whole route in one process, which is faster
-than one `llm.lua` call per step when exploring a book:
-
-```bash
-lua5.4 scripts/play-links.lua en/wondertown /tmp/route.txt 3
-```
-
-The route file holds one command per line. Each must be offered by a link
-menu at that moment, or the replay stops and prints the menu. The third argument is how many trailing steps to print. The optional fourth
-and fifth arguments specify the seed and catalog language. The current menu follows. A
-line starting with `!` goes straight to the parser, for checking vocabulary
-only. `tests/link_walk.lua` is the module behind it, and behind each book's
-`test/test_walkthrough_links.lua`; `make test-book-walkthroughs` runs those
-beside the typed `test/test-walkthrough.zil` of every book.
-
-## Parser Diagnostics
-
-The free-text interface below remains useful for focused parser regressions.
-It is not evidence of a blind link-only completion.
+Use `llm.lua` to interact with games one action at a time using typed parser commands. For blind testing, avoid story sources, prior reports, maps and walkthroughs until the session is complete. Use a separate save and record the seed and coverage limits.
 
 ## Quick Start
 
@@ -183,8 +104,7 @@ titles are the entry files in each catalog. Your default save filename uses
 the full edition ID.
 
 ```sh
-lua5.4 llm.lua --language de --game borrowed-tomorrows --new-game --links
-lua5.4 llm.lua --language de --game borrowed-tomorrows --choose 5
+lua5.4 llm.lua --language de --game borrowed-tomorrows --new-game
 lua5.4 llm.lua --language de --game museum-unsent-signals --new-game
 ```
 
@@ -210,7 +130,7 @@ Exit codes: 0 = success, 1 = error
 
 ## Companion Authoring Status
 
-`llm.lua --choose` selects a numbered **link action** as described above. It does not select a companion card; the CLI does not load an adventure's companion module or implement `--choices`.
+The CLI does not load an adventure's companion module or implement `--choices`.
 
 For manual card play, use:
 
@@ -231,36 +151,6 @@ commands. See
 complete room/state-family coverage and validation requirements.
 
 ## Evaluating Playability
-
-### Authoring binary reader actions
-
-The portable reader lives in `zilscript/reader/`. Both the standalone CLI and
-Adventure Arena use this implementation; running book regressions never requires
-a checkout of the application repository beside ZILScript.
-
-The reader uses current VM scope, including carried contents, to resolve a
-prose link. A remembered noun alone never grants remote manipulation. Topics
-must resolve through the story's current globals or actual accessible objects.
-Several prose aliases for the same object produce one secondary action.
-
-An object can constrain its binary menu with an ordinary string property:
-
-```zil
-(INTERACTIONS "STEAM:KETTLE,SPOON;SHOW:MICA,CLOUD")
-```
-
-Keys are action identifiers, the suffix of the real `V-...` action (`PUT-ON`
-differs from `PUT`). Values are declared object names. Missing actions in an
-authored property have no binary menu entries; an empty string allows unary
-actions only. Actors list the carried exhibits they accept for reversed
-SHOW/GIVE menus. These relations filter offered pairs without executing an
-action, changing world state, bypassing parser scope, or exposing hidden nouns.
-Include meaningful failed experiments as well as correct pairs. Ordinary
-parser commands still use the story's own action routines and rejection logic.
-
-Books using the link reader finish with the score/progress record and a native
-QUIT signal; the reader does not display unsupported parser restart prompts.
-The persisted debug snapshot remains terminal across fresh invocations.
 
 To assess whether an LLM can play and beat a game:
 

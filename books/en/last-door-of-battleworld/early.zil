@@ -8,26 +8,26 @@
  <TELL "In Central Park, a strange circle of machinery rose among the trees. When you stepped inside, Earth vanished. Through a second circle across the darkness you glimpsed Doctor Doom, Kang and other dangerous figures. Then the stars went out, and pieces of distant worlds came together around a single sun." CR CR
  "The Beyonder spoke from somewhere beyond the sky and offered a reward for destroying your enemies. Galactus and Doom challenged its owner; both were flung away. Now the circle carries you down toward the newly made world. You have another idea: find the people who need help." CR>>
 <ROUTINE MSG-LANDING ()
- <TELL "You stand on a wide plain where grass ends suddenly at red stone. [[Magneto]] watches the ridge. ">
- <COND (<IN? ,COIL ,LANDING> <TELL "Beside broken machinery lies a [[copper coil->coil]]. ">)>
- <TELL "To the [[north]], a ridge hides the land beyond." CR>>
+ <TELL "You stand on a wide plain where grass ends suddenly at red stone. Magneto watches the ridge. ">
+ <COND (<IN? ,COIL ,LANDING> <TELL "Beside broken machinery lies a copper coil. ">)>
+ <TELL "To the north, a ridge hides the land beyond." CR>>
 <ROUTINE MSG-MAGNETO ()
  <TELL "Magneto folds his arms. 'The voice chose me as it chose you. That does not mean either of us has to obey it.' A flash passes over the ridge. He turns toward it. 'There are people on the other side. That broken machinery may be useful.'" CR>>
 <ROUTINE MSG-COIL ()
  <TELL "The copper wire is neatly wound around a little ceramic core. Its two ends are clean, and a shield symbol is stamped on the core." CR>>
 <ROUTINE MSG-RIDGE ()
- <TELL "From the ridge you can see a makeshift camp to the [[north]]. ">
- <COND (,BW-SHIELD <TELL "A pale shield holds Kang's [[villains]] at a distance. ">)
-       (T <TELL "Kang's [[villains]] crest another rise, carrying weapons from a fortress they have already found. ">)>
- <TELL "A [[shield relay->relay]] stands by the path. ">
- <COND (<IN? ,COIL ,RIDGE> <TELL "The [[coil]] lies nearby. ">)>
- <TELL "The plain lies [[south]]." CR>>
+ <TELL "From the ridge you can see a makeshift camp to the north. ">
+ <COND (,BW-SHIELD <TELL "A pale shield holds Kang's villains at a distance. ">)
+       (T <TELL "Kang's villains crest another rise, carrying weapons from a fortress they have already found. ">)>
+ <TELL "A shield relay stands by the path. ">
+ <COND (<IN? ,COIL ,RIDGE> <TELL "The coil lies nearby. ">)>
+ <TELL "The plain lies south." CR>>
 <ROUTINE MSG-RELAY ()
  <COND (,BW-SHIELD <MSG-RELAY-DONE>)
        (T <TELL "The relay's open panel has an empty cradle marked with a shield. Two contacts wait at either end, just the right distance apart for a small coil. A diagram shows the relay projecting a shelter across the path to the camp." CR>)>>
 <ROUTINE MSG-RELAY-FIXED ()
- <TELL "The coil clicks into the cradle. A pale shield unfolds across the path as Kang's first shot splashes harmlessly against it. Beyond the glow, people hurry toward the camp. Magneto holds a second piece of debris out of their way. The path [[north]] is safe to follow." CR> <MSG-EARLY-OBJECTIVE>>
-<ROUTINE MSG-RELAY-DONE () <TELL "The shield hums steadily over the path. The camp is open to the [[north]]." CR>>
+ <TELL "The coil clicks into the cradle. A pale shield unfolds across the path as Kang's first shot splashes harmlessly against it. Beyond the glow, people hurry toward the camp. Magneto holds a second piece of debris out of their way. The path north is safe to follow." CR> <MSG-EARLY-OBJECTIVE>>
+<ROUTINE MSG-RELAY-DONE () <TELL "The shield hums steadily over the path. The camp is open to the north." CR>>
 <ROUTINE MSG-ATTACK () <TELL "Kang's party is too far away to reach safely. Their weapons flash against the rocks. The damaged relay might shelter the path without anyone having to fight." CR>>
 <ROUTINE BW-EARLY-CHOICES ()
  <COND (<EQUAL? ,HERE ,LANDING>

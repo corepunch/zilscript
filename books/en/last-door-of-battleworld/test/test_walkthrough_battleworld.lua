@@ -1,4 +1,4 @@
-local Walk = require("tests.link_walk")
+local Walk = require("tests.story_walk")
 local module = ".last-door-of-battleworld.last-door-of-battleworld"
 local words = {
   en = {heroes={"spider-man","storm","iron man"}, choose="choose ", north="north", east="east", west="west", south="south",

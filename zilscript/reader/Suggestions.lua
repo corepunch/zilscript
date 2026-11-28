@@ -73,7 +73,7 @@ function Suggestions.inHand(item, pattern)
 end
 
 -- `language` is a Language table (English when omitted).
-function Suggestions.oneTapVerbs(item, language)
+function Suggestions.singleObjectVerbs(item, language)
 	language = Language.of(language)
 	local VERB_RANK, VERBS = language.rank, language.verbs
 	local verbs = {}

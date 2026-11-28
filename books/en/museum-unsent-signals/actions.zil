@@ -104,7 +104,7 @@
  <COND (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,READING-BASIN> <HELD? ,MESSAGE-SPOOL>>
   <SETG SIGNAL-HEARD <>>
   <MOVE ,MESSAGE-SPOOL ,READING-BASIN>
-  <TELL "You set the spool into the basin. It catches and starts to turn, and the [[audition stud->stud]] begins to glow on the basin's rim." CR>)
+  <TELL "You set the spool into the basin. It catches and starts to turn, and the audition stud begins to glow on the basin's rim." CR>)
        (<AND <VERB? TAKE> <IN? ,MESSAGE-SPOOL ,READING-BASIN>>
         <COND (<EQUAL? <ITAKE> T>
                <SETG SIGNAL-HEARD <>>
@@ -161,7 +161,7 @@
 <ROUTINE READING-BASIN-F ()
  <COND (<VERB? EXAMINE SEARCH LOOK-INSIDE>
   <COND (<IN? ,MESSAGE-SPOOL ,READING-BASIN>
-         <TELL "The [[spool]] turns slowly in the basin. Press the [[stud]] to hear it here in the booth, not out on the feed." CR>)
+         <TELL "The spool turns slowly in the basin. Press the stud to hear it here in the booth, not out on the feed." CR>)
         (T <TELL "A shallow bowl of black glass, made to hold a spool while it plays. It's empty. Set a wooden spool into the basin to play it." CR>)>)
        (<VERB? MUSEUM-PLAY>
         <PERFORM ,V?PUSH ,AUDITION-STUD> <RTRUE>)
@@ -176,12 +176,12 @@
 
 <ROUTINE AUDITION-STUD-F ()
  <COND (<VERB? EXAMINE>
-  <TELL "A round brass button beside the basin. Pressing it plays whatever is in the [[basin]] through a small speaker here in the booth. Nothing you hear this way leaves the room." CR>)
+  <TELL "A round brass button beside the basin. Pressing it plays whatever is in the basin through a small speaker here in the booth. Nothing you hear this way leaves the room." CR>)
        (<VERB? PUSH>
         <COND (<NOT <IN? ,MESSAGE-SPOOL ,READING-BASIN>>
-               <TELL "The speaker clicks once and goes quiet. Load the wooden spool into the [[basin]] first." CR>)
+               <TELL "The speaker clicks once and goes quiet. Load the wooden spool into the basin first." CR>)
               (<NOT ,LENS-READ>
-               <TELL "A woman's voice says, “I made it.” Then comes a long silence, and the spool runs out. The small [[address indicator->indicator]] on the desk blinks and asks for the kind of address: public or private? You can't tell yet. The relay staff must have marked their spools somehow; the inspection lens in Dead Letters might show more if you tilt it toward the light." CR>)
+               <TELL "A woman's voice says, “I made it.” Then comes a long silence, and the spool runs out. The small address indicator on the desk blinks and asks for the kind of address: public or private? You can't tell yet. The relay staff must have marked their spools somehow; the inspection lens in Dead Letters might show more if you tilt it toward the light." CR>)
               (,SIGNAL-HEARD
                <TELL "The woman says, “I made it.” This time you know how much of the message is the minute after she stops." CR>)
               (T <SETG SIGNAL-HEARD T>

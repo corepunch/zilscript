@@ -106,7 +106,7 @@ As audited on 2026-07-28:
   although `main.lua` accepts only 1 through 5 and `llm.lua` has no
   companion-choice interface. Treat these artifacts as authored coverage and a
   useful retrospective, not release-grade validation evidence.
-- `llm.lua` does not yet implement `--choices` or `--choose`; exhaustive tests
+- `llm.lua` does not yet implement companion query and selection; exhaustive tests
   must currently use an adventure-specific Lua runner around
   `COMPANION_QUERY` and `COMPANION_SELECT`.
 - `zork1-companion-qa-report.md` describes an older seven-room version and is
@@ -783,10 +783,7 @@ change occurred.
 Agent-driven and exhaustive testing require a persistent, structured host path.
 `llm.lua` should support:
 
-```bash
-lua5.4 llm.lua --choices --save /tmp/game.sav
-lua5.4 llm.lua --choose <stable-choice-id> --save /tmp/game.sav
-```
+A future persistent host should provide structured companion query and selection operations.
 
 The query result should include the room, scene, visible IDs, labels, kinds,
 groups, and priorities. Debug validation may include the hidden command and a

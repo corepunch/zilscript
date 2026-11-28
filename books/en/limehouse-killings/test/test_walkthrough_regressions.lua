@@ -1,10 +1,8 @@
--- Regressions from a links-only QA playthrough of The Limehouse Killings.
--- Link steps go through tests/link_walk.lua; `say` types straight to the
--- parser where the point is vocabulary or scope.
+-- Story regressions for The Limehouse Killings.
 -- Run from the zilscript directory:
 --   lua books/en/limehouse-killings/test/test_walkthrough_regressions.lua
 package.path = "./?.lua;./?/init.lua;" .. package.path
-local Walk = require("tests.link_walk")
+local Walk = require("tests.story_walk")
 local MODULE = "books.en.limehouse-killings.limehouse-killings"
 
 local function new() return Walk.new(MODULE, 97) end
@@ -28,29 +26,20 @@ end
 do
 	local walk = new()
 	walk:play({ "north", "east", { "tell dr moriarty", expect = "experiments" } })
-	assert(walk:offers("tell dr moriarty about medicinal experiments"), "experiments is offered")
-	assert(walk:offers("tell dr moriarty about poison"), "poison is offered")
 	walk:play({
 		{ "examine poison", expect = "question to put to Dr. Moriarty" },
 		{ "tell dr moriarty about reading desk", expect = "I don't know anything about that,” says Moriarty" },
 		{ "tell dr moriarty about poison", expect = "walks out to the entrance hall" },
 	})
-	lacks(walk:choose("look"), "Moriarty", "he has left the library")
+	lacks(walk:command("look"), "Moriarty", "he has left the library")
 	walk:play({ "west", { "tell dr moriarty", expect = "experiments" } })
-	assert(walk:offers("tell dr moriarty about poison"), "the topics follow Moriarty to the hall")
 	walk:play({ "west", { "tell lady ashworth", expect = "marriage" } })
-	for _, topic in ipairs({ "marriage", "alibi", "case" }) do
-		assert(walk:offers("tell lady ashworth about " .. topic), "Lady Ashworth offers " .. topic)
-	end
 	walk:play({
 		{ "tell lady ashworth about marriage", expect = "did not kill my husband" },
 		{ "tell lady ashworth about case", expect = "my husband's murder" },
 		"east", "down", "west", "south",
 		{ "tell mr hudson", expect = "The master, my alibi, the study key, or Dr. Moriarty" },
 	})
-	for _, topic in ipairs({ "master", "alibi", "study key", "dr moriarty" }) do
-		assert(walk:offers("tell mr hudson about " .. topic), "Hudson offers " .. topic)
-	end
 	walk:play({
 		{ "tell mr hudson about master", expect = "had enemies" },
 		{ "tell mr hudson about dr moriarty", expect = "visited often" },
@@ -68,22 +57,15 @@ do
 	local walk = new()
 	walk.env.CIPHER_SOLVED = true
 	walk:play({ "north", "east", "east", "up", { "examine study door", expect = "bolt shot home on this side" } })
-	walk:choose("examine stone fireplace")
-	has(walk:choose("examine locked box"), "Lady Ashworth, Mr. Hudson, or Dr. Moriarty", "the dial's names are listed")
-	for _, name in ipairs({ "dr moriarty", "lady ashworth", "mr hudson" }) do
-		assert(walk:offers("align locked box to " .. name), "the dial offers " .. name)
-	end
-	for _, action in ipairs(walk:menu()) do
-		assert(not action.command:find("^turn locked box with"), "no TURN WITH on the dial: " .. action.command)
-		assert(not action.command:find("^unlock locked box with"), "no UNLOCK WITH on the dial: " .. action.command)
-	end
+	walk:command("examine stone fireplace")
+	has(walk:command("examine locked box"), "Lady Ashworth, Mr. Hudson, or Dr. Moriarty", "the dial's names are listed")
 	walk:play({
 		{ "align locked box to mr hudson", expect = "does not connect" },
 		{ "examine mr hudson", expect = "shortest stretch of the dial" },
 		{ "align locked box to dr moriarty", expect = "sealed-letter engraving" },
 	})
-	lacks(walk:choose("open locked box"), "TURN BOX", "no typed command in the hint")
-	lacks(walk:choose("open tall window"), "OPEN WINDOW", "no typed command in the hint")
+	lacks(walk:command("open locked box"), "TURN BOX", "no typed command in the hint")
+	lacks(walk:command("open tall window"), "OPEN WINDOW", "no typed command in the hint")
 	has(say(walk, "turn box to moriarty"), "sealed-letter engraving", "TURN BOX TO still works when typed")
 	has(say(walk, "examine engravings"), "name dial", "the engravings are the box")
 	has(say(walk, "examine mantelpiece"), "study fireplace", "the mantelpiece is the fireplace")
@@ -94,12 +76,9 @@ end
 do
 	local walk = new()
 	walk:play({ "read creased telegram", "north", "examine hall table", "take magnifying glass" })
-	for _, action in ipairs(walk:menu()) do
-		assert(not action.command:find("study door with", 1, true), "nothing carried fits the study door: " .. action.command)
-	end
 	walk:play({ "east", "examine reading desk", "read secret ledger", "inventory" })
-	lacks(walk:choose("read secret ledger with magnifying glass"), "How does one look through", "the lens can be read through")
-	has(walk:choose("use magnifying glass on secret ledger"), "the last word has bitten clear through the paper")
+	lacks(walk:command("read secret ledger with magnifying glass"), "How does one look through", "the lens can be read through")
+	has(walk:command("use magnifying glass on secret ledger"), "the last word has bitten clear through the paper")
 	has(say(walk, "examine fireplace"), "library grate", "the library fire is not the study's")
 	lacks(say(walk, "examine fireplace"), "box")
 	has(say(walk, "examine leather-bound ledger"), "UNPAID")
@@ -111,10 +90,10 @@ do
 	local walk = new()
 	walk:play({ "north", "east", "examine reading desk", "read torn page", "examine colored ribbons",
 		"push red book", "push yellow book", "push green book", "push blue book" })
-	local text = walk:choose("push floor-to-ceiling bookshelves")
+	local text = walk:command("push floor-to-ceiling bookshelves")
 	lacks(text, "already solved")
 	has(text, "passage stands open")
-	has(walk:choose("push red book"), "passage already stands open")
+	has(walk:command("push red book"), "passage already stands open")
 end
 
 -- 7. Rooms and scenery follow what was taken, shown or dropped.
@@ -123,24 +102,24 @@ do
 	walk.env.CIPHER_SOLVED = true
 	walk:play({ "north", "east", "east", "up", "examine mahogany desk", "read unsent letter", "examine stone fireplace", "read poison bottle",
 		"open study door", "south", "west", "show unsent letter to lady ashworth" })
-	local room = walk:choose("look")
+	local room = walk:command("look")
 	lacks(room, "The letter rests", "the letter is still in the player's hands")
 	has(room, "wedding ring")
 	assert(walk.env.LOC(walk.env.DEAD_LETTER) == walk.env.WINNER, "showing the letter does not give it away")
 	walk:play({ "north", "examine pantry shelves", "take dried foxglove", "take powdered charcoal" })
-	local shelves = walk:choose("examine pantry shelves")
+	local shelves = walk:command("examine pantry shelves")
 	has(shelves, "preserves and spices.")
 	walk:play({ "south", "inventory", { "drop dried foxglove", expect = "drop" } })
-	lacks(walk:choose("look"), "among the preserves", "a dropped bottle is not on the pantry shelf")
-	walk:choose("north")
+	lacks(walk:command("look"), "among the preserves", "a dropped bottle is not on the pantry shelf")
+	walk:command("north")
 	has(say(walk, "examine foxglove"), "can't see any", "the foxglove is where it was dropped, not in the pantry")
 	has(say(walk, "take charcoal"), "already have", "the carried tin is not also on the shelf")
 	-- Reading the greenhouse label with the bottle in hand is the comparison.
 	walk:play({ "south", "east", "down", "west", "north",
 		{ "examine plant labels", expect = "match the poison bottle label" } })
 	assert(walk.env.POISON_IDENTIFIED, "the labels identify the poison")
-	walk:choose("inventory")
-	has(walk:choose("use poison bottle on purple flowers"), "once more", "a second comparison is not told as the first")
+	walk:command("inventory")
+	has(walk:command("use poison bottle on purple flowers"), "once more", "a second comparison is not told as the first")
 	has(say(walk, "hint"), "interview every suspect")
 	has(say(walk, "examine knife"), "can't see any", "the hidden knife is not in scope before the hedge is searched")
 end
@@ -149,8 +128,14 @@ end
 do
 	local walk = new()
 	walk:play({ "north", "west", { "accuse lady ashworth", expect = "has an alibi" },
-		"east", "east", { "accuse dr moriarty", expect = "no officer to hear it" },
-		"west", "down", "west", "south", { "accuse mr hudson", expect = "in the servants' quarters" } })
+		"tell lady ashworth", "tell lady ashworth about alibi", "east", "east" })
+	local reply = walk:command("accuse dr moriarty")
+	has(reply, "no officer to hear it")
+	has(reply, "Ask Moriarty about the poison")
+	has(reply, "Ask Mr. Hudson in the servants' quarters for his alibi")
+	has(reply, "found 0 of the three pieces")
+	lacks(reply, "Ask Lady Ashworth")
+	walk:play({ "west", "down", "west", "south", { "accuse mr hudson", expect = "in the servants' quarters" } })
 	assert(walk:running() and walk.finishes == 0 and walk.env.WRONG_ATTEMPTS == 2)
 end
 
@@ -158,14 +143,8 @@ end
 do
 	local walk = new()
 	walk:play({ "north", "down", "west", "examine stone fountain", "examine overgrown hedges" })
-	for _, command in ipairs({ "take plaster cast", "take blood-stained knife", "examine stone fountain", "examine overgrown hedges" }) do
-		assert(walk:offers(command), "offered: " .. command)
-	end
 	walk:play({ "south" })
-	walk:choose("examine wooden trunk")
-	for _, command in ipairs({ "take oil lantern", "examine wooden trunk", "examine narrow beds" }) do
-		assert(walk:offers(command), "offered: " .. command)
-	end
+	walk:command("examine wooden trunk")
 end
 
 -- 10. A second QA pass: vocabulary collisions, absent witnesses, natural verbs.
@@ -258,4 +237,4 @@ do
 	has(say(walk, "look in fireplace"), "cold ashes")
 end
 
-print("ok - Limehouse Killings link regressions")
+print("ok - Limehouse Killings story regressions")

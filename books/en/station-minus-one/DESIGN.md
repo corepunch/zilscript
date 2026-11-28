@@ -11,4 +11,4 @@ Engineering suspense for teens and adults, around 12 turns on a straight route. 
 | Gauge Room | west to Hall | Receiver cradle, calibration stud: test the insulated puck, compare the live mass |
 | Lower Platform | south or up to Hall | Rescue switch and quarantine latch; two in-world tradeoffs |
 
-Calibration requires the puck in the cradle; taking it out doesn't erase already observed comparison. Using a control without the test gives a specific reason, not a hidden door. A second test is safe, and both choices remain visible after proof. Compass links and all visible apparatus are actionable.
+Calibration requires the puck in the cradle; taking it out doesn't erase already observed comparison. Using a control without the test gives a specific reason, not a hidden door. A second test is safe, and both choices remain visible after proof. The parser accepts compass directions and names of the visible apparatus.

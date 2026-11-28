@@ -63,7 +63,7 @@ climbing the tram does not attempt the rescue, and opening the kit or console
 is inspection only. HELP
 explains the rules and the next step.
 
-Adventure Arena and the reader walk (`tests/link_walk.lua`) keep the game
+Adventure Arena and the story tests keep the game
 in one process, so the name prompt works. The CLI (`llm.lua`) restores its
 snapshot at the parser boundary, so a reply to the name prompt, and to the
 RESTART/RESTORE/QUIT prompt after an ending, arrives as an ordinary command.
@@ -85,9 +85,8 @@ of the English edition):
   reported roll is checked against an independent copy of the percentile
   table, and every check's Health and Karma cost.
 * `test_walkthrough_world.lua`: actions before a profile and on wrong
-  targets, the typed name, every exit, the scenery and every link in every
-  state.
-* `test_walkthrough_links.lua`: every profile by prose-link menus only, and
+  targets, the typed name, exits and scenery in each state.
+* `test_walkthrough_story.lua`: every profile by typed commands, and
   the companion's first card to an ending.
 
 * `test_walkthrough_editions.lua`: both editions play the same route on the

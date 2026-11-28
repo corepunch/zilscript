@@ -50,26 +50,26 @@
        (T <TELL "Put armored flight and precision thrusters to work. There's a tool for almost everything.">)>>
 
 <ROUTINE MSG-SETUP ()
- <TELL "Three rescue signals blink on the same scrap of sky. Choose [[Spider-Man->spider-man]], [[Storm->storm]], or [[Iron Man->iron]] to answer. You can examine each profile before you decide." CR>>
+ <TELL "Three rescue signals blink on the same scrap of sky. Choose Spider-Man, Storm, or Iron Man to answer. You can examine each profile before you decide." CR>>
 
 <ROUTINE MSG-CAMP ()
- <TELL "The camp occupies half a schoolyard and the wrong end of a railway platform. The soup pot is on the doubles court. [[Ms. Marvel->marvel]] has the court's chalkboard tipped up on a chair so she can count the people coming in. A [[beacon]] on the bench crackles. The path [[north]] leads down to the Hanging Span. The sheltered path goes [[south]] to the ridge." CR>>
+ <TELL "The camp occupies half a schoolyard and the wrong end of a railway platform. The soup pot is on the doubles court. Ms. Marvel has the court's chalkboard tipped up on a chair so she can count the people coming in. A beacon on the bench crackles. The path north leads down to the Hanging Span. The sheltered path goes south to the ridge." CR>>
 
 <ROUTINE MSG-SPAN ()
- <TELL "Where the road runs out, the [[skiff]] hangs below you on a line that is unspooling one click at a time. The passengers are sitting very still. A [[hand winch->winch]] is bolted to the stone by your boot. The road to the market runs [[north]] beyond the span, and the camp is [[south]]." CR>>
+ <TELL "Where the road runs out, the skiff hangs below you on a line that is unspooling one click at a time. The passengers are sitting very still. A hand winch is bolted to the stone by your boot. The road to the market runs north beyond the span, and the camp is south." CR>>
 
 <ROUTINE MSG-SPAN-CLEAR ()
- <TELL "The empty [[skiff]] knocks gently against the stones. Someone left a red mitten hooked to its rail. The [[winch]] has stopped clicking. The way is clear [[north]] to the Tilted Market; the camp lies [[south]]." CR>>
+ <TELL "The empty skiff knocks gently against the stones. Someone left a red mitten hooked to its rail. The winch has stopped clicking. The way is clear north to the Tilted Market; the camp lies south." CR>>
 
 <ROUTINE MSG-MARKET ()
  <MSG-MARKET-SCALES>
- <TELL "The market leans downhill just enough for every loose apple to end up at the same stall. A [[mirror]] on a swivel is catching the last sunlight. Someone has shoved a [[supply chest->cache]] under the stall. The repair shop is [[east]], the tower [[north]], and the span [[south]]." CR>>
+ <TELL "The market leans downhill just enough for every loose apple to end up at the same stall. A mirror on a swivel is catching the last sunlight. Someone has shoved a supply chest under the stall. The repair shop is east, the tower north, and the span south." CR>>
 
 <ROUTINE MSG-WORKSHOP ()
- <TELL "Every tool is outlined in chalk on the wall, including the ones someone has borrowed. An [[emergency socket->socket]] juts from a bench under a cable that runs up into the tower. The alley back to the market is [[west]]." CR>>
+ <TELL "Every tool is outlined in chalk on the wall, including the ones someone has borrowed. An emergency socket juts from a bench under a cable that runs up into the tower. The alley back to the market is west." CR>>
 
 <ROUTINE MSG-TOWER ()
- <TELL "The open tower has no roof: just a ring of teeth where the sky goes through. The [[Loom->loom]] pulls a bright thread from a half-open doorway, one slow inch at a time. [[Doctor Doom->doom]] stands beside it. Moonlight goes straight through his cape. The stair leads [[south]] to the market; a docking bridge reaches [[north]] to the Worldship." CR>>
+ <TELL "The open tower has no roof: just a ring of teeth where the sky goes through. The Loom pulls a bright thread from a half-open doorway, one slow inch at a time. Doctor Doom stands beside it. Moonlight goes straight through his cape. The stair leads south to the market; a docking bridge reaches north to the Worldship." CR>>
 
 <ROUTINE MSG-HELPER ()
  <COND (,EVACUATED
@@ -92,7 +92,7 @@
        (T <TELL "You match the skiff's swing and take its weight on both gauntlets. A little sideways thrust sets it down at the edge of the road. 'Arrival at Platform One,' you tell the passengers. One of them claps the way people do when a plane lands." CR>)>>
 
 <ROUTINE MSG-RESCUE-FAIL ()
- <TELL "The skiff rolls to one side before you can bring it in. A catch takes the line with a hard click. The line clips your shoulder. You lose 5 Health, but no one falls. The yellow line goes through the bow ring: pull the [[winch]] to bring the skiff in close." CR>>
+ <TELL "The skiff rolls to one side before you can bring it in. A catch takes the line with a hard click. The line clips your shoulder. You lose 5 Health, but no one falls. The yellow line goes through the bow ring: pull the winch to bring the skiff in close." CR>>
 
 <ROUTINE MSG-RESCUE-WINCH ()
  <TELL "You lean into the handle. It gives an indignant squeak, then winds the skiff up to the road. The girl puts both boots on the stone. 'It didn't even scream.' Behind her the winch squeaks louder, as if it objects to the record." CR>>
@@ -109,7 +109,7 @@
  <TELL "There's a painted sun on the swivel collar and a tiny picture of the Loom tower on its rim. Line those marks up and the mirror will throw the last stripe of daylight into the tower's open top." CR>>
 
 <ROUTINE MSG-MIRROR-CLUE ()
- <TELL "The swivel turns, but you have no idea where to aim it. Two painted marks are almost hidden under its lip. Examine the [[mirror]] first." CR>>
+ <TELL "The swivel turns, but you have no idea where to aim it. Two painted marks are almost hidden under its lip. Examine the mirror first." CR>>
 
 <ROUTINE MSG-MIRROR-SET ()
  <TELL "Sun meets tower with a little click. A bar of yellow light springs across the square and holds steady on the teeth at the top of the tower. Way up above, something gives a bright and very definite chime." CR>>
@@ -119,7 +119,7 @@
  <COND (<NOT <FSET? ,CACHE ,OPENBIT>>
         <TELL "Open its lid for a better look." CR>)
        (<IN? ,CELL ,CACHE>
-        <TELL "A [[power cell->cell]] about the size of a lunchbox fits snugly in its padding." CR>)
+        <TELL "A power cell about the size of a lunchbox fits snugly in its padding." CR>)
        (T <TELL "The padding inside still has a lunchbox-sized dent." CR>)>>
 
 <ROUTINE MSG-CELL ()
@@ -138,13 +138,13 @@
  <TELL "'When every doorway leads to the same place, nobody gets lost,' says Doom. Behind him the last door offers you a glimpse of a kitchen table, somewhere with ordinary weather. Doom doesn't turn around. 'I fail to see why you object.'" CR>>
 
 <ROUTINE MSG-DOOM-STRIKE ()
- <TELL "Your blow cuts across Doom's cape and hits nothing. Green light knits back together, button by button. 'If I intended to be punched, I would have attended in person.' The real work is still happening at the [[Loom->loom]]." CR>>
+ <TELL "Your blow cuts across Doom's cape and hits nothing. Green light knits back together, button by button. 'If I intended to be punched, I would have attended in person.' The real work is still happening at the Loom." CR>>
 
 <ROUTINE MSG-LOOM ()
  <TELL "Two diagrams are etched on the Loom's plate. The first shows daylight striking the top of the tower: with a signal to follow, the Loom can unwind its last stitch. The second shows a cable from the repair shop: with emergency power, you can force the Loom to cut its thread. Neither diagram has Doom's face on it, which is how you know he didn't draw them." CR>>
 
 <ROUTINE MSG-LOOM-BLOCK ()
- <TELL "The thread is too tight to touch. The Loom needs a signal or backup power. The stair is clear [[south]] to the market, where the mirror can catch daylight and the repair shop can supply a charge. The door hasn't closed yet." CR>>
+ <TELL "The thread is too tight to touch. The Loom needs a signal or backup power. The stair is clear south to the market, where the mirror can catch daylight and the repair shop can supply a charge. The door hasn't closed yet." CR>>
 
 <ROUTINE MSG-WIN-MIRROR ()
  <TELL "You feed the bar of daylight into the Loom's eye. Its needles start walking backward. The last stitch slips loose, then the next, and the doorway swings wide without tearing a single edge. On the far side, a kettle begins to whistle. Doom reaches to mute it, but his green fingers go straight through." CR CR

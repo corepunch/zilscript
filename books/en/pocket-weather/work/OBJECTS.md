@@ -25,7 +25,6 @@ Topics (GLOBAL-OBJECTS, NDESCBIT): forecast, promise, pause, yesterday, joke. Al
 
 Object verb matrix and scope checks: hidden apron contents excluded from prose until SEARCH. Weatherbox starts closed. Report's pressed flower INVISIBLE and not named until READ. All permanent scenery introduced by room action and NDESCBIT; portable objects use FDESC or native listing. Tools use HELD? plus ACCESSIBLE? in explicit handlers. Default TAKE/DROP untouched on portable objects.
 
-# Authored binary menus
 Every one of the 25 objects declares ordinary `INTERACTIONS` data. Binary partner lists are intentionally narrow; unary examination, take/drop, reading and native controls keep their normal behavior. The parser still accepts experiments beyond the suggested menu.
 
 - Rook/button: the real trade and its showing preview; rook topics forecast, promise and joke.
@@ -36,5 +35,3 @@ Every one of the 25 objects declares ordinary `INTERACTIONS` data. Binary partne
 - Mica/card: written review, showing and approved publication to the slot; no unrelated container partners.
 - Pip: forecast, yesterday, promise and pause, plus the historical report.
 - Other objects: no meaningful binary relationship, so an empty property suppresses irrelevant pair multiplication.
-
-All secondary objects remain subject to actual scope and discovery. The pressed flower is still hidden until the softened report is read; no menu can expose it early. Global conversation topics must first appear as prose links. No secondary item needed for completion is available only by inspecting hidden source.

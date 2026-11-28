@@ -260,10 +260,7 @@ git diff --check
 Adapt commands to the target adventure and repository conventions. Record exact
 commands, pass/fail counts, and skipped gates.
 
-When `llm.lua --choices` and `--choose` are available, use them as the public
-persistent host path. Until then, an adventure-specific Lua runner may call
-`COMPANION_QUERY` and `COMPANION_SELECT` directly, but it must isolate
-checkpoints and emit equivalent structured evidence.
+An adventure-specific Lua runner may call `COMPANION_QUERY` and `COMPANION_SELECT` directly; it must isolate checkpoints and emit structured evidence. For interactive play, use `main.lua --companion`.
 
 ## Completion Report
 

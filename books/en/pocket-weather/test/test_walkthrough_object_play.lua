@@ -1,5 +1,5 @@
--- Natural commands, location guards, and toy interactions through the real parser.
-local Walk = require("tests.link_walk")
+-- Story and companion regressions.
+local Walk = require("tests.story_walk")
 local walk = Walk.new("books.en.pocket-weather.pocket-weather", 97)
 local function says(command, fragment)
   local reply = walk.game:resume(command)
@@ -58,7 +58,7 @@ says("take ribbon from chime", "take it back")
 assert(walk.env.LOC(walk.env.RIBBON) == walk.env.ADVENTURER)
 print("ok - Pocket Weather object play and ladder regressions")
 
-local links = Walk.new("books.en.pocket-weather.pocket-weather", 97)
-links:choose("north")
-assert(links:choose("climb short ladder"):find("Weathercock Perch", 1, true))
-assert(links:choose("climb down short ladder"):find("Warm Tile Terrace", 1, true))
+local second = Walk.new("books.en.pocket-weather.pocket-weather", 97)
+second:command("north")
+assert(second:command("climb short ladder"):find("Weathercock Perch", 1, true))
+assert(second:command("climb down short ladder"):find("Warm Tile Terrace", 1, true))

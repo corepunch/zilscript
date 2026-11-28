@@ -1,4 +1,4 @@
-local Walk = require("tests.link_walk")
+local Walk = require("tests.story_walk")
 local cases = {
   en = {choose="choose spider-man", north="north", south="south", coil="take coil",
         drop="drop coil", inspect="examine relay", install="put coil in relay", magneto="examine magneto"},

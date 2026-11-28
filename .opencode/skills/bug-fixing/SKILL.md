@@ -62,7 +62,7 @@ Before trusting a green ZIL regression, audit its oracle: run the player command
 
 ### Discovery / Prose Reveal
 
-**Bug symptoms:** A room or object description names a thing that should be found by examining ("A small brass key lies among the scattered papers"). A closed or cluttered container lists its contents at a glance. A description quotes a label or states a conclusion. A moved object's `LDESC` repeats its examine text. Suggestions or companion choices offer `TAKE` for something not yet found.
+**Bug symptoms:** A room or object description names a thing that should be found by examining ("A small brass key lies among the scattered papers"). A closed or cluttered container lists its contents at a glance. A description quotes a label or states a conclusion. A moved object's `LDESC` repeats its examine text. Companion choices offer `TAKE` for something not yet found.
 
 **Fix:** Apply "Withholding What Must Be Examined" in `docs/WRITING_ADVENTURES.md`: `INVISIBLE` plus a reveal in the hiding place's `ACTION`, or no `OPENBIT` until the container is examined; move quoted text and deductions into `EXAMINE`/`READ`; shorten the `LDESC` to presence. Then **audit every other object in every book** for the same pattern (search the `.zil` for *among*, *under*, *beneath*, *behind*, *inside*, *tucked*, *glints*, *reads*, *label*) — one found case means the pattern was not checked. Regression: `LOOK` does not name it, `TAKE` fails before discovery, the reveal names it, `LOOK` then does.
 

@@ -10,7 +10,6 @@
     ;"The oil can shows only as a copper glint until Pip looks under the bench."
     <ASSERT-TEXT "Something glints" <CO-RESUME ,CO "look">>
     <ASSERT-NOT-TEXT "oil can" <CO-RESUME ,CO "look">>
-    <ASSERT-NOT-TEXT "[[" <CO-RESUME ,CO "look">>
     <ASSERT "The can cannot be taken unseen" <CO-RESUME ,CO "take oil can" T> <==? <LOC ,OIL-CAN> ,WORKSHOP-FLOOR>>
     <ASSERT-TEXT "oil can" <CO-RESUME ,CO "look under workbench">>
     <ASSERT-TEXT "oil can" <CO-RESUME ,CO "look">>

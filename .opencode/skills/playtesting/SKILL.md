@@ -63,16 +63,6 @@ Blind functional playtesting is one part of the post-packaging quality-assurance
 - `.opencode/skills/quality-assurance/SKILL.md` — coordination with technical, artistic, and accessibility passes
 - `PLAYING.md` — how `llm.lua` works for automated game interaction
 
-## Link-only functional sessions
+## Blind functional sessions
 
-For a requested link-only playtest, follow `PLAYING.md` → Blind Link Play.
-Start each adventure with a separate save and recorded seed, then choose only
-numbered actions in the latest returned menu. Use the inventory control to
-expose carried-object interactions. Keep the tester blind to game source,
-walkthroughs, maps, and prior reports until the session and observations are
-frozen. A later code-informed investigation must be identified separately.
-Capture the transcript and the actual menus involved in any missing or
-misleading action; transcripts alone do not preserve the complete menu. In a
-combined report, state which rooms and puzzle states were reached, whether an
-ending was reached, exact reproduction steps, observed and expected behavior,
-and untested paths. Do not infer a softlock from an incomplete exploration.
+Use typed parser commands as described in `PLAYING.md`. Start each adventure with a separate save and recorded seed. Keep the tester blind to game source, walkthroughs, maps, and prior reports until the session and observations are frozen. Identify later code-informed investigation separately. Record the rooms and puzzle states reached, endings, exact reproduction steps, observed and expected behavior, and untested paths. Do not infer a softlock from incomplete exploration.

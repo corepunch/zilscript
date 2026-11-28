@@ -1,5 +1,5 @@
--- A full countdown must warn the player again after the first grey sky.
-local Walk = require("tests.link_walk")
+-- Story and companion regressions.
+local Walk = require("tests.story_walk")
 local w = Walk.new("books.en.wondertown.wondertown", 97)
 w.game:resume("easy")
 local grey, urgent, sunrise

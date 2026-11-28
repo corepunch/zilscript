@@ -7,7 +7,7 @@
 This is a manually assembled golden-path draft, not executor-generated
 validation evidence. The referenced `--choices 6` mode is not supported:
 `main.lua` accepts limits from 1 through 5, and `llm.lua` does not yet implement
-`--choices` or `--choose`. Individual excerpts remain useful as a route and
+`--choices`. Individual excerpts remain useful as a route and
 wording reference, but they do not prove that every card was visible and
 executed from the matching state.
 

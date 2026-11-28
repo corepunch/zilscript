@@ -10,7 +10,6 @@
     <ASSERT "Start at Sanitarium Gate" <CO-RESUME ,CO "look" T> <==? ,HERE ,SANITARIUM-GATE>>
     <ASSERT-TEXT "retrace" <CO-RESUME ,CO "go back">>
     <ASSERT "A refused GO BACK leaves the player in place" <==? ,HERE ,SANITARIUM-GATE>>
-    <ASSERT-NOT-TEXT "[[" <CO-RESUME ,CO "look">>
     <ASSERT "Enter the entrance hall" <CO-RESUME ,CO "north" T> <==? ,HERE ,SANITARIUM-ENTRANCE>>
     <ASSERT "GO BACK returns to the gate" <CO-RESUME ,CO "go back" T> <==? ,HERE ,SANITARIUM-GATE>>
     <ASSERT "GO BACK again returns to the hall" <CO-RESUME ,CO "walk back" T> <==? ,HERE ,SANITARIUM-ENTRANCE>>

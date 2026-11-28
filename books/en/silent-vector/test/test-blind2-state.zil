@@ -1,5 +1,4 @@
-; State and parser responses from the second blind round. Reader menu checks
-; remain in test_blind2_links.lua, which exercises the host Session API.
+; State and parser responses from the second blind round.
 <INSERT-FILE "books/en/silent-vector/silent-vector">
 <GLOBAL CO <CO-CREATE GO>>
 <ROUTINE RUN-TEST ()

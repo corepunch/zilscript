@@ -36,5 +36,3 @@ Topic objects remain real evidence; conversation only available while listener a
 | brass counterweight, weight | inside cutter inspection cover, opened by EXAMINE CUTTER | weapon, mechanical component | TAKE; COMPARE with body, both objects expose verb |
 
 Gramophone has no noun-conflicting adjective: reader-generated target is GRAMOPHONE. USE mechanism WITH tool is supported alongside USE tool ON mechanism.
-
-All 35 objects now carry INTERACTIONS. Binary menu relationships are exact parser-action-to-partner identities, with engine scope/discovery still required. The object declarations are the authoritative exhaustive list. Routing switch and uninvolved scenery use an empty relationship set. Equipment admits chosen wrong tools as recoverable experiments; generic parser commands remain available independently of menu filtering.

@@ -1,18 +1,18 @@
 <ROOM ADMISSIONS (IN ROOMS) (GLOBAL RELAY) (DESC "Eingangshalle") (FLAGS RLANDBIT ONBIT)
 	(OST TO DEAD-LETTERS) (WEST TO QUIET-HALL) (NORD TO SIGNAL-BOOTH)
-	(LDESC "Du stehst in der Eingangshalle. In der [[Glastür->glastuer]] spiegelt sich die Lampe über der [[Kasse]]. Auf dem Tresen trocknet die Tinte der letzten Eintrittskarten. An der [[Messingtafel]] hängt ein Zettel. Im [[Osten->ost]] liegt die Galerie der unzustellbaren Briefe, im [[Westen->west]] der Saal der Stille. Aus der Signalkabine im [[Norden->nord]] dringt ein leises Summen.")>
+	(LDESC "Du stehst in der Eingangshalle. In der Glastür spiegelt sich die Lampe über der Kasse. Auf dem Tresen trocknet die Tinte der letzten Eintrittskarten. An der Messingtafel hängt ein Zettel. Im Osten liegt die Galerie der unzustellbaren Briefe, im Westen der Saal der Stille. Aus der Signalkabine im Norden dringt ein leises Summen.")>
 
 <ROOM DEAD-LETTERS (IN ROOMS) (GLOBAL RELAY) (DESC "Galerie der unzustellbaren Briefe") (FLAGS RLANDBIT ONBIT)
 	(WEST TO ADMISSIONS)
-	(LDESC "In der Galerie ziehst du an einer Reihe beleuchteter [[Glasvitrinen->vitrinen]] vorbei. Das Glas spiegelt deine Schritte, eine Vitrine nach der anderen. Vor einem leeren Fach steht eine runde [[Lupe]] in einer Messingfassung. Der Durchgang im [[Westen->west]] führt zurück zur Eingangshalle.")>
+	(LDESC "In der Galerie ziehst du an einer Reihe beleuchteter Glasvitrinen vorbei. Das Glas spiegelt deine Schritte, eine Vitrine nach der anderen. Vor einem leeren Fach steht eine runde Lupe in einer Messingfassung. Der Durchgang im Westen führt zurück zur Eingangshalle.")>
 
 <ROOM QUIET-HALL (IN ROOMS) (GLOBAL RELAY) (DESC "Saal der Stille") (FLAGS RLANDBIT ONBIT)
 	(OST TO ADMISSIONS)
-	(LDESC "Im Saal der Stille verschluckt der Teppich schon den ersten Schritt. Eine schlichte [[Holzbank]] steht vor dem alten [[Schaltplan]] der Relaisanlage. Aus der Eingangshalle im [[Osten->ost]] fällt ein Streifen Licht bis an die Bank.")>
+	(LDESC "Im Saal der Stille verschluckt der Teppich schon den ersten Schritt. Eine schlichte Holzbank steht vor dem alten Schaltplan der Relaisanlage. Aus der Eingangshalle im Osten fällt ein Streifen Licht bis an die Bank.")>
 
 <ROOM SIGNAL-BOOTH (IN ROOMS) (GLOBAL RELAY) (DESC "Signalkabine") (FLAGS RLANDBIT ONBIT)
 	(SUED TO ADMISSIONS)
-	(LDESC "Die Signalkabine ist ein kleiner Glasraum mitten in der brummenden Relaisanlage. Auf der Scheibe ist ein Halbmond aus Atem beschlagen. Du wartest einen Moment: Es ist dein eigener. Im Pult sitzt eine flache [[Lesemulde]] für Tonspulen, daneben ein runder [[Abhörknopf]]. Darunter liegen zwei Sendetasten: links die [[Rückantworttaste]], rechts die [[Gedenktaste]]. Nach [[Süden->sued]] führt der Gang zurück zur Eingangshalle.")>
+	(LDESC "Die Signalkabine ist ein kleiner Glasraum mitten in der brummenden Relaisanlage. Auf der Scheibe ist ein Halbmond aus Atem beschlagen. Du wartest einen Moment: Es ist dein eigener. Im Pult sitzt eine flache Lesemulde für Tonspulen, daneben ein runder Abhörknopf. Darunter liegen zwei Sendetasten: links die Rückantworttaste, rechts die Gedenktaste. Nach Süden führt der Gang zurück zur Eingangshalle.")>
 
 <OBJECT MUSEUM-PLAQUE (IN ADMISSIONS) (DESC "Messingtafel") (SYNONYM MESSINGTAFEL TAFEL SCHILD ZETTEL)
 	(FLAGS NDESCBIT DIEBIT READBIT) (ACTION MUSEUM-PLAQUE-F)>
@@ -23,8 +23,8 @@
 
 <OBJECT MESSAGE-SPOOL (IN DEAD-LETTERS) (DESC "Holzspule") (SYNONYM HOLZSPULE SPULE ANH\%ANGER ANHAENGER TONBAND BAND)
 	(ADJECTIVE H\%OLZERN HOELZERN H\%OLZERNE HOELZERNE H\%OLZERNEN HOELZERNEN)
-	(FLAGS TAKEBIT DIEBIT) (FDESC "Neben der Lupe hat jemand eine [[Holzspule]] aus ihrer Vitrine genommen. An ihr hängt ein Papieretikett.")
-	(LDESC "Hier liegt die [[Holzspule]].") (INTERACTIONS "PUT:READING-BASIN") (ACTION MESSAGE-SPOOL-F)>
+	(FLAGS TAKEBIT DIEBIT) (FDESC "Neben der Lupe hat jemand eine Holzspule aus ihrer Vitrine genommen. An ihr hängt ein Papieretikett.")
+	(LDESC "Hier liegt die Holzspule.") (INTERACTIONS "PUT:READING-BASIN") (ACTION MESSAGE-SPOOL-F)>
 
 <OBJECT HALL-BENCH (IN QUIET-HALL) (DESC "Holzbank") (SYNONYM HOLZBANK BANK)
 	(FLAGS NDESCBIT DIEBIT) (ACTION HALL-BENCH-F)>

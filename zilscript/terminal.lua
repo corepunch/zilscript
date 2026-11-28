@@ -30,14 +30,6 @@ function M.bold_words(text, words)
   return text
 end
 
--- Book text already knows which phrases are genuine affordances. Never
--- guess from the global dictionary (German "führt" is not the "f" exit).
-function M.bold_links(text)
-  return (text:gsub("%[%[(.-)%]%]", function(link)
-    return M.bold(link:match("^(.-)%->") or link)
-  end))
-end
-
 local Terminal = {}
 Terminal.__index = Terminal
 

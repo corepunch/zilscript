@@ -6,9 +6,9 @@ construction; they do not establish full-game playability.
 
 ## Reader observations
 
-- Both locales opened with a reader menu offering all three heroes. Choosing
+- Both locales offered all three heroes. Choosing
   Spider-Man (English) or Гроза (Russian) began the mission, and following
-  the north link reached the span. The scene states that passengers need help
+  north reached the span. The scene states that passengers need help
   before the route onward. The English prose's sideways school block and the
   Russian rain falling upwards are vivid, accessible images.
 - Russian seed 198: choosing «Спасти пассажиров» failed with a roll of 1. The
@@ -22,13 +22,7 @@ construction; they do not establish full-game playability.
 
 ## Automated route
 
-At the beginning of this test the checked-in walkthrough failed at its first
-step with `not in companion menu: choose spider-man at 15`. The link reader
-itself offered and successfully executed `choose spider spider-man` (and the
-Russian equivalent `выбрать паук`). These are distinct interfaces; the
-failure alone does not prove the link is broken. After the interruption, even
-a fresh game could not load its modules, so this failure may reflect concurrent
-work and should be rerun after the author finishes.
+An early walkthrough failed with `not in companion menu: choose spider-man at 15`. The subsequent retest below passed after the modules loaded.
 
 ## Retest after modules loaded
 

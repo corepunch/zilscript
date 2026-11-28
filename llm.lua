@@ -7,9 +7,6 @@
 --   lua llm.lua --action "take sword" --save game.sav
 --   lua llm.lua --new-game --save game.sav  (start new game and save initial state)
 --
--- --links outputs JSON using the reader's actual link menus; parser mode
--- outputs plain story text. Both modes keep a VM memory checkpoint.
-
 local runtime = require 'zilscript.runtime'
 local Editions = require 'zilscript.editions'
 
@@ -34,17 +31,11 @@ while i <= #arg do
         args.language = a:match("^%-%-language=(.*)$")
     elseif a == "--new-game" then
         args.new_game = true
-    elseif a == "--links" then
-        args.links = true
-    elseif a == "--choose" then
-        i = i + 1
-        args.choose = arg[i]
-        args.links = true
-    elseif a == "--seed" then
-        i = i + 1
-        args.seed = arg[i]
     elseif a == "--help" or a == "-h" then
         args.help = true
+    else
+        io.stderr:write("Unknown option: " .. a .. "\n")
+        os.exit(1)
     end
     i = i + 1
 end
@@ -56,8 +47,6 @@ LLM Play Mode - Interact with ZIL games programmatically
 Usage:
   lua llm.lua --action "command" [options]
   lua llm.lua --new-game [options]
-  lua llm.lua --new-game --links --game wondertown --save /tmp/play.sav
-  lua llm.lua --choose 4 --game wondertown --save /tmp/play.sav
 
 Options:
   --action, -a "cmd"   Execute this command and exit
@@ -65,18 +54,7 @@ Options:
   --game, -g name      Game to play (English default: zork1)
   --language en|de|ru  Catalog language (default: en)
   --new-game           Start a new game (even if save file exists)
-  --links              List the reader's available actions without a turn
-  --choose N           Execute numbered reader action (implies --links)
-  --seed N             Initial random seed for a new link-mode game
   --help, -h           Show this help
-
-Link output: {output, room, running, actions}.
-Actions are [label, command, linkTarget], numbered from 1 in the current list.
-Only emitted actions can be chosen. Each step saves VM state, its random
-sequence and the reader transcript; it does not replay previous commands.
-Link mode requires its snapshot and never falls back to action-history replay.
-The readable log is <save>.transcript. FINISH is terminal across invocations.
-Parser mode prints plain text and maintains <save>.actions for diagnostics.
 
 Examples:
   lua llm.lua --new-game --save zork1.sav
@@ -160,7 +138,6 @@ end
 
 -- Create game environment
 local env = runtime.create_game_env()
-env.PROSE_LINKS = args.links or false
 
 -- Load bootstrap
 if not runtime.init(env) then
@@ -236,26 +213,6 @@ local function write_error_and_exit(message)
 end
 
 -- Helper to get current room name
-local function get_room_name(env)
-    local ok, result = pcall(function()
-        local here = rawget(_G, "HERE") or rawget(env, "HERE")
-        if here and type(here) == "number" then
-            -- Try to get the DESC property
-            local pqdesc = rawget(_G, "PQDESC") or rawget(env, "PQDESC")
-            if pqdesc then
-                local desc = env.GETP and env.GETP(here, pqdesc)
-                if desc and type(desc) == "number" then
-                    return env.mem and env.mem:string(desc)
-                elseif type(desc) == "string" then
-                    return desc
-                end
-            end
-        end
-        return nil
-    end)
-    return ok and result or nil
-end
-
 local function get_score_info(env)
     local ok, result = pcall(function()
         local score = rawget(_G, "SCORE") or rawget(env, "SCORE")
@@ -427,7 +384,7 @@ if not args.new_game then
         end
     end
 
-    if not args.links and not resumed_from_dump and file_exists(historyfile, "r") then
+    if not resumed_from_dump and file_exists(historyfile, "r") then
         local ok, replayed_or_err = pcall(replay_action_history, historyfile)
         if not ok then
             write_error_and_exit(replayed_or_err)
@@ -460,8 +417,7 @@ local function checkpoint(action)
 end
 
 -- FINISH is terminal across invocations: the ending is remembered in the save
--- (PLAY_ENDED is a saved global, as in link mode), so the next command cannot
--- walk on from the last room.
+-- in PLAY_ENDED so the next command cannot walk on from the last room.
 do
     local finish = env.FINISH
     if finish then
@@ -483,37 +439,6 @@ local function execute_after_ending(action)
     return ENDED_REPLY .. "\n"
 end
 
--- A link reader can only choose actions, never type, so a routine's prompt
--- gets the empty reply of a bare Return ("No name entered", "no"), and every
--- link snapshot falls between turns.
-local function link_action(command)
-    local output = execute_action(command)
-    if routine_prompt then
-        output = output .. resume_action("")
-    end
-    if routine_prompt then
-        error("The story is waiting for typed input, which link play cannot give")
-    end
-    return output
-end
-
--- If we have an action, execute it
-if args.links then
-		local ok, result = pcall(function()
-		return require("zilscript.link_play").run {
-			args = args, env = env, game = game, gameName = game_name, language = language,
-			savefile = savefile, restored = resumed_from_dump,
-			start = start_game, act = link_action,
-			room = function() return get_room_name(env) end,
-			score = function() return get_score_info(env) end,
-		}
-	end)
-	if not ok then write_error_and_exit(result) end
-	restore()
-	io.write(result .. "\n")
-	os.exit(0)
-end
-
 if args.action then
     local ok, output
     if env.PLAY_ENDED then
@@ -525,9 +450,6 @@ if args.action then
     if not ok then
         write_error_and_exit(output)
     end
-    
-    -- Get room name
-    local room = get_room_name(env)
     
     -- Save game state
     local save_err = nil
@@ -566,7 +488,6 @@ elseif args.new_game then
         output = result
     end
     
-    local room = get_room_name(env)
     
     local history_err = nil
     local history_ok, history_reset_err = reset_action_history(historyfile)

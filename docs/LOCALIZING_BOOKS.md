@@ -80,9 +80,7 @@ loading that dungeon, puzzle actions, hints, or terminal status-line code.
 3. Build the playable vocabulary. Make the first `SYNONYM` a unique noun the
    reader can send by itself. Add natural alternatives and accepted
    adjective forms for typed commands. Give singular objects the correct
-   article flag. Audit both sides of each `[[label->target]]` link. The
-   visible label may be inflected while the target needs to resolve to the
-   canonical noun. For example, use `[[Süden->sued]]` for a direction exit.
+   article flag. Test inflected forms and direction vocabulary through the parser.
 4. Keep any narrow story-specific `SYNTAX` with that book's actions. Reuse
    existing German commands and dispatch IDs where available. For example,
    the museum adds `kipp` for its lens but uses the shared `drück` and
@@ -94,7 +92,7 @@ loading that dungeon, puzzle actions, hints, or terminal status-line code.
 6. Run the package of checks below. Exercise overlong or compound names,
    mixed case, umlauts and ASCII alternatives, articles and inflection,
    ambiguity, wrong actions and recovery, each ending, and the complete
-   playthrough using only offered links. Keep the walkthroughs under
+   parser-driven playthrough. Keep the walkthroughs under
    `test/`.
 
 ## Run the checks
@@ -102,8 +100,7 @@ loading that dungeon, puzzle actions, hints, or terminal status-line code.
 From the ZILScript root:
 
 ```sh
-lua5.4 llm.lua --language de --game borrowed-tomorrows --new-game --links --save /tmp/borrowed-de.sav
-lua5.4 llm.lua --language de --game borrowed-tomorrows --choose 5 --save /tmp/borrowed-de.sav
+lua5.4 llm.lua --language de --game borrowed-tomorrows --new-game --save /tmp/borrowed-de.sav
 lua5.4 main.lua books.de.museum-unsent-signals.museum-unsent-signals
 make test-book-walkthroughs
 make lint-zil
@@ -111,7 +108,7 @@ make zip GAME=borrowed-tomorrows BOOK_LANG=de
 ```
 
 The walkthrough target covers both catalogs. Lint checks the syntax and
-parser resolution of prose links and plays common object verbs in both
+vocabulary and common object verbs in both
 languages. The additional English vocabulary lints compare printed English
 phrases with synonym and adjective declarations. The source archive preserves
 the paths of the edition and its substrate.
@@ -129,12 +126,10 @@ yet.
 English and German editions. Its [Russian base](../languages/ru/base.zil)
 declares `LANGUAGE RUSSIAN` and loads Russian
 [vocabulary and syntax](../languages/ru/syntax.zil). Declare the forms
-the parser should recognize in `SYNONYM` and `ADJECTIVE`. Use the display
-form on the left of a prose link and the parser form on the right, as in
-`[[карточка героя->карточку]]`.
+the parser should recognize in `SYNONYM` and `ADJECTIVE`.
 
 ```sh
-lua5.4 llm.lua --language ru --game blackout-at-meridian --new-game --links --save /tmp/meridian-ru.sav
+lua5.4 llm.lua --language ru --game blackout-at-meridian --new-game --save /tmp/meridian-ru.sav
 lua5.4 books/ru/blackout-at-meridian/test/test_walkthrough_russian.lua
 make lint-zil
 ```

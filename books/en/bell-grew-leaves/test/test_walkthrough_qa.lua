@@ -1,5 +1,4 @@
--- QA regressions: words a child types, gentle refusals, no dead ends, and
--- hints that follow the story's state. Each case starts from a fresh game.
+-- Story and companion regressions.
 local runtime = require("zilscript.runtime")
 
 local function new_game()

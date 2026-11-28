@@ -1,6 +1,5 @@
--- Plays Blackout at Meridian with typed commands on the seeded generator
--- link_walk.lua installs, so every d100 roll replays.
-local Walk = require("tests.link_walk")
+-- Story and companion regressions.
+local Walk = require("tests.story_walk")
 
 local w = Walk.new("books.en.blackout-at-meridian.blackout-at-meridian")
 local function send(command)
@@ -35,7 +34,7 @@ expect("choose window", "That is not a profile.")
 expect("focus window", "That does not help.")
 expect("diagnose", "You have no ranks yet")
 expect("inventory", "You are carrying:")
--- The sheet stays with the hero, so its links always resolve.
+-- The sheet stays with the hero after a move.
 expect("drop sheet", "You keep your character sheet.")
 -- One line per attribute pair: "|" in a ZIL string is a line break, so the
 -- sheet must not use it as a column separator.

@@ -721,55 +721,6 @@ Indicators:
 - `N ,var` — print a number
 - `A ,obj` — print with article ("a"/"an")
 
-### Prose Links
-
-Mark the words a reader may act on with double brackets, as Twine does:
-
-```zil
-(LDESC "A corroded [[brass plaque->plaque]] hangs askew on the gate.")
-<TELL "A gravel path leads [[north]] to the entrance." CR>
-```
-
-- `[[label]]` — the label is both what is printed and what the parser is
-  given. Use it when the prose already ends in the object's noun
-  (`[[crayon drawing]]`) or names a direction (`[[north]]`).
-- `[[label->target]]` — prints the label; the target is the parser's words
-  for the object (`[[iron gates->gate]]`, `[[key->chapel key]]`) or a
-  direction (`[[into the basement->down]]`).
-
-A host can set `PROSE_LINKS` before bootstrap to receive the markup.
-Adventure Arena uses the targets to track what the prose has introduced
-for command suggestions and displays the labels in regular type. Hosts
-without `PROSE_LINKS` and transcript tests receive only the plain labels,
-so `ASSERT-TEXT` needs no change.
-
-Every story links its prose; a description without links is unfinished:
-
-- **Link every noun the reader can act on right now** in room text,
-  `FDESC`, `LDESC`, `DESCFCN` output and the `TELL` of a discovery: the
-  objects, scenery with an `ACTION`, people, and each exit the text names.
-- **Link the hiding place, not the secret.** A room that says "something
-  glints among the papers" links `[[papers]]`; the key is linked in the
-  message that finds it. Never link an object the description withholds.
-- **The target is a command phrase, not a label.** A tap runs `EXAMINE
-  <target>` and the object's verbs, so the target must parse in that room.
-  Qualify shared nouns (`[[key->safe key]]`), and avoid words the story also
-  uses as verbs: Limehouse's "cast" is a verb, so the plaster cast is
-  `[[cast->footprint cast]]`.
-- **Mind the six-letter dictionary.** Z-machine words keep six letters, so a
-  `YELLOWED` and `YELLOW` share a dictionary entry. The runtime preserves their
-  common adjective value; they cannot distinguish two objects on their own.
-  Verb/noun collisions such as `INSPECT`/`INSPECTOR` still need explicit testing.
-  Run the vocabulary gate and walkthroughs after adding vocabulary.
-- Keep a link inside one string, and never put one in a `DESC`: hosts match
-  room names exactly.
-
-`make lint-zil` checks links two ways: `scripts/check-links.lua` proves every
-target's words exist in some `SYNONYM`/`ADJECTIVE` and that markup is
-balanced; `scripts/check-link-targets.lua` looks at every room with links on
-and runs `EXAMINE <target>` for each object link through the real parser,
-failing on "You can't see any", "noun missing" and the like.
-
 ### Room Descriptions
 
 Write rooms the way Infocom did outside Zork's terse caves: *Planetfall*,
@@ -781,7 +732,7 @@ usually 40–90 words.
 1. **Say where the reader is.** Open with the place itself, in plain words:
    "You are in the staff room of a closed station." / "This is the
    ward, a long room of iron beds." Never open with a subordinate clause
-   ("From the broken staircase, ...") or a list of links.
+   ("From the broken staircase, ...") or a bare list of exits.
 2. **Give one or two concrete details a glance takes in** — what the place
    looks like, sounds or smells like, and one detail of mood. Horror is made
    of specific, physical things (a smell, a stain, a sound), not adjectives.
@@ -792,17 +743,16 @@ usually 40–90 words.
    east. Stone stairs go down to the basement." Every exit gets a
    destination word; never a bare direction list.
 
-Do not cram every link into one sentence. A link is a word in a normal
-sentence; a sentence that exists only to hold links is unfinished. Compare:
+Give details and exits room to breathe. Compare:
 
-> *Too sparse:* From the broken [[grand staircase->staircase]], reception lies
-> [[west]], the ward [[east]] and the basement [[down]].
+> *Too sparse:* From the broken grand staircase, reception lies
+> west, the ward east and the basement down.
 >
 > *Right:* You are in the entrance hall of Blackwood Sanitarium. Half of the
-> [[grand staircase->staircase]] has fallen in, and the plaster dust on the
+> grand staircase has fallen in, and the plaster dust on the
 > floor shows no footprints but yours. Reception is through a doorway to the
-> [[west]] and the ward lies [[east]]. A narrow flight of stairs goes
-> [[down]] to the basement, and the gates are back [[south]].
+> west and the ward lies east. A narrow flight of stairs goes
+> down to the basement, and the gates are back south.
 
 Openings and event messages follow the same rule: tell the reader who they
 are, where they are and what is wrong in two to four sentences before the
@@ -819,7 +769,7 @@ curious person would try and write an answer for those that make sense:
 `DRINK`, `WEAR`, `RING`, `WIND`, `PLAY`, `TALK`/`ASK`/`TELL` for people.
 
 - Aim for **at least three verbs beyond `EXAMINE`** on each important or
-  linked object, and two on simple scenery. Each verb an `ACTION` tests with
+  important object, and two on simple scenery. Each verb an `ACTION` tests with
   `VERB?` appears in the reader's menu for that object, so a response is
   also an invitation.
 - An answer should **show something new**: a sensory detail, a small
@@ -857,14 +807,14 @@ listed at a glance. Apply the pattern that fits:
 
 1. **Hidden in the open (among, under, behind).** Give the object
    `INVISIBLE`, keep it in the room, and let the room text hint at the
-   hiding place with a link. The hiding place's `ACTION` reveals it on
+   hiding place in prose. The hiding place's `ACTION` reveals it on
    `EXAMINE`, `SEARCH`, `LOOK-INSIDE`, `LOOK-UNDER` or `MOVE` — only while
    the object is still there:
 
    ```zil
    <OBJECT BRASS-KEY (IN RECEPTION-ROOM) ...
-       (FDESC "A small [[brass key->key]] lies among the scattered papers.")
-       (LDESC "A small [[brass key->key]] lies here.")
+       (FDESC "A small brass key lies among the scattered papers.")
+       (LDESC "A small brass key lies here.")
        (FLAGS TAKEBIT INVISIBLE)>
 
    <ROUTINE RECEPTION-PAPERS-F ()
@@ -873,13 +823,13 @@ listed at a glance. Apply the pattern that fits:
                           <IN? ,BRASS-KEY ,RECEPTION-ROOM>>
                      <FCLEAR ,BRASS-KEY ,INVISIBLE>
                      <THIS-IS-IT ,BRASS-KEY>
-                     <TELL "Beneath them lies a small [[brass key->key]]." CR>)
+                     <TELL "Beneath them lies a small brass key." CR>)
                     (T <TELL "Nothing else hides among them." CR>)>
               <RTRUE>)>>
    ```
 
    The room shows the hint only while the object is hidden ("Something
-   glints among the [[papers]]"). Blackwood's key and wall safe, Wondertown's
+   glints among the papers"). Blackwood's key and wall safe, Wondertown's
    oil can and doll head, and Limehouse's knife and letter follow this.
 2. **Inside a container.** Leave `OPENBIT` off every container whose
    contents are not in plain view — shelves of clutter, bins, drawers,
@@ -894,7 +844,7 @@ listed at a glance. Apply the pattern that fits:
 
 **`LDESC` is presence, not examination.** On this substrate an object's
 `LDESC` is printed in every `LOOK` once it has been moved, so it must be one
-short line of where and what ("A plaster [[cast->footprint cast]] of a boot
+short line of where and what ("A plaster cast of a boot
 print lies here."). Put details, text and conclusions in the `ACTION`'s
 `EXAMINE`/`READ` branch or `TEXT`.
 

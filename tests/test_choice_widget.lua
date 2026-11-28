@@ -154,7 +154,7 @@ framework.describe("Terminal text styles", function(suite)
   end)
 end)
 
-framework.describe("Terminal keys and authored links", function(suite)
+framework.describe("Terminal keys", function(suite)
   local function input(data)
     local position = 0
     return terminal.new({ stdin = { read = function(_, size)
@@ -163,11 +163,6 @@ framework.describe("Terminal keys and authored links", function(suite)
       if position <= #data then return data:sub(position, position) end
     end } })
   end
-
-  suite.it("keeps book link labels and does not bold arbitrary substrings", function(t)
-    t.assert_equal(terminal.bold_links("Sie führt [[zur Tür->tür]]."),
-      "Sie führt \27[1mzur Tür\27[0m.")
-  end)
 
   suite.it("preserves UTF-8 commands and cursor-key sequences", function(t)
     local device = input("ü\27[Bß\21\r")

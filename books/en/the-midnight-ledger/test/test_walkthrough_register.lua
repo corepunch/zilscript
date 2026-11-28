@@ -1,4 +1,4 @@
-local Walk = require("tests.link_walk")
+local Walk = require("tests.story_walk")
 local w = Walk.new("books.en.the-midnight-ledger.the-midnight-ledger")
 local e = w.env
 local function step(command, expected)
