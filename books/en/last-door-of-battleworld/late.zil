@@ -13,7 +13,7 @@
        (T <TELL "A green inscription beside him invites you to hear Doom's offer." CR>)>>
 <ROUTINE MSG-BW-OFFER ()
  <TELL "Doom promises to grant your wish to return home and send the others back too. In exchange you must surrender your freedom to him: from then on you will obey his orders, even when you disagree. He calls it peace. You can say “accept offer” or “refuse offer”; accepting ends this adventure." CR>>
-<ROUTINE MSG-BW-OFFER-FIRST () <TELL "Hear Doom's offer first, so you know what he asks in return." CR>>
+<ROUTINE MSG-BW-OFFER-FIRST () <TELL "Read Doom's offer before you decide. Try READ INSCRIPTION." CR>>
 <ROUTINE MSG-BW-ALREADY-REFUSED () <TELL "You have already refused to surrender your freedom. Doom has heard your answer." CR>>
 <ROUTINE MSG-BW-REFUSED () <TELL "'Home isn't a gift if you own the people who live there,' you tell him. Doom's image stiffens. 'Then find your own way.' You intend to do just that." CR>>
 <ROUTINE MSG-BW-ACCEPT-END () <TELL "You accept. Doom opens the way to Earth, and the passengers return to their families. He keeps his promise to grant your wish. Then his voice sounds in your ear: your first orders await. Home is familiar, but your choices are no longer your own." CR CR "THE END: DOOM'S BARGAIN" CR>>

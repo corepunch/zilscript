@@ -2,8 +2,8 @@
 package.path = "./?.lua;./?/init.lua;" .. package.path
 local Walk = require("tests.story_walk")
 
-local walk = Walk.new("books.en.wondertown.wondertown", 97)
-walk:play({
+local story = "books.en.wondertown.wondertown"
+local route = {
 	-- Workshop: the oil can under the bench frees the loft ladder.
 	{ "examine enormous bench", expect = "tiny copper oil can" },
 	{ "take tiny can", expect = "Taken" },
@@ -59,10 +59,17 @@ walk:play({
 	"examine wooden desk",
 	{ "examine winding diagram", expect = "surround the heart with companions" },
 	{ "down", expect = "keyhole waits" },
+	{ "finish rewind", expect = "Wind it first" },
 	{ "wind giant mechanism", expect = "PLACE TIN SOLDIER BESIDE HEART" },
+	{ "finish rewind", expect = "needs a companion" },
 	"look",
 	{ "examine workshop key", expect = "one notch" },
-	{ "position music box", expect = "Let me help" },
+	{ "position music box", expect = "FINISH REWIND now and leave some toys asleep" },
+}
+
+local walk = Walk.new(story, 97):play(route)
+assert(walk.output:find("Let me help", 1, true), "Nutmeg offers to join")
+walk:play({
 	"look",
 	{ "examine music box", expect = "plucks the next note" },
 	{ "examine brass tooth", expect = "feel it trembling" },
@@ -83,3 +90,14 @@ assert(env.KEY_FOUND and env.KEY_WOUND, "The workshop key was found and wound in
 assert(env.NUTMEG_SAVED, "Nutmeg joined the heart")
 assert(env.COMPANION_COUNT == 3, "Music box, Nutmeg and the tin soldier lend their strength")
 print(string.format("Wondertown typed walkthrough: ok (%d steps)", walk.steps))
+
+local partial = Walk.new(story, 97)
+partial:play({
+	{ "finish rewind", expect = "must be beside the workshop heart" },
+})
+partial:play(route):play({
+	{ "examine heart", expect = "FINISH REWIND" },
+	{ "finish rewind", expect = "Pip has saved what he could of Wrenfold" },
+})
+assert(partial.env.ENDING_TIER == 1 and partial.env.COMPANION_COUNT == 2)
+assert(partial.finishes == 1 and not partial:running())

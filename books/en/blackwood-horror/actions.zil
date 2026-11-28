@@ -1241,6 +1241,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
            <TELL "You need to be holding the syringe." CR>)
           (<EQUAL? ,PRSO ,WINNER ,ME>
            <COND (<BLACKWOOD-AT-HAND? ,STRANGE-SERUM>
+                  <TELL "You draw a dose from the vial into the empty syringe and press the plunger." CR>
                   <JIGS-UP "The serum enters your vein like ice. For one lucid instant you remember the chapel from inside its locked door; then a green light opens behind your eyes and never closes.">)
                  (T <TELL "The syringe is empty. You lower it without using it." CR>)>)
           (<NOT <IN? ,PATIENT-189 ,CHAPEL>>
@@ -1764,7 +1765,10 @@ lost name."
 
 <ROUTINE SYRINGE-F ()
          <COND (<VERB? EXAMINE>
-                <TELL "A medical syringe with a sharp steel needle. The glass chamber is empty." CR>
+                <TELL "A medical syringe with a sharp steel needle. The glass chamber is empty.">
+                <COND (<BLACKWOOD-AT-HAND? ,STRANGE-SERUM>
+                       <TELL " You can draw a dose directly from the vial when you use it.">)>
+                <CRLF>
                 <RTRUE>)
           (<VERB? RUB>
            <TELL "The needle is still very sharp. You keep your fingers away from its point." CR>)>>

@@ -18,7 +18,7 @@ local cases = {
 		control = "reverse control",
 		plans = "read plans",
 		offer = "read inscription",
-		offerText = "surrender your freedom",
+		offerText = "accept offer",
 		refuse = "refuse offer",
 		accept = "accept offer",
 		returnSouth = "south",
@@ -43,8 +43,8 @@ local cases = {
 		klaw = "осмотреть кло",
 		control = "повернуть рычаг",
 		plans = "читать планы",
-		offer = "читать надпись",
-		offerText = "отказаться от свободы",
+		offer = "выслушать предложение",
+		offerText = "принять предложение",
 		refuse = "отклонить предложение",
 		accept = "принять предложение",
 		returnSouth = "юг",
@@ -68,7 +68,14 @@ local function reachMarket(language, c)
 		assert(play(walk, "помощь"):find("«выбрать грозу»", 1, true))
 		assert(play(walk, "осмотреть паука"):find("Ловкий изобретатель в маске", 1, true))
 	end
-	for _, command in ipairs({c.choose, c.coil, c.north, c.relay, c.north, c.north, c.winch, c.north}) do
+	for _, command in ipairs({c.choose, c.coil, c.north}) do
+		play(walk, command)
+	end
+	if language == "ru" then
+		assert(play(walk, "осмотреть канга"):find("передатчик", 1, true))
+		assert(play(walk, "говорить с кангом"):find("Канг", 1, true))
+	end
+	for _, command in ipairs({c.relay, c.north, c.north, c.winch, c.north}) do
 		play(walk, command)
 	end
 	assert(walk.env.HERE == walk.env.MARKET)
@@ -112,7 +119,10 @@ for language, c in pairs(cases) do
 	play(bargain, c.north)
 	if language == "ru" then
 		assert(play(bargain, "говорить с думом"):find("Я навожу порядок", 1, true))
+		assert(play(bargain, "осмотреть дверь"):find("Нить станка", 1, true))
 	end
+	local earlyOffer = play(bargain, c.accept)
+	assert(bargain:running() and earlyOffer:find(language == "ru" and "читать надпись" or "READ INSCRIPTION", 1, true))
 	assert(play(bargain, c.offer):find(c.offerText, 1, true))
 	local surrender = play(bargain, c.accept)
 	assert(bargain.env.BW_WON == 4 and not bargain:running() and bargain.finishes == 1)
@@ -120,6 +130,10 @@ for language, c in pairs(cases) do
 end
 
 local mirror = reachMarket("ru", cases.ru)
+play(mirror, "восток")
+assert(play(mirror, "осмотреть схему"):find("аварийному пульту", 1, true))
+assert(not mirror.env.BW_CHARGED and not mirror.env.BW_PLAN_READ)
+play(mirror, "запад")
 play(mirror, "осмотреть зеркало")
 play(mirror, "повернуть зеркало")
 play(mirror, "север")

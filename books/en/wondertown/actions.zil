@@ -10,6 +10,7 @@
 <SYNTAX LUBRICATE OBJECT WITH OBJECT (HELD CARRIED) = V-OIL>
 <SYNTAX HINT = V-HINTS>
 <SYNTAX EASY = V-EASY-TOGGLE>
+<SYNTAX FINISH REWIND = V-FINISH-REWIND>
 <SYNONYM HINT HINTS>
 <SYNONYM SQUEEZE HUG CUDDLE>
 
@@ -60,6 +61,8 @@
            <ENABLE <QUEUE I-DAWN-WARNING 25>>)>
     <ENABLE <QUEUE I-NUTMEG-AUTONOMY 8>>
     <TELL "You are Pip, a teacup-sized gnome and Grandfather Tolliver's apprentice. Every night Wrenfold's toys wake, but tonight they're growing still. Snow gathers on the roofs, Grandfather hasn't come home, and the magic key is gone from its hook. Find it and wind the workshop's heart before dawn." CR CR>
+    <COND (<NOT ,TIMER-ACTIVE>
+           <TELL "Dawn waits while you explore. Type EASY if you would like to race the morning." CR CR>)>
     <TELL D ,HERE CR>
     <V-LOOK>
     <MAIN-LOOP>
@@ -71,7 +74,9 @@
     <QUEUE I-TICK 1>
     <COND (,GAME-WON <RTRUE>)>
     <COND (<L? ,TICK-COUNT 1>
-           <TELL "The sun rises over Wrenfold before the heart is wound. All over town the toys give one great yawn and fall fast asleep, still smiling. They will sleep soundly until somebody winds the heart, and the night can begin again." CR>
+           <COND (,KEY-WOUND <TELL "The sun rises over Wrenfold. Some gears still turn, too slowly for their ticking to carry beyond the workshop.">)
+                 (T <TELL "The sun rises over Wrenfold before the heart is wound.">)>
+           <TELL " All over town the toys give one great yawn and fall fast asleep, still smiling. They will sleep soundly until the heart beats strongly again." CR>
            <SETG TICK-COUNT 0>
            <JIGS-UP "Morning has come, and the toys are sleeping.">)
           (T
@@ -1486,6 +1491,8 @@ coat, and the pages in his handwriting."
                   <TELL "The workshop heart is turning now -- slowly, but steadily. Its brass gears catch the candlelight. A deep, resonant ticking fills the chamber. It sounds like hope.">
                   <COND (<G? ,COMPANION-COUNT 0>
            <TELL " The presence of Pip's companions has made the light brighter, the ticking stronger.">)>
+                  <COND (<G? ,COMPANION-COUNT 0>
+                         <TELL " Pip can bring more companions or FINISH REWIND now and leave some toys asleep.">)>
                   <TELL " A brass keyhole gleams at its centre -- the workshop key is in place." CR>)
                  (T
                   <TELL "The workshop's heart -- a vast brass mechanism of interlocking gears -- stands silent and still. At its centre, a keyhole waits, dark and empty. Around the walls, dozens of toys stand frozen in the shadows, as if they came here hoping to be rewound." CR>)>)
@@ -1696,7 +1703,17 @@ coat, and the pages in his handwriting."
            <SETG COMPANION-COUNT <+ ,COMPANION-COUNT 1>>
            <SCORE-UPD 10>)>
     <COND (<G? ,COMPANION-COUNT 2>
-           <REWIND-ENDING>)>
+           <REWIND-ENDING>)
+          (T <TELL "Pip can bring more companions or FINISH REWIND now and leave some toys asleep." CR>)>
+    <RTRUE>>
+
+<ROUTINE V-FINISH-REWIND ()
+    <COND (<NOT <EQUAL? ,HERE ,WORKSHOP-HEART>>
+           <TELL "Pip must be beside the workshop heart to finish the rewind." CR>)
+          (<NOT ,KEY-WOUND> <TELL "The heart is still. Wind it first." CR>)
+          (<0? ,COMPANION-COUNT>
+           <TELL "The heart still needs a companion. Place one of the toys Pip is carrying beside it." CR>)
+          (T <REWIND-ENDING>)>
     <RTRUE>>
 
 <ROUTINE REWIND-ENDING ()

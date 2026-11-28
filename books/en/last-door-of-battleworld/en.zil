@@ -35,6 +35,7 @@
  (SYNONYM CELL BATTERY) (ADJECTIVE POWER)>
 <OBJECT SOCKET (DESC "emergency socket")
  (SYNONYM SOCKET PORT) (ADJECTIVE EMERGENCY)>
+<OBJECT BW-HOME-DOOR (DESC "last door") (SYNONYM DOOR DOORWAY) (ADJECTIVE LAST HOME)>
 <OBJECT LOOM (DESC "Loom") (SYNONYM LOOM MACHINE) (ADJECTIVE STITCHING REALITY)>
 <OBJECT DOOM (DESC "Doctor Doom")
  (SYNONYM DOOM PROJECTION) (ADJECTIVE DOCTOR DR)>
@@ -70,6 +71,9 @@
 
 <ROUTINE MSG-TOWER ()
  <TELL "The open tower has no roof: just a ring of teeth where the sky goes through. The Loom pulls a bright thread from a half-open doorway, one slow inch at a time. Doctor Doom stands beside it. Moonlight goes straight through his cape. The stair leads south to the market; a docking bridge reaches north to the Worldship." CR>>
+
+<ROUTINE MSG-HOME-DOOR ()
+ <TELL "Through the crack, you see a kitchen table back on Earth. The Loom's thread holds the door fast." CR>>
 
 <ROUTINE MSG-HELPER ()
  <COND (,EVACUATED

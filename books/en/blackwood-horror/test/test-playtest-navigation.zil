@@ -52,7 +52,8 @@
     <MOVE ,SYRINGE ,WINNER>
     <ASSERT-TEXT "The syringe is empty" <CO-RESUME ,CO "inject me with syringe">>
     <MOVE ,STRANGE-SERUM ,WINNER>
-    <ASSERT-TEXT "RESTART, RESTORE, or QUIT" <CO-RESUME ,CO "inject me with syringe">>
+    <ASSERT-TEXT "draw a dose directly from the vial" <CO-RESUME ,CO "examine syringe">>
+    <ASSERT-TEXT "You draw a dose from the vial" <CO-RESUME ,CO "inject me with syringe">>
     <ASSERT-TEXT "RESTART, RESTORE, or QUIT" <CO-RESUME ,CO "north">>
     <CO-RESUME ,CO "restart">
     <ASSERT "RESTART returns to the gate" <==? ,HERE ,SANITARIUM-GATE>>

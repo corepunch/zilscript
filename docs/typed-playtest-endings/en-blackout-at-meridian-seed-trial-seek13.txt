@@ -1,0 +1,109 @@
+Blackout at Meridian
+An original superhero adventure, AdventureArena 2026
+Release 1
+
+Dispatch
+Choose the hero you’ll play as: Bulwark, Arc or Lens. Examine each profile before deciding. You can give your hero a name on the character sheet. Choosing a profile starts the mission.
+
+> choose lens
+Dispatch registers you as Lens. Your ranks:
+Fighting: 10, Agility: 20
+Strength: 10, Endurance: 20
+Reason: 40, Intuition: 30
+Psyche: 20, Power: 30
+Health: 60/60, Karma: 90
+
+At nine o'clock the storm took Meridian's power, and then someone took the relay station that should have brought it back. A guard drone now holds the station, and on Meridian Bridge a tram full of passengers hangs from a broken cable over the river. You are the city's newest hero, and tonight is your first call. Get to the bridge. (Type HELP at any time for how to play.)
+
+Dispatch
+In Meridian's emergency dispatch office, your profile on the duty board now carries the red ACTIVE stamp. Every other building you can see through the window is dark. The street door leads north to Meridian Bridge.
+
+> north
+You are on Meridian Bridge, in the full force of the rain. The front carriage of a tram hangs through the broken rails. Every time it swings, the overhead cable pulls a little straighter. Faces crowd the high end of the tram. Far below, the rescue crew holds a net over the river. The relay station stands at the east end of the bridge, but the passengers come first. Dispatch is back to the south.
+
+> rescue passengers
+Power check. Rank 30; d100 1; failure.
+Challenge 20; needs success.
+The cable slips and the carriage lurches. A passenger cries out; you take a hit, but the crew braces its net below. You can try the rescue again. (Health 55 of 60.)
+
+> rescue passengers
+Power check. Rank 30; d100 11; failure.
+Challenge 20; needs success.
+The cable slips and the carriage lurches. A passenger cries out; you take a hit, but the crew braces its net below. You can try the rescue again. (Health 50 of 60.)
+
+> rescue passengers
+Power check. Rank 30; d100 82; strong success.
+Challenge 20; needs success.
+You steady the carriage and pass the passengers down, one by one, to the crew's net. The last of them, a boy in a yellow raincoat, will not let go of your hand until his feet are on the ground. (Karma +10.) The way east to the relay station is open.
+
+> rescue passengers
+Everyone is already safe.
+
+> rescue passengers
+Everyone is already safe.
+
+> rescue passengers
+Everyone is already safe.
+
+> rescue passengers
+Everyone is already safe.
+
+> rescue passengers
+Everyone is already safe.
+
+> rescue passengers
+Everyone is already safe.
+
+> rescue passengers
+Everyone is already safe.
+
+> rescue passengers
+Everyone is already safe.
+
+> rescue passengers
+Everyone is already safe.
+
+> rescue passengers
+Everyone is already safe.
+
+> rescue passengers
+Everyone is already safe.
+
+> rescue passengers
+Everyone is already safe.
+
+> east
+You are inside the relay station, a concrete hall warm enough to fog your wet sleeves. The relay console at the far end is lit brighter than anything left on the skyline. A guard drone hovers in front of it, its red eye following you. An emergency kit is clipped to the wall beside the door, which leads back west to the bridge.
+
+> strike drone
+Fighting check. Rank 10; d100 60; success.
+Your blow lands and the drone staggers, sparks pouring from one rotor. Integrity 10 of 40.
+Its stun beam catches you. (Health 40 of 60.)
+
+> strike drone
+Fighting check. Rank 10; d100 59; success.
+The drone crashes to the floor and its red eye goes dark. (Karma +10.) The console is unguarded.
+
+> strike drone
+The drone is already out of action.
+
+> strike drone
+The drone is already out of action.
+
+> strike drone
+The drone is already out of action.
+
+> strike drone
+The drone is already out of action.
+
+> strike drone
+The drone is already out of action.
+
+> strike drone
+The drone is already out of action.
+
+> strike drone
+The drone is already out of action.
+
+> strike drone
+The drone is already out of action.
