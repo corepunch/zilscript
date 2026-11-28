@@ -12,6 +12,7 @@
   <CHOICE "museum.booth" "Walk to the signal booth" "north" ,CHOICE-PROGRESS 85>
   <CHOICE-DETAILS "group" "move">)
   (<EQUAL? ,HERE ,DEAD-LETTERS>
+   <CHOICE "museum.glass" "Tap the glass and listen" "knock on cases" ,CHOICE-INVESTIGATE 65>
    <CHOICE "museum.lens" "Look through the inspection lens" "examine lens" ,CHOICE-INVESTIGATE 90>
    <COND (<NOT ,LENS-READ>
     <CHOICE "museum.turn-lens" "Tilt the brass lens toward the light" "tilt lens" ,CHOICE-PROGRESS 100>)>
@@ -19,6 +20,7 @@
    <CHOICE-DETAILS "group" "move">)
   (<EQUAL? ,HERE ,QUIET-HALL>
    <CHOICE "museum.bench" "Look at the marks on the bench" "examine bench" ,CHOICE-INVESTIGATE 80>
+   <CHOICE "museum.sit" "Sit down and listen to the quiet" "sit on bench" ,CHOICE-INVESTIGATE 70>
    <CHOICE "museum.diagram" "Study where the old wires go" "read diagram" ,CHOICE-INVESTIGATE 95>
    <CHOICE "museum.quiet-back" "Return to admissions" "east" ,CHOICE-RETURN 60>
    <CHOICE-DETAILS "group" "move">)
@@ -31,7 +33,7 @@
     (<IN? ,MESSAGE-SPOOL ,READING-BASIN>
      <CHOICE "museum.audition" "Hear the spool inside the booth" "push stud" ,CHOICE-PROGRESS 99>
      <CHOICE "museum.recover" "Lift the spool out of the basin" "take spool" ,CHOICE-INVESTIGATE 64>)>
-   <COND (,SIGNAL-HEARD
+   <COND (<ROUTE-ARMED?>
     <CHOICE "museum.reply" "Send a private acknowledgment" "push return key" ,CHOICE-PROGRESS 100>
     <CHOICE "museum.memorial" "Share the recorded minute of silence, without the voice" "push memorial key" ,CHOICE-PROGRESS 99>)>
    <CHOICE "museum.booth-back" "Return to admissions" "south" ,CHOICE-RETURN 60>

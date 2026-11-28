@@ -1,11 +1,11 @@
 [
   [
-    12,
+    13,
     "push breaker",
     "push habitat breaker"
   ],
   [
-    17,
+    19,
     "north",
     "north"
   ],
@@ -25,7 +25,7 @@
     "take torque wrench"
   ],
   [
-    19,
+    21,
     "take spool",
     "take null spool"
   ],
@@ -110,7 +110,7 @@
     "examine exam bed"
   ],
   [
-    20,
+    21,
     "take shears",
     "take ceramic shears"
   ],
@@ -125,12 +125,12 @@
     "north"
   ],
   [
-    9,
+    12,
     "compare strip with comparator",
     "compare optical comparator with witness strip"
   ],
   [
-    11,
+    14,
     "south",
     "south"
   ],
@@ -165,17 +165,17 @@
     "east"
   ],
   [
-    13,
+    14,
     "fit spool to bus",
     "fit incoming bus to null spool"
   ],
   [
-    15,
+    16,
     "cut bus with shears",
     "cut incoming bus with ceramic shears"
   ],
   [
-    18,
+    19,
     "north",
     "north"
   ],
@@ -185,22 +185,22 @@
     "open signal receiver"
   ],
   [
-    13,
+    17,
     "take wafer",
     "take memory wafer"
   ],
   [
-    12,
+    16,
     "examine wafer",
     "examine memory wafer"
   ],
   [
-    11,
+    15,
     "south",
     "south"
   ],
   [
-    16,
+    17,
     "west",
     "west"
   ],
@@ -220,7 +220,7 @@
     "north"
   ],
   [
-    12,
+    15,
     "east",
     "east"
   ],
@@ -250,7 +250,7 @@
     "inventory"
   ],
   [
-    22,
+    26,
     "put wafer in archive",
     "put memory wafer in cold archive"
   ],
@@ -260,7 +260,7 @@
     "examine decision console"
   ],
   [
-    16,
+    17,
     "south",
     "south"
   ],
@@ -270,7 +270,7 @@
     "west"
   ],
   [
-    11,
+    14,
     "south",
     "south"
   ],
@@ -290,7 +290,7 @@
     "push mechanical beacon"
   ],
   [
-    21,
+    23,
     "down",
     "down"
   ],
@@ -305,7 +305,7 @@
     "north"
   ],
   [
-    12,
+    15,
     "east",
     "east"
   ],
@@ -315,7 +315,7 @@
     "north"
   ],
   [
-    17,
+    20,
     "preserve console",
     "preserve decision console"
   ]

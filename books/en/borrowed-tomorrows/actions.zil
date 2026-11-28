@@ -1,6 +1,7 @@
 <SYNTAX UNFOLD OBJECT = V-UNFOLD>
 <SYNONYM UNFOLD SPREAD FLATTEN>
 <SYNTAX FOLD OBJECT = V-FOLD>
+<SYNTAX UNCLIP OBJECT = V-UNCLIP>
 <SYNTAX ATTACK OBJECT = V-ATTACK>
 <SYNTAX HINT = V-BOOK-HINT>
 <SYNONYM HINT HINTS HELP>
@@ -19,11 +20,16 @@
        (,WIDE-LOAN <TELL "Folded up small again, it would only have room for one name. You leave it open." CR>)
        (T <TELL "It's already folded as small as it will go." CR>)>>
 
+<ROUTINE V-UNCLIP ()
+ <COND (<AND <EQUAL? ,HERE ,TERRACE> <IN? ,LEAF ,FRAME> <EQUAL? ,PRSO ,LEAF ,FRAME>>
+        <PERFORM ,V?TAKE ,LEAF> <RTRUE>)
+       (T <TELL "There's nothing clipped in there to take out." CR>)>>
+
 <ROUTINE V-BOOK-HINT ()
- <COND (<NOT <FSET? ,CASE ,OPENBIT>> <TELL "The lending cabinet in the hall has a little door. Try opening it." CR>)
+ <COND (<AND <IN? ,LEAF ,CASE> <NOT <FSET? ,CASE ,OPENBIT>>> <TELL "The lending cabinet in the hall has a little door. Try opening it." CR>)
        (<IN? ,LEAF ,CASE> <TELL "Take the tomorrow leaf out of the lending cabinet." CR>)
-       (<NOT ,RECEIPT-READ> <TELL "Read the old loan receipt in the dry basin. It explains what went wrong." CR>)
        (<IN? ,LEAF ,FRAME> <TELL "Read from the reading frame, out loud, for the whole market." CR>)
+       (<AND <NOT ,WIDE-LOAN> <NOT ,RECEIPT-READ>> <TELL "Read the old loan receipt in the dry basin. It explains what went wrong." CR>)
        (<NOT <HELD? ,LEAF>> <TELL "Pick up the tomorrow leaf again. You left it somewhere along the way." CR>)
        (<AND <NOT ,WIDE-LOAN> <NOT ,BOARD-READ>> <TELL "Read the words carved on the folding board in the folding room." CR>)
        (<NOT ,WIDE-LOAN> <TELL "Lay the tomorrow leaf on the folding board to open its old folds." CR>)
@@ -40,13 +46,13 @@
 
 <ROUTINE LENDING-F (R)
  <COND (<EQUAL? .R ,M-LOOK>
-        <TELL "You are in the Lending Hall of the library, a tall, hushed room with a polished wooden floor. Someone has pushed a tall wooden [[lending cabinet]] right up against the big window. ">
+        <TELL "You are in the Lending Hall of the library, a hushed room whose shelves climb out of sight into the rafters. Someone has pushed a wooden [[lending cabinet]] right up against the big window. ">
         <COND (,ON-LOAN <TELL "Only one stripe of [[sunlight]] falls across the floor now, today's, and beside it the boards have gone grey and still.">)
               (T <TELL "Two stripes of [[sunlight]] fall across the floor: today's, and beside it a narrow golden stripe that must be tomorrow's.">)>
         <TELL " An arch to the [[east]] opens into the folding room, and a passage leads [[north]] to the dry basin." CR>)>>
 <ROUTINE FOLDING-F (R)
  <COND (<EQUAL? .R ,M-LOOK>
-        <TELL "This is the Folding Room, a small, bright room with almost nothing in it except a long wooden [[folding board]]. The board is worn smooth at its edges but looks almost new in the middle. The lending hall is back through the arch to the [[west]], and a staircase climbs [[north]] to the reading terrace." CR>)>>
+        <TELL "This is the Folding Room, a bright room barely wider than its long wooden [[folding board]]. Sunlight picks out the furrows in the grain. The edges shine from years of elbows; the middle looks almost untouched. The lending hall is back through the arch to the [[west]], and a staircase climbs [[north]] to the reading terrace." CR>)>>
 <ROUTINE BASIN-F (R)
  <COND (<EQUAL? .R ,M-LOOK>
         <TELL "You are in the Dry Basin, a cool stone room where a long [[stone trough]] runs along one wall and out through a gap toward the market.">
@@ -55,14 +61,21 @@
         <TELL " An old [[loan receipt]] has been pressed flat against the stone wall. The lending hall is back to the [[south]], and a doorway to the [[east]] opens onto the reading terrace." CR>)>>
 <ROUTINE TERRACE-F (R)
  <COND (<EQUAL? .R ,M-LOOK>
-        <TELL "You are on the Reading Terrace, a wide stone balcony high above the town. Far below lies the [[market]], with its striped stalls, the bakery and the crowded square. A brass [[reading frame]] stands at the railing, facing out over the market.">
+        <TELL "You are on the Reading Terrace, a stone balcony high above the town. Far below, the striped awnings in the [[market]] look like squares cut from a quilt. A brass [[reading frame]] stands at the railing, facing out over the market.">
         <COND (<IN? ,LEAF ,FRAME> <TELL " The [[tomorrow leaf]] is clipped in the frame, lifting at both corners like a child getting ready to jump.">)
               (,ON-LOAN <TELL " Down below, the shadows have stopped getting longer under the stalls, and people stand still, waiting for an evening that isn't coming.">)
               (T <TELL " Down below, the afternoon shadows are slowly growing longer.">)>
         <TELL " Stairs lead [[south]] down to the folding room, and a doorway to the [[west]] leads back to the dry basin." CR>)>>
 
 <ROUTINE CASE-F ()
- <COND (<AND <VERB? OPEN SEARCH LOOK-INSIDE> <NOT <FSET? ,CASE ,OPENBIT>>>
+ <COND
+       (<VERB? CLOSE>
+        <COND (<FSET? ,CASE ,OPENBIT> <FCLEAR ,CASE ,OPENBIT>
+               <TELL "The little door catches with a click, the sound of a book closing." CR>)
+              (T <TELL "The little door is already shut. The wood fits so neatly you can barely see the join." CR>)>)
+       (<VERB? RUB>
+        <TELL "Your finger follows a polished crescent in the wood. Many other thumbs have waited right there before opening the door." CR>)
+       (<AND <VERB? OPEN SEARCH LOOK-INSIDE> <NOT <FSET? ,CASE ,OPENBIT>>>
         <FSET ,CASE ,OPENBIT>
         <COND (<IN? ,LEAF ,CASE> <TELL "You open the cabinet's little door. Inside, all alone on the shelf, lies a [[tomorrow leaf]]." CR>)
               (T <TELL "You open the empty cabinet." CR>)>)
@@ -104,7 +117,12 @@
        (<VERB? LOOK-INSIDE OPEN CLOSE>
         <TELL "The big window doesn't open. Through it you can see the rooftops of the town, all waiting." CR>)>>
 <ROUTINE BOARD-F ()
- <COND (<VERB? EXAMINE READ>
+ <COND
+       (<AND <VERB? PUT-UNDER> <EQUAL? ,PRSI ,BOARD> <EQUAL? ,PRSO ,LEAF>>
+        <TELL "Under the board would be a poor place for a day that needs spreading out. You keep hold of it." CR>)
+       (<VERB? CLIMB-ON>
+        <TELL "It is big enough to nap on, but the library has left the board clear for readers. You keep your shoes on the floor." CR>)
+       (<VERB? EXAMINE READ>
         <SETG BOARD-READ T>
         <TELL "Words are carved into the wood of the board: LAY A LEAF ON THE BOARD, GOLD SIDE UP. TO SHARE YOUR DAY, OPEN THE OLD FOLDS. Nothing anywhere says you aren't allowed to.">
         <COND (<HELD? ,LEAF> <TELL " You have the [[tomorrow leaf]] in your hand.">)>
@@ -134,7 +152,11 @@
        (<VERB? SMELL>
         <TELL "Damp stone and old ink." CR>)>>
 <ROUTINE RILL-F ()
- <COND (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,RILL>>
+ <COND
+       (<VERB? KNOCK KICK>
+        <COND (,ON-LOAN <TELL "The dry channel echoes all the way to the gap. You wait; nothing splashes back." CR>)
+              (T <TELL "Your tap sends a tiny wrinkle across the water. It straightens out and heads for town." CR>)>)
+       (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,RILL>>
         <TELL "Paper and water don't mix. You keep the " D ,PRSO " dry." CR>)
        (<VERB? DRINK DRINK-FROM>
         <COND (,ON-LOAN <TELL "There isn't a drop left to drink." CR>)
@@ -157,7 +179,14 @@
        (<VERB? SMELL>
         <TELL "Cold stone and river weed." CR>)>>
 <ROUTINE FRAME-F ()
- <COND (<VERB? EXAMINE>
+ <COND
+       (<VERB? LISTEN>
+        <COND (<IN? ,LEAF ,FRAME> <TELL "The corners rustle twice. It sounds almost like someone taking a breath to speak." CR>)
+              (T <TELL "The empty clips chatter in the wind, a tiny audience waiting for a page." CR>)>)
+       (<VERB? UNCLIP> <V-UNCLIP> <RTRUE>)
+       (<VERB? LOOK-BEHIND>
+        <TELL "From the market side the frame would look like a little window. Anyone below will see the whole page at once." CR>)
+       (<VERB? EXAMINE>
         <TELL "A brass stand with two clips, made to hold a page up for the whole market to see. The clips are set very far apart, much too far for an ordinary little folded page.">
         <COND (<IN? ,LEAF ,FRAME> <TELL " The [[tomorrow leaf]] fits them both.">)
               (<AND <HELD? ,LEAF> ,WIDE-LOAN> <TELL " The wide [[tomorrow leaf]] might fit them both.">)>
@@ -219,7 +248,15 @@
        (<VERB? RUB>
         <TELL "The brass railing is warm from the sun and smooth from many hands." CR>)>>
 <ROUTINE LEAF-F ()
- <COND (<AND <VERB? TAKE> <FSET? ,LEAF ,NDESCBIT>> <FCLEAR ,LEAF ,NDESCBIT> <RFALSE>)
+ <COND
+       (<VERB? LOOK-BEHIND>
+        <COND (,WIDE-LOAN <TELL "The back is pale gold, with crease lines like the streets on a town map." CR>)
+              (T <TELL "The back is packed with folds so tight there is hardly a smooth place to rest your thumb." CR>)>)
+       (<VERB? KICK ATTACK>
+        <TELL "You stop yourself. A dent in the cabinet could be fixed. A dent in tomorrow is quite another thing." CR>)
+       (<AND <VERB? TAKE> <IN? ,LEAF ,FRAME>>
+        <COND (<EQUAL? <ITAKE> T> <TELL "You lift the two clips and catch the page before the wind does." CR>)>
+        <RTRUE>)
        (<AND <VERB? TAKE> <IN? ,LEAF ,CASE>>
         <COND (<FSET? ,CASE ,OPENBIT>
                <MOVE ,LEAF ,WINNER> <SETG ON-LOAN T>
@@ -230,7 +267,7 @@
        (<VERB? READ>
         <COND (<IN? ,LEAF ,FRAME> <PUBLISH-LOAN>)
               (<IN? ,LEAF ,CASE> <TELL "Through the open door you can make out the word TOMORROW and one box for one name." CR>)
-              (T <TELL "In small gold letters it says TOMORROW, just under your name. Nothing happens when you read it here, quietly, in your own hands. A word like that is meant to be read out where everyone can see it." CR>)>)
+              (T <TELL "In small gold letters it says TOMORROW, just under your name. You read it softly. The word stays here instead of going out over the rooftops. It needs a place where everyone can see the page." CR>)>)
        (<VERB? SMELL>
         <TELL "It smells like the air just before morning: cool, clean, and a little like toast." CR>)
        (<VERB? LISTEN>
@@ -244,10 +281,12 @@
         <COND (,WIDE-LOAN <TELL "The wide page flaps like a little flag, and for a moment you feel a breeze that smells of morning." CR>)
               (T <TELL "The tight little square doesn't flutter at all. It's folded much too firmly for that." CR>)>)>>
 <ROUTINE PUBLISH-LOAN ()
+ <SETG PUBLISHED-LOAN T>
  <TELL "Standing at the frame, you read the one word on the page out loud, as clearly as you can: TOMORROW. The wide page glows, and down in the market a hundred names call back, one after another, until all the empty space beside yours is full. The shadows begin to grow longer again. Outside the bakery, someone takes back a chair they were about to put away." CR CR
        "THE END -- ROOM FOR EVERY NAME" CR>
  <FINISH> <RTRUE>>
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? T))
- <COND (<IN? ,LEAF ,FRAME> <TELL "Library record: a day shared." CR>)
+ <COND (,PUBLISHED-LOAN <TELL "Library record: a day shared." CR>)
+       (<IN? ,LEAF ,FRAME> <TELL "Library record: one day ready to share. Read from the frame to publish it." CR>)
        (,ON-LOAN <TELL "Library record: one day on loan." CR>)
        (T <TELL "Library record: no loans outstanding." CR>)>>

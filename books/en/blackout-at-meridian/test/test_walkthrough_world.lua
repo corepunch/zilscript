@@ -10,6 +10,15 @@ h:force(100)
 h:expect("look", "Choose the hero you’ll play as")
 h:expect("north", "Choose a profile first")
 h:expect("out", "Choose a profile first")
+h:expect("examine street door", "bowed inward")
+h:expect("open street door", "Profile first")
+h:expect("enter street door", "Choose a profile first")
+assert(h.env.HERE == h.env.DISPATCH, "the physical exit cannot bypass registration")
+h:expect("knock on street door", "loose fitting")
+h:expect("knock on window", "little tick")
+h:expect("listen to window", "rescue crew's whistles")
+h:expect("search duty board", "Three profile cards")
+h:expect("touch duty board", "polished by years")
 for _, dir in ipairs({ "south", "east", "west", "up", "down" }) do h:expect(dir, "You can't go that way.") end
 h:expect("examine sheet", "No profile registered yet.")
 h:expect("score", "no profile registered yet")
@@ -53,7 +62,7 @@ local s = h:state()
 assert(s.class == 3 and s.max == 60 and s.karma == 90, "a second choice changes nothing")
 h:expect("examine lens", "This is your profile.")
 h:expect("examine board", "The [[Lens]] card is marked ACTIVE")
-h:expect("look", "Your profile is marked active")
+h:expect("look", "red ACTIVE stamp")
 h:expect("help", "RESCUE the PASSENGERS")
 
 -- Scenery named in prose answers, per room. Jumping and swimming never kill.
@@ -66,7 +75,9 @@ local scenery = {
 }
 for _, step in ipairs(scenery) do h:expect(step[1], step[2]) end
 
-h:expect("north", "People are still inside.")
+h:expect("enter street door", "Faces crowd the high end")
+h:expect("knock on tram", "taps back twice")
+assert(not h:state().rescued and #h.reports == 0, "a reassuring knock is not a rescue attempt")
 h:expect("help", "RESCUE the PASSENGERS")
 for _, step in ipairs({
 	{ "examine crew", "yellow coats" }, { "talk to crew", "won't hold for long" }, { "ask crew about tram", "won't hold for long" },
@@ -83,13 +94,17 @@ for _, step in ipairs({
 }) do h:expect(step[1], step[2]) end
 assert(h:running(), "no scenery verb ends the story")
 h:expect("south", "emergency dispatch office")
-h:expect("north", "People are still inside.")
+h:expect("north", "Faces crowd the high end")
 h:expect("pull cable", "pass the passengers down")
 h:expect("look", "passengers are safe")
+h:expect("knock on tram", "enormous tin drum")
 h:expect("examine tram", "Nobody is inside now.")
 h:expect("talk to crew", "shut it down")
 h:expect("help", "STRIKE the DRONE or DISABLE the CONSOLE")
 h:expect("enter door", "concrete hall")
+h:expect("search kit", "a single dose")
+h:expect("smell kit", "disinfectant and wet concrete")
+assert(not h:state().boosted, "inspecting the kit is not using it")
 h:expect("west", "passengers are safe")
 h:expect("go back", "concrete hall")
 for _, step in ipairs({

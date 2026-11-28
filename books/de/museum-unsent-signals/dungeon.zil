@@ -1,18 +1,18 @@
 <ROOM ADMISSIONS (IN ROOMS) (GLOBAL RELAY) (DESC "Eingangshalle") (FLAGS RLANDBIT ONBIT)
 	(OST TO DEAD-LETTERS) (WEST TO QUIET-HALL) (NORD TO SIGNAL-BOOTH)
-	(LDESC "Du stehst in der Eingangshalle des Museums der ungesendeten Signale. Das Licht ist gedimmt. Zu hören ist nur das ferne Summen der alten Relaisanlage. Hinter der [[Kasse]] liegt ein Stapel frisch gestempelter Eintrittskarten. Darüber glänzt eine blank polierte [[Messingtafel]]. Im [[Osten->ost]] geht es zur Galerie der unzustellbaren Briefe, im [[Westen->west]] zum Saal der Stille. Ein kurzer Gang führt nach [[Norden->nord]] in die Signalkabine.")>
+	(LDESC "Du stehst in der Eingangshalle. In der [[Glastür->glastuer]] spiegelt sich die Lampe über der [[Kasse]]. Auf dem Tresen trocknet die Tinte der letzten Eintrittskarten. An der [[Messingtafel]] hängt ein Zettel. Im [[Osten->ost]] liegt die Galerie der unzustellbaren Briefe, im [[Westen->west]] der Saal der Stille. Aus der Signalkabine im [[Norden->nord]] dringt ein leises Summen.")>
 
 <ROOM DEAD-LETTERS (IN ROOMS) (GLOBAL RELAY) (DESC "Galerie der unzustellbaren Briefe") (FLAGS RLANDBIT ONBIT)
 	(WEST TO ADMISSIONS)
-	(LDESC "Die Galerie der unzustellbaren Briefe ist ein langer, dämmriger Raum voller [[Glasvitrinen->vitrinen]]. In jeder liegt eine Nachricht, die jemand aufgenommen und dann doch nie abgeschickt hat. In den untersten Vitrinen liegen die Aufnahmen derer, die es sich anders überlegt haben. Auf Hüfthöhe steht eine runde [[Lupe]] in einer Messingfassung. Mit ihr lassen sich die Stücke aus der Nähe betrachten. Im [[Westen->west]] geht es zurück zur Eingangshalle.")>
+	(LDESC "In der Galerie ziehst du an einer Reihe beleuchteter [[Glasvitrinen->vitrinen]] vorbei. Das Glas spiegelt deine Schritte, eine Vitrine nach der anderen. Vor einem leeren Fach steht eine runde [[Lupe]] in einer Messingfassung. Der Durchgang im [[Westen->west]] führt zurück zur Eingangshalle.")>
 
 <ROOM QUIET-HALL (IN ROOMS) (GLOBAL RELAY) (DESC "Saal der Stille") (FLAGS RLANDBIT ONBIT)
 	(OST TO ADMISSIONS)
-	(LDESC "Das ist der Saal der Stille, der einzige Raum im Museum, der dafür gebaut wurde, dem Nichts zuzuhören. Dicker Teppich schluckt deine Schritte. Die Stille ist angenehm, wie ein Mantel, den man über ein schlafendes Kind legt. Eine schlichte [[Holzbank]] steht vor der Wand mit dem alten [[Schaltplan]] der Relaisanlage. Im [[Osten->ost]] geht es zurück zur Eingangshalle.")>
+	(LDESC "Im Saal der Stille verschluckt der Teppich schon den ersten Schritt. Eine schlichte [[Holzbank]] steht vor dem alten [[Schaltplan]] der Relaisanlage. Aus der Eingangshalle im [[Osten->ost]] fällt ein Streifen Licht bis an die Bank.")>
 
 <ROOM SIGNAL-BOOTH (IN ROOMS) (GLOBAL RELAY) (DESC "Signalkabine") (FLAGS RLANDBIT ONBIT)
 	(SUED TO ADMISSIONS)
-	(LDESC "Du bist in der Signalkabine, einem kleinen Glasraum im Herzen der Relaisanlage. Die Luft summt leise. Das Glas ist noch warm, wo andere ihre Stirn dagegen gelehnt haben. Im Pult sitzt eine flache [[Lesemulde]] für Tonspulen, daneben ein runder [[Abhörknopf]]. Darunter liegen zwei Sendetasten: links die [[Rückantworttaste]], rechts die [[Gedenktaste]]. Nach [[Süden->sued]] führt der Gang zurück zur Eingangshalle.")>
+	(LDESC "Die Signalkabine ist ein kleiner Glasraum mitten in der brummenden Relaisanlage. Auf der Scheibe ist ein Halbmond aus Atem beschlagen. Du wartest einen Moment: Es ist dein eigener. Im Pult sitzt eine flache [[Lesemulde]] für Tonspulen, daneben ein runder [[Abhörknopf]]. Darunter liegen zwei Sendetasten: links die [[Rückantworttaste]], rechts die [[Gedenktaste]]. Nach [[Süden->sued]] führt der Gang zurück zur Eingangshalle.")>
 
 <OBJECT MUSEUM-PLAQUE (IN ADMISSIONS) (DESC "Messingtafel") (SYNONYM MESSINGTAFEL TAFEL SCHILD ZETTEL)
 	(FLAGS NDESCBIT DIEBIT READBIT) (ACTION MUSEUM-PLAQUE-F)>
@@ -57,7 +57,11 @@
 	(ADJECTIVE ALT ALTE ALTER ALTEN)
 	(FLAGS NDESCBIT DIEBIT) (ACTION RELAY-F)>
 
-<OBJECT LOBBY (IN ADMISSIONS) (DESC "Eingangshalle") (SYNONYM EINGANGSHALLE HALLE LICHT T\%UR TUER GANG MUSEUM BODEN)
+<OBJECT MUSEUM-DOOR (IN ADMISSIONS) (DESC "Glastür")
+ (SYNONYM GLASTUER GLAST\%UR EINGANGSTUER EINGANGST\%UR TUER T\%UR)
+ (FLAGS NDESCBIT DIEBIT) (ACTION MUSEUM-DOOR-F)>
+
+<OBJECT LOBBY (IN ADMISSIONS) (DESC "Eingangshalle") (SYNONYM EINGANGSHALLE HALLE LICHT GANG MUSEUM BODEN)
 	(FLAGS NDESCBIT DIEBIT) (ACTION LOBBY-F)>
 
 <OBJECT GALLERY (IN DEAD-LETTERS) (DESC "Galerie") (SYNONYM GALERIE RAUM ZIMMER T\%UR TUER BRIEFE BODEN)

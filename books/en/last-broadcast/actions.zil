@@ -16,7 +16,7 @@
 
 <ROUTINE LB-CUTTING-LOOK (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "This is the disc cutting room, where the station makes its own recordings. It is warm in here, and the air has the sharp, sweet smell of lacquer. ">
+		<TELL "This is where Saint Bride cuts voices into lacquer. The air is warm enough to bring out its pear-drop smell; after the rain it is almost sickly. ">
 		<COND (<FSET? ,LB-CUTTER ,OPENBIT> <TELL "The [[cutter]] stands against the wall with its inspection cover lifted, its heavy arm folded over the turntable.">)
 			(T <TELL "The [[cutter]] stands against the wall under its inspection cover, its heavy arm folded over the turntable.">)>
 		<TELL " A fine [[curl of lacquer->lacquer curl]] lies beside it, and the [[register]] sits on a sloping stand. The control room is to the [[south]], and a door to the east opens into the [[archive->east]]." CR> <RTRUE>)>>
@@ -97,7 +97,9 @@
 		(<VERB? RUB> <TELL "Stiff card, softened at the corners by handling." CR> <RTRUE>)
 		(<VERB? LOOK-UNDER> <COND (<AND <IN? ,LB-LEDGER ,LB-ARCHIVE> <NOT <FSET? ,LB-LEDGER ,TOUCHBIT>>> <TELL "Under the sleeve, the corner of a [[wage ledger]] pokes out." CR>) (T <TELL "Nothing but the scarred top of the reading table." CR>)> <RTRUE>)>>
 <ROUTINE LB-DISC-F ()
-	<COND (<VERB? EXAMINE READ>
+	<COND
+		(<AND <VERB? ATTACK KICK> <EQUAL? ,PRSO ,LB-DISC>> <TELL "There is only one copy of those six minutes. You keep it intact." CR> <RTRUE>)
+		(<VERB? EXAMINE READ>
 		<TELL "An aluminium-based lacquer [[disc]], sixteen inches across. Edge number A17; one continuous band, about six minutes at the marked speed. It requires the control-room gramophone and a playback stylus. The edge is chipped; the groove is sound." CR>
 		<RTRUE>)
 		(<VERB? PLAY> <LB-PLAY>)
@@ -202,7 +204,9 @@
 		(<VERB? PUT-ON PUT> <COND (<EQUAL? ,PRSI ,LB-BODY> <TELL "You lay nothing on him. Hold an exhibit up to the wound and compare them instead." CR> <RTRUE>)>)>>
 
 <ROUTINE LB-MICROPHONE-F ()
-	<COND (<VERB? EXAMINE>
+	<COND
+		(<VERB? LOOK-BEHIND> <TELL "The cable loops back through a hole in the floor. The lamp on its collar tells you nothing about what happened at the far end." CR> <RTRUE>)
+		(<VERB? EXAMINE>
 		<TELL "The felt around the [[microphone]] smells of old tobacco. The microphone wears a red supply lamp. Its tiny [[plate->heater plate]] says HEATER, not ON AIR. It shows that the microphone is warm, not that its voice reaches the transmitter. [[Ruth]] has been treating the two as synonymous." CR> <RTRUE>)
 		(<VERB? LISTEN> <TELL "You lean close. The microphone gives you nothing back but a faint tick from its warm casing." CR> <RTRUE>)
 		(<VERB? RUB> <TELL "The casing is warm under your fingers, warmer than anything else in the studio." CR> <RTRUE>)
@@ -210,7 +214,9 @@
 		(<VERB? KNOCK> <TELL "You tap the grille. Ruth gives you the look an organist gives a cough during the sermon." CR> <RTRUE>)>>
 
 <ROUTINE LB-SWITCH-F ()
-	<COND (<VERB? EXAMINE READ>
+	<COND
+		(<VERB? LOOK-BEHIND> <TELL "Two cloth-covered leads disappear into the rack, tagged in pencil. Different sources, the same wire out to sea." CR> <RTRUE>)
+		(<VERB? EXAMINE READ>
 		<TELL "The [[routing switch]] selects MIC or DISC independently of the microphone's red heater lamp. It was found at DISC. A [[wax dab]] under its guard records that position; turning it now would tell you nothing about then. The [[gramophone]] supplies the second feed." CR> <RTRUE>)
 		(<VERB? TURN SPIN PUSH MOVE> <TELL "The transmitter is isolated. You test the routing lever without disturbing the wax witness mark: MIC and DISC are independent of the studio heater lamp." CR> <RTRUE>)
 		(<VERB? RUB> <TELL "The bakelite lever is smooth and cool. Under the guard the wax feels brittle; one careless shove would crumble it." CR> <RTRUE>)
@@ -237,7 +243,9 @@
 		(<VERB? LOOK-UNDER> <TELL "Under the stand is only a box of blank aluminium discs, still in their wrapping." CR> <RTRUE>)>>
 
 <ROUTINE LB-GENERATOR-F ()
-	<COND (<VERB? EXAMINE>
+	<COND
+		(<VERB? LAMP-OFF> <TELL "You leave the flywheel running. The last person to lose the light in this building is still upstairs." CR> <RTRUE>)
+		(<VERB? EXAMINE>
 		<TELL "The [[generator]] shudders on its rubber feet, powering the lights and clocks. Accumulators buffer the transmitter; a small voltage sag can stop an office clock without silencing the station. Its mechanical recorder stamps the [[voltage chart]] independently of the electric clocks." CR> <RTRUE>)
 		(<VERB? LISTEN> <TELL "A deep, steady thump, so regular you stop hearing it until you listen. Beneath it the recording instrument ticks off the minutes." CR> <RTRUE>)
 		(<VERB? RUB> <TELL "The casing is hot and shivering. Your hand comes away grey with oily soot." CR> <RTRUE>)
@@ -270,7 +278,16 @@
 		(<VERB? SMELL> <TELL "Carbolic soap and stewed tea." CR> <RTRUE>)>>
 
 <ROUTINE LB-BAG-F ()
-	<COND (<VERB? EXAMINE>
+	<COND
+		(<VERB? OPEN SEARCH LOOK-INSIDE>
+		<COND (<NOT <FSET? ,LB-BAG ,OPENBIT>>
+			<FSET ,LB-BAG ,OPENBIT> <TELL "Edith turns the clasp for you. ">)>
+		<COND (<IN? ,LB-DRESSING ,LB-BAG>
+			<TELL "Beneath a spare roll of gauze is a [[bloodied dressing]]." CR>
+			<THIS-IS-IT ,LB-DRESSING>)
+			(T <TELL "Edith holds the bag open. Spare gauze and a roll of instruments, nothing else from tonight." CR>)>
+		<RTRUE>)
+		(<VERB? EXAMINE>
 		<TELL "A [[medical bag]], kept private rather than locked. Edith has given permission to inspect it. ">
 		<COND (<FSET? ,LB-BAG ,OPENBIT>
 			<TELL "It stands open now. ">
@@ -311,7 +328,9 @@
 		(<VERB? CLIMB-FOO CLIMB-UP> <TELL "Not in this wind, and not without a harness." CR> <RTRUE>)>>
 
 <ROUTINE LB-LAMP-F ()
-	<COND (<VERB? EXAMINE READ>
+	<COND
+		(<VERB? LISTEN> <TELL "Each raindrop makes a dry little hiss. The lamp has no way of telling you whose voice is on the carrier." CR> <RTRUE>)
+		(<VERB? EXAMINE READ>
 		<TELL "The green [[signal lamp]] follows the transmitter carrier. It cannot distinguish a live voice from a record, or truth from a man being paid to read it. From here the studio's red lamp is invisible: no outside witness could have seen it." CR> <RTRUE>)
 		(<VERB? RUB> <TELL "The glass is hot. Raindrops hiss and vanish where they strike it." CR> <RTRUE>)
 		(<VERB? LOOK-BEHIND> <TELL "Its cable runs down the mast to the transmitter below." CR> <RTRUE>)>>
@@ -550,7 +569,7 @@
 		(T <TELL "The case is open. Your casebook records observations; optional hints require HINT CASEBOOK." CR>)>>
 <ROUTINE LB-OFFICE-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL "This is Julian Vane's office, a cramped room of [[filing cabinets]], deed boxes and cigar smoke. The air is too warm, and under the smoke there is a smell like old pennies. Vane's [[body]] sits slumped in his chair beneath an electric [[office clock]], his back to the door. ">
+		<TELL "This is Julian Vane's office, so narrow that the [[filing cabinets]] crowd anyone standing at the desk. The air is too warm. Under the stale cigar smoke is the smell of old pennies. Vane's [[body]] sits slumped in his chair beneath an electric [[office clock]], his back to the door. ">
 		<COND (<FSET? ,LB-HATCH ,OPENBIT> <TELL "A square service [[hatch]] in the floor stands open, and warm air rises from the [[passage below->down]].">)
 			(T <TELL "A square service [[hatch]] is set flush in the floor, bolted shut over whatever lies [[below->down]].">)>
 		<TELL " The hall is back to the [[south]]." CR> <RTRUE>)>>
@@ -562,7 +581,10 @@
 		<TELL " The tunnel runs back south to the [[generator room->south]]." CR> <RTRUE>)>>
 
 <ROUTINE LB-WEIGHT-F ()
-	<COND (<VERB? EXAMINE>
+	<COND
+		(<VERB? LOOK-BEHIND SEARCH> <TELL "You tilt the brass in the light without rubbing the rim. A dark fleck has lodged behind the lug, beyond the reach of a fast wipe." CR> <RTRUE>)
+		(<AND <VERB? ATTACK KICK> <EQUAL? ,PRSO ,LB-WEIGHT>> <TELL "You keep the weight unmarked. You already have one blow to account for." CR> <RTRUE>)
+		(<VERB? EXAMINE>
 		<TELL "A loose [[brass counterweight]], heavy enough to balance the cutting arm. One rim has a broken notch and a damp polished crescent. Something dark remains behind its retaining lug. Its edge has the shape of an incomplete crescent." CR> <RTRUE>)
 		(<VERB? COMPARE> <LB-COMPARE>)
 		(<VERB? SMELL> <TELL "Brass and lacquer, and faintly something like iron." CR> <RTRUE>)
@@ -668,21 +690,27 @@
 
 <ROUTINE LB-SEA-F ()
 	<COND
+		(<VERB? EXAMINE> <TELL "Water climbs the outside face of the breakwater, folds over the top, and comes through the gaps in the planks." CR> <RTRUE>)
+		(<VERB? CROSS ENTER> <TELL "The next wave takes the entire top of it. You step back until the soles of your shoes stop slipping." CR> <RTRUE>)
 		(<VERB? LISTEN> <TELL "The sea booms against the stone, and the planks shudder under your feet." CR> <RTRUE>)
 		(<VERB? SMELL> <TELL "Salt, weed and cold." CR> <RTRUE>)>>
 
 <ROUTINE LB-COATS-F ()
 	<COND
+		(<VERB? WEAR TAKE> <TELL "You lift a heavy sleeve. Rain runs down it onto your cuff. Someone will need their oilskin when the boat gets back." CR> <RTRUE>)
+		(<VERB? SHAKE> <TELL "A shower of cold drops lands in the puddle. All four owners must have come in soaked." CR> <RTRUE>)
 		(<VERB? SEARCH LOOK-INSIDE> <TELL "You go through the pockets: matches, a pipe, a tide table, a mainland bus ticket. Nothing that belongs to tonight." CR> <RTRUE>)
 		(<VERB? SMELL> <TELL "Wet rubberised cotton and sheep's wool." CR> <RTRUE>)>>
 
 <ROUTINE LB-CABINETS-F ()
 	<COND
+		(<VERB? LOOK-BEHIND> <TELL "The backs are jammed against the wall. Pale stripes in the dust show they haven't been moved in years." CR> <RTRUE>)
 		(<VERB? OPEN SEARCH> <TELL "Every drawer is locked. The police can have the keys; tonight's evidence is in plainer sight." CR> <RTRUE>)
 		(<VERB? KNOCK> <TELL "The steel gives back a dull, full sound. Nothing in these is empty." CR> <RTRUE>)>>
 
 <ROUTINE LB-FELT-F ()
 	<COND
+		(<VERB? SMELL> <TELL "Cigarettes and damp wool. The felt has been soaking up more than sound." CR> <RTRUE>)
 		(<VERB? RUB> <TELL "Soft and dusty. It swallows the sound of your hand completely." CR> <RTRUE>)
 		(<VERB? KNOCK> <TELL "Your knock makes no sound at all, which is the point of it." CR> <RTRUE>)>>
 
@@ -718,6 +746,7 @@
 
 <ROUTINE LB-RANGE-F ()
 	<COND
+		(<VERB? SMELL> <TELL "Hot iron and the faint bitter smell of a kettle that has boiled dry once too often." CR> <RTRUE>)
 		(<VERB? RUB> <TELL "Warm as a sleeping cat. You keep your hand there longer than you meant to." CR> <RTRUE>)
 		(<VERB? LISTEN> <TELL "The kettle ticks and settles, and the fire shifts in the grate." CR> <RTRUE>)>>
 

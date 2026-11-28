@@ -12,6 +12,7 @@ For an ending action it replays the same numbered path into a fresh game, since 
 | Signal Booth | No spool and no decision |
 | Signal Booth | Spool carried |
 | Signal Booth | Spool seated; audition or recover without legend |
-| Signal Booth | Legend and audition known; both endings |
+| Signal Booth | Legend known and spool auditioned in place; both endings |
+| Signal Booth | Auditioned spool removed; reload and replay required |
 
-38 authored card executions across 7 coverage states. The walkthrough also checks no early endings, a stable read-only menu, and both numeric-only outcomes.
+46 authored card executions across 8 coverage states. The walkthrough also checks no early endings, a stable read-only menu, and both numeric-only outcomes.

@@ -2,14 +2,17 @@ local ending_global = "MUSEUM_END"
 
 local loaded = {"letters","take-spool","letters-back","booth","load"}
 local ready = {"letters","turn-lens","take-spool","letters-back","booth","load","audition"}
+local recovered = {table.unpack(ready)}
+recovered[#recovered+1] = "recover"
 local states = {
  {path={}, room="ADMISSIONS"},
- {path={"letters"}, room="DEAD_LETTERS", yes={"turn-lens","take-spool"}},
- {path={"quiet"}, room="QUIET_HALL", yes={"diagram","bench"}},
+ {path={"letters"}, room="DEAD_LETTERS", yes={"turn-lens","take-spool","glass"}},
+ {path={"quiet"}, room="QUIET_HALL", yes={"diagram","bench","sit"}},
  {path={"booth"}, room="SIGNAL_BOOTH", no={"reply","memorial","audition"}},
  {path={"letters","take-spool","letters-back","booth"}, room="SIGNAL_BOOTH", yes={"load"}, no={"reply","memorial","audition"}},
  {path=loaded, room="SIGNAL_BOOTH", yes={"audition","recover"}, no={"reply","memorial"}},
- {path=ready, room="SIGNAL_BOOTH", yes={"reply","memorial"}},
+ {path=ready, room="SIGNAL_BOOTH", yes={"reply","memorial","recover"}},
+ {path=recovered, room="SIGNAL_BOOTH", yes={"load"}, no={"audition","reply","memorial"}},
 }
 local endings = {
  ["museum.reply"] = "ENDING: PRIVATE RETURN",

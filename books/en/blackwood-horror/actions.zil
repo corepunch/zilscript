@@ -172,6 +172,7 @@ player never stands in the dark."
 <SYNTAX SAY HELLO = V-SAY-HELLO>
 <SYNTAX HINT = V-HINTS>
 <SYNONYM HINT HINTS>
+<SYNTAX PEEL OBJECT = V-MOVE PRE-MOVE>
 <SYNTAX SCRAPE OBJECT = V-SCRAPE>
 <SYNTAX SCRAPE OBJECT WITH OBJECT = V-SCRAPE>
 <SYNTAX INJECT OBJECT WITH OBJECT = V-INJECT>
@@ -300,7 +301,8 @@ ajar, so examining it swings the door wide, as opening it does."
            <TELL "Rust and the ghost of carbolic." CR>)>>
 
 <ROUTINE HEAVYDOOR-F ()
-         <COND (<AND <VERB? EXAMINE>
+         <COND (<VERB? THROUGH> <DO-WALK ,P?NORTH> <RTRUE>)
+          (<AND <VERB? EXAMINE>
                      <NOT ,CHAINS-CUT-FLAG>>
                 <TELL "A chain hangs slack around one handle. Its padlock has rusted through; an old [[leather restraint strap->chains]] has been knotted around both handles to keep the door shut. Deep fingernail scratches score the wood. A tarnished plaque reads “MORGUE”." CR>
                 <RTRUE>)
@@ -638,7 +640,8 @@ ajar, so examining it swings the door wide, as opening it does."
            <TELL "You feel through silt and cold. Nothing but stone." CR>)>>
 
 <ROUTINE SEALED-DOOR-F ()
-         <COND (<AND <VERB? EXAMINE>
+         <COND (<VERB? THROUGH> <DO-WALK ,P?EAST> <RTRUE>)
+          (<AND <VERB? EXAMINE>
                      <NOT ,STEAM-DOOR-OPEN>>
                 <TELL "Corrosion has sealed the metal door in its frame. Steam might loosen it." CR>
                 <RTRUE>)
@@ -946,16 +949,27 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
                      <FSET? ,WALL-SAFE ,OPENBIT>>
                 <TELL "The safe is open. Its green felt lining is worn through around the key hooks." CR>
                 <RTRUE>)
-               (<AND <VERB? EXAMINE>
-                     <NOT <FSET? ,WALL-SAFE ,OPENBIT>>>
+               (<AND <VERB? EXAMINE> ,SAFE-UNLOCKED>
+                <TELL "The safe is closed but unlocked. The handle will turn without the key." CR>)
+               (<VERB? EXAMINE>
                 <TELL "The safe is locked. Scratches run down from the keyhole, as though someone kept trying to find it in the dark." CR>
                 <RTRUE>)
                (<AND <VERB? OPEN UNLOCK>
                      <FSET? ,WALL-SAFE ,OPENBIT>>
                 <TELL "The safe is already open." CR>
                 <RTRUE>)
+               (<VERB? CLOSE>
+                <COND (<FSET? ,WALL-SAFE ,OPENBIT>
+                       <FCLEAR ,WALL-SAFE ,OPENBIT>
+                       <TELL "You swing the safe shut. The bolt is still drawn back." CR>)
+                      (T <TELL "The safe is already closed." CR>)>)
+               (<AND <VERB? OPEN UNLOCK> ,SAFE-UNLOCKED>
+                <FSET ,WALL-SAFE ,OPENBIT>
+                <TELL "The safe swings open again." CR>
+                <COND (<FIRST? ,WALL-SAFE> <PRINT-CONT ,WALL-SAFE>)
+                      (T <TELL "It is empty." CR>)>
+                <RTRUE>)
                (<AND <VERB? OPEN UNLOCK>
-                     <NOT <FSET? ,WALL-SAFE ,OPENBIT>>
                      <NOT <AND <HELD? ,SAFE-KEY> <ACCESSIBLE? ,SAFE-KEY>>>>
                 <TELL "The safe is locked. You need the key." CR>
                 <RTRUE>)
@@ -963,6 +977,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
                      <NOT <FSET? ,WALL-SAFE ,OPENBIT>>
                      <AND <HELD? ,SAFE-KEY> <ACCESSIBLE? ,SAFE-KEY>>>
                 <TELL "You unlock the " D ,WALL-SAFE " with the " D ,SAFE-KEY ". Inside are Dr. Mordecai's [[private notes]] and a [[chapel key]]." CR>
+                <SETG SAFE-UNLOCKED T>
                 <FSET ,WALL-SAFE ,OPENBIT>
                 <RTRUE>)
           (<VERB? KNOCK>
@@ -1076,7 +1091,8 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
            <TELL "The rose crumbles to brown dust in your fingers." CR>)>>
 
 <ROUTINE CHAPEL-DOOR-F ()
-         <COND (<VERB? READ> <TELL "HE WHO ENTERS ABANDONS HOPE." CR>)
+         <COND (<VERB? THROUGH> <DO-WALK ,P?NORTH> <RTRUE>)
+          (<VERB? READ> <TELL "HE WHO ENTERS ABANDONS HOPE." CR>)
           (<AND <VERB? OPEN UNLOCK> ,PRSI <NOT <EQUAL? ,PRSI ,CHAPEL-KEY>>>
                 <TELL "That does not fit the chapel lock." CR>
                 <RTRUE>)
@@ -1541,7 +1557,9 @@ lost name."
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      <NOT <FSET? ,BOTTOM-DRAWER ,OPENBIT>>>
-                <TELL "The bottom drawer of the desk is locked. The keyhole has the number “3” engraved beside it." CR>
+                <COND (,DRAWER-UNLOCKED
+                       <TELL "The bottom drawer is closed, but its lock is open." CR>)
+                      (T <TELL "The bottom drawer of the desk is locked. The keyhole has the number “3” engraved beside it." CR>)>
                 <RTRUE>)
                (<AND <VERB? EXAMINE>
                      <FSET? ,BOTTOM-DRAWER ,OPENBIT>>
@@ -1553,8 +1571,13 @@ lost name."
                      <FSET? ,BOTTOM-DRAWER ,OPENBIT>>
                 <TELL "The drawer is already unlocked and open." CR>
                 <RTRUE>)
+               (<AND <VERB? OPEN UNLOCK> ,DRAWER-UNLOCKED>
+                <FSET ,BOTTOM-DRAWER ,OPENBIT>
+                <TELL "The drawer slides open again." CR>
+                <COND (<FIRST? ,BOTTOM-DRAWER> <PRINT-CONT ,BOTTOM-DRAWER>)
+                      (T <TELL "It is empty." CR>)>
+                <RTRUE>)
                (<AND <VERB? OPEN UNLOCK>
-                     <NOT <FSET? ,BOTTOM-DRAWER ,OPENBIT>>
                      <NOT <IN? ,BRASS-KEY ,WINNER>>>
                 <TELL "The drawer is locked. You need a key." CR>
                 <RTRUE>)
@@ -1562,6 +1585,7 @@ lost name."
                      <NOT <FSET? ,BOTTOM-DRAWER ,OPENBIT>>
                      <IN? ,BRASS-KEY ,WINNER>>
                 <TELL "You insert the brass key into the lock. It turns smoothly. The drawer slides open, revealing a leather-bound [[ledger]] and a [[patient file->file]] inside." CR>
+                <SETG DRAWER-UNLOCKED T>
                 <FSET ,BOTTOM-DRAWER ,OPENBIT>
                 <RTRUE>)
           (<VERB? KNOCK>
@@ -1736,7 +1760,8 @@ lost name."
 ; === NEW DOOR ACTION HANDLERS ===
 
 <ROUTINE THEATER-DOOR-F ()
-         <COND (<VERB? EXAMINE>
+         <COND (<VERB? THROUGH> <DO-WALK ,P?NORTH> <RTRUE>)
+          (<VERB? EXAMINE>
                 <TELL "The door to the operating theater has sagged on its hinges and jammed half-open. The gap is wide enough to pass through." CR>
                 <RTRUE>)
                (<VERB? OPEN>
@@ -1753,7 +1778,8 @@ lost name."
            <TELL "Beyond the gap: a slow drip, and the tick of old wood settling." CR>)>>
 
 <ROUTINE PADCELL-DOOR-F ()
-         <COND (<VERB? EXAMINE>
+         <COND (<VERB? THROUGH> <DO-WALK ,P?WEST> <RTRUE>)
+          (<VERB? EXAMINE>
                 <TELL "A heavy steel door, its frame reinforced. It stands ajar, and you can make out a padded cell beyond." CR>
                 <RTRUE>)
                (<VERB? OPEN>
@@ -1768,7 +1794,8 @@ lost name."
            <TELL "From the padded cell, nothing. It was built so that nothing would come out." CR>)>>
 
 <ROUTINE CORRIDOR-DOOR-F ()
-         <COND (<VERB? EXAMINE>
+         <COND (<VERB? THROUGH> <DO-WALK ,P?NORTH> <RTRUE>)
+          (<VERB? EXAMINE>
                 <TELL "A heavy wooden door leading to the administrative wing. It hangs open, as if someone left in a hurry." CR>
                 <RTRUE>)
                (<VERB? OPEN>
@@ -1781,7 +1808,8 @@ lost name."
            <TELL "Your knock echoes down the corridor beyond." CR>)>>
 
 <ROUTINE OFFICE-DOOR-F ()
-         <COND (<VERB? EXAMINE>
+         <COND (<VERB? THROUGH> <DO-WALK ,P?WEST> <RTRUE>)
+          (<VERB? EXAMINE>
                 <TELL "Someone has stuffed felt into the crack around the office door. From the corridor, a visitor could knock without hearing a word spoken inside." CR>
                 <RTRUE>)
                (<VERB? OPEN>
@@ -1792,7 +1820,8 @@ lost name."
                 <RTRUE>)>>
 
 <ROUTINE GARDEN-DOOR-F ()
-         <COND (<VERB? EXAMINE>
+         <COND (<VERB? THROUGH> <DO-WALK ,P?NORTH> <RTRUE>)
+          (<VERB? EXAMINE>
                 <TELL "A wooden door with a cracked window pane. Through it you can see the overgrown garden beyond." CR>
                 <RTRUE>)
                (<VERB? OPEN>
@@ -1807,7 +1836,8 @@ lost name."
            <TELL "Through the cracked pane, the dead garden lies grey in the dark." CR>)>>
 
 <ROUTINE ESCAPE-DOOR-F ()
-         <COND (<VERB? EXAMINE>
+         <COND (<VERB? THROUGH> <DO-WALK ,P?EAST> <RTRUE>)
+          (<VERB? EXAMINE>
                 <TELL "A heavy door, solid and imposing from this side. It's the only way out of this cell." CR>
                 <RTRUE>)
                (<VERB? OPEN>
@@ -1868,8 +1898,15 @@ lost name."
                  (T
                   <TELL "The sanitarium's Victorian facade is crumbling but still imposing. Rows of broken windows stare down like hollow eye sockets. Whatever happened here, the building seems reluctant to forget it." CR>)>
            <RTRUE>)
+          (<VERB? THROUGH>
+           <COND (<EQUAL? ,HERE ,SANITARIUM-GATE> <DO-WALK ,P?NORTH>)
+                 (<EQUAL? ,HERE ,SANITARIUM-ENTRANCE> <TELL "You are already inside. The operating theater is north through the sagging door." CR>)
+                 (T <TELL "There is no entrance on this side. The cafeteria is back to the south." CR>)>
+           <RTRUE>)
           (<VERB? LISTEN>
            <TELL "Nothing moves behind the windows. Then, very faintly, somewhere deep inside, a door closes." CR>)
+          (<VERB? KNOCK>
+           <TELL "You rap on the stone. Something scratches once behind the nearest pane, much too high to be an answer to your hand." CR>)
           (<VERB? SMELL>
            <TELL "Even from here the building breathes out damp plaster and something like old medicine." CR>)
           (<VERB? COUNT>
@@ -1877,7 +1914,7 @@ lost name."
 
 <ROUTINE DEAD-OAK-TREE-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "A massive dead oak, leafless and grey, its bark bleached to bone. Its branches claw at the sky like desperate hands. Crows shift silently in the upper reaches." CR>
+           <TELL "The oak is dead clear to the crown. Where a branch split off, its exposed wood has dried to the color of chalk. The crows make the bare branches bow. Not one calls." CR>
            <RTRUE>)
           (<VERB? CLIMB CLIMB-FOO CLIMB-UP>
            <TELL "The lower branches are too high to reach, and you have no desire to scramble up a dead tree in an abandoned sanitarium grounds." CR>
@@ -1890,11 +1927,20 @@ lost name."
           (<VERB? KICK PUSH>
            <TELL "A dry crack runs up the trunk. The crows shift on their branches and settle again, watching." CR>)
           (<VERB? LOOK-UNDER SEARCH>
-           <TELL "Among the roots lie a few black feathers and nothing else. Nothing grows under the oak." CR>)>>
+           <TELL "Among the roots lie a few black feathers laid out by the rain. One is white at the tip. The crows overhead are all black." CR>)
+          (<VERB? SMELL>
+           <TELL "The cleft in the trunk smells of wet leaves, though there hasn't been a leaf on it for years." CR>)
+          (<VERB? KNOCK>
+           <TELL "Your knuckle strikes hollow wood. Somewhere above your hand a crow folds one wing, very slowly." CR>)>>
 
 <ROUTINE IRON-GATES-F ()
     <COND (<VERB? EXAMINE>
            <TELL "The rusted iron gates stand open. Flakes of old black paint cling to bars bent by years of weather." CR>)
+          (<VERB? THROUGH>
+           <DO-WALK ,P?NORTH>
+           <RTRUE>)
+          (<VERB? CLIMB-ON CLIMB-FOO CLIMB-UP>
+           <TELL "You put a boot on the first bar. The whole gate shudders. There is a gap wide enough to walk through." CR>)
           (<VERB? OPEN>
            <TELL "The gates are already open." CR>)
           (<VERB? CLOSE>
@@ -1924,15 +1970,15 @@ lost name."
 
 <ROUTINE WALLPAPER-F ()
     <COND (<VERB? EXAMINE>
-           <TELL "Victorian-era wallpaper depicting pastoral scenes, now grotesquely warped by moisture and black mold." CR>)
+           <TELL "The Victorian pattern repeats every few feet: a shepherd, three sheep, a tree. Wherever the pattern peels, the mold has eaten the shepherd first." CR>)
           (<VERB? READ>
-           <TELL "Victorian-era wallpaper depicting pastoral scenes, now grotesquely warped by moisture and black mold." CR>)
+           <TELL "No words, only the same three sheep over and over. In the strip nearest the door, somebody penciled in a fourth." CR>)
           (<VERB? RUB>
            <TELL "The paper is soft as wet skin and slides under your fingers." CR>)
           (<VERB? SMELL>
            <TELL "Sweet, rotten mold. It catches at the back of your throat." CR>)
           (<VERB? MOVE LOOK-BEHIND>
-           <TELL "A long strip peels away and hangs down. Behind it is only grey plaster, beaded with water." CR>)>>
+           <TELL "You lift a loose strip of wallpaper. Water beads on the plaster underneath. The strip settles back when you let go." CR>)>>
 
 <ROUTINE COAL-DUST-F ()
     <COND (<VERB? EXAMINE RUB>
@@ -2244,7 +2290,8 @@ test of whether the points were given; the VALUE, zeroed, is."
            <TELL "You crouch at the grate and peer up. The flue narrows to a slot no wider than your hand, furred with soot, and the wind breathes down it into your face." CR>)>>
 
 <ROUTINE THEATER-EXIT-F ()
-    <COND (<VERB? EXAMINE>
+    <COND (<VERB? THROUGH> <DO-WALK ,P?SOUTH> <RTRUE>)
+          (<VERB? EXAMINE>
            <TELL "The door to the entrance hall has sagged on its hinges and jammed half-open. Scrape marks on the floor show how far it once swung." CR>)
           (<VERB? OPEN>
            <TELL "It is jammed half-open, wide enough to pass through to the [[south]]." CR>)

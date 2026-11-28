@@ -45,7 +45,7 @@ local function run_loop(config, terminal)
       local marker = index == selected and selected_marker or unselected_marker
       local line = marker .. render_item(item, index)
       terminal:write(line .. "\n")
-      rows = rows + math.ceil(#line / width)
+      rows = rows + math.ceil((utf8.len(line) or #line) / width)
     end
 
     terminal:write(string.rep("\n", spacer_rows))
@@ -84,7 +84,7 @@ local function run_loop(config, terminal)
         end
       elseif key.kind == "backspace" then
         if #typed > 0 then
-          typed = typed:sub(1, -2)
+          typed = typed:sub(1, (utf8.offset(typed, -1) or #typed) - 1)
           selected = 0
           dirty = true
         end

@@ -20,7 +20,7 @@
 	<V-LOOK> <MAIN-LOOP> <AGAIN>>
 <ROUTINE DISPATCH-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-	 <TELL "You are in the Dispatch Post, a snug round office no bigger than a garden shed. Letter [[pigeonholes]] cover the walls, and [[rain]] beads on the brass [[dispatch bell->bell]] on the counter.">
+	 <TELL "You are in the Dispatch Post, a round office barely wider than a garden shed. The letter [[pigeonholes]] go right up to the ceiling, and [[rain]] beads on the brass [[dispatch bell->bell]] on the counter.">
 	 <COND (<AND ,AGREED <IN? ,MICA ,DISPATCH>> <TELL " [[Mica]] waits beside the bell for your revised [[forecast]], her fingers still for once.">)
 	       (<IN? ,MICA ,DISPATCH> <TELL " [[Postmaster Mica->mica]] stands beside the bell with an unfinished [[forecast]], tapping one foot.">)
 	       (T <TELL " The Postmaster is out just now.">)>
@@ -68,7 +68,7 @@
 	 <TELL " The laundry is [[west]], and the dispatch post is back to the [[east]]." CR>)>>
 <ROUTINE GARDEN-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-	 <TELL "You are in the Thimble Rain Garden, a patch of [[soil]] no bigger than a tablecloth. Rows of thirsty [[seedlings]] droop in the sun, their leaves curled at the edges.">
+	 <TELL "You are in the Thimble Rain Garden, a patch of [[soil]] no bigger than a tablecloth. In the sun the thirsty [[seedlings]] curl their leaves into spoons, with nothing to catch.">
 	 <COND (,GUTTER-READY <TELL " A freshly cleared [[gutter]] curls around their [[roots]], waiting for rain.">)
 	 (T <TELL " A narrow [[gutter]] winds between them, but a dry crust of soil blocks it.">)>
 	 <TELL " The warm terrace is back to the [[west]], and the seed shed stands to the [[east]]." CR>)>>
@@ -94,7 +94,7 @@
 	 <TELL " Steps lead back up [[north]] to the dispatch post." CR>)>>
 <ROUTINE BROADCAST-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
-	 <TELL "You are on the Forecast Balcony, a narrow ledge high above the town square. Below, [[bunting]] is strung across the street for the parade, and the rooftops stretch away in rows.">
+	 <TELL "You are on the Forecast Balcony, a narrow ledge above the town square. The parade [[bunting]] snaps below your knees, where the rows of little roofs begin.">
 	 <COND (<AND ,PUBLISHED <IN? ,CARD ,SLOT>> <TELL " Your [[card]] hums its [[forecast]] from the [[broadcast slot->slot]] in the railing">)
 	       (,PUBLISHED <TELL " Your [[forecast]] hums through the [[broadcast slot->slot]] in the railing">)
 	       (<HELD? ,CARD> <TELL " Your [[card]] grows warm as you near the humming [[broadcast slot->slot]] in the railing">)
@@ -110,9 +110,11 @@
 	 (<VERB? LISTEN> <TELL "Even sitting still, the bell gives a faint brass hum whenever a door closes somewhere in the post." CR>)
 	 (<VERB? SMELL> <TELL "Wet brass and a little rain, like a coin left out in the weather." CR>)
 	 (<VERB? RUB> <TELL "The brass is cold and wet with rain beads. Your fingertip leaves a bright, dry stripe across it." CR>)
-	 (<VERB? LOOK-UNDER>
+	 (<VERB? LOOK-UNDER LOOK-BEHIND SEARCH>
 	  <COND (<AND <IN? ,CARD ,DISPATCH> <NOT <FSET? ,CARD ,TOUCHBIT>>> <TELL "You tip your head. A blank [[weather card->card]] is tucked under the bell's base, one corner showing." CR>)
 	        (T <TELL "Only a ring of dust where the bell has stood for years." CR>)>)
+	 (<VERB? PUSH MOVE> <TELL "The heavy bell slides half a finger. Its clapper gives a cross little tick.">
+	  <COND (<AND <IN? ,CARD ,DISPATCH> <NOT <FSET? ,CARD ,TOUCHBIT>>> <TELL " A corner of the blank [[weather card->card]] peeks out from under it.">)> <CRLF>)
 	 (<VERB? KICK ATTACK> <TELL "A bell is for calling people, not for kicking. You give it a polite nod instead." CR>)
 	 (<VERB? RING>
 	 <COND (<NOT <IN? ,MICA ,DISPATCH>> <TELL "Ting! The note hangs in the empty post. Mica is listening at the forecast balcony [[east]]." CR>)
@@ -164,12 +166,15 @@
 	 (<VERB? PUSH MOVE KICK> <COND (<IN? ,ROOK ,ROOKERY> <TELL "You push. The vane does not budge; something at the other end of its counterweight is holding on tight." CR>) (T <TELL "A shove would only tell you which way you pushed. Better to turn it gently and let the wind answer." CR>)>)>>
 <ROUTINE SPOON-F () <COND (<VERB? EXAMINE> <TELL "A narrow baking spoon. It could scoop a tiny channel without tugging any roots." CR>)
 	 (<VERB? SMELL> <TELL "Vanilla and cinnamon. Somebody licked this spoon very recently." CR>)
-	 (<VERB? RUB> <TELL "The bowl is narrow and smooth, worn thin at the tip from scraping the corners of mixing bowls." CR>)>>
+	 (<VERB? RUB> <TELL "The bowl is narrow and smooth, worn thin at the tip from scraping the corners of mixing bowls." CR>)
+	 (<VERB? WAVE> <TELL "You give the spoon one brisk circle. Anyone watching would assume you know how to conduct an orchestra of puddings." CR>)>>
 
 <ROUTINE RIBBON-F ()
 	<COND (<VERB? RUB> <TELL "The wool is soft and a little fuzzy. It would muffle anything you wrapped it around." CR>)
 	 (<VERB? SMELL> <TELL "It smells of sheep and lemon soap." CR>)
 	 (<VERB? EXAMINE> <TELL "Soft wool, long enough to pad a clapper. It can be tied and untied without a knot you need teeth for." CR>)
+	 (<VERB? WAVE> <TELL "The ribbon makes a little sheep-shaped cloud in the air, then drops straight again." CR>)
+	 (<VERB? WEAR> <TELL "You try the ribbon as a sash. It makes a very grand belt for a very small parcel, so you keep it free for useful work." CR>)
 	 (<AND <VERB? TAKE> <IN? ,RIBBON ,CHIME>> <UNPAD-CHIME>)
 	 (<VERB? TIE> <PAD-CHIME>)
 	 (<VERB? UNTIE> <UNPAD-CHIME>)>>
@@ -252,6 +257,10 @@
 	 <COND (,REPORT-SOFT <TELL "It is soft enough to read now." CR>)
 	 (T <TELL "Opening it dry would tear it. Warm steam could help: hold the report over the kettle in the kitchen." CR>)>)
 	 (<VERB? STEAM> <STEAM-REPORT>)
+	 (<VERB? CLOSE>
+	  <COND (<FSET? ,REPORT ,OPENBIT> <FCLEAR ,REPORT ,OPENBIT>
+	         <TELL "You lay the two halves together like butterfly wings. The soft fold closes without a crackle." CR>)
+	        (T <TELL "It is already folded tight enough to hold yesterday in." CR>)>)
 	 (<VERB? SMELL> <TELL "Dust and old ink, and faintly, something like a summer garden." CR>)
 	 (<VERB? RUB> <COND (,REPORT-SOFT <TELL "The paper is soft and a little warm now, like a page left in the sun." CR>) (T <TELL "The folds are stiff and sharp. The paper crackles a warning under your thumb." CR>)>)
 	 (<VERB? READ OPEN LOOK-INSIDE>
@@ -549,8 +558,12 @@
           (<VERB? RUB> <TELL "The wooden edges are worn round by years of quick fingers." CR>)>>
 
 <ROUTINE LADDER-F ()
-    <COND (<VERB? CLIMB-ON CLIMB-UP CLIMB-FOO>
-           <COND (<EQUAL? ,HERE ,TERRACE> <TELL "The ladder climbs [[up]] to the vane perch." CR>) (T <TELL "The ladder goes back [[down]] to the terrace." CR>)>)
+    <COND (<VERB? CLIMB-ON CLIMB-UP CLIMB-DOWN CLIMB-FOO>
+           <COND (<EQUAL? ,HERE ,TERRACE>
+                  <COND (<VERB? CLIMB-DOWN> <TELL "Your feet are already on the lowest tiles. The ladder goes [[up]] from here." CR>)
+                        (T <GOTO ,VANE-DECK>)>)
+                 (<VERB? CLIMB-UP> <TELL "You are at the top rung. The ladder only goes [[down]] from here." CR>)
+                 (T <GOTO ,TERRACE>)>)
           (<VERB? RUB> <TELL "The iron rungs are sun-warm and slightly rough, good for small hands." CR>)>>
 
 <ROUTINE PERCH-RAIL-F ()
@@ -558,13 +571,16 @@
           (<VERB? LOOK-UNDER> <TELL "Far below, a cat on the terrace looks up at you and decides you are not interesting." CR>)>>
 
 <ROUTINE NESTS-F ()
-    <COND (<VERB? SEARCH TAKE LOOK-INSIDE> <TELL "You leave the rooks' treasures where they are. Aster is watching, and a rook never forgets a thief." CR>)
+    <COND (<VERB? SEARCH TAKE LOOK-INSIDE>
+           <COND (<IN? ,ROOK ,ROOKERY> <TELL "You leave the rooks' treasures where they are. Aster is watching, and a rook never forgets a thief." CR>)
+                 (T <TELL "Aster is out on the perch. You spot a bottle top neatly tucked under a feather and leave it exactly as you found it." CR>)>)
           (<VERB? SMELL> <TELL "Twigs, feathers and a little lemon soap." CR>)>>
 
 <ROUTINE LINES-F ()
     <COND (<VERB? RUB> <TELL "The socks on the line are still damp. One of them is warm, as if somebody has just taken a foot out of it." CR>)
           (<VERB? SMELL> <TELL "Lemon suds and clean cotton." CR>)
-          (<VERB? TAKE> <TELL "That washing belongs to the whole Bureau. You let it dry." CR>)>>
+          (<VERB? TAKE> <TELL "That washing belongs to the whole Bureau. You let it dry." CR>)
+          (<VERB? MOVE PUSH> <TELL "The line springs back and three pegs click in a row. One damp sock gives your nose a tiny slap." CR>)>>
 
 <ROUTINE FLOUR-F ()
     <COND (<VERB? RUB> <TELL "You draw a little cloud in the flour with one finger. Pip nods, approving." CR>)

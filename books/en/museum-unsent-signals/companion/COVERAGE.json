@@ -34,17 +34,22 @@
     },
     {
       "room": "Signal Booth",
-      "state": "Legend and audition known; both endings",
+      "state": "Legend known and spool auditioned in place; both endings",
+      "authored": true
+    },
+    {
+      "room": "Signal Booth",
+      "state": "Auditioned spool removed; reload and replay required",
       "authored": true
     }
   ],
-  "card_executions": 38,
+  "card_executions": 46,
   "numbered_cli_routes": {
     "Private Return": [
       2,
       1,
       1,
-      3,
+      4,
       3,
       1,
       1,
@@ -54,7 +59,7 @@
       2,
       1,
       1,
-      3,
+      4,
       3,
       1,
       1,

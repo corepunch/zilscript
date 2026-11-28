@@ -32,6 +32,6 @@
  <ASSERT-TEXT "Both clips hold" <CO-RESUME ,CO "put leaf in frame">>
  <ASSERT "leaf is mounted" <IN? ,LEAF ,FRAME>>
  <CO-RESUME ,CO "take leaf"> <ASSERT "mount is reversible" <HELD? ,LEAF>>
- <ASSERT-TEXT "Nothing happens" <CO-RESUME ,CO "read leaf">>
+ <ASSERT-TEXT "The word stays here" <CO-RESUME ,CO "read leaf">>
  <CO-RESUME ,CO "put leaf in frame">
  <ASSERT-TEXT "THE END -- ROOM FOR EVERY NAME" <CO-RESUME ,CO "read leaf">>>

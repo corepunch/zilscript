@@ -8,6 +8,8 @@
 <GLOBAL STEAM-DOOR-OPEN <>>
 <GLOBAL LANTERN-LIT-FLAG <>>
 <GLOBAL CHAPEL-UNLOCKED <>>
+<GLOBAL DRAWER-UNLOCKED <>>
+<GLOBAL SAFE-UNLOCKED <>>
 <GLOBAL CHAINS-CUT-FLAG <>>
 <GLOBAL GAME-WON <>>
 <GLOBAL PATIENT-STATE 0> ;"0=absent, 1=aware, 2=twitching, 3=liberated"
@@ -38,7 +40,7 @@
 <ROOM SANITARIUM-GATE
       (IN ROOMS)
       (DESC "Sanitarium Gate")
-      (LDESC "You are standing at the gates of Blackwood Sanitarium, where the [[gravel path]] ends. The rusted [[iron gates->gate]] hang open, and a [[brass plaque->plaque]] is bolted askew to the bars. Beside them leans a [[dead oak->tree]], its branches full of crows that make no sound. Ahead, rows of black [[windows]] look down from the building, and the way in lies open to the [[north]].")
+      (LDESC "You are standing at the gates of Blackwood Sanitarium. The rusted [[iron gates->gate]] hang open. A [[brass plaque->plaque]] has worked loose at one corner. Crows crowd the [[dead oak->tree]] beside it without making a sound. The [[gravel path]] stops here; the way in lies open to the [[north]], under rows of black [[windows]].")
       (NORTH TO SANITARIUM-ENTRANCE)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL SANITARIUM-BUILDING DEAD-OAK-TREE)>

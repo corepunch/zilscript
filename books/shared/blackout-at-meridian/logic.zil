@@ -85,8 +85,12 @@
 
 ;"JUMP with nothing to jump is fatal in the base wherever DOWN is a refusal
   string, as on the bridge; here it is only a thought."
+;"Editions can add optional scene observations without modifying the rescue
+  or combat mechanics shared by all languages."
+<ROUTINE EDITION-REACTION () <RFALSE>>
+
 <ROUTINE ROOM-BEG ()
- <COND (<AND <VERB? LEAP> <NOT ,PRSO>>
+ <COND (<EDITION-REACTION> <RTRUE>) (<AND <VERB? LEAP> <NOT ,PRSO>>
         <COND (<EQUAL? ,HERE ,BRIDGE> <MSG-LEAP-BRIDGE>)
               (T <MSG-LEAP-IDLE>)>)
        (<AND <VERB? SWIM> <NOT ,PRSO>> <PERFORM ,V?SWIM ,RIVER> <RTRUE>)>>

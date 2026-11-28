@@ -1,3 +1,11 @@
+<SYNTAX FALT OBJECT = V-FOLD-LOAN>
+<SYNONYM FALT FALTE>
+<SYNTAX GLAETT OBJECT = V-UNFOLD-LOAN>
+<SYNTAX FALT AUF OBJECT = V-UNFOLD-LOAN>
+<SYNONYM GLAETT GLAETTE GL\%ATT GL\%ATTE ENTFALT ENTFALTE>
+<SYNTAX ZERREISS OBJECT = V-TEAR-LOAN>
+<SYNONYM ZERREISS ZERREISSE ZERREI\%S ZERREI\%SE>
+
 <ROUTINE V-VERSION ()
  <TELL "Die Bibliothek der geliehenen Morgen|Studio Null, 2026|Ausgabe " N ,RELEASEID CR>>
 
@@ -6,18 +14,18 @@
  <SETG COMPACT-ROOM-LISTS T>
  <SETG HERE ,LENDING> <SETG VERBOSE T> <SETG LIT T>
  <SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
- <TELL "Heute früh hast du allen auf dem Markt versprochen, das Morgen aus der Bibliothek der geliehenen Morgen zu holen. Das war leicht gesagt, als du noch dachtest, das Morgen käme von ganz allein. Jetzt stehst du in der Bibliothek. Vom Bibliothekspersonal fehlt jede Spur, und es ist sehr, sehr still." CR CR>
+ <TELL "»Bis morgen«, sagte die Bäckerin heute früh am Markt. Du hast versprochen, ihr das Morgen aus der Bibliothek zu holen. Da klang es noch wie etwas, das ohnehin käme. Jetzt stehst du in der Bibliothek. Auf dein Hallo antwortet nicht einmal ein Echo." CR CR>
  <V-LOOK> <MAIN-LOOP> <AGAIN>>
 
 <ROUTINE LENDING-F (R)
  <COND (<EQUAL? .R ,M-LOOK>
-        <TELL "Du bist in der Ausleihhalle der Bibliothek, einem hohen, stillen Raum mit blank poliertem Holzboden. Jemand hat einen hohen [[Leihschrank]] direkt vor das große Fenster geschoben. ">
+        <TELL "In der Ausleihhalle glänzen die Dielen wie frisch gewachst. Vor dem hohen Fenster steht ein dunkler [[Leihschrank]]. ">
         <COND (,ON-LOAN <TELL "Nur noch ein Streifen [[Sonnenlicht]] fällt über den Boden, der von heute. Daneben liegen die grauen Dielen reglos da.">)
-              (T <TELL "Zwei Streifen [[Sonnenlicht]] fallen über den Boden: der von heute und daneben ein schmaler goldener, der von morgen sein muss.">)>
+              (T <TELL "Zwei Streifen [[Sonnenlicht]] liegen auf den Dielen. Der breite wandert mit der Sonne. Der schmale leuchtet goldgelb und ist ihr schon ein Stück voraus.">)>
         <TELL " Ein Bogen im [[Osten->ost]] öffnet sich zum Faltraum, und ein Gang führt nach [[Norden->nord]] in die trockene Kammer." CR>)>>
 <ROUTINE FOLDING-F (R)
  <COND (<EQUAL? .R ,M-LOOK>
-        <TELL "Das ist der Faltraum, ein kleines, helles Zimmer, in dem fast nichts steht außer einem langen hölzernen [[Faltbrett]]. Seine Kanten sind glatt vom vielen Anfassen, doch in der Mitte sieht es fast neu aus. Durch den Bogen im [[Westen->west]] geht es zurück zur Ausleihhalle, eine Treppe führt nach [[Norden->nord]] hinauf zur Leseterrasse." CR>)>>
+        <TELL "Im Faltraum steht nur das lange hölzerne [[Faltbrett]]. In die hellen Wände fallen Schatten von Zweigen. Die Kanten des Bretts sind glatt von vielen Händen, die Mitte ist noch rau. Durch den Bogen im [[Westen->west]] geht es zurück zur Ausleihhalle, eine Treppe führt nach [[Norden->nord]] hinauf zur Leseterrasse." CR>)>>
 <ROUTINE BASIN-F (R)
  <COND (<EQUAL? .R ,M-LOOK>
         <TELL "Du bist in der trockenen Kammer, einem kühlen Steinraum. Eine lange [[Steinrinne]] verläuft an der Wand entlang und durch einen Spalt hinaus in Richtung Markt.">
@@ -26,7 +34,7 @@
         <TELL " Ein alter [[Leihschein]] klebt flach an der Steinwand. Im [[Süden->sued]] geht es zurück zur Ausleihhalle, und eine Tür im [[Osten->ost]] führt auf die Leseterrasse." CR>)>>
 <ROUTINE TERRACE-F (R)
  <COND (<EQUAL? .R ,M-LOOK>
-        <TELL "Du stehst auf der Leseterrasse, einem breiten Steinbalkon hoch über der Stadt. Tief unten liegt der [[Markt]] mit seinen gestreiften Ständen, der Bäckerei und dem vollen Platz. Am Geländer steht ein [[Leserahmen]] aus Messing, zum Markt hin ausgerichtet.">
+        <TELL "Auf der Leseterrasse reicht dir das Geländer bis zur Brust. Tief unten auf dem [[Markt]] stehen die gestreiften Dächer der Buden neben der kleinen Backstube. Am Geländer steht ein [[Leserahmen]] aus Messing, zum Markt hin ausgerichtet.">
         <COND (<IN? ,LEAF ,FRAME> <TELL " Das [[Morgenblatt]] steckt im Rahmen. Beide Ecken heben sich wie bei einem Kind, das gleich losspringen will.">)
               (,ON-LOAN <TELL " Unten unter den Ständen sind die Schatten stehen geblieben. Die Leute rühren sich nicht. Sie warten auf einen Abend, der nicht kommt.">)
               (T <TELL " Unten werden die Nachmittagsschatten langsam länger.">)>
@@ -36,7 +44,14 @@
  <COND (<AND <VERB? OPEN> <NOT <FSET? ,CASE ,OPENBIT>>>
         <FSET ,CASE ,OPENBIT>
         <COND (<IN? ,LEAF ,CASE> <TELL "Du öffnest die kleine Schranktür. Drinnen liegt ganz allein auf dem Regalboden ein [[Morgenblatt]]." CR>)
-              (T <TELL "Du öffnest den leeren Schrank." CR>)>)
+              (T <TELL "Du öffnest die Schranktür. Auf dem Regalboden bleibt nur ein heller Fleck in Form eines Blatts." CR>)>)
+       (<VERB? CLOSE>
+        <COND (<FSET? ,CASE ,OPENBIT>
+               <FCLEAR ,CASE ,OPENBIT>
+               <TELL "Die Schranktür schnappt mit einem leisen Klick zu. Das Schild hängt jetzt wieder gerade." CR>)
+              (T <TELL "Die Tür sitzt fest im Rahmen. Das Schild wackelt einmal und ist wieder still." CR>)>)
+       (<AND <VERB? LOOK-INSIDE SEARCH> <NOT <FSET? ,CASE ,OPENBIT>>>
+        <TELL "Durch den Türspalt fällt kein Licht. Öffne die kleine Tür, statt dich durchs Schlüsselloch zu quetschen." CR>)
        (<VERB? EXAMINE>
         <COND (<FSET? ,CASE ,OPENBIT>
                <COND (<IN? ,LEAF ,CASE> <TELL "Ein [[Morgenblatt]] liegt im offenen Schrank. Hier wäre Platz für viele Blätter, aber es gibt nur dieses eine." CR>)
@@ -79,9 +94,7 @@
         <COND (<HELD? ,LEAF> <TELL " Du hältst das [[Morgenblatt]] in der Hand.">)>
         <CRLF>)
        (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,BOARD> <EQUAL? ,PRSO ,LEAF>>
-        <COND (,WIDE-LOAN <TELL "Du hast schon alle Falten geglättet." CR>)
-              (T <SETG WIDE-LOAN T>
-                 <TELL "Du legst das [[Morgenblatt]] mit der goldenen Seite nach oben auf das Brett und streichst die alten Falten mit der Hand glatt. Eine nach der anderen gibt nach, bis das kleine Quadrat so breit ist wie deine ausgebreiteten Arme. Dein Name steht noch in seiner Ecke, und daneben ist jetzt reichlich Platz. Vorsichtig hebst du das Blatt wieder hoch." CR>)>)
+        <UNFOLD-LOAN>)
        (<VERB? RUB>
         <TELL "Tausend Hände haben die Kanten glatt gerieben, doch die Mitte fühlt sich noch rau und neu an. Seit Jahren falten die Leute hier Dinge zusammen. Auseinandergefaltet hat fast niemand etwas." CR>)
        (<VERB? KNOCK>
@@ -115,6 +128,9 @@
        (<VERB? LOOK-INSIDE SEARCH>
         <COND (,ON-LOAN <TELL "Kein Tropfen, nicht einmal ein feuchter Fleck." CR>)
               (T <TELL "Dein Spiegelbild kräuselt sich im Wasser und eilt mit ihm zum Markt." CR>)>)
+       (<VERB? DRINK DRINK-FROM>
+        <COND (,ON-LOAN <TELL "Deine Lippen finden nur warmen, staubigen Stein. Seit du das Blatt ausgeliehen hast, fließt hier nichts mehr." CR>)
+              (T <TELL "Ein Schluck schmeckt nach einem Apfel, den du noch gar nicht gegessen hast. Der Rest rinnt weiter zum Markt." CR>)>)
        (<VERB? SMELL>
         <TELL "Kalter Stein und Flusskraut." CR>)>>
 <ROUTINE FRAME-F ()
@@ -135,6 +151,9 @@
         <TELL "Der Rahmen schwenkt ein wenig auf seinem Fuß und dreht sich gleich wieder zum Markt. Er weiß, für wen er da ist." CR>)
        (<VERB? KNOCK>
         <TELL "Kling! Das Messing klingt weit übers Geländer hinaus. Tief unten schaut eine Taube hoch." CR>)
+       (<VERB? LOOK-INSIDE SEARCH>
+        <COND (<IN? ,LEAF ,FRAME> <TELL "Die Klammern fassen nur die Ecken. Die goldene Mitte des Blatts bleibt frei; von unten können alle mitlesen." CR>)
+              (T <TELL "Du beugst dich vor. Durch den leeren Rahmen ist der ganze Markt so klein wie ein gemaltes Bild." CR>)>)
        (<VERB? TAKE>
         <TELL "Der Rahmen ist an der Terrasse festgeschraubt. Er gehört hierher, wo ihn unten alle sehen können." CR>)>>
 <ROUTINE MARKET-F ()
@@ -179,8 +198,28 @@
         <TELL "Du spähst über das Geländer. Es geht tief hinunter bis zum Markt. Du hältst dich gut fest." CR>)
        (<VERB? RUB>
         <TELL "Das Messinggeländer ist sonnenwarm und glatt von vielen Händen." CR>)>>
+<ROUTINE UNFOLD-LOAN ()
+ <COND (,WIDE-LOAN <TELL "Du hast schon alle Falten geglättet." CR>)
+       (T <SETG WIDE-LOAN T>
+          <TELL "Auf dem [[Faltbrett]] streichst du die alten Falten aus dem [[Morgenblatt]]. Eine nach der anderen gibt nach, bis das kleine Quadrat so breit ist wie deine ausgebreiteten Arme. Dein Name steht noch in seiner Ecke, und daneben ist jetzt reichlich Platz. Du hebst das Blatt wieder hoch." CR>)>>
+
 <ROUTINE LEAF-F ()
- <COND (<AND <VERB? TAKE> <FSET? ,LEAF ,NDESCBIT>> <FCLEAR ,LEAF ,NDESCBIT> <RFALSE>)
+ <COND (<AND <VERB? TAKE> <IN? ,LEAF ,FRAME>>
+        <COND (<ITAKE> <FCLEAR ,LEAF ,NDESCBIT>
+               <TELL "Eine Klammer nach der anderen gibt nach. Du hältst das Blatt wieder in der Hand; unten wartet der Markt noch immer." CR>)
+              (T <RTRUE>)>)
+       (<VERB? UNFOLD-LOAN>
+        <COND (<NOT <HELD? ,LEAF>> <TELL "Nimm das Blatt zuerst in die Hand." CR>)
+              (<EQUAL? ,HERE ,FOLDING> <UNFOLD-LOAN>)
+              (,WIDE-LOAN <TELL "Das Blatt ist schon weit offen; faltenfrei hältst du es kaum fest." CR>)
+              (T <TELL "Eine Ecke federt gleich zurück. Zum Glattstreichen brauchst du das lange Brett im Faltraum." CR>)>)
+       (<VERB? FOLD-LOAN>
+        <COND (<NOT <HELD? ,LEAF>> <TELL "Nimm das Blatt erst wieder in die Hand." CR>)
+              (,WIDE-LOAN <SETG WIDE-LOAN <>>
+               <TELL "Du folgst den alten Falten. Kaum ist das Blatt wieder klein, rückt dein Name zurück in sein Kästchen." CR>)
+              (T <TELL "Kleiner wird es nicht, ohne dass du auch deinen Namen zusammenfalten müsstest." CR>)>)
+       (<VERB? TEAR-LOAN>
+        <TELL "An der Kante zittert ein goldener Riss. Du lässt los. Einen ganzen Tag klebt man nicht mit Klebeband wieder zusammen." CR>)
        (<AND <VERB? TAKE> <IN? ,LEAF ,CASE>>
         <COND (<FSET? ,CASE ,OPENBIT>
                <MOVE ,LEAF ,WINNER> <SETG ON-LOAN T>
@@ -191,7 +230,7 @@
        (<VERB? READ>
         <COND (<IN? ,LEAF ,FRAME> <PUBLISH-LOAN>)
               (<IN? ,LEAF ,CASE> <TELL "Durch die offene Tür erkennst du das Wort MORGEN und ein Kästchen für einen Namen." CR>)
-              (T <TELL "In kleinen goldenen Buchstaben steht unter deinem Namen: MORGEN. Wenn du es hier leise liest, mit dem Papier in deinen eigenen Händen, geschieht nichts. So ein Wort muss man dort vorlesen, wo alle es sehen können." CR>)>)
+              (T <TELL "Unter deinem Namen steht in Gold: MORGEN. Du liest es leise. Nur du hörst es. Damit es unten ankommt, muss das Blatt in den Leserahmen." CR>)>)
        (<VERB? SMELL>
         <TELL "Es riecht wie die Luft kurz vor dem Morgen: kühl, frisch und ein bisschen nach Toast." CR>)
        (<VERB? LISTEN>
@@ -209,3 +248,12 @@
  <COND (<IN? ,LEAF ,FRAME> <TELL "Ausleihbuch: Ein Tag wurde geteilt." CR>)
        (,ON-LOAN <TELL "Ausleihbuch: Ein Tag ist ausgeliehen." CR>)
        (T <TELL "Ausleihbuch: Zurzeit ist nichts ausgeliehen." CR>)>>
+
+<ROUTINE V-FOLD-LOAN ()
+ <TELL "Nur das Morgenblatt hat diese feinen alten Faltlinien." CR>>
+
+<ROUTINE V-UNFOLD-LOAN ()
+ <TELL "Glattstreichen musst du das Morgenblatt, nicht seine Unterlage." CR>>
+
+<ROUTINE V-TEAR-LOAN ()
+ <TELL "Was du hier findest, hat schon viele Jahre unversehrt überstanden. Lass es lieber so." CR>>

@@ -74,6 +74,8 @@ walk:play({
 	{ "examine locked box", expect = "Dr. Moriarty" },
 	{ "align locked box to lady ashworth", expect = "does not connect" },
 	{ "align locked box to dr moriarty", expect = "bank statement" },
+	{ "close locked box", expect = "dial stays at MORIARTY" },
+	{ "open locked box", expect = "You lift the lid again" },
 	{ "read bank statement", expect = "overdrawn" },
 	"south",
 	{ "accuse dr moriarty", expect = "not yet an argument" },

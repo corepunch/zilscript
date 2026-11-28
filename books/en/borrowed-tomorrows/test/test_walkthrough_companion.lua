@@ -76,7 +76,7 @@ local route = {
   { "folding.widen", "width of your arms" },
   { "folding.terrace", "reading frame" },
   { "terrace.fit", "Both clips hold" },
-  { "terrace.unfit", "Taken" },
+  { "terrace.unfit", "catch the page before the wind does" },
   { "terrace.fit", "Both clips hold" },
   { "terrace.read", "THE END -- ROOM FOR EVERY NAME" },
 }

@@ -35,7 +35,7 @@
  <TELL ")" CR>>
 
 <ROUTINE MSG-OPENING ()
- <TELL "Um neun Uhr nahm der Sturm Meridian den Strom, und dann besetzte jemand die Relaisstation, die ihn zur%uckbringen sollte. Eine Wachdrohne h%alt die Station nun besetzt, und auf der Meridian-Br%ucke h%angt eine Stra%senbahn voller Fahrg%aste an einem gerissenen Kabel %uber dem Fluss. Du bist der neueste Held der Stadt, und heute Nacht ist dein erster Einsatz. Geh jetzt zur Br%ucke. (Tippe jederzeit HILFE, um zu erfahren, wie das Spiel geht.)" CR CR>>
+ <TELL "Um neun Uhr ist in Meridian der Strom ausgefallen. Zehn Minuten sp%ater meldet der Verkehrsfunk eine Stra%senbahn, die an einem einzigen Kabel %uber dem Fluss h%angt. In der Relaisstation, von der aus sich das Netz wieder einschalten l%asst, steht jetzt eine fremde Wachdrohne. Du hast noch nie einen Einsatz geleitet. Geh jetzt zur Br%ucke. (Tippe jederzeit HILFE, um zu erfahren, wie das Spiel geht.)" CR CR>>
 
 <ROUTINE MSG-HELP-HOW ()
  <TELL "Tippe Befehle wie SCHAU, UNTERSUCHE TAFEL oder NORD, oder w%ahle die verlinkten W%orter. Jede Heldentat w%urfelt W100 gegen einen deiner R%ange, und h%ohere W%urfe sind besser. Ein Fehlschlag kostet Gesundheit, und bei 0 Gesundheit ist deine Nacht vorbei. LIES BOGEN zeigt deine R%ange, ZUSTAND deine Gesundheit und dein Karma, und NENNE BOGEN gibt deinem Helden einen Namen." CR>>
@@ -98,10 +98,10 @@
  <TELL "Wähle deinen Helden: [[Fels]], [[Blitz]] oder [[Luchs]]. Du kannst die Profile zuerst untersuchen und deinem Helden auf dem [[Heldenbogen->bogen]] einen Namen geben. Mit der Wahl eines Profils beginnt der Einsatz." CR>>
 
 <ROUTINE MSG-DISPATCH-LOOK-REGISTERED ()
- <TELL "Du stehst in der Notleitstelle von Meridian, einem engen Raum, der mit Batteriestrom l%auft. Regen l%auft in silbernen Streifen am [[Fenster]] hinunter, und dahinter liegt die ganze [[Stadt]] im Dunkeln. Dein Profil ist auf der [[Einsatztafel->tafel]] als aktiv markiert. Die T%ur zur Stra%se f%uhrt nach [[Norden->nord]] zur Meridian-Br%ucke.">>
+ <TELL "In Meridians enger Notleitstelle brennt nur noch eine Batterielampe. Der Regen zieht silberne Streifen %ubers [[Fenster]], dahinter ist die [[Stadt]] dunkel. Dein Profil ist auf der [[Einsatztafel->tafel]] als aktiv markiert. Hinter der [[Ausgangst%ur->tuer]] geht es nach [[Norden->nord]] zur Meridian-Br%ucke.">>
 
 <ROUTINE MSG-BRIDGE-LOOK-START ()
- <TELL "Du stehst auf der Meridian-Br%ucke, mitten im Regen. ">>
+ <TELL "Auf der Meridian-Br%ucke treibt dir der Wind den Regen quer ins Gesicht. ">>
 
 <ROUTINE MSG-BRIDGE-LOOK-RESCUED ()
  <TELL "Die leere [[Stra%senbahn->bahn]] h%angt noch an ihrem [[Kabel]] durch die aufgerissenen [[Schienen]], aber ihre Fahrg%aste sind bei der [[Rettungsmannschaft->mannschaft]] unten in Sicherheit. Die [[Relaisstation->station]] steht am %ostlichen Ende der Br%ucke, ihre [[T%ur->tuer]] ist aufgebrochen, und der Weg nach [[Osten->ost]] ist frei.">>
@@ -113,7 +113,7 @@
  <TELL " Die Leitstelle liegt im [[S%uden->sued]]." CR>>
 
 <ROUTINE MSG-RELAY-LOOK-START ()
- <TELL "Du bist in der Relaisstation, einer Betonhalle, die vor gestohlener Energie brummt. Der ganze Strom von Meridian l%auft %uber das [[Schaltpult->pult]] am hinteren Ende. ">>
+ <TELL "In der Betonhalle der Relaisstation sp%urst du das Brummen durch deine nassen Sohlen. Das [[Schaltpult->pult]] am hinteren Ende leitet Meridians Strom um. ">>
 
 <ROUTINE MSG-RELAY-LOOK-DRONE-DOWN ()
  <TELL "Die [[Wachdrohne->drohne]] liegt dunkel davor am Boden. ">>
@@ -125,7 +125,7 @@
  <TELL "Der [[Notfallkasten->kasten]] h%angt offen und leer neben der [[T%ur->tuer]], die nach [[Westen->west]] zur%uck zur Br%ucke f%uhrt." CR>>
 
 <ROUTINE MSG-RELAY-LOOK-KIT-FULL ()
- <TELL "Ein [[Notfallkasten->kasten]] ist neben der [[T%ur->tuer]] an die Wand geklemmt, die nach [[Westen->west]] zur%uck zur Br%ucke f%uhrt." CR>>
+ <TELL "Neben der [[T%ur->tuer]] im [[Westen->west]] h%angt ein [[Notfallkasten->kasten]]. Hinter der T%ur liegt die Br%ucke." CR>>
 
 <ROUTINE MSG-PROFILE-VANGUARD ()
  <TELL "Fels ist f%ur schwere Rettungen und den Nahkampf gebaut: viel St%arke und Ausdauer, aber wenig Verstand. Gesundheit 120, Karma 26.">>
@@ -180,7 +180,7 @@
  <TELL "Die Einsatztafel zu zerrei%sen holt niemanden von der Br%ucke." CR>>
 
 <ROUTINE MSG-WINDOW-EXAMINE ()
- <TELL "Durch das regennasse Glas ist die Stadt ein schwarzer Schatten unter den Wolken. Drau%sen %uber dem Fluss schwingt das rote Warnlicht einer festgefahrenen [[Stra%senbahn->bahn]] im Wind." CR>>
+ <TELL "Durch das regennasse Glas ist die Stadt ein schwarzer Schatten unter den Wolken. Drau%sen %uber dem Fluss schwingt das rote [[Warnlicht->warnlicht]] einer festgefahrenen Stra%senbahn im Wind." CR>>
 
 <ROUTINE MSG-WINDOW-OPEN ()
  <TELL "Das Fenster ist zugestrichen, und der Sturm kann drau%sen bleiben." CR>>
@@ -542,14 +542,17 @@
    <CHOICE "profile.bulwark" "W%ahle Fels" "waehle fels" ,CHOICE-INVESTIGATE 99>
    <CHOICE "profile.arc" "W%ahle Blitz" "waehle blitz" ,CHOICE-INVESTIGATE 98>
    <CHOICE "profile.lens" "W%ahle Luchs" "waehle luchs" ,CHOICE-INVESTIGATE 97>)
-  (T <CHOICE "dispatch.go" "Zur Br%ucke gehen" "nord" ,CHOICE-INVESTIGATE 99>)>)
+  (T <CHOICE "dispatch.go" "Zur Br%ucke gehen" "nord" ,CHOICE-INVESTIGATE 99>)>
+  <CHOICE "dispatch.glass" "An die Fensterscheibe klopfen" "klopf an fenster" ,CHOICE-INTERACT 40>)
  (<EQUAL? ,HERE ,BRIDGE>
   <COND (,RESCUED <CHOICE "bridge.go" "In die Relaisstation gehen" "ost" ,CHOICE-INVESTIGATE 99>)
   (T <CHOICE "bridge.rescue" "Die Fahrg%aste retten" "rette bahn" ,CHOICE-INVESTIGATE 99>)>
+  <CHOICE "bridge.signal" "An die Bahn klopfen" "klopf an bahn" ,CHOICE-INTERACT 40>
   <CHOICE "bridge.back" "Zur%uck zur Leitstelle" "sued" ,CHOICE-INVESTIGATE 80>)
  (<EQUAL? ,HERE ,RELAY>
   <COND (<NOT ,DISABLED> <CHOICE "relay.strike" "Die Drohne angreifen" "schlag drohne" ,CHOICE-INVESTIGATE 99>)>
   <CHOICE "relay.bypass" "Den Umgehungshebel umlegen" "deaktiviere pult" ,CHOICE-INVESTIGATE 98>
   <COND (<AND <NOT ,BOOSTED> <L? <STAT ,HERO ,A-HEALTH> <MAX-STAT ,HERO ,A-HEALTH>>> <CHOICE "relay.kit" "Den Notfallkasten benutzen" "benutze kasten" ,CHOICE-INVESTIGATE 95>)>
+  <CHOICE "relay.inspect-kit" "In den Notfallkasten schauen" "schau in kasten" ,CHOICE-INVESTIGATE 42>
   <CHOICE "relay.back" "Zur%uck zur Br%ucke" "west" ,CHOICE-INVESTIGATE 80>)>
  <COND (<NOT <0? ,HERO-CLASS>> <CHOICE "hero.sheet" "Heldenbogen lesen" "lies bogen" ,CHOICE-INVESTIGATE 90>)>>

@@ -1,5 +1,21 @@
 <SYNTAX TURN OBJECT = V-SPIN>
+<SYNTAX LISTEN = V-STATION-LISTEN>
+<SYNTAX SMELL = V-STATION-SMELL>
 <GLOBAL LOOP-OBSERVED <>>
+
+<ROUTINE V-STATION-LISTEN ()
+ <COND (<EQUAL? ,HERE ,TICKET-HALL> <PERFORM ,V?LISTEN ,STATION-CLOCK>)
+       (<EQUAL? ,HERE ,STAFF-ROOM> <PERFORM ,V?LISTEN ,STAFF-SINK>)
+       (<EQUAL? ,HERE ,GAUGE-ROOM> <PERFORM ,V?LISTEN ,GAUGE-FROST>)
+       (<EQUAL? ,HERE ,LOWER-PLATFORM> <PERFORM ,V?LISTEN ,PLATFORM-TRACK>)>
+ <RTRUE>>
+
+<ROUTINE V-STATION-SMELL ()
+ <COND (<EQUAL? ,HERE ,TICKET-HALL> <TELL "The cold has a chalky smell here. When the clock skips, you catch the faintest trace of hot dust." CR>)
+       (<EQUAL? ,HERE ,STAFF-ROOM> <PERFORM ,V?SMELL ,RINSED-CUPS>)
+       (<EQUAL? ,HERE ,GAUGE-ROOM> <TELL "Cold metal and the clean, sharp smell of a machine that has just switched on." CR>)
+       (<EQUAL? ,HERE ,LOWER-PLATFORM> <PERFORM ,V?SMELL ,PLATFORM-TRACK>)>
+ <RTRUE>>
 <GLOBAL STATION-END 0>
 
 <ROUTINE STATION-CLOCK-F ()
@@ -98,8 +114,13 @@
   <TELL "The glaze is smooth, and the warmth seems to come from inside it." CR>)
        (<VERB? LISTEN>
   <TELL "Held to your ear it hums very faintly, the same note as the gauge room floor." CR>)
+       (<VERB? READ>
+  <TELL "STANDARD LOAD. The letters are stamped around the rim, except for a gap where the notch lines up with the receiver cradle." CR>)
        (<VERB? SHAKE>
-  <TELL "Nothing rattles. It is solid all the way through." CR>)>>
+  <TELL "Nothing rattles. It is solid all the way through." CR>)
+       (<VERB? TURN SPIN>
+  <COND (<IN? ,TEST-PUCK ,RECEIVER-CRADLE> <TELL "The notch holds it exactly in place. You can lift it out, but it will not turn in the cradle." CR>)
+        (T <TELL "You turn the disc over. The underside is polished in one spot, where the cradle has held it a few thousand times." CR>)>)>>
 
 <ROUTINE RECEIVER-CRADLE-F ()
  <COND (<VERB? EXAMINE SEARCH LOOK-INSIDE>
@@ -112,7 +133,9 @@
        (<VERB? TAKE MOVE>
   <TELL "The cradle is part of the console. It isn't going anywhere." CR>)
        (<VERB? LOOK-UNDER>
-  <TELL "A bundle of wires runs from underneath it into the floor, toward the track." CR>)>>
+  <TELL "A bundle of wires runs from underneath it into the floor, toward the track." CR>)
+       (<VERB? KNOCK>
+  <TELL "You tap the rim. The little readout does not move; the instrument is listening to the rail, not to you." CR>)>>
 
 <ROUTINE CALIBRATION-STUD-F ()
  <COND (<VERB? EXAMINE>
@@ -171,7 +194,10 @@
        (<VERB? LISTEN>
   <TELL "Warm air breathes up and down them, as if the station itself were breathing." CR>)
        (<VERB? CLIMB-FOO CLIMB-ON CLIMB-UP CLIMB-DOWN>
-  <COND (<EQUAL? ,HERE ,TICKET-HALL> <DO-WALK ,P?DOWN>)
+  <COND (<EQUAL? ,HERE ,TICKET-HALL>
+         <COND (<VERB? CLIMB-UP> <TELL "From the hall these steps go down, to the platform." CR>)
+               (T <DO-WALK ,P?DOWN>)>)
+        (<VERB? CLIMB-DOWN> <TELL "This is the bottom of the steps. They lead up to the ticket hall." CR>)
         (T <DO-WALK ,P?UP>)>
   <RTRUE>)>>
 
@@ -212,12 +238,16 @@
 <ROUTINE PLATFORM-POST-F ()
  <COND (<VERB? EXAMINE>
   <TELL "A squat steel post at the platform edge, with the platform bell bolted to its top. It bears two controls: the red [[rescue switch->switch]] and the grey [[quarantine latch->latch]]. Only one of them can be used tonight." CR>)
-       (<VERB? RING LISTEN>
-  <TELL "The platform bell is still trembling from the train's call. Under your hand it gives one dull note, and the rails carry it off into the dark." CR>)
+       (<VERB? RING>
+  <TELL "You ring one dull note. The rails carry it off into the dark, but a bell from this end is only a test; neither control has moved." CR>)
+       (<VERB? LISTEN>
+  <TELL "The platform bell still trembles, too softly to ring. In the post below it, you hear the vibration the way you would hear a pulse." CR>)
        (<VERB? RUB>
   <TELL "The post trembles faintly under your hand, in time with the rails." CR>)
        (<VERB? KICK MOVE>
-  <TELL "It is set deep in the concrete and doesn't budge." CR>)>>
+  <TELL "It is set deep in the concrete and doesn't budge." CR>)
+       (<VERB? LOOK-BEHIND>
+  <TELL "Two leads come out of the post and meet at the rail. Whatever you decide, there's only one way to get the message through." CR>)>>
 
 <ROUTINE UNSEEN-TRAIN-F ()
  <COND (<VERB? EXAMINE LOOK-INSIDE FIND>
@@ -229,7 +259,10 @@
   <PERFORM ,V?LISTEN ,PLATFORM-TRACK>
   <RTRUE>)
        (<VERB? BOARD THROUGH WAVE TAKE PUSH>
-  <TELL "There is nothing on the track your hands can reach. The only way to answer the train is with the controls on the [[post]]." CR>)>>
+  <TELL "There is nothing on the track your hands can reach. The only way to answer the train is with the controls on the [[post]]." CR>)
+       (<VERB? TELL HELLO>
+  <COND (,LOOP-OBSERVED <TELL "You call, and wait long enough for a reply. Whoever is aboard can hear the rail, not your voice. The controls on the [[post]] will carry an answer." CR>)
+        (T <TELL "Your voice comes back from both tunnels. Neither echo is quite in time with the other." CR>)>)>>
 
 <ROUTINE PLATFORM-EDGE-F ()
  <COND (<VERB? EXAMINE>
@@ -280,7 +313,7 @@
  <V-VERSION> <CRLF>
  <SETG HERE ,TICKET-HALL> <SETG VERBOSE T> <SETG LIT T>
  <SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
- <TELL "You are the night attendant at the colony's deepest railway station, far under the ice of a frozen moon. The last lift to the surface left an hour ago, and you are alone down here. Then the platform bell rang: a train is asking to stop, and by the timetable it was due yesterday. It is calling in from the wrong side of midnight, and somebody has to decide whether to let it in." CR CR>
+ <TELL "The last lift to the surface left an hour ago. You are alone on the night shift at the colony's deepest railway station, far under the ice of a frozen moon. You have locked the gates open and rinsed your cup. Then the platform bell rings. A train is asking to stop, and by the timetable it was due yesterday. It is calling in from the wrong side of midnight, and somebody has to decide whether to let it in." CR CR>
  <TELL D ,HERE CR>
  <V-LOOK> <MAIN-LOOP> <AGAIN>>
 
