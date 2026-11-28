@@ -9,10 +9,11 @@ Hero.module = "books.en.blackout-at-meridian.blackout-at-meridian"
 -- { lowest rank, green, yellow, red }: a roll at or above a cutoff reaches
 -- that tier. Kept apart from the ZIL so a changed cutoff fails here.
 Hero.cutoffs = {
-	{ 1000, 6, 36, 76 }, { 150, 11, 41, 81 }, { 100, 16, 46, 86 }, { 75, 21, 51, 86 },
-	{ 50, 26, 56, 91 }, { 40, 31, 61, 91 }, { 30, 36, 66, 95 }, { 20, 41, 71, 95 },
-	{ 10, 46, 76, 98 }, { 6, 51, 81, 98 }, { 4, 56, 86, 100 }, { 2, 61, 91, 100 },
-	{ 0, 66, 96, 100 },
+	{ 10000, 2, 21, 61 }, { 5000, 2, 26, 66 }, { 3000, 2, 31, 71 }, { 1000, 2, 36, 76 },
+	{ 351, 4, 36, 76 }, { 176, 7, 41, 81 }, { 126, 11, 41, 81 }, { 88, 16, 46, 86 },
+	{ 63, 21, 51, 86 }, { 46, 26, 56, 91 }, { 37, 31, 61, 91 }, { 26, 36, 66, 95 },
+	{ 16, 41, 71, 95 }, { 8, 46, 76, 98 }, { 5, 51, 81, 98 }, { 3, 56, 86, 100 },
+	{ 1, 61, 91, 100 }, { 0, 66, 95, 100 },
 }
 Hero.tierNames = { [0] = "failure", "success", "strong success", "exceptional success" }
 

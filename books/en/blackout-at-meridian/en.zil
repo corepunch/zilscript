@@ -390,7 +390,7 @@
  <TELL "The drone's beam catches you before you reach the lever.">>
 
 <ROUTINE MSG-CHECK-REASON ()
- <TELL "Reason check, strong success needed. ">>
+ <TELL "Reason check. ">>
 
 <ROUTINE MSG-KIT-EXAMINE-BOOSTED ()
  <TELL "The kit hangs open and empty." CR>>
