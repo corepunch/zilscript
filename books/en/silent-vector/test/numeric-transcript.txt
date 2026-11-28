@@ -4,7 +4,7 @@ Release 1
 
 “Keep holding her hand.” You remember saying it, and you remember a small, cold hand in yours.
 
-You are the engineer of Asterion, a research station far out beyond the outer relay. The crew list says four people live here, and you can name them all; yet you remember a fifth, as clearly as you remember your own voice comforting her. Now something has tripped the habitat systems, and you have woken alone, strapped into your sleeping cradle. Your fingers are still cold.
+You are the engineer of Asterion, a research station far out beyond the outer relay. The crew list says four people live here, and you can name them all; yet you remember a fifth, as clearly as you remember your own voice comforting her. Now something has tripped the habitat systems. You have woken alone in your sleeping cradle, with the strap loose across your chest. Your fingers are still cold.
 
 Restraint Cradle
 You are in your restraint cradle, a padded sleeping [[niche->frame]] at the south end of the habitat. A dry [[click]] repeats somewhere inside the [[padding]], steady as a pulse. The habitat [[breaker]] is set into the frame, within arm's reach. The pressure-balanced door to the [[north]], which leads to the habitat junction, is sealed.
@@ -108,7 +108,7 @@ Mara recorded four independent pulses before reception. Afterwards she added a f
 
 
 > north
-You are in the Comparison Laboratory, a quiet room of steel [[benches]] and bolted instruments. The largest is the optical [[comparator]], which vibrates at the very edge of hearing. The clinic is back to the [[south]], and screened quarantine lies to the [[east]].
+In the Comparison Laboratory, steel [[benches]] catch every reflection. Even the instruments are bolted down. The light gathers on the glass of the optical [[comparator]], which vibrates at the very edge of hearing. The clinic is back to the [[south]], and screened quarantine lies to the [[east]].
 
 
 > compare optical comparator with witness strip
@@ -156,7 +156,7 @@ The ceramic edges meet. A blue fleck runs into the [[spool]] and dies. The singi
 
 
 > north
-You are in the Receiver Vault, a low, windowless space under the relay. The station's signal [[receiver]] fills most of it, a steel housing as tall as you are. It is silent now. You remember it thanking you, though it makes no sound. The only way out is [[south]], back to the relay.
+You duck into the Receiver Vault below the relay. The signal [[receiver]] almost fills it: one tall steel housing, with just enough space beside it to turn around. It is silent now. You remember it thanking you, though it makes no sound. The only way out is [[south]], back to the relay.
 
 
 > open signal receiver
@@ -190,7 +190,7 @@ You are in the Clinic, a small white room with a single [[exam bed->bed]] under 
 
 
 > north
-You are in the Comparison Laboratory, a quiet room of steel [[benches]] and bolted instruments. The largest is the optical [[comparator]], its readout holding steady. The clinic is back to the [[south]], and screened quarantine lies to the [[east]].
+In the Comparison Laboratory, steel [[benches]] catch every reflection. Even the instruments are bolted down. The light gathers on the glass of the optical [[comparator]], its readout holding steady. The clinic is back to the [[south]], and screened quarantine lies to the [[east]].
 
 
 > east
@@ -237,7 +237,7 @@ You are in Screened Quarantine, a bare cell hung with dull grey [[shielding]]. [
 
 
 > west
-You are in the Comparison Laboratory, a quiet room of steel [[benches]] and bolted instruments. The largest is the optical [[comparator]], its readout holding steady. The clinic is back to the [[south]], and screened quarantine lies to the [[east]].
+In the Comparison Laboratory, steel [[benches]] catch every reflection. Even the instruments are bolted down. The light gathers on the glass of the optical [[comparator]], its readout holding steady. The clinic is back to the [[south]], and screened quarantine lies to the [[east]].
 
 
 > south
@@ -265,7 +265,7 @@ You are in the Clinic, a small white room with a single [[exam bed->bed]] under 
 
 
 > north
-You are in the Comparison Laboratory, a quiet room of steel [[benches]] and bolted instruments. The largest is the optical [[comparator]], its readout holding steady. The clinic is back to the [[south]], and screened quarantine lies to the [[east]].
+In the Comparison Laboratory, steel [[benches]] catch every reflection. Even the instruments are bolted down. The light gathers on the glass of the optical [[comparator]], its readout holding steady. The clinic is back to the [[south]], and screened quarantine lies to the [[east]].
 
 
 > east

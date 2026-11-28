@@ -43,7 +43,7 @@ local sheet = expect("choose bulwark", "Fighting: 30, Agility: 10\n")
 assert(sheet:find("Health: 120/120, Karma: 26", 1, true), sheet)
 -- An unnamed hero is called Meridian; the name table has no length prefix.
 expect("examine sheet", "Hero: Meridian (Bulwark)\n")
-expect("north", "People are still inside.")
+expect("north", "Faces crowd the high end")
 expect("examine front carriage", "hangs nose-down over the river")
 until_success("rescue passengers", "pass the passengers down", 8)
 expect("rescue tram", "already safe")

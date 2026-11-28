@@ -1,6 +1,7 @@
 <ROUTINE SUGGEST-ACTIONS ()
  <COND
   (<EQUAL? ,HERE ,CAUSEWAY>
+   <CHOICE "causeway.listen" "Stop and listen to the footsteps" "listen" ,CHOICE-INTERACT 60>
    <CHOICE "causeway.1" "Enter the tide-house" "north" ,CHOICE-INVESTIGATE 99>
    <COND (<IN? ,EKIT ,CAUSEWAY> <CHOICE "causeway.kit" "Speak to Kit" "examine younger kit" ,CHOICE-INTERACT 90>)>)
   (<EQUAL? ,HERE ,HALL>
@@ -12,6 +13,7 @@
    <CHOICE "hall.5" "Step back out onto the causeway" "south" ,CHOICE-INVESTIGATE 95>)
   (<EQUAL? ,HERE ,KITCHEN>
    <CHOICE "kitchen.1" "Look at Kit's mug" "examine child mug" ,CHOICE-INVESTIGATE 99>
+   <CHOICE "kitchen.mug-knock" "Tap the mug with a finger" "knock on mug" ,CHOICE-INTERACT 60>
    <CHOICE "kitchen.range" "Open the cold iron range" "open iron range" ,CHOICE-INTERACT 90>
    <CHOICE "kitchen.2" "Return to the hall" "east" ,CHOICE-INVESTIGATE 98>)
   (<EQUAL? ,HERE ,OFFICE>
@@ -24,6 +26,7 @@
    <CHOICE "stairs.2" "Go up to the lantern" "up" ,CHOICE-INVESTIGATE 98>
    <CHOICE "stairs.3" "Back to the hall" "south" ,CHOICE-INVESTIGATE 97>)
   (<EQUAL? ,HERE ,LANTERN>
+   <CHOICE "lantern.listen" "Put an ear to the warm glass" "listen to lens" ,CHOICE-INTERACT 60>
    <CHOICE "lantern.1" "Inspect the lens" "examine lens" ,CHOICE-INVESTIGATE 99>
    <COND (<NOT <FSET? ,ESHUT ,OPENBIT>> <CHOICE "lantern.2" "Open the seaward shutter" "open seaward shutter" ,CHOICE-INVESTIGATE 98>)>
    <COND (<NOT ,LENS-READY> <CHOICE "lantern.3" "Try a place on the lens" "spin signal lens" ,CHOICE-INVESTIGATE 97>)>
@@ -32,6 +35,7 @@
   (<EQUAL? ,HERE ,GALLERY>
    <CHOICE "gallery.1" "Inspect the bell" "examine bell" ,CHOICE-INVESTIGATE 99>
    <COND (,LENS-READY <CHOICE "gallery.2" "Call the shore as witnesses" "ring witness bell" ,CHOICE-INVESTIGATE 98>)>
+   <COND (,LENS-READY <CHOICE "gallery.brake-listen" "Listen to the brake before deciding" "listen to brake" ,CHOICE-INTERACT 60>)>
    <COND (,LENS-READY <CHOICE "gallery.3" "Pull the brake for a private vigil" "pull clapper brake" ,CHOICE-INVESTIGATE 97>)>
    <COND (<IN? ,EKIT ,GALLERY> <CHOICE "gallery.kit" "Speak to Kit before deciding" "examine younger kit" ,CHOICE-INTERACT 99>)>
    <COND (<NOT ,LENS-READY> <CHOICE "gallery.listen" "Listen to the bell in the wind" "listen to witness bell" ,CHOICE-INTERACT 90>)>

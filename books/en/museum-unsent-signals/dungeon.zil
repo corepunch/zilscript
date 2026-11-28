@@ -2,16 +2,16 @@
 
 <ROOM ADMISSIONS (IN ROOMS) (GLOBAL RELAY) (DESC "Admissions") (FLAGS RLANDBIT ONBIT)
  (EAST TO DEAD-LETTERS) (WEST TO QUIET-HALL) (NORTH TO SIGNAL-BOOTH)
- (LDESC "You are in the admissions lobby of the Museum of Unsent Signals. The lights have been turned down low, and the only sound is the far-off hum of the old relay. Behind the [[ticket counter->counter]] a stack of tickets has just been stamped, and above it hangs a brass [[plaque]], polished so clean it shines. Dead Letters is through a doorway to the [[east]], and the Quiet Hall lies to the [[west]]. A short corridor leads [[north]] to the signal booth.")>
+ (LDESC "You're in the admissions lobby. Only one light is still on, above the [[ticket counter->counter]] and a brass [[plaque]]. Beneath the hum of the [[relay]], you can hear each of your own steps on the tiles. The Dead Letters gallery lies [[east]], the Quiet Hall [[west]], and the signal booth [[north]].")>
 <ROOM DEAD-LETTERS (IN ROOMS) (GLOBAL RELAY) (DESC "Dead Letters") (FLAGS RLANDBIT ONBIT)
  (WEST TO ADMISSIONS)
- (LDESC "This is the Dead Letters gallery, a long, dim room lined with [[glass cases->cases]]. Each case holds a message that somebody recorded and then never sent, and the ones nearest the floor are kept for messages people changed their minds about. At waist height stands a round [[inspection lens->lens]] in a brass collar, for looking closely at the exhibits. The doorway back to admissions is to the [[west]].")>
+ (LDESC "You're in the Dead Letters gallery. The [[glass cases->cases]] run down both walls. At first the dark glass shows you only your own reflection; the [[inspection lens->lens]] on its stand was put there for a closer look. The door back to admissions is [[west]].")>
 <ROOM QUIET-HALL (IN ROOMS) (GLOBAL RELAY) (DESC "Quiet Hall") (FLAGS RLANDBIT ONBIT)
  (EAST TO ADMISSIONS)
- (LDESC "This is the Quiet Hall, the one room in the museum built for listening to nothing. Thick carpet swallows your footsteps, and the hush is the good kind, like a coat put over a sleeping child. A straight wooden [[bench]] faces the far wall, where an old [[service diagram->diagram]] shows how the relay used to work. Admissions is back to the [[east]].")>
+ (LDESC "This is the Quiet Hall, the one room in the museum built for listening to nothing. The thick carpet stops your footsteps so suddenly that you hear the sleeve of your coat brush your wrist. A straight wooden [[bench]] faces the far wall, where an old [[service diagram->diagram]] shows how the relay used to work. Admissions is back to the [[east]].")>
 <ROOM SIGNAL-BOOTH (IN ROOMS) (GLOBAL RELAY) (DESC "Signal Booth") (FLAGS RLANDBIT ONBIT)
  (SOUTH TO ADMISSIONS)
- (LDESC "You are in the signal booth, a small glass room at the heart of the relay. The air hums faintly, and the glass is warm where people have leaned their foreheads against it. Set into the desk is a shallow [[reading basin->basin]] for playing spools, with a round [[audition stud->stud]] beside it. Below them are two sending keys: the [[return key]] on the left and the [[memorial key]] on the right. The corridor leads back [[south]] to admissions.")>
+ (LDESC "You are in the signal booth, a small glass room at the heart of the relay. The [[relay]] hums under your feet. The glass is warm enough to lean your forehead against. Set into the desk is a shallow [[reading basin->basin]] for playing spools, with a round [[audition stud->stud]] beside it. Below them are two sending keys: the [[return key]] on the left and the [[memorial key]] on the right, with a little [[address indicator->indicator]] above them. The corridor leads back [[south]] to admissions.")>
 
 <OBJECT MUSEUM-PLAQUE (IN ADMISSIONS) (DESC "plaque") (SYNONYM PLAQUE NOTE STRIP PAPER LETTERS RULE) (ADJECTIVE MUSEUM BRASS RAISED CARETAKER)
  (FLAGS NDESCBIT) (ACTION MUSEUM-PLAQUE-F)>

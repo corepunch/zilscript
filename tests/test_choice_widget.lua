@@ -100,6 +100,19 @@ framework.describe("Data-driven choice widget", function(suite)
     t.assert_equal(result.text, "look")
   end)
 
+  suite.it("erases one whole UTF-8 character when a reader edits a command", function(t)
+    local fake = fake_terminal({
+      {kind = "text", text = "T"},
+      {kind = "text", text = "ü"},
+      {kind = "text", text = "ö"},
+      {kind = "backspace"},
+      {kind = "text", text = "r"},
+      {kind = "enter"},
+    })
+
+    t.assert_equal(choice_widget.run(config(), fake).text, "Tür")
+  end)
+
   suite.it("redraws from column zero and leaves a spacer before the prompt", function(t)
     local fake = fake_terminal({
       {kind = "down"},
@@ -138,6 +151,40 @@ framework.describe("Terminal text styles", function(suite)
     )
     t.assert_false(styled:find("32m", 1, true) ~= nil)
     t.assert_false(styled:find("36m", 1, true) ~= nil)
+  end)
+end)
+
+framework.describe("Terminal keys and authored links", function(suite)
+  local function input(data)
+    local position = 0
+    return terminal.new({ stdin = { read = function(_, size)
+      assert(size == 1)
+      position = position + 1
+      if position <= #data then return data:sub(position, position) end
+    end } })
+  end
+
+  suite.it("keeps book link labels and does not bold arbitrary substrings", function(t)
+    t.assert_equal(terminal.bold_links("Sie führt [[zur Tür->tür]]."),
+      "Sie führt \27[1mzur Tür\27[0m.")
+  end)
+
+  suite.it("preserves UTF-8 commands and cursor-key sequences", function(t)
+    local device = input("ü\27[Bß\21\r")
+    t.assert_equal(device:read_key().text, "ü")
+    t.assert_equal(device:read_key().kind, "down")
+    t.assert_equal(device:read_key().text, "ß")
+    t.assert_equal(device:read_key().kind, "escape")
+    t.assert_equal(device:read_key().kind, "enter")
+    t.assert_equal(device:read_key().kind, "eof")
+  end)
+
+  suite.it("does not swallow the next key on malformed UTF-8", function(t)
+    local device = input("\195x\27y")
+    t.assert_equal(device:read_key().kind, "unknown")
+    t.assert_equal(device:read_key().text, "x")
+    t.assert_equal(device:read_key().kind, "escape")
+    t.assert_equal(device:read_key().text, "y")
   end)
 end)
 

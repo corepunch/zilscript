@@ -2,7 +2,7 @@
 
 <ROOM TICKET-HALL (IN ROOMS) (DESC "Ticket Hall") (FLAGS RLANDBIT ONBIT)
  (WEST TO STAFF-ROOM) (EAST TO GAUGE-ROOM) (NORTH TO LOWER-PLATFORM) (DOWN TO LOWER-PLATFORM)
- (LDESC "You are in the ticket hall of the station, a low concrete room far under the ice where the colony's trains stop. The ceiling lamps are off for the night, so the only light comes from [[glow strips]] set in the floor, and your breath hangs in the air. Above a row of ticket [[wickets]], the [[station clock->clock]] keeps creeping toward midnight. The staff room is to the [[west]], and the gauge room, where the track instruments are kept, is to the [[east]]. [[Steps]] lead [[north]] down to the platform.")>
+ (LDESC "You stand in the ticket hall, a box of concrete under the ice. The ceiling lamps are off; green [[glow strips]] light your breath from below. Above the ticket [[wickets]], the [[station clock->clock]] keeps creeping toward midnight. The staff room is to the [[west]] and the track instruments are in the gauge room to the [[east]]. [[Steps]] lead [[north]] to the lower platform.")>
 <ROOM STAFF-ROOM (IN ROOMS) (DESC "Staff Room") (FLAGS RLANDBIT ONBIT)
  (EAST TO TICKET-HALL)
  (LDESC "This is the staff room, a narrow, warm room that smells of stewed tea. There is a scuffed [[table]], and beside it a little [[sink]], where two [[cups]] stand upside down on the drainer, both rinsed, though tonight was a one-person shift. The night operator's [[logbook]] lies open on the table. The ticket hall is back to the [[east]].")>
@@ -20,7 +20,7 @@
  (FLAGS NDESCBIT) (ACTION SHIFT-LOG-F)>
 
 <OBJECT TEST-PUCK (IN STAFF-ROOM) (DESC "ceramic puck") (SYNONYM PUCK DISC WEIGHT) (ADJECTIVE CERAMIC TEST WHITE STANDARD)
- (FLAGS TAKEBIT) (FDESC "A white [[ceramic puck->puck]] sits on the table beside the logbook.")
+ (FLAGS TAKEBIT READBIT) (FDESC "A white [[ceramic puck->puck]] sits on the table beside the logbook.")
  (LDESC "The [[ceramic puck->puck]] is here.") (ACTION TEST-PUCK-F)>
 
 <OBJECT RECEIVER-CRADLE (IN GAUGE-ROOM) (DESC "receiver cradle") (SYNONYM CRADLE RECEIVER) (ADJECTIVE RECEIVER)
@@ -81,7 +81,7 @@
  (FLAGS NDESCBIT) (ACTION STAFF-CHAIR-F)>
 
 <OBJECT UNSEEN-TRAIN (IN LOWER-PLATFORM) (DESC "train") (SYNONYM TRAIN CARRIAGES DRIVER PASSENGERS) (ADJECTIVE YESTERDAY)
- (FLAGS NDESCBIT) (ACTION UNSEEN-TRAIN-F)>
+ (FLAGS NDESCBIT ACTORBIT) (ACTION UNSEEN-TRAIN-F)>
 
 <OBJECT PLATFORM-EDGE (IN LOWER-PLATFORM) (DESC "platform") (SYNONYM PLATFORM EDGE CONCRETE) (ADJECTIVE LOWER PLATFORM)
  (FLAGS NDESCBIT) (ACTION PLATFORM-EDGE-F)>

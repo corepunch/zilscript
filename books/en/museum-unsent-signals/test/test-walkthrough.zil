@@ -2,8 +2,10 @@
 <GLOBAL CO <CO-CREATE GO>>
 <ROUTINE RUN-TEST ()
  <CO-RESUME ,CO "" T>
+ <ASSERT-TEXT "your own footsteps" <CO-RESUME ,CO "listen">>
  <ASSERT-TEXT "forty years" <CO-RESUME ,CO "read plaque">>
  <CO-RESUME ,CO "east">
+ <ASSERT-TEXT "rings softly" <CO-RESUME ,CO "knock on cases">>
  <ASSERT-TEXT "take them for damage" <CO-RESUME ,CO "examine spool">>
  <CO-RESUME ,CO "take spool"> <CO-RESUME ,CO "west"> <CO-RESUME ,CO "north">
  <ASSERT-TEXT "Load the wooden spool" <CO-RESUME ,CO "push stud">>
@@ -13,6 +15,7 @@
  <ASSERT "audition alone cannot authorize routing" <NOT ,SIGNAL-HEARD>>
  <ASSERT-TEXT "The keys stay dark" <CO-RESUME ,CO "push return key">>
  <CO-RESUME ,CO "south"> <CO-RESUME ,CO "west">
+ <ASSERT-TEXT "two hollows" <CO-RESUME ,CO "sit on bench">>
  <ASSERT-TEXT "not the spool itself" <CO-RESUME ,CO "read diagram">>
  <CO-RESUME ,CO "east"> <CO-RESUME ,CO "east">
  <ASSERT-TEXT "tilt it" <CO-RESUME ,CO "examine lens">>
@@ -22,6 +25,15 @@
  <CO-RESUME ,CO "west"> <CO-RESUME ,CO "north">
  <ASSERT-TEXT "private return register" <CO-RESUME ,CO "push audition stud">>
  <ASSERT "routing is unlocked after replay" ,SIGNAL-HEARD>
+ <ASSERT-TEXT "both sending keys go dark" <CO-RESUME ,CO "remove spool from basin">>
+ <ASSERT "the spool is held after removal" <IN? ,MESSAGE-SPOOL ,WINNER>>
+ <ASSERT "removal clears authorization" <NOT ,SIGNAL-HEARD>>
+ <ASSERT-TEXT "The keys stay dark" <CO-RESUME ,CO "press memorial key">>
+ <ASSERT "a removed spool cannot trigger an ending" <EQUAL? ,MUSEUM-END 0>>
+ <CO-RESUME ,CO "put spool on basin">
+ <ASSERT-TEXT "The keys stay dark" <CO-RESUME ,CO "push return key">>
+ <ASSERT "reloading alone cannot trigger an ending" <EQUAL? ,MUSEUM-END 0>>
+ <ASSERT-TEXT "private return register" <CO-RESUME ,CO "play spool">>
  <ASSERT-TEXT "ENDING: PRIVATE RETURN" <CO-RESUME ,CO "push return key">>
  <ASSERT "private destination" <EQUAL? ,MUSEUM-END 1>>
  <ASSERT-TEXT "closing for good" <CO-RESUME ,CO "restart">>

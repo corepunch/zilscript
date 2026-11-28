@@ -110,7 +110,18 @@
 	<ASSERT "Study" <CO-RESUME ,CO "north" T> <==? ,HERE ,STUDY>>
 	<ASSERT-TEXT "bank statement" <CO-RESUME ,CO "align box to moriarty">>
 	<ASSERT "The box is open" <AND ,LOCKED-BOX-OPENED <FSET? ,LOCKED-BOX ,OPENBIT>>>
+
+	;"Closing the solved box used to make the statement irretrievable."
+	<ASSERT-TEXT "dial stays at MORIARTY" <CO-RESUME ,CO "close box">>
+	<ASSERT "The lid is closed without resetting the dial" <AND ,LOCKED-BOX-OPENED <NOT <FSET? ,LOCKED-BOX ,OPENBIT>>>>
+	<ASSERT-TEXT "lid is shut" <CO-RESUME ,CO "examine box">>
+	<ASSERT-TEXT "name-dial box sits shut" <CO-RESUME ,CO "look">>
+	<ASSERT-TEXT "You lift the lid again" <CO-RESUME ,CO "open box">>
+	<ASSERT-TEXT "ink feathers" <CO-RESUME ,CO "use magnifying glass on unsent letter">>
+	<ASSERT-TEXT "pale rim" <CO-RESUME ,CO "use magnifying glass on poison bottle">>
 	<ASSERT-TEXT "overdrawn" <CO-RESUME ,CO "read bank statement">>
+	<CO-RESUME ,CO "close study door">
+	<ASSERT-TEXT "hall to the south" <CO-RESUME ,CO "open study door">>
 	<ASSERT "The statement is the fifth piece of evidence" <AND ,BANK-STATEMENT-FOUND <==? ,EVIDENCE-FOUND 5> <==? <LOC ,BANK-STATEMENT> ,ADVENTURER>>>
 	<ASSERT "Down the hidden stair" <CO-RESUME ,CO "down" T> <==? ,HERE ,SECRET-PASSAGE>>
 	<ASSERT-TEXT "hurried toward the study" <CO-RESUME ,CO "examine dust">> ;"The lit lantern shows the route"

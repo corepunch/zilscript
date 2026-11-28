@@ -1,6 +1,10 @@
 <SYNTAX TILT OBJECT = V-TILT-LENS>
 <SYNONYM TILT ADJUST ANGLE>
 <SYNTAX TURN OBJECT = V-SPIN>
+<SYNTAX SIT ON OBJECT = V-MUSEUM-SIT>
+<SYNTAX PRESS OBJECT = V-PUSH>
+<SYNTAX PLAY OBJECT = V-MUSEUM-PLAY>
+<SYNTAX LISTEN = V-MUSEUM-LISTEN>
 
 <GLOBAL LENS-READ <>>
 <GLOBAL SIGNAL-HEARD <>>
@@ -20,7 +24,7 @@
        (<VERB? RUB>
   <TELL "You run your hand along the counter. The varnish is worn pale in two places, where the caretaker leaned on it every evening." CR>)
        (<VERB? TAKE>
-  <TELL "You take one ticket, then put it back. You already have the keys; a ticket would only be a souvenir of the end." CR>)
+  <TELL "You take one ticket, then put it back. It has a seat number but no date. For tonight, that seems exactly right." CR>)
        (<VERB? SMELL>
   <TELL "Fresh stamp ink and old varnish." CR>)
        (<VERB? KNOCK>
@@ -52,7 +56,7 @@
 
 <ROUTINE LOBBY-F ()
  <COND (<VERB? OPEN UNLOCK>
-  <TELL "The front door stays locked. The caretaker left you the keys to see the museum through its last night, not to leave before the relay is switched off." CR>)
+  <TELL "The front door is locked for the night. The caretaker left you in charge of the relay, not the street." CR>)
        (<VERB? EXAMINE>
   <TELL "An old-fashioned lobby with a tiled floor and the lights turned down low. The ticket counter and the plaque face the front door, which is locked for the night. Doorways lead east and west, and a short corridor runs north to the signal booth." CR>)
        (<VERB? LISTEN>
@@ -98,8 +102,21 @@
 
 <ROUTINE MESSAGE-SPOOL-F ()
  <COND (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,READING-BASIN> <HELD? ,MESSAGE-SPOOL>>
+  <SETG SIGNAL-HEARD <>>
   <MOVE ,MESSAGE-SPOOL ,READING-BASIN>
   <TELL "You set the spool into the basin. It catches and starts to turn, and the [[audition stud->stud]] begins to glow on the basin's rim." CR>)
+       (<AND <VERB? TAKE> <IN? ,MESSAGE-SPOOL ,READING-BASIN>>
+        <COND (<EQUAL? <ITAKE> T>
+               <SETG SIGNAL-HEARD <>>
+               <TELL "You lift the spool. The reel stops, the address indicator clears, and both sending keys go dark." CR>)>
+        <RTRUE>)
+       (<AND <VERB? MUSEUM-PLAY SPIN> <EQUAL? ,PRSO ,MESSAGE-SPOOL>>
+        <COND (<IN? ,MESSAGE-SPOOL ,READING-BASIN>
+               <PERFORM ,V?PUSH ,AUDITION-STUD>)
+              (T <TELL "The reel can turn in your hands, but it can't speak. The reading basin in the signal booth can play it." CR>)>
+        <RTRUE>)
+       (<AND <VERB? PUSH> <EQUAL? ,PRSO ,MESSAGE-SPOOL>>
+        <TELL "The spool has no switch. It takes a basin and a listening ear to get anything out of it." CR>)
        (<VERB? EXAMINE READ>
   <COND (,LENS-READ
     <TELL "A small reel of recording tape on a wooden spool. The paper tag says FOR REVIEW. FILED AS BLANK. Along the wooden edge are three fine, even cuts, exactly the mark the lens described. Whatever the catalogue says, this spool has a private return address: it was meant to go back to one person, not out to everyone." CR>)
@@ -120,7 +137,7 @@
   <TELL "The wood is smooth and faintly warm, as if someone got up from it only a moment ago." CR>)
        (<VERB? LISTEN>
   <TELL "You stand still beside the bench and listen. The hall is so quiet you can hear your own heartbeat, and under it, very faintly, the relay humming in the booth." CR>)
-       (<VERB? CLIMB-ON CLIMB-FOO>
+       (<VERB? CLIMB-ON CLIMB-FOO MUSEUM-SIT>
   <TELL "You sit in one of the two hollows. The other stays empty beside you, and the hush settles over both. After a while you get up again; the spool is still waiting to be checked." CR>)
        (<VERB? LOOK-UNDER>
   <TELL "Under the bench, the carpet is hardly worn at all. Everyone who sat here kept their feet very still." CR>)
@@ -140,6 +157,10 @@
   <COND (<IN? ,MESSAGE-SPOOL ,READING-BASIN>
          <TELL "The [[spool]] turns slowly in the basin. Press the [[stud]] to hear it here in the booth, not out on the feed." CR>)
         (T <TELL "A shallow bowl of black glass, made to hold a spool while it plays. It's empty. Set a wooden spool into the basin to play it." CR>)>)
+       (<VERB? MUSEUM-PLAY>
+        <PERFORM ,V?PUSH ,AUDITION-STUD> <RTRUE>)
+       (<VERB? KNOCK>
+        <TELL "The glass gives back one bright note. It's the only thing in this booth that doesn't need a speaker." CR>)
        (<VERB? CLOSE> <TELL "The basin has no lid. The sound stays in the booth unless you send something." CR>)
        (<VERB? RUB>
   <TELL "The black glass is warm and very smooth, like a stone kept in a pocket." CR>)
@@ -159,6 +180,10 @@
                <TELL "The woman says, “I made it.” This time you know how much of the message is the minute after she stops." CR>)
               (T <SETG SIGNAL-HEARD T>
                  <TELL "A woman's voice says, “I made it.” Then, for a whole minute, you hear nothing but her breathing, slow and steady, as if she is waiting for someone to answer. The address indicator matches the three cuts on the spool to the private return register: this was never a public announcement. She was talking to one person, whoever used to wait up for her. Below the basin, both sending keys light up." CR>)>)
+       (<VERB? MUSEUM-PLAY>
+        <PERFORM ,V?PUSH ,AUDITION-STUD> <RTRUE>)
+       (<VERB? LISTEN>
+        <TELL "You put an ear to the grille. The speaker waits for the stud, not the other way around." CR>)
        (<VERB? RUB>
   <TELL "The brass button is worn into a shallow dip by years of thumbs." CR>)
        (<VERB? TAKE>
@@ -166,40 +191,47 @@
 
 <ROUTINE ADDRESS-INDICATOR-F ()
  <COND (<VERB? EXAMINE READ>
-  <COND (,SIGNAL-HEARD
+  <COND (<ROUTE-ARMED?>
          <TELL "The little display reads PRIVATE RETURN REGISTER. It matched the three cuts on the spool to one address, and the sending keys are waiting." CR>)
         (T
          <TELL "A small address indicator set into the desk beside the keys. Its display asks PUBLIC OR PRIVATE? and blinks, waiting for a spool to be played and its address marks understood." CR>)>)
        (<VERB? RUB PUSH>
   <TELL "Its glass is warm. It only shows what the booth has worked out; it takes no answer from your finger." CR>)>>
 
+<ROUTINE ROUTE-ARMED? ()
+ <AND ,SIGNAL-HEARD <IN? ,MESSAGE-SPOOL ,READING-BASIN>>>
+
 <ROUTINE ROUTING-READY ()
- <COND (,SIGNAL-HEARD <RTRUE>)
+ <COND (<ROUTE-ARMED?> <RTRUE>)
        (T <TELL "The keys stay dark. The booth won't send anything until you know who this message was for. Find out what the cut marks on the spool mean, then play the loaded spool here with the audition stud." CR> <RFALSE>)>>
 
 <ROUTINE RETURN-KEY-F ()
- <COND (<VERB? EXAMINE>
+ <COND (<VERB? EXAMINE READ>
   <TELL "A small key marked RETURN. A single press sends one new reply back down the private return register to whoever first sent the message. It will not send the woman's voice, and it never touches the public feed.">
-  <COND (,SIGNAL-HEARD <TELL " It is lit now, softly." CR>) (T <TELL " It is dark." CR>)>)
+  <COND (<ROUTE-ARMED?> <TELL " It is lit now, softly." CR>) (T <TELL " It is dark." CR>)>)
        (<VERB? PUSH>
         <COND (<ROUTING-READY>
           <SETG MUSEUM-END 1>
           <TELL "You type four words into the return register, “Nobody had to wait,” and press the key. The indicator takes an unreasonably long time to answer. Then it prints RECEIVED, and under it a second line that someone must have typed by hand: I STILL LEFT THE LIGHT ON." CR CR "ENDING: PRIVATE RETURN" CR>
           <FINISH>)>
         <RTRUE>)
+       (<VERB? LISTEN>
+  <TELL "You hear nothing at this end. That was always the point of a private line." CR>)
        (<VERB? RUB>
   <TELL "The return key is worn smooth. Somebody rested a finger on it many times without ever pressing down." CR>)>>
 
 <ROUTINE MEMORIAL-KEY-F ()
- <COND (<VERB? EXAMINE>
+ <COND (<VERB? EXAMINE READ>
   <TELL "A small key marked MEMORIAL. It can send the minute of silence out to every speaker under the dome, without the voice and without the address: a small public record of someone waiting.">
-  <COND (,SIGNAL-HEARD <TELL " It is lit now, softly." CR>) (T <TELL " It is dark." CR>)>)
+  <COND (<ROUTE-ARMED?> <TELL " It is lit now, softly." CR>) (T <TELL " It is dark." CR>)>)
        (<VERB? PUSH>
         <COND (<ROUTING-READY>
           <SETG MUSEUM-END 2>
           <TELL "You press the key and send the minute without the voice. Across the dome, every speaker announces nothing at all. You had expected complaints asking what went wrong. Instead, the night dispatcher sends one short message: “Please wait to reset. Someone is still listening.”" CR CR "ENDING: A MINUTE FOR THE LIVING" CR>
           <FINISH>)>
         <RTRUE>)
+       (<VERB? LISTEN>
+  <TELL "The key is silent. The relay's hum carries on behind it, ready to make a roomful of people stop and listen." CR>)
        (<VERB? RUB>
   <TELL "The memorial key is cool and almost new. It was hardly ever used." CR>)>>
 
@@ -210,14 +242,27 @@
  <V-VERSION> <CRLF>
  <SETG HERE ,ADMISSIONS> <SETG VERBOSE T> <SETG LIT T>
  <SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
- <TELL "The museum is closing for good. Tonight is the last night of the Museum of Unsent Signals, the place where the city kept every message that was recorded and never sent. Tomorrow morning the old relay under the dome will be switched off. The caretaker has gone home and left you the keys, along with a note on the plaque and one piece of advice: “You don't have to make everything speak.”" CR CR>
+ <TELL "The museum is closing for good. Tonight is the last night of the Museum of Unsent Signals, the place where the city kept every message that was recorded and never sent. Tomorrow morning the old relay under the dome will be switched off. The caretaker left you in charge of the last shift. There is a note on the plaque and one piece of advice: “You don't have to make everything speak.”" CR CR>
  <TELL D ,HERE CR>
  <V-LOOK> <MAIN-LOOP> <AGAIN>>
 
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? T))
  <COND (<NOT <EQUAL? ,MUSEUM-END 0>> <TELL "The museum has entered its last exhibit." CR>)
-       (,SIGNAL-HEARD <TELL "The recording has been heard. No transmission has left the booth." CR>)
+       (<ROUTE-ARMED?> <TELL "The recording has been heard. No transmission has left the booth." CR>)
        (T <TELL "One entry in the museum catalogue is still under review." CR>)>>
 
 <ROUTINE V-TILT-LENS ()
  <TELL "That won't tilt. The inspection lens sits in a movable collar." CR>>
+
+<ROUTINE V-MUSEUM-SIT ()
+ <TELL "There isn't room to sit there. The Quiet Hall has a bench." CR>>
+
+<ROUTINE V-MUSEUM-PLAY ()
+ <TELL "That's not a recording you can play. The signal booth has a basin for spools." CR>>
+
+<ROUTINE V-MUSEUM-LISTEN ()
+ <COND (<EQUAL? ,HERE ,ADMISSIONS> <PERFORM ,V?LISTEN ,LOBBY>)
+       (<EQUAL? ,HERE ,DEAD-LETTERS> <PERFORM ,V?LISTEN ,GALLERY>)
+       (<EQUAL? ,HERE ,QUIET-HALL> <PERFORM ,V?LISTEN ,QUIET-ROOM>)
+       (T <PERFORM ,V?LISTEN ,READING-BASIN>)>
+ <RTRUE>>

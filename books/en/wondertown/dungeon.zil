@@ -874,19 +874,19 @@
 
 <OBJECT DETAIL-SAILBOAT (IN WORKBENCH-TOP) (DESC "sailboat")
     (SYNONYM SAILBOAT BOAT HULL MAST) (ADJECTIVE WOODEN UNFINISHED)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT) (INTERACTIONS "play,push,rub")
     (TEXT "Pip tips the hull. A round hole goes right through the deck for a mast, and Grandfather has already tied a sail small enough to fit.")
     (ACTION DETAIL-SAILBOAT-F)>
 
 <OBJECT DETAIL-WOODEN-TRAIN (IN WORKBENCH-TOP) (DESC "wooden train")
     (SYNONYM TRAIN ENGINE WHEELS) (ADJECTIVE WOODEN RED)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT) (INTERACTIONS "play,push,listen")
     (TEXT "All the red wheels turn together except the last one. A pencil cross marks the axle Grandfather still meant to fix.")
     (ACTION DETAIL-WOODEN-TRAIN-F)>
 
 <OBJECT DETAIL-WOODEN-DUCK (IN WORKBENCH-TOP) (DESC "wooden duck")
     (SYNONYM DUCK AXLE WHEEL) (ADJECTIVE WOODEN MISSING)
-    (FLAGS NDESCBIT) (INTERACTIONS "")
+    (FLAGS NDESCBIT) (INTERACTIONS "play,push,knock")
     (TEXT "Under the tilted wing, a stub of axle pokes out. The duck’s good wheel is painted orange, just like its beak.")
     (ACTION DETAIL-WOODEN-DUCK-F)>
 

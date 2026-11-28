@@ -8,7 +8,7 @@
  <ASSERT-TEXT "forty years" <CO-RESUME ,CO "read note">>
  <ASSERT-TEXT "forty years" <CO-RESUME ,CO "examine brass plaque">>
  <ASSERT-TEXT "LAST NIGHT" <CO-RESUME ,CO "examine stamp">>
- <ASSERT-TEXT "front door stays locked" <CO-RESUME ,CO "open door">>
+ <ASSERT-TEXT "locked for the night" <CO-RESUME ,CO "open door">>
  <ASSERT-NOT-TEXT "how to do that" <CO-RESUME ,CO "open front door">>
  <CO-RESUME ,CO "west">
  <ASSERT-TEXT "two hollows" <CO-RESUME ,CO "sit on bench">>

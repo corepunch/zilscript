@@ -18,7 +18,7 @@ for i, profile in ipairs({ "bulwark", "arc", "lens" }) do
 		{ "examine " .. profile .. " profile", expect = "To take it on, choose it." },
 		{ "choose " .. profile .. " profile", expect = "Dispatch registers you as" },
 		{ "read character sheet", expect = "Hero: Meridian" },
-		{ "north", expect = "People are still inside." },
+		{ "north", expect = "Faces crowd the high end" },
 		{ "examine front tram", expect = "nose-down" },
 	})
 	until_text(w, "rescue front tram", "pass the passengers down")

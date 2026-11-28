@@ -9,17 +9,21 @@
                <CHOICE "hall.borrow" "Das letzte Blatt von morgen ausleihen" "nimm morgenblatt" ,CHOICE-PROGRESS 96>)
               (<HELD? ,LEAF>
                <CHOICE "hall.return" "Das Blatt in den Schrank zurücklegen" "lege morgenblatt in leihschrank" ,CHOICE-EXPERIMENT 38>)>
+        <CHOICE "hall.knock" "Vorsichtig am Schrank klopfen" "klopf an leihschrank" ,CHOICE-INTERACT 39>
         <C-MOVE "hall.basin" "Zur trockenen Kammer gehen" "nord">
         <C-MOVE "hall.folding" "In den Faltraum gehen" "ost">)
        (<EQUAL? ,HERE ,BASIN>
         <CHOICE "basin.receipt" "Den alten Leihschein lesen" "lies leihschein" ,CHOICE-INVESTIGATE 95>
         <CHOICE "basin.listen" "Der Steinrinne lauschen" "horch an steinrinne" ,CHOICE-INTERACT 43>
+        <CHOICE "basin.sip" "Einen Schluck aus der Rinne versuchen" "trink aus steinrinne" ,CHOICE-EXPERIMENT 38>
         <C-MOVE "basin.hall" "Zurück in die Ausleihhalle gehen" "sued">
         <C-MOVE "basin.terrace" "Zur Leseterrasse gehen" "ost">)
        (<EQUAL? ,HERE ,FOLDING>
         <CHOICE "folding.guide" "Herausfinden, wozu das Faltbrett dient" "lies faltbrett" ,CHOICE-INVESTIGATE 93>
         <COND (<AND ,BOARD-READ <HELD? ,LEAF> <NOT ,WIDE-LOAN>>
                <CHOICE "folding.widen" "Die alten Falten auf dem Brett glätten" "lege morgenblatt auf faltbrett" ,CHOICE-PROGRESS 96>)>
+        <COND (<AND ,WIDE-LOAN <HELD? ,LEAF>>
+               <CHOICE "folding.refold" "Das Blatt wieder klein falten" "falte morgenblatt" ,CHOICE-EXPERIMENT 39>)>
         <C-MOVE "folding.hall" "Zurück in die Ausleihhalle gehen" "west">
         <C-MOVE "folding.terrace" "Zur Leseterrasse hinaufgehen" "nord">)
        (<EQUAL? ,HERE ,TERRACE>

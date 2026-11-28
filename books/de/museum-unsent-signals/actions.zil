@@ -1,5 +1,10 @@
 <SYNTAX KIPP OBJECT = V-TILT-LENS>
 <SYNONYM KIPP KIPPE NEIG NEIGE>
+<SYNTAX SITZ AUF OBJECT = V-SIT-MUSEUM>
+<SYNONYM SITZ SITZE>
+<SYNTAX WICKEL OBJECT = V-WIND-MUSEUM>
+<SYNTAX DREH OBJECT = V-WIND-MUSEUM>
+<SYNONYM WICKEL WICKLE>
 
 <GLOBAL LENS-READ <>>
 <GLOBAL SIGNAL-HEARD <>>
@@ -10,6 +15,8 @@
   <TELL "In erhabenen Buchstaben steht die einzige Regel des Museums auf der Tafel: NICHTS HIER WURDE JE ABGESCHICKT. BITTE LASS ES RUHEN. Darunter klebt ein Zettel in der Handschrift des Hausmeisters: „Die Holzspule bei den unzustellbaren Briefen ist als leer eingetragen. Aber jemand hat sie vierzig Jahre lang jeden Tag in die Hand genommen. Bitte prüf sie, bevor wir die Relaisanlage abschalten.“" CR>)
        (<VERB? RUB>
   <TELL "Wo Besucher die Buchstaben mit den Fingern nachgezogen haben, sind sie fast flach. Der Klebestreifen des Hausmeisters ist neu und klebt noch ein bisschen." CR>)
+       (<VERB? KNOCK>
+  <TELL "Das Messing klingt hell. Hinter der Tafel sitzt nur die Wand. Der Zettel an der unteren Ecke raschelt mit." CR>)
        (<VERB? TAKE MOVE>
   <TELL "Die Tafel ist an die Wand geschraubt. Der Zettel ist für die Person bestimmt, die ihn hier liest." CR>)>>
 
@@ -19,7 +26,9 @@
        (<VERB? RUB>
   <TELL "Du fährst mit der Hand über den Tresen. An zwei Stellen ist der Lack heller geworden. Dort hat sich der Hausmeister jeden Abend abgestützt." CR>)
        (<VERB? TAKE>
-  <TELL "Du nimmst eine Karte und legst sie wieder hin. Die Schlüssel hast du schon. Eine Karte wäre bloß ein Andenken ans Ende." CR>)
+  <TELL "Du nimmst eine Karte und legst sie wieder hin. Heute kommt niemand mehr, der sie abreißen könnte." CR>)
+       (<VERB? OPEN>
+  <TELL "Die Kassenschublade ruckt einen Fingerbreit auf. Drinnen liegen keine Münzen mehr, nur eine Büroklammer und der Abdruck des Wechselgeldfachs im Staub. Als du loslässt, gleitet die Schublade wieder zu." CR>)
        (<VERB? SMELL>
   <TELL "Frische Stempelfarbe und alter Lack." CR>)
        (<VERB? KNOCK>
@@ -29,7 +38,7 @@
  <COND (<VERB? EXAMINE LOOK-INSIDE SEARCH>
   <TELL "In jeder Vitrine liegt eine ungesendete Nachricht mit einer kleinen Karte. Eine Wachswalze: eine zweimal aufgenommene Entschuldigung. Ein Telefonband: ein nie abgespielter Heiratsantrag. Unten ein Dutzend Aufnahmen, die alle mit „Lass gut sein“ anfangen. Eine Vitrine ist leer. Auf ihrer Karte steht nur LEER. Von dort stammt die Holzspule." CR>)
        (<VERB? OPEN>
-  <TELL "Die Vitrinen sind abgeschlossen, und der Hausmeister hat die Schlüssel mit nach Hause genommen. Nur die Spule zur Überprüfung liegt draußen." CR>)
+  <TELL "Die Vitrinen sind abgeschlossen, . Die Vitrinenschlüssel hat der Hausmeister mitgenommen. Nur die Spule zur Überprüfung liegt draußen." CR>)
        (<VERB? RUB>
   <TELL "Das Glas ist kühl. Schwache Fingerabdrücke zeigen, wo Besucher die Fingerspitzen dagegen gehalten haben, als wollten sie die Nachrichten erreichen." CR>)
        (<VERB? KNOCK>
@@ -45,6 +54,16 @@
         (T <TELL "Von hier siehst du die Relaisanlage nicht. Du hörst nur das tiefe, gleichmäßige Summen, das aus der Signalkabine durch die Wände dringt." CR>)>)
        (<VERB? LISTEN>
   <TELL "Das Summen schwillt kaum hörbar an und ab, wie langsames Atmen. Nach vierzig Jahren ist es das vertrauteste Geräusch im Gebäude." CR>)>>
+
+<ROUTINE MUSEUM-DOOR-F ()
+ <COND (<VERB? EXAMINE>
+        <TELL "In der Glastür hängen die Öffnungszeiten. Jemand hat mit Bleistift in die letzte Zeile geschrieben: Heute nur noch für uns." CR>)
+       (<VERB? OPEN THROUGH>
+        <TELL "Auf dem Gehweg fährt der Nachtbus vorbei. Du lässt die Tür zu: In der Galerie liegt noch die Spule, die du prüfen solltest." CR>)
+       (<VERB? KNOCK>
+        <TELL "Dein Spiegelbild hebt pünktlich die Hand. Draußen bleibt es leer." CR>)
+       (<VERB? LISTEN>
+        <TELL "Reifen auf nassem Asphalt. Seit der Bus weg ist, hörst du wieder das Relais hinter dir." CR>)>>
 
 <ROUTINE LOBBY-F ()
  <COND (<VERB? EXAMINE>
@@ -78,7 +97,7 @@
  <COND (<VERB? EXAMINE LOOK-INSIDE>
   <COND (,LENS-READ <TELL "Gegen das Licht gekippt zeigt die Lupe die eingeritzte Anweisung deutlich: Drei Kerben am Holzrand einer Spule bedeuten NUR RÜCKANTWORT. Keine öffentliche Weiterleitung." CR>)
         (T <TELL "Wenn du gerade hindurchschaust, erscheint die Karte der leeren Vitrine groß und deutlich. Bei der Spule steht nur LEER. Die Lupe sitzt aber locker in ihrer Messingfassung. Du könntest sie zum Licht hin kippen." CR>)>)
-       (<VERB? TILT-LENS MOVE PUSH>
+       (<VERB? TILT-LENS WIND-MUSEUM MOVE PUSH>
         <SETG LENS-READ T>
         <TELL "Du kippst die Lupe zur Deckenleuchte. Feine Kratzer im Glas, eben noch unsichtbar, fangen das Licht ein: eine alte Anweisung des Relaispersonals. Drei Kerben am Holzrand bedeuten NUR RÜCKANTWORT. Keine öffentliche Weiterleitung. Jemand hat das Wort Rand unterstrichen." CR>)
        (<VERB? RUB>
@@ -91,7 +110,16 @@
 <ROUTINE MESSAGE-SPOOL-F ()
  <COND (<AND <VERB? PUT PUT-ON> <EQUAL? ,PRSI ,READING-BASIN> <HELD? ,MESSAGE-SPOOL>>
   <MOVE ,MESSAGE-SPOOL ,READING-BASIN>
+  <SETG SIGNAL-HEARD <>>
   <TELL "Du legst die Spule in die Mulde. Sie rastet ein und beginnt sich zu drehen. Am Rand der Mulde leuchtet der [[Abhörknopf]] auf." CR>)
+       (<AND <VERB? TAKE> <IN? ,MESSAGE-SPOOL ,READING-BASIN>>
+        <COND (<ITAKE> <SETG SIGNAL-HEARD <>>
+               <TELL "Du hebst die Spule heraus. Sie kommt zwischen deinen Fingern zum Stillstand, und beide Sendetasten erlöschen." CR>)
+              (T <RTRUE>)>)
+       (<VERB? WIND-MUSEUM>
+        <COND (<IN? ,MESSAGE-SPOOL ,READING-BASIN>
+               <TELL "Die Mulde hält die Spule in Bewegung. Wenn du das Band von Hand wickeln willst, nimm die Spule erst heraus." CR>)
+              (T <TELL "Du drehst vorsichtig am Holzrand. Das Band ist am Ende zweimal umgeschlagen, damit es beim Abrollen nicht reißt." CR>)>)
        (<VERB? EXAMINE READ>
   <COND (,LENS-READ
     <TELL "Ein kleines Tonband auf einer Holzspule. Auf dem Papieretikett steht: ZUR ÜBERPRÜFUNG. ALS LEER EINGETRAGEN. Am Holzrand sitzen drei feine, gleichmäßige Kerben, genau das Zeichen, das du in der Lupe gesehen hast. Was auch immer im Katalog steht, die Rückadresse ist privat. Diese Spule sollte an genau eine Person zurückgehen." CR>)
@@ -108,6 +136,8 @@
 <ROUTINE HALL-BENCH-F ()
  <COND (<VERB? EXAMINE>
   <TELL "Eine schlichte Holzbank. Zwei flache Kuhlen liegen dicht nebeneinander auf der Sitzfläche. Hier haben wohl immer zwei Menschen Schulter an Schulter gesessen und geschwiegen." CR>)
+       (<VERB? SIT-MUSEUM>
+  <TELL "Du setzt dich in die linke Kuhle. Die rechte bleibt frei. Nach einer Weile merkst du, dass du auch deine Füße still hältst." CR>)
        (<VERB? RUB>
   <TELL "Das Holz ist glatt und ein wenig warm, als wäre gerade erst jemand aufgestanden." CR>)
        (<VERB? LISTEN>
@@ -122,6 +152,8 @@
   <TELL "Auf dem Plan ist die Anlage ein Netz aus Linien. Zwei führen aus der Signalkabine. Die dicke Leitung, der GEDENKKANAL, geht zu allen Lautsprechern unter der Kuppel. Sie überträgt nur neues Material aus der Kabine, nie die Aufnahme von der Spule selbst. Die dünne Leitung, der RÜCKKANAL, schickt eine neue Empfangsbestätigung an die Person zurück, von der die Nachricht stammt. In einer Ecke hat jemand sorgfältig einen Kreis um das gezogen, was das Museum behalten darf: den leeren Raum zwischen den Nachrichten." CR>)
        (<VERB? RUB>
   <TELL "Dein Finger folgt dem dünnen Rückkanal über das Glas bis zu seinem einzigen winzigen Ziel." CR>)
+       (<VERB? LOOK-BEHIND>
+  <TELL "Zwischen Rahmen und Wand steckt kein Brief. Nur die obere Kante ist hell; dort hat mal jemand den Staub mit dem Ärmel weggewischt." CR>)
        (<VERB? TAKE MOVE>
   <TELL "Der Plan ist gerahmt und an die Wand geschraubt. Er gehört zum Gebäude." CR>)>>
 
@@ -154,14 +186,19 @@
        (<VERB? TAKE>
   <TELL "Er gehört zum Pult. Er ist zum Drücken da." CR>)>>
 
+<ROUTINE SIGNAL-READY? ()
+ <AND ,SIGNAL-HEARD <IN? ,MESSAGE-SPOOL ,READING-BASIN>>>
+
 <ROUTINE ROUTING-READY ()
- <COND (,SIGNAL-HEARD <RTRUE>)
-       (T <TELL "Die Tasten bleiben dunkel. Die Kabine sendet nichts, bis du weißt, für wen die Nachricht bestimmt war. Finde heraus, was die Kerben auf der Spule bedeuten. Spiele dann die eingelegte Spule hier mit dem Abhörknopf ab." CR> <RFALSE>)>>
+ <COND (<SIGNAL-READY?> <RTRUE>)
+       (<NOT <IN? ,MESSAGE-SPOOL ,READING-BASIN>>
+        <TELL "Die Tasten bleiben dunkel. Leg zuerst die Holzspule zurück in die Mulde und spiele sie erneut ab." CR> <RFALSE>)
+       (T <TELL "Die Tasten bleiben dunkel. Drück zuerst den Abhörknopf. Die Kabine sendet nichts, solange die Aufnahme nicht wiedergegeben und ihre Rückadresse nicht erkannt wurde." CR> <RFALSE>)>>
 
 <ROUTINE RETURN-KEY-F ()
  <COND (<VERB? EXAMINE>
   <TELL "Eine kleine Taste mit der Aufschrift RÜCKANTWORT. Ein Druck schickt eine neue Antwort privat an die Person zurück, die die Nachricht aufgenommen hat. Die Stimme der Frau wird dabei nicht übertragen. Der öffentliche Kanal bleibt stumm.">
-  <COND (,SIGNAL-HEARD <TELL " Jetzt leuchtet sie schwach." CR>) (T <TELL " Sie ist dunkel." CR>)>)
+  <COND (<SIGNAL-READY?> <TELL " Jetzt leuchtet sie schwach." CR>) (T <TELL " Sie ist dunkel." CR>)>)
        (<VERB? PUSH>
         <COND (<ROUTING-READY>
           <SETG MUSEUM-END 1>
@@ -174,7 +211,7 @@
 <ROUTINE MEMORIAL-KEY-F ()
  <COND (<VERB? EXAMINE>
   <TELL "Eine kleine Taste mit der Aufschrift GEDENKEN. Sie kann die stille Minute auf allen Lautsprechern unter der Kuppel ausgeben, ohne die Stimme und ohne die Adresse. Eine kleine öffentliche Erinnerung daran, dass jemand gewartet hat.">
-  <COND (,SIGNAL-HEARD <TELL " Jetzt leuchtet sie schwach." CR>) (T <TELL " Sie ist dunkel." CR>)>)
+  <COND (<SIGNAL-READY?> <TELL " Jetzt leuchtet sie schwach." CR>) (T <TELL " Sie ist dunkel." CR>)>)
        (<VERB? PUSH>
         <COND (<ROUTING-READY>
           <SETG MUSEUM-END 2>
@@ -191,13 +228,19 @@
  <V-VERSION> <CRLF>
  <SETG HERE ,ADMISSIONS> <SETG VERBOSE T> <SETG LIT T>
  <SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
- <TELL "Das Museum schließt für immer. Heute ist die letzte Nacht im Museum der ungesendeten Signale. Hier hat die Stadt alle Nachrichten aufbewahrt, die aufgenommen und nie abgeschickt wurden. Morgen früh wird die alte Relaisanlage unter der Kuppel abgeschaltet. Der Hausmeister ist nach Hause gegangen. Er hat dir die Schlüssel, einen Zettel an der Tafel und einen Rat hinterlassen: „Du musst nicht alles zum Sprechen bringen.“" CR CR>
+ <TELL "Heute Nacht hast du das Museum der ungesendeten Signale für dich allein. Unter der Kuppel liegen die Worte, die diese Stadt aufgenommen, aber nie abgeschickt hat. Morgen früh zieht jemand den Stecker der Relaisanlage. Der Hausmeister hat dir einen Zettel an der Tafel hinterlassen. Beim Gehen sagte er noch: „Du musst nicht alles zum Sprechen bringen.“" CR CR>
  <V-LOOK> <MAIN-LOOP> <AGAIN>>
 
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? T))
  <COND (<NOT <EQUAL? ,MUSEUM-END 0>> <TELL "Das Museum hat seinen letzten Eintrag gemacht." CR>)
-       (,SIGNAL-HEARD <TELL "Du hast die Aufnahme gehört. Die Kabine hat noch nichts gesendet." CR>)
+       (<SIGNAL-READY?> <TELL "Du hast die Aufnahme gehört. Die Kabine hat noch nichts gesendet." CR>)
        (T <TELL "Ein Eintrag im Museumskatalog wird noch überprüft." CR>)>>
 
 <ROUTINE V-TILT-LENS ()
  <TELL "Das lässt sich nicht kippen. Die Lupe sitzt in einer beweglichen Fassung." CR>>
+
+<ROUTINE V-SIT-MUSEUM ()
+ <TELL "Dafür gibt es im Saal der Stille eine Bank, auf der du sitzen und lauschen kannst." CR>>
+
+<ROUTINE V-WIND-MUSEUM ()
+ <TELL "Nur auf der Holzspule ist etwas aufgewickelt." CR>>

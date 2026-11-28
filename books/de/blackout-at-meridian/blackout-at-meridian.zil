@@ -17,3 +17,5 @@
 <INSERT-FILE "books.shared.blackout-at-meridian.logic">
 <INSERT-FILE "rulesets.superhero.de">
 <INSERT-FILE "books.shared.blackout-at-meridian.rules">
+
+<INSERT-FILE "books.de.blackout-at-meridian.de-interactions">

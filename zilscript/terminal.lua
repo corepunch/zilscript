@@ -30,6 +30,14 @@ function M.bold_words(text, words)
   return text
 end
 
+-- Book text already knows which phrases are genuine affordances. Never
+-- guess from the global dictionary (German "führt" is not the "f" exit).
+function M.bold_links(text)
+  return (text:gsub("%[%[(.-)%]%]", function(link)
+    return M.bold(link:match("^(.-)%->") or link)
+  end))
+end
+
 local Terminal = {}
 Terminal.__index = Terminal
 
@@ -42,11 +50,23 @@ function Terminal:flush()
 end
 
 function Terminal:enter_raw()
-  self.execute("stty -icanon -echo min 0 time 1 2>/dev/null")
+  local handle = self.popen("stty -g 2>/dev/null")
+  local settings = handle and handle:read("l")
+  if handle then handle:close() end
+  if settings and settings:match("^[%w:;=+_%-]+$") then
+    self.settings = settings
+  end
+  -- A timed zero-byte read makes Lua's stream report EOF on an idle TTY.
+  self.execute("stty -icanon -echo -isig min 1 time 0 2>/dev/null")
 end
 
 function Terminal:leave_raw()
-  self.execute("stty icanon echo 2>/dev/null")
+  if self.settings then
+    self.execute("stty '" .. self.settings .. "' 2>/dev/null")
+    self.settings = nil
+  else
+    self.execute("stty icanon echo isig 2>/dev/null")
+  end
 end
 
 function Terminal:width()
@@ -59,9 +79,9 @@ function Terminal:width()
 end
 
 function Terminal:read_key()
-  local char = self.stdin:read(1)
+  local char = self.pending_byte or self.stdin:read(1)
+  self.pending_byte = nil
   if not char then
-    -- The input ended (a closed pipe): there is nothing left to choose.
     return {kind = "eof"}
   end
 
@@ -74,7 +94,13 @@ function Terminal:read_key()
       elseif code == "B" then
         return {kind = "down"}
       end
+    else
+      self.pending_byte = prefix
     end
+    return {kind = "escape"}
+  elseif char == "\21" then
+    -- Ctrl-U clears the field immediately even on terminals that send
+    -- Escape as the prefix of a cursor-key sequence.
     return {kind = "escape"}
   elseif char == "\r" or char == "\n" then
     return {kind = "enter"}
@@ -86,6 +112,22 @@ function Terminal:read_key()
     return {kind = "text", text = char}
   end
 
+  local lead = char:byte()
+  local size = lead >= 0xC2 and lead <= 0xDF and 2
+    or lead >= 0xE0 and lead <= 0xEF and 3
+    or lead >= 0xF0 and lead <= 0xF4 and 4
+  if size then
+    local sequence = char
+    for _ = 2, size do
+      local byte = self.stdin:read(1)
+      if not byte or not byte:match("^[\128-\191]$") then
+        self.pending_byte = byte
+        return {kind = "unknown"}
+      end
+      sequence = sequence .. byte
+    end
+    if utf8.len(sequence) then return {kind = "text", text = sequence} end
+  end
   return {kind = "unknown"}
 end
 

@@ -99,7 +99,7 @@ do
 	end
 	walk:play({ "east", "examine reading desk", "read secret ledger", "inventory" })
 	lacks(walk:choose("read secret ledger with magnifying glass"), "How does one look through", "the lens can be read through")
-	has(walk:choose("use magnifying glass on secret ledger"), "nothing there that your unaided eye had missed")
+	has(walk:choose("use magnifying glass on secret ledger"), "the last word has bitten clear through the paper")
 	has(say(walk, "examine fireplace"), "library grate", "the library fire is not the study's")
 	lacks(say(walk, "examine fireplace"), "box")
 	has(say(walk, "examine leather-bound ledger"), "UNPAID")

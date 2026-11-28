@@ -39,8 +39,13 @@ jobs:
       run: make test-new-books
 
     - name: Validate all books and their reader walkthroughs
-      run: make test-book-walkthroughs lint-zil
+      run: make test-book-playtests test-book-walkthroughs lint-zil
     
+    - name: Test persisted reader sessions and the terminal UI
+      run: |
+        python3 tests/test_book_reader_persistence.py
+        python3 tests/test_terminal_pty.py
+
     - name: Run Zork1 walkthrough tests
       run: lua5.4 run-zil-test.lua infocom/zork1/test/zork1-walkthrough
 

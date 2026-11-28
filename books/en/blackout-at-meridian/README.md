@@ -20,6 +20,8 @@ only its words (see "Editions" in `docs/RPG-SYSTEMS.md`):
   declarations), the `MSG-*` routines, the book's syntax lines and the
   companion's cards. Each declares `SETUP-EDITION`, `WALK-TO-BRIDGE` and
   `WALK-TO-RELAY`, the few places where the logic needs a compass word.
+  `EDITION-REACTION` adds optional local observations without changing the
+  shared rescue and combat rules.
 * `books/<lang>/blackout-at-meridian/blackout-at-meridian.zil` is the entry of
   each edition (module ids `books.en.blackout-at-meridian.blackout-at-meridian`
   and `books.de.blackout-at-meridian.blackout-at-meridian`, "Stromausfall in

@@ -54,6 +54,15 @@ before deleting temporary saves. It records commands and prose, not every menu,
 so include menu evidence in the report. Record ending status and coverage
 limits explicitly; an unfinished session does not establish a softlock.
 
+On a terminal, the companion menu waits for input and accepts typed
+UTF-8 commands as an alternative to the arrow keys. Backspace removes one
+character; Ctrl+U clears typed input and Ctrl+C exits the menu.
+
+For regression coverage of editor and terminal input, run
+`lua5.4 tests/test_choice_widget.lua` and (on POSIX)
+`python3 tests/test_terminal_pty.py`. To exercise every catalog edition
+through saved reader sessions, run `python3 tests/test_book_reader_persistence.py`.
+
 ## Replaying a Link Route
 
 `scripts/play-links.lua` plays a whole route in one process, which is faster

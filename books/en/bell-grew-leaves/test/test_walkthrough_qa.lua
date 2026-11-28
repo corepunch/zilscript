@@ -106,4 +106,28 @@ do
   assert(env.LOC(env.WICK) == env.BELL, "wick fitted from PUT ON")
 end
 
+-- Try plausible commands instead of the canonical sequence, and recover
+-- after a blocked ring, pulling the fitted wick, and closing the shutter.
+do
+  local env, game = new_game()
+  play(game, {
+    { "call to neighbors", "neighbors do not answer" },
+    { "clean bell", "warm brown of a chestnut" },
+    { "listen to fog", "three far-off taps" },
+    "east", { "turn tile", "read from left to right" },
+    "take wick", { "wave wick", "excellent baton" }, "west", "north",
+    { "dip wick in spout", "give the reed a proper drink" },
+    { "listen to bowl", "empty bowl is quiet" },
+  })
+  assert(not env.WET_WICK and env.LOC(env.WICK) == env.ADVENTURER, "mistaken dip neither wets nor loses the wick")
+  play(game, {
+    "turn tap", { "listen to bowl", "Big drops go plop" }, "soak wick",
+    { "wave wick", "stays soaked" }, "turn tap", "south", "fit wick in bell",
+    { "ring bell", "a tiny pale leaf unfolds" },
+    { "ring bell", "not another ring" },
+    "pull wick", "north", "east", "open shutter", "close shutter", "open shutter", "west", "south",
+    "fit wick in bell", { "ring bell", "THE END -- THREE LEAVES FOR YES" },
+  })
+end
+
 print("ok - bell-grew-leaves QA regressions: " .. checks .. " commands checked")

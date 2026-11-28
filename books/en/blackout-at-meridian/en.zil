@@ -95,7 +95,7 @@
  <TELL "Choose the hero you’ll play as: [[Bulwark]], [[Arc]] or [[Lens]]. Examine each profile before deciding. You can give your hero a name on the [[character sheet->sheet]]. Choosing a profile starts the mission." CR>>
 
 <ROUTINE MSG-DISPATCH-LOOK-REGISTERED ()
- <TELL "You are in Meridian's emergency dispatch office, a cramped room running on battery power. Rain runs in silver lines down the [[window]], and beyond it the whole [[city]] is dark. Your profile is marked active on the [[duty board->board]]. The street door leads [[north]] to Meridian Bridge.">>
+ <TELL "In Meridian's emergency dispatch office, your profile on the [[duty board->board]] now carries the red ACTIVE stamp. Every other building you can see through the [[window]] is dark. The [[street door]] leads [[north]] to Meridian Bridge.">>
 
 <ROUTINE MSG-BRIDGE-LOOK-START ()
  <TELL "You are on Meridian Bridge, in the full force of the rain. ">>
@@ -104,13 +104,13 @@
  <TELL "The empty [[tram]] still hangs through the broken [[rails]] from its overhead [[cable]], but its passengers are safe with the rescue [[crew]] below. The [[relay station->station]] stands at the east end of the bridge, its [[door]] forced open, and the way [[east]] is clear.">>
 
 <ROUTINE MSG-BRIDGE-LOOK-HANGING ()
- <TELL "Halfway across, the front carriage of a [[tram]] has broken through the [[rails]] and hangs over the [[river]], held up only by a sagging overhead [[cable]]. People are still inside. Below, a rescue [[crew]] waits with a net. The [[relay station->station]] stands at the east end of the bridge, but the passengers come first.">>
+ <TELL "The front carriage of a [[tram]] hangs through the broken [[rails]]. Every time it swings, the overhead [[cable]] pulls a little straighter. Faces crowd the high end of the tram. Far below, the rescue [[crew]] holds a net over the [[river]]. The [[relay station->station]] stands at the east end of the bridge, but the passengers come first.">>
 
 <ROUTINE MSG-BRIDGE-LOOK-END ()
  <TELL " Dispatch is back to the [[south]]." CR>>
 
 <ROUTINE MSG-RELAY-LOOK-START ()
- <TELL "You are inside the relay station, a concrete hall that hums with stolen power. All of Meridian's power runs through the [[relay console->console]] at the far end. ">>
+ <TELL "You are inside the relay station, a concrete hall warm enough to fog your wet sleeves. The [[relay console->console]] at the far end is lit brighter than anything left on the skyline. ">>
 
 <ROUTINE MSG-RELAY-LOOK-DRONE-DOWN ()
  <TELL "The [[guard drone->drone]] lies dark on the floor in front of it. ">>
@@ -498,10 +498,43 @@
  <TELL "Nobody inside is going to answer." CR>>
 
 
+<ROUTINE STREET-DOOR-F ()
+ <COND (<OR <NOT <EQUAL? ,PRSO ,STREET-DOOR>> ,PRSI> <RFALSE>)
+       (<VERB? EXAMINE LOOK-INSIDE>
+        <TELL "A steel street door, bowed inward a little by the wind. Through the narrow pane you can see Meridian Bridge. The release is on this side." CR>)
+       (<VERB? THROUGH WALK-TO> <WALK-TO-BRIDGE> <RTRUE>)
+       (<VERB? OPEN>
+        <COND (<0? ,HERO-CLASS>
+               <TELL "A hand from the desk covers the release. “Profile first. Then we know whose name to call if you go quiet.”" CR>)
+              (T <TELL "You test the release. The wind tries to take the door from your hand; you let it swing shut until you're ready to step outside." CR>)>)
+       (<VERB? CLOSE LOCK> <TELL "The door leans hard against its frame. Nothing is getting through it without a hand on the release." CR>)
+       (<VERB? KNOCK LISTEN> <TELL "A loose fitting rattles against the pane. On the other side, the rain doesn't stop long enough to knock back." CR>)>>
+
+<ROUTINE EDITION-REACTION ()
+ <COND (,PRSI <RFALSE>)
+       (<AND <EQUAL? ,PRSO ,DUTY-BOARD> <VERB? SEARCH LOOK-INSIDE>>
+        <PERFORM ,V?EXAMINE ,DUTY-BOARD> <RTRUE>)
+       (<AND <EQUAL? ,PRSO ,DUTY-BOARD> <VERB? RUB>>
+        <TELL "One corner of the board is polished by years of fingertips. People have stood here before, weighing the same three cards." CR>)
+       (<AND <EQUAL? ,PRSO ,WINDOW> <VERB? KNOCK>>
+        <TELL "Your knuckle gives the glass a little tick. Across the street a signal lamp flashes once as a transformer gives out; for a second it looks like an answer." CR>)
+       (<AND <EQUAL? ,PRSO ,WINDOW> <VERB? LISTEN>>
+        <TELL "Rain hits the glass in sheets. Between gusts you can hear the rescue crew's whistles from the bridge." CR>)
+       (<AND <EQUAL? ,PRSO ,TRAM> <VERB? KNOCK>>
+        <COND (,RESCUED <TELL "You knock once. The empty tram answers like an enormous tin drum." CR>)
+              (T <TELL "A child in a yellow coat taps back twice. Then a grown-up puts a steadying hand on his shoulder." CR>)>)
+       (<AND <EQUAL? ,PRSO ,SUPPLIES> <VERB? SEARCH LOOK-INSIDE>>
+        <COND (,BOOSTED <TELL "Only the clip and an empty foil sleeve remain. There isn't another dose." CR>)
+              (T <TELL "Through the clear flap you can see a single dose. You can inspect it without breaking the seal." CR>)>)
+       (<AND <EQUAL? ,PRSO ,SUPPLIES> <VERB? SMELL>>
+        <TELL "The case smells like disinfectant and wet concrete. It isn't an improvement on either." CR>)>>
+
 <ROOM DISPATCH (DESC "Dispatch") (NORTH TO BRIDGE IF HERO-CLASS ELSE "Dispatch will not send an unregistered hero into the storm. Choose a profile first: Bulwark, Arc or Lens.") (OUT TO BRIDGE IF HERO-CLASS ELSE "Dispatch will not send an unregistered hero into the storm. Choose a profile first: Bulwark, Arc or Lens.")>
 
 <ROOM BRIDGE (DESC "Meridian Bridge") (SOUTH TO DISPATCH) (EAST TO RELAY IF RESCUED ELSE "Not while the passengers are hanging over the river. Rescue them first.") (DOWN "The crew has the riverbank. The passengers need you up here.")>
 <ROOM RELAY (DESC "Relay Station") (WEST TO BRIDGE) (OUT TO BRIDGE)>
+
+<OBJECT STREET-DOOR (IN DISPATCH) (DESC "street door") (SYNONYM DOOR RELEASE PANE) (ADJECTIVE STREET STEEL NARROW) (FLAGS NDESCBIT DOORBIT) (ACTION STREET-DOOR-F)>
 
 <OBJECT VANGUARD (DESC "Bulwark profile") (SYNONYM PROFILE BULWARK CARD) (ADJECTIVE BULWARK)>
 <OBJECT ARC (DESC "Arc profile") (SYNONYM PROFILE ARC CARD) (ADJECTIVE ARC)>
