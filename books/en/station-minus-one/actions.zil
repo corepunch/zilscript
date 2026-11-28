@@ -296,7 +296,7 @@
        (<VERB? PUSH>
         <COND (<STATION-END-POSSIBLE>
           <SETG STATION-END 1>
-          <TELL "You press the switch. The rail goes quiet, and then the train slides out of the dark: two lit carriages, frost on every window. A door opens, and a driver in her socks steps down and asks if this is still Tuesday. You hold the door while she counts the passengers off. By morning there will be two versions of every timetable, and one long queue for tea." CR CR "ENDING: THE EXTRA STOP" CR>
+          <TELL "You press the switch. The rail goes quiet, and then the train slides out of the dark: two lit carriages, frost on every window. A door opens, and a driver in her socks steps down and asks if this is still Tuesday. You hold the door while she counts the passengers off. By morning there will be two versions of every timetable, and one long queue for tea. You will have to explain the second cup, but first the passengers need somewhere warm to wait." CR CR "ENDING: THE EXTRA STOP" CR>
           <FINISH>)>
         <RTRUE>)
        (<VERB? RUB>
@@ -312,7 +312,7 @@
        (<VERB? PUSH>
         <COND (<STATION-END-POSSIBLE>
           <SETG STATION-END 2>
-          <TELL "You press the latch, and the berth closes. A single note travels out along the rail under the frost; after a long pause, another comes back. The driver has heard you and is braking, safe in yesterday. The warmth fades from the rails. Later, back in the staff room, you draw two small circles in the logbook for the two signals, so whoever works here alone tomorrow will know there was an answer." CR CR "ENDING: OUTSIDE THE TIMETABLE" CR>
+          <TELL "You press the latch, and the berth closes. A single note travels out along the rail under the frost; after a long pause, another comes back. The driver has heard you and is braking, safe in yesterday. The warmth fades from the rails. You keep your hand on the latch until the answering note has died, so the last thing you give the driver is not silence. Later, back in the staff room, you draw two small circles in the logbook for the two signals, so whoever works here alone tomorrow will know there was an answer." CR CR "ENDING: OUTSIDE THE TIMETABLE" CR>
           <FINISH>)>
         <RTRUE>)
        (<VERB? RUB>

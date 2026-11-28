@@ -264,7 +264,7 @@
  <TELL "You steady the carriage and pass the passengers down, one by one, to the crew's net. The last of them, a boy in a yellow raincoat, will not let go of your hand until his feet are on the ground. (Karma +10.) The way [[east]] to the relay station is open." CR>>
 
 <ROUTINE MSG-TRAM-RESCUE-FAILED ()
- <TELL "The cable slips and the carriage lurches. You take a hit, but the crew's net holds below.">>
+ <TELL "The cable slips and the carriage lurches. A passenger cries out; you take a hit, but the crew braces its net below. You can try the rescue again.">>
 
 <ROUTINE MSG-CREW-EXAMINE-RESCUED ()
  <TELL "The crew is wrapping the passengers in foil blankets on the riverbank. The chief gives you a thumbs-up." CR>>
@@ -372,7 +372,7 @@
  <TELL "A wall of dark screens around a single manual bypass lever, the only control that still answers by hand. Pull it, and the city takes back its own power.">>
 
 <ROUTINE MSG-CONSOLE-EXAMINE-NOT-DISABLED ()
- <TELL " The drone hovers between you and it.">>
+ <TELL " The drone hovers between you and it. You could fight it first, taking its return fire, or risk a Reason check to reach the lever directly.">>
 
 <ROUTINE MSG-CONSOLE-RUB ()
  <TELL "It is warm and trembling under the load it should not be carrying." CR>>
@@ -387,7 +387,7 @@
  <TELL "Register a profile at dispatch first." CR>>
 
 <ROUTINE MSG-CONSOLE-WIN-START ()
- <TELL "You throw the bypass lever. The hum of the hall drops to a murmur, the screens wake one by one, and the relay returns to local control. Across the river, Meridian lights up street by street. (Karma +20.)" CR CR "Your radio crackles, and dispatch calls your name: ">>
+ <TELL "You throw the bypass lever. The hum of the hall drops to a murmur, the screens wake one by one, and the relay returns to local control. Across the river, Meridian lights up street by street. On the bridge, the boy in the yellow raincoat points up at the first lit window, and the rescue crew cheers. (Karma +20.)" CR CR "Your radio crackles, and dispatch calls your name: ">>
 
 <ROUTINE MSG-CONSOLE-WIN-END ()
  <TELL ". Meridian is safe." CR CR "THE END: THE LIGHTS OF MERIDIAN" CR CR>>

@@ -1,0 +1,10 @@
+The Silent Vector
+Studio Null, 2026
+Release 1
+
+“Keep holding her hand.” You remember saying it, and you remember a small, cold hand in yours.
+
+You are the engineer of Asterion, a research station far out beyond the outer relay. The crew list says four people live here, and you can name them all; yet you remember a fifth, as clearly as you remember your own voice comforting her. Now something has tripped the habitat systems. You have woken alone in your sleeping cradle, with the strap loose across your chest. Your fingers are still cold.
+
+Restraint Cradle
+You are in your restraint cradle, a padded sleeping [[niche->frame]] at the south end of the habitat. A dry [[click]] repeats somewhere inside the [[padding]], steady as a pulse. The habitat [[breaker]] is set into the frame, within arm's reach. The pressure-balanced door to the [[north]], which leads to the habitat junction, is sealed.

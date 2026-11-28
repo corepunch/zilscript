@@ -42,7 +42,7 @@
  <SETG COMPACT-ROOM-LISTS T>
  <SETG HERE ,LENDING> <SETG VERBOSE T> <SETG LIT T>
  <SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
- <TELL "This morning you promised the whole market that you would fetch tomorrow from the Library of Borrowed Tomorrows and bring it back to them. It was an easy promise, back when you thought tomorrow just came by itself. Now you are standing inside the library, the librarians are nowhere to be seen, and it is very, very quiet." CR CR>
+ <TELL "“See you tomorrow,” the baker said this morning as she set out the first chair at the market. You promised you'd fetch tomorrow from the library for everyone. It was an easy thing to promise while the ovens were warm and people were still arriving. Now you're in the library, and when you call for a librarian, even the echo fails to come back." CR CR>
  <TELL D ,HERE CR>
  <V-LOOK> <MAIN-LOOP> <AGAIN>>
 
@@ -65,7 +65,7 @@
  <COND (<EQUAL? .R ,M-LOOK>
         <TELL "You are on the Reading Terrace, a stone balcony high above the town. Far below, the striped awnings in the [[market]] look like squares cut from a quilt. A brass [[reading frame]] stands at the railing, facing out over the market.">
         <COND (<IN? ,LEAF ,FRAME> <TELL " The [[tomorrow leaf]] is clipped in the frame, lifting at both corners like a child getting ready to jump.">)
-              (,ON-LOAN <TELL " Down below, the shadows have stopped getting longer under the stalls, and people stand still, waiting for an evening that isn't coming.">)
+              (,ON-LOAN <TELL " Down below, the shadows have stopped getting longer under the stalls, and a fruit seller holds a basket halfway to her cart, waiting for an evening that isn't coming.">)
               (T <TELL " Down below, the afternoon shadows are slowly growing longer.">)>
         <TELL " Stairs lead [[south]] down to the folding room, and a doorway to the [[west]] leads back to the dry basin." CR>)>>
 
@@ -81,7 +81,7 @@
         <FSET ,CASE ,OPENBIT>
         <COND (<IN? ,LEAF ,CASE> <TELL "You open the cabinet's little door. Inside, all alone on the shelf, lies a [[tomorrow leaf]]." CR>)
               (T <TELL "You open the empty cabinet." CR>)>)
-       (<VERB? EXAMINE>
+       (<VERB? EXAMINE SEARCH>
         <COND (<FSET? ,CASE ,OPENBIT>
                <COND (<IN? ,LEAF ,CASE> <TELL "One [[tomorrow leaf]] lies on the shelf of the open cabinet. There's room for many more, but there is only one." CR>)
                      (T <TELL "The open cabinet holds only a pale, page-shaped patch where a piece of paper used to lie." CR>)>)
@@ -233,7 +233,8 @@
  <COND (<VERB? EXAMINE>
         <TELL "A small, bright room, white-walled and bare, with the long folding board in the middle. A narrow staircase climbs to the terrace, and an arch leads back to the hall." CR>)
        (<VERB? LISTEN>
-        <TELL "From up the stairs comes the faint noise of the market." CR>)
+        <COND (,ON-LOAN <TELL "The market calls have stopped. From the top of the stairs comes a single question, softly repeated: will there be bread in the morning?" CR>)
+              (T <TELL "From up the stairs comes the faint noise of the market. A seller calls the price of plums, then calls it again a little lower." CR>)>)
        (<VERB? SMELL>
         <TELL "Beeswax and sunshine." CR>)>>
 <ROUTINE BASIN-ROOM-F ()
@@ -286,7 +287,7 @@
               (T <TELL "The tight little square doesn't flutter at all. It's folded much too firmly for that." CR>)>)>>
 <ROUTINE PUBLISH-LOAN ()
  <SETG PUBLISHED-LOAN T>
- <TELL "Standing at the frame, you read the one word on the page out loud, as clearly as you can: TOMORROW. The wide page glows, and down in the market a hundred names call back, one after another, until all the empty space beside yours is full. The shadows begin to grow longer again. Outside the bakery, someone takes back a chair they were about to put away." CR CR
+ <TELL "Standing at the frame, you read the one word on the page out loud, as clearly as you can: TOMORROW. The wide page glows, and down in the market a hundred names call back, one after another, until all the empty space beside yours is full. A cart wheel finishes a turn. The shadows lengthen. The baker sets her chair down among the stalls. “See you tomorrow,” she calls again, and this time the answer comes from every side of the square." CR CR
        "THE END -- ROOM FOR EVERY NAME" CR>
  <FINISH> <RTRUE>>
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? T))

@@ -1,0 +1,8 @@
+The Midnight Ledger
+Studio Null, 2026
+Release 1
+
+You are the examiner the harbour auction house sends for when something goes missing, and tonight it has called you out through the rain. At the midnight weigh-in, Lot 9, a brass astrolabe, turned out to be gone from its sealed transit crate. The porter, Ives, is already being told to sign for the loss. Before anyone signs anything, the hearing wants your finding: where the astrolabe was taken, when, and by whom.
+
+Auction Vestibule
+You are in the vestibule of the auction house, a draughty entrance hall with wet [[footprints]] all over the tiles. In the corner, a [[coffee urn->urn]] has cooked down to mud, and nobody here has the authority to empty it. A damp [[notice]] is pinned to the wall. The hearing chamber is to the [[north]], and from it comes a low murmur of voices. The cloakroom, where the porter is waiting, is to the [[east]].

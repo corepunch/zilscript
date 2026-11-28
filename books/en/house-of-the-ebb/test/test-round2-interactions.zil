@@ -6,6 +6,8 @@
  <ASSERT-TEXT "smell of home" <CO-RESUME ,CO "smell">>
  <CO-RESUME ,CO "enter house">
  <ASSERT "entering the lit house arrives in its waiting hall" <EQUAL? ,HERE ,HALL>>
+ <ASSERT-TEXT "watching rainwater creep" <CO-RESUME ,CO "look">>
+ <ASSERT-NOT-TEXT "sets his" <CO-RESUME ,CO "look">>
  <ASSERT-TEXT "never hear it hit the floor" <CO-RESUME ,CO "listen to bag">>
  <CO-RESUME ,CO "climb stairs">
  <ASSERT "climbing the stairs reaches the landing" <EQUAL? ,HERE ,LANTERN-LANDING>>

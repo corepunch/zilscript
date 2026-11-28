@@ -1,0 +1,8 @@
+The Museum of Unsent Signals
+AdventureArena, 2026
+Release 1
+
+The museum is closing for good. Tonight is the last night of the Museum of Unsent Signals, the place where the city kept every message that was recorded and never sent. Tomorrow morning the old relay under the dome will be switched off. The caretaker left you in charge of the last shift. There is a note on the plaque and one piece of advice: “You don't have to make everything speak.”
+
+Admissions
+You're in the admissions lobby. Only one light is still on, above the [[ticket counter->counter]] and a brass [[plaque]]. Beneath the hum of the [[relay]], you can hear each of your own steps on the tiles. The Dead Letters gallery lies [[east]], the Quiet Hall [[west]], and the signal booth [[north]].

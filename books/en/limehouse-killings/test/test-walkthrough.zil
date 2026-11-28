@@ -60,7 +60,7 @@
 	<ASSERT-TEXT "marriage" <CO-RESUME ,CO "ask lady ashworth">>
 	<ASSERT-TEXT "drawing room" <CO-RESUME ,CO "ask lady ashworth about alibi">>
 	<ASSERT "Lady Ashworth is interviewed" <AND ,LADY-INTERVIEWED <==? ,SUSPECTS-INTERVIEWED 2>>>
-	<ASSERT-TEXT "burned the first draft" <CO-RESUME ,CO "show unsent letter to lady ashworth">>
+	<ASSERT-TEXT "keeping her thumb clear" <CO-RESUME ,CO "show unsent letter to lady ashworth">>
 	<ASSERT "Showing the letter keeps it" <AND ,LADY-CONFRONTED <==? <LOC ,DEAD-LETTER> ,ADVENTURER>>>
 	<ASSERT-TEXT "has an alibi" <CO-RESUME ,CO "accuse lady ashworth">>
 	<ASSERT "A wrong accusation is counted, not fatal" <AND <==? ,WRONG-ATTEMPTS 1> <NOT ,GAME-ENDED>>>

@@ -27,7 +27,7 @@
  <ASSERT-TEXT "spindle is already turning" <CO-RESUME ,CO "turn spool">>
  <ASSERT "looking for sound did not audition the loaded tape" <NOT ,SIGNAL-HEARD>>
  <ASSERT-TEXT "The keys stay dark" <CO-RESUME ,CO "push return key">>
- <ASSERT-TEXT "private return register" <CO-RESUME ,CO "push audition stud">>
+ <ASSERT-TEXT "Neither will send her voice" <CO-RESUME ,CO "push audition stud">>
  <ASSERT "routing is unlocked after replay" ,SIGNAL-HEARD>
  <ASSERT-TEXT "both sending keys go dark" <CO-RESUME ,CO "remove spool from basin">>
  <ASSERT "the spool is held after removal" <IN? ,MESSAGE-SPOOL ,WINNER>>

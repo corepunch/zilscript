@@ -1,0 +1,12 @@
+THE WATER THAT ANSWERS
+
+Choose a [[doctor]], [[reporter]] or [[mechanic]] to open the case.
+
+
+> read doctor
+Hear what a failing breath reveals. Highest composure.
+
+
+> look
+Silt has dried in crescents up the pump-room wall. A desk lamp still works. Beside it: a running [[tape]] machine and a [[relay cover->cover]] bowed around one rusted screw. The passage [[east]] leads to the landing and the station telephone.
+The [[second track->track]] is still playing.

@@ -1,0 +1,149 @@
+The Library of Borrowed Tomorrows
+Studio Null, 2026
+Release 1
+
+This morning you promised the whole market that you would fetch tomorrow from the Library of Borrowed Tomorrows and bring it back to them. It was an easy promise, back when you thought tomorrow just came by itself. Now you are standing inside the library, the librarians are nowhere to be seen, and it is very, very quiet.
+
+Lending Hall
+You are in the Lending Hall of the library, a hushed room whose shelves climb out of sight into the rafters. Someone has pushed a wooden [[lending cabinet]] right up against the big window. Two stripes of [[sunlight]] fall across the floor: today's, and beside it a narrow golden stripe that must be tomorrow's. An arch to the [[east]] opens into the folding room, and a passage leads [[north]] to the dry basin.
+
+
+> take golden sunlight
+You try to scoop up a stripe of sunlight, but it just lies on top of your hands. Light doesn't come in pieces.
+
+
+> open lending cabinet
+You open the cabinet's little door. Inside, all alone on the shelf, lies a [[tomorrow leaf]].
+
+
+> open golden sunlight
+The big window doesn't open. Through it you can see the rooftops of the town, all waiting.
+
+
+> search lending cabinet
+You find nothing unusual.
+
+
+> east
+This is the Folding Room, a bright room barely wider than its long wooden [[folding board]]. Sunlight picks out the furrows in the grain. The edges shine from years of elbows; the middle looks almost untouched. The lending hall is back through the arch to the [[west]], and a staircase climbs [[north]] to the reading terrace.
+
+
+> read folding board
+Words are carved into the wood of the board: LAY A LEAF ON THE BOARD, GOLD SIDE UP. TO SHARE YOUR DAY, OPEN THE OLD FOLDS. Nothing anywhere says you aren't allowed to.
+
+
+> north
+You are on the Reading Terrace, a stone balcony high above the town. Far below, the striped awnings in the [[market]] look like squares cut from a quilt. A brass [[reading frame]] stands at the railing, facing out over the market. Down below, the afternoon shadows are slowly growing longer. Stairs lead [[south]] down to the folding room, and a doorway to the [[west]] leads back to the dry basin.
+
+
+> unclip reading frame
+There's nothing clipped in there to take out.
+
+
+> listen to busy market
+Up from the market come shouts, laughter, the creak of carts and someone calling out the price of plums.
+
+
+> west
+You are in the Dry Basin, a cool stone room where a long [[stone trough]] runs along one wall and out through a gap toward the market. A thin stream of water edges along the trough toward the market with a soft, busy trickle. An old [[loan receipt]] has been pressed flat against the stone wall. The lending hall is back to the [[south]], and a doorway to the [[east]] opens onto the reading terrace.
+
+
+> read loan receipt
+It's an old library receipt, written in careful letters: SUN ON A PRIVATE LOAN IS SUN THE VILLAGE CAN'T USE. FOR EVERYONE, FIT AN UNFOLDED PAGE IN THE FRAME AND READ FROM THE FRAME. Underneath, in a different, scratchier hand, someone has added: I was here first.
+
+
+> take loan receipt
+It's stuck fast. It has been pressed against the stone so long that it's almost part of the wall.
+
+
+> south
+You are in the Lending Hall of the library, a hushed room whose shelves climb out of sight into the rafters. Someone has pushed a wooden [[lending cabinet]] right up against the big window. Two stripes of [[sunlight]] fall across the floor: today's, and beside it a narrow golden stripe that must be tomorrow's. An arch to the [[east]] opens into the folding room, and a passage leads [[north]] to the dry basin.
+A [[tomorrow leaf->tomorrow leaf]] is in the [[lending cabinet->lending cabinet]].
+
+
+> look in lending cabinet
+The [[lending cabinet->lending cabinet]] contains:
+  A [[tomorrow leaf->tomorrow leaf]]
+
+
+> take tomorrow leaf
+As you lift it out, the leaf records your name: it appears in the little box in gold. At the same moment the narrow stripe of tomorrow's sunlight on the floor goes out, so neatly that for a moment you think you blinked. Tomorrow is on loan now, to you, and only to you.
+
+
+> open tomorrow leaf
+You pick at the folds, but they're old and stiff, and they spring shut again as soon as you let go. The page needs a flat, steady place to be smoothed open.
+
+
+> read tomorrow leaf
+In small gold letters it says TOMORROW, just under your name. You read it softly. The word stays here instead of going out over the rooftops. It needs a place where everyone can see the page.
+
+
+> put tomorrow leaf in lending cabinet
+You return the leaf. The cabinet folds it back to its old small size, and the extra stripe of sun comes back to the floor.
+
+
+> examine golden sunlight
+Today's sunlight lies on the floor in a wide yellow stripe. Beside it runs a narrow stripe of deeper gold, coming in through the very same window. That must be tomorrow, shining a little early.
+
+
+> take tomorrow leaf
+As you lift it out, the leaf records your name: it appears in the little box in gold. At the same moment the narrow stripe of tomorrow's sunlight on the floor goes out, so neatly that for a moment you think you blinked. Tomorrow is on loan now, to you, and only to you.
+
+
+> east
+This is the Folding Room, a bright room barely wider than its long wooden [[folding board]]. Sunlight picks out the furrows in the grain. The edges shine from years of elbows; the middle looks almost untouched. The lending hall is back through the arch to the [[west]], and a staircase climbs [[north]] to the reading terrace.
+
+
+> inventory
+You are carrying:
+  A [[tomorrow leaf->tomorrow leaf]]
+
+
+> put tomorrow leaf in folding board
+You lay the [[tomorrow leaf]] on the board, gold side up, and smooth the old folds open with your palm. Fold after fold lets go, and the little square opens out to the width of your arms. Your name is still there in its corner, with plenty of room alongside it now. You lift it back up carefully.
+
+
+> open tomorrow leaf
+It's already opened out as wide as your arms.
+
+
+> north
+You are on the Reading Terrace, a stone balcony high above the town. Far below, the striped awnings in the [[market]] look like squares cut from a quilt. A brass [[reading frame]] stands at the railing, facing out over the market. Down below, the shadows have stopped getting longer under the stalls, and people stand still, waiting for an evening that isn't coming. Stairs lead [[south]] down to the folding room, and a doorway to the [[west]] leads back to the dry basin.
+
+
+> inventory
+You are carrying:
+  A [[tomorrow leaf->tomorrow leaf]]
+
+
+> put tomorrow leaf in reading frame
+You clip the wide page in. Both clips hold, and the [[tomorrow leaf]] points out toward the roofs of the town.
+
+
+> unclip reading frame
+You lift the two clips and catch the page before the wind does.
+
+
+> inventory
+You are carrying:
+  A [[tomorrow leaf->tomorrow leaf]]
+
+
+> listen to busy market
+The market has gone strangely hushed. You can hear people asking each other, very quietly, what day it will be.
+
+
+> inventory
+You are carrying:
+  A [[tomorrow leaf->tomorrow leaf]]
+
+
+> put tomorrow leaf in reading frame
+You clip the wide page in. Both clips hold, and the [[tomorrow leaf]] points out toward the roofs of the town.
+
+
+> read reading frame
+Standing at the frame, you read the one word on the page out loud, as clearly as you can: TOMORROW. The wide page glows, and down in the market a hundred names call back, one after another, until all the empty space beside yours is full. The shadows begin to grow longer again. Outside the bakery, someone takes back a chair they were about to put away.
+
+THE END -- ROOM FOR EVERY NAME
+Library record: a day shared.

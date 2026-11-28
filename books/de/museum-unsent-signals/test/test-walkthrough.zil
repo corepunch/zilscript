@@ -6,6 +6,7 @@
 	<ASSERT-TEXT "Wechselgeldfachs" <CO-RESUME ,CO "öffne die Kasse">>
 	<ASSERT-TEXT "vierzig Jahre" <CO-RESUME ,CO "lies die Messingtafel">>
 	<CO-RESUME ,CO "osten">
+	<ASSERT-TEXT "Vitrinen sind abgeschlossen. Die Vitrinenschlüssel" <CO-RESUME ,CO "öffne die Vitrine">>
 	<ASSERT-TEXT "für Beschädigungen" <CO-RESUME ,CO "untersuche die Holzspule">>
 	<CO-RESUME ,CO "nimm die Spule">
 	<ASSERT-TEXT "zweimal umgeschlagen" <CO-RESUME ,CO "drehe die Spule">>
@@ -32,7 +33,7 @@
 	<ASSERT-TEXT "Rascheln des Bands" <CO-RESUME ,CO "höre die Spule">>
 	<ASSERT-TEXT "nimm die Spule erst heraus" <CO-RESUME ,CO "drehe die Spule">>
 	<ASSERT "Bloßes Hören oder Drehen schaltet nichts frei" <NOT ,SIGNAL-HEARD>>
-	<ASSERT-TEXT "privaten Rückantwortregister" <CO-RESUME ,CO "DRÜCK DEN ABHÖRKNOPF">>
+	<ASSERT-TEXT "Keine von beiden sendet ihre Stimme" <CO-RESUME ,CO "DRÜCK DEN ABHÖRKNOPF">>
 	<ASSERT "Erneutes Abspielen schaltet die Tasten frei" ,SIGNAL-HEARD>
 	<ASSERT-TEXT "beide Sendetasten erlöschen" <CO-RESUME ,CO "nimm die Spule">>
 	<ASSERT "Herausnehmen verwirft die Freigabe" <AND <HELD? ,MESSAGE-SPOOL> <NOT ,SIGNAL-HEARD>>>

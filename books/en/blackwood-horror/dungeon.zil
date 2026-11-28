@@ -140,7 +140,7 @@
 <ROOM ISOLATION-WARD
       (IN ROOMS)
       (DESC "Isolation Ward")
-      (LDESC "This is the isolation ward, a narrow hall lined with heavy cell [[doors]], each with a small barred window. Between the doors, thousands of [[scratches]] have been cut by fingernails, row upon row. Your lantern light shakes on them, and nothing else moves. To the [[north]] lies a room of scorched concrete, and the flooded chamber is back to the [[south]].")
+      (LDESC "This is the isolation ward, a narrow hall lined with heavy cell [[doors]], each with a small barred window. Between the doors, thousands of [[scratches]] have been cut by fingernails, row upon row. Your lantern light shakes on them. One set of scratches stops at shoulder height; the next begins lower, as if the hand that made it had slid down the wall. To the [[north]] lies a room of scorched concrete, and the flooded chamber is back to the [[south]].")
       (SOUTH TO FLOODING-CHAMBER)
       (NORTH TO ELECTROSHOCK-THEATER)
       (FLAGS RLANDBIT)

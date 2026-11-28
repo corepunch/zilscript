@@ -1,0 +1,158 @@
+Die Bibliothek der geliehenen Morgen
+Studio Null, 2026
+Ausgabe 1
+
+»Bis morgen«, sagte die Bäckerin heute früh am Markt. Du hast versprochen, ihr das Morgen aus der Bibliothek zu holen. Da klang es noch wie etwas, das ohnehin käme. Jetzt stehst du in der Bibliothek. Auf dein Hallo antwortet nicht einmal ein Echo.
+
+Ausleihhalle
+In der Ausleihhalle glänzen die Dielen wie frisch gewachst. Vor dem hohen Fenster steht ein dunkler [[Leihschrank]]. Zwei Streifen [[Sonnenlicht]] liegen auf den Dielen. Der breite wandert mit der Sonne. Der schmale leuchtet goldgelb und ist ihr schon ein Stück voraus. Ein Bogen im [[Osten->ost]] öffnet sich zum Faltraum, und ein Gang führt nach [[Norden->nord]] in die trockene Kammer.
+
+
+> nimm sonnenlicht
+Du versuchst, Sonnenlicht mit beiden Händen zu schöpfen. Es liegt einfach oben auf deinen Händen. Licht lässt sich nicht in Stücke teilen.
+
+
+> oeffn leihschrank
+Du öffnest die kleine Schranktür. Drinnen liegt ganz allein auf dem Regalboden ein [[Morgenblatt]].
+
+
+> oeffn sonnenlicht
+Das große Fenster geht nicht auf. Dahinter siehst du die Dächer der Stadt, die alle zu warten scheinen.
+
+
+> such leihschrank
+Du findest nichts Ungewöhnliches.
+
+
+> ost
+Faltraum
+Im Faltraum steht nur das lange hölzerne [[Faltbrett]]. In die hellen Wände fallen Schatten von Zweigen. Die Kanten des Bretts sind glatt von vielen Händen, die Mitte ist noch rau. Durch den Bogen im [[Westen->west]] geht es zurück zur Ausleihhalle, eine Treppe führt nach [[Norden->nord]] hinauf zur Leseterrasse.
+
+
+> lies faltbrett
+Ins Brett ist eingeritzt: LEG EIN BLATT MIT DER GOLDSEITE NACH OBEN AUF DAS BRETT. WENN DU DEINEN TAG TEILEN WILLST, STREICH DIE ALTEN FALTEN GLATT. Nirgends steht, dass du das nicht darfst.
+
+
+> nord
+Leseterrasse
+Auf der Leseterrasse reicht dir das Geländer bis zur Brust. Tief unten auf dem [[Markt]] stehen die gestreiften Dächer der Buden neben der kleinen Backstube. Am Geländer steht ein [[Leserahmen]] aus Messing, zum Markt hin ausgerichtet. Unten werden die Nachmittagsschatten langsam länger. Eine Treppe führt nach [[Süden->sued]] hinab zum Faltraum. Durch eine Tür im [[Westen->west]] kommst du zurück zur trockenen Kammer.
+
+
+> such leserahmen
+Du beugst dich vor. Durch den leeren Rahmen ist der ganze Markt so klein wie ein gemaltes Bild.
+
+
+> hoer markt
+Vom Markt dringen Rufe und Lachen herauf, das Knarren von Karren und jemand, der den Preis für Pflaumen ausruft.
+
+
+> west
+Trockene Kammer
+Du bist in der trockenen Kammer, einem kühlen Steinraum. Eine lange [[Steinrinne]] verläuft an der Wand entlang und durch einen Spalt hinaus in Richtung Markt. Ein dünner Wasserfaden zieht leise murmelnd durch die Rinne dem Markt entgegen. Ein alter [[Leihschein]] klebt flach an der Steinwand. Im [[Süden->sued]] geht es zurück zur Ausleihhalle, und eine Tür im [[Osten->ost]] führt auf die Leseterrasse.
+
+
+> lies leihschein
+Auf dem alten Leihschein steht in sorgfältiger Schrift: WER DIE SONNE FÜR SICH ALLEIN LEIHT, NIMMT SIE DER STADT WEG. FÜR ALLE: SPANN EIN AUFGEFALTETES BLATT IN DEN LESERAHMEN UND LIES ES DORT VOR. Darunter hat jemand mit krakeliger Schrift ergänzt: Ich war zuerst da.
+
+
+> nimm leihschein
+Er sitzt fest. Er klebt schon so lange am Stein, dass er fast zur Wand gehört.
+
+
+> sued
+Ausleihhalle
+In der Ausleihhalle glänzen die Dielen wie frisch gewachst. Vor dem hohen Fenster steht ein dunkler [[Leihschrank]]. Zwei Streifen [[Sonnenlicht]] liegen auf den Dielen. Der breite wandert mit der Sonne. Der schmale leuchtet goldgelb und ist ihr schon ein Stück voraus. Ein Bogen im [[Osten->ost]] öffnet sich zum Faltraum, und ein Gang führt nach [[Norden->nord]] in die trockene Kammer.
+Der [[Leihschrank->hölzern leihschrank]] scheint das Folgende zu enthalten:
+  Ein [[Morgenblatt->klein morgenblatt]]
+
+
+> untersuch in leihschrank
+Der [[Leihschrank->hölzern leihschrank]] scheint das Folgende zu enthalten:
+  Ein [[Morgenblatt->klein morgenblatt]]
+
+
+> nimm morgenblatt
+Als du es heraushebst, trägt das Blatt deinen Namen ein. Er erscheint in Gold in dem kleinen Kästchen. Im selben Augenblick erlischt der schmale Streifen vom Sonnenlicht des nächsten Tages so sauber, dass du meinst, geblinzelt zu haben. Das Morgen ist jetzt ausgeliehen. An dich allein.
+
+
+> lies morgenblatt
+Unter deinem Namen steht in Gold: MORGEN. Du liest es leise. Nur du hörst es. Damit es unten ankommt, muss das Blatt in den Leserahmen.
+
+
+> leg morgenblatt in leihschrank
+Du gibst das Blatt zurück. Der Schrank faltet es wieder klein, und auf dem Boden erscheint der zweite Sonnenstreifen.
+
+
+> untersuch sonnenlicht
+Das Sonnenlicht von heute liegt als breiter gelber Streifen auf dem Boden. Daneben fällt durchs selbe Fenster ein schmalerer, tiefer goldener Streifen. Das muss morgen sein. Es leuchtet ein bisschen zu früh.
+
+
+> nimm morgenblatt
+Als du es heraushebst, trägt das Blatt deinen Namen ein. Er erscheint in Gold in dem kleinen Kästchen. Im selben Augenblick erlischt der schmale Streifen vom Sonnenlicht des nächsten Tages so sauber, dass du meinst, geblinzelt zu haben. Das Morgen ist jetzt ausgeliehen. An dich allein.
+
+
+> ost
+Faltraum
+Im Faltraum steht nur das lange hölzerne [[Faltbrett]]. In die hellen Wände fallen Schatten von Zweigen. Die Kanten des Bretts sind glatt von vielen Händen, die Mitte ist noch rau. Durch den Bogen im [[Westen->west]] geht es zurück zur Ausleihhalle, eine Treppe führt nach [[Norden->nord]] hinauf zur Leseterrasse.
+
+
+> inventar
+Du trägst:
+  Ein [[Morgenblatt->klein morgenblatt]]
+
+
+> leg morgenblatt in faltbrett
+Auf dem [[Faltbrett]] streichst du die alten Falten aus dem [[Morgenblatt]]. Eine nach der anderen gibt nach, bis das kleine Quadrat so breit ist wie deine ausgebreiteten Arme. Dein Name steht noch in seiner Ecke, und daneben ist jetzt reichlich Platz. Du hebst das Blatt wieder hoch.
+
+
+> glaett morgenblatt
+Du hast schon alle Falten geglättet.
+
+
+> nord
+Leseterrasse
+Auf der Leseterrasse reicht dir das Geländer bis zur Brust. Tief unten auf dem [[Markt]] stehen die gestreiften Dächer der Buden neben der kleinen Backstube. Am Geländer steht ein [[Leserahmen]] aus Messing, zum Markt hin ausgerichtet. Unten unter den Ständen sind die Schatten stehen geblieben. Die Leute rühren sich nicht. Sie warten auf einen Abend, der nicht kommt. Eine Treppe führt nach [[Süden->sued]] hinab zum Faltraum. Durch eine Tür im [[Westen->west]] kommst du zurück zur trockenen Kammer.
+
+
+> inventar
+Du trägst:
+  Ein [[Morgenblatt->klein morgenblatt]]
+
+
+> leg morgenblatt in leserahmen
+Du klemmst das breite Blatt ein. Beide Klammern halten, und das [[Morgenblatt]] zeigt hinaus über die Dächer der Stadt.
+
+
+> such leserahmen
+Die Klammern fassen nur die Ecken. Die goldene Mitte des Blatts bleibt frei; von unten können alle mitlesen.
+
+
+> inventar
+Deine Hände sind leer.
+
+
+> hoer markt
+Der Markt ist seltsam still geworden. Ganz leise hörst du die Leute einander fragen, welcher Tag wohl als Nächstes kommt.
+
+
+> nimm morgenblatt
+Eine Klammer nach der anderen gibt nach. Du hältst das Blatt wieder in der Hand; unten wartet der Markt noch immer.
+
+
+> inventar
+Du trägst:
+  Ein [[Morgenblatt->klein morgenblatt]]
+
+
+> leg morgenblatt in leserahmen
+Du klemmst das breite Blatt ein. Beide Klammern halten, und das [[Morgenblatt]] zeigt hinaus über die Dächer der Stadt.
+
+
+> lies leserahmen
+Am Rahmen liest du das eine Wort auf dem Blatt laut vor, so deutlich du kannst: MORGEN. Das breite Blatt leuchtet. Unten auf dem Markt antworten hundert Namen, einer nach dem anderen, bis kein Platz mehr neben deinem Namen frei ist. Ein Karrenrad dreht sich endlich weiter. Die Schatten werden länger. Die Bäckerin stellt ihren Stuhl zwischen die Buden. »Bis morgen«, ruft sie wieder. Diesmal antworten die Leute von allen Seiten des Platzes.
+
+ENDE – PLATZ FÜR JEDEN NAMEN
+Ausleihbuch: Ein Tag wurde geteilt.
+
+Möchtest du das Spiel neu anfangen, einen gespeicherten Zug wiederherstellen oder diese Spielrunde beenden?
+(Tippe: NEUBEGINN, WIEDERHERSTELLUNG oder AUFHOEREN):  >

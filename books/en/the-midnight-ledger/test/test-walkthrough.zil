@@ -25,5 +25,5 @@
  <CO-RESUME ,CO "examine assessor orr">
  <CO-RESUME ,CO "south">
  <ASSERT-TEXT "three columns together" <CO-RESUME ,CO "spin evidence panel">>
- <ASSERT-TEXT "finding unsigned" <CO-RESUME ,CO "spin ives tab">>
+ <ASSERT-TEXT "Ives releases the breath" <CO-RESUME ,CO "spin ives tab">>
  <ASSERT-TEXT "THE END: THE WEIGHT OF THE RECORD" <CO-RESUME ,CO "spin orr tab">>>

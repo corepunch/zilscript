@@ -56,7 +56,7 @@
 
 <ROUTINE PUMP-ROOM-F (RARG)
  <COND (<==? .RARG ,M-LOOK>
-        <TELL "Silt has dried in crescents up the pump-room wall. A desk lamp still works. Beside it: a running [[tape]] machine and a [[relay cover->cover]] bowed around one rusted screw. The passage [[east]] leads to the landing and the station telephone." CR>
+        <TELL "Silt has dried in crescents up the pump-room wall. A desk lamp still works. Beside it: a running [[tape]] machine and a [[relay cover->cover]] bowed around one rusted screw. The passage [[east]] leads to the landing and the station telephone. You could call Noor from there, but the tape is still turning, and whatever is on it may be the only warning you get." CR>
         <COND (<AND ,HEARD-TRACK <NOT ,RESPONSE-LOGGED>>
                <TELL "The [[second track->track]] is still playing." CR>)> <RTRUE>)>>
 
@@ -146,7 +146,7 @@
                <TELL "'I need the work order,' Noor says. The tape machine is [[west]]." CR>)
               (T
                <TELL "You read back the order: Gate Four, circuit C. Noor has enough to shut the line from her end." CR>
-               <COND (<G? ,REPORT-DETAIL 0> <TELL "She logs your corroborating detail as a separate piece of evidence." CR>
+               <COND (<G? ,REPORT-DETAIL 0> <TELL "She logs your corroborating detail as a separate piece of evidence, leaving the original work order intact for the crew." CR>
                       <COND (<==? ,REPORT-DETAIL 1> <TELL "She adds: 'second speaker, no breath.' " CR>)
                             (<==? ,REPORT-DETAIL 2> <TELL "She preserves the reply separately from the original call." CR>)
                             (<==? ,REPORT-DETAIL 3> <TELL "She sends a crew to trace the telephone feed once the water falls." CR>)

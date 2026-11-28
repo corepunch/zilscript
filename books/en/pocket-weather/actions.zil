@@ -34,7 +34,8 @@
 	              (T <TELL " The revised [[forecast]] hums overhead.">)>)
 	       (<AND ,AGREED <IN? ,CLOUD ,TERRACE>> <TELL " [[Nimbus the cloud->cloud]] hovers just above them, ready to choose the rain together.">)
 	       (,WIND-KNOWN <TELL " A steady [[breeze]] blows from the hollow toward the garden, and the [[vane]] overhead swings with it.">)
-	       (T <TELL " High overhead, the [[vane]] is stuck fast, though the air is moving.">)>
+	       (<IN? ,ROOK ,ROOKERY> <TELL " High overhead, the [[vane]] is stuck fast, though the air is moving.">)
+       (T <TELL " High overhead, the [[vane]] rocks free for the first time today. Up on the perch you could test where the wind will carry the rain.">)>
 	 <TELL " The dispatch post is back to the [[south]], and the rain garden lies [[east]]. The whisper arch is [[north]], and a short [[ladder]] climbs [[up]] to the vane perch." CR>)>>
 <ROUTINE VANE-DECK-F (RARG)
 	<COND (<EQUAL? .RARG ,M-LOOK>
@@ -186,7 +187,9 @@
 	 (<NOT <EQUAL? ,HERE ,ARCH>> <TELL "You need to be beside the chime." CR>)
 	 (<IN? ,RIBBON ,CHIME> <TELL "The clapper is already padded. Its soft chuckle leaves room for words." CR>)
 	 (<NOT <AND <HELD? ,RIBBON> <ACCESSIBLE? ,RIBBON>>> <TELL "You need the ribbon in your hands." CR>)
-	 (T <MOVE ,RIBBON ,CHIME> <FSET ,RIBBON ,NDESCBIT> <TELL "You tie the [[soft ribbon->ribbon]] around the [[chime]]'s clapper. CLANG becomes tok. From the [[east]], a small voice says, “Oh. There you are.”" CR>)>
+	 (T <MOVE ,RIBBON ,CHIME> <FSET ,RIBBON ,NDESCBIT> <TELL "You tie the [[soft ribbon->ribbon]] around the [[chime]]'s clapper. CLANG becomes tok.">
+            <COND (<IN? ,CLOUD ,HOLLOW> <TELL " From the [[east]], a small voice says, “Oh. There you are.”" CR>)
+                  (T <TELL " In the quiet, you can hear the warm tiles ticking back to the [[south]]." CR>)>)>
 	<RTRUE>>
 <ROUTINE UNPAD-CHIME ()
 	<COND (<AND <VERB? UNTIE>
@@ -452,8 +455,8 @@
 	 (<NOT ,APOLOGY> <TELL "Nimbus holds its rain. You have heard its fear, but yesterday is still between you. Find out what happened and show that you understand." CR> <RTRUE>)
 	 (<NOT ,AGREED> <TELL "Nimbus is ready to talk, but you have not agreed on a forecast together. Talk about a [[pause]] and a [[promise]] before choosing rain." CR> <RTRUE>)
 	 (<NOT ,PUBLISHED> <TELL "Nimbus waits. “Our promise needs to reach the town first. "> <RAIN-NEXT-STEP> <RTRUE>)>
-	<COND (.BIG? <TELL "You and Nimbus choose a small shower. Round drops drum the clear gutter; the seedlings drink, and one excellent puddle grows. Halfway through, Nimbus says, “Pause.” The rain stops at once. You both listen. Then, together, you choose one last splash." CR>)
-	 (T <TELL "You and Nimbus choose a soft drizzle. Rain whispers down the clear gutter to every waiting root. Ludo's old flower would hardly bend under it. From the garden, Ludo calls “Pause.” Nimbus stops at once. This time, the small voice reaches everyone." CR>)>
+	<COND (.BIG? <TELL "You and Nimbus choose a small shower. Round drops drum the clear gutter; the seedlings drink, and one excellent puddle grows. Halfway through, Nimbus says, “Pause.” The rain stops at once. You both listen. Ludo puts one boot in the puddle and holds out the other, waiting. When Nimbus says “Ready,” you choose one last splash together." CR>)
+	 (T <TELL "You and Nimbus choose a soft drizzle. Rain whispers down the clear gutter to every waiting root. Ludo's old flower would hardly bend under it. From the garden, Ludo calls “Pause.” Nimbus stops at once. This time, the small voice reaches everyone. A parade drummer catches her own stick in midair. In the quiet, you hear the last drop reach the bottom of the gutter." CR>)>
 	<MOVE ,MICA ,DISPATCH>
 	<TELL CR "Mica returns to the post and rings the dispatch bell once. Tomorrow's forecast has room for an apprentice's observations, a child's voice, and a cloud that can say no. Nimbus folds itself small enough to rest beside you, and leaves the pocket of air over your shoulder dry." CR CR "THE END -- A FORECAST YOU CAN KEEP" CR>
 	<FINISH> <RTRUE>>

@@ -1,0 +1,9 @@
+The Limehouse Killings
+Studio Null, 2024
+Release 1
+
+London, November 1888. Lord Ashworth was found dead in his study tonight, stabbed in the back, and the study door was still bolted on the inside. You are a private detective, and Lady Ashworth has sent for you to find out how anyone got in or out before Inspector Lestrade of Scotland Yard arrives. The cab has left you at the manor gates, and the fog off the river is thickening.
+
+Ashworth Manor Gate
+You stand at the open iron [[gates]] of Ashworth Manor. Cold river [[fog]] drifts between the bars. The cab wheels have fallen silent, and somewhere off the riverbank a ship knocks against its mooring. A raked gravel [[path]] leads [[north]] to the dark brick [[house->manor house]]. A single [[lit window]] downstairs looks no bigger than a stamp.
+A [[stone]] holds down a creased [[telegram]].

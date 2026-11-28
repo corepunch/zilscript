@@ -46,9 +46,12 @@
  <TELL " Ahead to the [[north]] stands the tide-[[house]] where you grew up, and someone has left a light burning in a house that has never had electricity." CR>)>>
 
 <ROUTINE HALL-F (RARG)
- <COND (<AND <EQUAL? .RARG ,M-ENTER> <NOT ,LENS-READY>> <MOVE ,EKIT ,HALL> <RFALSE>)
+ <COND (<AND <EQUAL? .RARG ,M-ENTER> <NOT ,LENS-READY> <NOT <IN? ,EKIT ,HALL>>>
+        <MOVE ,EKIT ,HALL>
+        <TELL "Kit sets his bag beside the bench." CR>
+        <RFALSE>)
   (<EQUAL? .RARG ,M-LOOK> <TELL "This is the waiting hall, where ferry passengers once sat out the weather until the boat came. Rain has blown in through a broken [[pane]] and settles in the crease of a long wooden [[bench]].">
- <COND (<IN? ,EKIT ,HALL> <TELL " Your brother [[Kit]] sets his [[bag]] down beside it without taking his eyes off the floor.">)
+ <COND (<IN? ,EKIT ,HALL> <TELL " Your brother [[Kit]] stands by the bench, watching rainwater creep toward his [[bag]].">)
        (T <TELL " Kit's bag is gone, but the bench is dry where it sat.">)>
  <TELL " [[Stairs->hall stairs]] lead [[north]] and up into the house, and from them comes the sound of a boot being set down very carefully. The cold [[kitchen->west]] is to the west, and the [[tally office->east]], which smells of vinegar, is to the east. The [[causeway->south]] is back to the south." CR>)>>
 
@@ -171,7 +174,7 @@
   (<VERB? EXAMINE> <TELL "A brass [[bell]] bolted to its bracket, with a long clapper worn bright where hands have reached for it. The keeper rang it to call people from the shore to come and witness a search." CR>)
   (<VERB? TAKE> <TELL "It is bolted to the house. You could ring it here." CR>)
   (<VERB? RING> <COND (<NOT ,LENS-READY> <TELL "Not into a dark sea. Light the missing berth with the lens first; the lantern room is back to the [[west]]." CR>)
-    (T <SETG EBB-ENDING T> <TELL "The first note is ugly. The second wakes a light across the water. Between the second note and the third you shout, “Kit Rook was aboard! I let you write him out.” You stay on the gallery until the first lantern ashore turns this way." CR CR "THE END: THE SHORE HEARS" CR> <FINISH>)>)
+    (T <SETG EBB-ENDING T> <TELL "The first note is ugly. The second wakes a light across the water. Between the second note and the third you shout, “Kit Rook was aboard! I let you write him out.” You stay on the gallery until the first lantern ashore turns this way. Someone on shore will have to open the tally and find the space where his name was scraped away." CR CR "THE END: THE SHORE HEARS" CR> <FINISH>)>)
   (<VERB? RUB> <TELL "The brass is wet and cold, and it hums under your hand with the wind." CR>)
   (<VERB? LISTEN> <TELL "Even unrung, the bell gives off a faint, high note as the wind crosses its mouth." CR>)
   (<VERB? KNOCK> <TELL "You tap it with a knuckle. It answers with a small sound, too small to carry, that dies away into the rain." CR>)>>
@@ -180,7 +183,7 @@
  <COND
   (<VERB? EXAMINE> <TELL "A brass [[brake]] that draws the clapper back from the bell and holds it there. With the bell silenced, no one ashore would hear anything, but no one here would have to wait for an answer either. It is a way to keep watch in private." CR>)
   (<VERB? MOVE PULL> <COND (,LENS-READY <SETG EBB-ENDING T>
-   <TELL "You draw the clapper back and hold it. In the silence where the bell would have rung, you say his name, once. The lens holds its light on the empty berth until morning. To take his memory home is not to leave him here." CR CR "THE END: THE LIGHT STAYS" CR> <FINISH>) (T <TELL "The light must be ready first." CR>)>)
+   <TELL "You draw the clapper back and hold it. In the silence where the bell would have rung, you say his name, once. The lens holds its light on the empty berth until morning. You will carry his name back over the causeway yourself, without asking the shore to witness it. To take his memory home is not to leave him here." CR CR "THE END: THE LIGHT STAYS" CR> <FINISH>) (T <TELL "The light must be ready first." CR>)>)
   (<VERB? RUB> <TELL "Kit's thumb is already on it. His hand is as cold as the brass, and it does not move away." CR>)
   (<VERB? LISTEN> <TELL "The clapper just brushes the brake in the wind. There is a sound of teeth almost closing." CR>)>>
 

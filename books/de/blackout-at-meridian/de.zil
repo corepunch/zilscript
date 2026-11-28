@@ -267,7 +267,7 @@
  <TELL "Du stabilisierst den Wagen und reichst die Fahrg%aste einen nach dem anderen hinunter ins Netz der Mannschaft. Der Letzte, ein Junge im gelben Regenmantel, l%asst deine Hand erst los, als er wieder festen Boden unter den F%u%sen hat. (Karma +10.) Der Weg nach [[Osten->ost]] zur Relaisstation ist frei." CR>>
 
 <ROUTINE MSG-TRAM-RESCUE-FAILED ()
- <TELL "Das Kabel rutscht, und der Wagen ruckt. Du steckst einen Schlag ein, aber das Netz der Mannschaft unten h%alt.">>
+ <TELL "Das Kabel rutscht, und der Wagen ruckt. Ein Fahrgast schreit auf; du steckst einen Schlag ein, aber unten spannt die Mannschaft ihr Netz. Du kannst die Rettung erneut versuchen.">>
 
 <ROUTINE MSG-CREW-EXAMINE-RESCUED ()
  <TELL "Die Mannschaft wickelt die Fahrg%aste am Ufer in Rettungsdecken. Die Chefin zeigt dir den Daumen nach oben." CR>>
@@ -375,7 +375,7 @@
  <TELL "Eine Wand aus dunklen Bildschirmen rund um einen einzigen Handhebel zur Umgehung, die einzige Steuerung, die noch von Hand reagiert. Leg ihn um, und die Stadt bekommt ihren Strom zur%uck.">>
 
 <ROUTINE MSG-CONSOLE-EXAMINE-NOT-DISABLED ()
- <TELL " Die Drohne schwebt zwischen dir und ihm.">>
+ <TELL " Die Drohne schwebt zwischen dir und ihm. Du kannst sie zuerst bek%ampfen und ihr Gegenfeuer riskieren oder mit einer Verstandesprobe direkt zum Hebel gelangen.">>
 
 <ROUTINE MSG-CONSOLE-RUB ()
  <TELL "Es ist warm und zittert unter der Last, die es nicht tragen sollte." CR>>
@@ -390,7 +390,7 @@
  <TELL "Melde dich zuerst in der Leitstelle mit einem Profil an." CR>>
 
 <ROUTINE MSG-CONSOLE-WIN-START ()
- <TELL "Du legst den Umgehungshebel um. Das Brummen der Halle sinkt zu einem Murmeln, die Bildschirme erwachen einer nach dem anderen, und das Relais kehrt zur %ortlichen Steuerung zur%uck. Auf der anderen Seite des Flusses geht in Meridian Stra%se f%ur Stra%se das Licht an. (Karma +20.)" CR CR "Dein Funkger%at knackt, und die Leitstelle ruft deinen Namen: ">>
+ <TELL "Du legst den Umgehungshebel um. Das Brummen der Halle sinkt zu einem Murmeln, die Bildschirme erwachen einer nach dem anderen, und das Relais kehrt zur %ortlichen Steuerung zur%uck. Auf der anderen Seite des Flusses geht in Meridian Stra%se f%ur Stra%se das Licht an. Auf der Br%ucke zeigt der Junge im gelben Regenmantel auf das erste erleuchtete Fenster, und die Rettungsmannschaft jubelt. (Karma +20.)" CR CR "Dein Funkger%at knackt, und die Leitstelle ruft deinen Namen: ">>
 
 <ROUTINE MSG-CONSOLE-WIN-END ()
  <TELL ". Meridian ist gerettet." CR CR "ENDE: DIE LICHTER VON MERIDIAN" CR CR>>

@@ -59,7 +59,7 @@
            <ENABLE <QUEUE I-TICK 1>>
            <ENABLE <QUEUE I-DAWN-WARNING 25>>)>
     <ENABLE <QUEUE I-NUTMEG-AUTONOMY 8>>
-    <TELL "You are Pip, a workshop gnome no taller than a teacup, and the apprentice of Grandfather Tolliver, the last toymaker in Wrenfold. Every night the town's toys wake up and play, but tonight they are growing still. The magic key that keeps them ticking has vanished from its hook, and Grandfather has not come home. You must find the key and wind the workshop's heart before dawn." CR CR>
+    <TELL "You are Pip, a teacup-sized gnome and Grandfather Tolliver's apprentice. Every night Wrenfold's toys wake, but tonight they're growing still. Snow gathers on the roofs, Grandfather hasn't come home, and the magic key is gone from its hook. Find it and wind the workshop's heart before dawn." CR CR>
     <TELL D ,HERE CR>
     <V-LOOK>
     <MAIN-LOOP>
@@ -79,7 +79,10 @@
     <RTRUE>>
 
 <ROUTINE I-DAWN-WARNING ()
-    <QUEUE I-DAWN-WARNING 25>
+    ;"As dawn approaches, the original 25-turn interval could skip every
+      urgent warning and carry the reader straight from grey sky to sunrise."
+    <COND (<L? ,TICK-COUNT 31> <QUEUE I-DAWN-WARNING 5>)
+          (T <QUEUE I-DAWN-WARNING 25>)>
     <COND (,GAME-WON <RTRUE>)>
     <COND (<L? ,TICK-COUNT 6>
            <TELL "Sunlight is touching the rooftops of Wrenfold. Pip has minutes, not hours. Hurry!" CR>)
@@ -1699,6 +1702,15 @@ coat, and the pages in his handwriting."
            <SETG ENDING-TIER 3>
            <TELL CR>
            <TELL "The workshop heart beats -- a deep, steady rhythm that echoes through every corner of Wrenfold. The clock tower chimes. Toys stir in shop windows all across the square. Streetlamps flicker to full brightness. The magic is back." CR CR>
+           <COND (<IN? ,MUSIC-BOX ,WORKSHOP-HEART>
+                  <TELL "The music box carries its lullaby into the ticking. Across the chamber, a wooden bear lifts one paw as if keeping time." CR>)>
+           <COND (<IN? ,TIN-SOLDIER ,WORKSHOP-HEART>
+                  <TELL "The tin soldier holds his post beside the heart; the newly waking toys return his silent salute." CR>)>
+           <COND (<IN? ,DOLL-ARM ,WORKSHOP-HEART>
+                  <TELL "The porcelain arm catches the light, and a waking doll reaches towards it with her own small hand." CR>)>
+           <COND (<IN? ,BUTTON ,WORKSHOP-HEART>
+                  <TELL "The little button gleams at the heart's base like a promise that even small gifts matter." CR>)>
+           <TELL CR>
            <TELL "Far above, the shop door bangs open, and boots stamp off the snow. “Pip?” calls Grandfather Tolliver, out of breath from searching the whole town for another way to the heart. He hurries down the study stairs, sees the gears turning, and laughs. “You found the way yourself. Well done, apprentice. Well done.”" CR CR>
            <COND (,NUTMEG-SAVED
                   <TELL "Nutmeg curls at Pip's feet, her patchy fur warm">

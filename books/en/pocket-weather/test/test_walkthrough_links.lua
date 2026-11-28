@@ -32,6 +32,8 @@ walk:play({
 	{ "north", expect = "Aster the rook" },
 	{ "give brass button to aster rook", expect = "A fair exchange" },
 	{ "east", expect = "weather vane" },
+	{ "down", expect = "vane rocks free" },
+	"up",
 	{ "spin weather vane", expect = "measured a safe route" },
 	"down",
 	-- The garden gutter.
@@ -47,6 +49,8 @@ walk:play({
 	{ "tell nimbus cloud about pause rule", expect = "Including me" },
 	{ "tell nimbus cloud about promise", expect = "like to come back" },
 	"west",
+	"untie wind chime from soft ribbon",
+	{ "tie wind chime to soft ribbon", expect = "warm tiles ticking" },
 	{ "south", expect = "ready to choose the rain together" },
 	-- Nimbus names the card in hand, which puts its Write action on screen.
 	{ "tell nimbus cloud", expect = "Write our forecast on your weather card" },

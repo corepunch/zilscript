@@ -1409,7 +1409,7 @@ player has had the lid up, a closed trunk stays closed to a glance."
                          <TELL "Lady Ashworth presses one finger to the old fold. “The first draft named the laboratory account as well. I remember the sum: five hundred pounds.”" CR>)
                         (T
                          <SETG LADY-CONFRONTED T>
-                         <TELL "Lady Ashworth reads the threat twice. The paper rattles against her ring. “My husband meant to expose Moriarty tonight,” she says. “I burned the first draft. I could not burn this one.”" CR>)>
+                         <TELL "Lady Ashworth reads the threat twice. The paper rattles against her ring. “My husband meant to expose Moriarty tonight,” she says. “I burned the first draft. I could not burn this one.” She folds the letter along its old crease and offers it back, carefully keeping her thumb clear of the writing. “If you show it to Lestrade, tell him I tried to stop him. Do not let that make me your murderer for him.”" CR>)>
                   <RTRUE>)
                  (<EQUAL? ,PRSO ,BLOOD-STAINED-KNIFE>
                   <TELL "Lady Ashworth recoils. “I've never seen that before.”" CR>
@@ -1975,7 +1975,7 @@ had been pressed correctly."
 	<VOC-EXACT "MURDER" "CASE">
 	<VOC-EXACT "INVESTIGATION" "CASE">
 	<MOVE ,WINNER ,HERE>
-	<TELL "London, November 1888. Lord Ashworth was found dead in his study tonight, stabbed in the back, and the study door was still bolted on the inside. You are a private detective, and Lady Ashworth has sent for you to find out how anyone got in or out before Inspector Lestrade of Scotland Yard arrives. The cab has left you at the manor gates, and the fog off the river is thickening." CR CR>
+	<TELL "London, November 1888. Lord Ashworth was found dead in his study tonight, stabbed in the back, and the study door was still bolted on the inside. You are a private detective, and Lady Ashworth has sent for you to find out how anyone got in or out before Inspector Lestrade of Scotland Yard arrives. The cab has left you at the manor gates, and the fog off the river is thickening. Someone inside may be grieving, someone may be lying, and the same person could be doing both. Lestrade will want more than a suspicion: you will need to establish the way into the room as well as the motive." CR CR>
 	<TELL D ,HERE CR>
 	<V-LOOK>
 	<MAIN-LOOP>>

@@ -70,6 +70,8 @@ walk:play({
 })
 
 local env = walk.env
+assert(walk.output:find("wooden bear lifts one paw", 1, true), "The music box earns a visible payoff")
+assert(walk.output:find("newly waking toys return his silent salute", 1, true), "The tin soldier earns a visible payoff")
 assert(walk.finishes == 1, "The winning scene ends the story exactly once")
 assert(not walk:running(), "Nothing is offered after the ending")
 assert(#walk:menu() == 0, "The ended story offers no actions")

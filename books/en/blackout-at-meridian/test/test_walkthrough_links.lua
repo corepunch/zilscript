@@ -29,6 +29,9 @@ for i, profile in ipairs({ "bulwark", "arc", "lens" }) do
 		assert(w:offers("disable relay console"), "the console offers its bypass:\n" .. w:describeMenu())
 		w:choose("disable relay console")
 	end
+	if w.output:find("THE LIGHTS OF MERIDIAN", 1, true) then
+		assert(w.output:find("boy in the yellow raincoat", 1, true), "the rescued passenger appears in the ending")
+	end
 	assert(w.finishes == 1 and #w:menu() == 0, profile .. " ends through FINISH")
 	assert(w.output:find("THE END: ", 1, true), w.output)
 end

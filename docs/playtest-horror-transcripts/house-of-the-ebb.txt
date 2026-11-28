@@ -1,0 +1,12 @@
+House of the Ebb
+Studio Null, 2026
+Release 1
+
+You have come home to the tide-house, the old ferry-keeper's house out on the rocks, for the first time in nine winters. Your younger brother Kit promised he would wait for you on the causeway, and tonight he was there, just as he said, his boots ringing on the stones exactly like yours. No one has kept the house since the last ferry was lost. Yet a light is burning in its window.
+
+Drowned Causeway
+You are on the [[causeway]], a raised stone road across the tidal flats that the [[sea]] covers twice a day. Seaweed has dried into the mortar between the stones in little commas, and the water sucks at them on either side. [[Kit]] walks a pace behind you, close enough to touch. Ahead to the [[north]] stands the tide-[[house]] where you grew up, and someone has left a light burning in a house that has never had electricity.
+
+
+> wait
+Time passes...

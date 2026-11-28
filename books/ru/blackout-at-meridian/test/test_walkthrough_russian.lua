@@ -62,7 +62,9 @@ for index, hero in ipairs(profiles) do
 		end
 		assert(env.ZIL_TRUE(env.DISABLED))
 	end
-	contains(walk:choose("отключить пульт"), "Меридиан в безопасности.")
+	local ending = walk:choose("отключить пульт")
+	contains(ending, "Меридиан в безопасности.")
+	contains(ending, "мальчик в жёлтом дождевике")
 	assert(not walk:running())
 end
 

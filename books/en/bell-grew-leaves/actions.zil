@@ -49,6 +49,7 @@
  <COND (<EQUAL? .R ,M-LOOK>
         <TELL "You are in the Bell Court, a small [[cobbled yard]] at the top of the village. [[Fog]] beads on the low wall. One cobble rocks under your shoe with a tiny clack. In the middle hangs the old [[root bell]], carved from wood and low enough to touch, with pale roots growing down around its rim.">
         <COND (<IN? ,WICK ,BELL> <TELL " A [[reed wick]] hangs from a hole in one of the roots.">)>
+        <COND (,LEAF-GROWN <TELL " One pale leaf still clings to the [[rim->root bell]].">)>
         <COND (<FSET? ,SHUTTER ,OPENBIT> <TELL " A cool draft drifts down from the north and stirs the roots.">)>
         <TELL " The reed store is through a low doorway to the [[east]], and the spring walk lies uphill to the [[north]]." CR>)>>
 <ROUTINE STORE-F (R)
@@ -90,7 +91,10 @@
               (<NOT <FSET? ,SHUTTER ,OPENBIT>>
                <SETG LEAF-GROWN T>
                <TELL "Water climbs up the wet wick into the wood, and with a soft rustle a tiny pale leaf unfolds on the rim. It leans away toward the hollow, then stops and droops. Something square is holding the fog in, and the leaf has nowhere to go." CR>)
-              (T <TELL "The bell makes no sound at all. Instead, water climbs the wet wick, and three small leaves grow from the rim, let go, and float away on the draft, out through the open shutter and into the fog. The first turns its white side up, then the second, then the third. A moment later, down in the fog, three white leaves turn over in answer. Someone over there has been standing in the cold as long as you have." CR CR
+              (T <TELL "The bell makes no sound at all. ">
+                 <COND (,LEAF-GROWN <TELL "The drooping leaf lifts into the draft. Two more uncurl beside it.">)
+                       (T <TELL "Water climbs the wet wick and three small leaves uncurl from the rim.">)>
+                 <TELL " All three let go and sail through the shutter. The first turns its white side up, then the second, then the third. You wait until your fingers go cold. Then, in the far fog, three white leaves turn over in answer. Someone has been standing out in the cold with you this whole time." CR CR
                        "THE END -- THREE LEAVES FOR YES" CR>
                  <FINISH> <RTRUE>)>)
        (<VERB? RUB>

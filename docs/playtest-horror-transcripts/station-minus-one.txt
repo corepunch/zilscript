@@ -1,0 +1,12 @@
+The Station at Minus One
+AdventureArena, 2026
+Release 1
+
+The last lift to the surface left an hour ago. You are alone on the night shift at the colony's deepest railway station, far under the ice of a frozen moon. You have locked the gates open and rinsed your cup. Then the platform bell rings. A train is asking to stop, and by the timetable it was due yesterday. It is calling in from the wrong side of midnight, and somebody has to decide whether to let it in.
+
+Ticket Hall
+You stand in the ticket hall, a box of concrete under the ice. The ceiling lamps are off; green [[glow strips]] light your breath from below. Above the ticket [[wickets]], the [[station clock->clock]] keeps creeping toward midnight. The staff room is to the [[west]] and the track instruments are in the gauge room to the [[east]]. [[Steps]] lead [[north]] to the lower platform.
+
+
+> wait
+Time passes...

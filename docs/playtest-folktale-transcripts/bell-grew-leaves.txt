@@ -1,0 +1,130 @@
+The Bell That Grew Leaves
+Studio Null, 2026
+Release 1
+
+Three soft taps come up through the fog: tap, tap, tap. That is the village across the hollow, asking whether your village is still there. Your old bell is made of wood, too brittle to strike, and for the first time the grown-ups have left it to you to answer. You have come up to the Bell Court to find a way.
+
+Bell Court
+You are in the Bell Court, a small [[cobbled yard]] at the top of the village. [[Fog]] beads on the low wall. One cobble rocks under your shoe with a tiny clack. In the middle hangs the old [[root bell]], carved from wood and low enough to touch, with pale roots growing down around its rim. The reed store is through a low doorway to the [[east]], and the spring walk lies uphill to the [[north]].
+
+
+> strike root bell
+You would never hurt the village bell. It is so old and brittle that one hard blow would crack it, and it's the only voice the village has.
+
+
+> listen to root bell
+With your ear to the wood you hear your own heartbeat, then three very distant taps from across the hollow.
+
+
+> east
+This is the Reed Store, a narrow wooden shed that smells like a field in August. Tied [[bundles of reeds->reed bundles]] lean in the corners, and a painted [[signal tile]] hangs on the wall above a plain shelf. The only way out is back [[west]] to the bell court.
+A short [[reed wick]] has been laid on the shelf underneath the tile.
+
+
+> read signal tile
+There are no words on the tile, only three painted pictures in a row, like a lesson for someone too young to read. First, a reed wick standing in a bowl of water. Second, the wick tucked into a hole in the bell's roots. Third, three white leaves floating out through an open shutter. Underneath, someone painted a fourth leaf, then thought better of it and crossed it out.
+
+
+> take reed wick
+Taken.
+
+
+> west
+You are in the Bell Court, a small [[cobbled yard]] at the top of the village. [[Fog]] beads on the low wall. One cobble rocks under your shoe with a tiny clack. In the middle hangs the old [[root bell]], carved from wood and low enough to touch, with pale roots growing down around its rim. The reed store is through a low doorway to the [[east]], and the spring walk lies uphill to the [[north]].
+
+
+> north
+You are on the Spring Walk, a mossy ledge where a cold spring bubbles out of the hillside. A brass [[turning spout]] pokes out of the rock beside a shallow stone [[soaking bowl]]. The bowl is dry, though you can hear water running away somewhere nearby. The bell court is back down the hill to the [[south]], and stone steps lead [[east]] to the shutter landing.
+
+
+> spin brass spout
+You turn the spout with a squeak. Water gushes into the [[soaking bowl]], and the bowl fills faster than the crack leaks.
+
+
+> drink from soaking bowl
+You cup your hands in the bowl and drink. The water is so cold it makes your teeth ache.
+
+
+> inventory
+You are carrying:
+  A [[reed wick->reed wick]]
+
+
+> put reed wick in soaking bowl
+You dip the [[reed wick]] in the water. It goes dark from one end to the other as it drinks. You lift it out before it can float away.
+
+
+> east
+This is the Shutter Landing, a little stone platform at the edge of the village. Here the wall ends and the white sky seems to start below your feet. A closed [[frost shutter]], square and wooden, covers the wall that faces the hollow. Frost glitters at its corners, and everything is very quiet. The stone steps lead back [[west]] to the spring walk.
+
+
+> open frost shutter
+You lift the peg and swing the shutter open. Fog comes in as quietly as a cat.
+
+
+> rub frost shutter
+The wood is cold enough to sting. Little ferns of frost grow along the boards.
+
+
+> close frost shutter
+You swing it closed. The shutter fits snugly in its frame again.
+
+
+> west
+You are on the Spring Walk, a mossy ledge where a cold spring bubbles out of the hillside. A brass [[turning spout]] pokes out of the rock beside a shallow stone [[soaking bowl]]. Water pours into the bowl, and the bowl holds a shaking picture of the sky. The bell court is back down the hill to the [[south]], and stone steps lead [[east]] to the shutter landing.
+
+
+> south
+You are in the Bell Court, a small [[cobbled yard]] at the top of the village. [[Fog]] beads on the low wall. One cobble rocks under your shoe with a tiny clack. In the middle hangs the old [[root bell]], carved from wood and low enough to touch, with pale roots growing down around its rim. The reed store is through a low doorway to the [[east]], and the spring walk lies uphill to the [[north]].
+
+
+> search root bell
+You crouch and look up inside the bell. It is hollow and dark in there, and it smells of dust. Roots run all through the wood, like veins in a leaf.
+
+
+> inventory
+You are carrying:
+  A [[reed wick->reed wick]]
+
+
+> put reed wick in root bell
+You push the [[reed wick]] into the hole, and the root takes hold of it. There's enough left showing to pull it free again.
+
+
+> listen to root bell
+You hear water climbing up through the wood, a sound smaller than rain.
+
+
+> ring root bell
+Water climbs up the wet wick into the wood, and with a soft rustle a tiny pale leaf unfolds on the rim. It leans away toward the hollow, then stops and droops. Something square is holding the fog in, and the leaf has nowhere to go.
+
+
+> north
+You are on the Spring Walk, a mossy ledge where a cold spring bubbles out of the hillside. A brass [[turning spout]] pokes out of the rock beside a shallow stone [[soaking bowl]]. Water pours into the bowl, and the bowl holds a shaking picture of the sky. The bell court is back down the hill to the [[south]], and stone steps lead [[east]] to the shutter landing.
+
+
+> east
+This is the Shutter Landing, a little stone platform at the edge of the village. Here the wall ends and the white sky seems to start below your feet. A closed [[frost shutter]], square and wooden, covers the wall that faces the hollow. Frost glitters at its corners, and everything is very quiet. The stone steps lead back [[west]] to the spring walk.
+
+
+> open frost shutter
+You lift the peg and swing the shutter open. Fog comes in as quietly as a cat.
+
+
+> enter frost shutter
+The shutter is a window, not a door. Beyond it the hill drops straight down into the fog, so you stay safely on the landing.
+
+
+> west
+You are on the Spring Walk, a mossy ledge where a cold spring bubbles out of the hillside. A brass [[turning spout]] pokes out of the rock beside a shallow stone [[soaking bowl]]. Water pours into the bowl, and the bowl holds a shaking picture of the sky. The bell court is back down the hill to the [[south]], and stone steps lead [[east]] to the shutter landing.
+
+
+> south
+You are in the Bell Court, a small [[cobbled yard]] at the top of the village. [[Fog]] beads on the low wall. One cobble rocks under your shoe with a tiny clack. In the middle hangs the old [[root bell]], carved from wood and low enough to touch, with pale roots growing down around its rim. A [[reed wick]] hangs from a hole in one of the roots. A cool draft drifts down from the north and stirs the roots. The reed store is through a low doorway to the [[east]], and the spring walk lies uphill to the [[north]].
+
+
+> ring root bell
+The bell makes no sound at all. Instead, water climbs the wet wick, and three small leaves grow from the rim, let go, and float away on the draft, out through the open shutter and into the fog. The first turns its white side up, then the second, then the third. A moment later, down in the fog, three white leaves turn over in answer. Someone over there has been standing in the cold as long as you have.
+
+THE END -- THREE LEAVES FOR YES
+The bell has a clear path across the fog.

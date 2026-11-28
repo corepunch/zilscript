@@ -22,7 +22,7 @@
 
 <ROUTINE TICKET-COUNTER-F ()
  <COND (<VERB? EXAMINE READ>
-  <TELL "Ein abgenutzter Holztresen mit einer alten Messingkasse. Auf der obersten Karte steht der Stempel LETZTE NACHT. Die Tinte ist noch feucht genug, um zu verwischen. Es wird niemand mehr kommen, um eine zu kaufen." CR>)
+  <TELL "Ein abgenutzter Holztresen mit einer alten Messingkasse. Auf der obersten Karte steht der Stempel LETZTE NACHT. Die Tinte ist noch feucht genug, um zu verwischen. Es wird niemand mehr kommen, um eine zu kaufen. Morgen wird der Tresen leer sein; heute darfst du noch entscheiden, was die letzte Schicht bewahrt." CR>)
        (<VERB? RUB>
   <TELL "Du fährst mit der Hand über den Tresen. An zwei Stellen ist der Lack heller geworden. Dort hat sich der Hausmeister jeden Abend abgestützt." CR>)
        (<VERB? TAKE>
@@ -38,7 +38,7 @@
  <COND (<VERB? EXAMINE LOOK-INSIDE SEARCH>
   <TELL "In jeder Vitrine liegt eine ungesendete Nachricht mit einer kleinen Karte. Eine Wachswalze: eine zweimal aufgenommene Entschuldigung. Ein Telefonband: ein nie abgespielter Heiratsantrag. Unten ein Dutzend Aufnahmen, die alle mit „Lass gut sein“ anfangen. Eine Vitrine ist leer. Auf ihrer Karte steht nur LEER. Von dort stammt die Holzspule." CR>)
        (<VERB? OPEN>
-  <TELL "Die Vitrinen sind abgeschlossen, . Die Vitrinenschlüssel hat der Hausmeister mitgenommen. Nur die Spule zur Überprüfung liegt draußen." CR>)
+  <TELL "Die Vitrinen sind abgeschlossen. Die Vitrinenschlüssel hat der Hausmeister mitgenommen. Nur die Spule zur Überprüfung liegt draußen." CR>)
        (<VERB? RUB>
   <TELL "Das Glas ist kühl. Schwache Fingerabdrücke zeigen, wo Besucher die Fingerspitzen dagegen gehalten haben, als wollten sie die Nachrichten erreichen." CR>)
        (<VERB? KNOCK>
@@ -182,7 +182,7 @@
               (,SIGNAL-HEARD
                <TELL "Die Frau sagt: „Ich bin angekommen.“ Jetzt weißt du, wie viel von der Nachricht in der Minute steckt, die auf diese Worte folgt." CR>)
               (T <SETG SIGNAL-HEARD T>
-                 <TELL "Eine Frauenstimme sagt: „Ich bin angekommen.“ Dann hörst du eine volle Minute lang nur ihren Atem, langsam und gleichmäßig, als warte sie auf eine Antwort. Die Anzeige ordnet die drei Kerben auf der Spule dem privaten Rückantwortregister zu. Das war nie eine Durchsage. Sie sprach mit einem einzigen Menschen, der damals wohl auf sie gewartet hat. Unter der Mulde leuchten beide Sendetasten auf." CR>)>)
+                 <TELL "Eine Frauenstimme sagt: „Ich bin angekommen.“ Dann hörst du eine volle Minute lang nur ihren Atem, langsam und gleichmäßig, als warte sie auf eine Antwort. Die Anzeige ordnet die drei Kerben auf der Spule dem privaten Rückantwortregister zu. Das war nie eine Durchsage. Sie sprach mit einem einzigen Menschen, der damals wohl auf sie gewartet hat. Unter der Mulde leuchten beide Sendetasten auf. Die eine bietet eine private Antwort mit ungewissem Ausgang; die andere teilt nur die Stille mit dem Raum. Keine von beiden sendet ihre Stimme." CR>)>)
        (<VERB? RUB>
   <TELL "Viele Daumen haben eine flache Mulde in den Messingknopf gerieben." CR>)
        (<VERB? TAKE>
@@ -199,7 +199,7 @@
 
 <ROUTINE RETURN-KEY-F ()
  <COND (<VERB? EXAMINE>
-  <TELL "Eine kleine Taste mit der Aufschrift RÜCKANTWORT. Ein Druck schickt eine neue Antwort privat an die Person zurück, die die Nachricht aufgenommen hat. Die Stimme der Frau wird dabei nicht übertragen. Der öffentliche Kanal bleibt stumm.">
+  <TELL "Eine kleine Taste mit der Aufschrift RÜCKANTWORT. Ein Druck schickt eine neue Antwort privat an die Person zurück, die die Nachricht aufgenommen hat. Die Stimme der Frau wird dabei nicht übertragen. Der öffentliche Kanal bleibt stumm. Die Antwort erreicht vielleicht einen Menschen, der sehr lange gewartet hat; ob dieser Mensch noch eine Antwort möchte, kannst du nicht wissen.">
   <COND (<SIGNAL-READY?> <TELL " Jetzt leuchtet sie schwach." CR>) (T <TELL " Sie ist dunkel." CR>)>)
        (<VERB? PUSH>
         <COND (<ROUTING-READY>
@@ -212,7 +212,7 @@
 
 <ROUTINE MEMORIAL-KEY-F ()
  <COND (<VERB? EXAMINE>
-  <TELL "Eine kleine Taste mit der Aufschrift GEDENKEN. Sie kann die stille Minute auf allen Lautsprechern unter der Kuppel ausgeben, ohne die Stimme und ohne die Adresse. Eine kleine öffentliche Erinnerung daran, dass jemand gewartet hat.">
+  <TELL "Eine kleine Taste mit der Aufschrift GEDENKEN. Sie kann die stille Minute auf allen Lautsprechern unter der Kuppel ausgeben, ohne die Stimme und ohne die Adresse. Eine kleine öffentliche Erinnerung daran, dass jemand gewartet hat. Der Raum teilt die Stille, aber am anderen Ende kommt keine Antwort an.">
   <COND (<SIGNAL-READY?> <TELL " Jetzt leuchtet sie schwach." CR>) (T <TELL " Sie ist dunkel." CR>)>)
        (<VERB? PUSH>
         <COND (<ROUTING-READY>

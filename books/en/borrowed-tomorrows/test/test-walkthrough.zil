@@ -16,6 +16,7 @@
  <ASSERT-TEXT "won't reach" <CO-RESUME ,CO "put leaf in frame">>
  <ASSERT "narrow leaf kept" <HELD? ,LEAF>>
  <CO-RESUME ,CO "south">
+ <ASSERT-TEXT "will there be bread in the morning" <CO-RESUME ,CO "listen to folding room">>
  <ASSERT-TEXT "OPEN THE OLD FOLDS" <CO-RESUME ,CO "read folding board">>
  <ASSERT-TEXT "width of your arms" <CO-RESUME ,CO "put page on board">>
  <ASSERT "widened leaf remains held" <AND ,WIDE-LOAN <HELD? ,LEAF>>>

@@ -1146,7 +1146,7 @@ moved: its frame sits proud of the paneling, and it swings on a hinge."
                   <TELL "It looks at you with recognition—not as a stranger, but as someone who understands what it endured. It crumbles to ash." CR>)
                  (T
                   <TELL "Its eyes pass over you without recognition. You freed it, but it never knew you. It crumbles to ash." CR>)>
-           <TELL "The candles go out. The air suddenly smells like rain and grass—ordinary, living air. You're free." CR>
+           <TELL "The candles go out. In the silence, you hear your own breathing where the voice used to be. The air suddenly smells like rain and grass—ordinary, living air. You're free." CR>
            <SETG GAME-WON T>
            <SETG PATIENT-STATE 3>
            <SCORE-UPD 5> ;"rooms 43 + things 20 + this = SCORE-MAX"

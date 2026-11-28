@@ -1,0 +1,8 @@
+Das Museum der ungesendeten Signale
+AdventureArena, 2026
+Ausgabe 1
+
+Heute Nacht hast du das Museum der ungesendeten Signale für dich allein. Unter der Kuppel liegen die Worte, die diese Stadt aufgenommen, aber nie abgeschickt hat. Morgen früh zieht jemand den Stecker der Relaisanlage. Der Hausmeister hat dir einen Zettel an der Tafel hinterlassen. Beim Gehen sagte er noch: „Du musst nicht alles zum Sprechen bringen.“
+
+Eingangshalle
+Du stehst in der Eingangshalle. In der [[Glastür->glastuer]] spiegelt sich die Lampe über der [[Kasse]]. Auf dem Tresen trocknet die Tinte der letzten Eintrittskarten. An der [[Messingtafel]] hängt ein Zettel. Im [[Osten->ost]] liegt die Galerie der unzustellbaren Briefe, im [[Westen->west]] der Saal der Stille. Aus der Signalkabine im [[Norden->nord]] dringt ein leises Summen.

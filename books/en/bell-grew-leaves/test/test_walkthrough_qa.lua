@@ -126,7 +126,8 @@ do
     { "ring bell", "a tiny pale leaf unfolds" },
     { "ring bell", "not another ring" },
     "pull wick", "north", "east", "open shutter", "close shutter", "open shutter", "west", "south",
-    "fit wick in bell", { "ring bell", "THE END -- THREE LEAVES FOR YES" },
+    { "look", "One pale leaf still clings" },
+    "fit wick in bell", { "ring bell", "Two more uncurl beside it" },
   })
 end
 

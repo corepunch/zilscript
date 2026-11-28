@@ -20,7 +20,7 @@
 
 <ROUTINE TICKET-COUNTER-F ()
  <COND (<VERB? EXAMINE READ>
-  <TELL "A worn wooden counter with an old brass till. The top ticket on the stack is stamped LAST NIGHT, and the ink is still wet enough to smudge. Nobody else is coming to buy one." CR>)
+  <TELL "A worn wooden counter with an old brass till. The top ticket on the stack is stamped LAST NIGHT, and the ink is still wet enough to smudge. Nobody else is coming to buy one. Tomorrow the counter will be bare; tonight you still have a choice about what the last shift leaves behind." CR>)
        (<VERB? RUB>
   <TELL "You run your hand along the counter. The varnish is worn pale in two places, where the caretaker leaned on it every evening." CR>)
        (<VERB? TAKE>
@@ -185,7 +185,7 @@
               (,SIGNAL-HEARD
                <TELL "The woman says, “I made it.” This time you know how much of the message is the minute after she stops." CR>)
               (T <SETG SIGNAL-HEARD T>
-                 <TELL "A woman's voice says, “I made it.” Then, for a whole minute, you hear nothing but her breathing, slow and steady, as if she is waiting for someone to answer. The address indicator matches the three cuts on the spool to the private return register: this was never a public announcement. She was talking to one person, whoever used to wait up for her. Below the basin, both sending keys light up." CR>)>)
+                 <TELL "A woman's voice says, “I made it.” Then, for a whole minute, you hear nothing but her breathing, slow and steady, as if she is waiting for someone to answer. The address indicator matches the three cuts on the spool to the private return register: this was never a public announcement. She was talking to one person, whoever used to wait up for her. Below the basin, both sending keys light up. One offers an uncertain private reply; the other shares only silence with the room. Neither will send her voice." CR>)>)
        (<VERB? MUSEUM-PLAY>
         <PERFORM ,V?PUSH ,AUDITION-STUD> <RTRUE>)
        (<VERB? LISTEN>
@@ -213,7 +213,7 @@
 
 <ROUTINE RETURN-KEY-F ()
  <COND (<VERB? EXAMINE READ>
-  <TELL "A small key marked RETURN. A single press sends one new reply back down the private return register to whoever first sent the message. It will not send the woman's voice, and it never touches the public feed.">
+  <TELL "A small key marked RETURN. A single press sends one new reply back down the private return register to whoever first sent the message. It will not send the woman's voice, and it never touches the public feed. A reply may reach a person who has waited a very long time; you cannot know whether they still want an answer.">
   <COND (<ROUTE-ARMED?> <TELL " It is lit now, softly." CR>) (T <TELL " It is dark." CR>)>)
        (<VERB? PUSH>
         <COND (<ROUTING-READY>
@@ -228,7 +228,7 @@
 
 <ROUTINE MEMORIAL-KEY-F ()
  <COND (<VERB? EXAMINE READ>
-  <TELL "A small key marked MEMORIAL. It can send the minute of silence out to every speaker under the dome, without the voice and without the address: a small public record of someone waiting.">
+  <TELL "A small key marked MEMORIAL. It can send the minute of silence out to every speaker under the dome, without the voice and without the address: a small public record of someone waiting. The room will share the silence, but the person at the other end will receive no reply.">
   <COND (<ROUTE-ARMED?> <TELL " It is lit now, softly." CR>) (T <TELL " It is dark." CR>)>)
        (<VERB? PUSH>
         <COND (<ROUTING-READY>

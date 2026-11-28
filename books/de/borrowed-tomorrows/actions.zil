@@ -38,7 +38,7 @@
  <COND (<EQUAL? .R ,M-LOOK>
         <TELL "Auf der Leseterrasse reicht dir das Geländer bis zur Brust. Tief unten auf dem [[Markt]] stehen die gestreiften Dächer der Buden neben der kleinen Backstube. Am Geländer steht ein [[Leserahmen]] aus Messing, zum Markt hin ausgerichtet.">
         <COND (<IN? ,LEAF ,FRAME> <TELL " Das [[Morgenblatt]] steckt im Rahmen. Beide Ecken heben sich wie bei einem Kind, das gleich losspringen will.">)
-              (,ON-LOAN <TELL " Unten unter den Ständen sind die Schatten stehen geblieben. Die Leute rühren sich nicht. Sie warten auf einen Abend, der nicht kommt.">)
+              (,ON-LOAN <TELL " Unten unter den Ständen sind die Schatten stehen geblieben. Eine Obstverkäuferin hält ihren Korb in der Luft, schon halb auf dem Weg zum Karren. Sie wartet auf einen Abend, der nicht kommt.">)
               (T <TELL " Unten werden die Nachmittagsschatten langsam länger.">)>
         <TELL " Eine Treppe führt nach [[Süden->sued]] hinab zum Faltraum. Durch eine Tür im [[Westen->west]] kommst du zurück zur trockenen Kammer." CR>)>>
 
@@ -54,7 +54,7 @@
               (T <TELL "Die Tür sitzt fest im Rahmen. Das Schild wackelt einmal und ist wieder still." CR>)>)
        (<AND <VERB? LOOK-INSIDE SEARCH> <NOT <FSET? ,CASE ,OPENBIT>>>
         <TELL "Durch den Türspalt fällt kein Licht. Öffne die kleine Tür, statt dich durchs Schlüsselloch zu quetschen." CR>)
-       (<VERB? EXAMINE>
+       (<VERB? EXAMINE SEARCH>
         <COND (<FSET? ,CASE ,OPENBIT>
                <COND (<IN? ,LEAF ,CASE> <TELL "Ein [[Morgenblatt]] liegt im offenen Schrank. Hier wäre Platz für viele Blätter, aber es gibt nur dieses eine." CR>)
                      (T <TELL "Im offenen Schrank bleibt nur ein heller, blattförmiger Fleck, wo einmal ein Stück Papier lag." CR>)>)
@@ -186,7 +186,8 @@
  <COND (<VERB? EXAMINE>
         <TELL "Ein kleiner, heller, kahler Raum mit weißen Wänden. In der Mitte steht das lange Faltbrett. Eine schmale Treppe führt hinauf zur Terrasse, ein Bogen zurück in die Halle." CR>)
        (<VERB? LISTEN>
-        <TELL "Von oben an der Treppe dringt gedämpfter Marktlärm herab." CR>)
+        <COND (,ON-LOAN <TELL "Die Marktrufe sind verstummt. Von oben an der Treppe dringt nur eine Frage herab, leise wiederholt: Gibt es morgen früh Brot?" CR>)
+              (T <TELL "Von oben an der Treppe dringt gedämpfter Marktlärm herab. Jemand ruft den Preis für Pflaumen aus, dann noch einmal ein bisschen billiger." CR>)>)
        (<VERB? SMELL>
         <TELL "Bienenwachs und Sonnenschein." CR>)>>
 <ROUTINE BASIN-ROOM-F ()
@@ -250,7 +251,7 @@
               (T <TELL "Das feste kleine Quadrat flattert überhaupt nicht. Es ist viel zu straff gefaltet." CR>)>)>>
 <ROUTINE PUBLISH-LOAN ()
  <SETG PUBLISHED-LOAN T>
- <TELL "Am Rahmen liest du das eine Wort auf dem Blatt laut vor, so deutlich du kannst: MORGEN. Das breite Blatt leuchtet. Unten auf dem Markt antworten hundert Namen, einer nach dem anderen, bis kein Platz mehr neben deinem Namen frei ist. Die Schatten werden wieder länger. Vor der Bäckerei stellt jemand einen Stuhl zurück, den er gerade wegräumen wollte." CR CR
+ <TELL "Am Rahmen liest du das eine Wort auf dem Blatt laut vor, so deutlich du kannst: MORGEN. Das breite Blatt leuchtet. Unten auf dem Markt antworten hundert Namen, einer nach dem anderen, bis kein Platz mehr neben deinem Namen frei ist. Ein Karrenrad dreht sich endlich weiter. Die Schatten werden länger. Die Bäckerin stellt ihren Stuhl zwischen die Buden. »Bis morgen«, ruft sie wieder. Diesmal antworten die Leute von allen Seiten des Platzes." CR CR
        "ENDE – PLATZ FÜR JEDEN NAMEN" CR>
  <FINISH> <RTRUE>>
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? T))

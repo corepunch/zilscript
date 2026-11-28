@@ -34,7 +34,7 @@
 	<ASSERT-TEXT "draught" <CO-RESUME ,CO "down">>
 	<ASSERT-TEXT "sings" <CO-RESUME ,CO "east">>
 	<ASSERT-TEXT "locks onto" <CO-RESUME ,CO "fit spool to bus">>
-	<ASSERT-TEXT "ceramic edges" <CO-RESUME ,CO "cut bus with shears">>
+	<ASSERT-TEXT "silence can belong to you again" <CO-RESUME ,CO "cut bus with shears">>
 	<ASSERT-TEXT "receiver" <CO-RESUME ,CO "north">>
 	<ASSERT-TEXT "memory wafer" <CO-RESUME ,CO "open receiver">>
 	<ASSERT-TEXT "blank edges of the wafer" <CO-RESUME ,CO "examine spring clips">>

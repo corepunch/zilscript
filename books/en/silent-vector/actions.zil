@@ -56,7 +56,7 @@
 		(<VERB? SPIN> <TELL "There is no dial. You reset this breaker by pressing its broad face." CR>)
 		(<VERB? PUSH TURN>
 		<COND (,POWER <TELL "Already reset. The mechanical telltale remains at one atmosphere." CR>)
-			(T <SETG POWER T> <TELL "The [[breaker]] catches. Air moves across your face. The mechanical telltale settles at one atmosphere, and the interlock releases [[north]]. A small fact, independent of anything you remember." CR>)>)>>
+			(T <SETG POWER T> <TELL "The [[breaker]] catches. Air moves across your face. The mechanical telltale settles at one atmosphere, and the interlock releases [[north]]. A small fact, independent of anything you remember. The door is open, but the click that woke you is gone: whatever tripped the breaker may have left other traces before you arrived." CR>)>)>>
 
 ;"Only verbs absent from the native substrate are registered here."
 <SYNTAX COMPARE OBJECT WITH OBJECT = V-COMPARE>
@@ -273,7 +273,7 @@
 			(<NOT <AND <HELD? ,SHEARS> <ACCESSIBLE? ,SHEARS>>> <TELL "Hold the [[shears]] in reach first." CR>)
 			(<NOT ,TERMINATED> <TELL "The unabsorbed discharge would enter through the cut. Fit the null spool to the [[bus]] first. You do not make the cut." CR>)
 			(,ISOLATED <TELL "The bus is already severed. No second cut is needed." CR>)
-			(T <SETG ISOLATED T> <TELL "The ceramic edges meet. A blue fleck runs into the [[spool]] and dies. The singing stops in your teeth, then in the receiver vault. For the first time, the next thought does not feel anticipated." CR>)>)>>
+			(T <SETG ISOLATED T> <TELL "The ceramic edges meet. A blue fleck runs into the [[spool]] and dies. The singing stops in your teeth, then in the receiver vault. For the first time, the next thought does not feel anticipated. Over the intercom Mara asks you to say your own name. You do; there is a pause before she says hers, as though both of you are testing whether silence can belong to you again." CR>)>)>>
 <ROUTINE V-FIT ()
 	<COND (<NOT <AND <OR <AND <EQUAL? ,PRSO ,SPOOL> <EQUAL? ,PRSI ,BUS>> <AND <EQUAL? ,PRSO ,BUS> <EQUAL? ,PRSI ,SPOOL>>> <EQUAL? ,HERE ,RELAY>>>
 		<TELL "Only the null spool fits the incoming bus termination socket. That combination cannot terminate the line." CR>)

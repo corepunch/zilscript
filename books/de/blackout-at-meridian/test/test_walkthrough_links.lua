@@ -30,6 +30,9 @@ for i, profile in ipairs({ "fels", "blitz", "luchs" }) do
 		assert(w:offers("deaktivier schaltpult"), "the console offers its bypass:\n" .. w:describeMenu())
 		w:choose("deaktivier schaltpult")
 	end
+	if w.output:find("DIE LICHTER VON MERIDIAN", 1, true) then
+		assert(w.output:find("Junge im gelben Regenmantel", 1, true), "the rescued passenger appears in the ending")
+	end
 	assert(w.finishes == 1 and #w:menu() == 0, profile .. " ends through FINISH")
 	assert(w.output:find("ENDE: ", 1, true), w.output)
 end

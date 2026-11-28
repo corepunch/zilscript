@@ -7,7 +7,7 @@
  <V-VERSION> <CRLF>
  <SETG COMPACT-ROOM-LISTS T> <SETG HERE ,VESTIBULE> <SETG VERBOSE T> <SETG LIT T>
  <SETG WINNER ,ADVENTURER> <SETG PLAYER ,WINNER> <MOVE ,WINNER ,HERE>
- <TELL "You are the examiner the harbour auction house sends for when something goes missing, and tonight it has called you out through the rain. At the midnight weigh-in, Lot 9, a brass astrolabe, turned out to be gone from its sealed transit crate. The porter, Ives, is already being told to sign for the loss. Before anyone signs anything, the hearing wants your finding: where the astrolabe was taken, when, and by whom." CR CR>
+ <TELL "You are the examiner the harbour auction house sends for when something goes missing, and tonight it has called you out through the rain. At the midnight weigh-in, Lot 9, a brass astrolabe, turned out to be gone from its sealed transit crate. The porter, Ives, is already being told to sign for the loss. Before anyone signs anything, the hearing wants your finding: where the astrolabe was taken, when, and by whom. Ives can refuse to sign, but his wages will be held while the accusation stands. Every detail you put before the hearing may give him a way to contest it." CR CR>
  <TELL D ,HERE CR>
  <V-LOOK> <MAIN-LOOP> <AGAIN>>
 
@@ -271,12 +271,12 @@
 
 <ROUTINE MIVES-TAB-F ()
  <COND
-  (<VERB? EXAMINE> <TELL "Turning this tab would record that Ives removed the astrolabe. Venn waits for you to turn it, if that is your finding." CR>)
-  (<VERB? TURN SPIN> <TELL "You hesitate. Ives made the chalk mark, not the inner seal, so where could he have got a key? Venn leaves both tabs open and the finding unsigned." CR>)>>
+  (<VERB? EXAMINE> <TELL "Turning this tab would record that Ives removed the astrolabe. Venn waits for you to turn it, if that is your finding. The mark would put the loss on Ives and make him answer for it." CR>)
+  (<VERB? TURN SPIN> <TELL "You hesitate. Ives made the chalk mark, not the inner seal, so where could he have got a key? Venn leaves both tabs open and the finding unsigned. Across the table Ives releases the breath he was holding; Orr looks down at the sleeve in his lap. The evidence still needs an explanation, not a convenient name." CR>)>>
 
 <ROUTINE MORR-TAB-F ()
  <COND
-  (<VERB? EXAMINE> <TELL "Turning this tab would record that Orr removed the astrolabe. Venn waits for you to turn it, if that is your finding." CR>)
+  (<VERB? EXAMINE> <TELL "Turning this tab would record that Orr removed the astrolabe. Venn waits for you to turn it, if that is your finding. The mark would put the loss on Ives and make him answer for it." CR>)
   (<VERB? TURN SPIN> <COND (,CASE-READY <SETG CASE-DONE T>
     <TELL "Orr signing out of the registry proved nothing on its own. The key, the unbroken dispatch mark and the missing eleven pounds prove enough. Without a word, Orr draws the long brass instrument out of his document sleeve and lays it on the table, as neatly as if he were entering it in a column. Ives takes his coat down from the wall at last. He does not thank you until you are both out under the same rain." CR CR "THE END: THE WEIGHT OF THE RECORD" CR> <FINISH>)
     (T <TELL "No finding is available yet." CR>)>)>>
