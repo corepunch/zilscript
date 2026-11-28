@@ -80,13 +80,18 @@ introductory mission.
 
 ## What our game is today
 
-At the inspected [ZILScript revision](https://github.com/corepunch/zilscript/tree/d5c61a5a93d0cb9e4e3b0933d180997b958ac4a6),
+At the inspected [ZILScript revision](https://github.com/corepunch/zilscript/tree/435a6409edd8a7aef1e7e7645e5ba065eb96d8cb),
 the campaign starts with hero/profile preparation before the mission, then
 moves through three authored locations: Dispatch, the bridge rescue, and the
 relay confrontation. The bridge picks a different rescue attribute by hero
 profile, and the relay supports fighting the drone or attempting the technical
-bypass. Resolution updates Health and Karma, records rescue and drone state,
-and ends in success or defeat. Compare [setup and sheet
+bypass. Resolution updates Health and Karma and ends in success or defeat.
+The east exit is gated on the rescue; a failed rescue costs 5 Health and
+leaves the same approach available. Once the drone is down, throwing the
+lever needs no further roll. The guarded technical option previews its
+required FEAT tier. Both successful routes converge on the same ending;
+they do not preserve an evidence outcome or an independent rescue-method
+flag. The kit is single-use and can exchange Karma for recovery. Compare [setup and sheet
 export](../books/shared/blackout-at-meridian/rules.zil), [encounter
 logic](../books/shared/blackout-at-meridian/logic.zil), and [edition and
 ruleset boundaries](RPG-SYSTEMS.md).
@@ -129,3 +134,74 @@ the primary route and at least one bad-roll route; the reader's visible
 choices explain the changed situation; retries cannot farm rewards; and
 save/reload plus EN/DE/RU replays preserve the same outcomes. This is a design
 recommendation, not a claim that the mission already implements these changes.
+
+
+## Second pass: more than encounter chapters
+
+The examples below are additional readings of the three original scans
+linked above. The Meridian adaptations are proposals, not shipped behavior.
+
+| Source and printed pages | Additional lesson | How to use it without copying the scenario |
+| --- | --- | --- |
+| *After Midnight*, pp. 11–12 and 15–17 | The initial lead can arrive through a public story or a personal contact. Later public reporting and a witness's willingness to help react to what the heroes actually did. | Make indispensable information available from more than one source. An existing contact can add context or save effort, but absence of a contact must not gate the next scene. Echo a specific action in a dispatcher or crew report rather than introducing a global Popularity stat. |
+| *After Midnight*, pp. 9–10 and 34, 49–50 | The adventure explicitly discourages stopping a recurring villain's escape to protect future chapters. Other passages distinguish witnesses' claims from evidence that can change a later verdict. | Keep the latter, reject the former. If the player credibly secures something early, record it and rejoin the plot from that state. Never present a win the book is secretly committed to undoing. Make optional evidence traceable to a specific action. |
+| *The Revenge of Kang*, pp. 17 and 25, 27–28 | A standalone start supplies context that a campaign party already knows. In the tribunal, relevant arguments can improve a character check; the wisdom trial also lets players solve the problem before falling back on a roll. | Put a clear objective in the opening. Let a clue obtained by inspecting the scene affect a later action in a named, visible way. Use a solved interaction to bypass a roll where it makes sense, and never import real-time puzzle timers or require the player to perform a speech well enough. |
+| *Nightmares of Futures Past*, pp. 26–27 and 31–32 | Concealment sets the initial search position, leads can go stale, and a different situation can switch off the outdoor search procedure entirely. This is richer than an always-on countdown. | For a later scenario, author named states with visible tells, interventions, and a stop condition. Check what starts, changes, or ends the pressure; do not keep a clock running in an unrelated scene. For Meridian, visible changes after a rescue failure are enough; no clock needed. |
+
+## First follow-up: make a setback change the next decision
+
+Keep Dispatch, Bridge and Relay. Implement one complete beat before adding a
+new scene or rule:
+
+1. **Dispatch:** give one concrete goal and one optional lead that makes
+   sense to a newcomer. Let the player restate the goal in their own words.
+2. **Bridge:** keep the current immediate, profile-specific rescue. After
+   the first failure, show what went wrong and make an assisted option
+   visible through the existing crew. For example, stabilizing the car and
+   coordinating the crew can secure the passengers at the cost of leaving
+   the tram unusable. That route should not require the same failed dice
+   check again. A direct success and an assisted success both open the
+   east exit and award rescue credit once.
+3. **Relay, second priority:** keep combat and technical control. Make a
+   diagnostic record an optional, separately discoverable object. Recovering
+   it before damaging the relevant equipment changes what the dispatcher can
+   report. Neither route should silently imply evidence was recovered.
+4. **Debrief:** say whom the hero saved and what they managed to bring back,
+   then end the mission. Two short, concrete lines are more useful than a
+   generic victory paragraph or a new reputation meter.
+
+### Ownership
+
+- **Book:** cue, authored approaches, NPC reactions, evidence, outcomes,
+  reward conditions, and debrief. Share the logic across EN/DE/RU; localize
+  prose and command aliases in the editions.
+- **Ruleset:** FEATs, stat labels and resource arithmetic. Do not hard-code
+  this mission's evidence or contacts into FASERIP.
+- **Reader:** expose the same eligible actions through links and typed
+  commands, using stable IDs. The reader should not invent or award outcomes.
+- **Author notes and regression cases:** record the table below before a
+  second module needs it. No new scenario data format, campaign tracking,
+  expandable faction simulation, or global Popularity stat for this change.
+
+| Case to prove | Expected result |
+| --- | --- |
+| Immediate rescue passes for each profile | Passengers saved, east exit available, reward awarded once. |
+| First rescue fails | Immediate consequence and new option are visible; player can advance without repeating the same roll. Merely inspecting the scene does not reroll or change the rescue state. |
+| Assisted rescue succeeds | Same primary objective completed, different recorded method. Repeating it or using an old link cannot farm the rescue reward. |
+| Relay defeated by either approach, record found or missed | Each route can win; debrief truthfully reflects the independent evidence result. |
+| Resume after setback and before debrief | Same outcomes and available links in EN/DE/RU; old saves are either reproduced or explicitly migrated. They must not silently replay into a new outcome. |
+
+## Parent-and-child test before expanding
+
+For a first run with a nine-year-old, read the opening aloud, let the child
+choose and name the hero, then give them control of the first action. Offer
+two verbs only when they ask for help. If they hit the same obstacle twice,
+ask what they would try with a teammate; note that answer as a candidate
+for an authored option, rather than silently telling them what to type.
+Do not interrupt the first scene to explain the FASERIP table.
+
+Observer checklist: can the child say who needs help, name an action they
+want to try, explain what a failed attempt changed, and describe one
+specific thing their hero did at the end? These are playtest questions, not
+claims about how a child will respond. In the current build, changing the
+rescue plan is a table-side improvisation, not an implemented crew rescue.
