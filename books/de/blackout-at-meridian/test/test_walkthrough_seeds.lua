@@ -55,7 +55,8 @@ local function play(key, seed, plan)
 			else
 				assert(report and report.rank == p.reason, "the lever rolls Verstand")
 			end
-			if not before.disabled and report.tier < 2 then
+			local required = p.reason < 20 and 3 or (p.reason == 20 and 2 or 1)
+			if not before.disabled and report.tier < required then
 				assert(after.health == math.max(0, before.health - 10) and after.karma == before.karma, out)
 			else
 				assert(out:find("ENDE: DIE LICHTER VON MERIDIAN", 1, true) and after.karma == before.karma + 20, out)
