@@ -103,6 +103,8 @@ ones), `SHEET-LAYOUT` and `STATUS-LAYOUT`. `<lang>.zil` is names only:
 d100"), plus the composition of the layers (language base, kernel, kernel
 words, system), and any verb unique to that system.
 
+For the current superhero rules, see [FASERIP checks and sheet export](FASERIP-RULES.md).
+
 A new system is one numbers file plus one names-and-composition file per
 language; `tests/fixtures/rpg/toy-d20.zil` is a complete example (a d20
 system in 30 lines) that `tests/test-rpg-kernel.zil` plays the kernel with.

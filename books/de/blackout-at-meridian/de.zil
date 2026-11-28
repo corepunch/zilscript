@@ -393,7 +393,7 @@
  <TELL "Der Strahl der Drohne trifft dich, bevor du den Hebel erreichst.">>
 
 <ROUTINE MSG-CHECK-REASON ()
- <TELL "Verstandsprobe, starker Erfolg n%otig. ">>
+ <TELL "Verstandsprobe. ">>
 
 <ROUTINE MSG-KIT-EXAMINE-BOOSTED ()
  <TELL "Der Kasten h%angt offen und leer." CR>>

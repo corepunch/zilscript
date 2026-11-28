@@ -26,3 +26,24 @@
 
 <ROUTINE CHECK-TERMS (TBL ATTR DIFFICULTY)
  <TELL "Rank " N <STAT .TBL .ATTR> "; d100">>
+
+<GLOBAL FASERIP-RANK-NAMES <TABLE
+ "Shift 0" "Feeble" "Poor" "Typical" "Good" "Excellent"
+ "Remarkable" "Incredible" "Amazing" "Monstrous" "Unearthly" "Shift X"
+ "Shift Y" "Shift Z" "Class 1000" "Class 3000" "Class 5000" "Beyond">>
+
+<ROUTINE FASERIP-CHALLENGE (INTENSITY REQUIRED)
+ <TELL "Challenge " N .INTENSITY "; needs ">
+ <TIER-NAME .REQUIRED>
+ <TELL "." CR>>
+
+<ROUTINE REPORT-FEAT (TBL ATTR INTENSITY SHIFT REQUIRED RAW SPENT TOTAL TIER)
+ <REPORT-CHECK .TBL .ATTR .INTENSITY .TOTAL .TIER>
+ <FASERIP-CHALLENGE .INTENSITY .REQUIRED>
+ <COND (<NOT <0? .SHIFT>> <TELL "Effective rank " N ,LAST-FEAT-RANK "." CR>)>
+ <COND (<NOT <0? .SPENT>>
+        <TELL "Raw d100 " N .RAW " + Karma " N .SPENT " = " N .TOTAL "." CR>)>>
+
+<ROUTINE REPORT-FEAT-GATE (REQUIRED)
+ <COND (<0? .REQUIRED> <TELL "The feat succeeds without a roll." CR>)
+       (T <TELL "This feat is out of reach without another approach." CR>)>>

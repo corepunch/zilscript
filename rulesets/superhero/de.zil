@@ -28,3 +28,24 @@
 
 <ROUTINE CHECK-TERMS (TBL ATTR DIFFICULTY)
  <TELL "Rang " N <STAT .TBL .ATTR> "; W100">>
+
+<GLOBAL FASERIP-RANK-NAMES <TABLE
+ "Rang 0" "Schwach" "Gering" "Typisch" "Gut" "Ausgezeichnet"
+ "Bemerkenswert" "Unglaublich" "Erstaunlich" "Monströs" "Überirdisch" "Stufe X"
+ "Stufe Y" "Stufe Z" "Klasse 1000" "Klasse 3000" "Klasse 5000" "Jenseits">>
+
+<ROUTINE FASERIP-CHALLENGE (INTENSITY REQUIRED)
+ <TELL "Schwierigkeit " N .INTENSITY "; mindestens ">
+ <TIER-NAME .REQUIRED>
+ <TELL "." CR>>
+
+<ROUTINE REPORT-FEAT (TBL ATTR INTENSITY SHIFT REQUIRED RAW SPENT TOTAL TIER)
+ <REPORT-CHECK .TBL .ATTR .INTENSITY .TOTAL .TIER>
+ <FASERIP-CHALLENGE .INTENSITY .REQUIRED>
+ <COND (<NOT <0? .SHIFT>> <TELL "Wirksamer Rang " N ,LAST-FEAT-RANK "." CR>)>
+ <COND (<NOT <0? .SPENT>>
+        <TELL "W100 " N .RAW " + Karma " N .SPENT " = " N .TOTAL "." CR>)>>
+
+<ROUTINE REPORT-FEAT-GATE (REQUIRED)
+ <COND (<0? .REQUIRED> <TELL "Die Probe gelingt ohne Wurf." CR>)
+       (T <TELL "Ohne einen anderen Ansatz ist diese Probe nicht zu schaffen." CR>)>>

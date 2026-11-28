@@ -206,12 +206,13 @@
 
 ;"Report the same ordered rows and live resources used by PRINT-SHEET.
   The host owns the export format and escaping."
-<ROUTINE EXPORT-SHEET-RANKS (TBL "AUX" (I 1) N A)
+<ROUTINE EXPORT-SHEET-RANKS (TBL "OPTIONAL" ROW "AUX" (I 1) N A)
  <SET N <GET ,SHEET-LAYOUT 0>>
  <REPEAT ()
   <COND (<G? .I .N> <RETURN>)>
   <SET A <GET ,SHEET-LAYOUT .I>>
-  <ATTR-NAME .A>
-  <SHEET-ROW <TAKE-OUTPUT> <STAT .TBL .A>
-    <COND (<CEILING? .TBL .A> <MAX-STAT .TBL .A>) (T 0)>>
+  <COND (.ROW <APPLY .ROW .TBL .A>)
+        (T <ATTR-NAME .A>
+           <SHEET-ROW <TAKE-OUTPUT> <STAT .TBL .A>
+             <COND (<CEILING? .TBL .A> <MAX-STAT .TBL .A>) (T 0)>>)>
   <SET I <+ .I 1>>>>
