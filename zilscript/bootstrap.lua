@@ -2108,7 +2108,7 @@ function build_object(object, declaration)
 	if object.SYNONYM and object.SYNONYM[1] then
 		local noun = Text.lower(object.SYNONYM[1])
 		local adjective = zil_language ~= "RUSSIAN" and object.ADJECTIVE and Text.lower(object.ADJECTIVE[1])
-		object_phrases[n] = (adjective and adjective .. " " or "") .. noun
+		object_phrases[n] = adjective and adjective ~= noun and adjective .. " " .. noun or noun
 		if object.DESC then
 			local name = object.DESC:lower()
 			display_names[name] = display_names[name] or {}

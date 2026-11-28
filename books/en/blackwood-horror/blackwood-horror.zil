@@ -11,7 +11,7 @@
 
 ;"Substrate"
 
-<INSERT-FILE "rulesets.classic.en">
+<INSERT-FILE "rulesets.horror.en">
 
 ;"Book-specific overrides"
 

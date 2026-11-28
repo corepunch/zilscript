@@ -95,9 +95,9 @@ walk:play({
 	{ "take ancient relic", expect = "Taken" },
 	{ "examine wooden box", expect = "cross-shaped hollow" },
 	{ "examine box lining", expect = "faded to grey" },
-	{ "tell patient patient about doctor journal", expect = "Mordecai's name" },
-	{ "tell patient patient about strait straitjacket", expect = "remember" },
-	{ "inject patient patient with medical syringe", expect = "you are whole" },
+	{ "tell patient about doctor journal", expect = "Mordecai's name" },
+	{ "tell patient about strait straitjacket", expect = "remember" },
+	{ "inject patient with medical syringe", expect = "you are whole" },
 })
 
 assert(walk.finishes == 1, "the ending calls FINISH exactly once")

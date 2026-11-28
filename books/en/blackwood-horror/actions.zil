@@ -1998,24 +1998,20 @@ lost name."
                          <TELL "Farther along the pipework, ice breaks loose with a brittle crash." CR>)>)>)>
     <RTRUE>>
 
+<GLOBAL BLACKWOOD-COLD-WARNINGS
+    <LTABLE <TABLE 8 "The cold has worked through your clothes. Your fingers are beginning to stiffen.">
+            <TABLE 16 "Your teeth chatter hard enough to hurt. Staying here much longer would be dangerous.">>>
+
 <ROUTINE I-COLD-EXPOSURE ()
     <QUEUE I-COLD-EXPOSURE 1>
-    <COND (<AND <EQUAL? ,HERE ,MORGUE ,FLOODING-CHAMBER ,HYDROTHERAPY-ROOM>
-                <OR <EQUAL? ,HERE ,MORGUE>
-                    <NOT ,CABINET-THAWED>>>
-           <SETG COLD-EXPOSURE <+ ,COLD-EXPOSURE 1>>
-           <COND (<EQUAL? ,COLD-EXPOSURE 8>
-                  <TELL "The cold has worked through your clothes. Your fingers are beginning to stiffen." CR>)
-                 (<EQUAL? ,COLD-EXPOSURE 16>
-                  <TELL "Your teeth chatter hard enough to hurt. Staying here much longer would be dangerous." CR>)
-                 (<G? ,COLD-EXPOSURE 24>
-                  <JIGS-UP "The shivering stops. The tiles against your cheek feel almost warm; that is how you know the cold has won.">)>)
-          (T
-           <COND (<AND <G? ,COLD-EXPOSURE 0>
-                       <EQUAL? ,HERE ,BOILER-ROOM>
-                       ,BOILER-LIT>
-                  <TELL "Heat from the boiler works the numbness from your hands." CR>)>
-           <SETG COLD-EXPOSURE 0>)>
+    <HORROR-COLD-TURN
+        <OR <EQUAL? ,HERE ,MORGUE>
+            <AND <EQUAL? ,HERE ,FLOODING-CHAMBER ,HYDROTHERAPY-ROOM>
+                 <NOT ,CABINET-THAWED>>>
+        ,BLACKWOOD-COLD-WARNINGS 25
+        "The shivering stops. The tiles against your cheek feel almost warm; that is how you know the cold has won."
+        <COND (<AND <EQUAL? ,HERE ,BOILER-ROOM> ,BOILER-LIT>
+               "Heat from the boiler works the numbness from your hands.")>>
     <RTRUE>>
 
 <ROUTINE I-PATIENT-AUTONOMY ()

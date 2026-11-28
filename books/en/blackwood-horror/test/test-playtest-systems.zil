@@ -31,6 +31,16 @@
     <MOVE ,WINNER ,MORGUE>
     <SETG COLD-EXPOSURE 7>
     <ASSERT-TEXT "fingers are beginning to stiffen" <CO-RESUME ,CO "look">>
+    <SETG COLD-EXPOSURE 15>
+    <ASSERT-TEXT "Staying here much longer" <CO-RESUME ,CO "look">>
+
+    ;"A heated room clears exposure and only reports recovery once."
+    <SETG HERE ,BOILER-ROOM>
+    <MOVE ,WINNER ,BOILER-ROOM>
+    <SETG BOILER-LIT T>
+    <ASSERT-TEXT "works the numbness from your hands" <CO-RESUME ,CO "look">>
+    <ASSERT "Warmth resets exposure" <EQUAL? ,COLD-EXPOSURE 0>>
+    <ASSERT-NOT-TEXT "works the numbness from your hands" <CO-RESUME ,CO "look">>
 
     ;"Patient 189 reacts to discoveries and follows the player into the garden."
     <SETG HERE ,OVERGROWN-GARDEN>
@@ -41,4 +51,13 @@
     <I-PATIENT-AUTONOMY>
     <ASSERT "Patient state advances from discoveries" <==? ,PATIENT-STATE 2>>
     <ASSERT "Patient follows into the garden" <IN? ,PATIENT-189 ,OVERGROWN-GARDEN>>
+
+    ;"The last safe turn still allows a command. The next tick ends the story."
+    <SETG HERE ,MORGUE>
+    <MOVE ,WINNER ,MORGUE>
+    <SETG COLD-EXPOSURE 23>
+    <ASSERT-NOT-TEXT "the cold has won" <CO-RESUME ,CO "look">>
+    <ASSERT "The last safe turn is 24" <EQUAL? ,COLD-EXPOSURE 24>>
+    <ASSERT-TEXT "the cold has won" <CO-RESUME ,CO "look">>
+    <ASSERT-TEXT "end this session" <CO-RESUME ,CO "look">>
 >

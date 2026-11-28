@@ -122,10 +122,11 @@ The repository contains both engine code and adventure content.
 
 ### Adventure content
 
-- [books/en](books/en) and [books/de](books/de) are independent title catalogs. Each game's entry file loads its ruleset or substrate before the local world and actions.
+- [books/en](books/en), [books/de](books/de) and [books/ru](books/ru) are independent title catalogs. Each game's entry file loads its ruleset or substrate before the local world and actions.
 - The English books use explicit packages in [rulesets](rulesets), [languages](languages), and [core](core).
 - The localized German books load the adapted substrate in [infocom/zork1-de/books.zil](infocom/zork1-de/books.zil).
 - [infocom](infocom) holds the imported games and their tests.
+- [Blackwood Horror](books/en/blackwood-horror/blackwood-horror.zil) loads the [horror ruleset](rulesets/horror/en.zil). The [cold exposure routine](rulesets/horror/exposure.zil) handles accumulation, staged warnings, recovery and the fatal threshold. The book schedules exposure checks and supplies room conditions, thresholds and localized messages.
 
 Edition IDs include the catalog language, so a save from one edition belongs
 to that edition even when two books have the same slug. See

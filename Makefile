@@ -294,6 +294,7 @@ zip:
 	cp rulesets/classic/en*.zil rulesets/classic/common.zil rulesets/classic/LICENSE-ZORK-MIT "$$tmpdir/rulesets/classic/"; \
 	cp rulesets/superhero/en.zil rulesets/superhero/system.zil "$$tmpdir/rulesets/superhero/"; \
 	cp rulesets/rpg/kernel.zil rulesets/rpg/en.zil "$$tmpdir/rulesets/rpg/"; \
+	if [ "$$game" = blackwood-horror ]; then mkdir -p "$$tmpdir/rulesets/horror" && cp rulesets/horror/*.zil "$$tmpdir/rulesets/horror/" || exit 1; fi; \
 	cd "$$tmpdir" && zip -r "$(CURDIR)/publish/$$game.zip" *.zil core languages rulesets; \
 	rm -rf "$$tmpdir"; \
 	echo "Created publish/$$game.zip"

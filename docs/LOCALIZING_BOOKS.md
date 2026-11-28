@@ -121,3 +121,20 @@ Completed German editions are
 [Das Museum der ungesendeten Signale](../books/de/museum-unsent-signals/).
 The English catalog has twelve books. The other ten have no German edition
 yet.
+
+## Russian editions
+
+[Огни Меридиана](../books/ru/blackout-at-meridian/) shares its
+[story logic](../books/shared/blackout-at-meridian/logic.zil) with the
+English and German editions. Its [Russian base](../languages/ru/base.zil)
+declares `LANGUAGE RUSSIAN` and loads Russian
+[vocabulary and syntax](../languages/ru/syntax.zil). Declare the forms
+the parser should recognize in `SYNONYM` and `ADJECTIVE`. Use the display
+form on the left of a prose link and the parser form on the right, as in
+`[[карточка героя->карточку]]`.
+
+```sh
+lua5.4 llm.lua --language ru --game blackout-at-meridian --new-game --links --save /tmp/meridian-ru.sav
+lua5.4 books/ru/blackout-at-meridian/test/test_walkthrough_russian.lua
+make lint-zil
+```
